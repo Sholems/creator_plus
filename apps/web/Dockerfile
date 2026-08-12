@@ -19,6 +19,13 @@ COPY packages/shared ./packages/shared
 COPY tsconfig.json .
 COPY turbo.json .
 
+# NEXT_PUBLIC_* are inlined into the client bundle at build time, so they must
+# be present during `next build` (pass as Coolify build args / build env vars).
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_ADMIN_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_ADMIN_URL=$NEXT_PUBLIC_ADMIN_URL
+
 # Build
 RUN npx turbo build --filter=@creatormarket/web...
 
