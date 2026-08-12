@@ -90,15 +90,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # The prisma CLI is nested under packages/database/node_modules while
-      # @prisma/client is hoisted to the root, so neither `npx prisma` from root
-      # nor from the package resolves both. Fetch the matching CLI version with
-      # npx and run from root, where @prisma/client resolves.
+      # The prisma CLI is nested under packages/database in the workspace and
+      # npx won't resolve it reliably, so install it globally (on PATH) and run
+      # from root, where the hoisted @prisma/client resolves.
+      - name: Install Prisma CLI
+        run: npm install -g prisma@6.19.3
+
       - name: Generate Prisma client
-        run: npx --yes prisma@6.19.3 generate --schema=packages/database/prisma/schema.prisma
+        run: prisma generate --schema=packages/database/prisma/schema.prisma
 
       - name: Push database schema
-        run: npx --yes prisma@6.19.3 db push --schema=packages/database/prisma/schema.prisma --skip-generate
+        run: prisma db push --schema=packages/database/prisma/schema.prisma --skip-generate
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/creatormarket_test
 

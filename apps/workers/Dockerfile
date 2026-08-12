@@ -17,9 +17,10 @@ COPY packages/shared ./packages/shared
 COPY packages/config ./packages/config
 COPY tsconfig.json turbo.json ./
 
-# Prisma client (workers use the database package). Fetch the CLI via npx@version
+# Prisma client (workers use the database package). Install the CLI globally
 # because the workspace nests `prisma` under packages/database.
-RUN npx --yes prisma@6.19.3 generate --schema=packages/database/prisma/schema.prisma
+RUN npm install -g prisma@6.19.3 \
+    && prisma generate --schema=packages/database/prisma/schema.prisma
 
 RUN npx turbo build --filter=@creatormarket/workers...
 

@@ -17,10 +17,11 @@ COPY packages/database ./packages/database
 COPY packages/shared ./packages/shared
 COPY tsconfig.json turbo.json ./
 
-# Generate the Prisma client. Fetch the CLI with npx@version — the workspace
-# nests `prisma` under packages/database, so a bare `npx prisma` from root
-# isn't found. @prisma/client resolves from the root here.
-RUN npx --yes prisma@6.19.3 generate --schema=packages/database/prisma/schema.prisma
+# Generate the Prisma client. Install the CLI globally (the workspace nests
+# `prisma` under packages/database, so it isn't on PATH); @prisma/client
+# resolves from the root here.
+RUN npm install -g prisma@6.19.3 \
+    && prisma generate --schema=packages/database/prisma/schema.prisma
 
 # Build API (+ its workspace deps)
 RUN npx turbo build --filter=@creatormarket/api...
@@ -31,7 +32,10 @@ FROM node:20-alpine AS production
 WORKDIR /app
 ENV NODE_ENV=production
 
-# App build output + dependencies (includes the generated Prisma client & CLI)
+# Prisma CLI baked into the image so the startup migrate needs no network fetch.
+RUN npm install -g prisma@6.19.3
+
+# App build output + dependencies (includes the generated Prisma client)
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/api/package.json ./
@@ -42,4 +46,4 @@ EXPOSE 3001
 
 # Apply pending migrations, then start the API. Idempotent: `migrate deploy`
 # only runs migrations that haven't been applied yet.
-CMD ["sh", "-c", "npx --yes prisma@6.19.3 migrate deploy --schema=packages/database/prisma/schema.prisma && node dist/main"]
+CMD ["sh", "-c", "prisma migrate deploy --schema=packages/database/prisma/schema.prisma && node dist/main"]
