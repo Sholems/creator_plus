@@ -17,8 +17,10 @@ COPY packages/database ./packages/database
 COPY packages/shared ./packages/shared
 COPY tsconfig.json turbo.json ./
 
-# Generate the Prisma client (needs the schema, so it runs after source copy)
-RUN npx prisma generate --schema=packages/database/prisma/schema.prisma
+# Generate the Prisma client. Fetch the CLI with npx@version — the workspace
+# nests `prisma` under packages/database, so a bare `npx prisma` from root
+# isn't found. @prisma/client resolves from the root here.
+RUN npx --yes prisma@6.19.3 generate --schema=packages/database/prisma/schema.prisma
 
 # Build API (+ its workspace deps)
 RUN npx turbo build --filter=@creatormarket/api...
@@ -40,4 +42,4 @@ EXPOSE 3001
 
 # Apply pending migrations, then start the API. Idempotent: `migrate deploy`
 # only runs migrations that haven't been applied yet.
-CMD ["sh", "-c", "npx prisma migrate deploy --schema=packages/database/prisma/schema.prisma && node dist/main"]
+CMD ["sh", "-c", "npx --yes prisma@6.19.3 migrate deploy --schema=packages/database/prisma/schema.prisma && node dist/main"]
