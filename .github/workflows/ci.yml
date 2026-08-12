@@ -128,5 +128,13 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Generate Prisma client
+        run: |
+          npm install -g prisma@6.19.3
+          prisma generate --schema=packages/database/prisma/schema.prisma
+
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:3001/api/v1
+          NEXT_PUBLIC_ADMIN_URL: http://localhost:3002
