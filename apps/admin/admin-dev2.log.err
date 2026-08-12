@@ -1,0 +1,17 @@
+⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::3002
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::3002)
+    at new Promise (<anonymous>) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3002
+}
+npm error Lifecycle script `dev` failed with error:
+npm error code 1
+npm error path D:\CreatorMarket\apps\admin
+npm error workspace @creatormarket/admin@0.1.0
+npm error location D:\CreatorMarket\apps\admin
+npm error command failed
+npm error command C:\Windows\system32\cmd.exe /d /s /c next dev --turbopack --port 3002

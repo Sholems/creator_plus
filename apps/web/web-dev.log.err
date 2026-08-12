@@ -1,0 +1,195 @@
+⚠ `experimental.typedRoutes` has been moved to `typedRoutes`. Please update your next.config.ts file accordingly.
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⚠ Fast Refresh had to perform a full reload when ./apps/web/src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⨯ ReferenceError: AdinkraMark is not defined
+    at Header (src\components\layout\header.tsx:54:16)
+  52 |           <div className="flex items-center gap-6">
+  53 |             <Link href="/" className="group flex items-center gap-2.5">
+> 54 |               <AdinkraMark className="h-8 w-8 text-gold-400 transition-transform duration-300 group-hover:rotate-45" />
+     |                ^
+  55 |               <span className="flex flex-col leading-none">
+  56 |                 <span className="font-display text-2xl font-bold tracking-tight text-white">
+  57 |                   {SITE_NAME} {
+  digest: '1513943033'
+}
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getProducts (src/lib/api.ts:136:17)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:43:15)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:65:6)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getProducts (src/lib/api.ts:136:17)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:43:15)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:65:6)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getProducts (src/lib/api.ts:136:17)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:43:15)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:65:6)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getProducts (src/lib/api.ts:136:17)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:43:15)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:65:6)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getProducts (src/lib/api.ts:136:17)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:43:15)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:65:6)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getProducts (src/lib/api.ts:136:17)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:43:15)
+    at HomePage.useEffect (src/app/(marketplace)/page.tsx:65:6)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⨯ ReferenceError: handleSearch is not defined
+    at Header (src\components\layout\header.tsx:61:27)
+  59 |
+  60 |           {/* Search Bar */}
+> 61 |           <form onSubmit={handleSearch} className="hidden md:block flex-1 max-w-lg">
+     |                           ^
+  62 |             <div className="relative">
+  63 |               <input
+  64 |                 type="text" {
+  digest: '3452929784'
+}
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: handleSearch is not defined
+    at Header (src\components\layout\header.tsx:61:27)
+  59 |
+  60 |           {/* Search Bar */}
+> 61 |           <form onSubmit={handleSearch} className="hidden md:block flex-1 max-w-lg">
+     |                           ^
+  62 |             <div className="relative">
+  63 |               <input
+  64 |                 type="text" {
+  digest: '3452929784'
+}
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: handleSearch is not defined
+    at Header (src\components\layout\header.tsx:61:27)
+  59 |
+  60 |           {/* Search Bar */}
+> 61 |           <form onSubmit={handleSearch} className="hidden md:block flex-1 max-w-lg">
+     |                           ^
+  62 |             <div className="relative">
+  63 |               <input
+  64 |                 type="text" {
+  digest: '3452929784'
+}
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+⚠ Slow filesystem detected. The benchmark took 255ms. If \\?\D:\CreatorMarket\apps\web\.next\dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development
+[browser] Failed to load categories: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.getCategories (src/lib/api.ts:252:17)
+    at loadCategories (src/app/(marketplace)/products/page.tsx:82:31)
+    at ProductsContent.useEffect (src/app/(marketplace)/products/page.tsx:47:5)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.searchProducts (src/lib/api.ts:560:17)
+    at loadProducts (src/app/(marketplace)/products/page.tsx:62:34)
+    at ProductsContent.useEffect.timer (src/app/(marketplace)/products/page.tsx:42:36)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)
+TypeError: fetch failed
+    at ignore-listed frames {
+  [cause]: AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+⨯ Error: Invalid src prop (https://pub-755e5f115ebb463e90c2085da326cd65.r2.dev/products/bf2b61c9-d6ea-443b-ba84-76d04092263e.png) on `next/image`, hostname "pub-755e5f115ebb463e90c2085da326cd65.r2.dev" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+    at ignore-listed frames {
+  digest: '2272544933@E231'
+}
+⨯ Error: Invalid src prop (https://pub-755e5f115ebb463e90c2085da326cd65.r2.dev/products/bf2b61c9-d6ea-443b-ba84-76d04092263e.png) on `next/image`, hostname "pub-755e5f115ebb463e90c2085da326cd65.r2.dev" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+    at ignore-listed frames {
+  digest: '277211397@E231'
+}
+⨯ Error: Invalid src prop (https://pub-755e5f115ebb463e90c2085da326cd65.r2.dev/products/bf2b61c9-d6ea-443b-ba84-76d04092263e.png) on `next/image`, hostname "pub-755e5f115ebb463e90c2085da326cd65.r2.dev" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+    at ignore-listed frames {
+  digest: '277211397@E231'
+}
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+[browser] Failed to load products: TypeError: Failed to fetch
+    at ApiClient.fetch (src/lib/api.ts:31:28)
+    at ApiClient.searchProducts (src/lib/api.ts:560:17)
+    at loadProducts (src/app/(marketplace)/products/products-client.tsx:69:34)
+    at ProductsClient.useEffect.timer (src/app/(marketplace)/products/products-client.tsx:53:36)
+  29 |     }
+  30 |
+> 31 |     const response = await fetch(`${this.baseUrl}${endpoint}`, {
+     |                            ^
+  32 |       method,
+  33 |       headers: allHeaders,
+  34 |       body: body ? JSON.stringify(body) : undefined, (src/app/(marketplace)

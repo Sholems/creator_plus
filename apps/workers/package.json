@@ -1,0 +1,25 @@
+{
+  "name": "@creatormarket/workers",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "bullmq": "^5.30.0",
+    "ioredis": "^5.4.2",
+    "nodemailer": "^6.9.0",
+    "@creatormarket/database": "*",
+    "@creatormarket/shared": "*",
+    "@creatormarket/config": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/nodemailer": "^6.4.0",
+    "typescript": "^5.7.0",
+    "ts-node": "^10.9.0"
+  }
+}

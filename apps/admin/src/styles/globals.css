@@ -1,0 +1,267 @@
+@import 'tailwindcss';
+
+/*
+ * CreatorMarket admin console.
+ * Brand parity with the marketplace: deep Nigerian forest green + savanna
+ * gold + harmattan clay on warm palm-cream. Display type is Bricolage
+ * Grotesque; eyebrows and price figures are set in JetBrains Mono.
+ */
+@theme {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-forest-950: #052119;
+  --color-forest-900: #0a2e22;
+  --color-forest-800: #103d2e;
+  --color-forest-700: #174f3b;
+  --color-forest-600: #206349;
+  --color-forest-500: #2c7a5a;
+  --color-forest-400: #4a9a78;
+  --color-forest-300: #7fbb9f;
+  --color-forest-200: #b6d8c6;
+  --color-forest-100: #dcece2;
+  --color-forest-50: #f0f6f2;
+
+  --color-gold-700: #9a6b10;
+  --color-gold-600: #b98213;
+  --color-gold-500: #d79b1a;
+  --color-gold-400: #e8b43a;
+  --color-gold-300: #f0c860;
+  --color-gold-200: #f7dd92;
+  --color-gold-100: #fbf0cf;
+  --color-gold-50: #fdf8ea;
+
+  --color-clay-700: #8f3a1e;
+  --color-clay-600: #ad4826;
+  --color-clay-500: #c25a2e;
+  --color-clay-400: #d4744a;
+  --color-clay-300: #e39a7a;
+  --color-clay-200: #eec3ad;
+  --color-clay-100: #f7e2d5;
+  --color-clay-50: #fbf0e9;
+
+  --color-cream-50: #fbf8f1;
+  --color-cream-100: #f6f0e2;
+  --color-cream-200: #ecdfc5;
+  --color-cream-300: #dfcc9f;
+
+  --color-ink-900: #16211b;
+  --color-ink-800: #232f28;
+  --color-ink-700: #35443b;
+  --color-ink-600: #4c5c52;
+  --color-ink-500: #66776c;
+  --color-ink-400: #87968b;
+  --color-ink-300: #a9b4ab;
+  --color-ink-200: #ccd3cd;
+  --color-ink-100: #e7eae7;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-ink-100);
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-300);
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Card surface */
+  .surface-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-ink-100);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px rgba(22, 33, 27, 0.04), 0 4px 16px rgba(22, 33, 27, 0.04);
+  }
+
+  .surface-card-header {
+    border-bottom: 1px solid var(--color-ink-100);
+    padding: 1rem 1.5rem;
+  }
+
+  /* Price tag: mono numerals */
+  .price-tag {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Small uppercase eyebrow label */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Page title */
+  .page-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-ink-900);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, opacity 120ms ease;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  .btn-md {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  .btn-primary {
+    background-color: var(--color-forest-700);
+    color: #ffffff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--color-forest-600);
+  }
+  .btn-gold {
+    background-color: var(--color-gold-500);
+    color: var(--color-forest-950);
+  }
+  .btn-gold:hover:not(:disabled) {
+    background-color: var(--color-gold-400);
+  }
+  .btn-danger {
+    background-color: var(--color-clay-600);
+    color: #ffffff;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background-color: var(--color-clay-500);
+  }
+  .btn-ghost {
+    border: 1px solid var(--color-ink-200);
+    background-color: #ffffff;
+    color: var(--color-ink-700);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background-color: var(--color-cream-100);
+    border-color: var(--color-ink-300);
+  }
+
+  /* Status badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .badge-green {
+    background-color: var(--color-forest-50);
+    color: var(--color-forest-700);
+    border-color: var(--color-forest-200);
+  }
+  .badge-gold {
+    background-color: var(--color-gold-50);
+    color: var(--color-gold-700);
+    border-color: var(--color-gold-200);
+  }
+  .badge-red {
+    background-color: var(--color-clay-50);
+    color: var(--color-clay-700);
+    border-color: var(--color-clay-200);
+  }
+  .badge-gray {
+    background-color: var(--color-ink-100);
+    color: var(--color-ink-600);
+    border-color: var(--color-ink-200);
+  }
+  .badge-blue {
+    background-color: #eff6ff;
+    color: #1e40af;
+    border-color: #bfdbfe;
+  }
+  .badge-purple {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+    border-color: #e9d5ff;
+  }
+
+  /* Form controls */
+  .input {
+    width: 100%;
+    border: 1px solid var(--color-ink-200);
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-ink-900);
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-gold-500);
+    box-shadow: 0 0 0 3px rgba(215, 155, 26, 0.15);
+  }
+
+  /* Table helpers */
+  .table-head-row {
+    background-color: var(--color-cream-50);
+    border-bottom: 1px solid var(--color-ink-100);
+  }
+  .th {
+    padding: 0.75rem 1.5rem;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+  }
+  .td {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+  }
+  .table-row-hover:hover {
+    background-color: var(--color-cream-50);
+  }
+}

@@ -1,0 +1,220 @@
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+export const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL || 'http://localhost:3000';
+
+export interface PaginationMeta {
+  page: number;
+  perPage: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface AdminStats {
+  totalRevenue: number;
+  totalUsers: number;
+  totalProducts: number;
+  totalOrders: number;
+  pendingProducts: number;
+  pendingReviews: number;
+  pendingRefunds: number;
+  pendingPayouts: number;
+  pendingAffiliates: number;
+  openFraudFlags: number;
+  pendingVerifications: number;
+  totalCreators: number;
+  activeAffiliates: number;
+  revenueTrend: { date: string; value: number }[];
+  orderTrend: { date: string; value: number }[];
+  userTrend: { date: string; value: number }[];
+  recentOrders: any[];
+  pendingProductList: any[];
+}
+
+interface FetchOptions {
+  method?: string;
+  body?: any;
+  token?: string;
+}
+
+async function request<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
+  const { method = 'GET', body, token } = options;
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: 'Request failed' }));
+    throw new Error(err.message || `HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+export const api = {
+  login: (email: string, password: string) =>
+    request<{ user: any; accessToken: string }>('/auth/login', {
+      method: 'POST',
+      body: { email, password },
+    }),
+
+  getProfile: (token: string) => request<any>('/auth/me', { token }),
+
+  // Admin
+  getStats: (token: string) => request<AdminStats>('/admin/stats', { token }),
+  getUsers: (token: string, params?: { page?: number; perPage?: number; search?: string }) =>
+    request<any>(
+      `/admin/users?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
+      { token },
+    ),
+  verifyCreator: (token: string, id: string) =>
+    request<any>(`/admin/creators/${id}/verify`, { method: 'POST', token }),
+  rejectCreator: (token: string, id: string, reason?: string) =>
+    request<any>(`/admin/creators/${id}/reject`, { method: 'POST', body: { reason }, token }),
+  getProducts: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>
+    request<any>(
+      `/admin/products?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
+      { token },
+    ),
+  approveProduct: (token: string, id: string) =>
+    request<any>(`/admin/products/${id}/approve`, { method: 'POST', token }),
+  rejectProduct: (token: string, id: string, reason?: string) =>
+    request<any>(`/admin/products/${id}/reject`, { method: 'POST', body: { reason }, token }),
+  getOrders: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>
+    request<any>(
+      `/admin/orders?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
+      { token },
+    ),
+  getPayouts: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>
+    request<any>(
+      `/admin/payouts?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
+      { token },
+    ),
+  approvePayout: (token: string, id: string) =>
+    request<any>(`/admin/payouts/${id}/approve`, { method: 'POST', token }),
+  rejectPayout: (token: string, id: string, reason?: string) =>
+    request<any>(`/admin/payouts/${id}/reject`, { method: 'POST', body: { reason }, token }),
+  completePayout: (token: string, id: string) =>
+    request<any>(`/admin/payouts/${id}/complete`, { method: 'POST', token }),
+  getReviews: (token: string, params?: { page?: number; perPage?: number }) =>
+    request<any>(`/admin/reviews?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}`, { token }),
+  hideReview: (token: string, id: string) =>
+    request<any>(`/admin/reviews/${id}/hide`, { method: 'POST', token }),
+  restoreReview: (token: string, id: string) =>
+    request<any>(`/admin/reviews/${id}/restore`, { method: 'POST', token }),
+  getRefunds: (token: string, params?: { status?: string; page?: number; perPage?: number }) =>
+    request<any>(
+      `/admin/refunds?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}`,
+      { token },
+    ),
+  approveRefund: (token: string, id: string) =>
+    request<any>(`/admin/refunds/${id}/approve`, { method: 'POST', token }),
+  rejectRefund: (token: string, id: string) =>
+    request<any>(`/admin/refunds/${id}/reject`, { method: 'POST', token }),
+
+  // Affiliates
+  getAffiliateApplications: (token: string, status?: string, page = 1, perPage = 20) =>
+    request<any>(
+      `/admin/affiliates?page=${page}&perPage=${perPage}${status ? `&status=${status}` : ''}`,
+      { token },
+    ),
+  approveAffiliateApplication: (token: string, id: string) =>
+    request<any>(`/admin/affiliates/${id}/approve`, { method: 'POST', token }),
+  rejectAffiliateApplication: (token: string, id: string, reason?: string) =>
+    request<any>(`/admin/affiliates/${id}/reject`, { method: 'POST', body: { reason }, token }),
+  suspendAffiliate: (token: string, id: string, reason?: string) =>
+    request<any>(`/admin/affiliates/${id}/suspend`, { method: 'POST', body: { reason }, token }),
+  unsuspendAffiliate: (token: string, id: string) =>
+    request<any>(`/admin/affiliates/${id}/unsuspend`, { method: 'POST', token }),
+  getAffiliateProducts: (token: string, status?: string, page = 1, perPage = 20) =>
+    request<any>(
+      `/admin/affiliates/products?page=${page}&perPage=${perPage}${status ? `&status=${status}` : ''}`,
+      { token },
+    ),
+  approveAffiliateProduct: (token: string, id: string) =>
+    request<any>(`/admin/affiliates/products/${id}/approve`, { method: 'POST', token }),
+  rejectAffiliateProduct: (token: string, id: string, reason?: string) =>
+    request<any>(`/admin/affiliates/products/${id}/reject`, {
+      method: 'POST',
+      body: { reason },
+      token,
+    }),
+
+  // Payment settings
+  getPaymentSettings: (token: string) =>
+    request<{ paystack: { enabled: boolean; hasSecretKey: boolean; secretKeyPreview: string | null; publicKey: string | null; source: string } }>(
+      '/admin/settings/payments',
+      { token },
+    ),
+  updatePaystack: (
+    token: string,
+    body: { secretKey?: string; publicKey?: string; enabled?: boolean },
+  ) => request<any>('/admin/settings/payments/paystack', { method: 'PUT', body, token }),
+
+  // Platform settings
+  getPlatformSettings: (token: string) =>
+    request<{
+      commissionRate: number;
+      minPayoutAmount: number;
+      holdingPeriodDays: number;
+      maxFileSize: number;
+      maintenanceMode: boolean;
+      registrationEnabled: boolean;
+    }>('/admin/settings', { token }),
+  updatePlatformSettings: (
+    token: string,
+    body: Partial<{
+      commissionRate: number;
+      minPayoutAmount: number;
+      holdingPeriodDays: number;
+      maxFileSize: number;
+      maintenanceMode: boolean;
+      registrationEnabled: boolean;
+    }>,
+  ) => request<any>('/admin/settings', { method: 'PUT', body, token }),
+
+  // Broadcasts
+  broadcastPreview: (token: string, body: any) =>
+    request<{ count: number }>('/admin/broadcasts/preview', { method: 'POST', body, token }),
+  sendBroadcast: (token: string, body: any) =>
+    request<{ count: number; sentAt: string }>('/admin/broadcasts', { method: 'POST', body, token }),
+
+  // Contact inbox
+  getContacts: (token: string, params?: { status?: string; page?: number; perPage?: number }) =>
+    request<any>(
+      `/admin/contacts?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}`,
+      { token },
+    ),
+  getContact: (token: string, id: string) => request<any>(`/admin/contacts/${id}`, { token }),
+  setContactStatus: (token: string, id: string, status: 'NEW' | 'READ' | 'ARCHIVED') =>
+    request<any>(`/admin/contacts/${id}/status`, { method: 'PATCH', body: { status }, token }),
+
+  // Roles & permissions
+  getRoles: (token: string) =>
+    request<{
+      data: {
+        id: string;
+        name: string;
+        description: string | null;
+        permissions: { id: string; name: string; resource: string; action: string }[];
+        memberCount: number;
+      }[];
+    }>('/admin/roles', { token }),
+  getPermissions: (token: string) =>
+    request<{ data: { id: string; name: string; resource: string; action: string }[] }>('/admin/permissions', { token }),
+  createRole: (token: string, body: { name: string; description?: string; permissions?: string[] }) =>
+    request<any>('/admin/roles', { method: 'POST', body, token }),
+  setUserRoles: (token: string, userId: string, roles: string[]) =>
+    request<any>(`/admin/users/${userId}/roles`, { method: 'PUT', body: { roles }, token }),
+
+  // Feature flags
+  getFeatureFlags: (token: string) => request<any>('/admin/feature-flags', { token }),
+  createFeatureFlag: (token: string, body: any) =>
+    request<any>('/admin/feature-flags', { method: 'POST', body, token }),
+  updateFeatureFlag: (token: string, id: string, body: any) =>
+    request<any>(`/admin/feature-flags/${id}`, { method: 'PUT', body, token }),
+  deleteFeatureFlag: (token: string, id: string) =>
+    request<any>(`/admin/feature-flags/${id}`, { method: 'DELETE', token }),
+};
