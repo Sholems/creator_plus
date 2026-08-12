@@ -3,37 +3,41 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
+# Copy package manifests (better layer caching)
 COPY package.json package-lock.json* ./
 COPY apps/api/package.json ./apps/api/
 COPY packages/database/package.json ./packages/database/
 COPY packages/shared/package.json ./packages/shared/
 
-# Install dependencies
 RUN npm install
 
-# Copy source code
+# Copy source
 COPY apps/api ./apps/api
 COPY packages/database ./packages/database
 COPY packages/shared ./packages/shared
-COPY tsconfig.json .
-COPY turbo.json .
+COPY tsconfig.json turbo.json ./
 
-# Build
+# Generate the Prisma client (needs the schema, so it runs after source copy)
+RUN npx prisma generate --schema=packages/database/prisma/schema.prisma
+
+# Build API (+ its workspace deps)
 RUN npx turbo build --filter=@creatormarket/api...
 
 # Production stage
 FROM node:20-alpine AS production
 
 WORKDIR /app
+ENV NODE_ENV=production
 
-# Copy built files
+# App build output + dependencies (includes the generated Prisma client & CLI)
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/api/package.json ./
+# Prisma schema + migrations so `migrate deploy` can run at startup
+COPY --from=builder /app/packages/database/prisma ./packages/database/prisma
 
-# Expose port
 EXPOSE 3001
 
-# Start application
-CMD ["node", "dist/main"]
+# Apply pending migrations, then start the API. Idempotent: `migrate deploy`
+# only runs migrations that haven't been applied yet.
+CMD ["sh", "-c", "npx prisma migrate deploy --schema=packages/database/prisma/schema.prisma && node dist/main"]

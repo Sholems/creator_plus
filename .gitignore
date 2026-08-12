@@ -47,3 +47,7 @@ Thumbs.db
 
 # Docker
 docker-compose.override.yml
+
+# Stray dev/error logs
+*.log.err
+*.err
