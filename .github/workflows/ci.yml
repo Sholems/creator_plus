@@ -90,11 +90,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Run from the repo root with an explicit schema path. Running
+      # `prisma generate` inside packages/database fails to resolve the
+      # hoisted @prisma/client in the npm-workspaces layout.
       - name: Generate Prisma client
-        run: npm run db:generate
+        run: npx prisma generate --schema=packages/database/prisma/schema.prisma
 
       - name: Push database schema
-        run: npm run db:push
+        run: npx prisma db push --schema=packages/database/prisma/schema.prisma --skip-generate
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/creatormarket_test
 
