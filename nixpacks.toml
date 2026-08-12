@@ -1,0 +1,16 @@
+# Nixpacks build plan override (used by Coolify's Nixpacks build pack).
+#
+# Default for a Node app with package-lock.json is `npm ci`, which is broken
+# here: npm 10.x (bundled with Node 22) silently skips platform-specific
+# optional dependencies (e.g. lightningcss-linux-x64-gnu, @tailwindcss/oxide-
+# linux-x64-gnu) when the lockfile was generated on another OS (npm/cli#4828).
+# That makes the Tailwind/Turbopack build fail with "Cannot find module
+# '../lightningcss.linux-x64-gnu.node'".
+#
+# `npm install` re-resolves optional deps for the current platform, so the
+# Linux native binaries actually get installed. --include=dev keeps
+# devDependencies (typescript, tailwindcss, @tailwindcss/postcss) present even
+# though the build runs with production config.
+
+[phases.install]
+cmds = ["npm install --include=dev --no-audit --no-fund"]
