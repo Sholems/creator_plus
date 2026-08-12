@@ -1,7 +1,11 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 
 WORKDIR /app
+
+# Prisma needs OpenSSL on Debian slim
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy package manifests (better layer caching)
 COPY package.json package-lock.json* ./
@@ -27,10 +31,14 @@ RUN npm install -g prisma@6.19.3 \
 RUN npx turbo build --filter=@creatormarket/api...
 
 # Production stage
-FROM node:20-alpine AS production
+FROM node:20-slim AS production
 
 WORKDIR /app
 ENV NODE_ENV=production
+
+# Prisma needs OpenSSL on Debian slim (runtime query engine + migrate deploy)
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 # Prisma CLI baked into the image so the startup migrate needs no network fetch.
 RUN npm install -g prisma@6.19.3
