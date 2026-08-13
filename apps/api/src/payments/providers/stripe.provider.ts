@@ -10,12 +10,21 @@ import {
 
 export class StripeProvider implements PaymentProvider {
   readonly name = 'stripe';
-  private client: Stripe;
+  private client: Stripe | null;
 
   constructor() {
-    this.client = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-      apiVersion: '2025-02-24.acacia',
-    });
+    const key = process.env.STRIPE_SECRET_KEY;
+    // The factory instantiates every provider at boot, but Stripe is optional
+    // (Paystack-first). Only build the client when a key is configured; the
+    // provider is only ever *selected* when STRIPE_SECRET_KEY is set.
+    this.client = key ? new Stripe(key, { apiVersion: '2025-02-24.acacia' }) : null;
+  }
+
+  private requireClient(): Stripe {
+    if (!this.client) {
+      throw new Error('Stripe is not configured (STRIPE_SECRET_KEY missing).');
+    }
+    return this.client;
   }
 
   async createCheckout(input: CreateCheckoutInput): Promise<CreateCheckoutResult> {
@@ -36,7 +45,7 @@ export class StripeProvider implements PaymentProvider {
       }),
     );
 
-    const session = await this.client.checkout.sessions.create({
+    const session = await this.requireClient().checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
@@ -57,7 +66,7 @@ export class StripeProvider implements PaymentProvider {
 
   verifyWebhook(rawBody: any, signature?: string): boolean {
     try {
-      this.client.webhooks.constructEvent(
+      this.requireClient().webhooks.constructEvent(
         rawBody,
         signature || '',
         process.env.STRIPE_WEBHOOK_SECRET || '',
@@ -73,13 +82,13 @@ export class StripeProvider implements PaymentProvider {
     // payment intent. Look it up first when the id looks like a session.
     let paymentIntent: string = input.providerPaymentId;
     if (input.providerPaymentId.startsWith('cs_')) {
-      const session = await this.client.checkout.sessions.retrieve(
+      const session = await this.requireClient().checkout.sessions.retrieve(
         input.providerPaymentId,
       );
       paymentIntent = session.payment_intent as string;
     }
 
-    const refund = await this.client.refunds.create({
+    const refund = await this.requireClient().refunds.create({
       payment_intent: paymentIntent,
       amount: Math.round(input.amount * 100),
       reason: input.reason?.toLowerCase().includes('fraud')

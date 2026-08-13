@@ -4,12 +4,23 @@ import { prisma, PlanTier, SubscriptionStatus, CreditPurchaseStatus } from '@cre
 
 @Injectable()
 export class BillingService {
-  private stripe: Stripe;
+  private stripe: Stripe | null;
 
   constructor() {
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-      apiVersion: '2025-02-24.acacia',
-    });
+    const key = process.env.STRIPE_SECRET_KEY;
+    // Stripe is optional (CreatorPlus is Paystack-first). Only construct the
+    // client when a key is configured; otherwise Stripe-backed endpoints throw
+    // a clear error at call time instead of crashing the whole app at boot.
+    this.stripe = key ? new Stripe(key, { apiVersion: '2025-02-24.acacia' }) : null;
+  }
+
+  private requireStripe(): Stripe {
+    if (!this.stripe) {
+      throw new BadRequestException(
+        'Card/subscription billing (Stripe) is not configured on this server.',
+      );
+    }
+    return this.stripe;
   }
 
   private getStripePriceId(tier: PlanTier): string {
@@ -64,11 +75,11 @@ export class BillingService {
 
     const existing = await prisma.subscription.findUnique({ where: { userId } });
 
-    const customer = await this.stripe.customers.create({
+    const customer = await this.requireStripe().customers.create({
       metadata: { userId },
     });
 
-    const session = await this.stripe.checkout.sessions.create({
+    const session = await this.requireStripe().checkout.sessions.create({
       customer: customer.id,
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
@@ -114,7 +125,7 @@ export class BillingService {
       throw new BadRequestException('No active Stripe subscription');
     }
 
-    await this.stripe.subscriptions.update(subscription.stripeSubscriptionId, {
+    await this.requireStripe().subscriptions.update(subscription.stripeSubscriptionId, {
       cancel_at_period_end: true,
     });
 
@@ -133,7 +144,7 @@ export class BillingService {
       throw new BadRequestException('No active Stripe subscription');
     }
 
-    await this.stripe.subscriptions.update(subscription.stripeSubscriptionId, {
+    await this.requireStripe().subscriptions.update(subscription.stripeSubscriptionId, {
       cancel_at_period_end: false,
     });
 
@@ -169,7 +180,7 @@ export class BillingService {
       throw new BadRequestException('Credit pack not configured for checkout');
     }
 
-    const session = await this.stripe.checkout.sessions.create({
+    const session = await this.requireStripe().checkout.sessions.create({
       mode: 'payment',
       line_items: [{ price: pack.stripePriceId, quantity: 1 }],
       success_url: successUrl || `${process.env.WEB_URL || 'http://localhost:3000'}/billing/credits/success?session_id={CHECKOUT_SESSION_ID}`,

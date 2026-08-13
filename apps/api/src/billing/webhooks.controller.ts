@@ -8,12 +8,12 @@ import Stripe from 'stripe';
 @Controller('webhooks')
 export class WebhooksController {
   private readonly logger = new Logger(WebhooksController.name);
-  private stripe: Stripe;
+  private stripe: Stripe | null;
 
   constructor(private billingService: BillingService) {
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-      apiVersion: '2025-02-24.acacia',
-    });
+    const key = process.env.STRIPE_SECRET_KEY;
+    // Optional — only construct when Stripe is configured (Paystack-first).
+    this.stripe = key ? new Stripe(key, { apiVersion: '2025-02-24.acacia' }) : null;
   }
 
   @Post('stripe')
@@ -22,6 +22,11 @@ export class WebhooksController {
   @ApiResponse({ status: 200, description: 'Webhook processed' })
   async handleStripeWebhook(@Req() req: any, @Res() res: any) {
     const sig = req.headers['stripe-signature'] as string;
+
+    if (!this.stripe) {
+      res.status(503).send('Stripe billing is not configured');
+      return;
+    }
 
     let event: Stripe.Event;
 
