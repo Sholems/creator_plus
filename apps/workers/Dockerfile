@@ -41,5 +41,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl \
 COPY --from=builder /app/apps/workers/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/workers/package.json ./
+# Workspace packages — same symlink resolution as the API image.
+COPY --from=builder /app/packages/database ./packages/database
+COPY --from=builder /app/packages/shared ./packages/shared
+COPY --from=builder /app/packages/config ./packages/config
 
 CMD ["node", "dist/index.js"]

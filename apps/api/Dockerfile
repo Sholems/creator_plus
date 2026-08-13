@@ -47,8 +47,12 @@ RUN npm install -g prisma@6.19.3
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/api/package.json ./
-# Prisma schema + migrations so `migrate deploy` can run at startup
-COPY --from=builder /app/packages/database/prisma ./packages/database/prisma
+# Workspace packages (@creatormarket/database, @creatormarket/shared) — npm
+# symlinks them into root node_modules, so the packages must exist in the image
+# for those symlinks to resolve at runtime. The database package also carries
+# the Prisma schema + migrations that `migrate deploy` runs at startup.
+COPY --from=builder /app/packages/database ./packages/database
+COPY --from=builder /app/packages/shared ./packages/shared
 
 EXPOSE 3001
 
