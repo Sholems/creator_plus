@@ -46,6 +46,11 @@ RUN npm install -g prisma@6.19.3
 # App build output + dependencies (includes the generated Prisma client)
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
+# npm doesn't always hoist workspace deps to the root — some (e.g.
+# class-validator, class-transformer) resolve into apps/api/node_modules.
+# `node dist/main` only resolves from root node_modules, so merge the nested
+# workspace deps into it, otherwise the app crashes with MODULE_NOT_FOUND.
+COPY --from=builder /app/apps/api/node_modules ./node_modules
 COPY --from=builder /app/apps/api/package.json ./
 # Workspace packages (@creatormarket/database, @creatormarket/shared) — npm
 # symlinks them into root node_modules, so the packages must exist in the image
