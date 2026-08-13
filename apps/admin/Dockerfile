@@ -26,12 +26,15 @@ FROM node:20-slim AS production
 
 WORKDIR /app
 ENV NODE_ENV=production
+# Force bind to all interfaces (Docker sets HOSTNAME to the container id, which
+# makes Next standalone unreachable behind a reverse proxy → 502).
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3002
 
 COPY --from=builder /app/apps/admin/.next/standalone ./
 COPY --from=builder /app/apps/admin/.next/static ./apps/admin/.next/static
 COPY --from=builder /app/apps/admin/public ./apps/admin/public
 
 EXPOSE 3002
-ENV PORT=3002
 
 CMD ["node", "apps/admin/server.js"]

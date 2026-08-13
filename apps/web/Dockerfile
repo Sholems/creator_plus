@@ -33,6 +33,12 @@ RUN npx turbo build --filter=@creatormarket/web...
 FROM node:20-slim AS production
 
 WORKDIR /app
+ENV NODE_ENV=production
+# Docker sets HOSTNAME to the container id; Next standalone binds to it and
+# becomes unreachable behind a reverse proxy. Force 0.0.0.0 so Traefik can
+# reach it (fixes 502 Bad Gateway).
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
 # Copy built files
 COPY --from=builder /app/apps/web/.next/standalone ./
