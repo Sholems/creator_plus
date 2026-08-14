@@ -5,18 +5,8 @@ import type { Route } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { api } from '@/lib/api';
 import { AdinkraField } from '@/components/brand/adinkra';
 import { CreatorPlusMark } from '@/components/brand/logo';
-
-function generateSlug(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 60);
-}
 
 function EyeIcon() {
   return (
@@ -44,14 +34,13 @@ export default function RegisterPage() {
     password: '',
     confirmPassword: '',
     wantToSell: false,
-    storeName: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { password, confirmPassword, wantToSell, storeName, displayName, email } = formData;
+  const { password, confirmPassword, wantToSell, displayName, email } = formData;
 
   const strengthChecks = {
     length: password.length >= 12,
@@ -64,11 +53,6 @@ export default function RegisterPage() {
   const meterLabel = ['Very weak', 'Weak', 'Fair', 'Good', 'Strong'][strengthCount];
 
   const confirmMatch = confirmPassword.length > 0 ? password === confirmPassword : null;
-
-  const previewSlug =
-    generateSlug(storeName.trim()) ||
-    generateSlug(displayName.trim() || email.split('@')[0]) ||
-    'your-store';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,26 +69,8 @@ export default function RegisterPage() {
       const res = await register(email, password, displayName);
 
       if (wantToSell && res.accessToken) {
-        const fallbackName = displayName || email.split('@')[0];
-        const storeName = formData.storeName.trim() || `${fallbackName}'s Store`;
-        const baseSlug = generateSlug(formData.storeName.trim() || `${fallbackName}-store`) || fallbackName.toLowerCase();
-        let applied = false;
-
-        for (let attempt = 0; attempt < 3 && !applied; attempt++) {
-          const slug = attempt === 0 ? baseSlug : `${baseSlug}-${attempt + 1}`;
-          try {
-            await api.applyCreator(res.accessToken, { storeName, slug });
-            applied = true;
-          } catch (applyErr: any) {
-            if (attempt === 2) {
-              // Slug kept colliding — surface a friendly warning but continue
-              console.error('Could not auto-create store:', applyErr);
-            }
-          }
-        }
-
         await refresh().catch(() => undefined);
-        router.push('/creator');
+        router.push('/sell');
         return;
       }
 
@@ -298,32 +264,21 @@ export default function RegisterPage() {
                 <label htmlFor="wantToSell" className="ml-2 block text-sm text-ink-700">
                   <span className="font-medium">I&apos;m here to sell digital products too</span>
                   <span className="block text-xs text-ink-600">
-                    Opens your Creator Studio right away — you&apos;ll show as a creator, not just a buyer.
+                    After you create your account, we&apos;ll walk you through setting up your store.
                   </span>
                 </label>
               </div>
               {wantToSell && (
-                <div className="mt-3 pl-6">
-                  <label htmlFor="storeName" className="mb-1.5 block text-sm font-medium text-ink-700">
-                    Store name
-                  </label>
-                  <input
-                    id="storeName"
-                    name="storeName"
-                    type="text"
-                    value={storeName}
-                    onChange={(e) => setFormData({ ...formData, storeName: e.target.value })}
-                    className={inputClass}
-                    placeholder="e.g. Ada&apos;s Design Studio"
-                  />
-                  <p className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
-                    <span className="eyebrow text-[#7d520c]">Your store link</span>
-                    <span className="min-w-0 break-all font-mono text-[13px] text-forest-700">/creator/{previewSlug}</span>
-                  </p>
-                  <p className="mt-1 text-xs text-ink-500">
-                    Leave blank to use your name. You can change this later in Store Settings.
-                  </p>
-                </div>
+                <p className="mt-2.5 flex items-center gap-1.5 text-xs text-ink-500">
+                  <svg className="h-3.5 w-3.5 shrink-0 text-forest-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Next you&apos;ll name your store, upload your logo and cover, and go live.
+                </p>
               )}
             </div>
 

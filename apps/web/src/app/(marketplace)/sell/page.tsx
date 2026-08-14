@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { AdinkraMark, AdinkraField } from '@/components/brand/adinkra';
-import { SITE_NAME } from '@/lib/brand';
+import { ImageUpload } from '@/components/market/image-upload';
+import { SITE_DOMAIN, SITE_NAME } from '@/lib/brand';
 import { cn } from '@creatormarket/ui';
 
 const STEPS = [
@@ -216,9 +217,9 @@ export default function SellPage() {
         </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[280px_1fr]">
         {/* Stepper rail */}
-        <aside className="lg:border-r lg:border-ink-100 lg:pr-8">
+        <aside className="min-w-0 lg:border-r lg:border-ink-100 lg:pr-8">
           <ol className="space-y-1">
             {STEPS.map((s, i) => {
               const state = i < step ? 'done' : i === step ? 'current' : 'todo';
@@ -279,7 +280,7 @@ export default function SellPage() {
         </aside>
 
         {/* Content */}
-        <main>
+        <main className="min-w-0">
           <div className="surface-card p-6 sm:p-8">
             {step === 0 && (
               <section>
@@ -314,7 +315,7 @@ export default function SellPage() {
                     </label>
                     <div className="mt-2 flex overflow-hidden rounded-xl border border-ink-200 bg-white focus-within:border-forest-500 focus-within:ring-2 focus-within:ring-forest-500/20">
                       <span className="inline-flex shrink-0 items-center border-r border-ink-100 bg-cream-100 px-3 font-mono text-xs text-ink-500">
-                        oja.ng/creator/
+                        {SITE_DOMAIN}/creator/
                       </span>
                       <input
                         type="text"
@@ -365,32 +366,20 @@ export default function SellPage() {
                   </div>
 
                   <div className="grid gap-6 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="avatar" className="block text-sm font-semibold text-ink-800">
-                        Avatar image URL
-                      </label>
-                      <input
-                        type="url"
-                        id="avatar"
-                        value={avatar}
-                        onChange={(e) => setAvatar(e.target.value)}
-                        className="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-ink-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/20"
-                        placeholder="https://…"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="banner" className="block text-sm font-semibold text-ink-800">
-                        Cover image URL
-                      </label>
-                      <input
-                        type="url"
-                        id="banner"
-                        value={banner}
-                        onChange={(e) => setBanner(e.target.value)}
-                        className="mt-2 w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-ink-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/20"
-                        placeholder="https://…"
-                      />
-                    </div>
+                    <ImageUpload
+                      label="Store logo"
+                      hint="Square image, shown on your storefront and next to your products."
+                      value={avatar}
+                      onChange={setAvatar}
+                      aspect="logo"
+                    />
+                    <ImageUpload
+                      label="Cover image"
+                      hint="Wide image (max 5MB) shown across the top of your storefront."
+                      value={banner}
+                      onChange={setBanner}
+                      aspect="banner"
+                    />
                   </div>
 
                   <div>
@@ -432,7 +421,27 @@ export default function SellPage() {
                   </div>
                   <div className="flex flex-col gap-1 border-b border-ink-100 pb-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                     <dt className="shrink-0 text-sm font-medium text-ink-500">Store URL</dt>
-                    <dd className="min-w-0 break-all text-right font-mono text-sm text-forest-700">oja.ng/creator/{slug}</dd>
+                    <dd className="min-w-0 break-all text-right font-mono text-sm text-forest-700">{SITE_DOMAIN}/creator/{slug}</dd>
+                  </div>
+                  <div className="flex items-start justify-between gap-6 border-b border-ink-100 pb-4">
+                    <dt className="text-sm font-medium text-ink-500">Logo</dt>
+                    <dd className="flex justify-end gap-2">
+                      {avatar ? (
+                        <img src={avatar} alt="Store logo" className="h-12 w-12 rounded-full object-cover ring-2 ring-gold-400/40" />
+                      ) : (
+                        <span className="text-sm text-ink-400">None</span>
+                      )}
+                    </dd>
+                  </div>
+                  <div className="flex flex-col gap-1 border-b border-ink-100 pb-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                    <dt className="shrink-0 text-sm font-medium text-ink-500">Cover</dt>
+                    <dd className="min-w-0 sm:max-w-xs">
+                      {banner ? (
+                        <img src={banner} alt="Store cover" className="h-20 w-full rounded-lg object-cover" />
+                      ) : (
+                        <span className="block text-right text-sm text-ink-400">None</span>
+                      )}
+                    </dd>
                   </div>
                   <div className="flex items-start justify-between gap-6 border-b border-ink-100 pb-4">
                     <dt className="text-sm font-medium text-ink-500">Bio</dt>
