@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { enqueueEmail } from '../common/queue';
+import { webBaseUrl } from '../common/urls';
 
 const SITE_NAME = 'CreatorPlus';
 const BRAND = {
@@ -40,7 +41,7 @@ export class EmailService {
   }
 
   async sendEmailVerification(to: string, name: string, token: string) {
-    const verificationUrl = `${process.env.WEB_URL || 'http://localhost:3000'}/auth/verify?token=${token}`;
+    const verificationUrl = `${webBaseUrl()}/auth/verify?token=${token}`;
     const html = this.layout(
       'Verify your email',
       this.templates.emailVerification(name, verificationUrl),
@@ -50,7 +51,7 @@ export class EmailService {
   }
 
   async sendPasswordReset(to: string, name: string, token: string) {
-    const resetUrl = `${process.env.WEB_URL || 'http://localhost:3000'}/auth/reset-password?token=${token}`;
+    const resetUrl = `${webBaseUrl()}/auth/reset-password?token=${token}`;
     const html = this.layout(
       'Reset your password',
       this.templates.passwordReset(name, resetUrl),
@@ -77,7 +78,7 @@ export class EmailService {
   }
 
   async sendProductApproved(to: string, name: string, product: { title: string; slug: string }) {
-    const productUrl = `${process.env.WEB_URL || 'http://localhost:3000'}/products/${product.slug}`;
+    const productUrl = `${webBaseUrl()}/products/${product.slug}`;
     const html = this.layout(
       'Product approved',
       this.templates.productApproved(name, product, productUrl),
@@ -129,7 +130,7 @@ export class EmailService {
     name: string,
     product: { title: string; slug: string; newPrice: number },
   ) {
-    const productUrl = `${process.env.WEB_URL || 'http://localhost:3000'}/products/${product.slug}`;
+    const productUrl = `${webBaseUrl()}/products/${product.slug}`;
     const html = this.layout(
       'Price drop',
       this.templates.priceDrop(name, product, productUrl),
@@ -240,7 +241,7 @@ export class EmailService {
       <p>Thank you for joining ${SITE_NAME}! We're excited to have you as part of our community of African digital creators and buyers.</p>
       <p>Whether you're here to buy amazing digital products or sell your own creations, you've come to the right place.</p>
       <p style="text-align: center; margin: 30px 0;">
-        <a href="${process.env.WEB_URL || 'http://localhost:3000'}" class="btn">Explore the marketplace</a>
+        <a href="${webBaseUrl()}" class="btn">Explore the marketplace</a>
       </p>
       <p>If you have any questions, feel free to reach out to our support team.</p>
       <p>Best regards,<br>The ${SITE_NAME} Team</p>
@@ -293,7 +294,7 @@ export class EmailService {
         </tfoot>
       </table>
       <p style="text-align: center; margin: 30px 0;">
-        <a href="${order.viewUrl || `${process.env.WEB_URL || 'http://localhost:3000'}/dashboard/downloads`}" class="btn">View your downloads</a>
+        <a href="${order.viewUrl || `${webBaseUrl()}/dashboard/downloads`}" class="btn">View your downloads</a>
       </p>
       <p>This receipt also appears on your ${SITE_NAME} dashboard under Purchases.</p>
     `,
@@ -326,7 +327,7 @@ export class EmailService {
       <p><strong>Product:</strong> ${product.title}</p>
       <p><strong>Amount:</strong> ${this.money(amount)}</p>
       <p style="text-align: center; margin: 30px 0;">
-        <a href="${process.env.WEB_URL || 'http://localhost:3000'}/creator/analytics" class="btn">View Analytics</a>
+        <a href="${webBaseUrl()}/creator/analytics" class="btn">View Analytics</a>
       </p>
     `,
 
@@ -352,7 +353,7 @@ export class EmailService {
       <p>Congratulations! Your store "<strong>${storeName}</strong>" has been approved and verified.</p>
       <p>Your verified badge is now live on your public profile.</p>
       <p style="text-align: center; margin: 30px 0;">
-        <a href="${process.env.WEB_URL || 'http://localhost:3000'}/creator" class="btn">Go to your store</a>
+        <a href="${webBaseUrl()}/creator" class="btn">Go to your store</a>
       </p>
     `,
 
@@ -368,7 +369,7 @@ export class EmailService {
       <h2>${title}</h2>
       <p>${message.replace(/\n/g, '<br/>')}</p>
       <p style="text-align: center; margin: 30px 0;">
-        <a href="${process.env.WEB_URL || 'http://localhost:3000'}" class="btn">Visit the marketplace</a>
+        <a href="${webBaseUrl()}" class="btn">Visit the marketplace</a>
       </p>
       <p>You can also read this in your notifications on ${SITE_NAME}.</p>
     `,

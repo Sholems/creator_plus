@@ -297,7 +297,11 @@ export class AdminService {
 
   async getProducts(status?: string, page = 1, perPage = 20, search?: string) {
     const skip = (page - 1) * perPage;
-    const where: any = status ? { status: status as any } : {};
+    // There is no product.status === 'APPROVED' in this flow: approving a
+    // product publishes it (PENDING → PUBLISHED). Map the admin "Approved"
+    // filter onto PUBLISHED so that tab is never empty/misleading.
+    const effectiveStatus = status === 'APPROVED' ? 'PUBLISHED' : status;
+    const where: any = effectiveStatus ? { status: effectiveStatus as any } : {};
     if (search) where.title = { contains: search, mode: 'insensitive' };
     const [products, total] = await Promise.all([
       prisma.product.findMany({
@@ -669,6 +673,43 @@ export class AdminService {
       where: { id },
       data: { deletedAt: new Date() },
     });
+  }
+
+  /**
+   * Change a product's status from the admin panel (unpublish, archive,
+   * re-publish, …). Publishing re-indexes it for search; anything else removes
+   * it from the public index. Approval emails are sent by approveProduct/
+   * rejectProduct only — a plain status change does not spam the creator.
+   */
+  async setProductStatus(id: string, status: string) {
+    const allowed: string[] = ['PUBLISHED', 'DRAFT', 'ARCHIVED', 'PENDING', 'REJECTED'];
+    if (!allowed.includes(status)) {
+      throw new BadRequestException(`Invalid product status: ${status}`);
+    }
+
+    const product = await prisma.product.findUnique({ where: { id } });
+    if (!product) throw new NotFoundException('Product not found');
+
+    const updated = await prisma.product.update({
+      where: { id },
+      data: {
+        status: status as any,
+        publishedAt:
+          status === 'PUBLISHED' ? product.publishedAt || new Date() : product.publishedAt,
+      },
+    });
+
+    try {
+      if (status === 'PUBLISHED') {
+        await this.searchService.indexProduct(id);
+      } else {
+        await this.searchService.removeProduct(id);
+      }
+    } catch {
+      // Search indexing is best-effort.
+    }
+
+    return updated;
   }
 
   async getRefunds(page = 1, perPage = 20, status?: string) {

@@ -18,6 +18,8 @@ COPY tsconfig.json turbo.json ./
 # NEXT_PUBLIC_* must be present at build time (baked into the client bundle)
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_WEB_URL
+ENV NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL
 
 RUN npx turbo build --filter=@creatormarket/admin...
 

@@ -4,8 +4,9 @@ import { AdinkraField, AdinkraMark } from '@/components/brand/adinkra';
 import { CustomerProductCard, type CustomerProduct } from '@/components/market/customer-product-card';
 import { SectionHeading } from '@/components/market/section-heading';
 import { HeroSearch } from './hero-search';
+import { API_BASE } from '@/lib/env';
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+const API = API_BASE;
 
 async function getJson(path: string): Promise<any | null> {
   try {

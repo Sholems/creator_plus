@@ -8,6 +8,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from '../affiliates/commission.service';
 import { clawBackCreatorCredits } from '../common/money-reversal';
 import { groupBy } from '../common/group-by';
+import { webBaseUrl } from '../common/urls';
 
 // Order statuses that mean "already fulfilled" — used by the atomic claim so a
 // duplicate/concurrent webhook can never double-process an order.
@@ -66,7 +67,7 @@ export class PaymentsService {
 
     const platformFeePercent = (await this.commissionService.getSettings())
       .platformRate.toNumber();
-    const webBase = process.env.WEB_URL || 'http://localhost:3000';
+      const webBase = webBaseUrl();
 
     const result = await provider.createCheckout({
       orderId: order.id,
@@ -350,7 +351,7 @@ export class PaymentsService {
     }>;
   }) {
     try {
-      const webBase = process.env.WEB_URL || 'http://localhost:3000';
+    const webBase = webBaseUrl();
 
       void this.emailService.sendOrderConfirmation(
         order.buyer.email,

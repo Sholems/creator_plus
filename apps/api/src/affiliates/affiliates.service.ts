@@ -11,8 +11,9 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from './commission.service';
 import { DEFAULT_AFFILIATE_COMMISSION_RATE } from './commission-calculator';
 import { paginate, pageMeta } from '../common/pagination';
+import { webBaseUrl } from '../common/urls';
 
-const webBase = () => process.env.WEB_URL || 'http://localhost:3000';
+const webBase = () => webBaseUrl();
 
 interface AttributionContext {
   ipAddress?: string;

@@ -1,6 +1,6 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { MeiliSearch } from 'meilisearch';
-import { prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatormarket/database';
 
 export interface SearchFilters {
   q?: string;
@@ -17,6 +17,7 @@ export interface SearchFilters {
 
 @Injectable()
 export class SearchService implements OnModuleInit {
+  private readonly logger = new Logger(SearchService.name);
   private client: MeiliSearch;
 
   onModuleInit() {
@@ -26,6 +27,12 @@ export class SearchService implements OnModuleInit {
     });
 
     void this.configureIndex();
+
+    // Reconcile the index with the database on boot. Per-write indexing is
+    // best-effort and can silently drift (e.g. the API was restarted while
+    // Meilisearch was down), which hides approved products from the storefront
+    // search. Best-effort: never crash the API if Meilisearch is unreachable.
+    void this.reindexAll().catch(() => {});
   }
 
   // Meilisearch refuses filters/sorts on attributes it hasn't been told about.
@@ -197,61 +204,163 @@ export class SearchService implements OnModuleInit {
   }
 
   async search(filters: SearchFilters) {
-    const index = this.client.index('products');
     const page = filters.page || 1;
     const perPage = filters.perPage || 20;
 
-    const filter: string[] = [];
+    try {
+      const index = this.client.index('products');
+
+      const filter: string[] = [];
+
+      if (filters.category) {
+        filter.push(`categoryId = "${filters.category}"`);
+      }
+
+      if (filters.creator) {
+        filter.push(`creatorId = "${filters.creator}"`);
+      }
+
+      if (filters.minPrice !== undefined) {
+        filter.push(`price >= ${filters.minPrice}`);
+      }
+
+      if (filters.maxPrice !== undefined) {
+        filter.push(`price <= ${filters.maxPrice}`);
+      }
+
+      if (filters.rating !== undefined) {
+        filter.push(`rating >= ${filters.rating}`);
+      }
+
+      if (filters.tags && filters.tags.length > 0) {
+        const tagList = filters.tags.map((t) => `"${t.replace(/"/g, '')}"`).join(', ');
+        filter.push(`tags IN [${tagList}]`);
+      }
+
+      const sortMap: Record<string, string> = {
+        price_asc: 'price:asc',
+        price_desc: 'price:desc',
+        rating: 'rating:desc',
+        newest: 'createdAt:desc',
+        popular: 'viewCount:desc',
+      };
+
+      const sort = filters.sort && sortMap[filters.sort] ? [sortMap[filters.sort]] : undefined;
+
+      const result = await index.search(filters.q || '', {
+        filter: filter.length > 0 ? filter : undefined,
+        sort,
+        limit: perPage,
+        offset: (page - 1) * perPage,
+      });
+
+      return {
+        data: result.hits,
+        pagination: {
+          page,
+          perPage,
+          total: result.estimatedTotalHits || 0,
+          totalPages: Math.ceil((result.estimatedTotalHits || 0) / perPage),
+        },
+      };
+    } catch (err) {
+      // The marketplace listing and search depend on Meilisearch. If it is
+      // unreachable (or its index has drifted from the DB), fall back to a
+      // direct database query so approved/published products are never hidden
+      // from the storefront.
+      this.logger.warn(
+        `Meilisearch search failed — falling back to the database: ${(err as Error).message}`,
+      );
+      return this.searchFromDb(filters, page, perPage);
+    }
+  }
+
+  /** DB-backed search used when Meilisearch is unavailable or out of sync. */
+  private async searchFromDb(filters: SearchFilters, page: number, perPage: number) {
+    const where: Prisma.ProductWhereInput = { status: 'PUBLISHED', deletedAt: null };
 
     if (filters.category) {
-      filter.push(`categoryId = "${filters.category}"`);
+      where.categoryId = filters.category;
     }
 
     if (filters.creator) {
-      filter.push(`creatorId = "${filters.creator}"`);
+      where.creatorId = filters.creator;
     }
 
-    if (filters.minPrice !== undefined) {
-      filter.push(`price >= ${filters.minPrice}`);
-    }
-
-    if (filters.maxPrice !== undefined) {
-      filter.push(`price <= ${filters.maxPrice}`);
+    if (filters.minPrice !== undefined || filters.maxPrice !== undefined) {
+      where.price = {
+        ...(filters.minPrice !== undefined ? { gte: filters.minPrice } : {}),
+        ...(filters.maxPrice !== undefined ? { lte: filters.maxPrice } : {}),
+      };
     }
 
     if (filters.rating !== undefined) {
-      filter.push(`rating >= ${filters.rating}`);
+      where.averageRating = { gte: filters.rating };
     }
 
     if (filters.tags && filters.tags.length > 0) {
-      const tagList = filters.tags.map((t) => `"${t.replace(/"/g, '')}"`).join(', ');
-      filter.push(`tags IN [${tagList}]`);
+      where.tags = { some: { tag: { name: { in: filters.tags } } } };
     }
 
-    const sortMap: Record<string, string> = {
-      price_asc: 'price:asc',
-      price_desc: 'price:desc',
-      rating: 'rating:desc',
-      newest: 'createdAt:desc',
-      popular: 'viewCount:desc',
+    if (filters.q) {
+      const q = filters.q.trim();
+      if (q) {
+        where.OR = [
+          { title: { contains: q, mode: 'insensitive' } },
+          { shortDescription: { contains: q, mode: 'insensitive' } },
+          { description: { contains: q, mode: 'insensitive' } },
+          { tags: { some: { tag: { name: { contains: q, mode: 'insensitive' } } } } },
+        ];
+      }
+    }
+
+    const sortMap: Record<string, Prisma.ProductOrderByWithRelationInput[]> = {
+      price_asc: [{ price: 'asc' }],
+      price_desc: [{ price: 'desc' }],
+      rating: [{ averageRating: 'desc' }],
+      newest: [{ createdAt: 'desc' }],
+      popular: [{ viewCount: 'desc' }],
     };
+    const orderBy = (filters.sort && sortMap[filters.sort]) || sortMap.newest;
 
-    const sort = filters.sort && sortMap[filters.sort] ? [sortMap[filters.sort]] : undefined;
-
-    const result = await index.search(filters.q || '', {
-      filter: filter.length > 0 ? filter : undefined,
-      sort,
-      limit: perPage,
-      offset: (page - 1) * perPage,
-    });
+    const [items, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: {
+          creator: {
+            select: {
+              id: true,
+              storeName: true,
+              slug: true,
+              avatar: true,
+              verified: true,
+            },
+          },
+          category: { select: { id: true, name: true, slug: true } },
+          tags: { include: { tag: true } },
+          _count: {
+            select: {
+              reviews: true,
+              orderItems: {
+                where: { order: { status: 'PAID' } },
+              },
+            },
+          },
+        },
+        orderBy,
+        skip: (page - 1) * perPage,
+        take: perPage,
+      }),
+      prisma.product.count({ where }),
+    ]);
 
     return {
-      data: result.hits,
+      data: items.map((p) => this.toDocument(p)),
       pagination: {
         page,
         perPage,
-        total: result.estimatedTotalHits || 0,
-        totalPages: Math.ceil((result.estimatedTotalHits || 0) / perPage),
+        total,
+        totalPages: Math.ceil(total / perPage),
       },
     };
   }
@@ -259,29 +368,68 @@ export class SearchService implements OnModuleInit {
   async getSuggestions(query: string) {
     const index = this.client.index('products');
 
-    const result = await index.search(query, {
-      limit: 5,
-      attributesToHighlight: ['title'],
-    });
+    try {
+      const result = await index.search(query, {
+        limit: 5,
+        attributesToHighlight: ['title'],
+      });
 
-    return result.hits.map((hit: any) => ({
-      id: hit.id,
-      title: hit.title,
-      slug: hit.slug,
-      price: hit.price,
-    }));
+      return result.hits.map((hit: any) => ({
+        id: hit.id,
+        title: hit.title,
+        slug: hit.slug,
+        price: hit.price,
+      }));
+    } catch (err) {
+      this.logger.warn(
+        `Meilisearch suggestions failed — falling back to the database: ${(err as Error).message}`,
+      );
+      const products = await prisma.product.findMany({
+        where: {
+          status: 'PUBLISHED',
+          deletedAt: null,
+          title: { contains: query, mode: 'insensitive' },
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          price: true,
+        },
+      });
+      return products.map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        price: typeof p.price?.toNumber === 'function' ? p.price.toNumber() : p.price,
+      }));
+    }
   }
 
   async getTrending() {
     const index = this.client.index('products');
 
-    const result = await index.search('', {
-      limit: 10,
-      sort: ['viewCount:desc'],
-    });
+    try {
+      const result = await index.search('', {
+        limit: 10,
+        sort: ['viewCount:desc'],
+      });
 
-    return {
-      data: result.hits,
-    };
+      return {
+        data: result.hits,
+      };
+    } catch (err) {
+      this.logger.warn(
+        `Meilisearch trending failed — falling back to the database: ${(err as Error).message}`,
+      );
+      const products = await prisma.product.findMany({
+        where: { status: 'PUBLISHED', deletedAt: null },
+        orderBy: { viewCount: 'desc' },
+        take: 10,
+      });
+      return { data: products };
+    }
   }
 }

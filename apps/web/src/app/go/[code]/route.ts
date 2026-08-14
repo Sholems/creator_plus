@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { VISITOR_COOKIE } from '@/lib/visitor';
+import { API_BASE } from '@/lib/env';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 const DAY = 24 * 60 * 60;
 
 export async function GET(

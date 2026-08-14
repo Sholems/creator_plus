@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { ProductDetailClient } from './product-detail-client';
+import { API_BASE } from '@/lib/env';
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+const API = API_BASE;
 
 async function getJson(path: string): Promise<any | null> {
   try {

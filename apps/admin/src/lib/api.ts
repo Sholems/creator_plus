@@ -1,5 +1,11 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
-export const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL || 'http://localhost:3000';
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://api.mycreatorplus.com/api/v1'
+    : 'http://localhost:3001/api/v1');
+export const WEB_URL =
+  process.env.NEXT_PUBLIC_WEB_URL ||
+  (process.env.NODE_ENV === 'production' ? 'https://mycreatorplus.com' : 'http://localhost:3000');
 
 export interface PaginationMeta {
   page: number;
@@ -82,6 +88,14 @@ export const api = {
     request<any>(`/admin/products/${id}/approve`, { method: 'POST', token }),
   rejectProduct: (token: string, id: string, reason?: string) =>
     request<any>(`/admin/products/${id}/reject`, { method: 'POST', body: { reason }, token }),
+  setProductStatus: (token: string, id: string, status: string) =>
+    request<any>(`/admin/products/${id}/status`, {
+      method: 'POST',
+      body: { status },
+      token,
+    }),
+  reindexSearch: (token: string) =>
+    request<{ indexed: number }>('/admin/search/reindex', { method: 'POST', token }),
   getOrders: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>
     request<any>(
       `/admin/orders?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import Stripe from 'stripe';
 import { prisma, PlanTier, SubscriptionStatus, CreditPurchaseStatus } from '@creatormarket/database';
+import { webBaseUrl } from '../common/urls';
 
 @Injectable()
 export class BillingService {
@@ -83,8 +84,8 @@ export class BillingService {
       customer: customer.id,
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: successUrl || `${process.env.WEB_URL || 'http://localhost:3000'}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${process.env.WEB_URL || 'http://localhost:3000'}/billing`,
+      success_url: successUrl || `${webBaseUrl()}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${webBaseUrl()}/billing`,
       metadata: { userId, tier },
     });
 
@@ -183,8 +184,8 @@ export class BillingService {
     const session = await this.requireStripe().checkout.sessions.create({
       mode: 'payment',
       line_items: [{ price: pack.stripePriceId, quantity: 1 }],
-      success_url: successUrl || `${process.env.WEB_URL || 'http://localhost:3000'}/billing/credits/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${process.env.WEB_URL || 'http://localhost:3000'}/billing/credits`,
+      success_url: successUrl || `${webBaseUrl()}/billing/credits/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${webBaseUrl()}/billing/credits`,
       metadata: { userId, packId, credits: pack.credits.toString() },
     });
 

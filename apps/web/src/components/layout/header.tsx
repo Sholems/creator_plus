@@ -6,8 +6,7 @@ import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { CreatorPlusMark } from '@/components/brand/logo';
 import { NotificationBell } from '@/components/layout/notification-bell';
-
-const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'http://localhost:3002';
+import { ADMIN_URL } from '@/lib/env';
 
 function isAdmin(roles?: string[]) {
   return !!roles?.some((r) => r === 'super_admin' || r === 'admin');

@@ -1,6 +1,5 @@
 import { readVisitorId } from '@/lib/visitor';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+import { API_BASE } from '@/lib/env';
 
 interface FetchOptions {
   method?: string;
@@ -528,6 +527,22 @@ class ApiClient {
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: 'File upload failed' }));
       throw new Error(error.message || `File upload failed: ${response.status}`);
+    }
+
+    return response.json();
+  }
+
+  async deleteProductFile(token: string, productId: string, fileId: string) {
+    const response = await fetch(`${this.baseUrl}/products/${productId}/files/${fileId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'File delete failed' }));
+      throw new Error(error.message || `File delete failed: ${response.status}`);
     }
 
     return response.json();

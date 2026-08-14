@@ -29,6 +29,7 @@ export default function AdminProductsPage() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [reindexing, setReindexing] = useState(false);
 
   const load = useCallback(() => {
     if (!token) return;
@@ -76,6 +77,33 @@ export default function AdminProductsPage() {
     }
   };
 
+  const handleSetStatus = async (id: string, status: string, label: string) => {
+    if (!token) return;
+    setBusyId(id);
+    try {
+      await api.setProductStatus(token, id, status);
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+      toast(`Product ${label.toLowerCase()}`);
+    } catch (e: any) {
+      toast(e.message || `Failed to ${label.toLowerCase()} product`, 'error');
+    } finally {
+      setBusyId(null);
+    }
+  };
+
+  const handleReindex = async () => {
+    if (!token) return;
+    setReindexing(true);
+    try {
+      const res = await api.reindexSearch(token);
+      toast(`Search index rebuilt (${res.indexed} products)`);
+    } catch (e: any) {
+      toast(e.message || 'Failed to reindex search', 'error');
+    } finally {
+      setReindexing(false);
+    }
+  };
+
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -86,6 +114,14 @@ export default function AdminProductsPage() {
         <span className="badge badge-gray">
           {pagination?.total ?? products.length} product{pagination?.total === 1 ? '' : 's'}
         </span>
+        <button
+          onClick={handleReindex}
+          disabled={reindexing}
+          className="btn btn-ghost btn-sm"
+          title="Rebuild the Meilisearch index from the database (fixes products missing from the marketplace listing)"
+        >
+          {reindexing ? 'Reindexing…' : 'Reindex search'}
+        </button>
       </div>
 
       <div className="surface-card overflow-hidden">
@@ -160,7 +196,7 @@ export default function AdminProductsPage() {
                       </span>
                     </td>
                     <td className="td">
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         {p.status === 'PENDING' && (
                           <>
                             <button
@@ -178,6 +214,42 @@ export default function AdminProductsPage() {
                               Reject
                             </button>
                           </>
+                        )}
+                        {(p.status === 'PUBLISHED' || p.status === 'DRAFT' || p.status === 'REJECTED') && (
+                          <button
+                            onClick={() => handleSetStatus(p.id, 'ARCHIVED', 'Archived')}
+                            disabled={busyId === p.id}
+                            className="btn btn-ghost btn-sm"
+                          >
+                            Archive
+                          </button>
+                        )}
+                        {p.status === 'PUBLISHED' && (
+                          <button
+                            onClick={() => handleSetStatus(p.id, 'DRAFT', 'Unpublished')}
+                            disabled={busyId === p.id}
+                            className="btn btn-ghost btn-sm"
+                          >
+                            Unpublish
+                          </button>
+                        )}
+                        {(p.status === 'DRAFT' || p.status === 'REJECTED') && (
+                          <button
+                            onClick={() => handleApprove(p.id)}
+                            disabled={busyId === p.id}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Approve
+                          </button>
+                        )}
+                        {p.status === 'ARCHIVED' && (
+                          <button
+                            onClick={() => handleSetStatus(p.id, 'PUBLISHED', 'Republished')}
+                            disabled={busyId === p.id}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Republish
+                          </button>
                         )}
                       </div>
                     </td>

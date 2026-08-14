@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/brand';
+import { API_BASE } from '@/lib/env';
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+const API = API_BASE;
 
 async function fetchJson(path: string): Promise<any | null> {
   try {

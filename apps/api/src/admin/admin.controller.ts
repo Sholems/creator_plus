@@ -150,9 +150,15 @@ export class AdminController {
   }
 
   @Post('products/:id/reject')
-  @ApiOperation({ summary: 'Reject a pending product' })
+  @ApiOperation({ summary: 'Reject a product' })
   rejectProduct(@Param('id') id: string, @Body('reason') reason?: string) {
     return this.adminService.rejectProduct(id, reason);
+  }
+
+  @Post('products/:id/status')
+  @ApiOperation({ summary: 'Change a product status (unpublish, archive, republish, …)' })
+  setProductStatus(@Param('id') id: string, @Body('status') status: string) {
+    return this.adminService.setProductStatus(id, status);
   }
 
   @Post('reviews/:id/hide')
