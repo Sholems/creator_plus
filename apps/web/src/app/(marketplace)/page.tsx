@@ -75,9 +75,9 @@ export default async function HomePage() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-16 sm:px-6 sm:pt-24 lg:px-8">
-          <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             {/* LEFT — the pitch */}
-            <div className="max-w-xl">
+            <div className="min-w-0 max-w-xl">
               <p className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 eyebrow text-gold-300">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold-400 animate-pulse" />
                 Made in Nigeria · Serving Africa · Going global
@@ -89,7 +89,7 @@ export default async function HomePage() {
                     Digital Products
                   </span>
                   <svg
-                    className="absolute -bottom-2 left-0 w-full text-gold-400/70"
+                    className="absolute -bottom-2 left-0 hidden w-full text-gold-400/70 sm:block"
                     viewBox="0 0 320 12"
                     fill="none"
                     aria-hidden="true"
@@ -111,7 +111,7 @@ export default async function HomePage() {
             </div>
 
             {/* RIGHT — the stall collage */}
-            <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="relative mx-auto w-full min-w-0 max-w-md lg:max-w-none">
               <div className="relative">
                 {/* Scalloped market-stall awning */}
                 <div className="flex overflow-hidden rounded-t-2xl" aria-hidden="true">
