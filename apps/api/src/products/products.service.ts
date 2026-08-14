@@ -55,6 +55,7 @@ export class ProductsService {
     tags?: string[];
     licenseType?: 'personal' | 'commercial' | 'extended' | 'enterprise';
     thumbnail?: string;
+    deliveryUrl?: string;
     affiliateEnabled?: boolean;
     affiliateCommissionRate?: number;
   }) {
@@ -117,6 +118,7 @@ export class ProductsService {
           currency: data.currency || 'NGN',
           licenseType: (data.licenseType || 'personal').toUpperCase() as any,
           thumbnail: data.thumbnail || null,
+          deliveryUrl: data.deliveryUrl ? data.deliveryUrl.trim() : null,
           affiliateEnabled,
           affiliateStatus: affiliateEnabled ? 'PENDING_REVIEW' : 'DISABLED',
           affiliateCommissionRate,
@@ -244,7 +246,9 @@ export class ProductsService {
     ]);
 
     return {
-      data: products,
+      data: ownerCanSeeAll
+        ? products
+        : products.map(({ deliveryUrl, ...safeProduct }) => safeProduct),
       pagination: pageMeta(page, perPage, total),
     };
   }
@@ -319,7 +323,9 @@ export class ProductsService {
         .catch(() => undefined);
     }
 
-    return product;
+    // deliveryUrl is the paid deliverable — never expose it on public reads.
+    const { deliveryUrl, ...safeProduct } = product;
+    return safeProduct;
   }
 
   async findById(id: string) {
@@ -356,7 +362,9 @@ export class ProductsService {
       throw new NotFoundException('Product not found');
     }
 
-    return product;
+    // deliveryUrl is the paid deliverable — never expose it on public reads.
+    const { deliveryUrl, ...safeProduct } = product;
+    return safeProduct;
   }
 
   async update(id: string, creatorId: string, data: any) {
@@ -399,6 +407,11 @@ export class ProductsService {
     }
 
     const { tags, affiliateEnabled, affiliateCommissionRate, ...rest } = data;
+
+    if ('deliveryUrl' in rest) {
+      // Empty string means "clear the link"; a trimmed value is stored as-is.
+      rest.deliveryUrl = rest.deliveryUrl ? String(rest.deliveryUrl).trim() : null;
+    }
 
     if (rest.licenseType) {
       rest.licenseType = rest.licenseType.toUpperCase();

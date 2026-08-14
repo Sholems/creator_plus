@@ -20,6 +20,7 @@ export class DownloadsService {
               title: true,
               slug: true,
               thumbnail: true,
+              deliveryUrl: true,
               creator: {
                 select: {
                   id: true,
@@ -71,6 +72,7 @@ export class DownloadsService {
             id: true,
             title: true,
             slug: true,
+            deliveryUrl: true,
           },
         },
       },
@@ -110,7 +112,9 @@ export class DownloadsService {
       where: { productId: download.productId },
     });
 
-    if (files.length === 0) {
+    const deliveryUrl = download.product?.deliveryUrl || null;
+
+    if (files.length === 0 && !deliveryUrl) {
       // Nothing to hand out — don't burn a download slot.
       return {
         downloadUrl: `/api/v1/downloads/file/${token}`,
@@ -136,18 +140,21 @@ export class DownloadsService {
       data: { downloadId: download.id, ipAddress, userAgent, success: true },
     });
 
-    const signedFiles = await Promise.all(
-      files.map(async (file) => ({
-        fileName: file.fileName,
-        fileSize: file.fileSize.toString(),
-        mimeType: file.mimeType,
-        downloadUrl: await this.storageService.getSignedDownloadUrl(file.fileKey, 3600),
-      })),
-    );
+    const signedFiles = files.length
+      ? await Promise.all(
+          files.map(async (file) => ({
+            fileName: file.fileName,
+            fileSize: file.fileSize.toString(),
+            mimeType: file.mimeType,
+            downloadUrl: await this.storageService.getSignedDownloadUrl(file.fileKey, 3600),
+          })),
+        )
+      : [];
 
     return {
-      downloadUrl: signedFiles[0]?.downloadUrl || `/api/v1/downloads/file/${token}`,
+      downloadUrl: signedFiles[0]?.downloadUrl || deliveryUrl || `/api/v1/downloads/file/${token}`,
       files: signedFiles,
+      ...(deliveryUrl ? { deliveryUrl } : {}),
     };
   }
 

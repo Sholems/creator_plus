@@ -308,6 +308,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   coverImage: 'coverImage',
   thumbnail: 'thumbnail',
   previewImages: 'previewImages',
+  deliveryUrl: 'deliveryUrl',
   price: 'price',
   compareAtPrice: 'compareAtPrice',
   currency: 'currency',

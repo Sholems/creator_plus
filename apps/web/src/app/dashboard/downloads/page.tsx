@@ -36,6 +36,7 @@ export default function DownloadsPage() {
       const result = await api.recordDownload(token, downloadToken);
       if (result.files && result.files.length > 0) {
         result.files.forEach((file: any) => window.open(file.downloadUrl, '_blank'));
+        if (result.deliveryUrl) window.open(result.deliveryUrl, '_blank');
       } else if (result.downloadUrl) {
         window.open(result.downloadUrl, '_blank');
       } else {
@@ -118,13 +119,25 @@ export default function DownloadsPage() {
                         </p>
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleDownload(dl.token, dl.id)}
-                      disabled={!canDownload || downloading === dl.id}
-                      className="px-4 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {downloading === dl.id ? 'Downloading...' : expired ? 'Expired' : limit ? 'Limit Reached' : 'Download'}
-                    </button>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => handleDownload(dl.token, dl.id)}
+                        disabled={!canDownload || downloading === dl.id}
+                        className="px-4 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {downloading === dl.id ? 'Opening…' : expired ? 'Expired' : limit ? 'Limit Reached' : 'Download'}
+                      </button>
+                      {dl.product?.deliveryUrl && (
+                        <button
+                          onClick={() => handleDownload(dl.token, dl.id)}
+                          disabled={!canDownload || downloading === dl.id}
+                          className="px-4 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                          title="Access the delivery link the creator provided"
+                        >
+                          Access link
+                        </button>
+                      )}
+                    </div>
                   </div>
                 );
               })}

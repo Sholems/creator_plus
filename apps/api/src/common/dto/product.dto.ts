@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsOptional, IsArray, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsArray, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf } from 'class-validator';
 
 // Creator-selectable affiliate reward rates (MVP). Anything outside this set is
 // rejected — the calculator trusts stored values at fulfillment time.
@@ -47,6 +47,17 @@ export class CreateProductDto {
   @IsString()
   thumbnail?: string;
 
+  /**
+   * Optional external delivery link (hosted file, Drive/Dropbox, or a landing
+   * page). Buyers access it after purchase; it is never shown publicly.
+   * An empty string clears the link.
+   */
+  @IsOptional()
+  @IsString()
+  @ValidateIf((o) => o.deliveryUrl !== '')
+  @IsUrl({ require_protocol: true }, { message: 'Delivery URL must be a valid URL' })
+  deliveryUrl?: string;
+
   /** Opt the product into the affiliate program (submits it for review). */
   @IsOptional()
   @IsBoolean()
@@ -94,6 +105,13 @@ export class UpdateProductDto {
   @IsOptional()
   @IsString()
   thumbnail?: string;
+
+  /** Optional external delivery link buyers access after purchase. Empty clears. */
+  @IsOptional()
+  @IsString()
+  @ValidateIf((o) => o.deliveryUrl !== '')
+  @IsUrl({ require_protocol: true }, { message: 'Delivery URL must be a valid URL' })
+  deliveryUrl?: string;
 
   /** Opt the product into the affiliate program (submits it for review). */
   @IsOptional()

@@ -25879,6 +25879,7 @@ export namespace Prisma {
     status: $Enums.ProductStatus | null
     coverImage: string | null
     thumbnail: string | null
+    deliveryUrl: string | null
     price: Decimal | null
     compareAtPrice: Decimal | null
     currency: string | null
@@ -25916,6 +25917,7 @@ export namespace Prisma {
     status: $Enums.ProductStatus | null
     coverImage: string | null
     thumbnail: string | null
+    deliveryUrl: string | null
     price: Decimal | null
     compareAtPrice: Decimal | null
     currency: string | null
@@ -25954,6 +25956,7 @@ export namespace Prisma {
     coverImage: number
     thumbnail: number
     previewImages: number
+    deliveryUrl: number
     price: number
     compareAtPrice: number
     currency: number
@@ -26019,6 +26022,7 @@ export namespace Prisma {
     status?: true
     coverImage?: true
     thumbnail?: true
+    deliveryUrl?: true
     price?: true
     compareAtPrice?: true
     currency?: true
@@ -26056,6 +26060,7 @@ export namespace Prisma {
     status?: true
     coverImage?: true
     thumbnail?: true
+    deliveryUrl?: true
     price?: true
     compareAtPrice?: true
     currency?: true
@@ -26094,6 +26099,7 @@ export namespace Prisma {
     coverImage?: true
     thumbnail?: true
     previewImages?: true
+    deliveryUrl?: true
     price?: true
     compareAtPrice?: true
     currency?: true
@@ -26219,6 +26225,7 @@ export namespace Prisma {
     coverImage: string | null
     thumbnail: string | null
     previewImages: string[]
+    deliveryUrl: string | null
     price: Decimal
     compareAtPrice: Decimal | null
     currency: string
@@ -26276,6 +26283,7 @@ export namespace Prisma {
     coverImage?: boolean
     thumbnail?: boolean
     previewImages?: boolean
+    deliveryUrl?: boolean
     price?: boolean
     compareAtPrice?: boolean
     currency?: boolean
@@ -26330,6 +26338,7 @@ export namespace Prisma {
     coverImage?: boolean
     thumbnail?: boolean
     previewImages?: boolean
+    deliveryUrl?: boolean
     price?: boolean
     compareAtPrice?: boolean
     currency?: boolean
@@ -26370,6 +26379,7 @@ export namespace Prisma {
     coverImage?: boolean
     thumbnail?: boolean
     previewImages?: boolean
+    deliveryUrl?: boolean
     price?: boolean
     compareAtPrice?: boolean
     currency?: boolean
@@ -26410,6 +26420,7 @@ export namespace Prisma {
     coverImage?: boolean
     thumbnail?: boolean
     previewImages?: boolean
+    deliveryUrl?: boolean
     price?: boolean
     compareAtPrice?: boolean
     currency?: boolean
@@ -26436,7 +26447,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorId" | "categoryId" | "title" | "slug" | "description" | "shortDescription" | "status" | "coverImage" | "thumbnail" | "previewImages" | "price" | "compareAtPrice" | "currency" | "licenseType" | "version" | "fileSize" | "downloadCount" | "viewCount" | "rating" | "averageRating" | "reviewCount" | "isFeatured" | "publishedAt" | "affiliateEnabled" | "affiliateStatus" | "affiliateCommissionType" | "affiliateCommissionRate" | "affiliateApprovedAt" | "affiliateApprovedBy" | "affiliateRejectionReason" | "affiliateClickCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorId" | "categoryId" | "title" | "slug" | "description" | "shortDescription" | "status" | "coverImage" | "thumbnail" | "previewImages" | "deliveryUrl" | "price" | "compareAtPrice" | "currency" | "licenseType" | "version" | "fileSize" | "downloadCount" | "viewCount" | "rating" | "averageRating" | "reviewCount" | "isFeatured" | "publishedAt" | "affiliateEnabled" | "affiliateStatus" | "affiliateCommissionType" | "affiliateCommissionRate" | "affiliateApprovedAt" | "affiliateApprovedBy" | "affiliateRejectionReason" | "affiliateClickCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | CreatorProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -26495,6 +26506,7 @@ export namespace Prisma {
       coverImage: string | null
       thumbnail: string | null
       previewImages: string[]
+      deliveryUrl: string | null
       price: Prisma.Decimal
       compareAtPrice: Prisma.Decimal | null
       currency: string
@@ -26968,6 +26980,7 @@ export namespace Prisma {
     readonly coverImage: FieldRef<"Product", 'String'>
     readonly thumbnail: FieldRef<"Product", 'String'>
     readonly previewImages: FieldRef<"Product", 'String[]'>
+    readonly deliveryUrl: FieldRef<"Product", 'String'>
     readonly price: FieldRef<"Product", 'Decimal'>
     readonly compareAtPrice: FieldRef<"Product", 'Decimal'>
     readonly currency: FieldRef<"Product", 'String'>
@@ -84621,6 +84634,7 @@ export namespace Prisma {
     coverImage: 'coverImage',
     thumbnail: 'thumbnail',
     previewImages: 'previewImages',
+    deliveryUrl: 'deliveryUrl',
     price: 'price',
     compareAtPrice: 'compareAtPrice',
     currency: 'currency',
@@ -87166,6 +87180,7 @@ export namespace Prisma {
     coverImage?: StringNullableFilter<"Product"> | string | null
     thumbnail?: StringNullableFilter<"Product"> | string | null
     previewImages?: StringNullableListFilter<"Product">
+    deliveryUrl?: StringNullableFilter<"Product"> | string | null
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     compareAtPrice?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringFilter<"Product"> | string
@@ -87219,6 +87234,7 @@ export namespace Prisma {
     coverImage?: SortOrderInput | SortOrder
     thumbnail?: SortOrderInput | SortOrder
     previewImages?: SortOrder
+    deliveryUrl?: SortOrderInput | SortOrder
     price?: SortOrder
     compareAtPrice?: SortOrderInput | SortOrder
     currency?: SortOrder
@@ -87276,6 +87292,7 @@ export namespace Prisma {
     coverImage?: StringNullableFilter<"Product"> | string | null
     thumbnail?: StringNullableFilter<"Product"> | string | null
     previewImages?: StringNullableListFilter<"Product">
+    deliveryUrl?: StringNullableFilter<"Product"> | string | null
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     compareAtPrice?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringFilter<"Product"> | string
@@ -87329,6 +87346,7 @@ export namespace Prisma {
     coverImage?: SortOrderInput | SortOrder
     thumbnail?: SortOrderInput | SortOrder
     previewImages?: SortOrder
+    deliveryUrl?: SortOrderInput | SortOrder
     price?: SortOrder
     compareAtPrice?: SortOrderInput | SortOrder
     currency?: SortOrder
@@ -87375,6 +87393,7 @@ export namespace Prisma {
     coverImage?: StringNullableWithAggregatesFilter<"Product"> | string | null
     thumbnail?: StringNullableWithAggregatesFilter<"Product"> | string | null
     previewImages?: StringNullableListFilter<"Product">
+    deliveryUrl?: StringNullableWithAggregatesFilter<"Product"> | string | null
     price?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     compareAtPrice?: DecimalNullableWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringWithAggregatesFilter<"Product"> | string
@@ -92762,6 +92781,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -92815,6 +92835,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -92864,6 +92885,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -92917,6 +92939,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -92968,6 +92991,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -93004,6 +93028,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -93042,6 +93067,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -98777,6 +98803,7 @@ export namespace Prisma {
     coverImage?: SortOrder
     thumbnail?: SortOrder
     previewImages?: SortOrder
+    deliveryUrl?: SortOrder
     price?: SortOrder
     compareAtPrice?: SortOrder
     currency?: SortOrder
@@ -98827,6 +98854,7 @@ export namespace Prisma {
     status?: SortOrder
     coverImage?: SortOrder
     thumbnail?: SortOrder
+    deliveryUrl?: SortOrder
     price?: SortOrder
     compareAtPrice?: SortOrder
     currency?: SortOrder
@@ -98864,6 +98892,7 @@ export namespace Prisma {
     status?: SortOrder
     coverImage?: SortOrder
     thumbnail?: SortOrder
+    deliveryUrl?: SortOrder
     price?: SortOrder
     compareAtPrice?: SortOrder
     currency?: SortOrder
@@ -109491,6 +109520,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -109542,6 +109572,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -109828,6 +109859,7 @@ export namespace Prisma {
     coverImage?: StringNullableFilter<"Product"> | string | null
     thumbnail?: StringNullableFilter<"Product"> | string | null
     previewImages?: StringNullableListFilter<"Product">
+    deliveryUrl?: StringNullableFilter<"Product"> | string | null
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     compareAtPrice?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringFilter<"Product"> | string
@@ -110553,6 +110585,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -110604,6 +110637,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -111925,6 +111959,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -111977,6 +112012,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112060,6 +112096,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112112,6 +112149,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112185,6 +112223,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112237,6 +112276,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112324,6 +112364,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112376,6 +112417,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112453,6 +112495,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112505,6 +112548,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112603,6 +112647,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112655,6 +112700,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112752,6 +112798,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112804,6 +112851,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -112907,6 +112955,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -112959,6 +113008,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -113228,6 +113278,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -113280,6 +113331,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -113371,6 +113423,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -113423,6 +113476,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -114067,6 +114121,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -114119,6 +114174,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -114261,6 +114317,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -114313,6 +114370,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -114739,6 +114797,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -114791,6 +114850,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -114997,6 +115057,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -115049,6 +115110,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -115272,6 +115334,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -115324,6 +115387,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -115485,6 +115549,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -115537,6 +115602,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -117050,6 +117116,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -117102,6 +117169,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -117369,6 +117437,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -117421,6 +117490,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -117623,6 +117693,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -117675,6 +117746,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -117857,6 +117929,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -117909,6 +117982,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -118063,6 +118137,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -118115,6 +118190,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -118297,6 +118373,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -118349,6 +118426,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -119228,6 +119306,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -119280,6 +119359,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -119344,6 +119424,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -119396,6 +119477,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -119929,6 +120011,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -119981,6 +120064,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -120072,6 +120156,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -120124,6 +120209,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -122193,6 +122279,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -122260,6 +122347,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -122311,6 +122399,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -122361,6 +122450,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -122507,6 +122597,7 @@ export namespace Prisma {
     coverImage?: string | null
     thumbnail?: string | null
     previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
     price: Decimal | DecimalJsLike | number | string
     compareAtPrice?: Decimal | DecimalJsLike | number | string | null
     currency?: string
@@ -122589,6 +122680,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -122640,6 +122732,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string
@@ -122690,6 +122783,7 @@ export namespace Prisma {
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: StringFieldUpdateOperationsInput | string

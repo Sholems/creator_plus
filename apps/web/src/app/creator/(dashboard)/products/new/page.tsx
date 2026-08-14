@@ -7,6 +7,7 @@ import { api } from '@/lib/api';
 import { RichTextEditor } from '@/components/market/rich-text-editor';
 import { htmlToPlainText } from '@/lib/rich-text';
 import { AffiliateProgramForm } from '@/components/creator/affiliate-program-form';
+import { cn } from '@creatormarket/ui';
 
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
@@ -21,6 +22,8 @@ export default function NewProductPage() {
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [digitalFile, setDigitalFile] = useState<File | null>(null);
+  const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
+  const [deliveryUrl, setDeliveryUrl] = useState('');
   const [description, setDescription] = useState('');
   const [formData, setFormData] = useState({
     title: '',
@@ -122,6 +125,7 @@ export default function NewProductPage() {
         licenseType: formData.licenseType,
         tags,
         thumbnail: thumbnailUrl,
+        deliveryUrl: deliveryUrl.trim(),
         affiliateEnabled: affiliate.affiliateEnabled,
         affiliateCommissionRate: affiliate.affiliateEnabled
           ? affiliate.affiliateCommissionRate
@@ -357,12 +361,58 @@ export default function NewProductPage() {
 
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
             <h2 className="font-display text-lg font-semibold text-ink-900">Digital File</h2>
-            <p className="mt-1 text-sm text-ink-500 mb-4">
-              Upload the file buyers will receive after purchase (PDF, ZIP, images, templates — max 500MB).
+            <p className="mt-1 text-sm text-ink-500">
+              What buyers receive after purchase — an uploaded file, an external link, or both.
             </p>
 
-            {digitalFile ? (
-              <div className="flex items-center justify-between rounded-xl border border-forest-200 bg-forest-50 p-4">
+            <div className="mt-4 inline-flex rounded-full border border-ink-100 bg-cream-50 p-1">
+              <button
+                type="button"
+                onClick={() => setDeliveryMode('file')}
+                className={cn(
+                  'rounded-full px-4 py-1.5 text-sm font-semibold transition',
+                  deliveryMode === 'file' ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-500 hover:text-ink-700',
+                )}
+              >
+                Upload file
+              </button>
+              <button
+                type="button"
+                onClick={() => setDeliveryMode('url')}
+                className={cn(
+                  'rounded-full px-4 py-1.5 text-sm font-semibold transition',
+                  deliveryMode === 'url' ? 'bg-white text-ink-900 shadow-sm' : 'text-ink-500 hover:text-ink-700',
+                )}
+              >
+                External link (URL)
+              </button>
+            </div>
+
+            {deliveryMode === 'url' ? (
+              <div className="mt-4">
+                <label htmlFor="deliveryUrl" className="block text-sm font-medium text-ink-700">
+                  Delivery link
+                </label>
+                <input
+                  type="url"
+                  id="deliveryUrl"
+                  value={deliveryUrl}
+                  onChange={(e) => setDeliveryUrl(e.target.value)}
+                  className={`${inputClass} mt-1.5`}
+                  placeholder="https://drive.google.com/… or https://your-site.com/download"
+                />
+                <p className="mt-1 text-xs text-ink-500">
+                  Paste a link to the file or resource buyers should access after purchase (hosted file,
+                  Google Drive, Dropbox, or a landing page).
+                </p>
+                {digitalFile && (
+                  <p className="mt-2 text-xs text-forest-700">
+                    {digitalFile.name} is also attached and will be delivered alongside the link.
+                  </p>
+                )}
+              </div>
+            ) : digitalFile ? (
+              <div className="mt-4 flex items-center justify-between rounded-xl border border-forest-200 bg-forest-50 p-4">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-forest-100">
                     <svg className="h-5 w-5 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -385,18 +435,25 @@ export default function NewProductPage() {
                 </button>
               </div>
             ) : (
-              <label className="flex flex-col items-center justify-center h-32 cursor-pointer rounded-xl border-2 border-dashed border-ink-200 bg-cream-50 transition-colors hover:border-forest-400">
-                <svg className="h-8 w-8 text-ink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-                <span className="mt-2 text-sm text-ink-600">Click to upload your digital product file</span>
-                <input
-                  type="file"
-                  onChange={handleDigitalFileChange}
-                  className="hidden"
-                />
-              </label>
+              <>
+                <label className="mt-4 flex h-32 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-ink-200 bg-cream-50 transition-colors hover:border-forest-400">
+                  <svg className="h-8 w-8 text-ink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  </svg>
+                  <span className="mt-2 text-sm text-ink-600">Click to upload your digital product file</span>
+                  <input
+                    type="file"
+                    onChange={handleDigitalFileChange}
+                    className="hidden"
+                  />
+                </label>
+                {deliveryUrl && (
+                  <p className="mt-2 text-xs text-forest-700">
+                    Delivery link set — it will be delivered alongside the uploaded file.
+                  </p>
+                )}
+              </>
             )}
           </div>
         </div>

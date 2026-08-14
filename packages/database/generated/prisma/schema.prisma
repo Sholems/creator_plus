@@ -323,6 +323,11 @@ model Product {
   coverImage       String?       @map("cover_image")
   thumbnail        String?
   previewImages    String[]      @map("preview_images")
+  // Optional external link a creator can provide instead of (or alongside) an
+  // uploaded file — e.g. a hosted ZIP, Google Drive/Dropbox link, or a landing
+  // page. Buyers access it after purchase via their downloads; it is never
+  // exposed on public read endpoints.
+  deliveryUrl      String?       @map("delivery_url")
   price            Decimal       @db.Decimal(10, 2)
   compareAtPrice   Decimal?      @map("compare_at_price") @db.Decimal(10, 2)
   currency         String        @default("NGN")
