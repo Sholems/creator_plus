@@ -37,10 +37,26 @@ const CATEGORIES = [
 const PAYMENTS = ['Paystack', 'Flutterwave', 'Stripe', 'Verve', 'Mastercard', 'Visa'];
 
 export default async function HomePage() {
-  const [productsRes, picksRes] = await Promise.all([
+  const [productsRes, picksRes, catsRes] = await Promise.all([
     getJson('/products?perPage=8'),
     getJson('/affiliates/marketplace?sort=best_selling&perPage=8'),
+    getJson('/categories'),
   ]);
+
+  // Category grid is DB-driven (falls back to the curated list if the API is
+  // unreachable). Blurbs come from the curated list when a category has none.
+  const dbCats = (Array.isArray(catsRes) ? catsRes : catsRes?.data ?? []) as any[];
+  const blurbBySlug: Record<string, string> = Object.fromEntries(
+    CATEGORIES.map((c) => [c.slug, c.blurb]),
+  );
+  const categories = (dbCats.length > 0 ? dbCats : CATEGORIES)
+    .slice(0, 14)
+    .map((c: any) => ({
+      name: c.name,
+      slug: c.slug,
+      icon: c.icon || '🏷️',
+      blurb: c.blurb ?? blurbBySlug[c.slug] ?? (c.productCount ? `${c.productCount} products` : ''),
+    }));
 
   const featured: CustomerProduct[] = productsRes?.data ?? [];
   const affiliatePicks: CustomerProduct[] = (picksRes?.products ?? []).map((p: any) => ({
@@ -252,7 +268,7 @@ export default async function HomePage() {
             action={{ href: '/categories', label: 'All categories' }}
           />
           <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
-            {CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <Link
                 key={category.slug}
                 href={`/categories/${category.slug}`}
