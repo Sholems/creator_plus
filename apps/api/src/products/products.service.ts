@@ -235,6 +235,22 @@ export class ProductsService {
               },
             },
           },
+          // Only the owning creator sees their uploaded files (for the edit
+          // form's persistence). Public listings never include them.
+          ...(ownerCanSeeAll
+            ? {
+                files: {
+                  orderBy: { createdAt: 'desc' },
+                  select: {
+                    id: true,
+                    fileName: true,
+                    fileSize: true,
+                    mimeType: true,
+                    createdAt: true,
+                  },
+                },
+              }
+            : {}),
         },
         skip,
         take,

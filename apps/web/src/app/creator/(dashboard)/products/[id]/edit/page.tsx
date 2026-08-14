@@ -28,6 +28,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   const [digitalFile, setDigitalFile] = useState<File | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
   const [deliveryUrl, setDeliveryUrl] = useState('');
+  const [existingFiles, setExistingFiles] = useState<any[]>([]);
   const [originalProduct, setOriginalProduct] = useState<any>(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -43,6 +44,13 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   });
 
   const descriptionPlain = htmlToPlainText(description);
+
+  const formatFileSize = (bytes: any) => {
+    const n = Number(bytes) || 0;
+    if (n >= 1024 * 1024) return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+    if (n >= 1024) return `${(n / 1024).toFixed(1)} KB`;
+    return `${n} B`;
+  };
 
   useEffect(() => {
     loadCategories();
@@ -98,6 +106,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       });
       setDescription(product.description || '');
       setDeliveryUrl(product.deliveryUrl || '');
+      setExistingFiles(product.files || []);
       if (product.deliveryUrl) {
         setDeliveryMode('url');
       }
@@ -509,62 +518,95 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                     {digitalFile.name} is also attached and will be delivered alongside the link.
                   </p>
                 )}
-              </div>
-            ) : digitalFile ? (
-              <div className="mt-4 flex items-center justify-between rounded-xl border border-forest-200 bg-forest-50 p-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-forest-100">
-                    <svg className="h-5 w-5 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-ink-900">{digitalFile.name}</p>
-                    <p className="text-xs text-ink-500">
-                      {digitalFile.size >= 1024 * 1024
-                        ? `${(digitalFile.size / (1024 * 1024)).toFixed(1)} MB`
-                        : `${(digitalFile.size / 1024).toFixed(1)} KB`}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setDigitalFile(null)}
-                  className="rounded-full bg-white p-1.5 shadow-sm hover:bg-cream-100"
-                >
-                  <svg className="h-4 w-4 text-ink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                {existingFiles.length > 0 && (
+                  <p className="mt-2 text-xs text-forest-700">
+                    {existingFiles.length} uploaded file{existingFiles.length > 1 ? 's' : ''} will also be delivered.
+                  </p>
+                )}
               </div>
             ) : (
               <>
-                <label className="mt-4 flex h-32 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-ink-200 bg-cream-50 transition-colors hover:border-forest-400">
-                  <svg className="h-8 w-8 text-ink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                  <span className="mt-2 text-sm text-ink-600">
-                    {deliveryUrl ? 'Replace with an uploaded file (link will also be kept)' : 'Click to upload your digital product file'}
-                  </span>
-                  <input
-                    type="file"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      if (file.size > 500 * 1024 * 1024) {
-                        setError('Digital file must be under 500MB');
-                        return;
-                      }
-                      setError('');
-                      setDigitalFile(file);
-                    }}
-                    className="hidden"
-                  />
-                </label>
+                {digitalFile ? (
+                  <div className="mt-4 flex items-center justify-between rounded-xl border border-forest-200 bg-forest-50 p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-forest-100">
+                        <svg className="h-5 w-5 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-ink-900">{digitalFile.name}</p>
+                        <p className="text-xs text-ink-500">{formatFileSize(digitalFile.size)}</p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setDigitalFile(null)}
+                      className="rounded-full bg-white p-1.5 shadow-sm hover:bg-cream-100"
+                    >
+                      <svg className="h-4 w-4 text-ink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <label className="mt-4 flex h-32 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-ink-200 bg-cream-50 transition-colors hover:border-forest-400">
+                    <svg className="h-8 w-8 text-ink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <span className="mt-2 text-sm text-ink-600">
+                      Click to upload an additional file (existing files are kept)
+                    </span>
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        if (file.size > 500 * 1024 * 1024) {
+                          setError('Digital file must be under 500MB');
+                          return;
+                        }
+                        setError('');
+                        setDigitalFile(file);
+                      }}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+
+                {existingFiles.length > 0 && (
+                  <div className="mt-4">
+                    <p className="text-xs font-semibold text-ink-500">Uploaded files</p>
+                    <p className="mt-0.5 text-xs text-ink-400">
+                      These stay attached to your product and are delivered to buyers.
+                    </p>
+                    <ul className="mt-2 space-y-2">
+                      {existingFiles.map((f) => (
+                        <li
+                          key={f.id}
+                          className="flex items-center gap-3 rounded-xl border border-ink-100 bg-cream-50 px-3 py-2"
+                        >
+                          <svg className="h-4 w-4 shrink-0 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a.75.75 0 01.75.75v.75m0 0h6.75a.75.75 0 01.75.75v.75m-7.5 0v6.75a.75.75 0 00.75.75h6.75a.75.75 0 00.75-.75V9.75a.75.75 0 00-.75-.75m-7.5 0h7.5" />
+                          </svg>
+                          <span className="min-w-0 flex-1 truncate text-sm text-ink-800">{f.fileName}</span>
+                          <span className="shrink-0 text-xs text-ink-400">{formatFileSize(f.fileSize)}</span>
+                          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-forest-100 px-2 py-0.5 text-xs font-medium text-forest-700">
+                            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Uploaded
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {deliveryUrl && (
                   <p className="mt-2 text-xs text-forest-700">
-                    Delivery link set — it will be delivered alongside the uploaded file.
+                    Delivery link set — it will be delivered alongside the uploaded file{existingFiles.length > 0 ? 's' : ''}.
                   </p>
                 )}
               </>
