@@ -46,8 +46,8 @@ export default function PressPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">Press Contact</h2>
           <p className="text-gray-600">
             For press inquiries, interviews, or media requests, contact us at{' '}
-            <a href="mailto:press@creatormarket.com" className="text-blue-600 hover:text-blue-700">
-              press@creatormarket.com
+            <a href="mailto:press@mycreatorplus.com" className="text-blue-600 hover:text-blue-700">
+              press@mycreatorplus.com
             </a>
           </p>
         </section>

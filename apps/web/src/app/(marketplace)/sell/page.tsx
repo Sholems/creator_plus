@@ -313,7 +313,7 @@ export default function SellPage() {
                       Store URL
                     </label>
                     <div className="mt-2 flex overflow-hidden rounded-xl border border-ink-200 bg-white focus-within:border-forest-500 focus-within:ring-2 focus-within:ring-forest-500/20">
-                      <span className="inline-flex items-center border-r border-ink-100 bg-cream-100 px-3.5 font-mono text-xs text-ink-500">
+                      <span className="inline-flex shrink-0 items-center border-r border-ink-100 bg-cream-100 px-3 font-mono text-xs text-ink-500">
                         oja.ng/creator/
                       </span>
                       <input
@@ -322,7 +322,7 @@ export default function SellPage() {
                         required
                         value={slug}
                         onChange={(e) => setSlug(e.target.value)}
-                        className="flex-1 px-3 py-3 font-mono text-sm text-ink-900 placeholder:text-ink-300 focus:outline-none"
+                        className="min-w-0 flex-1 px-3 py-3 font-mono text-sm text-ink-900 placeholder:text-ink-300 focus:outline-none"
                         placeholder="adaeze-designs"
                       />
                     </div>
@@ -430,9 +430,9 @@ export default function SellPage() {
                     <dt className="text-sm font-medium text-ink-500">Store name</dt>
                     <dd className="font-display text-base font-semibold text-ink-900">{storeName}</dd>
                   </div>
-                  <div className="flex items-start justify-between gap-6 border-b border-ink-100 pb-4">
-                    <dt className="text-sm font-medium text-ink-500">Store URL</dt>
-                    <dd className="font-mono text-sm text-forest-700">oja.ng/creator/{slug}</dd>
+                  <div className="flex flex-col gap-1 border-b border-ink-100 pb-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                    <dt className="shrink-0 text-sm font-medium text-ink-500">Store URL</dt>
+                    <dd className="min-w-0 break-all text-right font-mono text-sm text-forest-700">oja.ng/creator/{slug}</dd>
                   </div>
                   <div className="flex items-start justify-between gap-6 border-b border-ink-100 pb-4">
                     <dt className="text-sm font-medium text-ink-500">Bio</dt>

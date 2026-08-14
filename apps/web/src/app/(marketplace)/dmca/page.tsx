@@ -38,7 +38,7 @@ export default function DmcaPage() {
         <section className="rounded-xl border border-gray-200 bg-white p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">DMCA Agent Contact</h2>
           <div className="space-y-2 text-gray-600">
-            <p><strong>Email:</strong> dmca@creatormarket.com</p>
+            <p><strong>Email:</strong> dmca@mycreatorplus.com</p>
             <p><strong>Subject Line:</strong> DMCA Takedown Request</p>
             <p><strong>Response Time:</strong> We aim to respond within 24-48 hours</p>
           </div>

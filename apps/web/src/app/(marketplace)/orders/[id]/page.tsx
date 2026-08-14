@@ -207,8 +207,8 @@ export default function OrderTrackingPage() {
                     </span>
                   )}
                 </span>
-                <div className="flex flex-1 items-baseline justify-between gap-4">
-                  <div>
+                <div className="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                  <div className="min-w-0">
                     <p className={cn(
                       'text-sm font-semibold',
                       state === 'future' ? 'text-ink-400' : 'text-ink-900',
@@ -277,9 +277,9 @@ export default function OrderTrackingPage() {
               <dt className="text-ink-400">Amount</dt>
               <dd className="text-ink-900">{formatNaira(order.payment.amount)}</dd>
             </div>
-            <div className="flex justify-between">
-              <dt className="text-ink-400">Reference</dt>
-              <dd className="font-mono text-xs text-ink-900">
+            <div className="flex items-start justify-between gap-4">
+              <dt className="shrink-0 text-ink-400">Reference</dt>
+              <dd className="min-w-0 break-all text-right font-mono text-xs text-ink-900">
                 {order.payment.providerPaymentId || order.payment.stripePaymentIntentId || '—'}
               </dd>
             </div>

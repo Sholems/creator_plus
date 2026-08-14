@@ -105,10 +105,10 @@ export function ProductsClient({
 
       {/* Category chips */}
       <div className="mt-8 flex flex-wrap gap-2">
-        <button
-          onClick={() => selectCategory('')}
-          className={cn(
-            'rounded-full border px-4 py-1.5 text-sm font-medium transition-colors',
+          <button
+            onClick={() => selectCategory('')}
+            className={cn(
+              'rounded-full border px-4 py-2 text-sm font-medium transition-colors',
             !filters.categoryId
               ? 'border-forest-800 bg-forest-800 text-cream-50'
               : 'border-ink-100 bg-white text-ink-600 hover:border-forest-300',
@@ -121,7 +121,7 @@ export function ProductsClient({
             key={cat.id}
             onClick={() => selectCategory(cat.id)}
             className={cn(
-              'rounded-full border px-4 py-1.5 text-sm font-medium transition-colors',
+              'rounded-full border px-4 py-2 text-sm font-medium transition-colors',
               filters.categoryId === cat.id
                 ? 'border-forest-800 bg-forest-800 text-cream-50'
                 : 'border-ink-100 bg-white text-ink-600 hover:border-forest-300',
@@ -135,7 +135,7 @@ export function ProductsClient({
       <div className="mt-6 flex flex-col gap-8 lg:flex-row">
         {/* Filters Sidebar */}
         <aside className="w-full lg:w-64 flex-shrink-0">
-          <div className="sticky top-24 space-y-6 rounded-2xl border border-ink-100 bg-white p-5">
+          <div className="space-y-6 rounded-2xl border border-ink-100 bg-white p-5 lg:sticky lg:top-24">
             <form onSubmit={handleSearch}>
               <label className="eyebrow text-ink-400">Search</label>
               <div className="mt-2 flex gap-2">
@@ -268,7 +268,7 @@ export function ProductsClient({
 
           {pagination.totalPages > 1 && (
             <div className="mt-10 flex items-center justify-center">
-              <nav className="flex items-center gap-2">
+              <nav className="flex flex-wrap items-center justify-center gap-2">
                 <button
                   onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
                   disabled={pagination.page === 1}
@@ -283,7 +283,7 @@ export function ProductsClient({
                       key={page}
                       onClick={() => setPagination({ ...pagination, page })}
                       className={cn(
-                        'h-9 w-9 rounded-full text-sm font-medium transition-colors',
+                        'h-10 w-10 rounded-full text-sm font-medium transition-colors',
                         pagination.page === page
                           ? 'bg-forest-800 text-cream-50'
                           : 'border border-ink-100 bg-white text-ink-700 hover:bg-cream-100',

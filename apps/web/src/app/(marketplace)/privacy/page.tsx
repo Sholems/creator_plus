@@ -108,7 +108,7 @@ export default function PrivacyPage() {
           <p className="text-gray-600 leading-relaxed">
             Privacy questions? Contact us at{' '}
             <Link href="/contact" className="text-blue-600 hover:text-blue-700">
-              privacy@creatormarket.com
+              privacy@mycreatorplus.com
             </Link>
           </p>
         </section>

@@ -215,7 +215,7 @@ export default function RegisterPage() {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute inset-y-0 right-3 my-auto flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 transition hover:text-ink-600"
+                  className="absolute inset-y-0 right-3 my-auto flex h-10 w-10 items-center justify-center rounded-lg text-ink-400 transition hover:text-ink-600"
                 >
                   {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
                 </button>
@@ -258,7 +258,7 @@ export default function RegisterPage() {
                   type="button"
                   onClick={() => setShowConfirm((v) => !v)}
                   aria-label={showConfirm ? 'Hide password' : 'Show password'}
-                  className="absolute inset-y-0 right-3 my-auto flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 transition hover:text-ink-600"
+                  className="absolute inset-y-0 right-3 my-auto flex h-10 w-10 items-center justify-center rounded-lg text-ink-400 transition hover:text-ink-600"
                 >
                   {showConfirm ? <EyeSlashIcon /> : <EyeIcon />}
                 </button>
@@ -316,9 +316,9 @@ export default function RegisterPage() {
                     className={inputClass}
                     placeholder="e.g. Ada&apos;s Design Studio"
                   />
-                  <p className="mt-1.5 flex items-center gap-1.5 text-xs">
+                  <p className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
                     <span className="eyebrow text-[#7d520c]">Your store link</span>
-                    <span className="font-mono text-[13px] text-forest-700">/creator/{previewSlug}</span>
+                    <span className="min-w-0 break-all font-mono text-[13px] text-forest-700">/creator/{previewSlug}</span>
                   </p>
                   <p className="mt-1 text-xs text-ink-500">
                     Leave blank to use your name. You can change this later in Store Settings.

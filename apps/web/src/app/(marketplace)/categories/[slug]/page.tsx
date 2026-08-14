@@ -22,6 +22,27 @@ const categoryMeta: Record<string, { icon: string; name: string; description: st
   church: { icon: '⛪', name: 'Church', description: 'Sermon packs, Bible study resources' },
 };
 
+function buildPageNumbers(current: number, total: number): (number | 'ellipsis')[] {
+  const pages = new Set<number>();
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) pages.add(i);
+  } else {
+    pages.add(1);
+    pages.add(total);
+    pages.add(current);
+    for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) pages.add(i);
+  }
+  const sorted = [...pages].sort((a, b) => a - b);
+  const result: (number | 'ellipsis')[] = [];
+  let prev = 0;
+  for (const p of sorted) {
+    if (p - prev > 1) result.push('ellipsis');
+    result.push(p);
+    prev = p;
+  }
+  return result;
+}
+
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const [products, setProducts] = useState<any[]>([]);
@@ -152,20 +173,38 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="mt-8 flex items-center justify-center gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setPage(p)}
-                  className={`h-9 w-9 rounded-lg text-sm font-medium ${
-                    p === page
-                      ? 'bg-blue-600 text-white'
-                      : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {p}
-                </button>
-              ))}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+              <button
+                onClick={() => setPage(Math.max(1, page - 1))}
+                disabled={page === 1}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-40"
+              >
+                ← Prev
+              </button>
+              {buildPageNumbers(page, totalPages).map((p, idx) =>
+                p === 'ellipsis' ? (
+                  <span key={`e${idx}`} className="px-1 text-sm text-gray-400">…</span>
+                ) : (
+                  <button
+                    key={p}
+                    onClick={() => setPage(p as number)}
+                    className={`h-10 w-10 rounded-lg text-sm font-medium ${
+                      p === page
+                        ? 'bg-blue-600 text-white'
+                        : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ),
+              )}
+              <button
+                onClick={() => setPage(Math.min(totalPages, page + 1))}
+                disabled={page === totalPages}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-40"
+              >
+                Next →
+              </button>
             </div>
           )}
         </>

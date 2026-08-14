@@ -84,7 +84,7 @@ export default async function HomePage() {
               </p>
               <h1 className="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]">
                 Buy &amp; Sell{' '}
-                <span className="relative whitespace-nowrap">
+                <span className="relative whitespace-normal sm:whitespace-nowrap">
                   <span className="bg-gradient-to-r from-gold-300 to-gold-400 bg-clip-text text-transparent">
                     Digital Products
                   </span>
@@ -163,12 +163,12 @@ export default async function HomePage() {
                         )}
                         <Link
                           href={`/products/${stallItems[0].slug}`}
-                          className="group relative flex items-center gap-4 rounded-xl border border-ink-100 bg-white p-3 shadow-[0_8px_24px_rgba(22,33,27,0.12)] transition-transform hover:-translate-y-0.5"
+                          className="group relative flex items-center gap-3 rounded-xl border border-ink-100 bg-white p-3 shadow-[0_8px_24px_rgba(22,33,27,0.12)] transition-transform hover:-translate-y-0.5 sm:gap-4"
                         >
                           <img
                             src={stallItems[0].thumbnail || ''}
                             alt={stallItems[0].title}
-                            className="h-24 w-24 shrink-0 rounded-lg object-cover"
+                            className="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
                           />
                           <div className="min-w-0 flex-1">
                             <p className="eyebrow text-gold-600">

@@ -180,7 +180,7 @@ export default function EarnPage() {
                 WhatsApp community, the products you already love can start paying
                 you back.
               </p>
-              <div className="mt-6 grid grid-cols-3 gap-4">
+              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {[
                   { v: `${maxRate}%`, l: 'top rate' },
                   { v: `${stats?.settings.cookieDays ?? 30}`, l: 'cookie days' },

@@ -47,7 +47,7 @@ export default function CareersPage() {
                 <p className="text-sm text-gray-500">{pos.department} · {pos.location} · {pos.type}</p>
               </div>
               <a
-                href="mailto:careers@creatormarket.com"
+                href="mailto:careers@mycreatorplus.com"
                 className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Apply
@@ -57,8 +57,8 @@ export default function CareersPage() {
         </div>
         <p className="mt-6 text-center text-sm text-gray-500">
           Don&apos;t see a role that fits? Send your resume to{' '}
-          <a href="mailto:careers@creatormarket.com" className="text-blue-600 hover:text-blue-700">
-            careers@creatormarket.com
+          <a href="mailto:careers@mycreatorplus.com" className="text-blue-600 hover:text-blue-700">
+            careers@mycreatorplus.com
           </a>
         </p>
       </section>

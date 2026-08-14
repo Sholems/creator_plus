@@ -16,7 +16,7 @@ export default function ApiDocsPage() {
           Our API provides programmatic access to CreatorPlus data and functionality. Build custom integrations, automate workflows, or create your own buyer/creator tools.
         </p>
         <div className="rounded-lg bg-gray-900 p-4 font-mono text-sm text-green-400">
-          Base URL: https://api.creatormarket.com/v1
+          Base URL: https://api.mycreatorplus.com/v1
         </div>
       </div>
 

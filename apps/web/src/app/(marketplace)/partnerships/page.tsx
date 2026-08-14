@@ -51,7 +51,7 @@ export default function PartnershipsPage() {
             Let&apos;s discuss how we can create value together.
           </p>
           <a
-            href="mailto:partnerships@creatormarket.com"
+            href="mailto:partnerships@mycreatorplus.com"
             className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-100"
           >
             Contact Us

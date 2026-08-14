@@ -114,7 +114,7 @@ export default function TermsPage() {
           <p className="text-gray-600 leading-relaxed">
             Questions about these Terms? Contact us at{' '}
             <Link href="/contact" className="text-blue-600 hover:text-blue-700">
-              support@creatormarket.com
+              support@mycreatorplus.com
             </Link>
           </p>
         </section>

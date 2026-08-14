@@ -51,7 +51,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-medium text-gray-900">Email</h3>
-                <p className="text-sm text-gray-600">support@creatormarket.com</p>
+                <p className="text-sm text-gray-600">support@mycreatorplus.com</p>
                 <p className="text-sm text-gray-500">We typically respond within 24 hours</p>
               </div>
             </div>

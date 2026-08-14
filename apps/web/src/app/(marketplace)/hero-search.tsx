@@ -29,11 +29,11 @@ export function HeroSearch() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search the market — prompts, templates, courses…"
-          className="w-full bg-transparent py-2 text-sm text-cream-50 placeholder:text-cream-100/50 focus:outline-none"
+          className="w-full bg-transparent py-2.5 text-sm text-cream-50 placeholder:text-cream-100/50 focus:outline-none"
         />
         <button
           type="submit"
-          className="shrink-0 rounded-full bg-gold-400 px-5 py-2 text-sm font-semibold text-forest-950 transition-colors hover:bg-gold-300"
+          className="shrink-0 rounded-full bg-gold-400 px-5 py-2.5 text-sm font-semibold text-forest-950 transition-colors hover:bg-gold-300"
         >
           Search
         </button>

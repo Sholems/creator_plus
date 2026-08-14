@@ -32,7 +32,7 @@ const faqCategories = [
     questions: [
       { q: 'How do I reset my password?', a: 'Click "Forgot Password" on the login page. You\'ll receive an email with a reset link valid for 1 hour.' },
       { q: 'Is my data secure?', a: 'Yes. We use industry-standard encryption, never store payment card details (handled by our payment providers), and implement strict access controls. See our Privacy Policy for details.' },
-      { q: 'How do I delete my account?', a: 'Contact support at support@creatormarket.com to request account deletion. Your data will be removed within 30 days.' },
+      { q: 'How do I delete my account?', a: 'Contact support at support@mycreatorplus.com to request account deletion. Your data will be removed within 30 days.' },
     ],
   },
 ];
