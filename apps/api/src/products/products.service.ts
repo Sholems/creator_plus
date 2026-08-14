@@ -729,4 +729,45 @@ export class ProductsService {
       }),
     );
   }
+
+  async deleteFile(productId: string, fileId: string, creatorId: string) {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: { creator: { select: { userId: true } } },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    if (product.creator.userId !== creatorId) {
+      throw new ForbiddenException('Not authorized to delete files for this product');
+    }
+
+    const productFile = await prisma.productFile.findUnique({
+      where: { id: fileId },
+    });
+
+    if (!productFile || productFile.productId !== productId) {
+      throw new NotFoundException('File not found');
+    }
+
+    try {
+      await this.storageService.deleteFile(productFile.fileKey);
+    } catch {
+      // Best-effort: the DB row is the source of truth for delivery. If the
+      // storage provider is unavailable we still drop the record so the
+      // creator is never stuck with a file they cannot remove.
+    }
+
+    await prisma.$transaction([
+      prisma.productFile.delete({ where: { id: fileId } }),
+      prisma.product.update({
+        where: { id: productId },
+        data: { fileSize: { decrement: productFile.fileSize } },
+      }),
+    ]);
+
+    return { ok: true };
+  }
 }

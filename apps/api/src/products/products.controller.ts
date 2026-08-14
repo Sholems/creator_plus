@@ -119,4 +119,17 @@ export class ProductsController {
   async getFiles(@Param('id') id: string) {
     return this.productsService.getFiles(id);
   }
+
+  @Delete(':id/files/:fileId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Delete a file from a product' })
+  @ApiResponse({ status: 200, description: 'File deleted' })
+  async deleteFile(
+    @Request() req,
+    @Param('id') id: string,
+    @Param('fileId') fileId: string,
+  ) {
+    return this.productsService.deleteFile(id, fileId, req.user.sub);
+  }
 }

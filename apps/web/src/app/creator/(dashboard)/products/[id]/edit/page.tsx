@@ -29,6 +29,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
   const [deliveryUrl, setDeliveryUrl] = useState('');
   const [existingFiles, setExistingFiles] = useState<any[]>([]);
+  const [busyFileId, setBusyFileId] = useState<string | null>(null);
+  const [confirmDeleteFileId, setConfirmDeleteFileId] = useState<string | null>(null);
   const [originalProduct, setOriginalProduct] = useState<any>(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -224,6 +226,104 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       reader.readAsDataURL(file);
     }
   };
+
+  const handleRemoveFile = async (fileId: string) => {
+    if (!token) return;
+    setBusyFileId(fileId);
+    setError('');
+    try {
+      await api.deleteProductFile(token, productId, fileId);
+      setExistingFiles((files) => files.filter((f) => f.id !== fileId));
+    } catch (err: any) {
+      setError(err.message || 'Failed to remove file');
+    } finally {
+      setBusyFileId(null);
+      setConfirmDeleteFileId(null);
+    }
+  };
+
+  const handleReplaceFile = async (fileId: string, file: File) => {
+    if (!token) return;
+    if (file.size > 500 * 1024 * 1024) {
+      setError('Digital file must be under 500MB');
+      return;
+    }
+    setBusyFileId(fileId);
+    setError('');
+    try {
+      const created = await api.uploadProductFile(token, productId, file);
+      await api.deleteProductFile(token, productId, fileId);
+      setExistingFiles((files) => [
+        ...files.filter((f) => f.id !== fileId),
+        { id: created.id, fileName: file.name, fileSize: created.fileSize, mimeType: file.type },
+      ]);
+    } catch (err: any) {
+      setError(err.message || 'Failed to replace file');
+    } finally {
+      setBusyFileId(null);
+    }
+  };
+
+  const uploadedFilesList =
+    existingFiles.length > 0 ? (
+      <div className="mt-4">
+        <p className="text-xs font-semibold text-ink-500">Uploaded files</p>
+        <p className="mt-0.5 text-xs text-ink-400">
+          These stay attached to your product and are delivered to buyers.
+        </p>
+        <ul className="mt-2 space-y-2">
+          {existingFiles.map((f) => (
+            <li
+              key={f.id}
+              className="flex items-center gap-3 rounded-xl border border-ink-100 bg-cream-50 px-3 py-2"
+            >
+              <svg className="h-4 w-4 shrink-0 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a.75.75 0 01.75.75v.75m0 0h6.75a.75.75 0 01.75.75v.75m-7.5 0v6.75a.75.75 0 00.75.75h6.75a.75.75 0 00.75-.75V9.75a.75.75 0 00-.75-.75m-7.5 0h7.5" />
+              </svg>
+              <span className="min-w-0 flex-1 truncate text-sm text-ink-800">{f.fileName}</span>
+              <span className="shrink-0 text-xs text-ink-400">{formatFileSize(f.fileSize)}</span>
+              {busyFileId === f.id ? (
+                <span className="inline-flex shrink-0 items-center gap-1 text-xs text-ink-500">
+                  Working…
+                </span>
+              ) : (
+                <span className="flex shrink-0 items-center gap-1.5">
+                  <label className="cursor-pointer rounded-full border border-ink-200 bg-white px-2.5 py-1 text-xs font-medium text-ink-600 transition hover:bg-cream-100">
+                    Replace
+                    <input
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        e.target.value = '';
+                        if (file) handleReplaceFile(f.id, file);
+                      }}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (confirmDeleteFileId === f.id) {
+                        handleRemoveFile(f.id);
+                      } else {
+                        setConfirmDeleteFileId(f.id);
+                      }
+                    }}
+                    className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${
+                      confirmDeleteFileId === f.id
+                        ? 'border-clay-300 bg-clay-600 text-white hover:bg-clay-700'
+                        : 'border-ink-200 bg-white text-clay-700 hover:bg-clay-50'
+                    }`}
+                  >
+                    {confirmDeleteFileId === f.id ? 'Confirm?' : 'Remove'}
+                  </button>
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : null;
 
   if (isFetching) {
     return (
@@ -518,11 +618,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                     {digitalFile.name} is also attached and will be delivered alongside the link.
                   </p>
                 )}
-                {existingFiles.length > 0 && (
-                  <p className="mt-2 text-xs text-forest-700">
-                    {existingFiles.length} uploaded file{existingFiles.length > 1 ? 's' : ''} will also be delivered.
-                  </p>
-                )}
+
+                {uploadedFilesList}
               </div>
             ) : (
               <>
@@ -575,34 +672,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                   </label>
                 )}
 
-                {existingFiles.length > 0 && (
-                  <div className="mt-4">
-                    <p className="text-xs font-semibold text-ink-500">Uploaded files</p>
-                    <p className="mt-0.5 text-xs text-ink-400">
-                      These stay attached to your product and are delivered to buyers.
-                    </p>
-                    <ul className="mt-2 space-y-2">
-                      {existingFiles.map((f) => (
-                        <li
-                          key={f.id}
-                          className="flex items-center gap-3 rounded-xl border border-ink-100 bg-cream-50 px-3 py-2"
-                        >
-                          <svg className="h-4 w-4 shrink-0 text-forest-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a.75.75 0 01.75.75v.75m0 0h6.75a.75.75 0 01.75.75v.75m-7.5 0v6.75a.75.75 0 00.75.75h6.75a.75.75 0 00.75-.75V9.75a.75.75 0 00-.75-.75m-7.5 0h7.5" />
-                          </svg>
-                          <span className="min-w-0 flex-1 truncate text-sm text-ink-800">{f.fileName}</span>
-                          <span className="shrink-0 text-xs text-ink-400">{formatFileSize(f.fileSize)}</span>
-                          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-forest-100 px-2 py-0.5 text-xs font-medium text-forest-700">
-                            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                            </svg>
-                            Uploaded
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {uploadedFilesList}
 
                 {deliveryUrl && (
                   <p className="mt-2 text-xs text-forest-700">
