@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { AdinkraMark, AdinkraField } from '@/components/brand/adinkra';
@@ -26,6 +27,7 @@ const SOCIAL_FIELDS = [
 
 export default function SellPage() {
   const { token, register, refresh } = useAuth();
+  const router = useRouter();
 
   const [step, setStep] = useState(0);
   const [hasProfile, setHasProfile] = useState(false);
@@ -84,26 +86,17 @@ export default function SellPage() {
     }
     (async () => {
       try {
-        const profile = await api.getCreatorProfile(token);
-        setHasProfile(true);
-        setStoreName(profile.storeName || '');
-        setSlug(profile.slug || '');
-        setBio(profile.bio || '');
-        setAvatar(profile.avatar || '');
-        setBanner(profile.banner || '');
-        setSocials({
-          x: profile.socialLinks?.x || '',
-          instagram: profile.socialLinks?.instagram || '',
-          tiktok: profile.socialLinks?.tiktok || '',
-          youtube: profile.socialLinks?.youtube || '',
-        });
+        // Already a creator? The wizard is for first-time onboarding only.
+        // Send existing sellers to Creator Studio → Store Settings to manage
+        // their store, rather than re-running setup here.
+        await api.getCreatorProfile(token);
+        router.replace('/creator/store');
       } catch {
         setHasProfile(false);
-      } finally {
         setIsLoading(false);
       }
     })();
-  }, [token]);
+  }, [token, router]);
 
   const slugValid = SLUG_RE.test(slug);
   const storeValid = storeName.trim().length >= 3 && slugValid;
