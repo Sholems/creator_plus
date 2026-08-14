@@ -40,7 +40,6 @@ export function CustomerProductCard({
   const router = useRouter();
   const { token } = useAuth();
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [isBusy, setIsBusy] = useState(false);
 
   const price = Number(product.price);
   const compareAt = product.compareAtPrice ? Number(product.compareAtPrice) : 0;
@@ -67,16 +66,8 @@ export function CustomerProductCard({
     }
   };
 
-  const buyNow = async () => {
-    if (!token) return requireLogin();
-    if (isBusy) return;
-    setIsBusy(true);
-    try {
-      const order = await api.createOrder(token, [{ productId: product.id, quantity: 1 }]);
-      router.push(`/checkout?orderId=${order.id}`);
-    } catch {
-      setIsBusy(false);
-    }
+  const viewDetails = () => {
+    router.push(`/products/${product.slug}`);
   };
 
   return (
@@ -177,11 +168,10 @@ export function CustomerProductCard({
 
         <button
           type="button"
-          onClick={buyNow}
-          disabled={isBusy}
-          className="mt-3 w-full rounded-full bg-forest-800 px-4 py-2.5 text-sm font-semibold text-cream-50 transition-colors hover:bg-forest-700 disabled:opacity-50"
+          onClick={viewDetails}
+          className="mt-3 w-full rounded-full bg-forest-800 px-4 py-2.5 text-sm font-semibold text-cream-50 transition-colors hover:bg-forest-700"
         >
-          {isBusy ? 'Processing…' : 'Buy Now'}
+          View Details
         </button>
       </div>
     </div>

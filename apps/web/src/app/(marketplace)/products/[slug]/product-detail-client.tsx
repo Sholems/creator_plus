@@ -40,6 +40,7 @@ export function ProductDetailClient({
   const [reviewMessage, setReviewMessage] = useState('');
   const [helpfulIds, setHelpfulIds] = useState<string[]>([]);
   const [isAffiliateActive, setIsAffiliateActive] = useState(false);
+  const [shareMessage, setShareMessage] = useState('');
 
   // Content arrives server-rendered via props (SSR/SEO). On mount in the
   // browser, refresh it and register the view — this plain GET increments
@@ -93,6 +94,27 @@ export function ProductDetailClient({
       setError(err.message);
     } finally {
       setIsAddingToCart(false);
+    }
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const title = product.title;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, text: `${title} on CreatorPlus`, url });
+        return;
+      }
+      throw new Error('unavailable');
+    } catch (err: any) {
+      if (err?.name === 'AbortError') return;
+      try {
+        await navigator.clipboard.writeText(url);
+        setShareMessage('Link copied to clipboard!');
+        setTimeout(() => setShareMessage(''), 3000);
+      } catch {
+        setShareMessage('');
+      }
     }
   };
 
@@ -458,6 +480,20 @@ export function ProductDetailClient({
               </svg>
               {isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
             </button>
+
+            <button
+              onClick={handleShare}
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-ink-100 bg-white px-4 py-3 text-sm font-semibold text-ink-700 transition-colors hover:bg-cream-100"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              Share
+            </button>
+            {shareMessage && (
+              <p className="mt-2 text-center text-sm font-medium text-forest-700">{shareMessage}</p>
+            )}
 
             {product.creator?.storeName && (
               <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50/60 p-4">
