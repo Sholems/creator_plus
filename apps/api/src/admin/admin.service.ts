@@ -712,6 +712,17 @@ export class AdminService {
     return updated;
   }
 
+  /** Feature/unfeature a product so it appears in the curated homepage sections. */
+  async setProductFeatured(id: string, featured: boolean) {
+    const product = await prisma.product.findUnique({ where: { id } });
+    if (!product) throw new NotFoundException('Product not found');
+
+    return prisma.product.update({
+      where: { id },
+      data: { isFeatured: featured },
+    });
+  }
+
   async getRefunds(page = 1, perPage = 20, status?: string) {
     return this.refundsService.findAll(page, perPage, status);
   }

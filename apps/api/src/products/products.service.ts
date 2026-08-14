@@ -165,6 +165,7 @@ export class ProductsService {
     categoryId?: string;
     creatorId?: string;
     status?: ProductStatus;
+    isFeatured?: boolean;
     page?: number;
     perPage?: number;
     viewerUserId?: string;
@@ -179,6 +180,10 @@ export class ProductsService {
 
     if (filters?.creatorId) {
       where.creatorId = filters.creatorId;
+    }
+
+    if (filters?.isFeatured) {
+      where.isFeatured = true;
     }
 
     // Non-published listings (DRAFT/PENDING/REJECTED/ARCHIVED) are private:

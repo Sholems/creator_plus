@@ -94,6 +94,12 @@ export const api = {
       body: { status },
       token,
     }),
+  setProductFeatured: (token: string, id: string, featured: boolean) =>
+    request<any>(`/admin/products/${id}/feature`, {
+      method: 'POST',
+      body: { featured },
+      token,
+    }),
   reindexSearch: (token: string) =>
     request<{ indexed: number }>('/admin/search/reindex', { method: 'POST', token }),
   getOrders: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>

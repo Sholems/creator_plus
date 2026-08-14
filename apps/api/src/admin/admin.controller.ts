@@ -161,6 +161,12 @@ export class AdminController {
     return this.adminService.setProductStatus(id, status);
   }
 
+  @Post('products/:id/feature')
+  @ApiOperation({ summary: 'Feature/unfeature a product on the homepage' })
+  setProductFeatured(@Param('id') id: string, @Body('featured') featured: boolean) {
+    return this.adminService.setProductFeatured(id, featured);
+  }
+
   @Post('reviews/:id/hide')
   @ApiOperation({ summary: 'Hide a reported review' })
   hideReview(@Param('id') id: string) {

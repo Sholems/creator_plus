@@ -35,12 +35,45 @@ const CATEGORIES = [
   { name: 'Church', slug: 'church', icon: '⛪', blurb: 'Sermons, slides, worship' },
 ];
 
-const PAYMENTS = ['Paystack', 'Flutterwave', 'Stripe', 'Verve', 'Mastercard', 'Visa'];
+function StallRow({ product }: { product: CustomerProduct }) {
+  return (
+    <Link
+      href={`/products/${product.slug}`}
+      className="group flex items-center gap-3 rounded-xl border border-ink-100 bg-white p-3 shadow-[0_8px_24px_rgba(22,33,27,0.12)] transition-transform hover:-translate-y-0.5 sm:gap-4"
+    >
+      <img
+        src={product.thumbnail || ''}
+        alt={product.title}
+        className="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
+      />
+      <div className="min-w-0 flex-1">
+        <p className="eyebrow text-gold-600">
+          {product.category?.name || 'Digital product'}
+        </p>
+        <p className="mt-1 line-clamp-1 font-display text-lg font-semibold text-ink-900 group-hover:text-forest-700">
+          {product.title}
+        </p>
+        <p className="mt-1 text-xs text-ink-500">
+          {product.creator?.storeName}
+          {product.creator?.verified && (
+            <span className="ml-1 text-gold-500" title="Verified creator">✓</span>
+          )}
+        </p>
+        <p className="price-tag mt-2 text-lg font-bold text-forest-900">
+          {formatNaira(product.price)}
+        </p>
+      </div>
+    </Link>
+  );
+}
 
 export default async function HomePage() {
-  const [productsRes, picksRes, catsRes] = await Promise.all([
+  const [featuredRes, recentRes, catsRes] = await Promise.all([
+    // Admin-curated featured products drive the hero stall card, the featured
+    // section and the affiliate picks. Fall back to recent published products
+    // until an admin features something, so the homepage never looks empty.
+    getJson('/products?featured=true&perPage=8'),
     getJson('/products?perPage=8'),
-    getJson('/affiliates/marketplace?sort=best_selling&perPage=8'),
     getJson('/categories'),
   ]);
 
@@ -59,20 +92,8 @@ export default async function HomePage() {
       blurb: c.blurb ?? blurbBySlug[c.slug] ?? (c.productCount ? `${c.productCount} products` : ''),
     }));
 
-  const featured: CustomerProduct[] = productsRes?.data ?? [];
-  const affiliatePicks: CustomerProduct[] = (picksRes?.products ?? []).map((p: any) => ({
-    id: p.id,
-    title: p.title,
-    slug: p.slug,
-    price: p.price,
-    thumbnail: p.thumbnail,
-    averageRating: p.averageRating,
-    reviewCount: p.reviewCount,
-    salesCount: p.salesCount,
-    category: p.category,
-    creator: p.creator,
-  }));
-
+  const featured: CustomerProduct[] =
+    (featuredRes?.data?.length ? featuredRes.data : recentRes?.data) ?? [];
   const stallItems = featured.slice(0, 2);
   const tickerItems = featured.slice(0, 8).map((p) => ({
     title: p.title,
@@ -119,8 +140,7 @@ export default async function HomePage() {
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-cream-100/80">
                 CreatorPlus is the marketplace where creators sell digital products —
                 website templates, online courses, AI prompts, design assets and tools —
-                and buyers download them instantly. Built for Africa, paid in naira with
-                Paystack.
+                and buyers download them instantly.
               </p>
 
               {/* Search the market */}
@@ -153,59 +173,12 @@ export default async function HomePage() {
                     </span>
                   </div>
 
-                  <div className="mt-5">
+                  <div className="mt-5 space-y-3">
                     {stallItems[0] ? (
-                      <div className="relative">
-                        {stallItems[1] && (
-                          <Link
-                            href={`/products/${stallItems[1].slug}`}
-                            className="absolute inset-x-0 -top-3 hidden -rotate-2 items-center gap-3 rounded-xl border border-ink-100 bg-white p-3 opacity-80 shadow-sm transition hover:rotate-0 hover:opacity-100 sm:flex"
-                            tabIndex={-1}
-                            aria-hidden="true"
-                          >
-                            <img
-                              src={stallItems[1].thumbnail || ''}
-                              alt=""
-                              className="h-16 w-16 rounded-lg object-cover"
-                            />
-                            <div className="min-w-0">
-                              <p className="truncate font-display text-sm font-semibold text-ink-900">
-                                {stallItems[1].title}
-                              </p>
-                              <p className="price-tag text-sm font-bold text-forest-800">
-                                {formatNaira(stallItems[1].price)}
-                              </p>
-                            </div>
-                          </Link>
-                        )}
-                        <Link
-                          href={`/products/${stallItems[0].slug}`}
-                          className="group relative flex items-center gap-3 rounded-xl border border-ink-100 bg-white p-3 shadow-[0_8px_24px_rgba(22,33,27,0.12)] transition-transform hover:-translate-y-0.5 sm:gap-4"
-                        >
-                          <img
-                            src={stallItems[0].thumbnail || ''}
-                            alt={stallItems[0].title}
-                            className="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
-                          />
-                          <div className="min-w-0 flex-1">
-                            <p className="eyebrow text-gold-600">
-                              {stallItems[0].category?.name || 'Digital product'}
-                            </p>
-                            <p className="mt-1 line-clamp-1 font-display text-lg font-semibold text-ink-900 group-hover:text-forest-700">
-                              {stallItems[0].title}
-                            </p>
-                            <p className="mt-1 text-xs text-ink-500">
-                              {stallItems[0].creator?.storeName}
-                              {stallItems[0].creator?.verified && (
-                                <span className="ml-1 text-gold-500" title="Verified creator">✓</span>
-                              )}
-                            </p>
-                            <p className="price-tag mt-2 text-lg font-bold text-forest-900">
-                              {formatNaira(stallItems[0].price)}
-                            </p>
-                          </div>
-                        </Link>
-                      </div>
+                      <>
+                        <StallRow product={stallItems[0]} />
+                        {stallItems[1] && <StallRow product={stallItems[1]} />}
+                      </>
                     ) : (
                       <p className="rounded-xl border border-dashed border-ink-200 py-10 text-center text-sm text-ink-400">
                         The first stalls open soon.
@@ -245,18 +218,6 @@ export default async function HomePage() {
             </div>
           </div>
         )}
-      </section>
-
-      {/* ================= PAYMENT STRIP ================= */}
-      <section className="border-b border-ink-100 bg-cream-50 py-5">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 sm:px-6 lg:px-8">
-          <span className="eyebrow text-ink-400">Pay and get paid with</span>
-          {PAYMENTS.map((p) => (
-            <span key={p} className="font-mono text-sm font-semibold tracking-tight text-ink-500">
-              {p}
-            </span>
-          ))}
-        </div>
       </section>
 
       {/* ================= CATEGORIES ================= */}
@@ -319,11 +280,11 @@ export default async function HomePage() {
             action={{ href: '/earn', label: 'Learn to earn' }}
           />
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {affiliatePicks.slice(0, 4).map((product) => (
+            {featured.slice(0, 4).map((product) => (
               <CustomerProductCard key={product.id} product={product} />
             ))}
           </div>
-          {affiliatePicks.length > 0 && (
+          {featured.length > 0 && (
             <p className="mt-8 text-center text-sm text-cream-100/60">
               <Link href="/earn" className="inline-flex items-center gap-1.5 font-semibold text-gold-300 hover:text-gold-200">
                 Become an affiliate and earn on every sale

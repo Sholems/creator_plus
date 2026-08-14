@@ -24,6 +24,7 @@ export class ProductsController {
   @ApiQuery({ name: 'categoryId', required: false })
   @ApiQuery({ name: 'creatorId', required: false })
   @ApiQuery({ name: 'status', required: false })
+  @ApiQuery({ name: 'featured', required: false, description: 'Only admin-featured products' })
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'perPage', required: false })
   @ApiResponse({ status: 200, description: 'Products returned' })
@@ -32,6 +33,7 @@ export class ProductsController {
     @Query('categoryId') categoryId?: string,
     @Query('creatorId') creatorId?: string,
     @Query('status') status?: string,
+    @Query('featured') featured?: string,
     @Query('page') page?: number,
     @Query('perPage') perPage?: number,
   ) {
@@ -39,6 +41,7 @@ export class ProductsController {
       categoryId,
       creatorId,
       status: status as any,
+      isFeatured: featured === 'true' ? true : undefined,
       page: page ? parseInt(page as any) : undefined,
       perPage: perPage ? parseInt(perPage as any) : undefined,
       viewerUserId: req.user?.sub,

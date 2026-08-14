@@ -254,6 +254,14 @@ export class SearchService implements OnModuleInit {
         offset: (page - 1) * perPage,
       });
 
+      // A successful-but-empty result usually means the index has drifted from
+      // the database (e.g. products were published while Meilisearch was down
+      // and the boot-time reindex had not run yet). Fall back to the database
+      // so an empty/out-of-sync index can never blank out the marketplace.
+      if (result.hits.length === 0) {
+        return this.searchFromDb(filters, page, perPage);
+      }
+
       return {
         data: result.hits,
         pagination: {

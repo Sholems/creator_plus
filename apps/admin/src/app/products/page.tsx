@@ -91,6 +91,22 @@ export default function AdminProductsPage() {
     }
   };
 
+  const handleToggleFeatured = async (id: string, current: boolean) => {
+    if (!token) return;
+    setBusyId(id);
+    try {
+      await api.setProductFeatured(token, id, !current);
+      setProducts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, isFeatured: !current } : p)),
+      );
+      toast(current ? 'Product removed from homepage' : 'Product featured on homepage');
+    } catch (e: any) {
+      toast(e.message || 'Failed to update featured status', 'error');
+    } finally {
+      setBusyId(null);
+    }
+  };
+
   const handleReindex = async () => {
     if (!token) return;
     setReindexing(true);
@@ -240,6 +256,16 @@ export default function AdminProductsPage() {
                             className="btn btn-primary btn-sm"
                           >
                             Approve
+                          </button>
+                        )}
+                        {p.status === 'PUBLISHED' && (
+                          <button
+                            onClick={() => handleToggleFeatured(p.id, !!p.isFeatured)}
+                            disabled={busyId === p.id}
+                            className="btn btn-gold btn-sm"
+                            title="Show this product in the homepage featured/affiliate sections"
+                          >
+                            {p.isFeatured ? 'Unfeature' : 'Feature'}
                           </button>
                         )}
                         {p.status === 'ARCHIVED' && (
