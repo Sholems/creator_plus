@@ -347,7 +347,7 @@ export class PaymentsService {
       productName: string;
       quantity: number;
       unitPrice: Prisma.Decimal;
-      product: { title: string; creatorId: string };
+      product: { title: string; slug: string; creatorId: string };
     }>;
   }) {
     try {
@@ -366,6 +366,17 @@ export class PaymentsService {
           viewUrl: `${webBase}/dashboard/downloads`,
         },
       );
+
+      // Post-purchase follow-up: ask the buyer for a review a few days later
+      // (scheduled via the email queue when enabled, inline otherwise).
+      for (const item of order.items) {
+        void this.emailService.sendReviewRequest(
+          order.buyer.email,
+          order.buyer.displayName || 'there',
+          { title: item.product.title || item.productName, slug: item.product.slug },
+          `${webBase}/products/${item.product.slug}`,
+        );
+      }
 
       // Resolve every creator user in one query, then notify.
       const byProfile = groupBy(order.items, (i) => i.product.creatorId);

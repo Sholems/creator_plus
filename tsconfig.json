@@ -23,7 +23,8 @@
       "@creatormarket/auth": ["./packages/auth/src"],
       "@creatormarket/shared": ["./packages/shared/src"],
       "@creatormarket/config": ["./packages/config/src"],
-      "@creatormarket/sdk": ["./packages/sdk/src"]
+      "@creatormarket/sdk": ["./packages/sdk/src"],
+      "@creatormarket/email": ["./packages/email/src"]
     }
   },
   "exclude": ["node_modules"]

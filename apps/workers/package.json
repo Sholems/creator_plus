@@ -13,6 +13,7 @@
     "ioredis": "^5.4.2",
     "nodemailer": "^6.9.0",
     "@creatormarket/database": "*",
+    "@creatormarket/email": "*",
     "@creatormarket/shared": "*",
     "@creatormarket/config": "*"
   },

@@ -12,6 +12,7 @@ export const QUEUE_NAMES = {
   FILE_PROCESSING: 'file-processing',
   NOTIFICATION: 'notification',
   ANALYTICS: 'analytics',
+  RECOVERY: 'recovery',
 } as const;
 
 // Create queues
@@ -20,6 +21,7 @@ export const searchIndexQueue = new Queue(QUEUE_NAMES.SEARCH_INDEX, { connection
 export const fileProcessingQueue = new Queue(QUEUE_NAMES.FILE_PROCESSING, { connection });
 export const notificationQueue = new Queue(QUEUE_NAMES.NOTIFICATION, { connection });
 export const analyticsQueue = new Queue(QUEUE_NAMES.ANALYTICS, { connection });
+export const recoveryQueue = new Queue(QUEUE_NAMES.RECOVERY, { connection });
 
 // Create workers
 export function createWorker(name: string, processor: (job: any) => Promise<any>) {

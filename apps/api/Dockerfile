@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends openssl \
 COPY package.json package-lock.json* ./
 COPY apps/api/package.json ./apps/api/
 COPY packages/database/package.json ./packages/database/
+COPY packages/email/package.json ./packages/email/
 COPY packages/shared/package.json ./packages/shared/
 
 RUN npm install
@@ -18,6 +19,7 @@ RUN npm install
 # Copy source
 COPY apps/api ./apps/api
 COPY packages/database ./packages/database
+COPY packages/email ./packages/email
 COPY packages/shared ./packages/shared
 COPY tsconfig.json turbo.json ./
 
@@ -57,6 +59,7 @@ COPY --from=builder /app/apps/api/package.json ./
 # for those symlinks to resolve at runtime. The database package also carries
 # the Prisma schema + migrations that `migrate deploy` runs at startup.
 COPY --from=builder /app/packages/database ./packages/database
+COPY --from=builder /app/packages/email ./packages/email
 COPY --from=builder /app/packages/shared ./packages/shared
 
 EXPOSE 3001

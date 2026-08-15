@@ -40,11 +40,16 @@ export interface EmailJob {
   html: string;
 }
 
+export interface EnqueueOptions {
+  /** BullMQ delay in ms — used for scheduled follow-ups (e.g. review requests). */
+  delayMs?: number;
+}
+
 /**
  * Enqueue a fully-rendered email for the worker to deliver. Returns true when
  * the job was queued; false means the caller should send inline instead.
  */
-export async function enqueueEmail(job: EmailJob): Promise<boolean> {
+export async function enqueueEmail(job: EmailJob, opts?: EnqueueOptions): Promise<boolean> {
   if (!queueEnabled()) return false;
   const queue = getEmailQueue();
   if (!queue) return false;
@@ -54,6 +59,7 @@ export async function enqueueEmail(job: EmailJob): Promise<boolean> {
       backoff: { type: 'exponential', delay: 5_000 },
       removeOnComplete: 1_000,
       removeOnFail: 5_000,
+      ...(opts?.delayMs ? { delay: opts.delayMs } : {}),
     });
     return true;
   } catch (err) {

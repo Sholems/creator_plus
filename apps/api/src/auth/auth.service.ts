@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { createHash, randomUUID, randomBytes } from 'crypto';
 import { prisma } from '@creatormarket/database';
+import { syncBrevoContact } from '@creatormarket/email';
 import { EmailService } from '../email/email.service';
 
 export interface SessionContext {
@@ -90,6 +91,12 @@ export class AuthService {
 
     void this.emailService.sendWelcome(user.email, user.displayName || 'there');
     void this.sendVerificationEmail(user.id, user.email, user.displayName || 'there');
+    // Optional Brevo marketing-list sync (BREVO_API_KEY + list id configured).
+    void syncBrevoContact({
+      email: user.email,
+      name: user.displayName,
+      createdAt: user.createdAt,
+    });
 
     return {
       user: { ...user, creatorProfile: null },

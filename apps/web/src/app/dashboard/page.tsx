@@ -15,7 +15,7 @@ const STATUS_STYLES: Record<string, string> = {
 };
 
 export default function DashboardPage() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [stats, setStats] = useState({
     totalPurchases: 0,
     totalSpent: 0,
@@ -23,6 +23,20 @@ export default function DashboardPage() {
   });
   const [recentOrders, setRecentOrders] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [resendMessage, setResendMessage] = useState('');
+
+  const unverified = user && !user.emailVerified;
+
+  const handleResendVerification = async () => {
+    if (!user?.email) return;
+    setResendMessage('');
+    try {
+      await api.resendVerification(user.email);
+      setResendMessage('A fresh verification link is on its way.');
+    } catch (err: any) {
+      setResendMessage(err?.message || 'Could not resend the link.');
+    }
+  };
 
   useEffect(() => {
     if (token) loadDashboard();
@@ -75,6 +89,38 @@ export default function DashboardPage() {
     <div>
       <p className="eyebrow text-gold-600">My account</p>
       <h1 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">Dashboard</h1>
+
+      {unverified && (
+        <div className="mt-6 flex flex-col items-start gap-3 rounded-2xl border border-gold-200 bg-gold-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-700">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </span>
+            <div>
+              <p className="font-display text-sm font-semibold text-ink-900">
+                Verify your email address
+              </p>
+              <p className="mt-0.5 text-sm text-ink-600">
+                Confirm your email to fully activate your account and receive order updates.
+              </p>
+              {resendMessage && (
+                <p className="mt-1 text-sm font-medium text-forest-700">{resendMessage}</p>
+              )}
+            </div>
+          </div>
+          <div className="flex shrink-0 gap-2">
+            <button
+              onClick={handleResendVerification}
+              className="rounded-full border border-forest-300 bg-white px-4 py-2 text-xs font-semibold text-forest-800 transition hover:bg-cream-100"
+            >
+              Resend email
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
         {cards.map((card) => (

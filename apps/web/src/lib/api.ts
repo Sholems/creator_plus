@@ -106,6 +106,20 @@ class ApiClient {
     });
   }
 
+  async verifyEmail(token: string) {
+    return this.fetch<{ success: boolean; email: string }>('/auth/verify-email', {
+      method: 'POST',
+      body: { token },
+    });
+  }
+
+  async resendVerification(email: string) {
+    return this.fetch<{ success: boolean }>('/auth/resend-verification', {
+      method: 'POST',
+      body: { email },
+    });
+  }
+
   async updateProfile(token: string, data: { displayName?: string; avatar?: string; bio?: string }) {
     return this.fetch<any>('/users/me', {
       method: 'PATCH',

@@ -116,6 +116,12 @@ export class CartService {
       });
     }
 
+    // Track activity so the recovery worker can detect abandoned carts.
+    await prisma.cart.update({
+      where: { id: cart.id },
+      data: { updatedAt: new Date() },
+    });
+
     return this.getOrCreateCart(userId);
   }
 
@@ -134,6 +140,11 @@ export class CartService {
     await prisma.cartItem.update({
       where: { id: itemId },
       data: { quantity },
+    });
+
+    await prisma.cart.update({
+      where: { id: cart.id },
+      data: { updatedAt: new Date() },
     });
 
     return this.getOrCreateCart(userId);

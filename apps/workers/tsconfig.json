@@ -7,7 +7,11 @@
     "declaration": true,
     "noEmit": false,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    // Resolve workspace packages (@creatormarket/*) via node_modules → dist
+    // instead of the root tsconfig's source-mapped paths (which would pull
+    // package sources outside rootDir). Matches apps/api's tsconfig.
+    "paths": {}
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

@@ -1,11 +1,17 @@
 import { emailWorker } from './jobs/email';
 import { searchIndexWorker } from './jobs/search-index';
 import { notificationWorker } from './jobs/notification';
+import { recoveryWorker, scheduleRecovery } from './jobs/recovery';
 
 console.log('Starting workers...');
 
+// Register the repeatable abandoned-cart recovery sweep.
+void scheduleRecovery().catch((err) => {
+  console.error('Failed to schedule recovery sweep:', err.message);
+});
+
 // Handle worker events
-const workers = [emailWorker, searchIndexWorker, notificationWorker];
+const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker];
 
 workers.forEach((worker) => {
   worker.on('completed', (job) => {
