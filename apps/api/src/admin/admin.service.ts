@@ -6,6 +6,7 @@ import { RefundsService } from '../refunds/refunds.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { SettingsService } from '../settings/settings.service';
 import { ContactService } from '../contact/contact.service';
+import { SupportTicketsService } from '../support-tickets/support-tickets.service';
 import { FeatureFlagsService } from '../feature-flags/feature-flags.service';
 import { BroadcastDto } from './dto/broadcast.dto';
 import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
@@ -23,6 +24,7 @@ export class AdminService {
     private readonly notificationsService: NotificationsService,
     private readonly settingsService: SettingsService,
     private readonly contactService: ContactService,
+    private readonly supportTicketsService: SupportTicketsService,
     private readonly featureFlagsService: FeatureFlagsService,
   ) {}
   async getStats() {
@@ -830,6 +832,49 @@ export class AdminService {
   async setContactStatus(adminId: string, id: string, status: 'NEW' | 'READ' | 'ARCHIVED') {
     const updated = await this.contactService.setStatus(id, { status });
     this.audit(adminId, null, 'contact.status_update', 'contact', id, { status });
+    return updated;
+  }
+
+  // ------------------------------------------------------------------
+  // Support tickets
+  // ------------------------------------------------------------------
+
+  getAllTickets(query: {
+    page?: number;
+    perPage?: number;
+    status?: string;
+    priority?: string;
+    category?: string;
+    search?: string;
+  }) {
+    return this.supportTicketsService.findAll(query);
+  }
+
+  getTicket(id: string) {
+    return this.supportTicketsService.findOne(id);
+  }
+
+  async setTicketStatus(adminId: string, id: string, status: 'OPEN' | 'ASSIGNED' | 'IN_PROGRESS' | 'RESOLVED' | 'CLOSED') {
+    const updated = await this.supportTicketsService.setStatus(id, status);
+    this.audit(adminId, null, 'support_ticket.status_update', 'support_ticket', id, { status });
+    return updated;
+  }
+
+  async setTicketPriority(adminId: string, id: string, priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT') {
+    const updated = await this.supportTicketsService.setPriority(id, priority);
+    this.audit(adminId, null, 'support_ticket.priority_update', 'support_ticket', id, { priority });
+    return updated;
+  }
+
+  async assignTicket(adminId: string, id: string, assignedTo?: string) {
+    const updated = await this.supportTicketsService.assign(id, { assignedTo });
+    this.audit(adminId, null, 'support_ticket.assign', 'support_ticket', id, { assignedTo: assignedTo ?? null });
+    return updated;
+  }
+
+  async replyToTicket(adminId: string, id: string, message: string) {
+    const updated = await this.supportTicketsService.replyFromAdmin(adminId, id, message);
+    this.audit(adminId, null, 'support_ticket.reply', 'support_ticket', id, { message });
     return updated;
   }
 

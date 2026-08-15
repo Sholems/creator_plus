@@ -9,6 +9,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
 import { SettingsModule } from '../settings/settings.module';
 import { PaymentsModule } from '../payments/payments.module';
 import { ContactModule } from '../contact/contact.module';
+import { SupportTicketsModule } from '../support-tickets/support-tickets.module';
 import { FeatureFlagsModule } from '../feature-flags/feature-flags.module';
 
 @Module({
@@ -20,6 +21,7 @@ import { FeatureFlagsModule } from '../feature-flags/feature-flags.module';
     SettingsModule,
     PaymentsModule,
     ContactModule,
+    SupportTicketsModule,
     FeatureFlagsModule,
   ],
   controllers: [AdminController],

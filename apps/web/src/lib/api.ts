@@ -99,6 +99,36 @@ class ApiClient {
     });
   }
 
+  // Support tickets
+  async createSupportTicket(token: string, data: { subject: string; description: string; category?: string }) {
+    return this.fetch<any>('/support-tickets', {
+      method: 'POST',
+      body: data,
+      token,
+    });
+  }
+
+  async getMyTickets(token: string, params?: { page?: number; perPage?: number; status?: string }) {
+    const searchParams = new URLSearchParams();
+    if (params?.page) searchParams.set('page', params.page.toString());
+    if (params?.perPage) searchParams.set('perPage', params.perPage.toString());
+    if (params?.status) searchParams.set('status', params.status);
+    const query = searchParams.toString();
+    return this.fetch<any>(`/support-tickets${query ? `?${query}` : ''}`, { token });
+  }
+
+  async getMyTicket(token: string, id: string) {
+    return this.fetch<any>(`/support-tickets/${id}`, { token });
+  }
+
+  async replyToTicket(token: string, id: string, message: string) {
+    return this.fetch<any>(`/support-tickets/${id}/replies`, {
+      method: 'POST',
+      body: { message },
+      token,
+    });
+  }
+
   async resetPassword(token: string, newPassword: string) {
     return this.fetch<any>('/auth/reset-password', {
       method: 'POST',

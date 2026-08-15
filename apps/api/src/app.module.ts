@@ -23,6 +23,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { CouponsModule } from './coupons/coupons.module';
 import { AffiliatesModule } from './affiliates/affiliates.module';
 import { ContactModule } from './contact/contact.module';
+import { SupportTicketsModule } from './support-tickets/support-tickets.module';
 import { FeatureFlagsModule } from './feature-flags/feature-flags.module';
 import { HealthModule } from './health/health.module';
 import { buildThrottlerStorage } from './common/throttler-redis.storage';
@@ -63,6 +64,7 @@ import { PaymentsController } from './payments/payments.controller';
     CouponsModule,
     AffiliatesModule,
     ContactModule,
+    SupportTicketsModule,
     FeatureFlagsModule,
     HealthModule,
   ],

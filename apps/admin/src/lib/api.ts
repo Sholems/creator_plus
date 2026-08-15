@@ -211,6 +211,34 @@ export const api = {
   setContactStatus: (token: string, id: string, status: 'NEW' | 'READ' | 'ARCHIVED') =>
     request<any>(`/admin/contacts/${id}/status`, { method: 'PATCH', body: { status }, token }),
 
+  // Support tickets
+  getTickets: (token: string, params?: {
+    page?: number;
+    perPage?: number;
+    status?: string;
+    priority?: string;
+    category?: string;
+    search?: string;
+  }) => {
+    const qs = new URLSearchParams();
+    qs.set('page', String(params?.page ?? 1));
+    qs.set('perPage', String(params?.perPage ?? 20));
+    if (params?.status) qs.set('status', params.status);
+    if (params?.priority) qs.set('priority', params.priority);
+    if (params?.category) qs.set('category', params.category);
+    if (params?.search) qs.set('search', params.search);
+    return request<any>(`/admin/support-tickets?${qs.toString()}`, { token });
+  },
+  getTicket: (token: string, id: string) => request<any>(`/admin/support-tickets/${id}`, { token }),
+  setTicketStatus: (token: string, id: string, status: 'OPEN' | 'ASSIGNED' | 'IN_PROGRESS' | 'RESOLVED' | 'CLOSED') =>
+    request<any>(`/admin/support-tickets/${id}/status`, { method: 'PATCH', body: { status }, token }),
+  setTicketPriority: (token: string, id: string, priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT') =>
+    request<any>(`/admin/support-tickets/${id}/priority`, { method: 'PATCH', body: { priority }, token }),
+  assignTicket: (token: string, id: string, assignedTo?: string) =>
+    request<any>(`/admin/support-tickets/${id}/assign`, { method: 'POST', body: { assignedTo }, token }),
+  replyToTicket: (token: string, id: string, message: string) =>
+    request<any>(`/admin/support-tickets/${id}/replies`, { method: 'POST', body: { message }, token }),
+
   // Roles & permissions
   getRoles: (token: string) =>
     request<{

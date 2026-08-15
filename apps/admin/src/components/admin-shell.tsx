@@ -17,6 +17,7 @@ const navLinks = [
   { href: '/payouts', label: 'Payouts' },
   { href: '/broadcasts', label: 'Broadcasts' },
   { href: '/contact', label: 'Contact' },
+  { href: '/support-tickets', label: 'Support Tickets' },
   { href: '/settings', label: 'Settings' },
 ];
 

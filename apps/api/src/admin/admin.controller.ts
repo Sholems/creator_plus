@@ -13,6 +13,12 @@ import { BroadcastDto } from './dto/broadcast.dto';
 import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
 import { CreateFeatureFlagDto, UpdateFeatureFlagDto } from '../feature-flags/dto/feature-flag.dto';
 import { UpdateContactStatusDto } from '../contact/dto/contact.dto';
+import {
+  AssignTicketDto,
+  ReplyTicketDto,
+  UpdateTicketPriorityDto,
+  UpdateTicketStatusDto,
+} from '../support-tickets/dto/support-ticket.dto';
 
 @ApiTags('admin')
 @ApiBearerAuth()
@@ -251,6 +257,56 @@ export class AdminController {
   @ApiOperation({ summary: 'Update a contact message status' })
   setContactStatus(@Request() req, @Param('id') id: string, @Body() dto: UpdateContactStatusDto) {
     return this.adminService.setContactStatus(req.user.sub, id, dto.status);
+  }
+
+  @Get('support-tickets')
+  @ApiOperation({ summary: 'List support tickets' })
+  getAllTickets(
+    @Query('page') page?: string,
+    @Query('perPage') perPage?: string,
+    @Query('status') status?: string,
+    @Query('priority') priority?: string,
+    @Query('category') category?: string,
+    @Query('search') search?: string,
+  ) {
+    return this.adminService.getAllTickets({
+      page: Number(page) || 1,
+      perPage: Number(perPage) || 20,
+      status,
+      priority,
+      category,
+      search,
+    });
+  }
+
+  @Get('support-tickets/:id')
+  @ApiOperation({ summary: 'Get a single support ticket with its messages' })
+  getTicket(@Param('id') id: string) {
+    return this.adminService.getTicket(id);
+  }
+
+  @Patch('support-tickets/:id/status')
+  @ApiOperation({ summary: 'Update a support ticket status' })
+  setTicketStatus(@Request() req, @Param('id') id: string, @Body() dto: UpdateTicketStatusDto) {
+    return this.adminService.setTicketStatus(req.user.sub, id, dto.status);
+  }
+
+  @Patch('support-tickets/:id/priority')
+  @ApiOperation({ summary: 'Update a support ticket priority' })
+  setTicketPriority(@Request() req, @Param('id') id: string, @Body() dto: UpdateTicketPriorityDto) {
+    return this.adminService.setTicketPriority(req.user.sub, id, dto.priority);
+  }
+
+  @Post('support-tickets/:id/assign')
+  @ApiOperation({ summary: 'Assign a support ticket to a user' })
+  assignTicket(@Request() req, @Param('id') id: string, @Body() dto: AssignTicketDto) {
+    return this.adminService.assignTicket(req.user.sub, id, dto.assignedTo);
+  }
+
+  @Post('support-tickets/:id/replies')
+  @ApiOperation({ summary: 'Reply to a support ticket as support staff' })
+  replyToTicket(@Request() req, @Param('id') id: string, @Body() dto: ReplyTicketDto) {
+    return this.adminService.replyToTicket(req.user.sub, id, dto.message);
   }
 
   // ------------------------------------------------------------------
