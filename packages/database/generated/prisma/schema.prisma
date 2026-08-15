@@ -50,6 +50,9 @@ model User {
   notifications       Notification[]
   apiTokens           ApiToken[]
   contactMessages     ContactMessage[]
+  supportTickets      SupportTicket[]      @relation("CreatedTickets")
+  assignedTickets     SupportTicket[]      @relation("AssignedTickets")
+  ticketMessages      TicketMessage[]      @relation("SentTicketMessages")
   passwordResetTokens PasswordResetToken[]
 
   @@map("users")
@@ -1375,8 +1378,13 @@ model SupportTicket {
   createdAt   DateTime       @default(now()) @map("created_at")
   updatedAt   DateTime       @updatedAt @map("updated_at")
 
-  messages TicketMessage[]
+  messages       TicketMessage[]
+  user           User            @relation("CreatedTickets", fields: [userId], references: [id], onDelete: Cascade)
+  assignedToUser User?           @relation("AssignedTickets", fields: [assignedTo], references: [id], onDelete: SetNull)
 
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
   @@map("support_tickets")
 }
 
@@ -1406,15 +1414,24 @@ enum TicketPriority {
 }
 
 model TicketMessage {
-  id        String   @id @default(uuid()) @db.Uuid
-  ticketId  String   @map("ticket_id") @db.Uuid
-  senderId  String   @map("sender_id") @db.Uuid
-  message   String
-  createdAt DateTime @default(now()) @map("created_at")
+  id         String           @id @default(uuid()) @db.Uuid
+  ticketId   String           @map("ticket_id") @db.Uuid
+  senderId   String           @map("sender_id") @db.Uuid
+  senderType TicketSenderType @default(USER) @map("sender_type")
+  message    String
+  createdAt  DateTime         @default(now()) @map("created_at")
 
   ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  sender User          @relation("SentTicketMessages", fields: [senderId], references: [id], onDelete: Restrict)
 
+  @@index([ticketId])
   @@map("ticket_messages")
+}
+
+enum TicketSenderType {
+  USER
+  ADMIN
+  SYSTEM
 }
 
 model SystemSetting {

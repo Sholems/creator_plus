@@ -845,6 +845,7 @@ exports.Prisma.TicketMessageScalarFieldEnum = {
   id: 'id',
   ticketId: 'ticketId',
   senderId: 'senderId',
+  senderType: 'senderType',
   message: 'message',
   createdAt: 'createdAt'
 };
@@ -1167,6 +1168,12 @@ exports.TicketPriority = exports.$Enums.TicketPriority = {
   MEDIUM: 'MEDIUM',
   HIGH: 'HIGH',
   URGENT: 'URGENT'
+};
+
+exports.TicketSenderType = exports.$Enums.TicketSenderType = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM'
 };
 
 exports.ContactMessageStatus = exports.$Enums.ContactMessageStatus = {

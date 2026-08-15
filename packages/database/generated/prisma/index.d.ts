@@ -618,6 +618,15 @@ export const TicketPriority: {
 export type TicketPriority = (typeof TicketPriority)[keyof typeof TicketPriority]
 
 
+export const TicketSenderType: {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM'
+};
+
+export type TicketSenderType = (typeof TicketSenderType)[keyof typeof TicketSenderType]
+
+
 export const ContactMessageStatus: {
   NEW: 'NEW',
   READ: 'READ',
@@ -755,6 +764,10 @@ export const TicketStatus: typeof $Enums.TicketStatus
 export type TicketPriority = $Enums.TicketPriority
 
 export const TicketPriority: typeof $Enums.TicketPriority
+
+export type TicketSenderType = $Enums.TicketSenderType
+
+export const TicketSenderType: typeof $Enums.TicketSenderType
 
 export type ContactMessageStatus = $Enums.ContactMessageStatus
 
@@ -7134,6 +7147,9 @@ export namespace Prisma {
     notifications: number
     apiTokens: number
     contactMessages: number
+    supportTickets: number
+    assignedTickets: number
+    ticketMessages: number
     passwordResetTokens: number
   }
 
@@ -7150,6 +7166,9 @@ export namespace Prisma {
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     apiTokens?: boolean | UserCountOutputTypeCountApiTokensArgs
     contactMessages?: boolean | UserCountOutputTypeCountContactMessagesArgs
+    supportTickets?: boolean | UserCountOutputTypeCountSupportTicketsArgs
+    assignedTickets?: boolean | UserCountOutputTypeCountAssignedTicketsArgs
+    ticketMessages?: boolean | UserCountOutputTypeCountTicketMessagesArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   }
 
@@ -7246,6 +7265,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountContactMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ContactMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSupportTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTicketMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketMessageWhereInput
   }
 
   /**
@@ -8565,6 +8605,9 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     apiTokens?: boolean | User$apiTokensArgs<ExtArgs>
     contactMessages?: boolean | User$contactMessagesArgs<ExtArgs>
+    supportTickets?: boolean | User$supportTicketsArgs<ExtArgs>
+    assignedTickets?: boolean | User$assignedTicketsArgs<ExtArgs>
+    ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -8638,6 +8681,9 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     apiTokens?: boolean | User$apiTokensArgs<ExtArgs>
     contactMessages?: boolean | User$contactMessagesArgs<ExtArgs>
+    supportTickets?: boolean | User$supportTicketsArgs<ExtArgs>
+    assignedTickets?: boolean | User$assignedTicketsArgs<ExtArgs>
+    ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -8666,6 +8712,9 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       apiTokens: Prisma.$ApiTokenPayload<ExtArgs>[]
       contactMessages: Prisma.$ContactMessagePayload<ExtArgs>[]
+      supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+      assignedTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+      ticketMessages: Prisma.$TicketMessagePayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9095,6 +9144,9 @@ export namespace Prisma {
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     apiTokens<T extends User$apiTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$apiTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contactMessages<T extends User$contactMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$contactMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    supportTickets<T extends User$supportTicketsArgs<ExtArgs> = {}>(args?: Subset<T, User$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedTickets<T extends User$assignedTicketsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ticketMessages<T extends User$ticketMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9944,6 +9996,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ContactMessageScalarFieldEnum | ContactMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.supportTickets
+   */
+  export type User$supportTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SupportTicket
+     */
+    omit?: SupportTicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    where?: SupportTicketWhereInput
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    cursor?: SupportTicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * User.assignedTickets
+   */
+  export type User$assignedTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SupportTicket
+     */
+    omit?: SupportTicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    where?: SupportTicketWhereInput
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    cursor?: SupportTicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * User.ticketMessages
+   */
+  export type User$ticketMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TicketMessage
+     */
+    select?: TicketMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TicketMessage
+     */
+    omit?: TicketMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketMessageInclude<ExtArgs> | null
+    where?: TicketMessageWhereInput
+    orderBy?: TicketMessageOrderByWithRelationInput | TicketMessageOrderByWithRelationInput[]
+    cursor?: TicketMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TicketMessageScalarFieldEnum | TicketMessageScalarFieldEnum[]
   }
 
   /**
@@ -72276,6 +72400,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     messages?: boolean | SupportTicket$messagesArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | SupportTicket$assignedToUserArgs<ExtArgs>
     _count?: boolean | SupportTicketCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["supportTicket"]>
 
@@ -72290,6 +72416,8 @@ export namespace Prisma {
     assignedTo?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | SupportTicket$assignedToUserArgs<ExtArgs>
   }, ExtArgs["result"]["supportTicket"]>
 
   export type SupportTicketSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -72303,6 +72431,8 @@ export namespace Prisma {
     assignedTo?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | SupportTicket$assignedToUserArgs<ExtArgs>
   }, ExtArgs["result"]["supportTicket"]>
 
   export type SupportTicketSelectScalar = {
@@ -72321,15 +72451,25 @@ export namespace Prisma {
   export type SupportTicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "subject" | "description" | "category" | "status" | "priority" | "assignedTo" | "createdAt" | "updatedAt", ExtArgs["result"]["supportTicket"]>
   export type SupportTicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     messages?: boolean | SupportTicket$messagesArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | SupportTicket$assignedToUserArgs<ExtArgs>
     _count?: boolean | SupportTicketCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SupportTicketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type SupportTicketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SupportTicketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | SupportTicket$assignedToUserArgs<ExtArgs>
+  }
+  export type SupportTicketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | SupportTicket$assignedToUserArgs<ExtArgs>
+  }
 
   export type $SupportTicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SupportTicket"
     objects: {
       messages: Prisma.$TicketMessagePayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
+      assignedToUser: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -72737,6 +72877,8 @@ export namespace Prisma {
   export interface Prisma__SupportTicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     messages<T extends SupportTicket$messagesArgs<ExtArgs> = {}>(args?: Subset<T, SupportTicket$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assignedToUser<T extends SupportTicket$assignedToUserArgs<ExtArgs> = {}>(args?: Subset<T, SupportTicket$assignedToUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -73025,6 +73167,10 @@ export namespace Prisma {
      */
     data: SupportTicketCreateManyInput | SupportTicketCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -73095,6 +73241,10 @@ export namespace Prisma {
      * Limit how many SupportTickets to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -73188,6 +73338,25 @@ export namespace Prisma {
   }
 
   /**
+   * SupportTicket.assignedToUser
+   */
+  export type SupportTicket$assignedToUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * SupportTicket without action
    */
   export type SupportTicketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -73220,6 +73389,7 @@ export namespace Prisma {
     id: string | null
     ticketId: string | null
     senderId: string | null
+    senderType: $Enums.TicketSenderType | null
     message: string | null
     createdAt: Date | null
   }
@@ -73228,6 +73398,7 @@ export namespace Prisma {
     id: string | null
     ticketId: string | null
     senderId: string | null
+    senderType: $Enums.TicketSenderType | null
     message: string | null
     createdAt: Date | null
   }
@@ -73236,6 +73407,7 @@ export namespace Prisma {
     id: number
     ticketId: number
     senderId: number
+    senderType: number
     message: number
     createdAt: number
     _all: number
@@ -73246,6 +73418,7 @@ export namespace Prisma {
     id?: true
     ticketId?: true
     senderId?: true
+    senderType?: true
     message?: true
     createdAt?: true
   }
@@ -73254,6 +73427,7 @@ export namespace Prisma {
     id?: true
     ticketId?: true
     senderId?: true
+    senderType?: true
     message?: true
     createdAt?: true
   }
@@ -73262,6 +73436,7 @@ export namespace Prisma {
     id?: true
     ticketId?: true
     senderId?: true
+    senderType?: true
     message?: true
     createdAt?: true
     _all?: true
@@ -73343,6 +73518,7 @@ export namespace Prisma {
     id: string
     ticketId: string
     senderId: string
+    senderType: $Enums.TicketSenderType
     message: string
     createdAt: Date
     _count: TicketMessageCountAggregateOutputType | null
@@ -73368,57 +73544,69 @@ export namespace Prisma {
     id?: boolean
     ticketId?: boolean
     senderId?: boolean
+    senderType?: boolean
     message?: boolean
     createdAt?: boolean
     ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticketMessage"]>
 
   export type TicketMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ticketId?: boolean
     senderId?: boolean
+    senderType?: boolean
     message?: boolean
     createdAt?: boolean
     ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticketMessage"]>
 
   export type TicketMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ticketId?: boolean
     senderId?: boolean
+    senderType?: boolean
     message?: boolean
     createdAt?: boolean
     ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticketMessage"]>
 
   export type TicketMessageSelectScalar = {
     id?: boolean
     ticketId?: boolean
     senderId?: boolean
+    senderType?: boolean
     message?: boolean
     createdAt?: boolean
   }
 
-  export type TicketMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "senderId" | "message" | "createdAt", ExtArgs["result"]["ticketMessage"]>
+  export type TicketMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "senderId" | "senderType" | "message" | "createdAt", ExtArgs["result"]["ticketMessage"]>
   export type TicketMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type TicketMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type TicketMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $TicketMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TicketMessage"
     objects: {
       ticket: Prisma.$SupportTicketPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       ticketId: string
       senderId: string
+      senderType: $Enums.TicketSenderType
       message: string
       createdAt: Date
     }, ExtArgs["result"]["ticketMessage"]>
@@ -73816,6 +74004,7 @@ export namespace Prisma {
   export interface Prisma__TicketMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ticket<T extends SupportTicketDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupportTicketDefaultArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -73848,6 +74037,7 @@ export namespace Prisma {
     readonly id: FieldRef<"TicketMessage", 'String'>
     readonly ticketId: FieldRef<"TicketMessage", 'String'>
     readonly senderId: FieldRef<"TicketMessage", 'String'>
+    readonly senderType: FieldRef<"TicketMessage", 'TicketSenderType'>
     readonly message: FieldRef<"TicketMessage", 'String'>
     readonly createdAt: FieldRef<"TicketMessage", 'DateTime'>
   }
@@ -85291,6 +85481,7 @@ export namespace Prisma {
     id: 'id',
     ticketId: 'ticketId',
     senderId: 'senderId',
+    senderType: 'senderType',
     message: 'message',
     createdAt: 'createdAt'
   };
@@ -85880,6 +86071,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TicketSenderType'
+   */
+  export type EnumTicketSenderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketSenderType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TicketSenderType[]'
+   */
+  export type ListEnumTicketSenderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketSenderType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'ContactMessageStatus'
    */
   export type EnumContactMessageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactMessageStatus'>
@@ -86002,6 +86207,9 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     apiTokens?: ApiTokenListRelationFilter
     contactMessages?: ContactMessageListRelationFilter
+    supportTickets?: SupportTicketListRelationFilter
+    assignedTickets?: SupportTicketListRelationFilter
+    ticketMessages?: TicketMessageListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
   }
 
@@ -86038,6 +86246,9 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     apiTokens?: ApiTokenOrderByRelationAggregateInput
     contactMessages?: ContactMessageOrderByRelationAggregateInput
+    supportTickets?: SupportTicketOrderByRelationAggregateInput
+    assignedTickets?: SupportTicketOrderByRelationAggregateInput
+    ticketMessages?: TicketMessageOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
   }
 
@@ -86077,6 +86288,9 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     apiTokens?: ApiTokenListRelationFilter
     contactMessages?: ContactMessageListRelationFilter
+    supportTickets?: SupportTicketListRelationFilter
+    assignedTickets?: SupportTicketListRelationFilter
+    ticketMessages?: TicketMessageListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
   }, "id" | "email">
 
@@ -90648,6 +90862,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SupportTicket"> | Date | string
     updatedAt?: DateTimeFilter<"SupportTicket"> | Date | string
     messages?: TicketMessageListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    assignedToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type SupportTicketOrderByWithRelationInput = {
@@ -90662,6 +90878,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     messages?: TicketMessageOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
+    assignedToUser?: UserOrderByWithRelationInput
   }
 
   export type SupportTicketWhereUniqueInput = Prisma.AtLeast<{
@@ -90679,6 +90897,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SupportTicket"> | Date | string
     updatedAt?: DateTimeFilter<"SupportTicket"> | Date | string
     messages?: TicketMessageListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    assignedToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type SupportTicketOrderByWithAggregationInput = {
@@ -90720,18 +90940,22 @@ export namespace Prisma {
     id?: UuidFilter<"TicketMessage"> | string
     ticketId?: UuidFilter<"TicketMessage"> | string
     senderId?: UuidFilter<"TicketMessage"> | string
+    senderType?: EnumTicketSenderTypeFilter<"TicketMessage"> | $Enums.TicketSenderType
     message?: StringFilter<"TicketMessage"> | string
     createdAt?: DateTimeFilter<"TicketMessage"> | Date | string
     ticket?: XOR<SupportTicketScalarRelationFilter, SupportTicketWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type TicketMessageOrderByWithRelationInput = {
     id?: SortOrder
     ticketId?: SortOrder
     senderId?: SortOrder
+    senderType?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
     ticket?: SupportTicketOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
   }
 
   export type TicketMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -90741,15 +90965,18 @@ export namespace Prisma {
     NOT?: TicketMessageWhereInput | TicketMessageWhereInput[]
     ticketId?: UuidFilter<"TicketMessage"> | string
     senderId?: UuidFilter<"TicketMessage"> | string
+    senderType?: EnumTicketSenderTypeFilter<"TicketMessage"> | $Enums.TicketSenderType
     message?: StringFilter<"TicketMessage"> | string
     createdAt?: DateTimeFilter<"TicketMessage"> | Date | string
     ticket?: XOR<SupportTicketScalarRelationFilter, SupportTicketWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type TicketMessageOrderByWithAggregationInput = {
     id?: SortOrder
     ticketId?: SortOrder
     senderId?: SortOrder
+    senderType?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
     _count?: TicketMessageCountOrderByAggregateInput
@@ -90764,6 +90991,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"TicketMessage"> | string
     ticketId?: UuidWithAggregatesFilter<"TicketMessage"> | string
     senderId?: UuidWithAggregatesFilter<"TicketMessage"> | string
+    senderType?: EnumTicketSenderTypeWithAggregatesFilter<"TicketMessage"> | $Enums.TicketSenderType
     message?: StringWithAggregatesFilter<"TicketMessage"> | string
     createdAt?: DateTimeWithAggregatesFilter<"TicketMessage"> | Date | string
   }
@@ -91464,6 +91692,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -91500,6 +91731,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -91536,6 +91770,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -91572,6 +91809,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -96608,16 +96848,16 @@ export namespace Prisma {
 
   export type SupportTicketCreateInput = {
     id?: string
-    userId: string
     subject: string
     description: string
     category: $Enums.TicketCategory
     status?: $Enums.TicketStatus
     priority?: $Enums.TicketPriority
-    assignedTo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: TicketMessageCreateNestedManyWithoutTicketInput
+    user: UserCreateNestedOneWithoutSupportTicketsInput
+    assignedToUser?: UserCreateNestedOneWithoutAssignedTicketsInput
   }
 
   export type SupportTicketUncheckedCreateInput = {
@@ -96636,16 +96876,16 @@ export namespace Prisma {
 
   export type SupportTicketUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     subject?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
-    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: TicketMessageUpdateManyWithoutTicketNestedInput
+    user?: UserUpdateOneRequiredWithoutSupportTicketsNestedInput
+    assignedToUser?: UserUpdateOneWithoutAssignedTicketsNestedInput
   }
 
   export type SupportTicketUncheckedUpdateInput = {
@@ -96677,13 +96917,11 @@ export namespace Prisma {
 
   export type SupportTicketUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     subject?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
-    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -96703,32 +96941,36 @@ export namespace Prisma {
 
   export type TicketMessageCreateInput = {
     id?: string
-    senderId: string
+    senderType?: $Enums.TicketSenderType
     message: string
     createdAt?: Date | string
     ticket: SupportTicketCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutTicketMessagesInput
   }
 
   export type TicketMessageUncheckedCreateInput = {
     id?: string
     ticketId: string
     senderId: string
+    senderType?: $Enums.TicketSenderType
     message: string
     createdAt?: Date | string
   }
 
   export type TicketMessageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket?: SupportTicketUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutTicketMessagesNestedInput
   }
 
   export type TicketMessageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     ticketId?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -96737,13 +96979,14 @@ export namespace Prisma {
     id?: string
     ticketId: string
     senderId: string
+    senderType?: $Enums.TicketSenderType
     message: string
     createdAt?: Date | string
   }
 
   export type TicketMessageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -96752,6 +96995,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ticketId?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -97657,6 +97901,18 @@ export namespace Prisma {
     none?: ContactMessageWhereInput
   }
 
+  export type SupportTicketListRelationFilter = {
+    every?: SupportTicketWhereInput
+    some?: SupportTicketWhereInput
+    none?: SupportTicketWhereInput
+  }
+
+  export type TicketMessageListRelationFilter = {
+    every?: TicketMessageWhereInput
+    some?: TicketMessageWhereInput
+    none?: TicketMessageWhereInput
+  }
+
   export type PasswordResetTokenListRelationFilter = {
     every?: PasswordResetTokenWhereInput
     some?: PasswordResetTokenWhereInput
@@ -97713,6 +97969,14 @@ export namespace Prisma {
   }
 
   export type ContactMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SupportTicketOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TicketMessageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -101271,16 +101535,6 @@ export namespace Prisma {
     not?: NestedEnumTicketPriorityFilter<$PrismaModel> | $Enums.TicketPriority
   }
 
-  export type TicketMessageListRelationFilter = {
-    every?: TicketMessageWhereInput
-    some?: TicketMessageWhereInput
-    none?: TicketMessageWhereInput
-  }
-
-  export type TicketMessageOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type SupportTicketCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -101350,6 +101604,13 @@ export namespace Prisma {
     _max?: NestedEnumTicketPriorityFilter<$PrismaModel>
   }
 
+  export type EnumTicketSenderTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketSenderType | EnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketSenderTypeFilter<$PrismaModel> | $Enums.TicketSenderType
+  }
+
   export type SupportTicketScalarRelationFilter = {
     is?: SupportTicketWhereInput
     isNot?: SupportTicketWhereInput
@@ -101359,6 +101620,7 @@ export namespace Prisma {
     id?: SortOrder
     ticketId?: SortOrder
     senderId?: SortOrder
+    senderType?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
   }
@@ -101367,6 +101629,7 @@ export namespace Prisma {
     id?: SortOrder
     ticketId?: SortOrder
     senderId?: SortOrder
+    senderType?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
   }
@@ -101375,8 +101638,19 @@ export namespace Prisma {
     id?: SortOrder
     ticketId?: SortOrder
     senderId?: SortOrder
+    senderType?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EnumTicketSenderTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketSenderType | EnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketSenderTypeWithAggregatesFilter<$PrismaModel> | $Enums.TicketSenderType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTicketSenderTypeFilter<$PrismaModel>
+    _max?: NestedEnumTicketSenderTypeFilter<$PrismaModel>
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -102017,6 +102291,27 @@ export namespace Prisma {
     connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
   }
 
+  export type SupportTicketCreateNestedManyWithoutUserInput = {
+    create?: XOR<SupportTicketCreateWithoutUserInput, SupportTicketUncheckedCreateWithoutUserInput> | SupportTicketCreateWithoutUserInput[] | SupportTicketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutUserInput | SupportTicketCreateOrConnectWithoutUserInput[]
+    createMany?: SupportTicketCreateManyUserInputEnvelope
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+  }
+
+  export type SupportTicketCreateNestedManyWithoutAssignedToUserInput = {
+    create?: XOR<SupportTicketCreateWithoutAssignedToUserInput, SupportTicketUncheckedCreateWithoutAssignedToUserInput> | SupportTicketCreateWithoutAssignedToUserInput[] | SupportTicketUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutAssignedToUserInput | SupportTicketCreateOrConnectWithoutAssignedToUserInput[]
+    createMany?: SupportTicketCreateManyAssignedToUserInputEnvelope
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+  }
+
+  export type TicketMessageCreateNestedManyWithoutSenderInput = {
+    create?: XOR<TicketMessageCreateWithoutSenderInput, TicketMessageUncheckedCreateWithoutSenderInput> | TicketMessageCreateWithoutSenderInput[] | TicketMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: TicketMessageCreateOrConnectWithoutSenderInput | TicketMessageCreateOrConnectWithoutSenderInput[]
+    createMany?: TicketMessageCreateManySenderInputEnvelope
+    connect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -102148,6 +102443,27 @@ export namespace Prisma {
     connectOrCreate?: ContactMessageCreateOrConnectWithoutUserInput | ContactMessageCreateOrConnectWithoutUserInput[]
     createMany?: ContactMessageCreateManyUserInputEnvelope
     connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+  }
+
+  export type SupportTicketUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SupportTicketCreateWithoutUserInput, SupportTicketUncheckedCreateWithoutUserInput> | SupportTicketCreateWithoutUserInput[] | SupportTicketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutUserInput | SupportTicketCreateOrConnectWithoutUserInput[]
+    createMany?: SupportTicketCreateManyUserInputEnvelope
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+  }
+
+  export type SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput = {
+    create?: XOR<SupportTicketCreateWithoutAssignedToUserInput, SupportTicketUncheckedCreateWithoutAssignedToUserInput> | SupportTicketCreateWithoutAssignedToUserInput[] | SupportTicketUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutAssignedToUserInput | SupportTicketCreateOrConnectWithoutAssignedToUserInput[]
+    createMany?: SupportTicketCreateManyAssignedToUserInputEnvelope
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+  }
+
+  export type TicketMessageUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<TicketMessageCreateWithoutSenderInput, TicketMessageUncheckedCreateWithoutSenderInput> | TicketMessageCreateWithoutSenderInput[] | TicketMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: TicketMessageCreateOrConnectWithoutSenderInput | TicketMessageCreateOrConnectWithoutSenderInput[]
+    createMany?: TicketMessageCreateManySenderInputEnvelope
+    connect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
   }
 
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
@@ -102419,6 +102735,48 @@ export namespace Prisma {
     deleteMany?: ContactMessageScalarWhereInput | ContactMessageScalarWhereInput[]
   }
 
+  export type SupportTicketUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutUserInput, SupportTicketUncheckedCreateWithoutUserInput> | SupportTicketCreateWithoutUserInput[] | SupportTicketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutUserInput | SupportTicketCreateOrConnectWithoutUserInput[]
+    upsert?: SupportTicketUpsertWithWhereUniqueWithoutUserInput | SupportTicketUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SupportTicketCreateManyUserInputEnvelope
+    set?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    disconnect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    delete?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    update?: SupportTicketUpdateWithWhereUniqueWithoutUserInput | SupportTicketUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SupportTicketUpdateManyWithWhereWithoutUserInput | SupportTicketUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+  }
+
+  export type SupportTicketUpdateManyWithoutAssignedToUserNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutAssignedToUserInput, SupportTicketUncheckedCreateWithoutAssignedToUserInput> | SupportTicketCreateWithoutAssignedToUserInput[] | SupportTicketUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutAssignedToUserInput | SupportTicketCreateOrConnectWithoutAssignedToUserInput[]
+    upsert?: SupportTicketUpsertWithWhereUniqueWithoutAssignedToUserInput | SupportTicketUpsertWithWhereUniqueWithoutAssignedToUserInput[]
+    createMany?: SupportTicketCreateManyAssignedToUserInputEnvelope
+    set?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    disconnect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    delete?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    update?: SupportTicketUpdateWithWhereUniqueWithoutAssignedToUserInput | SupportTicketUpdateWithWhereUniqueWithoutAssignedToUserInput[]
+    updateMany?: SupportTicketUpdateManyWithWhereWithoutAssignedToUserInput | SupportTicketUpdateManyWithWhereWithoutAssignedToUserInput[]
+    deleteMany?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+  }
+
+  export type TicketMessageUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<TicketMessageCreateWithoutSenderInput, TicketMessageUncheckedCreateWithoutSenderInput> | TicketMessageCreateWithoutSenderInput[] | TicketMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: TicketMessageCreateOrConnectWithoutSenderInput | TicketMessageCreateOrConnectWithoutSenderInput[]
+    upsert?: TicketMessageUpsertWithWhereUniqueWithoutSenderInput | TicketMessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: TicketMessageCreateManySenderInputEnvelope
+    set?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    disconnect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    delete?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    connect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    update?: TicketMessageUpdateWithWhereUniqueWithoutSenderInput | TicketMessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: TicketMessageUpdateManyWithWhereWithoutSenderInput | TicketMessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -102669,6 +103027,48 @@ export namespace Prisma {
     update?: ContactMessageUpdateWithWhereUniqueWithoutUserInput | ContactMessageUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ContactMessageUpdateManyWithWhereWithoutUserInput | ContactMessageUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ContactMessageScalarWhereInput | ContactMessageScalarWhereInput[]
+  }
+
+  export type SupportTicketUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutUserInput, SupportTicketUncheckedCreateWithoutUserInput> | SupportTicketCreateWithoutUserInput[] | SupportTicketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutUserInput | SupportTicketCreateOrConnectWithoutUserInput[]
+    upsert?: SupportTicketUpsertWithWhereUniqueWithoutUserInput | SupportTicketUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SupportTicketCreateManyUserInputEnvelope
+    set?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    disconnect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    delete?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    update?: SupportTicketUpdateWithWhereUniqueWithoutUserInput | SupportTicketUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SupportTicketUpdateManyWithWhereWithoutUserInput | SupportTicketUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+  }
+
+  export type SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutAssignedToUserInput, SupportTicketUncheckedCreateWithoutAssignedToUserInput> | SupportTicketCreateWithoutAssignedToUserInput[] | SupportTicketUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutAssignedToUserInput | SupportTicketCreateOrConnectWithoutAssignedToUserInput[]
+    upsert?: SupportTicketUpsertWithWhereUniqueWithoutAssignedToUserInput | SupportTicketUpsertWithWhereUniqueWithoutAssignedToUserInput[]
+    createMany?: SupportTicketCreateManyAssignedToUserInputEnvelope
+    set?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    disconnect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    delete?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    update?: SupportTicketUpdateWithWhereUniqueWithoutAssignedToUserInput | SupportTicketUpdateWithWhereUniqueWithoutAssignedToUserInput[]
+    updateMany?: SupportTicketUpdateManyWithWhereWithoutAssignedToUserInput | SupportTicketUpdateManyWithWhereWithoutAssignedToUserInput[]
+    deleteMany?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+  }
+
+  export type TicketMessageUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<TicketMessageCreateWithoutSenderInput, TicketMessageUncheckedCreateWithoutSenderInput> | TicketMessageCreateWithoutSenderInput[] | TicketMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: TicketMessageCreateOrConnectWithoutSenderInput | TicketMessageCreateOrConnectWithoutSenderInput[]
+    upsert?: TicketMessageUpsertWithWhereUniqueWithoutSenderInput | TicketMessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: TicketMessageCreateManySenderInputEnvelope
+    set?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    disconnect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    delete?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    connect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
+    update?: TicketMessageUpdateWithWhereUniqueWithoutSenderInput | TicketMessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: TicketMessageUpdateManyWithWhereWithoutSenderInput | TicketMessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
   }
 
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
@@ -105944,6 +106344,18 @@ export namespace Prisma {
     connect?: TicketMessageWhereUniqueInput | TicketMessageWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutSupportTicketsInput = {
+    create?: XOR<UserCreateWithoutSupportTicketsInput, UserUncheckedCreateWithoutSupportTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSupportTicketsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAssignedTicketsInput = {
+    create?: XOR<UserCreateWithoutAssignedTicketsInput, UserUncheckedCreateWithoutAssignedTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedTicketsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type TicketMessageUncheckedCreateNestedManyWithoutTicketInput = {
     create?: XOR<TicketMessageCreateWithoutTicketInput, TicketMessageUncheckedCreateWithoutTicketInput> | TicketMessageCreateWithoutTicketInput[] | TicketMessageUncheckedCreateWithoutTicketInput[]
     connectOrCreate?: TicketMessageCreateOrConnectWithoutTicketInput | TicketMessageCreateOrConnectWithoutTicketInput[]
@@ -105977,6 +106389,24 @@ export namespace Prisma {
     deleteMany?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
   }
 
+  export type UserUpdateOneRequiredWithoutSupportTicketsNestedInput = {
+    create?: XOR<UserCreateWithoutSupportTicketsInput, UserUncheckedCreateWithoutSupportTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSupportTicketsInput
+    upsert?: UserUpsertWithoutSupportTicketsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSupportTicketsInput, UserUpdateWithoutSupportTicketsInput>, UserUncheckedUpdateWithoutSupportTicketsInput>
+  }
+
+  export type UserUpdateOneWithoutAssignedTicketsNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedTicketsInput, UserUncheckedCreateWithoutAssignedTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedTicketsInput
+    upsert?: UserUpsertWithoutAssignedTicketsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedTicketsInput, UserUpdateWithoutAssignedTicketsInput>, UserUncheckedUpdateWithoutAssignedTicketsInput>
+  }
+
   export type TicketMessageUncheckedUpdateManyWithoutTicketNestedInput = {
     create?: XOR<TicketMessageCreateWithoutTicketInput, TicketMessageUncheckedCreateWithoutTicketInput> | TicketMessageCreateWithoutTicketInput[] | TicketMessageUncheckedCreateWithoutTicketInput[]
     connectOrCreate?: TicketMessageCreateOrConnectWithoutTicketInput | TicketMessageCreateOrConnectWithoutTicketInput[]
@@ -105997,12 +106427,30 @@ export namespace Prisma {
     connect?: SupportTicketWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutTicketMessagesInput = {
+    create?: XOR<UserCreateWithoutTicketMessagesInput, UserUncheckedCreateWithoutTicketMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumTicketSenderTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TicketSenderType
+  }
+
   export type SupportTicketUpdateOneRequiredWithoutMessagesNestedInput = {
     create?: XOR<SupportTicketCreateWithoutMessagesInput, SupportTicketUncheckedCreateWithoutMessagesInput>
     connectOrCreate?: SupportTicketCreateOrConnectWithoutMessagesInput
     upsert?: SupportTicketUpsertWithoutMessagesInput
     connect?: SupportTicketWhereUniqueInput
     update?: XOR<XOR<SupportTicketUpdateToOneWithWhereWithoutMessagesInput, SupportTicketUpdateWithoutMessagesInput>, SupportTicketUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTicketMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutTicketMessagesInput, UserUncheckedCreateWithoutTicketMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketMessagesInput
+    upsert?: UserUpsertWithoutTicketMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketMessagesInput, UserUpdateWithoutTicketMessagesInput>, UserUncheckedUpdateWithoutTicketMessagesInput>
   }
 
   export type UserCreateNestedOneWithoutContactMessagesInput = {
@@ -106995,6 +107443,23 @@ export namespace Prisma {
     _min?: NestedEnumTicketPriorityFilter<$PrismaModel>
     _max?: NestedEnumTicketPriorityFilter<$PrismaModel>
   }
+
+  export type NestedEnumTicketSenderTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketSenderType | EnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketSenderTypeFilter<$PrismaModel> | $Enums.TicketSenderType
+  }
+
+  export type NestedEnumTicketSenderTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketSenderType | EnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketSenderType[] | ListEnumTicketSenderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketSenderTypeWithAggregatesFilter<$PrismaModel> | $Enums.TicketSenderType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTicketSenderTypeFilter<$PrismaModel>
+    _max?: NestedEnumTicketSenderTypeFilter<$PrismaModel>
+  }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -107745,6 +108210,104 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SupportTicketCreateWithoutUserInput = {
+    id?: string
+    subject: string
+    description: string
+    category: $Enums.TicketCategory
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: TicketMessageCreateNestedManyWithoutTicketInput
+    assignedToUser?: UserCreateNestedOneWithoutAssignedTicketsInput
+  }
+
+  export type SupportTicketUncheckedCreateWithoutUserInput = {
+    id?: string
+    subject: string
+    description: string
+    category: $Enums.TicketCategory
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    assignedTo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: TicketMessageUncheckedCreateNestedManyWithoutTicketInput
+  }
+
+  export type SupportTicketCreateOrConnectWithoutUserInput = {
+    where: SupportTicketWhereUniqueInput
+    create: XOR<SupportTicketCreateWithoutUserInput, SupportTicketUncheckedCreateWithoutUserInput>
+  }
+
+  export type SupportTicketCreateManyUserInputEnvelope = {
+    data: SupportTicketCreateManyUserInput | SupportTicketCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SupportTicketCreateWithoutAssignedToUserInput = {
+    id?: string
+    subject: string
+    description: string
+    category: $Enums.TicketCategory
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: TicketMessageCreateNestedManyWithoutTicketInput
+    user: UserCreateNestedOneWithoutSupportTicketsInput
+  }
+
+  export type SupportTicketUncheckedCreateWithoutAssignedToUserInput = {
+    id?: string
+    userId: string
+    subject: string
+    description: string
+    category: $Enums.TicketCategory
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: TicketMessageUncheckedCreateNestedManyWithoutTicketInput
+  }
+
+  export type SupportTicketCreateOrConnectWithoutAssignedToUserInput = {
+    where: SupportTicketWhereUniqueInput
+    create: XOR<SupportTicketCreateWithoutAssignedToUserInput, SupportTicketUncheckedCreateWithoutAssignedToUserInput>
+  }
+
+  export type SupportTicketCreateManyAssignedToUserInputEnvelope = {
+    data: SupportTicketCreateManyAssignedToUserInput | SupportTicketCreateManyAssignedToUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TicketMessageCreateWithoutSenderInput = {
+    id?: string
+    senderType?: $Enums.TicketSenderType
+    message: string
+    createdAt?: Date | string
+    ticket: SupportTicketCreateNestedOneWithoutMessagesInput
+  }
+
+  export type TicketMessageUncheckedCreateWithoutSenderInput = {
+    id?: string
+    ticketId: string
+    senderType?: $Enums.TicketSenderType
+    message: string
+    createdAt?: Date | string
+  }
+
+  export type TicketMessageCreateOrConnectWithoutSenderInput = {
+    where: TicketMessageWhereUniqueInput
+    create: XOR<TicketMessageCreateWithoutSenderInput, TicketMessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type TicketMessageCreateManySenderInputEnvelope = {
+    data: TicketMessageCreateManySenderInput | TicketMessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenCreateWithoutUserInput = {
     id?: string
     tokenHash: string
@@ -108436,6 +108999,82 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ContactMessage"> | Date | string
   }
 
+  export type SupportTicketUpsertWithWhereUniqueWithoutUserInput = {
+    where: SupportTicketWhereUniqueInput
+    update: XOR<SupportTicketUpdateWithoutUserInput, SupportTicketUncheckedUpdateWithoutUserInput>
+    create: XOR<SupportTicketCreateWithoutUserInput, SupportTicketUncheckedCreateWithoutUserInput>
+  }
+
+  export type SupportTicketUpdateWithWhereUniqueWithoutUserInput = {
+    where: SupportTicketWhereUniqueInput
+    data: XOR<SupportTicketUpdateWithoutUserInput, SupportTicketUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SupportTicketUpdateManyWithWhereWithoutUserInput = {
+    where: SupportTicketScalarWhereInput
+    data: XOR<SupportTicketUpdateManyMutationInput, SupportTicketUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SupportTicketScalarWhereInput = {
+    AND?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+    OR?: SupportTicketScalarWhereInput[]
+    NOT?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+    id?: UuidFilter<"SupportTicket"> | string
+    userId?: UuidFilter<"SupportTicket"> | string
+    subject?: StringFilter<"SupportTicket"> | string
+    description?: StringFilter<"SupportTicket"> | string
+    category?: EnumTicketCategoryFilter<"SupportTicket"> | $Enums.TicketCategory
+    status?: EnumTicketStatusFilter<"SupportTicket"> | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFilter<"SupportTicket"> | $Enums.TicketPriority
+    assignedTo?: UuidNullableFilter<"SupportTicket"> | string | null
+    createdAt?: DateTimeFilter<"SupportTicket"> | Date | string
+    updatedAt?: DateTimeFilter<"SupportTicket"> | Date | string
+  }
+
+  export type SupportTicketUpsertWithWhereUniqueWithoutAssignedToUserInput = {
+    where: SupportTicketWhereUniqueInput
+    update: XOR<SupportTicketUpdateWithoutAssignedToUserInput, SupportTicketUncheckedUpdateWithoutAssignedToUserInput>
+    create: XOR<SupportTicketCreateWithoutAssignedToUserInput, SupportTicketUncheckedCreateWithoutAssignedToUserInput>
+  }
+
+  export type SupportTicketUpdateWithWhereUniqueWithoutAssignedToUserInput = {
+    where: SupportTicketWhereUniqueInput
+    data: XOR<SupportTicketUpdateWithoutAssignedToUserInput, SupportTicketUncheckedUpdateWithoutAssignedToUserInput>
+  }
+
+  export type SupportTicketUpdateManyWithWhereWithoutAssignedToUserInput = {
+    where: SupportTicketScalarWhereInput
+    data: XOR<SupportTicketUpdateManyMutationInput, SupportTicketUncheckedUpdateManyWithoutAssignedToUserInput>
+  }
+
+  export type TicketMessageUpsertWithWhereUniqueWithoutSenderInput = {
+    where: TicketMessageWhereUniqueInput
+    update: XOR<TicketMessageUpdateWithoutSenderInput, TicketMessageUncheckedUpdateWithoutSenderInput>
+    create: XOR<TicketMessageCreateWithoutSenderInput, TicketMessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type TicketMessageUpdateWithWhereUniqueWithoutSenderInput = {
+    where: TicketMessageWhereUniqueInput
+    data: XOR<TicketMessageUpdateWithoutSenderInput, TicketMessageUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type TicketMessageUpdateManyWithWhereWithoutSenderInput = {
+    where: TicketMessageScalarWhereInput
+    data: XOR<TicketMessageUpdateManyMutationInput, TicketMessageUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type TicketMessageScalarWhereInput = {
+    AND?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
+    OR?: TicketMessageScalarWhereInput[]
+    NOT?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
+    id?: UuidFilter<"TicketMessage"> | string
+    ticketId?: UuidFilter<"TicketMessage"> | string
+    senderId?: UuidFilter<"TicketMessage"> | string
+    senderType?: EnumTicketSenderTypeFilter<"TicketMessage"> | $Enums.TicketSenderType
+    message?: StringFilter<"TicketMessage"> | string
+    createdAt?: DateTimeFilter<"TicketMessage"> | Date | string
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -108497,6 +109136,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -108532,6 +109174,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -108583,6 +109228,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -108618,6 +109266,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -108652,6 +109303,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -108687,6 +109341,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -108738,6 +109395,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -108773,6 +109433,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -108947,6 +109610,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -108982,6 +109648,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -109056,6 +109725,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -109091,6 +109763,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -109155,6 +109830,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -109190,6 +109868,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -109241,6 +109922,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -109276,6 +109960,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -109311,6 +109998,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -109346,6 +110036,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -109397,6 +110090,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -109432,6 +110128,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -109467,6 +110166,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -109502,6 +110204,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -109790,6 +110495,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -109825,6 +110533,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -110260,6 +110971,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -110295,6 +111009,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -110399,6 +111116,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -110434,6 +111154,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -113079,6 +113802,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -113114,6 +113840,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -113193,6 +113922,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -113228,6 +113960,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -113547,6 +114282,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -113582,6 +114320,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -113854,6 +114595,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -113889,6 +114633,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -114926,6 +115673,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -114961,6 +115711,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -115192,6 +115945,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -115227,6 +115983,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -115463,6 +116222,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -115498,6 +116260,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -115684,6 +116449,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -115719,6 +116487,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -115864,6 +116635,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -115899,6 +116673,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -116030,6 +116807,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -116065,6 +116845,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -116523,6 +117306,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -116558,6 +117344,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -116869,6 +117658,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -116904,6 +117696,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -119818,6 +120613,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -119853,6 +120651,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -119926,6 +120727,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -119961,6 +120765,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -120280,6 +121087,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -120315,6 +121125,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -120366,6 +121179,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -120401,19 +121217,24 @@ export namespace Prisma {
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TicketMessageCreateWithoutTicketInput = {
     id?: string
-    senderId: string
+    senderType?: $Enums.TicketSenderType
     message: string
     createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutTicketMessagesInput
   }
 
   export type TicketMessageUncheckedCreateWithoutTicketInput = {
     id?: string
     senderId: string
+    senderType?: $Enums.TicketSenderType
     message: string
     createdAt?: Date | string
   }
@@ -120426,6 +121247,168 @@ export namespace Prisma {
   export type TicketMessageCreateManyTicketInputEnvelope = {
     data: TicketMessageCreateManyTicketInput | TicketMessageCreateManyTicketInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutSupportTicketsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSupportTicketsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSupportTicketsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSupportTicketsInput, UserUncheckedCreateWithoutSupportTicketsInput>
+  }
+
+  export type UserCreateWithoutAssignedTicketsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAssignedTicketsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAssignedTicketsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedTicketsInput, UserUncheckedCreateWithoutAssignedTicketsInput>
   }
 
   export type TicketMessageUpsertWithWhereUniqueWithoutTicketInput = {
@@ -120444,28 +121427,191 @@ export namespace Prisma {
     data: XOR<TicketMessageUpdateManyMutationInput, TicketMessageUncheckedUpdateManyWithoutTicketInput>
   }
 
-  export type TicketMessageScalarWhereInput = {
-    AND?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
-    OR?: TicketMessageScalarWhereInput[]
-    NOT?: TicketMessageScalarWhereInput | TicketMessageScalarWhereInput[]
-    id?: UuidFilter<"TicketMessage"> | string
-    ticketId?: UuidFilter<"TicketMessage"> | string
-    senderId?: UuidFilter<"TicketMessage"> | string
-    message?: StringFilter<"TicketMessage"> | string
-    createdAt?: DateTimeFilter<"TicketMessage"> | Date | string
+  export type UserUpsertWithoutSupportTicketsInput = {
+    update: XOR<UserUpdateWithoutSupportTicketsInput, UserUncheckedUpdateWithoutSupportTicketsInput>
+    create: XOR<UserCreateWithoutSupportTicketsInput, UserUncheckedCreateWithoutSupportTicketsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSupportTicketsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSupportTicketsInput, UserUncheckedUpdateWithoutSupportTicketsInput>
+  }
+
+  export type UserUpdateWithoutSupportTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSupportTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutAssignedTicketsInput = {
+    update: XOR<UserUpdateWithoutAssignedTicketsInput, UserUncheckedUpdateWithoutAssignedTicketsInput>
+    create: XOR<UserCreateWithoutAssignedTicketsInput, UserUncheckedCreateWithoutAssignedTicketsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedTicketsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedTicketsInput, UserUncheckedUpdateWithoutAssignedTicketsInput>
+  }
+
+  export type UserUpdateWithoutAssignedTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SupportTicketCreateWithoutMessagesInput = {
     id?: string
-    userId: string
     subject: string
     description: string
     category: $Enums.TicketCategory
     status?: $Enums.TicketStatus
     priority?: $Enums.TicketPriority
-    assignedTo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSupportTicketsInput
+    assignedToUser?: UserCreateNestedOneWithoutAssignedTicketsInput
   }
 
   export type SupportTicketUncheckedCreateWithoutMessagesInput = {
@@ -120486,6 +121632,87 @@ export namespace Prisma {
     create: XOR<SupportTicketCreateWithoutMessagesInput, SupportTicketUncheckedCreateWithoutMessagesInput>
   }
 
+  export type UserCreateWithoutTicketMessagesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTicketMessagesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTicketMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTicketMessagesInput, UserUncheckedCreateWithoutTicketMessagesInput>
+  }
+
   export type SupportTicketUpsertWithoutMessagesInput = {
     update: XOR<SupportTicketUpdateWithoutMessagesInput, SupportTicketUncheckedUpdateWithoutMessagesInput>
     create: XOR<SupportTicketCreateWithoutMessagesInput, SupportTicketUncheckedCreateWithoutMessagesInput>
@@ -120499,15 +121726,15 @@ export namespace Prisma {
 
   export type SupportTicketUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     subject?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
     status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
     priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
-    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSupportTicketsNestedInput
+    assignedToUser?: UserUpdateOneWithoutAssignedTicketsNestedInput
   }
 
   export type SupportTicketUncheckedUpdateWithoutMessagesInput = {
@@ -120521,6 +121748,93 @@ export namespace Prisma {
     assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutTicketMessagesInput = {
+    update: XOR<UserUpdateWithoutTicketMessagesInput, UserUncheckedUpdateWithoutTicketMessagesInput>
+    create: XOR<UserCreateWithoutTicketMessagesInput, UserUncheckedCreateWithoutTicketMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTicketMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTicketMessagesInput, UserUncheckedUpdateWithoutTicketMessagesInput>
+  }
+
+  export type UserUpdateWithoutTicketMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTicketMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutContactMessagesInput = {
@@ -120555,6 +121869,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -120590,6 +121907,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -120641,6 +121961,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -120676,6 +121999,9 @@ export namespace Prisma {
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -120711,6 +122037,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -120746,6 +122075,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -120829,6 +122161,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -120864,6 +122199,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -120963,6 +122301,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -120998,6 +122339,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -121113,6 +122457,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -121148,6 +122495,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -121259,6 +122609,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -121294,6 +122647,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -121375,6 +122731,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -121410,6 +122769,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -121531,6 +122893,9 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
@@ -121566,6 +122931,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -121617,6 +122985,9 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -121652,6 +123023,9 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -121775,6 +123149,38 @@ export namespace Prisma {
     status?: $Enums.ContactMessageStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type SupportTicketCreateManyUserInput = {
+    id?: string
+    subject: string
+    description: string
+    category: $Enums.TicketCategory
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    assignedTo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupportTicketCreateManyAssignedToUserInput = {
+    id?: string
+    userId: string
+    subject: string
+    description: string
+    category: $Enums.TicketCategory
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketMessageCreateManySenderInput = {
+    id?: string
+    ticketId: string
+    senderType?: $Enums.TicketSenderType
+    message: string
+    createdAt?: Date | string
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -122165,6 +123571,106 @@ export namespace Prisma {
     status?: EnumContactMessageStatusFieldUpdateOperationsInput | $Enums.ContactMessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: TicketMessageUpdateManyWithoutTicketNestedInput
+    assignedToUser?: UserUpdateOneWithoutAssignedTicketsNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: TicketMessageUncheckedUpdateManyWithoutTicketNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketUpdateWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: TicketMessageUpdateManyWithoutTicketNestedInput
+    user?: UserUpdateOneRequiredWithoutSupportTicketsNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: TicketMessageUncheckedUpdateManyWithoutTicketNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateManyWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumTicketCategoryFieldUpdateOperationsInput | $Enums.TicketCategory
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketMessageUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket?: SupportTicketUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type TicketMessageUncheckedUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ticketId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketMessageUncheckedUpdateManyWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ticketId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PasswordResetTokenUpdateWithoutUserInput = {
@@ -124819,20 +126325,23 @@ export namespace Prisma {
   export type TicketMessageCreateManyTicketInput = {
     id?: string
     senderId: string
+    senderType?: $Enums.TicketSenderType
     message: string
     createdAt?: Date | string
   }
 
   export type TicketMessageUpdateWithoutTicketInput = {
     id?: StringFieldUpdateOperationsInput | string
-    senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutTicketMessagesNestedInput
   }
 
   export type TicketMessageUncheckedUpdateWithoutTicketInput = {
     id?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -124840,6 +126349,7 @@ export namespace Prisma {
   export type TicketMessageUncheckedUpdateManyWithoutTicketInput = {
     id?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumTicketSenderTypeFieldUpdateOperationsInput | $Enums.TicketSenderType
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
