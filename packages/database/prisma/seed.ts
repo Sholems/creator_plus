@@ -100,6 +100,14 @@ async function main() {
     { name: 'Marketing', slug: 'marketing', description: 'SMM kits, funnels, landing pages and ads', icon: '📣' },
     { name: 'Legal', slug: 'legal', description: 'NDAs, contracts and policy templates', icon: '⚖️' },
     { name: 'Church & Ministry', slug: 'church', description: 'Sermon packs, Bible studies and worship slides', icon: '⛪' },
+    { name: 'WordPress Themes', slug: 'wordpress-themes', description: 'Premium WordPress themes for blogs, business, e-commerce and portfolios', icon: '🎨' },
+    { name: 'WordPress Plugins', slug: 'wordpress-plugins', description: 'WordPress plugins for SEO, forms, e-commerce, security and more', icon: '🔧' },
+    { name: 'Notion Templates', slug: 'notion-templates', description: 'Notion dashboards, planners, habit trackers, project boards and wikis', icon: '📋' },
+    { name: 'Canva Templates', slug: 'canva-templates', description: 'Ready-to-use Canva templates for social media, presentations and prints', icon: '🖼️' },
+    { name: 'Excel & Sheets', slug: 'excel-sheets', description: 'Spreadsheets, trackers, budgets, dashboards and formulas', icon: '📈' },
+    { name: 'PowerPoint Templates', slug: 'powerpoint', description: 'Presentation templates for pitches, reports, education and business', icon: '📊' },
+    { name: 'UI/UX Kits', slug: 'ui-ux', description: 'Figma, Sketch and Adobe XD design systems, wireframes and UI kits', icon: '✨' },
+    { name: 'No-Code Tools', slug: 'no-code', description: 'Webflow, Bubble, Carrd and other no-code templates and starter files', icon: '🧩' },
   ];
   const createdCategories = await Promise.all(
     categoryData.map(c => prisma.category.create({ data: c }))

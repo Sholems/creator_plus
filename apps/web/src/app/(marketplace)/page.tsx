@@ -33,6 +33,14 @@ const CATEGORIES = [
   { name: 'Marketing', slug: 'marketing', icon: '📣', blurb: 'SMM kits, funnels, ads' },
   { name: 'Legal', slug: 'legal', icon: '⚖️', blurb: 'NDAs, contracts, policies' },
   { name: 'Church', slug: 'church', icon: '⛪', blurb: 'Sermons, slides, worship' },
+  { name: 'WordPress Themes', slug: 'wordpress-themes', icon: '🎨', blurb: 'Premium WP themes' },
+  { name: 'WordPress Plugins', slug: 'wordpress-plugins', icon: '🔧', blurb: 'SEO, forms, e-commerce' },
+  { name: 'Notion Templates', slug: 'notion-templates', icon: '📋', blurb: 'Dashboards & planners' },
+  { name: 'Canva Templates', slug: 'canva-templates', icon: '🖼️', blurb: 'Social media & prints' },
+  { name: 'Excel & Sheets', slug: 'excel-sheets', icon: '📈', blurb: 'Trackers & dashboards' },
+  { name: 'PowerPoint', slug: 'powerpoint', icon: '📊', blurb: 'Pitch & report decks' },
+  { name: 'UI/UX Kits', slug: 'ui-ux', icon: '✨', blurb: 'Figma, Sketch, XD kits' },
+  { name: 'No-Code Tools', slug: 'no-code', icon: '🧩', blurb: 'Webflow, Bubble, Carrd' },
 ];
 
 function StallRow({ product }: { product: CustomerProduct }) {
@@ -313,7 +321,7 @@ export default async function HomePage() {
               <h3 className="font-display text-xl font-bold text-ink-900">For buyers</h3>
               <div className="mt-6 space-y-5">
                 {[
-                  { n: '1', t: 'Browse thousands of digital products across 14 categories, priced in naira.' },
+                  { n: '1', t: 'Browse thousands of digital products across 22 categories, priced in naira.' },
                   { n: '2', t: 'Check out securely with Paystack, Flutterwave or card — no dollar card needed.' },
                   { n: '3', t: 'Download instantly and use it under your license, with a 30-day guarantee.' },
                 ].map((step) => (

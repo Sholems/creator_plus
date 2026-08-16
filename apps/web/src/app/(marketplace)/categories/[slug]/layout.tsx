@@ -43,9 +43,56 @@ export async function generateMetadata({
       url: `${SITE_URL}/categories/${slug}`,
       type: 'website',
     },
+    twitter: {
+      card: 'summary',
+      title: `${name} · ${SITE_NAME}`,
+      description,
+    },
   };
 }
 
-export default function CategoryLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default async function CategoryLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const category = await getCategory(slug);
+  const name = category?.name || titleCase(slug);
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Categories',
+        item: `${SITE_URL}/categories`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name,
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      {children}
+    </>
+  );
 }
