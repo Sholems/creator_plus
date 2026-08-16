@@ -28,14 +28,18 @@ export default async function ProductPage({
     notFound();
   }
 
-  const [reviewsRes, relatedRes] = await Promise.all([
+  const [reviewsRes, relatedRes, creatorProductsRes] = await Promise.all([
     getJson(`/reviews/product/${product.id}`),
     product.categoryId
       ? getJson(`/products?categoryId=${product.categoryId}&perPage=4`)
       : Promise.resolve(null),
+    product.creatorId
+      ? getJson(`/products?creatorId=${product.creatorId}&perPage=5`)
+      : Promise.resolve(null),
   ]);
 
   const related = (relatedRes?.data ?? []).filter((p: any) => p.id !== product.id);
+  const creatorProducts = (creatorProductsRes?.data ?? []).filter((p: any) => p.id !== product.id);
 
   return (
     <ProductDetailClient
@@ -43,6 +47,7 @@ export default async function ProductPage({
       initialProduct={product}
       initialReviews={reviewsRes?.data ?? []}
       initialRelated={related}
+      initialCreatorProducts={creatorProducts}
     />
   );
 }

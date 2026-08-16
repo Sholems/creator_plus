@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { cn } from '@creatormarket/ui';
@@ -16,11 +17,13 @@ export function ProductDetailClient({
   initialProduct,
   initialReviews,
   initialRelated,
+  initialCreatorProducts,
 }: {
   slug: string;
   initialProduct: any;
   initialReviews: any[];
   initialRelated: any[];
+  initialCreatorProducts?: any[];
 }) {
   const router = useRouter();
   const { user, token } = useAuth();
@@ -28,6 +31,7 @@ export function ProductDetailClient({
   const [product, setProduct] = useState<any>(initialProduct);
   const [reviews, setReviews] = useState<any[]>(initialReviews);
   const [related, setRelated] = useState<any[]>(initialRelated);
+  const [creatorProducts, setCreatorProducts] = useState<any[]>(initialCreatorProducts ?? []);
   const [isPurchasing, setIsPurchasing] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
@@ -250,9 +254,9 @@ export function ProductDetailClient({
 
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
             <Link href={`/creator/${product.creator?.slug}`} className="flex items-center gap-2">
-              <div className="h-8 w-8 overflow-hidden rounded-full bg-cream-100">
+              <div className="relative h-8 w-8 overflow-hidden rounded-full bg-cream-100">
                 {product.creator?.avatar && (
-                  <img src={product.creator.avatar} alt="" className="h-full w-full object-cover" />
+                  <Image src={product.creator.avatar} alt="" fill sizes="32px" className="object-cover" />
                 )}
               </div>
               <span className="text-sm font-medium text-ink-700 hover:text-forest-700">
@@ -284,7 +288,14 @@ export function ProductDetailClient({
           {/* Thumbnail / Preview */}
           <div className="mt-6 aspect-[4/3] overflow-hidden rounded-2xl bg-cream-100">
             {product.thumbnail ? (
-              <img src={product.thumbnail} alt={product.title} className="h-full w-full object-cover" />
+              <Image
+                src={product.thumbnail}
+                alt={product.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                className="object-cover"
+                priority
+              />
             ) : (
               <div className="flex h-full items-center justify-center">
                 <svg className="h-16 w-16 text-ink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -500,9 +511,9 @@ export function ProductDetailClient({
                 <div className="flex items-center gap-3">
                   {product.creator.slug ? (
                     <Link href={`/creator/${product.creator.slug}`} className="shrink-0">
-                      <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-cream-100 ring-1 ring-ink-100">
+                      <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-cream-100 ring-1 ring-ink-100">
                         {product.creator.avatar ? (
-                          <img src={product.creator.avatar} alt="" className="h-full w-full object-cover" />
+                          <Image src={product.creator.avatar} alt="" fill sizes="44px" className="object-cover" />
                         ) : (
                           <span className="font-display text-base font-bold text-forest-700">
                             {product.creator.storeName[0]}
@@ -642,6 +653,28 @@ export function ProductDetailClient({
                 </Link>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* More from this creator */}
+      {creatorProducts.length > 0 && product.creator?.slug && (
+        <div className="mt-16">
+          <div className="flex items-center justify-between">
+            <h2 className="font-display text-2xl font-bold text-ink-900">
+              More from {product.creator.storeName}
+            </h2>
+            <Link
+              href={`/creator/${product.creator.slug}`}
+              className="text-sm font-semibold text-forest-700 hover:text-forest-600"
+            >
+              View all &rarr;
+            </Link>
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {creatorProducts.slice(0, 4).map((p) => (
+              <CustomerProductCard key={p.id} product={p} />
+            ))}
           </div>
         </div>
       )}

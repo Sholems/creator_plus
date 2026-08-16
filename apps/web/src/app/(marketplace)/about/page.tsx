@@ -76,7 +76,7 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold mb-8 text-center">By the Numbers</h2>
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="text-center">
-            <div className="text-3xl font-bold">14</div>
+            <div className="text-3xl font-bold">22</div>
             <div className="mt-1 text-sm text-gray-400">Categories</div>
           </div>
           <div className="text-center">
