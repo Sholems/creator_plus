@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import type { Route } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api, PaginationMeta } from '@/lib/api';
@@ -30,6 +32,7 @@ export default function AdminOrdersPage() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [sendingReminder, setSendingReminder] = useState<string | null>(null);
 
   const load = useCallback(() => {
     if (!token) return;
@@ -47,6 +50,18 @@ export default function AdminOrdersPage() {
   useEffect(() => {
     load();
   }, [load]);
+
+  const handleReminder = async (orderId: string) => {
+    setSendingReminder(orderId);
+    try {
+      await api.sendOrderReminder(token!, orderId);
+      toast('Payment reminder sent', 'success');
+    } catch (e: any) {
+      toast(e.message || 'Failed to send reminder', 'error');
+    } finally {
+      setSendingReminder(null);
+    }
+  };
 
   return (
     <div>
@@ -76,6 +91,7 @@ export default function AdminOrdersPage() {
               <option value="COMPLETED">Completed</option>
               <option value="PROCESSING">Processing</option>
               <option value="PENDING">Pending</option>
+              <option value="INCOMPLETE">Incomplete (unpaid)</option>
               <option value="REFUNDED">Refunded</option>
               <option value="CANCELLED">Cancelled</option>
               <option value="FAILED">Failed</option>
@@ -101,26 +117,46 @@ export default function AdminOrdersPage() {
                 <th className="th">Total</th>
                 <th className="th">Status</th>
                 <th className="th">Date</th>
+                <th className="th">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-ink-100">
               {loading ? (
-                <tr><td colSpan={6} className="td py-10 text-center text-ink-500">Loading…</td></tr>
+                <tr><td colSpan={7} className="td py-10 text-center text-ink-500">Loading…</td></tr>
               ) : orders.length === 0 ? (
-                <tr><td colSpan={6} className="td py-10 text-center text-ink-500">No orders found</td></tr>
+                <tr><td colSpan={7} className="td py-10 text-center text-ink-500">No orders found</td></tr>
               ) : (
                 orders.map((o) => (
                   <tr key={o.id} className="table-row-hover">
-                    <td className="td price-tag text-ink-900">{o.invoiceNumber}</td>
+                    <td className="td price-tag text-ink-900">
+                      <Link href={`/orders/${o.id}` as Route} className="hover:text-forest-700">
+                        {o.invoiceNumber}
+                      </Link>
+                    </td>
                     <td className="td text-ink-600">{o.buyer?.displayName || o.buyer?.email || '—'}</td>
                     <td className="td text-ink-600">{o.items?.length ?? 0}</td>
                     <td className="td price-tag text-ink-900">{formatNaira(o.totalAmount)}</td>
                     <td className="td">
-                      <span className={`badge ${STATUS_STYLES[o.status] || 'badge-gray'}`}>
-                        {o.status}
-                      </span>
+                      {o.incomplete ? (
+                        <span className="badge badge-gold">INCOMPLETE</span>
+                      ) : (
+                        <span className={`badge ${STATUS_STYLES[o.status] || 'badge-gray'}`}>
+                          {o.status}
+                        </span>
+                      )}
                     </td>
                     <td className="td text-ink-500">{formatDateTime(o.createdAt)}</td>
+                    <td className="td">
+                      {o.incomplete && (
+                        <button
+                          onClick={() => handleReminder(o.id)}
+                          disabled={sendingReminder === o.id}
+                          className="text-xs font-medium text-forest-700 hover:text-forest-600 disabled:opacity-50"
+                        >
+                          {sendingReminder === o.id ? 'Sending…' : 'Send reminder'}
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))
               )}

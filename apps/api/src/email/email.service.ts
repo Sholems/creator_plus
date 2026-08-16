@@ -5,6 +5,7 @@ import {
   createEmailTransport,
   fromAddress,
   renderAbandonedCartEmail,
+  renderPaymentReminderEmail,
   renderEmailLayout,
   SITE_NAME,
 } from '@creatormarket/email';
@@ -141,6 +142,20 @@ export class EmailService {
     return this.send(to, 'Your CreatorPlus cart is still waiting for you', html, {
       marketing: true,
     });
+  }
+
+  async sendPaymentReminder(
+    to: string,
+    name: string,
+    order: { id: string; items: { title: string; price: number }[] },
+  ) {
+    const html = renderPaymentReminderEmail({
+      name,
+      orderId: order.id,
+      items: order.items,
+      checkoutUrl: `${webBaseUrl()}/checkout?orderId=${order.id}`,
+    });
+    return this.send(to, 'Complete your order on CreatorPlus', html);
   }
 
   // -------------------------------------------------------------------------

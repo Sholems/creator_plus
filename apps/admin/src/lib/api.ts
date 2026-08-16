@@ -107,6 +107,9 @@ export const api = {
       `/admin/orders?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
       { token },
     ),
+  getOrder: (token: string, id: string) => request<any>(`/admin/orders/${id}`, { token }),
+  sendOrderReminder: (token: string, id: string) =>
+    request<any>(`/admin/orders/${id}/reminder`, { method: 'POST', token }),
   getPayouts: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>
     request<any>(
       `/admin/payouts?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,

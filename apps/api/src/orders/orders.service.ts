@@ -193,7 +193,7 @@ export class OrdersService {
       };
     }
 
-    const [orders, total] = await Promise.all([
+    const [orders, total, paidTotal] = await Promise.all([
       prisma.order.findMany({
         where,
         include: {
@@ -217,11 +217,13 @@ export class OrdersService {
         },
       }),
       prisma.order.count({ where }),
+      prisma.order.count({ where: { ...where, status: { in: ['PAID', 'FULFILLED', 'COMPLETED'] } } }),
     ]);
 
     return {
-      data: orders,
+      data: orders.map((o) => ({ ...o, incomplete: o.status === 'PENDING' })),
       pagination: pageMeta(page, perPage, total),
+      paidTotal,
     };
   }
 

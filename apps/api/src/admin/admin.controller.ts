@@ -92,6 +92,18 @@ export class AdminController {
     return this.adminService.getOrders(Number(page) || 1, Number(perPage) || 20, status, search);
   }
 
+  @Get('orders/:id')
+  @ApiOperation({ summary: 'Get order detail' })
+  getOrder(@Param('id') id: string) {
+    return this.adminService.getOrderDetail(id);
+  }
+
+  @Post('orders/:id/reminder')
+  @ApiOperation({ summary: 'Send a payment reminder email for an incomplete order' })
+  sendOrderReminder(@Request() req, @Param('id') id: string) {
+    return this.adminService.sendOrderReminder(id, req.user.sub);
+  }
+
   @Get('payouts')
   @ApiOperation({ summary: 'List payout requests' })
   getPayouts(

@@ -324,7 +324,11 @@ export class AdminService {
   async getOrders(page = 1, perPage = 20, status?: string, search?: string) {
     const skip = (page - 1) * perPage;
     const where: any = {};
-    if (status) where.status = status as any;
+    if (status === 'INCOMPLETE') {
+      where.status = 'PENDING';
+    } else if (status) {
+      where.status = status as any;
+    }
     if (search) {
       where.OR = [
         { invoiceNumber: { contains: search, mode: 'insensitive' } },
@@ -341,11 +345,70 @@ export class AdminService {
         include: {
           buyer: { select: { email: true, displayName: true } },
           items: { select: { id: true } },
+          payment: { select: { status: true, provider: true } },
         },
       }),
       prisma.order.count({ where }),
     ]);
-    return { data: orders, pagination: this.paginate(page, perPage, total) };
+    return {
+      data: orders.map((o) => ({ ...o, incomplete: o.status === 'PENDING' })),
+      pagination: this.paginate(page, perPage, total),
+    };
+  }
+
+  async getOrderDetail(id: string) {
+    const order = await prisma.order.findUnique({
+      where: { id },
+      include: {
+        buyer: { select: { id: true, email: true, displayName: true } },
+        items: {
+          include: {
+            product: { select: { id: true, title: true, slug: true, thumbnail: true, creatorId: true } },
+          },
+        },
+        payment: true,
+        refunds: true,
+      },
+    });
+    if (!order) throw new NotFoundException('Order not found');
+    return { ...order, incomplete: order.status === 'PENDING' };
+  }
+
+  async sendOrderReminder(id: string, adminId: string) {
+    const order = await prisma.order.findUnique({
+      where: { id },
+      include: {
+        buyer: { select: { id: true, email: true, displayName: true } },
+        items: {
+          include: {
+            product: { select: { id: true, title: true } },
+          },
+        },
+      },
+    });
+
+    if (!order) throw new NotFoundException('Order not found');
+    if (order.status !== 'PENDING') {
+      throw new BadRequestException('Can only send reminders for incomplete orders');
+    }
+
+    await this.emailService.sendPaymentReminder(
+      order.buyer.email,
+      order.buyer.displayName || 'there',
+      {
+        id: order.id,
+        items: order.items.map((i) => ({
+          title: i.product?.title || i.productName || 'Product',
+          price: i.unitPrice.toNumber(),
+        })),
+      },
+    );
+
+    this.audit(adminId, null, 'order.reminder_send', 'order', order.id, {
+      buyerEmail: order.buyer.email,
+    });
+
+    return { sent: true };
   }
 
   async getPayouts(page = 1, perPage = 20, status?: string, search?: string) {

@@ -53,7 +53,7 @@ export default function CreatorDashboardPage() {
 
       setStats({
         totalProducts: (productData.data || []).length,
-        totalSales: ordersData.pagination?.total || 0,
+        totalSales: ordersData.paidTotal ?? (ordersData.pagination?.total || 0),
         totalRevenue: earnings.totalEarnings || 0,
         pendingPayout: earnings.pendingPayout || 0,
       });
@@ -142,12 +142,21 @@ export default function CreatorDashboardPage() {
               {recentOrders.map((order) => (
                 <div key={order.id} className="flex items-center justify-between py-3">
                   <div>
-                    <p className="text-sm font-medium text-ink-900">{order.invoiceNumber || order.id.slice(0, 8)}</p>
+                    <p className="text-sm font-medium text-ink-900">
+                      {order.invoiceNumber || order.id.slice(0, 8)}
+                      {order.incomplete && (
+                        <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[0.625rem] font-semibold uppercase text-amber-700">
+                          Payment incomplete
+                        </span>
+                      )}
+                    </p>
                     <p className="text-xs text-ink-500">
                       {new Date(order.createdAt).toLocaleDateString('en-NG', { year: 'numeric', month: 'short', day: 'numeric' })}
                     </p>
                   </div>
-                  <p className="price-tag text-sm font-bold text-forest-900">{formatNaira(order.totalAmount)}</p>
+                  <p className={`price-tag text-sm font-bold ${order.incomplete ? 'text-ink-400' : 'text-forest-900'}`}>
+                    {formatNaira(order.totalAmount)}
+                  </p>
                 </div>
               ))}
             </div>

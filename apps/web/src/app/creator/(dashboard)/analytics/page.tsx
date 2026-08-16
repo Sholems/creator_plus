@@ -51,7 +51,7 @@ export default function CreatorAnalyticsPage() {
 
       const orders = salesData.data || [];
       const totalRevenue = earnings.totalEarnings || 0;
-      const totalSales = salesData.pagination?.total || 0;
+      const totalSales = salesData.paidTotal ?? (salesData.pagination?.total || 0);
       const avgOrderValue = totalSales > 0 ? totalRevenue / totalSales : 0;
 
       setAnalytics({
@@ -160,10 +160,19 @@ export default function CreatorAnalyticsPage() {
               {recentOrders.map((order) => (
                 <div key={order.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{order.invoiceNumber || order.id.slice(0, 8)}</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {order.invoiceNumber || order.id.slice(0, 8)}
+                      {order.incomplete && (
+                        <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[0.625rem] font-semibold uppercase text-amber-700">
+                          Incomplete
+                        </span>
+                      )}
+                    </p>
                     <p className="text-xs text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</p>
                   </div>
-                  <p className="text-sm font-semibold text-green-600">{formatNaira(order.totalAmount)}</p>
+                  <p className={`text-sm font-semibold ${order.incomplete ? 'text-gray-400' : 'text-green-600'}`}>
+                    {formatNaira(order.totalAmount)}
+                  </p>
                 </div>
               ))}
             </div>
