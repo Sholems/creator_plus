@@ -1,5 +1,5 @@
 -- AddNewCategories
-INSERT INTO "Category" ("id", "name", "slug", "description", "icon", "sort_order", "is_active", "created_at", "updated_at")
+INSERT INTO "categories" ("id", "name", "slug", "description", "icon", "sort_order", "is_active", "created_at", "updated_at")
 VALUES
   (gen_random_uuid(), 'WordPress Themes', 'wordpress-themes', 'Premium WordPress themes for blogs, business, e-commerce and portfolios', '🎨', 15, true, NOW(), NOW()),
   (gen_random_uuid(), 'WordPress Plugins', 'wordpress-plugins', 'WordPress plugins for SEO, forms, e-commerce, security and more', '🔧', 16, true, NOW(), NOW()),
