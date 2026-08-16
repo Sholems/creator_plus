@@ -1,4 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description:
+    'CreatorPlus Terms of Service — the rules and guidelines governing the use of our marketplace for buying and selling digital products.',
+  alternates: { canonical: '/terms' },
+  openGraph: {
+    title: 'Terms of Service — CreatorPlus',
+    description:
+      'The rules and guidelines governing the use of CreatorPlus for buying and selling digital products.',
+    type: 'website',
+  },
+};
 
 export default function TermsPage() {
   return (

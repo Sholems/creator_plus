@@ -1,4 +1,19 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { SITE_NAME, SITE_URL } from '@/lib/brand';
+
+export const metadata: Metadata = {
+  title: 'Help Center',
+  description:
+    'Find answers to common questions about buying and selling digital products on CreatorPlus. Payment, downloads, refunds, licensing, and more.',
+  alternates: { canonical: '/help' },
+  openGraph: {
+    title: 'Help Center — CreatorPlus',
+    description:
+      'Find answers to common questions about buying and selling digital products on CreatorPlus.',
+    type: 'website',
+  },
+};
 
 const faqCategories = [
   {
@@ -38,8 +53,27 @@ const faqCategories = [
 ];
 
 export default function HelpPage() {
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqCategories.flatMap((cat) =>
+      cat.questions.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a,
+        },
+      })),
+    ),
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900">Help Center</h1>
         <p className="mt-4 text-xl text-gray-600">

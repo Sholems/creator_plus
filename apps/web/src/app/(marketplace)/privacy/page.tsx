@@ -1,4 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description:
+    'CreatorPlus Privacy Policy — how we collect, use, and protect your personal information when you use our marketplace.',
+  alternates: { canonical: '/privacy' },
+  openGraph: {
+    title: 'Privacy Policy — CreatorPlus',
+    description:
+      'How we collect, use, and protect your personal information when you use CreatorPlus.',
+    type: 'website',
+  },
+};
 
 export default function PrivacyPage() {
   return (

@@ -1,4 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'About CreatorPlus',
+  description:
+    'Learn about CreatorPlus — the African marketplace for buying and selling digital products, templates, courses, and AI prompts. Our mission, values, and the numbers behind the platform.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About CreatorPlus',
+    description:
+      'Learn about CreatorPlus — the African marketplace for buying and selling digital products, templates, courses, and AI prompts.',
+    type: 'website',
+  },
+};
 
 export default function AboutPage() {
   return (

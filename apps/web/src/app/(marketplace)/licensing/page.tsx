@@ -1,4 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Licensing Guide',
+  description:
+    'Understand the licensing options on CreatorPlus — Personal, Commercial, Extended, and Enterprise licenses for digital products.',
+  alternates: { canonical: '/licensing' },
+  openGraph: {
+    title: 'Licensing Guide — CreatorPlus',
+    description:
+      'Understand the licensing options on CreatorPlus — Personal, Commercial, Extended, and Enterprise licenses.',
+    type: 'website',
+  },
+};
 
 export default function LicensingPage() {
   return (

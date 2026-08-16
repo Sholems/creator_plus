@@ -54,6 +54,63 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default async function ProductLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  const jsonLd = product?.title
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: product.title,
+        description:
+          product.shortDescription ||
+          (product.description ? String(product.description).slice(0, 300) : ''),
+        image: product.coverImage || product.thumbnail || undefined,
+        url: `${SITE_URL}/products/${slug}`,
+        brand: product.creator?.storeName
+          ? { '@type': 'Organization', name: product.creator.storeName }
+          : undefined,
+        offers: {
+          '@type': 'Offer',
+          price: product.price,
+          priceCurrency: product.currency || 'NGN',
+          availability: product.status === 'PUBLISHED'
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+          url: `${SITE_URL}/products/${slug}`,
+          seller: product.creator?.storeName
+            ? { '@type': 'Organization', name: product.creator.storeName }
+            : undefined,
+        },
+        aggregateRating:
+          product.averageRating && product.reviewCount
+            ? {
+                '@type': 'AggregateRating',
+                ratingValue: product.averageRating,
+                reviewCount: product.reviewCount,
+                bestRating: 5,
+                worstRating: 1,
+              }
+            : undefined,
+      }
+    : null;
+
+  return (
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {children}
+    </>
+  );
 }
