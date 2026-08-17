@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
@@ -8,6 +9,16 @@ import { api } from '@/lib/api';
 import { formatNaira } from '@/lib/format';
 import { AdinkraMark } from '@/components/brand/adinkra';
 import { PaymentProviderPicker } from '@/components/market/payment-provider-picker';
+
+function Breadcrumbs() {
+  return (
+    <nav className="flex items-center gap-2 text-sm text-ink-400">
+      <Link href="/" className="transition-colors hover:text-forest-700">Home</Link>
+      <span>/</span>
+      <span className="font-medium text-ink-700">Cart</span>
+    </nav>
+  );
+}
 
 export default function CartPage() {
   const { token } = useAuth();
@@ -136,15 +147,28 @@ export default function CartPage() {
     }
   };
 
+  const totalAfterDiscount = cart
+    ? cart.totalAmount - (couponApplied?.discountAmount || 0)
+    : 0;
+  const walletBalance = wallet ? Number(wallet.availableBalance || 0) : 0;
+  const canPayWithWallet = wallet && walletBalance >= totalAfterDiscount;
+
   if (!token) {
     return (
       <div className="flex min-h-[calc(100vh-200px)] items-center justify-center px-4">
         <div className="text-center">
           <AdinkraMark className="mx-auto h-10 w-10" />
           <h2 className="mt-4 text-2xl font-bold text-ink-900">Sign in to view your cart</h2>
+          <p className="mt-2 text-sm text-ink-500">You need an account to make purchases.</p>
           <Link href="/auth/login" className="mt-4 inline-block font-semibold text-forest-700 hover:text-forest-600">
             Sign in →
           </Link>
+          <p className="mt-2 text-xs text-ink-400">
+            Don&apos;t have an account?{' '}
+            <Link href="/auth/register" className="font-medium text-forest-700 hover:text-forest-600">
+              Create one free
+            </Link>
+          </p>
         </div>
       </div>
     );
@@ -152,8 +176,8 @@ export default function CartPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-      <p className="eyebrow text-gold-600">Your basket</p>
-      <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
+      <Breadcrumbs />
+      <h1 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
         Shopping cart
       </h1>
 
@@ -190,9 +214,15 @@ export default function CartPage() {
           <div className="lg:col-span-2 space-y-3">
             {cart.items.map((item: any) => (
               <div key={item.id} className="surface-card flex items-center gap-4 p-4">
-                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-cream-100">
+                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-cream-100">
                   {item.product?.thumbnail ? (
-                    <img src={item.product.thumbnail} alt="" className="h-full w-full object-cover" />
+                    <Image
+                      src={item.product.thumbnail}
+                      alt={item.product.title}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
                   ) : (
                     <div className="flex h-full items-center justify-center">
                       <svg className="h-6 w-6 text-ink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -288,47 +318,94 @@ export default function CartPage() {
                 <div className="flex items-center justify-between border-t border-ink-100 pt-3">
                   <span className="font-display text-base font-semibold text-ink-900">Total</span>
                   <span className="price-tag text-xl font-bold text-forest-900">
-                    {formatNaira(cart.totalAmount - (couponApplied?.discountAmount || 0))}
+                    {formatNaira(totalAfterDiscount)}
                   </span>
                 </div>
               </div>
 
+              {/* Payment method */}
               <div className="mt-6">
                 <PaymentProviderPicker value={provider} onChange={setProvider} />
               </div>
 
-              <label className="mt-4 flex cursor-pointer items-center gap-3 rounded-xl border border-ink-100 bg-white p-4">
-                <input
-                  type="checkbox"
-                  checked={usingWallet}
-                  onChange={(e) => setUsingWallet(e.target.checked)}
-                  disabled={wallet && Number(wallet.availableBalance || 0) < cart.totalAmount - (couponApplied?.discountAmount || 0)}
-                  className="h-4 w-4 rounded border-ink-200 text-forest-700 focus:ring-forest-500"
-                />
-                <span className="flex-1 text-sm">
-                  <span className="block font-medium text-ink-900">Pay with CreatorPlus Wallet</span>
-                  <span className="mt-0.5 block text-xs text-ink-500">
-                    {wallet
-                      ? `Balance: ${formatNaira(wallet.availableBalance)}`
-                      : 'Balance unavailable'}
-                  </span>
-                </span>
-              </label>
+              {/* Wallet option */}
+              {wallet && (
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (canPayWithWallet) setUsingWallet(!usingWallet);
+                    }}
+                    disabled={!canPayWithWallet}
+                    className={`w-full rounded-xl border p-4 text-left transition-all ${
+                      usingWallet && canPayWithWallet
+                        ? 'border-forest-500 bg-forest-50 ring-1 ring-forest-500'
+                        : canPayWithWallet
+                          ? 'border-ink-100 bg-white hover:border-forest-300'
+                          : 'border-ink-100 bg-cream-50 opacity-60'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
+                          usingWallet && canPayWithWallet ? 'border-forest-500' : 'border-ink-200'
+                        }`}
+                      >
+                        {usingWallet && canPayWithWallet && (
+                          <span className="h-2.5 w-2.5 rounded-full bg-forest-500" />
+                        )}
+                      </span>
+                      <div className="flex-1">
+                        <span className="block font-display text-sm font-semibold text-ink-900">
+                          Pay with CreatorPlus Wallet
+                        </span>
+                        <span className="mt-0.5 block text-xs text-ink-500">
+                          Balance: {formatNaira(walletBalance)}
+                          {!canPayWithWallet && (
+                            <span className="ml-1 text-clay-600">
+                              (insufficient — need {formatNaira(totalAfterDiscount)})
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              )}
 
               <button
                 onClick={handleCheckout}
-                disabled={isPaying || (usingWallet && wallet && Number(wallet.availableBalance || 0) < cart.totalAmount - (couponApplied?.discountAmount || 0))}
+                disabled={isPaying || (usingWallet && !canPayWithWallet)}
                 className="mt-6 w-full rounded-full bg-forest-800 px-6 py-3.5 font-semibold text-cream-50 shadow-sm transition-colors hover:bg-forest-700 disabled:opacity-50"
               >
                 {isPaying
                   ? 'Processing…'
                   : usingWallet
-                    ? 'Pay with Wallet'
-                    : `Pay ${formatNaira(cart.totalAmount - (couponApplied?.discountAmount || 0))}`}
+                    ? `Pay ${formatNaira(totalAfterDiscount)} with Wallet`
+                    : `Pay ${formatNaira(totalAfterDiscount)}`}
               </button>
-              <p className="mt-4 text-center text-xs text-ink-400">
-                Secure checkout · Paystack, Flutterwave or card · 30-day money-back guarantee
-              </p>
+
+              {/* Trust signals */}
+              <div className="mt-4 flex items-center justify-center gap-4 text-xs text-ink-400">
+                <span className="flex items-center gap-1">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Secure
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Instant download
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  30-day guarantee
+                </span>
+              </div>
             </div>
           </div>
         </div>
