@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { Route } from 'next';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/lib/auth';
 import { CreatorPlusMark } from '@/components/brand/logo';
 import { NotificationBell } from '@/components/layout/notification-bell';
@@ -26,6 +26,30 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
+  // Close mobile menu on Escape key
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+        setIsUserMenuOpen(false);
+      }
+    },
+    [],
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
+  // Close user dropdown when clicking outside
+  useEffect(() => {
+    if (!isUserMenuOpen) return;
+    const close = () => setIsUserMenuOpen(false);
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [isUserMenuOpen]);
+
   const linkClass = (active = false) =>
     `text-sm font-medium transition-colors hover:text-gold-300 ${
       active ? 'text-gold-300' : 'text-cream-100/80'
@@ -45,7 +69,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation — centered */}
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex" aria-label="Main navigation">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className={linkClass(false)}>
                 {link.label}
@@ -62,7 +86,7 @@ export function Header() {
 
             {/* Wishlist */}
             {token && (
-              <Link href="/dashboard/wishlist" className="hidden sm:flex p-2 text-cream-100/80 hover:text-white" aria-label="Wishlist">
+              <Link href="/dashboard/wishlist" className="hidden sm:flex p-2.5 text-cream-100/80 hover:text-white" aria-label="Wishlist">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -72,7 +96,7 @@ export function Header() {
 
             {/* Cart */}
             {token && (
-              <Link href="/cart" className="relative p-2 text-cream-100/80 hover:text-white" aria-label="Cart">
+              <Link href="/cart" className="relative p-2.5 text-cream-100/80 hover:text-white" aria-label="Cart">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -89,7 +113,10 @@ export function Header() {
                 <div className="relative">
                   <button
                     type="button"
-                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsUserMenuOpen(!isUserMenuOpen);
+                    }}
                     className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-sm font-medium text-cream-50 hover:bg-white/15"
                   >
                     <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-400 text-xs font-bold text-forest-900">
@@ -168,11 +195,13 @@ export function Header() {
             {/* Mobile Menu Toggle */}
             <button
               type="button"
-              className="md:hidden p-2 text-cream-100/80 hover:text-white"
+              className="md:hidden p-2.5 text-cream-100/80 hover:text-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Menu"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -184,52 +213,71 @@ export function Header() {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/10">
-            <nav className="flex flex-col gap-4">
-              {NAV_LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="text-sm font-medium text-cream-100/90 hover:text-gold-300" onClick={() => setIsMenuOpen(false)}>
-                  {link.label}
+        <div
+          id="mobile-menu"
+          role="navigation"
+          aria-label="Mobile navigation"
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <nav className="flex flex-col gap-1 py-4 border-t border-white/10">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10 hover:text-gold-300"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <hr className="my-2 border-white/10" />
+            {token ? (
+              <>
+                {isCreator ? (
+                  <Link href="/creator" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                    Creator Studio
+                  </Link>
+                ) : (
+                  <Link href="/sell" className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                    Start selling
+                  </Link>
+                )}
+                <Link href="/dashboard" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Buyer Dashboard
                 </Link>
-              ))}
-              <hr className="border-white/10" />
-              {token ? (
-                <>
-                  {isCreator ? (
-                    <Link href="/creator" className="text-sm font-medium text-cream-100/90" onClick={() => setIsMenuOpen(false)}>
-                      Creator Studio
-                    </Link>
-                  ) : (
-                    <Link href="/sell" className="text-sm font-medium text-gold-300" onClick={() => setIsMenuOpen(false)}>
-                      Start selling
-                    </Link>
-                  )}
-                  <Link href="/dashboard" className="text-sm font-medium text-cream-100/90" onClick={() => setIsMenuOpen(false)}>
-                    Buyer Dashboard
-                  </Link>
-                  {admin && (
-                    <a href={ADMIN_URL} target="_blank" rel="noopener noreferrer"
-                      className="text-sm font-medium text-gold-300">
-                      Admin Console
-                    </a>
-                  )}
-                  <button onClick={() => { logout(); setIsMenuOpen(false); }} className="text-left text-sm font-medium text-gold-300">
-                    Sign Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link href="/auth/login" className="text-sm font-medium text-cream-100/90" onClick={() => setIsMenuOpen(false)}>
-                    Log in
-                  </Link>
-                  <Link href="/auth/register" className="text-sm font-medium text-gold-300" onClick={() => setIsMenuOpen(false)}>
-                    Sign up
-                  </Link>
-                </>
-              )}
-            </nav>
-          </div>
-        )}
+                <Link href="/dashboard/wishlist" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10 sm:hidden" onClick={() => setIsMenuOpen(false)}>
+                  Wishlist
+                </Link>
+                <Link href="/cart" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10 sm:hidden" onClick={() => setIsMenuOpen(false)}>
+                  Cart
+                </Link>
+                {admin && (
+                  <a href={ADMIN_URL} target="_blank" rel="noopener noreferrer"
+                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10">
+                    Admin Console
+                  </a>
+                )}
+                <Link href="/dashboard/settings" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Settings
+                </Link>
+                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="text-left rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10">
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/auth/login" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Log in
+                </Link>
+                <Link href="/auth/register" className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Sign up
+                </Link>
+              </>
+            )}
+          </nav>
+        </div>
       </div>
     </header>
   );
