@@ -1,0 +1,32 @@
+export default function CategoryLoading() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      {/* Breadcrumb skeleton */}
+      <div className="flex items-center gap-2">
+        <div className="h-3 w-12 animate-pulse rounded bg-cream-200" />
+        <div className="h-3 w-3 animate-pulse rounded bg-cream-100" />
+        <div className="h-3 w-20 animate-pulse rounded bg-cream-200" />
+      </div>
+
+      {/* Header skeleton */}
+      <div className="mt-6 h-4 w-24 animate-pulse rounded bg-cream-200" />
+      <div className="mt-3 h-8 w-64 animate-pulse rounded bg-cream-200" />
+      <div className="mt-2 h-4 w-96 animate-pulse rounded bg-cream-100" />
+
+      {/* Grid skeleton */}
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="overflow-hidden rounded-2xl border border-ink-100 bg-white">
+            <div className="aspect-[4/3] animate-pulse bg-cream-100" />
+            <div className="space-y-2 p-4">
+              <div className="h-3 w-1/3 rounded bg-cream-200 animate-pulse" />
+              <div className="h-4 w-3/4 rounded bg-cream-200 animate-pulse" />
+              <div className="h-5 w-20 rounded bg-cream-200 animate-pulse mt-2" />
+              <div className="h-9 w-full rounded-full bg-cream-200 animate-pulse mt-3" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
