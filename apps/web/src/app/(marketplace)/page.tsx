@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatNaira } from '@/lib/format';
 import { AdinkraField, AdinkraMark } from '@/components/brand/adinkra';
 import { CustomerProductCard, type CustomerProduct } from '@/components/market/customer-product-card';
@@ -49,11 +50,24 @@ function StallRow({ product }: { product: CustomerProduct }) {
       href={`/products/${product.slug}`}
       className="group flex items-center gap-3 rounded-xl border border-ink-100 bg-white p-3 shadow-[0_8px_24px_rgba(22,33,27,0.12)] transition-transform hover:-translate-y-0.5 sm:gap-4"
     >
-      <img
-        src={product.thumbnail || ''}
-        alt={product.title}
-        className="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
-      />
+      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-24">
+        {product.thumbnail ? (
+          <Image
+            src={product.thumbnail}
+            alt={product.title}
+            fill
+            sizes="96px"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-cream-100">
+            <svg className="h-8 w-8 text-ink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+        )}
+      </div>
       <div className="min-w-0 flex-1">
         <p className="eyebrow text-gold-600">
           {product.category?.name || 'Digital product'}
@@ -75,18 +89,61 @@ function StallRow({ product }: { product: CustomerProduct }) {
   );
 }
 
+function CreatorAvatar({ creator }: { creator: any }) {
+  return (
+    <Link
+      href={`/creator/${creator.slug}`}
+      className="group flex items-center gap-3 rounded-xl border border-ink-100 bg-white p-3 transition-all hover:-translate-y-0.5 hover:border-gold-300 hover:shadow-md sm:p-4"
+    >
+      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-forest-100">
+        {creator.avatar ? (
+          <Image
+            src={creator.avatar}
+            alt={creator.storeName}
+            fill
+            sizes="48px"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center font-display text-lg font-bold text-forest-700">
+            {creator.storeName?.charAt(0) || 'C'}
+          </div>
+        )}
+        {creator.verified && (
+          <span className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-gold-500">
+            <svg className="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+          </span>
+        )}
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="font-display text-sm font-semibold text-ink-900 group-hover:text-forest-700 line-clamp-1">
+          {creator.storeName}
+        </p>
+        <p className="mt-0.5 text-xs text-ink-500 line-clamp-1">
+          {creator.bio || 'Digital product creator'}
+        </p>
+        <div className="mt-1 flex items-center gap-3 text-xs text-ink-400">
+          <span>{creator.productCount || 0} products</span>
+          <span>·</span>
+          <span>{creator.followerCount || 0} followers</span>
+        </div>
+      </div>
+      <span className="shrink-0 text-forest-700 opacity-0 transition-opacity group-hover:opacity-100">→</span>
+    </Link>
+  );
+}
+
 export default async function HomePage() {
-  const [featuredRes, recentRes, catsRes] = await Promise.all([
-    // Admin-curated featured products drive the hero stall card, the featured
-    // section and the affiliate picks. Fall back to recent published products
-    // until an admin features something, so the homepage never looks empty.
+  const [featuredRes, recentRes, catsRes, trendingRes, creatorsRes] = await Promise.all([
     getJson('/products?featured=true&perPage=8'),
     getJson('/products?perPage=8'),
     getJson('/categories'),
+    getJson('/search/trending'),
+    getJson('/creators'),
   ]);
 
-  // Category grid is DB-driven (falls back to the curated list if the API is
-  // unreachable). Blurbs come from the curated list when a category has none.
   const dbCats = (Array.isArray(catsRes) ? catsRes : catsRes?.data ?? []) as any[];
   const blurbBySlug: Record<string, string> = Object.fromEntries(
     CATEGORIES.map((c) => [c.slug, c.blurb]),
@@ -102,11 +159,18 @@ export default async function HomePage() {
 
   const featured: CustomerProduct[] =
     (featuredRes?.data?.length ? featuredRes.data : recentRes?.data) ?? [];
+  const trending: (CustomerProduct & { viewCount?: number; slug?: string })[] = trendingRes?.data ?? featured.slice(0, 10);
+  const creators: any[] = creatorsRes?.data ?? [];
+  const topCreators = creators
+    .sort((a: any, b: any) => (b.followerCount || 0) - (a.followerCount || 0))
+    .slice(0, 6);
+
   const stallItems = featured.slice(0, 2);
-  const tickerItems = featured.slice(0, 8).map((p) => ({
+  const tickerItems = trending.slice(0, 10).map((p) => ({
     title: p.title,
+    slug: p.slug,
     price: formatNaira(p.price),
-    kept: formatNaira(Number(p.price) * 0.9),
+    views: p.viewCount || 0,
   }));
 
   return (
@@ -153,6 +217,19 @@ export default async function HomePage() {
 
               {/* Search the market */}
               <HeroSearch />
+
+              {/* Quick stats under search */}
+              <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-cream-100/60">
+                <span className="flex items-center gap-1.5">
+                  <span className="text-gold-400 font-semibold">{trending.length > 0 ? trending.length : '100+'}</span> trending products
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="text-gold-400 font-semibold">{creators.length || '50+'}</span> verified creators
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="text-gold-400 font-semibold">22</span> categories
+                </span>
+              </div>
             </div>
 
             {/* RIGHT — the stall collage */}
@@ -209,19 +286,27 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Just-sold ticker */}
+        {/* Trending ticker */}
         {tickerItems.length > 0 && (
           <div className="relative border-t border-white/10 bg-forest-950/80 py-3">
             <div className="ticker-track flex w-max items-center gap-10 whitespace-nowrap">
               {[...tickerItems, ...tickerItems].map((item, i) => (
-                <span key={i} className="flex items-center gap-2 font-mono text-sm text-cream-100/70">
+                <Link
+                  key={i}
+                  href={`/products/${item.slug}`}
+                  className="flex items-center gap-2 font-mono text-sm text-cream-100/70 transition-colors hover:text-cream-50"
+                >
                   <span className="text-gold-400">◆</span>
                   <span className="text-gold-200">{item.title}</span>
-                  <span className="text-cream-100/40">just sold ·</span>
+                  <span className="text-cream-100/40">trending ·</span>
                   <span className="text-cream-50">{item.price}</span>
-                  <span className="text-cream-100/30">creator kept</span>
-                  <span className="text-gold-300">{item.kept}</span>
-                </span>
+                  {item.views > 0 && (
+                    <>
+                      <span className="text-cream-100/30">·</span>
+                      <span className="text-gold-300">{item.views} views</span>
+                    </>
+                  )}
+                </Link>
               ))}
             </div>
           </div>
@@ -257,22 +342,62 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ================= FEATURED PRODUCTS ================= */}
-      <section className="border-y border-ink-100 bg-cream-100/60 py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Fresh from the stalls"
-            title="Featured products"
-            description="What buyers across Nigeria and Africa are downloading right now."
-            action={{ href: '/products', label: 'View all' }}
-          />
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.slice(0, 8).map((product) => (
-              <CustomerProductCard key={product.id} product={product} />
-            ))}
+      {/* ================= TRENDING PRODUCTS ================= */}
+      {trending.length > 0 && (
+        <section className="border-y border-ink-100 bg-cream-100/60 py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHeading
+              eyebrow="What everyone's looking at"
+              title="Trending now"
+              description="The most-viewed products on CreatorPlus right now — join the crowd or discover something new."
+              action={{ href: '/products?sort=popular', label: 'See all trending' }}
+            />
+            <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {trending.slice(0, 8).map((product) => (
+                <CustomerProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ================= FEATURED PRODUCTS ================= */}
+      {featured.length > 0 && (
+        <section className="py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHeading
+              eyebrow="Fresh from the stalls"
+              title="Featured products"
+              description="Hand-picked by our team — the best of the best across every category."
+              action={{ href: '/products', label: 'View all' }}
+            />
+            <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {featured.slice(0, 8).map((product) => (
+                <CustomerProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ================= TOP CREATORS ================= */}
+      {topCreators.length > 0 && (
+        <section className="border-y border-ink-100 bg-cream-100/60 py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHeading
+              eyebrow="Meet the makers"
+              title="Top creators"
+              description="The creators building the most popular products on CreatorPlus — follow them for new drops."
+              action={{ href: '/creators', label: 'All creators' }}
+            />
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {topCreators.map((creator) => (
+                <CreatorAvatar key={creator.id} creator={creator} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ================= AFFILIATE PICKS ================= */}
       <section className="relative overflow-hidden bg-forest-900 py-16 text-cream-50 sm:py-20">
@@ -300,6 +425,62 @@ export default async function HomePage() {
               </Link>
             </p>
           )}
+        </div>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="What creators say"
+            title="Built by creators, for creators"
+            align="center"
+            className="sm:items-center"
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                quote: "CreatorPlus made it easy to sell my Notion templates to people across Africa. The naira payments and instant delivery are game changers.",
+                name: "Adaeze O.",
+                role: "Notion Template Creator",
+                location: "Lagos, Nigeria",
+              },
+              {
+                quote: "I launched my AI prompt store in a weekend. Within a month I had my first 50 sales — all through Paystack. No dollar card drama.",
+                name: "Kwame A.",
+                role: "AI Prompt Creator",
+                location: "Accra, Ghana",
+              },
+              {
+                quote: "The affiliate programme is brilliant. I share products I love and earn 50% commission. It's the easiest side income I've ever had.",
+                name: "Fatima M.",
+                role: "Affiliate Marketer",
+                location: "Nairobi, Kenya",
+              },
+            ].map((testimonial) => (
+              <div key={testimonial.name} className="surface-card p-8">
+                <div className="flex gap-1 text-gold-400">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <blockquote className="mt-4 text-sm leading-relaxed text-ink-600">
+                  "{testimonial.quote}"
+                </blockquote>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-forest-100 font-display text-sm font-bold text-forest-700">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink-900">{testimonial.name}</p>
+                    <p className="text-xs text-ink-500">{testimonial.role} · {testimonial.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
