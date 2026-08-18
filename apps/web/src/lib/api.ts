@@ -59,7 +59,7 @@ class ApiClient {
   }
 
   async login(email: string, password: string) {
-    return this.fetch<{ user: any; accessToken: string }>('/auth/login', {
+    return this.fetch<{ user: any; accessToken: string; requiresTwoFactor?: boolean; tempToken?: string }>('/auth/login', {
       method: 'POST',
       body: { email, password },
     });
@@ -807,6 +807,30 @@ class ApiClient {
   /** Public endpoint — no auth required. */
   async getPublicTracking() {
     return this.fetch<any>('/platform/tracking');
+  }
+
+  // ------------------------------------------------------------------
+  // Two-Factor Authentication
+  // ------------------------------------------------------------------
+
+  async getTwoFactorStatus(token: string) {
+    return this.fetch<{ enabled: boolean }>('/auth/2fa/status', { token });
+  }
+
+  async setupTwoFactor(token: string) {
+    return this.fetch<{ secret: string; otpauthUri: string }>('/auth/2fa/setup', { method: 'POST', token });
+  }
+
+  async enableTwoFactor(token: string, code: string) {
+    return this.fetch<{ success: boolean; backupCodes: string[] }>('/auth/2fa/enable', { method: 'POST', body: { code }, token });
+  }
+
+  async disableTwoFactor(token: string, password: string) {
+    return this.fetch<{ success: boolean }>('/auth/2fa/disable', { method: 'POST', body: { password }, token });
+  }
+
+  async verifyTwoFactorLogin(tempToken: string, code: string) {
+    return this.fetch<{ accessToken: string; user: any }>('/auth/2fa/verify', { method: 'POST', body: { tempToken, code } });
   }
 }
 

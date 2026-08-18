@@ -27,13 +27,16 @@ function EyeSlashIcon() {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, isLoading: authLoading } = useAuth();
+  const { login, verifyTwoFactorLogin, isLoading: authLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [twoFactorRequired, setTwoFactorRequired] = useState(false);
+  const [twoFactorCode, setTwoFactorCode] = useState('');
+  const [tempToken, setTempToken] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +45,12 @@ export default function LoginPage() {
 
     try {
       const res = await login(email, password, remember);
+      if (res.requiresTwoFactor) {
+        setTwoFactorRequired(true);
+        setTempToken(res.tempToken || '');
+        setIsLoading(false);
+        return;
+      }
       const next = new URLSearchParams(window.location.search).get('next');
       if (next && next.startsWith('/')) {
         router.push(next as Route);
@@ -50,6 +59,25 @@ export default function LoginPage() {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleTwoFactorSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    try {
+      const res = await verifyTwoFactorLogin(tempToken, twoFactorCode);
+      const next = new URLSearchParams(window.location.search).get('next');
+      if (next && next.startsWith('/')) {
+        router.push(next as Route);
+      } else {
+        router.push(res.user.creatorProfile ? '/creator' : '/dashboard');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Invalid code. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -78,6 +106,7 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="rounded-2xl border border-ink-100 bg-white p-8 shadow-[0_8px_32px_rgba(10,46,34,0.08)]">
+          {!twoFactorRequired ? (
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="flex items-start gap-2 rounded-xl border border-clay-200 bg-clay-50 px-3 py-2.5 text-sm text-clay-700">
@@ -162,6 +191,65 @@ export default function LoginPage() {
               {isLoading ? 'Signing in…' : 'Sign in'}
             </button>
           </form>
+          ) : (
+          <form onSubmit={handleTwoFactorSubmit} className="space-y-5">
+            <div className="text-center mb-2">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-forest-100 mb-3">
+                <svg className="h-6 w-6 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+              </div>
+              <h2 className="font-display text-lg font-semibold text-ink-900">Two-Factor Authentication</h2>
+              <p className="text-sm text-ink-500 mt-1">Enter the 6-digit code from your authenticator app.</p>
+            </div>
+
+            {error && (
+              <div className="flex items-start gap-2 rounded-xl border border-clay-200 bg-clay-50 px-3 py-2.5 text-sm text-clay-700">
+                <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="totp-code" className="mb-1.5 block text-sm font-medium text-ink-700">
+                Verification code
+              </label>
+              <input
+                id="totp-code"
+                type="text"
+                inputMode="numeric"
+                maxLength={6}
+                value={twoFactorCode}
+                onChange={(e) => {
+                  setTwoFactorCode(e.target.value.replace(/\D/g, ''));
+                  if (error) setError('');
+                }}
+                className={`${inputClass} text-center font-mono text-lg tracking-[0.3em]`}
+                placeholder="000000"
+                autoFocus
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading || twoFactorCode.length !== 6}
+              className="flex w-full justify-center rounded-full bg-forest-800 px-4 py-3 text-sm font-semibold text-cream-50 shadow-sm transition hover:bg-forest-700 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isLoading ? 'Verifying…' : 'Verify'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => { setTwoFactorRequired(false); setTwoFactorCode(''); setError(''); }}
+              className="flex w-full justify-center rounded-full border border-ink-200 bg-white px-4 py-3 text-sm font-semibold text-ink-700 transition hover:bg-cream-100"
+            >
+              Back to sign in
+            </button>
+          </form>
+          )}
         </div>
 
         {/* Switch */}

@@ -38,12 +38,13 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   isLoading: boolean;
-  login: (email: string, password: string, remember?: boolean) => Promise<{ user: User; accessToken: string }>;
+  login: (email: string, password: string, remember?: boolean) => Promise<{ user: User; accessToken: string; requiresTwoFactor?: boolean; tempToken?: string }>;
   register: (
     email: string,
     password: string,
     displayName?: string,
   ) => Promise<{ accessToken: string; user: User }>;
+  verifyTwoFactorLogin: (tempToken: string, code: string) => Promise<{ user: User; accessToken: string }>;
   refresh: () => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
@@ -148,8 +149,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string, remember = true) => {
     const response = await api.login(email, password);
+    if (response.requiresTwoFactor) {
+      return { user: null as any, accessToken: '', requiresTwoFactor: true, tempToken: response.tempToken };
+    }
     clearStoredToken();
     (remember ? localStorage : sessionStorage).setItem('token', response.accessToken);
+    setToken(response.accessToken);
+    const fresh = await api.getProfile(response.accessToken);
+    setUser(fresh);
+    return { ...response, user: fresh };
+  };
+
+  const verifyTwoFactorLogin = async (tempToken: string, code: string) => {
+    const response = await api.verifyTwoFactorLogin(tempToken, code);
+    clearStoredToken();
+    localStorage.setItem('token', response.accessToken);
     setToken(response.accessToken);
     const fresh = await api.getProfile(response.accessToken);
     setUser(fresh);
@@ -190,6 +204,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading,
         login,
         register,
+        verifyTwoFactorLogin,
         refresh,
         logout,
         isAuthenticated: !!user,

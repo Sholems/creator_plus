@@ -23,6 +23,7 @@ import {
   ResendVerificationDto,
   RefreshTokenDto,
 } from '../common';
+import { EnableTwoFactorDto, VerifyTwoFactorDto, DisableTwoFactorDto } from '../common/dto/two-factor.dto';
 
 const REFRESH_COOKIE = 'refresh_token';
 // Scoped to the auth routes so the long-lived refresh token is only ever sent
@@ -82,13 +83,20 @@ export class AuthController {
     @Request() req,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { refreshToken, ...result } = await this.authService.login(
+    const result = await this.authService.login(
       dto.email,
       dto.password,
       { userAgent: req.headers['user-agent'], ipAddress: req.ip },
     );
+
+    // If 2FA is required, don't set cookies — return temp token
+    if (result.requiresTwoFactor) {
+      return result;
+    }
+
+    const { refreshToken, ...rest } = result;
     this.setRefreshCookie(res, refreshToken);
-    return result;
+    return rest;
   }
 
   @Post('refresh')
@@ -176,5 +184,63 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Invalid or expired token' })
   async resetPassword(@Body() dto: ResetPasswordDto) {
     return this.authService.resetPassword(dto.token, dto.newPassword);
+  }
+
+  // ─── Two-Factor Authentication ──────────────────────────────────────────
+
+  @Get('2fa/status')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get 2FA status' })
+  async getTwoFactorStatus(@Request() req) {
+    return this.authService.getTwoFactorStatus(req.user.sub);
+  }
+
+  @Post('2fa/setup')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Initiate 2FA setup — returns secret and otpauth URI' })
+  async setupTwoFactor(@Request() req) {
+    return this.authService.initiateTwoFactorSetup(req.user.sub);
+  }
+
+  @Post('2fa/enable')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Verify TOTP code and enable 2FA' })
+  @ApiResponse({ status: 200, description: '2FA enabled, backup codes returned' })
+  async enableTwoFactor(@Request() req, @Body() dto: EnableTwoFactorDto) {
+    return this.authService.verifyAndEnableTwoFactor(req.user.sub, dto.code);
+  }
+
+  @Post('2fa/disable')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Disable 2FA (requires password confirmation)' })
+  async disableTwoFactor(@Request() req, @Body() dto: DisableTwoFactorDto) {
+    return this.authService.disableTwoFactor(req.user.sub, dto.password);
+  }
+
+  @Post('2fa/verify')
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  @ApiOperation({ summary: 'Verify 2FA code during login (used after password step)' })
+  async verifyTwoFactor(@Body() dto: VerifyTwoFactorDto & { tempToken: string }) {
+    try {
+      const payload = this.authService['jwtService'].verify(dto.tempToken);
+      if (payload.type !== '2fa-pending') {
+        throw new UnauthorizedException('Invalid token');
+      }
+      const ok = await this.authService.verifyTwoFactorLogin(payload.sub, dto.code);
+      if (!ok) {
+        throw new UnauthorizedException('Invalid 2FA code');
+      }
+      // Issue full tokens
+      const user = await this.authService.validateUser(payload.sub);
+      const accessToken = (this.authService as any).jwtService.sign({ sub: user.id, email: user.email });
+      return { accessToken, user };
+    } catch (e) {
+      if (e instanceof UnauthorizedException) throw e;
+      throw new UnauthorizedException('Invalid or expired token');
+    }
   }
 }

@@ -1,10 +1,11 @@
-import { Injectable, UnauthorizedException, ConflictException, ForbiddenException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { createHash, randomUUID, randomBytes } from 'crypto';
 import { prisma } from '@creatormarket/database';
 import { syncBrevoContact } from '@creatormarket/email';
 import { EmailService } from '../email/email.service';
+import { generateSecret, verifyTotp, buildOtpAuthUri, generateBackupCodes } from '../common/totp';
 
 export interface SessionContext {
   userAgent?: string;
@@ -132,10 +133,23 @@ export class AuthService {
       data: { lastLoginAt: new Date() },
     });
 
+    const { passwordHash: _, ...userWithoutPassword } = user;
+
+    // If 2FA is enabled, return a short-lived temp token instead of full tokens
+    if (user.twoFactorEnabled) {
+      const tempToken = this.jwtService.sign(
+        { sub: user.id, email: user.email, type: '2fa-pending' },
+        { expiresIn: '5m' },
+      );
+      return {
+        requiresTwoFactor: true,
+        tempToken,
+        user: userWithoutPassword,
+      };
+    }
+
     const accessToken = this.signAccessToken(user.id, user.email);
     const refreshToken = await this.createSession(user.id, context);
-
-    const { passwordHash: _, ...userWithoutPassword } = user;
 
     return {
       user: userWithoutPassword,
@@ -336,5 +350,136 @@ export class AuthService {
     });
 
     return { success: true };
+  }
+
+  // ─── Two-Factor Authentication ────────────────────────────────────────────
+
+  async getTwoFactorStatus(userId: string) {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: { twoFactorEnabled: true },
+    });
+    return { enabled: user.twoFactorEnabled };
+  }
+
+  async initiateTwoFactorSetup(userId: string) {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: { id: true, email: true, twoFactorEnabled: true, twoFactorSecret: true },
+    });
+
+    if (user.twoFactorEnabled) {
+      throw new BadRequestException('Two-factor authentication is already enabled. Disable it first.');
+    }
+
+    // Re-use an existing unverified secret or generate a new one
+    const secret = user.twoFactorSecret || generateSecret(20);
+    const otpauthUri = buildOtpAuthUri(secret, user.email);
+
+    // Store the secret (not yet verified/enabled)
+    await prisma.user.update({
+      where: { id: userId },
+      data: { twoFactorSecret: secret },
+    });
+
+    return { secret, otpauthUri };
+  }
+
+  async verifyAndEnableTwoFactor(userId: string, code: string) {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: { id: true, email: true, twoFactorEnabled: true, twoFactorSecret: true },
+    });
+
+    if (user.twoFactorEnabled) {
+      throw new BadRequestException('Two-factor authentication is already enabled.');
+    }
+
+    if (!user.twoFactorSecret) {
+      throw new BadRequestException('No pending 2FA setup. Call /auth/2fa/setup first.');
+    }
+
+    if (!verifyTotp(user.twoFactorSecret, code)) {
+      throw new UnauthorizedException('Invalid verification code. Please try again.');
+    }
+
+    const backupCodes = generateBackupCodes(8);
+    const hashedCodes = await Promise.all(
+      backupCodes.map(async (c) => createHash('sha256').update(c).digest('hex')),
+    );
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        twoFactorEnabled: true,
+        // Store backup codes as JSON array of hashes
+        twoFactorSecret: JSON.stringify({
+          secret: user.twoFactorSecret,
+          backupCodes: hashedCodes,
+        }),
+      },
+    });
+
+    return { success: true, backupCodes };
+  }
+
+  async disableTwoFactor(userId: string, password: string) {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+    });
+
+    const isValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isValid) {
+      throw new UnauthorizedException('Invalid password.');
+    }
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        twoFactorEnabled: false,
+        twoFactorSecret: null,
+      },
+    });
+
+    return { success: true };
+  }
+
+  /**
+   * Verify a TOTP code during login (called after password succeeds).
+   * Returns true if 2FA is not enabled (no further step needed) or if the code is valid.
+   */
+  async verifyTwoFactorLogin(userId: string, code: string): Promise<boolean> {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: { twoFactorEnabled: true, twoFactorSecret: true },
+    });
+
+    if (!user.twoFactorEnabled || !user.twoFactorSecret) {
+      return true; // No 2FA required
+    }
+
+    const parsed = JSON.parse(user.twoFactorSecret) as { secret: string; backupCodes: string[] };
+
+    // Try TOTP first
+    if (verifyTotp(parsed.secret, code)) {
+      return true;
+    }
+
+    // Try backup codes
+    const codeHash = createHash('sha256').update(code.replace('-', '')).digest('hex');
+    const idx = parsed.backupCodes.indexOf(codeHash);
+    if (idx !== -1) {
+      // Remove used backup code
+      parsed.backupCodes.splice(idx, 1);
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          twoFactorSecret: JSON.stringify(parsed),
+        },
+      });
+      return true;
+    }
+
+    return false;
   }
 }
