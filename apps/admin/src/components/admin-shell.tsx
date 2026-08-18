@@ -19,6 +19,7 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
   { href: '/support-tickets', label: 'Support Tickets' },
   { href: '/settings', label: 'Settings' },
+  { href: '/settings/tracking', label: 'Tracking' },
 ];
 
 function Diamond({ className }: { className?: string }) {

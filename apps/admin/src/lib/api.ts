@@ -268,4 +268,30 @@ export const api = {
     request<any>(`/admin/feature-flags/${id}`, { method: 'PUT', body, token }),
   deleteFeatureFlag: (token: string, id: string) =>
     request<any>(`/admin/feature-flags/${id}`, { method: 'DELETE', token }),
+
+  // Tracking / Analytics
+  getTracking: (token: string) =>
+    request<{
+      trackingEnabled: boolean;
+      facebookPixelId: string;
+      ga4MeasurementId: string;
+      gtmContainerId: string;
+      tiktokPixelId: string;
+      twitterPixelId: string;
+      hotjarId: string;
+      customHeadScript: string;
+    }>('/admin/settings/tracking', { token }),
+  updateTracking: (
+    token: string,
+    body: {
+      trackingEnabled?: boolean;
+      facebookPixelId?: string;
+      ga4MeasurementId?: string;
+      gtmContainerId?: string;
+      tiktokPixelId?: string;
+      twitterPixelId?: string;
+      hotjarId?: string;
+      customHeadScript?: string;
+    },
+  ) => request<any>('/admin/settings/tracking', { method: 'PUT', body, token }),
 };
