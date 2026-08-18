@@ -13,6 +13,7 @@ const creatorLinks: { href: Route; label: string }[] = [
   { href: '/creator/products', label: 'Products' },
   { href: '/creator/coupons', label: 'Coupons' },
   { href: '/creator/store', label: 'Store Settings' },
+  { href: '/creator/settings/security' as Route, label: 'Security' },
   { href: '/creator/analytics', label: 'Analytics' },
   { href: '/creator/earnings', label: 'Earnings' },
 ];

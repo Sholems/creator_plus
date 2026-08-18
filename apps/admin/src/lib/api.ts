@@ -61,12 +61,30 @@ async function request<T>(endpoint: string, options: FetchOptions = {}): Promise
 
 export const api = {
   login: (email: string, password: string) =>
-    request<{ user: any; accessToken: string }>('/auth/login', {
+    request<{ user: any; accessToken: string; requiresTwoFactor?: boolean; tempToken?: string }>('/auth/login', {
       method: 'POST',
       body: { email, password },
     }),
 
+  verifyTwoFactorLogin: (tempToken: string, code: string) =>
+    request<{ user: any; accessToken: string }>('/auth/2fa/verify-login', {
+      method: 'POST',
+      body: { tempToken, code },
+    }),
+
   getProfile: (token: string) => request<any>('/auth/me', { token }),
+
+  getTwoFactorStatus: (token: string) =>
+    request<{ enabled: boolean }>('/auth/2fa/status', { token }),
+
+  setupTwoFactor: (token: string) =>
+    request<{ secret: string; otpauthUri: string }>('/auth/2fa/setup', { method: 'POST', token }),
+
+  enableTwoFactor: (token: string, code: string) =>
+    request<{ backupCodes: string[] }>('/auth/2fa/enable', { method: 'POST', body: { code }, token }),
+
+  disableTwoFactor: (token: string, password: string) =>
+    request<{ success: boolean }>('/auth/2fa/disable', { method: 'POST', body: { password }, token }),
 
   // Admin
   getStats: (token: string) => request<AdminStats>('/admin/stats', { token }),

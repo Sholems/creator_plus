@@ -11,18 +11,27 @@ function Diamond({ className }: { className?: string }) {
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, verifyTwoFactorLogin } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [twoFactorRequired, setTwoFactorRequired] = useState(false);
+  const [twoFactorCode, setTwoFactorCode] = useState('');
+  const [tempToken, setTempToken] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
     try {
-      await login(email, password);
+      const res = await login(email, password);
+      if (res.requiresTwoFactor) {
+        setTwoFactorRequired(true);
+        setTempToken(res.tempToken || '');
+        setLoading(false);
+        return;
+      }
       router.replace('/');
     } catch (err: any) {
       const msg = String(err?.message || '');
@@ -35,6 +44,20 @@ export default function AdminLoginPage() {
       } else {
         setError(msg || 'Sign in failed. Please try again.');
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTwoFactorSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      await verifyTwoFactorLogin(tempToken, twoFactorCode);
+      router.replace('/');
+    } catch (err: any) {
+      setError(err instanceof Error ? err.message : 'Invalid code. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -79,6 +102,7 @@ export default function AdminLoginPage() {
             </div>
           )}
 
+          {!twoFactorRequired ? (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-forest-100">Email address</label>
@@ -111,6 +135,50 @@ export default function AdminLoginPage() {
               {loading ? 'Signing in…' : 'Sign in'}
             </button>
           </form>
+          ) : (
+          <form onSubmit={handleTwoFactorSubmit} className="space-y-5">
+            <div className="text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/20 mb-3">
+                <svg className="h-6 w-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+              </div>
+              <p className="text-sm font-medium text-forest-100">Two-Factor Authentication</p>
+              <p className="mt-1 text-xs text-forest-400">Enter the 6-digit code from your authenticator app.</p>
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-forest-100">Verification code</label>
+              <input
+                type="text"
+                inputMode="numeric"
+                maxLength={6}
+                value={twoFactorCode}
+                onChange={(e) => {
+                  setTwoFactorCode(e.target.value.replace(/\D/g, ''));
+                  if (error) setError('');
+                }}
+                className="w-full rounded-lg border border-white/10 bg-white/5 px-3.5 py-2.5 text-center font-mono text-lg tracking-[0.3em] text-white placeholder-forest-400 transition focus:border-gold-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
+                placeholder="000000"
+                autoFocus
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading || twoFactorCode.length !== 6}
+              className="flex w-full items-center justify-center rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-semibold text-forest-950 shadow-lg shadow-gold-500/25 transition hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {loading ? 'Verifying…' : 'Verify'}
+            </button>
+            <button
+              type="button"
+              onClick={() => { setTwoFactorRequired(false); setTwoFactorCode(''); setError(''); }}
+              className="flex w-full items-center justify-center rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-forest-200 transition hover:bg-white/10"
+            >
+              Back to sign in
+            </button>
+          </form>
+          )}
         </div>
 
         <p className="mt-6 text-center text-xs text-forest-400">

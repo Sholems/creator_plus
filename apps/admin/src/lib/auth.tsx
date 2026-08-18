@@ -16,7 +16,8 @@ interface AuthContextType {
   token: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<{ requiresTwoFactor?: boolean; tempToken?: string }>;
+  verifyTwoFactorLogin: (tempToken: string, code: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -47,7 +48,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     const res = await api.login(email, password);
+    if (res.requiresTwoFactor) {
+      return { requiresTwoFactor: true, tempToken: res.tempToken };
+    }
     // Verify this account can actually reach admin endpoints (RBAC gate).
+    await api.getStats(res.accessToken);
+    localStorage.setItem(TOKEN_KEY, res.accessToken);
+    setToken(res.accessToken);
+    setUser(res.user);
+    return {};
+  };
+
+  const verifyTwoFactorLogin = async (tempToken: string, code: string) => {
+    const res = await api.verifyTwoFactorLogin(tempToken, code);
     await api.getStats(res.accessToken);
     localStorage.setItem(TOKEN_KEY, res.accessToken);
     setToken(res.accessToken);
@@ -62,7 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, isLoading, isAuthenticated: !!token, login, logout }}
+      value={{ user, token, isLoading, isAuthenticated: !!token, login, verifyTwoFactorLogin, logout }}
     >
       {children}
     </AuthContext.Provider>

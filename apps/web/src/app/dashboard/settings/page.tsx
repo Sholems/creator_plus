@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import type { Route } from 'next';
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
@@ -180,6 +181,15 @@ export default function SettingsPage() {
             Purchase Credits
           </Link>
         </div>
+      </div>
+
+      {/* Security */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">Security</h2>
+        <p className="text-sm text-gray-500 mb-4">Manage two-factor authentication for your account.</p>
+        <Link href={'/dashboard/settings/security' as Route} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+          Security Settings
+        </Link>
       </div>
     </div>
   );
