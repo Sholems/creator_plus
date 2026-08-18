@@ -787,6 +787,27 @@ class ApiClient {
   async getCreatorStorefrontPublic(slug: string) {
     return this.fetch<any>(`/creators/storefront/${slug}`);
   }
+
+  // ------------------------------------------------------------------
+  // Admin
+  // ------------------------------------------------------------------
+
+  async adminGetStats(token: string) {
+    return this.fetch<any>('/admin/stats', { token });
+  }
+
+  async adminGetTracking(token: string) {
+    return this.fetch<any>('/admin/settings/tracking', { token });
+  }
+
+  async adminUpdateTracking(token: string, data: any) {
+    return this.fetch<any>('/admin/settings/tracking', { method: 'PUT', body: data, token });
+  }
+
+  /** Public endpoint — no auth required. */
+  async getPublicTracking() {
+    return this.fetch<any>('/platform/tracking');
+  }
 }
 
 export const api = new ApiClient(API_BASE);

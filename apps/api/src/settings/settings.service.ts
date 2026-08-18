@@ -162,6 +162,63 @@ export class SettingsService {
 
     return next;
   }
+
+  // ------------------------------------------------------------------
+  // Tracking / Analytics settings
+  // ------------------------------------------------------------------
+
+  private readonly TRACKING_KEY = 'platform.tracking';
+
+  async getTrackingSettings(): Promise<TrackingSettings> {
+    const row = await prisma.systemSetting.findUnique({ where: { key: this.TRACKING_KEY } });
+    const v = ((row?.value as any) || {}) as Record<string, unknown>;
+    return {
+      trackingEnabled: v.trackingEnabled !== false,
+      facebookPixelId: (v.facebookPixelId as string) || '',
+      ga4MeasurementId: (v.ga4MeasurementId as string) || '',
+      gtmContainerId: (v.gtmContainerId as string) || '',
+      tiktokPixelId: (v.tiktokPixelId as string) || '',
+      twitterPixelId: (v.twitterPixelId as string) || '',
+      hotjarId: (v.hotjarId as string) || '',
+      customHeadScript: (v.customHeadScript as string) || '',
+    };
+  }
+
+  /** Public-safe view — only returns IDs and enabled flag, never custom scripts. */
+  async getPublicTrackingSettings(): Promise<PublicTrackingSettings> {
+    const full = await this.getTrackingSettings();
+    return {
+      trackingEnabled: full.trackingEnabled,
+      facebookPixelId: full.facebookPixelId,
+      ga4MeasurementId: full.ga4MeasurementId,
+      gtmContainerId: full.gtmContainerId,
+      tiktokPixelId: full.tiktokPixelId,
+      twitterPixelId: full.twitterPixelId,
+      hotjarId: full.hotjarId,
+    };
+  }
+
+  async updateTrackingSettings(input: Partial<TrackingSettings>): Promise<TrackingSettings> {
+    const current = await this.getTrackingSettings();
+    const next: TrackingSettings = {
+      trackingEnabled: input.trackingEnabled !== undefined ? !!input.trackingEnabled : current.trackingEnabled,
+      facebookPixelId: input.facebookPixelId !== undefined ? input.facebookPixelId.trim() : current.facebookPixelId,
+      ga4MeasurementId: input.ga4MeasurementId !== undefined ? input.ga4MeasurementId.trim() : current.ga4MeasurementId,
+      gtmContainerId: input.gtmContainerId !== undefined ? input.gtmContainerId.trim() : current.gtmContainerId,
+      tiktokPixelId: input.tiktokPixelId !== undefined ? input.tiktokPixelId.trim() : current.tiktokPixelId,
+      twitterPixelId: input.twitterPixelId !== undefined ? input.twitterPixelId.trim() : current.twitterPixelId,
+      hotjarId: input.hotjarId !== undefined ? input.hotjarId.trim() : current.hotjarId,
+      customHeadScript: input.customHeadScript !== undefined ? input.customHeadScript : current.customHeadScript,
+    };
+
+    await prisma.systemSetting.upsert({
+      where: { key: this.TRACKING_KEY },
+      create: { key: this.TRACKING_KEY, group: 'platform', value: next as any },
+      update: { value: next as any },
+    });
+
+    return next;
+  }
 }
 
 export interface PlatformSettings {
@@ -171,4 +228,25 @@ export interface PlatformSettings {
   maxFileSize: number;
   maintenanceMode: boolean;
   registrationEnabled: boolean;
+}
+
+export interface TrackingSettings {
+  trackingEnabled: boolean;
+  facebookPixelId: string;
+  ga4MeasurementId: string;
+  gtmContainerId: string;
+  tiktokPixelId: string;
+  twitterPixelId: string;
+  hotjarId: string;
+  customHeadScript: string;
+}
+
+export interface PublicTrackingSettings {
+  trackingEnabled: boolean;
+  facebookPixelId: string;
+  ga4MeasurementId: string;
+  gtmContainerId: string;
+  tiktokPixelId: string;
+  twitterPixelId: string;
+  hotjarId: string;
 }

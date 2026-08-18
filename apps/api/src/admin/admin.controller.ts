@@ -9,6 +9,7 @@ import { SettingsService } from '../settings/settings.service';
 import { PaymentProviderFactory } from '../payments/providers/payment-provider.factory';
 import { UpdatePaystackDto } from './dto/settings.dto';
 import { UpdatePlatformSettingsDto } from './dto/platform-settings.dto';
+import { UpdateTrackingSettingsDto } from './dto/tracking-settings.dto';
 import { BroadcastDto } from './dto/broadcast.dto';
 import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
 import { CreateFeatureFlagDto, UpdateFeatureFlagDto } from '../feature-flags/dto/feature-flag.dto';
@@ -227,6 +228,22 @@ export class AdminController {
   @ApiOperation({ summary: 'Update platform settings' })
   updateSettings(@Request() req, @Body() dto: UpdatePlatformSettingsDto) {
     return this.adminService.updatePlatformSettings(req.user.sub, dto);
+  }
+
+  // ------------------------------------------------------------------
+  // Tracking / Analytics settings
+  // ------------------------------------------------------------------
+
+  @Get('settings/tracking')
+  @ApiOperation({ summary: 'Get tracking & analytics settings' })
+  getTrackingSettings() {
+    return this.settingsService.getTrackingSettings();
+  }
+
+  @Put('settings/tracking')
+  @ApiOperation({ summary: 'Update tracking & analytics settings' })
+  updateTrackingSettings(@Body() dto: UpdateTrackingSettingsDto) {
+    return this.settingsService.updateTrackingSettings(dto);
   }
 
   // ------------------------------------------------------------------

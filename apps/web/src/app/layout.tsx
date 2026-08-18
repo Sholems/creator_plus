@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import { AuthProvider } from '@/lib/auth';
+import { TrackingScripts } from '@/components/tracking/tracking-scripts';
 import { SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION, SITE_URL } from '@/lib/brand';
 
 const display = Bricolage_Grotesque({
@@ -104,6 +105,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <TrackingScripts />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

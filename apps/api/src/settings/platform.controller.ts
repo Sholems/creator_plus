@@ -16,4 +16,10 @@ export class PlatformController {
       registrationEnabled: settings.registrationEnabled,
     };
   }
+
+  @Get('tracking')
+  @ApiOperation({ summary: 'Public tracking/analytics IDs (no auth required)' })
+  async tracking() {
+    return this.settingsService.getPublicTrackingSettings();
+  }
 }
