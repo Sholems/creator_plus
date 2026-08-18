@@ -1,18 +1,6 @@
 import { Suspense } from 'react';
 import { ProductsClient } from './products-client';
-import { API_BASE } from '@/lib/env';
-
-const API = API_BASE;
-
-async function getJson(path: string): Promise<any | null> {
-  try {
-    const res = await fetch(`${API}${path}`, { next: { revalidate: 30 } });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  }
-}
+import { getJson } from '@/lib/get-json';
 
 async function ProductsContent({
   searchParams,

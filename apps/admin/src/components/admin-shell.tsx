@@ -167,6 +167,13 @@ const NAV_SECTIONS: { heading: string; links: NavLink[] }[] = [
   },
 ];
 
+function roleLabel(roles?: string[]): string {
+  if (!roles?.length) return 'Admin';
+  if (roles.includes('super_admin')) return 'Super Admin';
+  if (roles.includes('admin')) return 'Admin';
+  return roles[0];
+}
+
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -277,7 +284,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-medium text-white/80">{user?.email}</p>
-            <p className="text-[0.625rem] text-white/30">Super Admin</p>
+            <p className="text-[0.625rem] text-white/30">{roleLabel(user?.roles)}</p>
           </div>
           <button
             onClick={logout}
@@ -341,7 +348,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                   <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.6-6.2 4.6 2.4-7.6L2 9.6h7.6z" />
                 </svg>
               </span>
-              <span className="text-xs font-semibold text-ink-500">Super Admin</span>
+              <span className="text-xs font-semibold text-ink-500">{roleLabel(user?.roles)}</span>
             </div>
             <div className="h-4 w-px bg-ink-200 hidden sm:block" />
             <button onClick={logout} className="btn btn-ghost btn-sm">

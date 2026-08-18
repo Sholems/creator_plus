@@ -5,19 +5,7 @@ import { AdinkraField, AdinkraMark } from '@/components/brand/adinkra';
 import { CustomerProductCard, type CustomerProduct } from '@/components/market/customer-product-card';
 import { SectionHeading } from '@/components/market/section-heading';
 import { HeroSearch } from './hero-search';
-import { API_BASE } from '@/lib/env';
-
-const API = API_BASE;
-
-async function getJson(path: string): Promise<any | null> {
-  try {
-    const res = await fetch(`${API}${path}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  }
-}
+import { getJson } from '@/lib/get-json';
 
 const CATEGORIES = [
   { name: 'AI & Agents', slug: 'ai', icon: '🤖', blurb: 'Prompts, bots, workflows' },

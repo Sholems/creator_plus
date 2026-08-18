@@ -8,6 +8,7 @@ interface AdminUser {
   email: string;
   displayName: string;
   status: string;
+  roles?: string[];
 }
 
 interface AuthContextType {
