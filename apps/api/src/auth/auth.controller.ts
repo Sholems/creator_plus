@@ -95,6 +95,9 @@ export class AuthController {
     }
 
     const { refreshToken, ...rest } = result;
+    if (!refreshToken) {
+      throw new UnauthorizedException('Login failed');
+    }
     this.setRefreshCookie(res, refreshToken);
     return rest;
   }
