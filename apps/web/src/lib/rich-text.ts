@@ -17,9 +17,11 @@ const ALLOWED_TAGS = new Set([
   'SPAN',
   'DIV',
   'HR',
+  'IMG',
+  'IFRAME',
 ]);
 
-const ALLOWED_ATTRS = new Set(['href', 'target', 'rel', 'style']);
+const ALLOWED_ATTRS = new Set(['href', 'target', 'rel', 'style', 'src', 'alt', 'width', 'height', 'frameborder', 'allowfullscreen', 'allow']);
 
 // Formatting styles the editor (document.execCommand) emits — bold, italic,
 // underline, alignment, colour. Kept so rich formatting survives sanitization;
@@ -73,7 +75,7 @@ export function sanitizeRichText(html: string): string {
   const el = document.createElement('div');
   el.innerHTML = html;
 
-  el.querySelectorAll('script,style,iframe,object,embed,link,meta,form,input,button').forEach((node) => node.remove());
+  el.querySelectorAll('script,style,object,embed,link,meta,form,input,button').forEach((node) => node.remove());
 
   const elements: Element[] = [];
   const walker = document.createTreeWalker(el, NodeFilter.SHOW_ELEMENT);

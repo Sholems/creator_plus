@@ -30,6 +30,7 @@ export default function NewProductPage() {
     slug: '',
     categoryId: '',
     price: '',
+    compareAtPrice: '',
     licenseType: 'personal',
     tags: '',
   });
@@ -93,6 +94,12 @@ export default function NewProductPage() {
       setIsLoading(false);
       return;
     }
+    const compareAt = formData.compareAtPrice ? parseFloat(formData.compareAtPrice) : undefined;
+    if (compareAt !== undefined && (isNaN(compareAt) || compareAt <= price)) {
+      setError('Sale price (original) must be higher than the selling price.');
+      setIsLoading(false);
+      return;
+    }
     if (descriptionPlain.length < 50) {
       setError(`Description must be at least 50 characters (currently ${descriptionPlain.length}).`);
       setIsLoading(false);
@@ -122,6 +129,7 @@ export default function NewProductPage() {
         description,
         categoryId: formData.categoryId,
         price,
+        compareAtPrice: compareAt,
         licenseType: formData.licenseType,
         tags,
         thumbnail: thumbnailUrl,
@@ -285,6 +293,25 @@ export default function NewProductPage() {
                     placeholder="1500.00"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="compareAtPrice" className="block text-sm font-medium text-ink-700">
+                  Sale Price (₦ NGN) <span className="text-ink-400 font-normal">— optional</span>
+                </label>
+                <input
+                  type="number"
+                  id="compareAtPrice"
+                  min="0"
+                  step="0.01"
+                  value={formData.compareAtPrice}
+                  onChange={(e) => setFormData({ ...formData, compareAtPrice: e.target.value })}
+                  className={inputClass}
+                  placeholder="Original price (shown as strikethrough)"
+                />
+                <p className="mt-1 text-xs text-ink-400">
+                  Enter a price higher than the selling price to show a strikethrough &ldquo;was&rdquo; price and discount badge.
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

@@ -178,3 +178,42 @@
   color: var(--color-ink-500);
 }
 .rich-text a { color: var(--color-forest-700); text-decoration: underline; }
+.rich-text img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1em 0;
+}
+.rich-text iframe {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  margin: 1em 0;
+  border: 1px solid var(--color-ink-100);
+}
+.rich-text hr {
+  border: none;
+  border-top: 1px solid var(--color-ink-200);
+  margin: 1.5em 0;
+}
+
+/* Tiptap placeholder */
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--color-ink-300);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Rich text editor (textarea wrapper) */
+.rich-text-editor .tiptap {
+  min-height: 10rem;
+  outline: none;
+}
+
+/* Iframe preview inside the editor (pointer-events off so it doesn't steal clicks) */
+.tiptap iframe {
+  pointer-events: none;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--color-ink-200);
+}

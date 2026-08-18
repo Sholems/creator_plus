@@ -24,9 +24,15 @@ export class CreateProductDto {
   categoryId: string;
 
   @IsNumber()
-  @Min(0.01, { message: 'Price must be at least $0.01' })
-  @Max(99999.99, { message: 'Price must be at most $99,999.99' })
+  @Min(0.01, { message: 'Price must be at least ₦0.01' })
+  @Max(99999.99, { message: 'Price must be at most ₦99,999.99' })
   price: number;
+
+  /** Original price shown as strikethrough when set higher than `price`. */
+  @IsOptional()
+  @IsNumber()
+  @Min(0, { message: 'Sale price must be at least ₦0' })
+  compareAtPrice?: number;
 
   @IsOptional()
   @IsString()
@@ -87,9 +93,15 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsNumber()
-  @Min(0.01, { message: 'Price must be at least $0.01' })
-  @Max(99999.99, { message: 'Price must be at most $99,999.99' })
+  @Min(0.01, { message: 'Price must be at least ₦0.01' })
+  @Max(99999.99, { message: 'Price must be at most ₦99,999.99' })
   price?: number;
+
+  /** Original price shown as strikethrough when set higher than `price`. */
+  @IsOptional()
+  @IsNumber()
+  @Min(0, { message: 'Sale price must be at least ₦0' })
+  compareAtPrice?: number;
 
   @IsOptional()
   @IsArray()

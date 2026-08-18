@@ -51,6 +51,7 @@ export class ProductsService {
     description: string;
     categoryId: string;
     price: number;
+    compareAtPrice?: number;
     currency?: string;
     tags?: string[];
     licenseType?: 'personal' | 'commercial' | 'extended' | 'enterprise';
@@ -115,6 +116,7 @@ export class ProductsService {
           description: data.description,
           categoryId: data.categoryId,
           price: data.price,
+          compareAtPrice: data.compareAtPrice ?? null,
           currency: data.currency || 'NGN',
           licenseType: (data.licenseType || 'personal').toUpperCase() as any,
           thumbnail: data.thumbnail || null,
@@ -436,6 +438,11 @@ export class ProductsService {
 
     if (rest.licenseType) {
       rest.licenseType = rest.licenseType.toUpperCase();
+    }
+
+    // compareAtPrice: explicit undefined means "don't change", null or number means "set/clear"
+    if ('compareAtPrice' in rest) {
+      rest.compareAtPrice = rest.compareAtPrice === undefined ? undefined : (rest.compareAtPrice ?? null);
     }
 
     // Affiliate program opt-in / rate transitions. Enabling a disabled or
