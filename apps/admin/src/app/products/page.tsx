@@ -99,9 +99,41 @@ export default function AdminProductsPage() {
       setProducts((prev) =>
         prev.map((p) => (p.id === id ? { ...p, isFeatured: !current } : p)),
       );
-      toast(current ? 'Product removed from homepage' : 'Product featured on homepage');
+      toast(current ? 'Product removed from featured' : 'Product featured on homepage');
     } catch (e: any) {
       toast(e.message || 'Failed to update featured status', 'error');
+    } finally {
+      setBusyId(null);
+    }
+  };
+
+  const handleToggleHero = async (id: string, current: boolean) => {
+    if (!token) return;
+    setBusyId(id);
+    try {
+      await api.setProductHero(token, id, !current);
+      setProducts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, isHeroProduct: !current } : p)),
+      );
+      toast(current ? 'Product removed from hero' : 'Product added to hero stall');
+    } catch (e: any) {
+      toast(e.message || 'Failed to update hero status', 'error');
+    } finally {
+      setBusyId(null);
+    }
+  };
+
+  const handleToggleAffiliatePick = async (id: string, current: boolean) => {
+    if (!token) return;
+    setBusyId(id);
+    try {
+      await api.setProductAffiliatePick(token, id, !current);
+      setProducts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, isAffiliatePick: !current } : p)),
+      );
+      toast(current ? 'Product removed from affiliate picks' : 'Product added to affiliate picks');
+    } catch (e: any) {
+      toast(e.message || 'Failed to update affiliate pick status', 'error');
     } finally {
       setBusyId(null);
     }
@@ -263,9 +295,29 @@ export default function AdminProductsPage() {
                             onClick={() => handleToggleFeatured(p.id, !!p.isFeatured)}
                             disabled={busyId === p.id}
                             className="btn btn-gold btn-sm"
-                            title="Show this product in the homepage featured/affiliate sections"
+                            title="Show this product in the homepage featured section"
                           >
                             {p.isFeatured ? 'Unfeature' : 'Feature'}
+                          </button>
+                        )}
+                        {p.status === 'PUBLISHED' && (
+                          <button
+                            onClick={() => handleToggleHero(p.id, !!p.isHeroProduct)}
+                            disabled={busyId === p.id}
+                            className={`btn btn-sm ${p.isHeroProduct ? 'btn-primary' : 'btn-ghost'}`}
+                            title="Show this product in the hero stall card"
+                          >
+                            {p.isHeroProduct ? 'Un-hero' : 'Hero'}
+                          </button>
+                        )}
+                        {p.status === 'PUBLISHED' && (
+                          <button
+                            onClick={() => handleToggleAffiliatePick(p.id, !!p.isAffiliatePick)}
+                            disabled={busyId === p.id}
+                            className={`btn btn-sm ${p.isAffiliatePick ? 'btn-primary' : 'btn-ghost'}`}
+                            title="Show this product in the Affiliate Picks section"
+                          >
+                            {p.isAffiliatePick ? 'Un-pick' : 'Aff. Pick'}
                           </button>
                         )}
                         {p.status === 'ARCHIVED' && (

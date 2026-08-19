@@ -118,6 +118,18 @@ export const api = {
       body: { featured },
       token,
     }),
+  setProductHero: (token: string, id: string, hero: boolean) =>
+    request<any>(`/admin/products/${id}/hero`, {
+      method: 'POST',
+      body: { hero },
+      token,
+    }),
+  setProductAffiliatePick: (token: string, id: string, affiliatePick: boolean) =>
+    request<any>(`/admin/products/${id}/affiliate-pick`, {
+      method: 'POST',
+      body: { affiliatePick },
+      token,
+    }),
   reindexSearch: (token: string) =>
     request<{ indexed: number }>('/admin/search/reindex', { method: 'POST', token }),
   getOrders: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>

@@ -788,6 +788,28 @@ export class AdminService {
     });
   }
 
+  /** Toggle a product for the hero stall card on the homepage. */
+  async setProductHero(id: string, hero: boolean) {
+    const product = await prisma.product.findUnique({ where: { id } });
+    if (!product) throw new NotFoundException('Product not found');
+
+    return prisma.product.update({
+      where: { id },
+      data: { isHeroProduct: hero },
+    });
+  }
+
+  /** Toggle a product as an admin-curated affiliate pick for the homepage. */
+  async setProductAffiliatePick(id: string, pick: boolean) {
+    const product = await prisma.product.findUnique({ where: { id } });
+    if (!product) throw new NotFoundException('Product not found');
+
+    return prisma.product.update({
+      where: { id },
+      data: { isAffiliatePick: pick },
+    });
+  }
+
   async getRefunds(page = 1, perPage = 20, status?: string) {
     return this.refundsService.findAll(page, perPage, status);
   }

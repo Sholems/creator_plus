@@ -186,6 +186,18 @@ export class AdminController {
     return this.adminService.setProductFeatured(id, featured);
   }
 
+  @Post('products/:id/hero')
+  @ApiOperation({ summary: 'Toggle product for the hero stall card on the homepage' })
+  setProductHero(@Param('id') id: string, @Body('hero') hero: boolean) {
+    return this.adminService.setProductHero(id, hero);
+  }
+
+  @Post('products/:id/affiliate-pick')
+  @ApiOperation({ summary: 'Toggle product as an admin-curated affiliate pick for the homepage' })
+  setProductAffiliatePick(@Param('id') id: string, @Body('affiliatePick') affiliatePick: boolean) {
+    return this.adminService.setProductAffiliatePick(id, affiliatePick);
+  }
+
   @Post('reviews/:id/hide')
   @ApiOperation({ summary: 'Hide a reported review' })
   hideReview(@Param('id') id: string) {

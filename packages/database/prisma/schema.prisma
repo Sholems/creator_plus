@@ -343,6 +343,8 @@ model Product {
   averageRating   Decimal       @default(0) @map("average_rating") @db.Decimal(3, 2)
   reviewCount     Int           @default(0) @map("review_count")
   isFeatured      Boolean       @default(false) @map("is_featured")
+  isHeroProduct   Boolean       @default(false) @map("is_hero_product")
+  isAffiliatePick Boolean       @default(false) @map("is_affiliate_pick")
   publishedAt     DateTime?     @map("published_at")
 
   // Affiliate program. The buyer always pays the same list price whether or not

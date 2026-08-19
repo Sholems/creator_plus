@@ -25,6 +25,8 @@ export class ProductsController {
   @ApiQuery({ name: 'creatorId', required: false })
   @ApiQuery({ name: 'status', required: false })
   @ApiQuery({ name: 'featured', required: false, description: 'Only admin-featured products' })
+  @ApiQuery({ name: 'hero', required: false, description: 'Only hero stall products' })
+  @ApiQuery({ name: 'affiliatePick', required: false, description: 'Only admin-curated affiliate picks' })
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'perPage', required: false })
   @ApiResponse({ status: 200, description: 'Products returned' })
@@ -34,6 +36,8 @@ export class ProductsController {
     @Query('creatorId') creatorId?: string,
     @Query('status') status?: string,
     @Query('featured') featured?: string,
+    @Query('hero') hero?: string,
+    @Query('affiliatePick') affiliatePick?: string,
     @Query('page') page?: number,
     @Query('perPage') perPage?: number,
   ) {
@@ -42,6 +46,8 @@ export class ProductsController {
       creatorId,
       status: status as any,
       isFeatured: featured === 'true' ? true : undefined,
+      isHeroProduct: hero === 'true' ? true : undefined,
+      isAffiliatePick: affiliatePick === 'true' ? true : undefined,
       page: page ? parseInt(page as any) : undefined,
       perPage: perPage ? parseInt(perPage as any) : undefined,
       viewerUserId: req.user?.sub,

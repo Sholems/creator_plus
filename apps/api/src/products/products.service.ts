@@ -168,6 +168,8 @@ export class ProductsService {
     creatorId?: string;
     status?: ProductStatus;
     isFeatured?: boolean;
+    isHeroProduct?: boolean;
+    isAffiliatePick?: boolean;
     page?: number;
     perPage?: number;
     viewerUserId?: string;
@@ -186,6 +188,14 @@ export class ProductsService {
 
     if (filters?.isFeatured) {
       where.isFeatured = true;
+    }
+
+    if (filters?.isHeroProduct) {
+      where.isHeroProduct = true;
+    }
+
+    if (filters?.isAffiliatePick) {
+      where.isAffiliatePick = true;
     }
 
     // Non-published listings (DRAFT/PENDING/REJECTED/ARCHIVED) are private:

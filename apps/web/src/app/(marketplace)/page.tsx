@@ -124,8 +124,10 @@ function CreatorAvatar({ creator }: { creator: any }) {
 }
 
 export default async function HomePage() {
-  const [featuredRes, recentRes, catsRes, trendingRes, creatorsRes] = await Promise.all([
+  const [featuredRes, heroRes, affiliatePickRes, recentRes, catsRes, trendingRes, creatorsRes] = await Promise.all([
     getJson('/products?featured=true&perPage=8'),
+    getJson('/products?hero=true&perPage=4'),
+    getJson('/products?affiliatePick=true&perPage=4'),
     getJson('/products?perPage=8'),
     getJson('/categories'),
     getJson('/search/trending'),
@@ -147,13 +149,16 @@ export default async function HomePage() {
 
   const featured: CustomerProduct[] =
     (featuredRes?.data?.length ? featuredRes.data : recentRes?.data) ?? [];
+  const heroProducts: CustomerProduct[] =
+    heroRes?.data?.length ? heroRes.data : featured.slice(0, 2);
+  const affiliatePicks: CustomerProduct[] = affiliatePickRes?.data ?? [];
   const trending: (CustomerProduct & { viewCount?: number; slug?: string })[] = trendingRes?.data ?? featured.slice(0, 10);
   const creators: any[] = creatorsRes?.data ?? [];
   const topCreators = creators
     .sort((a: any, b: any) => (b.followerCount || 0) - (a.followerCount || 0))
     .slice(0, 6);
 
-  const stallItems = featured.slice(0, 2);
+  const stallItems = heroProducts.slice(0, 2);
   const tickerItems = trending.slice(0, 10).map((p) => ({
     title: p.title,
     slug: p.slug,
@@ -388,6 +393,7 @@ export default async function HomePage() {
       )}
 
       {/* ================= AFFILIATE PICKS ================= */}
+      {affiliatePicks.length > 0 && (
       <section className="relative overflow-hidden bg-forest-900 py-16 text-cream-50 sm:py-20">
         <div className="pointer-events-none absolute inset-0">
           <AdinkraField patternId="adinkra-affiliate-picks" className="text-gold-400/10" />
@@ -401,20 +407,19 @@ export default async function HomePage() {
             action={{ href: '/earn', label: 'Learn to earn' }}
           />
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.slice(0, 4).map((product) => (
+            {affiliatePicks.slice(0, 4).map((product) => (
               <CustomerProductCard key={product.id} product={product} />
             ))}
           </div>
-          {featured.length > 0 && (
-            <p className="mt-8 text-center text-sm text-cream-100/60">
-              <Link href="/earn" className="inline-flex items-center gap-1.5 font-semibold text-gold-300 hover:text-gold-200">
-                Become an affiliate and earn on every sale
-                <span aria-hidden="true">→</span>
-              </Link>
-            </p>
-          )}
+          <p className="mt-8 text-center text-sm text-cream-100/60">
+            <Link href="/earn" className="inline-flex items-center gap-1.5 font-semibold text-gold-300 hover:text-gold-200">
+              Become an affiliate and earn on every sale
+              <span aria-hidden="true">→</span>
+            </Link>
+          </p>
         </div>
       </section>
+      )}
 
       {/* ================= TESTIMONIALS ================= */}
       <section className="py-16 sm:py-20">
