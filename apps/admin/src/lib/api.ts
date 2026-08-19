@@ -67,7 +67,7 @@ export const api = {
     }),
 
   verifyTwoFactorLogin: (tempToken: string, code: string) =>
-    request<{ user: any; accessToken: string }>('/auth/2fa/verify-login', {
+    request<{ user: any; accessToken: string }>('/auth/2fa/verify', {
       method: 'POST',
       body: { tempToken, code },
     }),
