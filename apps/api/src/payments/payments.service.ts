@@ -33,8 +33,6 @@ export class PaymentsService {
     buyerEmail: string,
     providerName?: string,
   ) {
-    const provider = this.providerFactory.get(providerName);
-
     const order = await prisma.order.findUnique({
       where: { id: orderId },
       include: {
@@ -65,25 +63,61 @@ export class PaymentsService {
       );
     }
 
+    const webBase = webBaseUrl();
+
+    // Free order (e.g. a 100% coupon brings the total to ₦0). No provider can
+    // charge zero — Paystack rejects it with "Invalid Amount Sent" — so fulfill
+    // the order directly, exactly as a confirmed payment would.
+    if (order.totalAmount.lte(0)) {
+      await prisma.payment.upsert({
+        where: { orderId: order.id },
+        create: {
+          orderId: order.id,
+          amount: 0,
+          currency: order.currency || 'NGN',
+          status: 'SUCCEEDED',
+          provider: 'free',
+        },
+        update: { amount: 0, status: 'SUCCEEDED', provider: 'free' },
+      });
+      await this.fulfillOrder(order.id);
+      return {
+        provider: 'free',
+        free: true,
+        url: `${webBase}/checkout/success?orderId=${order.id}&provider=free`,
+        orderId: order.id,
+      };
+    }
+
+    const provider = this.providerFactory.get(providerName);
     const platformFeePercent = (await this.commissionService.getSettings())
       .platformRate.toNumber();
-      const webBase = webBaseUrl();
 
-    const result = await provider.createCheckout({
-      orderId: order.id,
-      buyerEmail,
-      currency: order.currency || 'NGN',
-      totalAmount: order.totalAmount.toNumber(),
-      items: order.items.map((item) => ({
-        productId: item.productId,
-        title: item.product.title || item.productName || 'Product',
-        unitPrice: item.unitPrice.toNumber(),
-        quantity: item.quantity,
-      })),
-      successUrl: `${webBase}/checkout/success?orderId=${order.id}&provider=${provider.name}`,
-      cancelUrl: `${webBase}/cart`,
-      platformFeePercent,
-    });
+    let result;
+    try {
+      result = await provider.createCheckout({
+        orderId: order.id,
+        buyerEmail,
+        currency: order.currency || 'NGN',
+        totalAmount: order.totalAmount.toNumber(),
+        items: order.items.map((item) => ({
+          productId: item.productId,
+          title: item.product.title || item.productName || 'Product',
+          unitPrice: item.unitPrice.toNumber(),
+          quantity: item.quantity,
+        })),
+        successUrl: `${webBase}/checkout/success?orderId=${order.id}&provider=${provider.name}`,
+        cancelUrl: `${webBase}/cart`,
+        platformFeePercent,
+      });
+    } catch (err: any) {
+      // Providers throw plain Errors (e.g. Paystack "Invalid Amount Sent"). Log
+      // it and surface a clean message instead of a bare 500.
+      this.logger.error(`[checkout:${provider.name}] ${err?.message}`);
+      throw new BadRequestException(
+        err?.message || `Could not start ${provider.name} checkout. Please try again.`,
+      );
+    }
 
     await prisma.payment.upsert({
       where: { orderId: order.id },
