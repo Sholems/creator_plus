@@ -156,9 +156,9 @@ export class OrdersService {
       },
     });
 
-    if (coupon && discountAmount > 0) {
-      await this.couponsService.redeem(coupon.id, buyerId, order.id, discountAmount);
-    }
+    // NOTE: the coupon is NOT redeemed here. Redemption (the usedCount
+    // increment + CouponRedemption row) happens once at fulfillment, so an
+    // abandoned/unpaid order never consumes a use. See PaymentsService.fulfillOrder.
 
     // Affiliate attribution (last-click): record which affiliate's link the buyer
     // came through. Never fails the order — attribution problems are swallowed.
@@ -493,13 +493,9 @@ export class OrdersService {
       },
     });
 
-    await this.couponsService.redeem(
-      result.coupon.id,
-      buyerId,
-      orderId,
-      result.discountAmount,
-    );
-
+    // Redemption is deferred to fulfillment (see PaymentsService.fulfillOrder),
+    // so applying then removing a coupon — or abandoning the order — never
+    // burns a use.
     return {
       ...updated,
       coupon: { ...result.coupon, discountAmount: result.discountAmount },

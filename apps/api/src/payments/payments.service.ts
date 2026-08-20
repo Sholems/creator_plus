@@ -305,6 +305,33 @@ export class PaymentsService {
         })),
       });
 
+      // Redeem the coupon exactly once, now that the order is actually paid.
+      // (Deferred from apply/create time so abandoned carts and apply-then-remove
+      // never consume a use.) The atomic order claim above guarantees this runs
+      // once per order. Scoped by the order's product creators to disambiguate
+      // codes that different creators may share.
+      if (order.couponCode && order.discountAmount && order.discountAmount.gt(0)) {
+        const creatorIds = [...new Set(order.items.map((i) => i.product.creatorId))];
+        const coupon = await tx.coupon.findFirst({
+          where: { code: order.couponCode, creatorId: { in: creatorIds } },
+          select: { id: true },
+        });
+        if (coupon) {
+          await tx.couponRedemption.create({
+            data: {
+              couponId: coupon.id,
+              userId: order.buyerId,
+              orderId: order.id,
+              amount: order.discountAmount,
+            },
+          });
+          await tx.coupon.update({
+            where: { id: coupon.id },
+            data: { usedCount: { increment: 1 } },
+          });
+        }
+      }
+
       // Commission engine: writes the immutable CommissionLedger, the platform
       // Commission rows and (when an affiliate is attributed) the
       // AffiliateConversion rows for this order, then hands back the exact net
