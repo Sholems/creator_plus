@@ -9,6 +9,7 @@ import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { formatNaira } from '@/lib/format';
 import { RichText } from '@/components/market/rich-text';
+import { safeJsonLd } from '@/lib/json-ld';
 import { AdinkraMark } from '@/components/brand/adinkra';
 import { CustomerProductCard } from '@/components/market/customer-product-card';
 
@@ -302,6 +303,39 @@ export function ProductDetailClient({
     count: reviews.filter((r) => Math.round(r.rating) === star).length,
   }));
 
+  const licenseLabel = (product.licenseType || 'Personal').toString();
+  const faqs = [
+    {
+      q: 'How do I receive this product after paying?',
+      a: 'Instantly. As soon as your payment is confirmed you can download your files from your CreatorPlus dashboard, and we email you a copy of the link.',
+    },
+    {
+      q: `What does the ${licenseLabel} license allow?`,
+      a: `This product is sold under a ${licenseLabel.toLowerCase()} license, covering your own use as described by the creator. For any other use, message the seller before purchasing.`,
+    },
+    {
+      q: 'Is there a refund policy?',
+      a: 'Yes — every purchase on CreatorPlus is backed by a 30-day money-back guarantee.',
+    },
+    {
+      q: 'What payment methods can I use?',
+      a: 'Pay securely with Paystack, Flutterwave, or an international card (Visa, Mastercard, Verve).',
+    },
+    {
+      q: 'Will I get future updates?',
+      a: 'Yes — buyers get free updates to this product whenever the creator ships a new version.',
+    },
+  ];
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 pb-24 sm:px-6 lg:px-8 lg:pb-8">
       {error && (
@@ -415,8 +449,10 @@ export function ProductDetailClient({
             )}
           </div>
 
+          {/* Buy box */}
+          <div className="mt-6 rounded-2xl border border-ink-100 bg-white p-5 shadow-[0_1px_2px_rgba(22,33,27,0.05)]">
           {/* Price + License */}
-          <div className="mt-6 flex flex-wrap items-end gap-x-3 gap-y-2">
+          <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
             <p className="price-tag text-3xl font-bold text-forest-900">{formatNaira(product.price)}</p>
             {savePercent > 0 && (
               <>
@@ -514,6 +550,7 @@ export function ProductDetailClient({
               </dd>
             </dl>
           </div>
+          </div>
         </div>
       </div>
 
@@ -565,6 +602,28 @@ export function ProductDetailClient({
           ))}
         </div>
       )}
+
+      {/* FAQ */}
+      <div className="mt-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
+        />
+        <h2 className="font-display text-xl font-semibold text-ink-900">Frequently asked questions</h2>
+        <div className="mt-4 divide-y divide-ink-100 overflow-hidden rounded-2xl border border-ink-100 bg-white">
+          {faqs.map((f) => (
+            <details key={f.q} className="group px-5 py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-ink-900">
+                {f.q}
+                <svg className="h-4 w-4 shrink-0 text-ink-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <p className="mt-2 text-sm leading-relaxed text-ink-600">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
 
       {/* Reviews */}
       <div id="reviews" className="mt-10">
@@ -795,6 +854,54 @@ export function ProductDetailClient({
                 </Link>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Meet the seller */}
+      {product.creator?.slug && (
+        <div className="mt-16 rounded-3xl border border-ink-100 bg-white p-6 sm:p-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+            <Link
+              href={`/creator/${product.creator.slug}`}
+              className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-cream-100"
+            >
+              {product.creator.avatar ? (
+                <Image src={product.creator.avatar} alt={product.creator.storeName || ''} fill sizes="64px" className="object-cover" />
+              ) : (
+                <span className="flex h-full w-full items-center justify-center font-display text-2xl font-semibold text-forest-700">
+                  {(product.creator.storeName || 'C')[0].toUpperCase()}
+                </span>
+              )}
+            </Link>
+            <div className="min-w-0 flex-1">
+              <p className="eyebrow text-gold-600">Meet the seller</p>
+              <div className="mt-1 flex flex-wrap items-center gap-2">
+                <Link
+                  href={`/creator/${product.creator.slug}`}
+                  className="font-display text-lg font-bold text-ink-900 hover:text-forest-700"
+                >
+                  {product.creator.storeName}
+                </Link>
+                {product.creator.verified && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-gold-100 px-2 py-0.5 text-xs font-medium text-gold-700">
+                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Verified
+                  </span>
+                )}
+              </div>
+              {product.creator.bio && (
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600">{product.creator.bio}</p>
+              )}
+            </div>
+            <Link
+              href={`/creator/${product.creator.slug}`}
+              className="shrink-0 rounded-full border border-forest-300 bg-white px-5 py-2.5 text-center text-sm font-semibold text-forest-800 transition-colors hover:bg-cream-100"
+            >
+              View store
+            </Link>
           </div>
         </div>
       )}
