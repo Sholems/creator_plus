@@ -306,6 +306,13 @@ export class ProductsService {
             tag: true,
           },
         },
+        // Safe deliverable manifest for the product page ("what's included").
+        // Only non-sensitive metadata — never fileKey/checksum, which would leak
+        // the private storage location to non-buyers.
+        files: {
+          select: { id: true, fileName: true, fileSize: true, mimeType: true },
+          orderBy: { createdAt: 'asc' },
+        },
         versions: {
           orderBy: {
             createdAt: 'desc',
