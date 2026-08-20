@@ -48,6 +48,11 @@ export interface WebhookEvent {
   /** Provider transaction reference (Paystack/Flutterwave). */
   providerReference?: string;
   refundId?: string;
+  /** Amount the provider reports as paid, normalized to MAJOR units (e.g. 1500
+   *  for ₦1,500). Used to verify the webhook against the order total. */
+  amount?: number;
+  /** Currency the provider reports (e.g. "NGN"). */
+  currency?: string;
   raw: any;
 }
 

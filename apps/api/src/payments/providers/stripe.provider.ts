@@ -117,6 +117,12 @@ export class StripeProvider implements PaymentProvider {
           providerReference: session?.payment_intent
             ? (session.payment_intent as string)
             : undefined,
+          // Stripe reports amount_total in minor units (kobo/cents).
+          amount:
+            typeof session?.amount_total === 'number'
+              ? session.amount_total / 100
+              : undefined,
+          currency: session?.currency ?? undefined,
           raw: payload,
         };
       }

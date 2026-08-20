@@ -74,20 +74,29 @@ async function bootstrap() {
   const { SerializeInterceptor } = require('./common/serialize.interceptor');
   app.useGlobalInterceptors(new SerializeInterceptor());
 
-  const config = new DocumentBuilder()
-    .setTitle('CreatorPlus API')
-    .setDescription('The CreatorPlus API documentation')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
+  // Publish the OpenAPI docs only outside production, unless explicitly opted in
+  // with ENABLE_API_DOCS=true. In production the docs would otherwise expose the
+  // full API surface (every route + DTO) to anonymous callers.
+  const docsEnabled =
+    process.env.NODE_ENV !== 'production' || process.env.ENABLE_API_DOCS === 'true';
+  if (docsEnabled) {
+    const config = new DocumentBuilder()
+      .setTitle('CreatorPlus API')
+      .setDescription('The CreatorPlus API documentation')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api/docs', app, document);
+  }
 
   const port = process.env.PORT || 3001;
   await app.listen(port);
   const logger = new Logger('Bootstrap');
   logger.log(`Application is running on: http://localhost:${port}`);
-  logger.log(`Swagger docs: http://localhost:${port}/api/docs`);
+  if (docsEnabled) {
+    logger.log(`Swagger docs: http://localhost:${port}/api/docs`);
+  }
 }
 bootstrap();

@@ -113,6 +113,9 @@ export class FlutterwaveProvider implements PaymentProvider {
         type: 'checkout.completed',
         providerPaymentId: data?.tx_ref,
         providerReference: data?.flw_ref || data?.tx_ref,
+        // Flutterwave reports amount in major units (whole naira).
+        amount: typeof data?.amount === 'number' ? data.amount : undefined,
+        currency: data?.currency,
         raw: payload,
       };
     }

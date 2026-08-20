@@ -31,6 +31,36 @@ export function getAllowedExtensions(): string[] {
     .filter(Boolean);
 }
 
+// HTML content served inline from the (public) storage domain lets any
+// authenticated user host XSS/phishing pages under the brand's storage URL.
+// Always rejected, regardless of the (optional) extension allowlist. SVG/XML
+// are intentionally NOT blocked here — they are legitimate seller assets; the
+// safe way to neutralize them is attachment/CSP at serve time, not an upload
+// ban that breaks logos and templates.
+const DANGEROUS_CONTENT_TYPES = new Set([
+  'text/html',
+  'application/xhtml+xml',
+]);
+
+export function assertSafeContentType(contentType?: string) {
+  const ct = (contentType || '').toLowerCase().split(';')[0].trim();
+  if (DANGEROUS_CONTENT_TYPES.has(ct) || ct.includes('html')) {
+    throw new BadRequestException(`Content type "${ct || '(unknown)'}" is not allowed`);
+  }
+}
+
+function assertAllowedExtension(filename: string) {
+  const allowed = getAllowedExtensions();
+  if (allowed.length > 0) {
+    const ext = filename.split('.').pop()?.toLowerCase() || '';
+    if (!allowed.includes(ext)) {
+      throw new BadRequestException(
+        `File type ".${ext || '(unknown)'}" is not allowed`,
+      );
+    }
+  }
+}
+
 export function validateFile(file: UploadableFile, maxSizeOverride?: number) {
   if (!file) {
     throw new BadRequestException('No file provided');
@@ -43,15 +73,23 @@ export function validateFile(file: UploadableFile, maxSizeOverride?: number) {
     );
   }
 
-  const allowed = getAllowedExtensions();
-  if (allowed.length > 0) {
-    const ext = file.originalname.split('.').pop()?.toLowerCase() || '';
-    if (!allowed.includes(ext)) {
-      throw new BadRequestException(
-        `File type ".${ext || '(unknown)'}" is not allowed`,
-      );
-    }
-  }
+  assertSafeContentType(file.mimetype);
+  assertAllowedExtension(file.originalname);
 
+  return true;
+}
+
+/**
+ * Validate the metadata for a presigned (direct-to-bucket) upload, where the
+ * server never sees the bytes. Applies the same content-type denylist and
+ * extension allowlist as validateFile so the presigned path can't be used to
+ * smuggle active content past the checks the buffered upload enforces.
+ */
+export function validateUploadMeta(filename: string, contentType?: string) {
+  if (!filename) {
+    throw new BadRequestException('A filename is required');
+  }
+  assertSafeContentType(contentType);
+  assertAllowedExtension(filename);
   return true;
 }

@@ -133,6 +133,9 @@ export class PaystackProvider implements PaymentProvider {
         type: 'checkout.completed',
         providerPaymentId: data?.reference,
         providerReference: data?.reference,
+        // Paystack reports amount in kobo (minor units).
+        amount: typeof data?.amount === 'number' ? data.amount / 100 : undefined,
+        currency: data?.currency,
         raw: payload,
       };
     }

@@ -2,7 +2,7 @@ import { Controller, Post, UseInterceptors, UploadedFile, Body, UseGuards } from
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { StorageService } from './storage.service';
-import { validateFile, getMaxFileSizeFromSettings } from '../common/file-validation';
+import { validateFile, validateUploadMeta, getMaxFileSizeFromSettings } from '../common/file-validation';
 
 @Controller('storage')
 export class StorageController {
@@ -37,6 +37,8 @@ export class StorageController {
       expiresIn?: number;
     }
   ) {
+    validateUploadMeta(body.filename, body.contentType);
+
     const result = await this.storageService.getSignedUploadUrl(
       body.filename,
       body.contentType,

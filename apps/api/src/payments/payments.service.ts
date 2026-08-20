@@ -183,6 +183,21 @@ export class PaymentsService {
       throw new BadRequestException('Payment record not found for webhook event');
     }
 
+    // Defense-in-depth: the signature already proves the event is authentic, but
+    // also confirm the amount actually paid matches what we expect to be charged
+    // for this order. A mismatch (e.g. a reused reference for a cheaper charge)
+    // must never fulfill. Only enforced when the provider reports an amount; the
+    // ~1 major-unit tolerance absorbs rounding between minor/major units.
+    if (event.amount != null) {
+      const expected = payment.amount.toNumber();
+      if (Math.abs(event.amount - expected) > 1) {
+        this.logger.error(
+          `[webhook] amount mismatch for payment ${payment.id}: reported ${event.amount}, expected ${expected}`,
+        );
+        throw new BadRequestException('Webhook amount does not match the order total');
+      }
+    }
+
     // Atomic claim: only the first webhook to arrive flips the payment to
     // SUCCEEDED. Concurrent/duplicate deliveries see count === 0 and bail,
     // so fulfillment runs exactly once.
