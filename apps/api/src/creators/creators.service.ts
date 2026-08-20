@@ -346,15 +346,9 @@ export class CreatorsService {
   }
 
   async getCreatorSales(userId: string, page = 1, perPage = 20) {
-    const creator = await prisma.creatorProfile.findUnique({
-      where: { userId },
-    });
-
-    if (!creator) {
-      throw new NotFoundException('Creator profile not found');
-    }
-
-    return this.ordersService.findAll({ creatorId: creator.id, page, perPage });
+    // Delegates to a creator-scoped query that surfaces only this creator's
+    // line items per order, the buyer, and a paid revenue/units summary.
+    return this.ordersService.findByCreator(userId, page, perPage);
   }
 
   async getCreatorEarnings(userId: string) {

@@ -303,6 +303,91 @@ export class OrdersService {
     };
   }
 
+  /**
+   * Sales for a creator: every order that contains at least one of the
+   * creator's products, with only that creator's line items surfaced and the
+   * creator's own subtotal computed per order. Also returns a summary of
+   * paid gross revenue and units sold across all matching orders.
+   */
+  async findByCreator(userId: string, pageArg = 1, perPageArg = 20) {
+    const profile = await prisma.creatorProfile.findUnique({
+      where: { userId },
+      select: { id: true },
+    });
+    if (!profile) {
+      throw new ForbiddenException('You must be a creator to view sales');
+    }
+    const creatorId = profile.id;
+    const { page, perPage, skip, take } = paginate(pageArg, perPageArg);
+
+    const paidStatuses: OrderStatus[] = ['PAID', 'FULFILLED', 'COMPLETED'];
+    const where: Prisma.OrderWhereInput = {
+      items: { some: { product: { creatorId } } },
+    };
+
+    const [orders, total, salesAgg] = await Promise.all([
+      prisma.order.findMany({
+        where,
+        include: {
+          items: {
+            where: { product: { creatorId } },
+            include: {
+              product: {
+                select: { id: true, title: true, slug: true, thumbnail: true },
+              },
+            },
+          },
+          buyer: {
+            select: { id: true, email: true, displayName: true },
+          },
+          payment: { select: { status: true, provider: true, createdAt: true } },
+        },
+        skip,
+        take,
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.order.count({ where }),
+      prisma.orderItem.aggregate({
+        where: {
+          product: { creatorId },
+          order: { status: { in: paidStatuses } },
+        },
+        _sum: { totalPrice: true },
+        _count: { _all: true },
+      }),
+    ]);
+
+    const data = orders.map((o) => {
+      const creatorSubtotal = o.items.reduce(
+        (sum, i) => sum.add(i.totalPrice),
+        new Decimal(0),
+      );
+      const isPaid = paidStatuses.includes(o.status);
+      return {
+        id: o.id,
+        invoiceNumber: o.invoiceNumber,
+        status: o.status,
+        isPaid,
+        currency: o.currency,
+        createdAt: o.createdAt,
+        buyer: o.buyer,
+        payment: o.payment,
+        items: o.items,
+        creatorSubtotal,
+      };
+    });
+
+    return {
+      data,
+      pagination: pageMeta(page, perPage, total),
+      summary: {
+        ordersCount: total,
+        unitsSold: salesAgg._count._all,
+        grossRevenue: salesAgg._sum.totalPrice ?? new Decimal(0),
+      },
+    };
+  }
+
   async updateStatus(id: string, status: OrderStatus) {
     const order = await prisma.order.findUnique({ where: { id } });
 

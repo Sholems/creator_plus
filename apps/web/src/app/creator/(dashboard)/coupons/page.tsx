@@ -47,6 +47,7 @@ export default function CreatorCouponsPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     code: '',
@@ -75,30 +76,71 @@ export default function CreatorCouponsPage() {
     loadCoupons();
   }, [token]);
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const resetForm = () => {
+    setForm({ code: '', type: 'PERCENTAGE', value: '', minPurchase: '', maxUses: '', startDate: '', endDate: '' });
+    setEditingId(null);
+  };
+
+  const openCreate = () => {
+    resetForm();
+    setShowForm(true);
+    setError('');
+  };
+
+  const openEdit = (coupon: Coupon) => {
+    setEditingId(coupon.id);
+    setForm({
+      code: coupon.code,
+      type: coupon.type,
+      value: String(coupon.value ?? ''),
+      minPurchase: coupon.minPurchase != null ? String(coupon.minPurchase) : '',
+      maxUses: coupon.maxUses != null ? String(coupon.maxUses) : '',
+      startDate: coupon.startDate ? coupon.startDate.slice(0, 10) : '',
+      endDate: coupon.endDate ? coupon.endDate.slice(0, 10) : '',
+    });
+    setShowForm(true);
+    setError('');
+    setMessage(null);
+  };
+
+  const closeForm = () => {
+    setShowForm(false);
+    resetForm();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!token) return;
     setSubmitting(true);
     setMessage(null);
     setError('');
     try {
-      const payload: any = {
-        code: form.code.trim().toUpperCase(),
-        type: form.type,
-        value: Number(form.value),
-      };
-      if (form.minPurchase) payload.minPurchase = Number(form.minPurchase);
-      if (form.maxUses) payload.maxUses = Number(form.maxUses);
-      if (form.startDate) payload.startDate = form.startDate;
-      if (form.endDate) payload.endDate = form.endDate;
-
-      await api.createCoupon(token, payload);
-      setMessage({ ok: true, text: `Coupon ${payload.code} created.` });
-      setForm({ code: '', type: 'PERCENTAGE', value: '', minPurchase: '', maxUses: '', startDate: '', endDate: '' });
-      setShowForm(false);
+      if (editingId) {
+        // Code and type are immutable once created; update the rest.
+        const payload: any = { value: Number(form.value) };
+        payload.minPurchase = form.minPurchase ? Number(form.minPurchase) : undefined;
+        payload.maxUses = form.maxUses ? Number(form.maxUses) : undefined;
+        payload.startDate = form.startDate || undefined;
+        payload.endDate = form.endDate || undefined;
+        await api.updateCoupon(token, editingId, payload);
+        setMessage({ ok: true, text: `Coupon ${form.code.toUpperCase()} updated.` });
+      } else {
+        const payload: any = {
+          code: form.code.trim().toUpperCase(),
+          type: form.type,
+          value: Number(form.value),
+        };
+        if (form.minPurchase) payload.minPurchase = Number(form.minPurchase);
+        if (form.maxUses) payload.maxUses = Number(form.maxUses);
+        if (form.startDate) payload.startDate = form.startDate;
+        if (form.endDate) payload.endDate = form.endDate;
+        await api.createCoupon(token, payload);
+        setMessage({ ok: true, text: `Coupon ${payload.code} created.` });
+      }
+      closeForm();
       loadCoupons();
     } catch (err: any) {
-      setError(err.message || 'Could not create coupon');
+      setError(err.message || (editingId ? 'Could not update coupon' : 'Could not create coupon'));
     } finally {
       setSubmitting(false);
     }
@@ -142,7 +184,7 @@ export default function CreatorCouponsPage() {
           </p>
         </div>
         <button
-          onClick={() => setShowForm((v) => !v)}
+          onClick={() => (showForm ? closeForm() : openCreate())}
           className="rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 shadow-sm transition-colors hover:bg-forest-700"
         >
           {showForm ? 'Cancel' : '+ New Coupon'}
@@ -164,9 +206,20 @@ export default function CreatorCouponsPage() {
 
       {showForm && (
         <form
-          onSubmit={handleCreate}
+          onSubmit={handleSubmit}
           className="surface-card mt-6 grid gap-4 p-6 sm:grid-cols-2"
         >
+          <div className="sm:col-span-2">
+            <h2 className="font-display text-lg font-semibold text-ink-900">
+              {editingId ? `Edit coupon ${form.code.toUpperCase()}` : 'New coupon'}
+            </h2>
+            {editingId && (
+              <p className="mt-0.5 text-xs text-ink-500">
+                The code and discount type can’t be changed after a coupon is created.
+              </p>
+            )}
+          </div>
+
           <div className="sm:col-span-1">
             <label className="eyebrow text-ink-400">Code</label>
             <input
@@ -174,7 +227,8 @@ export default function CreatorCouponsPage() {
               value={form.code}
               onChange={(e) => setForm({ ...form, code: e.target.value })}
               placeholder="e.g. LAUNCH15"
-              className={`mt-1 ${inputCls} font-mono uppercase`}
+              disabled={!!editingId}
+              className={`mt-1 ${inputCls} font-mono uppercase ${editingId ? 'cursor-not-allowed bg-cream-100 text-ink-500' : ''}`}
             />
           </div>
 
@@ -183,7 +237,8 @@ export default function CreatorCouponsPage() {
             <select
               value={form.type}
               onChange={(e) => setForm({ ...form, type: e.target.value })}
-              className={`mt-1 ${inputCls}`}
+              disabled={!!editingId}
+              className={`mt-1 ${inputCls} ${editingId ? 'cursor-not-allowed bg-cream-100 text-ink-500' : ''}`}
             >
               <option value="PERCENTAGE">Percentage (%)</option>
               <option value="FIXED">Fixed amount (₦)</option>
@@ -254,7 +309,7 @@ export default function CreatorCouponsPage() {
           <div className="flex items-center justify-end gap-3 sm:col-span-2">
             <button
               type="button"
-              onClick={() => setShowForm(false)}
+              onClick={closeForm}
               className="rounded-full border border-ink-100 px-5 py-2 text-sm font-medium text-ink-600 hover:bg-cream-100"
             >
               Cancel
@@ -264,7 +319,9 @@ export default function CreatorCouponsPage() {
               disabled={submitting || !form.code.trim() || !form.value}
               className="rounded-full bg-forest-800 px-6 py-2 text-sm font-semibold text-cream-50 transition-colors hover:bg-forest-700 disabled:opacity-50"
             >
-              {submitting ? 'Creating…' : 'Create Coupon'}
+              {submitting
+                ? editingId ? 'Saving…' : 'Creating…'
+                : editingId ? 'Save Changes' : 'Create Coupon'}
             </button>
           </div>
         </form>
@@ -322,6 +379,12 @@ export default function CreatorCouponsPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => openEdit(coupon)}
+                        className="rounded-full border border-ink-100 px-4 py-1.5 text-xs font-semibold text-ink-600 transition-colors hover:bg-cream-100"
+                      >
+                        Edit
+                      </button>
                       <button
                         onClick={() => handleToggle(coupon)}
                         className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
