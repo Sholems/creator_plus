@@ -142,11 +142,11 @@ export class CouponsService {
       throw new NotFoundException('Coupon not found');
     }
 
-    // Soft-deactivate: existing orders keep their redemption records.
-    return prisma.coupon.update({
-      where: { id },
-      data: { isActive: false },
-    });
+    // Hard-delete so the code is truly gone and can be reused later. Redemption
+    // rows cascade away; each order still carries its own couponCode and
+    // discountAmount snapshot, so sales history is unaffected.
+    await prisma.coupon.delete({ where: { id } });
+    return { id, deleted: true };
   }
 
   /**
