@@ -73,4 +73,27 @@ export class OrdersController {
   async cancel(@Request() req, @Param('id') id: string) {
     return this.ordersService.cancel(id, req.user.sub);
   }
+
+  @Post(':id/coupon')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Apply a coupon code to an order' })
+  @ApiResponse({ status: 200, description: 'Coupon applied' })
+  @ApiResponse({ status: 400, description: 'Invalid coupon' })
+  async applyCoupon(
+    @Request() req,
+    @Param('id') id: string,
+    @Body('couponCode') couponCode: string,
+  ) {
+    return this.ordersService.applyCoupon(id, req.user.sub, couponCode);
+  }
+
+  @Post(':id/coupon/remove')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Remove coupon from an order' })
+  @ApiResponse({ status: 200, description: 'Coupon removed' })
+  async removeCoupon(@Request() req, @Param('id') id: string) {
+    return this.ordersService.removeCoupon(id, req.user.sub);
+  }
 }

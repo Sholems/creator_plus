@@ -320,6 +320,21 @@ class ApiClient {
     });
   }
 
+  async applyCoupon(token: string, orderId: string, couponCode: string) {
+    return this.fetch<any>(`/orders/${orderId}/coupon`, {
+      method: 'POST',
+      body: { couponCode },
+      token,
+    });
+  }
+
+  async removeCoupon(token: string, orderId: string) {
+    return this.fetch<any>(`/orders/${orderId}/coupon/remove`, {
+      method: 'POST',
+      token,
+    });
+  }
+
   // Refunds
   async requestRefund(token: string, orderId: string, reason: string) {
     return this.fetch<any>('/refunds', {

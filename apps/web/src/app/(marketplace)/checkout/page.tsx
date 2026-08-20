@@ -21,6 +21,11 @@ function CheckoutContent() {
   const [wallet, setWallet] = useState<any>(null);
   const [usingWallet, setUsingWallet] = useState(false);
 
+  const [couponCode, setCouponCode] = useState('');
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponMessage, setCouponMessage] = useState('');
+  const [couponError, setCouponError] = useState('');
+
   useEffect(() => {
     if (token) {
       api
@@ -47,6 +52,38 @@ function CheckoutContent() {
       setError(err.message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!token || !order || !couponCode.trim()) return;
+    setCouponLoading(true);
+    setCouponError('');
+    setCouponMessage('');
+    try {
+      const updated = await api.applyCoupon(token, order.id, couponCode.trim());
+      setOrder(updated);
+      setCouponMessage(`Coupon "${updated.coupon?.code}" applied! You saved ${formatNaira(updated.coupon?.discountAmount)}.`);
+      setCouponCode('');
+    } catch (err: any) {
+      setCouponError(err.message);
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
+  const handleRemoveCoupon = async () => {
+    if (!token || !order) return;
+    setCouponLoading(true);
+    try {
+      const updated = await api.removeCoupon(token, order.id);
+      setOrder(updated);
+      setCouponMessage('');
+      setCouponError('');
+    } catch (err: any) {
+      setCouponError(err.message);
+    } finally {
+      setCouponLoading(false);
     }
   };
 
@@ -135,11 +172,21 @@ function CheckoutContent() {
           {order.items?.map((item: any) => (
             <div key={item.id} className="flex items-center justify-between py-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cream-100">
-                  <svg className="h-6 w-6 text-ink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
+                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-cream-100">
+                  {item.product?.thumbnail ? (
+                    <img
+                      src={item.product.thumbnail}
+                      alt={item.product?.title}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <svg className="h-6 w-6 text-ink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Link href={`/products/${item.product?.slug}`} className="font-medium text-ink-900 hover:text-forest-700">
@@ -153,7 +200,72 @@ function CheckoutContent() {
           ))}
         </div>
 
+        {/* Coupon input */}
         <div className="mt-4 border-t border-ink-100 pt-4">
+          {order.couponCode ? (
+            <div className="flex items-center justify-between rounded-xl border border-forest-200 bg-forest-50 px-4 py-3">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🏷️</span>
+                <div>
+                  <p className="text-sm font-semibold text-forest-800">{order.couponCode}</p>
+                  <p className="text-xs text-forest-600">
+                    {formatNaira(order.discountAmount)} discount applied
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={handleRemoveCoupon}
+                disabled={couponLoading}
+                className="text-xs font-medium text-clay-600 hover:text-clay-800 disabled:opacity-50"
+              >
+                {couponLoading ? 'Removing…' : 'Remove'}
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Coupon code"
+                  value={couponCode}
+                  onChange={(e) => {
+                    setCouponCode(e.target.value);
+                    setCouponError('');
+                  }}
+                  onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                  className="flex-1 rounded-xl border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-900 placeholder-ink-400 transition-colors focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/20"
+                />
+                <button
+                  onClick={handleApplyCoupon}
+                  disabled={couponLoading || !couponCode.trim()}
+                  className="rounded-xl border border-ink-200 bg-white px-4 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-cream-100 disabled:opacity-50"
+                >
+                  {couponLoading ? 'Applying…' : 'Apply'}
+                </button>
+              </div>
+              {couponError && (
+                <p className="mt-2 text-xs text-clay-600">{couponError}</p>
+              )}
+              {couponMessage && (
+                <p className="mt-2 text-xs text-forest-600">{couponMessage}</p>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4 border-t border-ink-100 pt-4">
+          {order.discountAmount > 0 && (
+            <div className="flex items-center justify-between text-sm">
+              <p className="text-ink-500">Subtotal</p>
+              <p className="text-ink-500 line-through">{formatNaira(Number(order.totalAmount) + Number(order.discountAmount))}</p>
+            </div>
+          )}
+          {order.discountAmount > 0 && (
+            <div className="flex items-center justify-between text-sm">
+              <p className="text-forest-600">Discount ({order.couponCode})</p>
+              <p className="text-forest-600">-{formatNaira(order.discountAmount)}</p>
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <p className="font-display text-lg font-bold text-ink-900">Total</p>
             <p className="price-tag text-xl font-bold text-forest-900">{formatNaira(order.totalAmount)}</p>

@@ -134,6 +134,8 @@ export class OrdersService {
         currency: 'NGN',
         status: 'PENDING',
         acquisitionSource,
+        couponCode: coupon ? coupon.code : null,
+        discountAmount: coupon ? discountAmount : null,
         invoiceNumber: `INV-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
         items: {
           create: orderItems,
@@ -345,5 +347,125 @@ export class OrdersService {
       where: { id },
       data: { status: 'CANCELLED' },
     });
+  }
+
+  async applyCoupon(orderId: string, buyerId: string, couponCode: string) {
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: {
+        items: {
+          include: {
+            product: { select: { id: true, title: true, slug: true } },
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    if (order.buyerId !== buyerId) {
+      throw new ForbiddenException('Not authorized to modify this order');
+    }
+
+    if (!['PENDING'].includes(order.status)) {
+      throw new BadRequestException('Cannot apply coupon to this order');
+    }
+
+    if (order.couponCode) {
+      throw new BadRequestException('A coupon is already applied to this order');
+    }
+
+    const items = order.items.map((i) => ({
+      productId: i.productId,
+      quantity: i.quantity,
+    }));
+
+    const result = await this.couponsService.validate(couponCode, items);
+
+    const originalTotal = order.items.reduce(
+      (sum, i) => sum.add(i.totalPrice),
+      new Decimal(0),
+    );
+
+    const discount = new Decimal(result.discountAmount);
+    const finalTotal = originalTotal.sub(discount).toDecimalPlaces(2);
+
+    const updated = await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        couponCode: result.coupon.code,
+        discountAmount: discount,
+        totalAmount: finalTotal,
+      },
+      include: {
+        items: {
+          include: {
+            product: { select: { id: true, title: true, slug: true } },
+          },
+        },
+      },
+    });
+
+    await this.couponsService.redeem(
+      result.coupon.id,
+      buyerId,
+      orderId,
+      result.discountAmount,
+    );
+
+    return {
+      ...updated,
+      coupon: { ...result.coupon, discountAmount: result.discountAmount },
+    };
+  }
+
+  async removeCoupon(orderId: string, buyerId: string) {
+    const order = await prisma.order.findUnique({ where: { id: orderId } });
+
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    if (order.buyerId !== buyerId) {
+      throw new ForbiddenException('Not authorized to modify this order');
+    }
+
+    if (!['PENDING'].includes(order.status)) {
+      throw new BadRequestException('Cannot modify this order');
+    }
+
+    if (!order.couponCode) {
+      throw new BadRequestException('No coupon is applied to this order');
+    }
+
+    const items = await prisma.orderItem.findMany({
+      where: { orderId },
+      select: { totalPrice: true },
+    });
+
+    const originalTotal = items.reduce(
+      (sum, i) => sum.add(i.totalPrice),
+      new Decimal(0),
+    );
+
+    const updated = await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        couponCode: null,
+        discountAmount: null,
+        totalAmount: originalTotal,
+      },
+      include: {
+        items: {
+          include: {
+            product: { select: { id: true, title: true, slug: true } },
+          },
+        },
+      },
+    });
+
+    return updated;
   }
 }
