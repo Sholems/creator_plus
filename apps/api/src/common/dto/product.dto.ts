@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsOptional, IsArray, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsArray, ArrayMaxSize, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf } from 'class-validator';
 
 // Creator-selectable affiliate reward rates (MVP). Anything outside this set is
 // rejected — the calculator trusts stored values at fulfillment time.
@@ -53,6 +53,17 @@ export class CreateProductDto {
   @IsOptional()
   @IsString()
   thumbnail?: string;
+
+  @IsOptional()
+  @IsString()
+  coverImage?: string;
+
+  // Gallery images shown on the product page. Capped so the page stays fast.
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(8, { message: 'You can add up to 8 gallery images' })
+  @IsString({ each: true })
+  previewImages?: string[];
 
   /**
    * Optional external delivery link (hosted file, Drive/Dropbox, or a landing
@@ -119,6 +130,16 @@ export class UpdateProductDto {
   @IsOptional()
   @IsString()
   thumbnail?: string;
+
+  @IsOptional()
+  @IsString()
+  coverImage?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(8, { message: 'You can add up to 8 gallery images' })
+  @IsString({ each: true })
+  previewImages?: string[];
 
   /** Optional external delivery link buyers access after purchase. Empty clears. */
   @IsOptional()

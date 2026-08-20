@@ -117,16 +117,12 @@ export default async function ProductLayout({
           seller: product.creator?.storeName
             ? { '@type': 'Organization', name: product.creator.storeName }
             : undefined,
-          // Declares the advertised 30-day guarantee — resolves the "missing
-          // return policy" warning in Google's merchant/rich-result checks.
+          // Instant digital downloads are non-returnable — declare that
+          // explicitly so the offer is accurate in Google's merchant checks.
           hasMerchantReturnPolicy: {
             '@type': 'MerchantReturnPolicy',
             applicableCountry: 'NG',
-            returnPolicyCategory:
-              'https://schema.org/MerchantReturnFiniteReturnWindow',
-            merchantReturnDays: 30,
-            returnMethod: 'https://schema.org/ReturnByMail',
-            returnFees: 'https://schema.org/FreeReturn',
+            returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
           },
         },
         review: Array.isArray(product.reviews)

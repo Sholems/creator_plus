@@ -56,6 +56,8 @@ export class ProductsService {
     tags?: string[];
     licenseType?: 'personal' | 'commercial' | 'extended' | 'enterprise';
     thumbnail?: string;
+    coverImage?: string;
+    previewImages?: string[];
     deliveryUrl?: string;
     affiliateEnabled?: boolean;
     affiliateCommissionRate?: number;
@@ -120,6 +122,8 @@ export class ProductsService {
           currency: data.currency || 'NGN',
           licenseType: (data.licenseType || 'personal').toUpperCase() as any,
           thumbnail: data.thumbnail || null,
+          coverImage: data.coverImage || null,
+          previewImages: data.previewImages ?? [],
           deliveryUrl: data.deliveryUrl ? data.deliveryUrl.trim() : null,
           affiliateEnabled,
           affiliateStatus: affiliateEnabled ? 'PENDING_REVIEW' : 'DISABLED',

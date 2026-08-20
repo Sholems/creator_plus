@@ -314,12 +314,12 @@ export function ProductDetailClient({
       a: `This product is sold under a ${licenseLabel.toLowerCase()} license, covering your own use as described by the creator. For any other use, message the seller before purchasing.`,
     },
     {
-      q: 'Is there a refund policy?',
-      a: 'Yes — every purchase on CreatorPlus is backed by a 30-day money-back guarantee.',
+      q: 'Can I get a refund?',
+      a: "Because this is an instant digital download, all sales are final. If a file is faulty or not as described, contact the seller and we'll help put it right.",
     },
     {
       q: 'What payment methods can I use?',
-      a: 'Pay securely with Paystack, Flutterwave, or an international card (Visa, Mastercard, Verve).',
+      a: 'Pay securely with Paystack — debit or credit card, bank transfer, or USSD.',
     },
     {
       q: 'Will I get future updates?',
@@ -515,8 +515,8 @@ export function ProductDetailClient({
           <div className="mt-5 space-y-2.5 border-t border-ink-100 pt-5 text-sm text-ink-600">
             {[
               { icon: 'M5 13l4 4L19 7', text: 'Instant download after payment' },
-              { icon: 'M13 10V3L4 14h7v7l9-11h-7z', text: '30-day money-back guarantee' },
-              { icon: 'M3 17a9 9 0 019-9 9 9 0 016 2.3', text: 'Pay with Paystack, Flutterwave or card' },
+              { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', text: 'Secure, encrypted checkout' },
+              { icon: 'M3 10h18M7 15h2m4 0h4M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', text: 'Pay securely with Paystack' },
             ].map((row) => (
               <div key={row.text} className="flex items-center gap-2.5">
                 <svg className="h-4 w-4 shrink-0 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

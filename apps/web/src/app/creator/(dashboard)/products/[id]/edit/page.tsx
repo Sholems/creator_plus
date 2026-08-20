@@ -7,6 +7,7 @@ import { api } from '@/lib/api';
 import { RichTextEditor } from '@/components/market/rich-text-editor';
 import { htmlToPlainText } from '@/lib/rich-text';
 import { AffiliateProgramForm } from '@/components/creator/affiliate-program-form';
+import { GalleryUploader } from '@/components/creator/gallery-uploader';
 import { cn } from '@creatormarket/ui';
 
 const inputClass =
@@ -24,6 +25,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [description, setDescription] = useState('');
   const [digitalFile, setDigitalFile] = useState<File | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
@@ -117,6 +119,9 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       if (product.thumbnail) {
         setThumbnailPreview(product.thumbnail);
       }
+      if (Array.isArray(product.previewImages)) {
+        setGalleryImages(product.previewImages);
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to load product');
     } finally {
@@ -191,6 +196,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         licenseType: formData.licenseType,
         tags,
         thumbnail: thumbnailUrl,
+        previewImages: galleryImages,
+        coverImage: galleryImages[0] || undefined,
         deliveryUrl: deliveryUrl.trim(),
         affiliateEnabled: affiliate.affiliateEnabled,
         affiliateCommissionRate: affiliate.affiliateEnabled
@@ -593,6 +600,14 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 />
               </label>
             )}
+          </div>
+
+          <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
+            <h2 className="font-display text-lg font-semibold text-ink-900">Gallery Images</h2>
+            <p className="mt-1 mb-4 text-sm text-ink-500">
+              Extra screenshots or previews shown on your product page (optional).
+            </p>
+            <GalleryUploader value={galleryImages} onChange={setGalleryImages} />
           </div>
 
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
