@@ -8,7 +8,7 @@ import { cn } from '@creatormarket/ui';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { formatNaira } from '@/lib/format';
-import { sanitizeRichText } from '@/lib/rich-text';
+import { RichText } from '@/components/market/rich-text';
 import { AdinkraMark } from '@/components/brand/adinkra';
 import { CustomerProductCard } from '@/components/market/customer-product-card';
 
@@ -410,9 +410,9 @@ export function ProductDetailClient({
       {/* Description */}
       <div className="mt-10">
         <h2 className="font-display text-xl font-semibold text-ink-900">About this product</h2>
-        <div
+        <RichText
           className="rich-text mt-3 leading-relaxed text-ink-600"
-          dangerouslySetInnerHTML={{ __html: sanitizeRichText(product.description || '') }}
+          html={product.description}
         />
       </div>
 

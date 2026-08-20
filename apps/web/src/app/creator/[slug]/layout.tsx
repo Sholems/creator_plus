@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { safeJsonLd } from '@/lib/json-ld';
 import { SITE_NAME, SITE_URL } from '@/lib/brand';
 import { API_BASE } from '@/lib/env';
 
@@ -105,13 +106,13 @@ export default async function CreatorStoreLayout({
       {breadcrumbLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
         />
       )}
       {profileLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(profileLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(profileLd) }}
         />
       )}
       {children}

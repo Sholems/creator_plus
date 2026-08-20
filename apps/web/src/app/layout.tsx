@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { safeJsonLd } from '@/lib/json-ld';
 import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import { AuthProvider } from '@/lib/auth';
@@ -103,7 +104,7 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
         <TrackingScripts />
         <AuthProvider>{children}</AuthProvider>

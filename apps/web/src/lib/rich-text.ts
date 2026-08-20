@@ -18,10 +18,12 @@ const ALLOWED_TAGS = new Set([
   'DIV',
   'HR',
   'IMG',
-  'IFRAME',
 ]);
 
-const ALLOWED_ATTRS = new Set(['href', 'target', 'rel', 'style', 'src', 'alt', 'width', 'height', 'frameborder', 'allowfullscreen', 'allow']);
+// IFRAME is intentionally NOT allowed: a creator-controlled iframe on a public
+// product/store page is a phishing/clickjacking vector. Only inline formatting,
+// links and images survive.
+const ALLOWED_ATTRS = new Set(['href', 'target', 'rel', 'style', 'src', 'alt', 'width', 'height']);
 
 // Formatting styles the editor (document.execCommand) emits — bold, italic,
 // underline, alignment, colour. Kept so rich formatting survives sanitization;
@@ -55,6 +57,27 @@ function sanitizeStyleValue(raw: string): string {
     .join('; ');
 }
 
+/**
+ * Deterministic, DOM-free conversion of stored HTML to plain text. Used as the
+ * server-render / first-paint fallback for rich content: it produces the exact
+ * same string in Node and the browser (so it never triggers a hydration
+ * mismatch) and it is XSS-safe because the result is rendered as a React text
+ * child, never as raw HTML. Rich formatting is upgraded on the client after
+ * mount via sanitizeRichText.
+ */
+export function stripToText(html: string): string {
+  return (html || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#3?9;|&apos;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 export function htmlToPlainText(html: string): string {
   if (typeof document === 'undefined') {
     return html
@@ -70,7 +93,11 @@ export function htmlToPlainText(html: string): string {
 }
 
 export function sanitizeRichText(html: string): string {
-  if (typeof document === 'undefined') return html;
+  // No DOM available (server render): NEVER return the raw HTML — that would
+  // emit unsanitized, attacker-controlled markup into the server response.
+  // Fall back to safe plain text; the client upgrades to sanitized rich HTML
+  // after mount (see the RichText component).
+  if (typeof document === 'undefined') return stripToText(html);
 
   const el = document.createElement('div');
   el.innerHTML = html;

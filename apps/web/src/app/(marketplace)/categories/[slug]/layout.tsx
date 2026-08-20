@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { safeJsonLd } from '@/lib/json-ld';
 import { SITE_NAME, SITE_URL } from '@/lib/brand';
 import { API_BASE } from '@/lib/env';
 
@@ -90,7 +91,7 @@ export default async function CategoryLayout({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
       />
       {children}
     </>
