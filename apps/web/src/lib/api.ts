@@ -448,6 +448,23 @@ class ApiClient {
     return this.fetch<any>(`/creators/sales${query ? `?${query}` : ''}`, { token });
   }
 
+  // License keys (creator)
+  async getCreatorLicenses(token: string) {
+    return this.fetch<any[]>('/licenses/creator', { token });
+  }
+
+  async revokeLicense(token: string, id: string) {
+    return this.fetch<any>(`/licenses/creator/${id}/revoke`, { method: 'POST', token });
+  }
+
+  async resetLicenseActivations(token: string, id: string) {
+    return this.fetch<any>(`/licenses/creator/${id}/reset`, { method: 'POST', token });
+  }
+
+  async updateLicense(token: string, id: string, data: any) {
+    return this.fetch<any>(`/licenses/creator/${id}`, { method: 'PATCH', body: data, token });
+  }
+
   async getMyPayouts(token: string, params?: { page?: number; perPage?: number }) {
     const searchParams = new URLSearchParams();
     if (params?.page) searchParams.set('page', params.page.toString());

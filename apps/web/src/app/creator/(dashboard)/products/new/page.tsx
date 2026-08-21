@@ -8,6 +8,7 @@ import { RichTextEditor } from '@/components/market/rich-text-editor';
 import { htmlToPlainText } from '@/lib/rich-text';
 import { AffiliateProgramForm } from '@/components/creator/affiliate-program-form';
 import { GalleryUploader } from '@/components/creator/gallery-uploader';
+import { LicenseOptionsForm } from '@/components/creator/license-options-form';
 import { cn } from '@creatormarket/ui';
 
 const inputClass =
@@ -23,6 +24,11 @@ export default function NewProductPage() {
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [licensing, setLicensing] = useState<{
+    licenseKeysEnabled: boolean;
+    licenseMaxActivations: number;
+    licenseValidityDays: number | null;
+  }>({ licenseKeysEnabled: false, licenseMaxActivations: 2, licenseValidityDays: null });
   const [digitalFile, setDigitalFile] = useState<File | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
   const [deliveryUrl, setDeliveryUrl] = useState('');
@@ -137,6 +143,9 @@ export default function NewProductPage() {
         thumbnail: thumbnailUrl,
         previewImages: galleryImages,
         coverImage: galleryImages[0] || undefined,
+        licenseKeysEnabled: licensing.licenseKeysEnabled,
+        licenseMaxActivations: licensing.licenseMaxActivations,
+        licenseValidityDays: licensing.licenseValidityDays,
         deliveryUrl: deliveryUrl.trim(),
         affiliateEnabled: affiliate.affiliateEnabled,
         affiliateCommissionRate: affiliate.affiliateEnabled
@@ -397,6 +406,13 @@ export default function NewProductPage() {
             </p>
             <GalleryUploader value={galleryImages} onChange={setGalleryImages} />
           </div>
+
+          <LicenseOptionsForm
+            enabled={licensing.licenseKeysEnabled}
+            maxActivations={licensing.licenseMaxActivations}
+            validityDays={licensing.licenseValidityDays}
+            onChange={setLicensing}
+          />
 
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
             <h2 className="font-display text-lg font-semibold text-ink-900">Digital File</h2>
