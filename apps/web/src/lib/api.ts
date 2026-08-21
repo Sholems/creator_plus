@@ -448,6 +448,18 @@ class ApiClient {
     return this.fetch<any>(`/creators/sales${query ? `?${query}` : ''}`, { token });
   }
 
+  // License keys (buyer)
+  async getMyLicenses(token: string) {
+    return this.fetch<any[]>('/licenses/mine', { token });
+  }
+
+  async deactivateLicenseDevice(token: string, licenseId: string, deviceId: string) {
+    return this.fetch<any>(`/licenses/mine/${licenseId}/devices/${encodeURIComponent(deviceId)}`, {
+      method: 'DELETE',
+      token,
+    });
+  }
+
   // License keys (creator)
   async getCreatorLicenses(token: string) {
     return this.fetch<any[]>('/licenses/creator', { token });

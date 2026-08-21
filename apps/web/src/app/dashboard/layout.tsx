@@ -14,6 +14,7 @@ const dashboardLinks: { href: Route; label: string }[] = [
   { href: '/dashboard', label: 'Overview' },
   { href: '/dashboard/purchases', label: 'My Purchases' },
   { href: '/dashboard/downloads', label: 'Downloads' },
+  { href: '/dashboard/licenses' as Route, label: 'Licenses' },
   { href: '/dashboard/wishlist', label: 'Wishlist' },
   { href: '/dashboard/notifications', label: 'Notifications' },
   { href: '/dashboard/support', label: 'Support' },
