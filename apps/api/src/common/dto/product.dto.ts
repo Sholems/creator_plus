@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsOptional, IsArray, ArrayMaxSize, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf } from 'class-validator';
+import { IsString, IsNumber, IsInt, IsOptional, IsArray, ArrayMaxSize, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf } from 'class-validator';
 
 // Creator-selectable affiliate reward rates (MVP). Anything outside this set is
 // rejected — the calculator trusts stored values at fulfillment time.
@@ -64,6 +64,23 @@ export class CreateProductDto {
   @ArrayMaxSize(8, { message: 'You can add up to 8 gallery images' })
   @IsString({ each: true })
   previewImages?: string[];
+
+  // Licensing (activation keys). Optional; defaults keep it off.
+  @IsOptional()
+  @IsBoolean()
+  licenseKeysEnabled?: boolean;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  licenseMaxActivations?: number;
+
+  // Null / omitted = lifetime license; a positive number = validity in days.
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  licenseValidityDays?: number | null;
 
   /**
    * Optional external delivery link (hosted file, Drive/Dropbox, or a landing

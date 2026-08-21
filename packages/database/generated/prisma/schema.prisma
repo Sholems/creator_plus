@@ -54,6 +54,7 @@ model User {
   assignedTickets     SupportTicket[]      @relation("AssignedTickets")
   ticketMessages      TicketMessage[]      @relation("SentTicketMessages")
   passwordResetTokens PasswordResetToken[]
+  licenseKeys         LicenseKey[]
 
   @@map("users")
 }
@@ -343,6 +344,8 @@ model Product {
   averageRating    Decimal       @default(0) @map("average_rating") @db.Decimal(3, 2)
   reviewCount      Int           @default(0) @map("review_count")
   isFeatured       Boolean       @default(false) @map("is_featured")
+  isHeroProduct    Boolean       @default(false) @map("is_hero_product")
+  isAffiliatePick  Boolean       @default(false) @map("is_affiliate_pick")
   publishedAt      DateTime?     @map("published_at")
 
   // Affiliate program. The buyer always pays the same list price whether or not
@@ -383,6 +386,12 @@ model Product {
   affiliateClicks       AffiliateClick[]
   affiliateAttributions AffiliateAttribution[]
   promotionalAssets     AffiliatePromotionalAsset[]
+
+  // Optional per-product licensing (activation keys for downloadable apps).
+  licenseKeysEnabled    Boolean      @default(false) @map("license_keys_enabled")
+  licenseMaxActivations Int          @default(2) @map("license_max_activations")
+  licenseValidityDays   Int?         @map("license_validity_days")
+  licenseKeys           LicenseKey[]
 
   @@unique([creatorId, slug])
   @@index([categoryId])
@@ -534,6 +543,8 @@ model Order {
   // distinction between creator_direct / marketplace_organic is only used for
   // analytics — every source is charged the same platform fee.
   acquisitionSource AcquisitionSource @default(UNKNOWN) @map("acquisition_source")
+  couponCode        String?           @map("coupon_code")
+  discountAmount    Decimal?          @map("discount_amount") @db.Decimal(10, 2)
   createdAt         DateTime          @default(now()) @map("created_at")
   updatedAt         DateTime          @updatedAt @map("updated_at")
 
@@ -543,6 +554,7 @@ model Order {
   refunds              Refund[]
   affiliateConversions AffiliateConversion[]
   commissionLedger     CommissionLedger[]
+  licenseKeys          LicenseKey[]
 
   @@index([buyerId])
   @@index([status])
@@ -1611,4 +1623,57 @@ model UsageRecord {
 
   @@index([userId, createdAt])
   @@map("usage_records")
+}
+
+// ==========================================
+// LICENSING DOMAIN
+// ==========================================
+
+enum LicenseStatus {
+  ACTIVE
+  SUSPENDED
+  REVOKED
+}
+
+/// One key per purchased item for license-enabled products. Activations are
+/// capped at maxActivations; expiresAt is null for a lifetime license.
+model LicenseKey {
+  id             String        @id @default(uuid()) @db.Uuid
+  key            String        @unique
+  productId      String        @map("product_id") @db.Uuid
+  orderId        String        @map("order_id") @db.Uuid
+  orderItemId    String?       @map("order_item_id") @db.Uuid
+  buyerId        String        @map("buyer_id") @db.Uuid
+  maxActivations Int           @default(2) @map("max_activations")
+  status         LicenseStatus @default(ACTIVE)
+  expiresAt      DateTime?     @map("expires_at")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  product     Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order       Order               @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  buyer       User                @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  activations LicenseActivation[]
+
+  @@index([buyerId])
+  @@index([productId])
+  @@index([orderId])
+  @@map("license_keys")
+}
+
+/// A single device that has consumed one activation slot of a license key.
+model LicenseActivation {
+  id           String   @id @default(uuid()) @db.Uuid
+  licenseKeyId String   @map("license_key_id") @db.Uuid
+  deviceId     String   @map("device_id")
+  deviceName   String?  @map("device_name")
+  ipAddress    String?  @map("ip_address")
+  activatedAt  DateTime @default(now()) @map("activated_at")
+  lastSeenAt   DateTime @default(now()) @map("last_seen_at")
+
+  licenseKey LicenseKey @relation(fields: [licenseKeyId], references: [id], onDelete: Cascade)
+
+  @@unique([licenseKeyId, deviceId])
+  @@index([licenseKeyId])
+  @@map("license_activations")
 }

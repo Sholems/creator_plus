@@ -6,9 +6,10 @@ import { EmailModule } from '../email/email.module';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { SettingsModule } from '../settings/settings.module';
 import { AffiliatesModule } from '../affiliates/affiliates.module';
+import { LicensesModule } from '../licenses/licenses.module';
 
 @Module({
-  imports: [EmailModule, NotificationsModule, SettingsModule, AffiliatesModule],
+  imports: [EmailModule, NotificationsModule, SettingsModule, AffiliatesModule, LicensesModule],
   controllers: [PaymentsController],
   providers: [PaymentsService, PaymentProviderFactory],
   exports: [PaymentsService, PaymentProviderFactory],

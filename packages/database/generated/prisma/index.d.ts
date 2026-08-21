@@ -358,6 +358,17 @@ export type CreditTransaction = $Result.DefaultSelection<Prisma.$CreditTransacti
  * 
  */
 export type UsageRecord = $Result.DefaultSelection<Prisma.$UsageRecordPayload>
+/**
+ * Model LicenseKey
+ * One key per purchased item for license-enabled products. Activations are
+ * capped at maxActivations; expiresAt is null for a lifetime license.
+ */
+export type LicenseKey = $Result.DefaultSelection<Prisma.$LicenseKeyPayload>
+/**
+ * Model LicenseActivation
+ * A single device that has consumed one activation slot of a license key.
+ */
+export type LicenseActivation = $Result.DefaultSelection<Prisma.$LicenseActivationPayload>
 
 /**
  * Enums
@@ -675,6 +686,15 @@ export const CreditTransactionType: {
 
 export type CreditTransactionType = (typeof CreditTransactionType)[keyof typeof CreditTransactionType]
 
+
+export const LicenseStatus: {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  REVOKED: 'REVOKED'
+};
+
+export type LicenseStatus = (typeof LicenseStatus)[keyof typeof LicenseStatus]
+
 }
 
 export type UserStatus = $Enums.UserStatus
@@ -788,6 +808,10 @@ export const CreditPurchaseStatus: typeof $Enums.CreditPurchaseStatus
 export type CreditTransactionType = $Enums.CreditTransactionType
 
 export const CreditTransactionType: typeof $Enums.CreditTransactionType
+
+export type LicenseStatus = $Enums.LicenseStatus
+
+export const LicenseStatus: typeof $Enums.LicenseStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1556,6 +1580,26 @@ export class PrismaClient<
     * ```
     */
   get usageRecord(): Prisma.UsageRecordDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.licenseKey`: Exposes CRUD operations for the **LicenseKey** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LicenseKeys
+    * const licenseKeys = await prisma.licenseKey.findMany()
+    * ```
+    */
+  get licenseKey(): Prisma.LicenseKeyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.licenseActivation`: Exposes CRUD operations for the **LicenseActivation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LicenseActivations
+    * const licenseActivations = await prisma.licenseActivation.findMany()
+    * ```
+    */
+  get licenseActivation(): Prisma.LicenseActivationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2061,7 +2105,9 @@ export namespace Prisma {
     CreditPurchase: 'CreditPurchase',
     CreditBalance: 'CreditBalance',
     CreditTransaction: 'CreditTransaction',
-    UsageRecord: 'UsageRecord'
+    UsageRecord: 'UsageRecord',
+    LicenseKey: 'LicenseKey',
+    LicenseActivation: 'LicenseActivation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2080,7 +2126,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "licenseKey" | "licenseActivation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6894,6 +6940,154 @@ export namespace Prisma {
           }
         }
       }
+      LicenseKey: {
+        payload: Prisma.$LicenseKeyPayload<ExtArgs>
+        fields: Prisma.LicenseKeyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LicenseKeyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LicenseKeyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>
+          }
+          findFirst: {
+            args: Prisma.LicenseKeyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LicenseKeyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>
+          }
+          findMany: {
+            args: Prisma.LicenseKeyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>[]
+          }
+          create: {
+            args: Prisma.LicenseKeyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>
+          }
+          createMany: {
+            args: Prisma.LicenseKeyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LicenseKeyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>[]
+          }
+          delete: {
+            args: Prisma.LicenseKeyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>
+          }
+          update: {
+            args: Prisma.LicenseKeyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>
+          }
+          deleteMany: {
+            args: Prisma.LicenseKeyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LicenseKeyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LicenseKeyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>[]
+          }
+          upsert: {
+            args: Prisma.LicenseKeyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseKeyPayload>
+          }
+          aggregate: {
+            args: Prisma.LicenseKeyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLicenseKey>
+          }
+          groupBy: {
+            args: Prisma.LicenseKeyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LicenseKeyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LicenseKeyCountArgs<ExtArgs>
+            result: $Utils.Optional<LicenseKeyCountAggregateOutputType> | number
+          }
+        }
+      }
+      LicenseActivation: {
+        payload: Prisma.$LicenseActivationPayload<ExtArgs>
+        fields: Prisma.LicenseActivationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LicenseActivationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LicenseActivationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>
+          }
+          findFirst: {
+            args: Prisma.LicenseActivationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LicenseActivationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>
+          }
+          findMany: {
+            args: Prisma.LicenseActivationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>[]
+          }
+          create: {
+            args: Prisma.LicenseActivationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>
+          }
+          createMany: {
+            args: Prisma.LicenseActivationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LicenseActivationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>[]
+          }
+          delete: {
+            args: Prisma.LicenseActivationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>
+          }
+          update: {
+            args: Prisma.LicenseActivationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>
+          }
+          deleteMany: {
+            args: Prisma.LicenseActivationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LicenseActivationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LicenseActivationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>[]
+          }
+          upsert: {
+            args: Prisma.LicenseActivationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LicenseActivationPayload>
+          }
+          aggregate: {
+            args: Prisma.LicenseActivationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLicenseActivation>
+          }
+          groupBy: {
+            args: Prisma.LicenseActivationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LicenseActivationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LicenseActivationCountArgs<ExtArgs>
+            result: $Utils.Optional<LicenseActivationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7055,6 +7249,8 @@ export namespace Prisma {
     creditBalance?: CreditBalanceOmit
     creditTransaction?: CreditTransactionOmit
     usageRecord?: UsageRecordOmit
+    licenseKey?: LicenseKeyOmit
+    licenseActivation?: LicenseActivationOmit
   }
 
   /* Types for Logging */
@@ -7151,6 +7347,7 @@ export namespace Prisma {
     assignedTickets: number
     ticketMessages: number
     passwordResetTokens: number
+    licenseKeys: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7170,6 +7367,7 @@ export namespace Prisma {
     assignedTickets?: boolean | UserCountOutputTypeCountAssignedTicketsArgs
     ticketMessages?: boolean | UserCountOutputTypeCountTicketMessagesArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+    licenseKeys?: boolean | UserCountOutputTypeCountLicenseKeysArgs
   }
 
   // Custom InputTypes
@@ -7293,6 +7491,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLicenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LicenseKeyWhereInput
   }
 
 
@@ -7545,6 +7750,7 @@ export namespace Prisma {
     affiliateClicks: number
     affiliateAttributions: number
     promotionalAssets: number
+    licenseKeys: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7561,6 +7767,7 @@ export namespace Prisma {
     affiliateClicks?: boolean | ProductCountOutputTypeCountAffiliateClicksArgs
     affiliateAttributions?: boolean | ProductCountOutputTypeCountAffiliateAttributionsArgs
     promotionalAssets?: boolean | ProductCountOutputTypeCountPromotionalAssetsArgs
+    licenseKeys?: boolean | ProductCountOutputTypeCountLicenseKeysArgs
   }
 
   // Custom InputTypes
@@ -7665,6 +7872,13 @@ export namespace Prisma {
     where?: AffiliatePromotionalAssetWhereInput
   }
 
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountLicenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LicenseKeyWhereInput
+  }
+
 
   /**
    * Count Type ProductVersionCountOutputType
@@ -7737,6 +7951,7 @@ export namespace Prisma {
     refunds: number
     affiliateConversions: number
     commissionLedger: number
+    licenseKeys: number
   }
 
   export type OrderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7744,6 +7959,7 @@ export namespace Prisma {
     refunds?: boolean | OrderCountOutputTypeCountRefundsArgs
     affiliateConversions?: boolean | OrderCountOutputTypeCountAffiliateConversionsArgs
     commissionLedger?: boolean | OrderCountOutputTypeCountCommissionLedgerArgs
+    licenseKeys?: boolean | OrderCountOutputTypeCountLicenseKeysArgs
   }
 
   // Custom InputTypes
@@ -7783,6 +7999,13 @@ export namespace Prisma {
    */
   export type OrderCountOutputTypeCountCommissionLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommissionLedgerWhereInput
+  }
+
+  /**
+   * OrderCountOutputType without action
+   */
+  export type OrderCountOutputTypeCountLicenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LicenseKeyWhereInput
   }
 
 
@@ -8355,6 +8578,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type LicenseKeyCountOutputType
+   */
+
+  export type LicenseKeyCountOutputType = {
+    activations: number
+  }
+
+  export type LicenseKeyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activations?: boolean | LicenseKeyCountOutputTypeCountActivationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LicenseKeyCountOutputType without action
+   */
+  export type LicenseKeyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKeyCountOutputType
+     */
+    select?: LicenseKeyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LicenseKeyCountOutputType without action
+   */
+  export type LicenseKeyCountOutputTypeCountActivationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LicenseActivationWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -8609,6 +8863,7 @@ export namespace Prisma {
     assignedTickets?: boolean | User$assignedTicketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    licenseKeys?: boolean | User$licenseKeysArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8685,6 +8940,7 @@ export namespace Prisma {
     assignedTickets?: boolean | User$assignedTicketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    licenseKeys?: boolean | User$licenseKeysArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8716,6 +8972,7 @@ export namespace Prisma {
       assignedTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
       ticketMessages: Prisma.$TicketMessagePayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9148,6 +9405,7 @@ export namespace Prisma {
     assignedTickets<T extends User$assignedTicketsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ticketMessages<T extends User$ticketMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    licenseKeys<T extends User$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, User$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10092,6 +10350,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.licenseKeys
+   */
+  export type User$licenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    where?: LicenseKeyWhereInput
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    cursor?: LicenseKeyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
   }
 
   /**
@@ -25977,6 +26259,8 @@ export namespace Prisma {
     reviewCount: number | null
     affiliateCommissionRate: number | null
     affiliateClickCount: number | null
+    licenseMaxActivations: number | null
+    licenseValidityDays: number | null
   }
 
   export type ProductSumAggregateOutputType = {
@@ -25990,6 +26274,8 @@ export namespace Prisma {
     reviewCount: number | null
     affiliateCommissionRate: number | null
     affiliateClickCount: number | null
+    licenseMaxActivations: number | null
+    licenseValidityDays: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -26016,6 +26302,8 @@ export namespace Prisma {
     averageRating: Decimal | null
     reviewCount: number | null
     isFeatured: boolean | null
+    isHeroProduct: boolean | null
+    isAffiliatePick: boolean | null
     publishedAt: Date | null
     affiliateEnabled: boolean | null
     affiliateStatus: $Enums.ProductAffiliateStatus | null
@@ -26028,6 +26316,9 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    licenseKeysEnabled: boolean | null
+    licenseMaxActivations: number | null
+    licenseValidityDays: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -26054,6 +26345,8 @@ export namespace Prisma {
     averageRating: Decimal | null
     reviewCount: number | null
     isFeatured: boolean | null
+    isHeroProduct: boolean | null
+    isAffiliatePick: boolean | null
     publishedAt: Date | null
     affiliateEnabled: boolean | null
     affiliateStatus: $Enums.ProductAffiliateStatus | null
@@ -26066,6 +26359,9 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    licenseKeysEnabled: boolean | null
+    licenseMaxActivations: number | null
+    licenseValidityDays: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -26093,6 +26389,8 @@ export namespace Prisma {
     averageRating: number
     reviewCount: number
     isFeatured: number
+    isHeroProduct: number
+    isAffiliatePick: number
     publishedAt: number
     affiliateEnabled: number
     affiliateStatus: number
@@ -26105,6 +26403,9 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     deletedAt: number
+    licenseKeysEnabled: number
+    licenseMaxActivations: number
+    licenseValidityDays: number
     _all: number
   }
 
@@ -26120,6 +26421,8 @@ export namespace Prisma {
     reviewCount?: true
     affiliateCommissionRate?: true
     affiliateClickCount?: true
+    licenseMaxActivations?: true
+    licenseValidityDays?: true
   }
 
   export type ProductSumAggregateInputType = {
@@ -26133,6 +26436,8 @@ export namespace Prisma {
     reviewCount?: true
     affiliateCommissionRate?: true
     affiliateClickCount?: true
+    licenseMaxActivations?: true
+    licenseValidityDays?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -26159,6 +26464,8 @@ export namespace Prisma {
     averageRating?: true
     reviewCount?: true
     isFeatured?: true
+    isHeroProduct?: true
+    isAffiliatePick?: true
     publishedAt?: true
     affiliateEnabled?: true
     affiliateStatus?: true
@@ -26171,6 +26478,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    licenseKeysEnabled?: true
+    licenseMaxActivations?: true
+    licenseValidityDays?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -26197,6 +26507,8 @@ export namespace Prisma {
     averageRating?: true
     reviewCount?: true
     isFeatured?: true
+    isHeroProduct?: true
+    isAffiliatePick?: true
     publishedAt?: true
     affiliateEnabled?: true
     affiliateStatus?: true
@@ -26209,6 +26521,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    licenseKeysEnabled?: true
+    licenseMaxActivations?: true
+    licenseValidityDays?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -26236,6 +26551,8 @@ export namespace Prisma {
     averageRating?: true
     reviewCount?: true
     isFeatured?: true
+    isHeroProduct?: true
+    isAffiliatePick?: true
     publishedAt?: true
     affiliateEnabled?: true
     affiliateStatus?: true
@@ -26248,6 +26565,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    licenseKeysEnabled?: true
+    licenseMaxActivations?: true
+    licenseValidityDays?: true
     _all?: true
   }
 
@@ -26362,6 +26682,8 @@ export namespace Prisma {
     averageRating: Decimal
     reviewCount: number
     isFeatured: boolean
+    isHeroProduct: boolean
+    isAffiliatePick: boolean
     publishedAt: Date | null
     affiliateEnabled: boolean
     affiliateStatus: $Enums.ProductAffiliateStatus
@@ -26374,6 +26696,9 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    licenseKeysEnabled: boolean
+    licenseMaxActivations: number
+    licenseValidityDays: number | null
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -26420,6 +26745,8 @@ export namespace Prisma {
     averageRating?: boolean
     reviewCount?: boolean
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: boolean
     affiliateEnabled?: boolean
     affiliateStatus?: boolean
@@ -26432,6 +26759,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: boolean
+    licenseValidityDays?: boolean
     creator?: boolean | CreatorProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     tags?: boolean | Product$tagsArgs<ExtArgs>
@@ -26447,6 +26777,7 @@ export namespace Prisma {
     affiliateClicks?: boolean | Product$affiliateClicksArgs<ExtArgs>
     affiliateAttributions?: boolean | Product$affiliateAttributionsArgs<ExtArgs>
     promotionalAssets?: boolean | Product$promotionalAssetsArgs<ExtArgs>
+    licenseKeys?: boolean | Product$licenseKeysArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -26475,6 +26806,8 @@ export namespace Prisma {
     averageRating?: boolean
     reviewCount?: boolean
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: boolean
     affiliateEnabled?: boolean
     affiliateStatus?: boolean
@@ -26487,6 +26820,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: boolean
+    licenseValidityDays?: boolean
     creator?: boolean | CreatorProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -26516,6 +26852,8 @@ export namespace Prisma {
     averageRating?: boolean
     reviewCount?: boolean
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: boolean
     affiliateEnabled?: boolean
     affiliateStatus?: boolean
@@ -26528,6 +26866,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: boolean
+    licenseValidityDays?: boolean
     creator?: boolean | CreatorProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -26557,6 +26898,8 @@ export namespace Prisma {
     averageRating?: boolean
     reviewCount?: boolean
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: boolean
     affiliateEnabled?: boolean
     affiliateStatus?: boolean
@@ -26569,9 +26912,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: boolean
+    licenseValidityDays?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorId" | "categoryId" | "title" | "slug" | "description" | "shortDescription" | "status" | "coverImage" | "thumbnail" | "previewImages" | "deliveryUrl" | "price" | "compareAtPrice" | "currency" | "licenseType" | "version" | "fileSize" | "downloadCount" | "viewCount" | "rating" | "averageRating" | "reviewCount" | "isFeatured" | "publishedAt" | "affiliateEnabled" | "affiliateStatus" | "affiliateCommissionType" | "affiliateCommissionRate" | "affiliateApprovedAt" | "affiliateApprovedBy" | "affiliateRejectionReason" | "affiliateClickCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorId" | "categoryId" | "title" | "slug" | "description" | "shortDescription" | "status" | "coverImage" | "thumbnail" | "previewImages" | "deliveryUrl" | "price" | "compareAtPrice" | "currency" | "licenseType" | "version" | "fileSize" | "downloadCount" | "viewCount" | "rating" | "averageRating" | "reviewCount" | "isFeatured" | "isHeroProduct" | "isAffiliatePick" | "publishedAt" | "affiliateEnabled" | "affiliateStatus" | "affiliateCommissionType" | "affiliateCommissionRate" | "affiliateApprovedAt" | "affiliateApprovedBy" | "affiliateRejectionReason" | "affiliateClickCount" | "createdAt" | "updatedAt" | "deletedAt" | "licenseKeysEnabled" | "licenseMaxActivations" | "licenseValidityDays", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | CreatorProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -26588,6 +26934,7 @@ export namespace Prisma {
     affiliateClicks?: boolean | Product$affiliateClicksArgs<ExtArgs>
     affiliateAttributions?: boolean | Product$affiliateAttributionsArgs<ExtArgs>
     promotionalAssets?: boolean | Product$promotionalAssetsArgs<ExtArgs>
+    licenseKeys?: boolean | Product$licenseKeysArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26617,6 +26964,7 @@ export namespace Prisma {
       affiliateClicks: Prisma.$AffiliateClickPayload<ExtArgs>[]
       affiliateAttributions: Prisma.$AffiliateAttributionPayload<ExtArgs>[]
       promotionalAssets: Prisma.$AffiliatePromotionalAssetPayload<ExtArgs>[]
+      licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -26643,6 +26991,8 @@ export namespace Prisma {
       averageRating: Prisma.Decimal
       reviewCount: number
       isFeatured: boolean
+      isHeroProduct: boolean
+      isAffiliatePick: boolean
       publishedAt: Date | null
       affiliateEnabled: boolean
       affiliateStatus: $Enums.ProductAffiliateStatus
@@ -26655,6 +27005,9 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      licenseKeysEnabled: boolean
+      licenseMaxActivations: number
+      licenseValidityDays: number | null
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -27064,6 +27417,7 @@ export namespace Prisma {
     affiliateClicks<T extends Product$affiliateClicksArgs<ExtArgs> = {}>(args?: Subset<T, Product$affiliateClicksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliateClickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     affiliateAttributions<T extends Product$affiliateAttributionsArgs<ExtArgs> = {}>(args?: Subset<T, Product$affiliateAttributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliateAttributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     promotionalAssets<T extends Product$promotionalAssetsArgs<ExtArgs> = {}>(args?: Subset<T, Product$promotionalAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliatePromotionalAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    licenseKeys<T extends Product$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, Product$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27117,6 +27471,8 @@ export namespace Prisma {
     readonly averageRating: FieldRef<"Product", 'Decimal'>
     readonly reviewCount: FieldRef<"Product", 'Int'>
     readonly isFeatured: FieldRef<"Product", 'Boolean'>
+    readonly isHeroProduct: FieldRef<"Product", 'Boolean'>
+    readonly isAffiliatePick: FieldRef<"Product", 'Boolean'>
     readonly publishedAt: FieldRef<"Product", 'DateTime'>
     readonly affiliateEnabled: FieldRef<"Product", 'Boolean'>
     readonly affiliateStatus: FieldRef<"Product", 'ProductAffiliateStatus'>
@@ -27129,6 +27485,9 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
     readonly deletedAt: FieldRef<"Product", 'DateTime'>
+    readonly licenseKeysEnabled: FieldRef<"Product", 'Boolean'>
+    readonly licenseMaxActivations: FieldRef<"Product", 'Int'>
+    readonly licenseValidityDays: FieldRef<"Product", 'Int'>
   }
     
 
@@ -27834,6 +28193,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AffiliatePromotionalAssetScalarFieldEnum | AffiliatePromotionalAssetScalarFieldEnum[]
+  }
+
+  /**
+   * Product.licenseKeys
+   */
+  export type Product$licenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    where?: LicenseKeyWhereInput
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    cursor?: LicenseKeyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
   }
 
   /**
@@ -34527,10 +34910,12 @@ export namespace Prisma {
 
   export type OrderAvgAggregateOutputType = {
     totalAmount: Decimal | null
+    discountAmount: Decimal | null
   }
 
   export type OrderSumAggregateOutputType = {
     totalAmount: Decimal | null
+    discountAmount: Decimal | null
   }
 
   export type OrderMinAggregateOutputType = {
@@ -34544,6 +34929,8 @@ export namespace Prisma {
     idempotencyKey: string | null
     notes: string | null
     acquisitionSource: $Enums.AcquisitionSource | null
+    couponCode: string | null
+    discountAmount: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -34559,6 +34946,8 @@ export namespace Prisma {
     idempotencyKey: string | null
     notes: string | null
     acquisitionSource: $Enums.AcquisitionSource | null
+    couponCode: string | null
+    discountAmount: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -34574,6 +34963,8 @@ export namespace Prisma {
     idempotencyKey: number
     notes: number
     acquisitionSource: number
+    couponCode: number
+    discountAmount: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -34582,10 +34973,12 @@ export namespace Prisma {
 
   export type OrderAvgAggregateInputType = {
     totalAmount?: true
+    discountAmount?: true
   }
 
   export type OrderSumAggregateInputType = {
     totalAmount?: true
+    discountAmount?: true
   }
 
   export type OrderMinAggregateInputType = {
@@ -34599,6 +34992,8 @@ export namespace Prisma {
     idempotencyKey?: true
     notes?: true
     acquisitionSource?: true
+    couponCode?: true
+    discountAmount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -34614,6 +35009,8 @@ export namespace Prisma {
     idempotencyKey?: true
     notes?: true
     acquisitionSource?: true
+    couponCode?: true
+    discountAmount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -34629,6 +35026,8 @@ export namespace Prisma {
     idempotencyKey?: true
     notes?: true
     acquisitionSource?: true
+    couponCode?: true
+    discountAmount?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -34731,6 +35130,8 @@ export namespace Prisma {
     idempotencyKey: string | null
     notes: string | null
     acquisitionSource: $Enums.AcquisitionSource
+    couponCode: string | null
+    discountAmount: Decimal | null
     createdAt: Date
     updatedAt: Date
     _count: OrderCountAggregateOutputType | null
@@ -34765,6 +35166,8 @@ export namespace Prisma {
     idempotencyKey?: boolean
     notes?: boolean
     acquisitionSource?: boolean
+    couponCode?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     buyer?: boolean | UserDefaultArgs<ExtArgs>
@@ -34773,6 +35176,7 @@ export namespace Prisma {
     refunds?: boolean | Order$refundsArgs<ExtArgs>
     affiliateConversions?: boolean | Order$affiliateConversionsArgs<ExtArgs>
     commissionLedger?: boolean | Order$commissionLedgerArgs<ExtArgs>
+    licenseKeys?: boolean | Order$licenseKeysArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
@@ -34787,6 +35191,8 @@ export namespace Prisma {
     idempotencyKey?: boolean
     notes?: boolean
     acquisitionSource?: boolean
+    couponCode?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     buyer?: boolean | UserDefaultArgs<ExtArgs>
@@ -34803,6 +35209,8 @@ export namespace Prisma {
     idempotencyKey?: boolean
     notes?: boolean
     acquisitionSource?: boolean
+    couponCode?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     buyer?: boolean | UserDefaultArgs<ExtArgs>
@@ -34819,11 +35227,13 @@ export namespace Prisma {
     idempotencyKey?: boolean
     notes?: boolean
     acquisitionSource?: boolean
+    couponCode?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "buyerId" | "status" | "totalAmount" | "currency" | "invoiceNumber" | "paymentId" | "idempotencyKey" | "notes" | "acquisitionSource" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "buyerId" | "status" | "totalAmount" | "currency" | "invoiceNumber" | "paymentId" | "idempotencyKey" | "notes" | "acquisitionSource" | "couponCode" | "discountAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     buyer?: boolean | UserDefaultArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
@@ -34831,6 +35241,7 @@ export namespace Prisma {
     refunds?: boolean | Order$refundsArgs<ExtArgs>
     affiliateConversions?: boolean | Order$affiliateConversionsArgs<ExtArgs>
     commissionLedger?: boolean | Order$commissionLedgerArgs<ExtArgs>
+    licenseKeys?: boolean | Order$licenseKeysArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34849,6 +35260,7 @@ export namespace Prisma {
       refunds: Prisma.$RefundPayload<ExtArgs>[]
       affiliateConversions: Prisma.$AffiliateConversionPayload<ExtArgs>[]
       commissionLedger: Prisma.$CommissionLedgerPayload<ExtArgs>[]
+      licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -34861,6 +35273,8 @@ export namespace Prisma {
       idempotencyKey: string | null
       notes: string | null
       acquisitionSource: $Enums.AcquisitionSource
+      couponCode: string | null
+      discountAmount: Prisma.Decimal | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["order"]>
@@ -35263,6 +35677,7 @@ export namespace Prisma {
     refunds<T extends Order$refundsArgs<ExtArgs> = {}>(args?: Subset<T, Order$refundsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     affiliateConversions<T extends Order$affiliateConversionsArgs<ExtArgs> = {}>(args?: Subset<T, Order$affiliateConversionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliateConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     commissionLedger<T extends Order$commissionLedgerArgs<ExtArgs> = {}>(args?: Subset<T, Order$commissionLedgerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    licenseKeys<T extends Order$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, Order$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35302,6 +35717,8 @@ export namespace Prisma {
     readonly idempotencyKey: FieldRef<"Order", 'String'>
     readonly notes: FieldRef<"Order", 'String'>
     readonly acquisitionSource: FieldRef<"Order", 'AcquisitionSource'>
+    readonly couponCode: FieldRef<"Order", 'String'>
+    readonly discountAmount: FieldRef<"Order", 'Decimal'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
   }
@@ -35812,6 +36229,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommissionLedgerScalarFieldEnum | CommissionLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * Order.licenseKeys
+   */
+  export type Order$licenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    where?: LicenseKeyWhereInput
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    cursor?: LicenseKeyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
   }
 
   /**
@@ -84579,6 +85020,2306 @@ export namespace Prisma {
 
 
   /**
+   * Model LicenseKey
+   */
+
+  export type AggregateLicenseKey = {
+    _count: LicenseKeyCountAggregateOutputType | null
+    _avg: LicenseKeyAvgAggregateOutputType | null
+    _sum: LicenseKeySumAggregateOutputType | null
+    _min: LicenseKeyMinAggregateOutputType | null
+    _max: LicenseKeyMaxAggregateOutputType | null
+  }
+
+  export type LicenseKeyAvgAggregateOutputType = {
+    maxActivations: number | null
+  }
+
+  export type LicenseKeySumAggregateOutputType = {
+    maxActivations: number | null
+  }
+
+  export type LicenseKeyMinAggregateOutputType = {
+    id: string | null
+    key: string | null
+    productId: string | null
+    orderId: string | null
+    orderItemId: string | null
+    buyerId: string | null
+    maxActivations: number | null
+    status: $Enums.LicenseStatus | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LicenseKeyMaxAggregateOutputType = {
+    id: string | null
+    key: string | null
+    productId: string | null
+    orderId: string | null
+    orderItemId: string | null
+    buyerId: string | null
+    maxActivations: number | null
+    status: $Enums.LicenseStatus | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LicenseKeyCountAggregateOutputType = {
+    id: number
+    key: number
+    productId: number
+    orderId: number
+    orderItemId: number
+    buyerId: number
+    maxActivations: number
+    status: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LicenseKeyAvgAggregateInputType = {
+    maxActivations?: true
+  }
+
+  export type LicenseKeySumAggregateInputType = {
+    maxActivations?: true
+  }
+
+  export type LicenseKeyMinAggregateInputType = {
+    id?: true
+    key?: true
+    productId?: true
+    orderId?: true
+    orderItemId?: true
+    buyerId?: true
+    maxActivations?: true
+    status?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LicenseKeyMaxAggregateInputType = {
+    id?: true
+    key?: true
+    productId?: true
+    orderId?: true
+    orderItemId?: true
+    buyerId?: true
+    maxActivations?: true
+    status?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LicenseKeyCountAggregateInputType = {
+    id?: true
+    key?: true
+    productId?: true
+    orderId?: true
+    orderItemId?: true
+    buyerId?: true
+    maxActivations?: true
+    status?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LicenseKeyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LicenseKey to aggregate.
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseKeys to fetch.
+     */
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LicenseKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LicenseKeys
+    **/
+    _count?: true | LicenseKeyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LicenseKeyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LicenseKeySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LicenseKeyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LicenseKeyMaxAggregateInputType
+  }
+
+  export type GetLicenseKeyAggregateType<T extends LicenseKeyAggregateArgs> = {
+        [P in keyof T & keyof AggregateLicenseKey]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLicenseKey[P]>
+      : GetScalarType<T[P], AggregateLicenseKey[P]>
+  }
+
+
+
+
+  export type LicenseKeyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LicenseKeyWhereInput
+    orderBy?: LicenseKeyOrderByWithAggregationInput | LicenseKeyOrderByWithAggregationInput[]
+    by: LicenseKeyScalarFieldEnum[] | LicenseKeyScalarFieldEnum
+    having?: LicenseKeyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LicenseKeyCountAggregateInputType | true
+    _avg?: LicenseKeyAvgAggregateInputType
+    _sum?: LicenseKeySumAggregateInputType
+    _min?: LicenseKeyMinAggregateInputType
+    _max?: LicenseKeyMaxAggregateInputType
+  }
+
+  export type LicenseKeyGroupByOutputType = {
+    id: string
+    key: string
+    productId: string
+    orderId: string
+    orderItemId: string | null
+    buyerId: string
+    maxActivations: number
+    status: $Enums.LicenseStatus
+    expiresAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: LicenseKeyCountAggregateOutputType | null
+    _avg: LicenseKeyAvgAggregateOutputType | null
+    _sum: LicenseKeySumAggregateOutputType | null
+    _min: LicenseKeyMinAggregateOutputType | null
+    _max: LicenseKeyMaxAggregateOutputType | null
+  }
+
+  type GetLicenseKeyGroupByPayload<T extends LicenseKeyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LicenseKeyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LicenseKeyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LicenseKeyGroupByOutputType[P]>
+            : GetScalarType<T[P], LicenseKeyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LicenseKeySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    productId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    maxActivations?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+    activations?: boolean | LicenseKey$activationsArgs<ExtArgs>
+    _count?: boolean | LicenseKeyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["licenseKey"]>
+
+  export type LicenseKeySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    productId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    maxActivations?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["licenseKey"]>
+
+  export type LicenseKeySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    productId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    maxActivations?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["licenseKey"]>
+
+  export type LicenseKeySelectScalar = {
+    id?: boolean
+    key?: boolean
+    productId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    maxActivations?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LicenseKeyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "productId" | "orderId" | "orderItemId" | "buyerId" | "maxActivations" | "status" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["licenseKey"]>
+  export type LicenseKeyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+    activations?: boolean | LicenseKey$activationsArgs<ExtArgs>
+    _count?: boolean | LicenseKeyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LicenseKeyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LicenseKeyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LicenseKeyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LicenseKey"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+      order: Prisma.$OrderPayload<ExtArgs>
+      buyer: Prisma.$UserPayload<ExtArgs>
+      activations: Prisma.$LicenseActivationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      key: string
+      productId: string
+      orderId: string
+      orderItemId: string | null
+      buyerId: string
+      maxActivations: number
+      status: $Enums.LicenseStatus
+      expiresAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["licenseKey"]>
+    composites: {}
+  }
+
+  type LicenseKeyGetPayload<S extends boolean | null | undefined | LicenseKeyDefaultArgs> = $Result.GetResult<Prisma.$LicenseKeyPayload, S>
+
+  type LicenseKeyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LicenseKeyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LicenseKeyCountAggregateInputType | true
+    }
+
+  export interface LicenseKeyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LicenseKey'], meta: { name: 'LicenseKey' } }
+    /**
+     * Find zero or one LicenseKey that matches the filter.
+     * @param {LicenseKeyFindUniqueArgs} args - Arguments to find a LicenseKey
+     * @example
+     * // Get one LicenseKey
+     * const licenseKey = await prisma.licenseKey.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LicenseKeyFindUniqueArgs>(args: SelectSubset<T, LicenseKeyFindUniqueArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LicenseKey that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LicenseKeyFindUniqueOrThrowArgs} args - Arguments to find a LicenseKey
+     * @example
+     * // Get one LicenseKey
+     * const licenseKey = await prisma.licenseKey.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LicenseKeyFindUniqueOrThrowArgs>(args: SelectSubset<T, LicenseKeyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LicenseKey that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyFindFirstArgs} args - Arguments to find a LicenseKey
+     * @example
+     * // Get one LicenseKey
+     * const licenseKey = await prisma.licenseKey.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LicenseKeyFindFirstArgs>(args?: SelectSubset<T, LicenseKeyFindFirstArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LicenseKey that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyFindFirstOrThrowArgs} args - Arguments to find a LicenseKey
+     * @example
+     * // Get one LicenseKey
+     * const licenseKey = await prisma.licenseKey.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LicenseKeyFindFirstOrThrowArgs>(args?: SelectSubset<T, LicenseKeyFindFirstOrThrowArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LicenseKeys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LicenseKeys
+     * const licenseKeys = await prisma.licenseKey.findMany()
+     * 
+     * // Get first 10 LicenseKeys
+     * const licenseKeys = await prisma.licenseKey.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const licenseKeyWithIdOnly = await prisma.licenseKey.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LicenseKeyFindManyArgs>(args?: SelectSubset<T, LicenseKeyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LicenseKey.
+     * @param {LicenseKeyCreateArgs} args - Arguments to create a LicenseKey.
+     * @example
+     * // Create one LicenseKey
+     * const LicenseKey = await prisma.licenseKey.create({
+     *   data: {
+     *     // ... data to create a LicenseKey
+     *   }
+     * })
+     * 
+     */
+    create<T extends LicenseKeyCreateArgs>(args: SelectSubset<T, LicenseKeyCreateArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LicenseKeys.
+     * @param {LicenseKeyCreateManyArgs} args - Arguments to create many LicenseKeys.
+     * @example
+     * // Create many LicenseKeys
+     * const licenseKey = await prisma.licenseKey.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LicenseKeyCreateManyArgs>(args?: SelectSubset<T, LicenseKeyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LicenseKeys and returns the data saved in the database.
+     * @param {LicenseKeyCreateManyAndReturnArgs} args - Arguments to create many LicenseKeys.
+     * @example
+     * // Create many LicenseKeys
+     * const licenseKey = await prisma.licenseKey.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LicenseKeys and only return the `id`
+     * const licenseKeyWithIdOnly = await prisma.licenseKey.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LicenseKeyCreateManyAndReturnArgs>(args?: SelectSubset<T, LicenseKeyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LicenseKey.
+     * @param {LicenseKeyDeleteArgs} args - Arguments to delete one LicenseKey.
+     * @example
+     * // Delete one LicenseKey
+     * const LicenseKey = await prisma.licenseKey.delete({
+     *   where: {
+     *     // ... filter to delete one LicenseKey
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LicenseKeyDeleteArgs>(args: SelectSubset<T, LicenseKeyDeleteArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LicenseKey.
+     * @param {LicenseKeyUpdateArgs} args - Arguments to update one LicenseKey.
+     * @example
+     * // Update one LicenseKey
+     * const licenseKey = await prisma.licenseKey.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LicenseKeyUpdateArgs>(args: SelectSubset<T, LicenseKeyUpdateArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LicenseKeys.
+     * @param {LicenseKeyDeleteManyArgs} args - Arguments to filter LicenseKeys to delete.
+     * @example
+     * // Delete a few LicenseKeys
+     * const { count } = await prisma.licenseKey.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LicenseKeyDeleteManyArgs>(args?: SelectSubset<T, LicenseKeyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LicenseKeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LicenseKeys
+     * const licenseKey = await prisma.licenseKey.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LicenseKeyUpdateManyArgs>(args: SelectSubset<T, LicenseKeyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LicenseKeys and returns the data updated in the database.
+     * @param {LicenseKeyUpdateManyAndReturnArgs} args - Arguments to update many LicenseKeys.
+     * @example
+     * // Update many LicenseKeys
+     * const licenseKey = await prisma.licenseKey.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LicenseKeys and only return the `id`
+     * const licenseKeyWithIdOnly = await prisma.licenseKey.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LicenseKeyUpdateManyAndReturnArgs>(args: SelectSubset<T, LicenseKeyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LicenseKey.
+     * @param {LicenseKeyUpsertArgs} args - Arguments to update or create a LicenseKey.
+     * @example
+     * // Update or create a LicenseKey
+     * const licenseKey = await prisma.licenseKey.upsert({
+     *   create: {
+     *     // ... data to create a LicenseKey
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LicenseKey we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LicenseKeyUpsertArgs>(args: SelectSubset<T, LicenseKeyUpsertArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LicenseKeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyCountArgs} args - Arguments to filter LicenseKeys to count.
+     * @example
+     * // Count the number of LicenseKeys
+     * const count = await prisma.licenseKey.count({
+     *   where: {
+     *     // ... the filter for the LicenseKeys we want to count
+     *   }
+     * })
+    **/
+    count<T extends LicenseKeyCountArgs>(
+      args?: Subset<T, LicenseKeyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LicenseKeyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LicenseKey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LicenseKeyAggregateArgs>(args: Subset<T, LicenseKeyAggregateArgs>): Prisma.PrismaPromise<GetLicenseKeyAggregateType<T>>
+
+    /**
+     * Group by LicenseKey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseKeyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LicenseKeyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LicenseKeyGroupByArgs['orderBy'] }
+        : { orderBy?: LicenseKeyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LicenseKeyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLicenseKeyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LicenseKey model
+   */
+  readonly fields: LicenseKeyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LicenseKey.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LicenseKeyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    buyer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    activations<T extends LicenseKey$activationsArgs<ExtArgs> = {}>(args?: Subset<T, LicenseKey$activationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LicenseKey model
+   */
+  interface LicenseKeyFieldRefs {
+    readonly id: FieldRef<"LicenseKey", 'String'>
+    readonly key: FieldRef<"LicenseKey", 'String'>
+    readonly productId: FieldRef<"LicenseKey", 'String'>
+    readonly orderId: FieldRef<"LicenseKey", 'String'>
+    readonly orderItemId: FieldRef<"LicenseKey", 'String'>
+    readonly buyerId: FieldRef<"LicenseKey", 'String'>
+    readonly maxActivations: FieldRef<"LicenseKey", 'Int'>
+    readonly status: FieldRef<"LicenseKey", 'LicenseStatus'>
+    readonly expiresAt: FieldRef<"LicenseKey", 'DateTime'>
+    readonly createdAt: FieldRef<"LicenseKey", 'DateTime'>
+    readonly updatedAt: FieldRef<"LicenseKey", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LicenseKey findUnique
+   */
+  export type LicenseKeyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseKey to fetch.
+     */
+    where: LicenseKeyWhereUniqueInput
+  }
+
+  /**
+   * LicenseKey findUniqueOrThrow
+   */
+  export type LicenseKeyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseKey to fetch.
+     */
+    where: LicenseKeyWhereUniqueInput
+  }
+
+  /**
+   * LicenseKey findFirst
+   */
+  export type LicenseKeyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseKey to fetch.
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseKeys to fetch.
+     */
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LicenseKeys.
+     */
+    cursor?: LicenseKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LicenseKeys.
+     */
+    distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseKey findFirstOrThrow
+   */
+  export type LicenseKeyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseKey to fetch.
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseKeys to fetch.
+     */
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LicenseKeys.
+     */
+    cursor?: LicenseKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LicenseKeys.
+     */
+    distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseKey findMany
+   */
+  export type LicenseKeyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseKeys to fetch.
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseKeys to fetch.
+     */
+    orderBy?: LicenseKeyOrderByWithRelationInput | LicenseKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LicenseKeys.
+     */
+    cursor?: LicenseKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseKeys.
+     */
+    skip?: number
+    distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseKey create
+   */
+  export type LicenseKeyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LicenseKey.
+     */
+    data: XOR<LicenseKeyCreateInput, LicenseKeyUncheckedCreateInput>
+  }
+
+  /**
+   * LicenseKey createMany
+   */
+  export type LicenseKeyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LicenseKeys.
+     */
+    data: LicenseKeyCreateManyInput | LicenseKeyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LicenseKey createManyAndReturn
+   */
+  export type LicenseKeyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * The data used to create many LicenseKeys.
+     */
+    data: LicenseKeyCreateManyInput | LicenseKeyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LicenseKey update
+   */
+  export type LicenseKeyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LicenseKey.
+     */
+    data: XOR<LicenseKeyUpdateInput, LicenseKeyUncheckedUpdateInput>
+    /**
+     * Choose, which LicenseKey to update.
+     */
+    where: LicenseKeyWhereUniqueInput
+  }
+
+  /**
+   * LicenseKey updateMany
+   */
+  export type LicenseKeyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LicenseKeys.
+     */
+    data: XOR<LicenseKeyUpdateManyMutationInput, LicenseKeyUncheckedUpdateManyInput>
+    /**
+     * Filter which LicenseKeys to update
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * Limit how many LicenseKeys to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LicenseKey updateManyAndReturn
+   */
+  export type LicenseKeyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * The data used to update LicenseKeys.
+     */
+    data: XOR<LicenseKeyUpdateManyMutationInput, LicenseKeyUncheckedUpdateManyInput>
+    /**
+     * Filter which LicenseKeys to update
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * Limit how many LicenseKeys to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LicenseKey upsert
+   */
+  export type LicenseKeyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LicenseKey to update in case it exists.
+     */
+    where: LicenseKeyWhereUniqueInput
+    /**
+     * In case the LicenseKey found by the `where` argument doesn't exist, create a new LicenseKey with this data.
+     */
+    create: XOR<LicenseKeyCreateInput, LicenseKeyUncheckedCreateInput>
+    /**
+     * In case the LicenseKey was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LicenseKeyUpdateInput, LicenseKeyUncheckedUpdateInput>
+  }
+
+  /**
+   * LicenseKey delete
+   */
+  export type LicenseKeyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+    /**
+     * Filter which LicenseKey to delete.
+     */
+    where: LicenseKeyWhereUniqueInput
+  }
+
+  /**
+   * LicenseKey deleteMany
+   */
+  export type LicenseKeyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LicenseKeys to delete
+     */
+    where?: LicenseKeyWhereInput
+    /**
+     * Limit how many LicenseKeys to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LicenseKey.activations
+   */
+  export type LicenseKey$activationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    where?: LicenseActivationWhereInput
+    orderBy?: LicenseActivationOrderByWithRelationInput | LicenseActivationOrderByWithRelationInput[]
+    cursor?: LicenseActivationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LicenseActivationScalarFieldEnum | LicenseActivationScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseKey without action
+   */
+  export type LicenseKeyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseKey
+     */
+    select?: LicenseKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseKey
+     */
+    omit?: LicenseKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseKeyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LicenseActivation
+   */
+
+  export type AggregateLicenseActivation = {
+    _count: LicenseActivationCountAggregateOutputType | null
+    _min: LicenseActivationMinAggregateOutputType | null
+    _max: LicenseActivationMaxAggregateOutputType | null
+  }
+
+  export type LicenseActivationMinAggregateOutputType = {
+    id: string | null
+    licenseKeyId: string | null
+    deviceId: string | null
+    deviceName: string | null
+    ipAddress: string | null
+    activatedAt: Date | null
+    lastSeenAt: Date | null
+  }
+
+  export type LicenseActivationMaxAggregateOutputType = {
+    id: string | null
+    licenseKeyId: string | null
+    deviceId: string | null
+    deviceName: string | null
+    ipAddress: string | null
+    activatedAt: Date | null
+    lastSeenAt: Date | null
+  }
+
+  export type LicenseActivationCountAggregateOutputType = {
+    id: number
+    licenseKeyId: number
+    deviceId: number
+    deviceName: number
+    ipAddress: number
+    activatedAt: number
+    lastSeenAt: number
+    _all: number
+  }
+
+
+  export type LicenseActivationMinAggregateInputType = {
+    id?: true
+    licenseKeyId?: true
+    deviceId?: true
+    deviceName?: true
+    ipAddress?: true
+    activatedAt?: true
+    lastSeenAt?: true
+  }
+
+  export type LicenseActivationMaxAggregateInputType = {
+    id?: true
+    licenseKeyId?: true
+    deviceId?: true
+    deviceName?: true
+    ipAddress?: true
+    activatedAt?: true
+    lastSeenAt?: true
+  }
+
+  export type LicenseActivationCountAggregateInputType = {
+    id?: true
+    licenseKeyId?: true
+    deviceId?: true
+    deviceName?: true
+    ipAddress?: true
+    activatedAt?: true
+    lastSeenAt?: true
+    _all?: true
+  }
+
+  export type LicenseActivationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LicenseActivation to aggregate.
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseActivations to fetch.
+     */
+    orderBy?: LicenseActivationOrderByWithRelationInput | LicenseActivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LicenseActivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseActivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseActivations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LicenseActivations
+    **/
+    _count?: true | LicenseActivationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LicenseActivationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LicenseActivationMaxAggregateInputType
+  }
+
+  export type GetLicenseActivationAggregateType<T extends LicenseActivationAggregateArgs> = {
+        [P in keyof T & keyof AggregateLicenseActivation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLicenseActivation[P]>
+      : GetScalarType<T[P], AggregateLicenseActivation[P]>
+  }
+
+
+
+
+  export type LicenseActivationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LicenseActivationWhereInput
+    orderBy?: LicenseActivationOrderByWithAggregationInput | LicenseActivationOrderByWithAggregationInput[]
+    by: LicenseActivationScalarFieldEnum[] | LicenseActivationScalarFieldEnum
+    having?: LicenseActivationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LicenseActivationCountAggregateInputType | true
+    _min?: LicenseActivationMinAggregateInputType
+    _max?: LicenseActivationMaxAggregateInputType
+  }
+
+  export type LicenseActivationGroupByOutputType = {
+    id: string
+    licenseKeyId: string
+    deviceId: string
+    deviceName: string | null
+    ipAddress: string | null
+    activatedAt: Date
+    lastSeenAt: Date
+    _count: LicenseActivationCountAggregateOutputType | null
+    _min: LicenseActivationMinAggregateOutputType | null
+    _max: LicenseActivationMaxAggregateOutputType | null
+  }
+
+  type GetLicenseActivationGroupByPayload<T extends LicenseActivationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LicenseActivationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LicenseActivationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LicenseActivationGroupByOutputType[P]>
+            : GetScalarType<T[P], LicenseActivationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LicenseActivationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    licenseKeyId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    ipAddress?: boolean
+    activatedAt?: boolean
+    lastSeenAt?: boolean
+    licenseKey?: boolean | LicenseKeyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["licenseActivation"]>
+
+  export type LicenseActivationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    licenseKeyId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    ipAddress?: boolean
+    activatedAt?: boolean
+    lastSeenAt?: boolean
+    licenseKey?: boolean | LicenseKeyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["licenseActivation"]>
+
+  export type LicenseActivationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    licenseKeyId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    ipAddress?: boolean
+    activatedAt?: boolean
+    lastSeenAt?: boolean
+    licenseKey?: boolean | LicenseKeyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["licenseActivation"]>
+
+  export type LicenseActivationSelectScalar = {
+    id?: boolean
+    licenseKeyId?: boolean
+    deviceId?: boolean
+    deviceName?: boolean
+    ipAddress?: boolean
+    activatedAt?: boolean
+    lastSeenAt?: boolean
+  }
+
+  export type LicenseActivationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "licenseKeyId" | "deviceId" | "deviceName" | "ipAddress" | "activatedAt" | "lastSeenAt", ExtArgs["result"]["licenseActivation"]>
+  export type LicenseActivationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    licenseKey?: boolean | LicenseKeyDefaultArgs<ExtArgs>
+  }
+  export type LicenseActivationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    licenseKey?: boolean | LicenseKeyDefaultArgs<ExtArgs>
+  }
+  export type LicenseActivationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    licenseKey?: boolean | LicenseKeyDefaultArgs<ExtArgs>
+  }
+
+  export type $LicenseActivationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LicenseActivation"
+    objects: {
+      licenseKey: Prisma.$LicenseKeyPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      licenseKeyId: string
+      deviceId: string
+      deviceName: string | null
+      ipAddress: string | null
+      activatedAt: Date
+      lastSeenAt: Date
+    }, ExtArgs["result"]["licenseActivation"]>
+    composites: {}
+  }
+
+  type LicenseActivationGetPayload<S extends boolean | null | undefined | LicenseActivationDefaultArgs> = $Result.GetResult<Prisma.$LicenseActivationPayload, S>
+
+  type LicenseActivationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LicenseActivationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LicenseActivationCountAggregateInputType | true
+    }
+
+  export interface LicenseActivationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LicenseActivation'], meta: { name: 'LicenseActivation' } }
+    /**
+     * Find zero or one LicenseActivation that matches the filter.
+     * @param {LicenseActivationFindUniqueArgs} args - Arguments to find a LicenseActivation
+     * @example
+     * // Get one LicenseActivation
+     * const licenseActivation = await prisma.licenseActivation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LicenseActivationFindUniqueArgs>(args: SelectSubset<T, LicenseActivationFindUniqueArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LicenseActivation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LicenseActivationFindUniqueOrThrowArgs} args - Arguments to find a LicenseActivation
+     * @example
+     * // Get one LicenseActivation
+     * const licenseActivation = await prisma.licenseActivation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LicenseActivationFindUniqueOrThrowArgs>(args: SelectSubset<T, LicenseActivationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LicenseActivation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationFindFirstArgs} args - Arguments to find a LicenseActivation
+     * @example
+     * // Get one LicenseActivation
+     * const licenseActivation = await prisma.licenseActivation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LicenseActivationFindFirstArgs>(args?: SelectSubset<T, LicenseActivationFindFirstArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LicenseActivation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationFindFirstOrThrowArgs} args - Arguments to find a LicenseActivation
+     * @example
+     * // Get one LicenseActivation
+     * const licenseActivation = await prisma.licenseActivation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LicenseActivationFindFirstOrThrowArgs>(args?: SelectSubset<T, LicenseActivationFindFirstOrThrowArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LicenseActivations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LicenseActivations
+     * const licenseActivations = await prisma.licenseActivation.findMany()
+     * 
+     * // Get first 10 LicenseActivations
+     * const licenseActivations = await prisma.licenseActivation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const licenseActivationWithIdOnly = await prisma.licenseActivation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LicenseActivationFindManyArgs>(args?: SelectSubset<T, LicenseActivationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LicenseActivation.
+     * @param {LicenseActivationCreateArgs} args - Arguments to create a LicenseActivation.
+     * @example
+     * // Create one LicenseActivation
+     * const LicenseActivation = await prisma.licenseActivation.create({
+     *   data: {
+     *     // ... data to create a LicenseActivation
+     *   }
+     * })
+     * 
+     */
+    create<T extends LicenseActivationCreateArgs>(args: SelectSubset<T, LicenseActivationCreateArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LicenseActivations.
+     * @param {LicenseActivationCreateManyArgs} args - Arguments to create many LicenseActivations.
+     * @example
+     * // Create many LicenseActivations
+     * const licenseActivation = await prisma.licenseActivation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LicenseActivationCreateManyArgs>(args?: SelectSubset<T, LicenseActivationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LicenseActivations and returns the data saved in the database.
+     * @param {LicenseActivationCreateManyAndReturnArgs} args - Arguments to create many LicenseActivations.
+     * @example
+     * // Create many LicenseActivations
+     * const licenseActivation = await prisma.licenseActivation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LicenseActivations and only return the `id`
+     * const licenseActivationWithIdOnly = await prisma.licenseActivation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LicenseActivationCreateManyAndReturnArgs>(args?: SelectSubset<T, LicenseActivationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LicenseActivation.
+     * @param {LicenseActivationDeleteArgs} args - Arguments to delete one LicenseActivation.
+     * @example
+     * // Delete one LicenseActivation
+     * const LicenseActivation = await prisma.licenseActivation.delete({
+     *   where: {
+     *     // ... filter to delete one LicenseActivation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LicenseActivationDeleteArgs>(args: SelectSubset<T, LicenseActivationDeleteArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LicenseActivation.
+     * @param {LicenseActivationUpdateArgs} args - Arguments to update one LicenseActivation.
+     * @example
+     * // Update one LicenseActivation
+     * const licenseActivation = await prisma.licenseActivation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LicenseActivationUpdateArgs>(args: SelectSubset<T, LicenseActivationUpdateArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LicenseActivations.
+     * @param {LicenseActivationDeleteManyArgs} args - Arguments to filter LicenseActivations to delete.
+     * @example
+     * // Delete a few LicenseActivations
+     * const { count } = await prisma.licenseActivation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LicenseActivationDeleteManyArgs>(args?: SelectSubset<T, LicenseActivationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LicenseActivations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LicenseActivations
+     * const licenseActivation = await prisma.licenseActivation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LicenseActivationUpdateManyArgs>(args: SelectSubset<T, LicenseActivationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LicenseActivations and returns the data updated in the database.
+     * @param {LicenseActivationUpdateManyAndReturnArgs} args - Arguments to update many LicenseActivations.
+     * @example
+     * // Update many LicenseActivations
+     * const licenseActivation = await prisma.licenseActivation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LicenseActivations and only return the `id`
+     * const licenseActivationWithIdOnly = await prisma.licenseActivation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LicenseActivationUpdateManyAndReturnArgs>(args: SelectSubset<T, LicenseActivationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LicenseActivation.
+     * @param {LicenseActivationUpsertArgs} args - Arguments to update or create a LicenseActivation.
+     * @example
+     * // Update or create a LicenseActivation
+     * const licenseActivation = await prisma.licenseActivation.upsert({
+     *   create: {
+     *     // ... data to create a LicenseActivation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LicenseActivation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LicenseActivationUpsertArgs>(args: SelectSubset<T, LicenseActivationUpsertArgs<ExtArgs>>): Prisma__LicenseActivationClient<$Result.GetResult<Prisma.$LicenseActivationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LicenseActivations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationCountArgs} args - Arguments to filter LicenseActivations to count.
+     * @example
+     * // Count the number of LicenseActivations
+     * const count = await prisma.licenseActivation.count({
+     *   where: {
+     *     // ... the filter for the LicenseActivations we want to count
+     *   }
+     * })
+    **/
+    count<T extends LicenseActivationCountArgs>(
+      args?: Subset<T, LicenseActivationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LicenseActivationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LicenseActivation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LicenseActivationAggregateArgs>(args: Subset<T, LicenseActivationAggregateArgs>): Prisma.PrismaPromise<GetLicenseActivationAggregateType<T>>
+
+    /**
+     * Group by LicenseActivation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LicenseActivationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LicenseActivationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LicenseActivationGroupByArgs['orderBy'] }
+        : { orderBy?: LicenseActivationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LicenseActivationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLicenseActivationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LicenseActivation model
+   */
+  readonly fields: LicenseActivationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LicenseActivation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LicenseActivationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    licenseKey<T extends LicenseKeyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LicenseKeyDefaultArgs<ExtArgs>>): Prisma__LicenseKeyClient<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LicenseActivation model
+   */
+  interface LicenseActivationFieldRefs {
+    readonly id: FieldRef<"LicenseActivation", 'String'>
+    readonly licenseKeyId: FieldRef<"LicenseActivation", 'String'>
+    readonly deviceId: FieldRef<"LicenseActivation", 'String'>
+    readonly deviceName: FieldRef<"LicenseActivation", 'String'>
+    readonly ipAddress: FieldRef<"LicenseActivation", 'String'>
+    readonly activatedAt: FieldRef<"LicenseActivation", 'DateTime'>
+    readonly lastSeenAt: FieldRef<"LicenseActivation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LicenseActivation findUnique
+   */
+  export type LicenseActivationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseActivation to fetch.
+     */
+    where: LicenseActivationWhereUniqueInput
+  }
+
+  /**
+   * LicenseActivation findUniqueOrThrow
+   */
+  export type LicenseActivationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseActivation to fetch.
+     */
+    where: LicenseActivationWhereUniqueInput
+  }
+
+  /**
+   * LicenseActivation findFirst
+   */
+  export type LicenseActivationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseActivation to fetch.
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseActivations to fetch.
+     */
+    orderBy?: LicenseActivationOrderByWithRelationInput | LicenseActivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LicenseActivations.
+     */
+    cursor?: LicenseActivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseActivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseActivations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LicenseActivations.
+     */
+    distinct?: LicenseActivationScalarFieldEnum | LicenseActivationScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseActivation findFirstOrThrow
+   */
+  export type LicenseActivationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseActivation to fetch.
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseActivations to fetch.
+     */
+    orderBy?: LicenseActivationOrderByWithRelationInput | LicenseActivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LicenseActivations.
+     */
+    cursor?: LicenseActivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseActivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseActivations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LicenseActivations.
+     */
+    distinct?: LicenseActivationScalarFieldEnum | LicenseActivationScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseActivation findMany
+   */
+  export type LicenseActivationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * Filter, which LicenseActivations to fetch.
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LicenseActivations to fetch.
+     */
+    orderBy?: LicenseActivationOrderByWithRelationInput | LicenseActivationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LicenseActivations.
+     */
+    cursor?: LicenseActivationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LicenseActivations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LicenseActivations.
+     */
+    skip?: number
+    distinct?: LicenseActivationScalarFieldEnum | LicenseActivationScalarFieldEnum[]
+  }
+
+  /**
+   * LicenseActivation create
+   */
+  export type LicenseActivationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LicenseActivation.
+     */
+    data: XOR<LicenseActivationCreateInput, LicenseActivationUncheckedCreateInput>
+  }
+
+  /**
+   * LicenseActivation createMany
+   */
+  export type LicenseActivationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LicenseActivations.
+     */
+    data: LicenseActivationCreateManyInput | LicenseActivationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LicenseActivation createManyAndReturn
+   */
+  export type LicenseActivationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * The data used to create many LicenseActivations.
+     */
+    data: LicenseActivationCreateManyInput | LicenseActivationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LicenseActivation update
+   */
+  export type LicenseActivationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LicenseActivation.
+     */
+    data: XOR<LicenseActivationUpdateInput, LicenseActivationUncheckedUpdateInput>
+    /**
+     * Choose, which LicenseActivation to update.
+     */
+    where: LicenseActivationWhereUniqueInput
+  }
+
+  /**
+   * LicenseActivation updateMany
+   */
+  export type LicenseActivationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LicenseActivations.
+     */
+    data: XOR<LicenseActivationUpdateManyMutationInput, LicenseActivationUncheckedUpdateManyInput>
+    /**
+     * Filter which LicenseActivations to update
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * Limit how many LicenseActivations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LicenseActivation updateManyAndReturn
+   */
+  export type LicenseActivationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * The data used to update LicenseActivations.
+     */
+    data: XOR<LicenseActivationUpdateManyMutationInput, LicenseActivationUncheckedUpdateManyInput>
+    /**
+     * Filter which LicenseActivations to update
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * Limit how many LicenseActivations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LicenseActivation upsert
+   */
+  export type LicenseActivationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LicenseActivation to update in case it exists.
+     */
+    where: LicenseActivationWhereUniqueInput
+    /**
+     * In case the LicenseActivation found by the `where` argument doesn't exist, create a new LicenseActivation with this data.
+     */
+    create: XOR<LicenseActivationCreateInput, LicenseActivationUncheckedCreateInput>
+    /**
+     * In case the LicenseActivation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LicenseActivationUpdateInput, LicenseActivationUncheckedUpdateInput>
+  }
+
+  /**
+   * LicenseActivation delete
+   */
+  export type LicenseActivationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+    /**
+     * Filter which LicenseActivation to delete.
+     */
+    where: LicenseActivationWhereUniqueInput
+  }
+
+  /**
+   * LicenseActivation deleteMany
+   */
+  export type LicenseActivationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LicenseActivations to delete
+     */
+    where?: LicenseActivationWhereInput
+    /**
+     * Limit how many LicenseActivations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LicenseActivation without action
+   */
+  export type LicenseActivationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LicenseActivation
+     */
+    select?: LicenseActivationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LicenseActivation
+     */
+    omit?: LicenseActivationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LicenseActivationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -84837,6 +87578,8 @@ export namespace Prisma {
     averageRating: 'averageRating',
     reviewCount: 'reviewCount',
     isFeatured: 'isFeatured',
+    isHeroProduct: 'isHeroProduct',
+    isAffiliatePick: 'isAffiliatePick',
     publishedAt: 'publishedAt',
     affiliateEnabled: 'affiliateEnabled',
     affiliateStatus: 'affiliateStatus',
@@ -84848,7 +87591,10 @@ export namespace Prisma {
     affiliateClickCount: 'affiliateClickCount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    licenseKeysEnabled: 'licenseKeysEnabled',
+    licenseMaxActivations: 'licenseMaxActivations',
+    licenseValidityDays: 'licenseValidityDays'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -84937,6 +87683,8 @@ export namespace Prisma {
     idempotencyKey: 'idempotencyKey',
     notes: 'notes',
     acquisitionSource: 'acquisitionSource',
+    couponCode: 'couponCode',
+    discountAmount: 'discountAmount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -85618,6 +88366,36 @@ export namespace Prisma {
   export type UsageRecordScalarFieldEnum = (typeof UsageRecordScalarFieldEnum)[keyof typeof UsageRecordScalarFieldEnum]
 
 
+  export const LicenseKeyScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    productId: 'productId',
+    orderId: 'orderId',
+    orderItemId: 'orderItemId',
+    buyerId: 'buyerId',
+    maxActivations: 'maxActivations',
+    status: 'status',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LicenseKeyScalarFieldEnum = (typeof LicenseKeyScalarFieldEnum)[keyof typeof LicenseKeyScalarFieldEnum]
+
+
+  export const LicenseActivationScalarFieldEnum: {
+    id: 'id',
+    licenseKeyId: 'licenseKeyId',
+    deviceId: 'deviceId',
+    deviceName: 'deviceName',
+    ipAddress: 'ipAddress',
+    activatedAt: 'activatedAt',
+    lastSeenAt: 'lastSeenAt'
+  };
+
+  export type LicenseActivationScalarFieldEnum = (typeof LicenseActivationScalarFieldEnum)[keyof typeof LicenseActivationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -86155,6 +88933,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'LicenseStatus'
+   */
+  export type EnumLicenseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'LicenseStatus[]'
+   */
+  export type ListEnumLicenseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -86211,6 +89003,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketListRelationFilter
     ticketMessages?: TicketMessageListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    licenseKeys?: LicenseKeyListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -86250,6 +89043,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketOrderByRelationAggregateInput
     ticketMessages?: TicketMessageOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    licenseKeys?: LicenseKeyOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -86292,6 +89086,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketListRelationFilter
     ticketMessages?: TicketMessageListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    licenseKeys?: LicenseKeyListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -87407,6 +90202,8 @@ export namespace Prisma {
     averageRating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
+    isHeroProduct?: BoolFilter<"Product"> | boolean
+    isAffiliatePick?: BoolFilter<"Product"> | boolean
     publishedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     affiliateEnabled?: BoolFilter<"Product"> | boolean
     affiliateStatus?: EnumProductAffiliateStatusFilter<"Product"> | $Enums.ProductAffiliateStatus
@@ -87419,6 +90216,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    licenseKeysEnabled?: BoolFilter<"Product"> | boolean
+    licenseMaxActivations?: IntFilter<"Product"> | number
+    licenseValidityDays?: IntNullableFilter<"Product"> | number | null
     creator?: XOR<CreatorProfileScalarRelationFilter, CreatorProfileWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     tags?: ProductTagListRelationFilter
@@ -87434,6 +90234,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickListRelationFilter
     affiliateAttributions?: AffiliateAttributionListRelationFilter
     promotionalAssets?: AffiliatePromotionalAssetListRelationFilter
+    licenseKeys?: LicenseKeyListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -87461,6 +90262,8 @@ export namespace Prisma {
     averageRating?: SortOrder
     reviewCount?: SortOrder
     isFeatured?: SortOrder
+    isHeroProduct?: SortOrder
+    isAffiliatePick?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     affiliateEnabled?: SortOrder
     affiliateStatus?: SortOrder
@@ -87473,6 +90276,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    licenseKeysEnabled?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrderInput | SortOrder
     creator?: CreatorProfileOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     tags?: ProductTagOrderByRelationAggregateInput
@@ -87488,6 +90294,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickOrderByRelationAggregateInput
     affiliateAttributions?: AffiliateAttributionOrderByRelationAggregateInput
     promotionalAssets?: AffiliatePromotionalAssetOrderByRelationAggregateInput
+    licenseKeys?: LicenseKeyOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -87519,6 +90326,8 @@ export namespace Prisma {
     averageRating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
+    isHeroProduct?: BoolFilter<"Product"> | boolean
+    isAffiliatePick?: BoolFilter<"Product"> | boolean
     publishedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     affiliateEnabled?: BoolFilter<"Product"> | boolean
     affiliateStatus?: EnumProductAffiliateStatusFilter<"Product"> | $Enums.ProductAffiliateStatus
@@ -87531,6 +90340,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    licenseKeysEnabled?: BoolFilter<"Product"> | boolean
+    licenseMaxActivations?: IntFilter<"Product"> | number
+    licenseValidityDays?: IntNullableFilter<"Product"> | number | null
     creator?: XOR<CreatorProfileScalarRelationFilter, CreatorProfileWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     tags?: ProductTagListRelationFilter
@@ -87546,6 +90358,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickListRelationFilter
     affiliateAttributions?: AffiliateAttributionListRelationFilter
     promotionalAssets?: AffiliatePromotionalAssetListRelationFilter
+    licenseKeys?: LicenseKeyListRelationFilter
   }, "id" | "creatorId_slug">
 
   export type ProductOrderByWithAggregationInput = {
@@ -87573,6 +90386,8 @@ export namespace Prisma {
     averageRating?: SortOrder
     reviewCount?: SortOrder
     isFeatured?: SortOrder
+    isHeroProduct?: SortOrder
+    isAffiliatePick?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     affiliateEnabled?: SortOrder
     affiliateStatus?: SortOrder
@@ -87585,6 +90400,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    licenseKeysEnabled?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrderInput | SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -87620,6 +90438,8 @@ export namespace Prisma {
     averageRating?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reviewCount?: IntWithAggregatesFilter<"Product"> | number
     isFeatured?: BoolWithAggregatesFilter<"Product"> | boolean
+    isHeroProduct?: BoolWithAggregatesFilter<"Product"> | boolean
+    isAffiliatePick?: BoolWithAggregatesFilter<"Product"> | boolean
     publishedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
     affiliateEnabled?: BoolWithAggregatesFilter<"Product"> | boolean
     affiliateStatus?: EnumProductAffiliateStatusWithAggregatesFilter<"Product"> | $Enums.ProductAffiliateStatus
@@ -87632,6 +90452,9 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
+    licenseKeysEnabled?: BoolWithAggregatesFilter<"Product"> | boolean
+    licenseMaxActivations?: IntWithAggregatesFilter<"Product"> | number
+    licenseValidityDays?: IntNullableWithAggregatesFilter<"Product"> | number | null
   }
 
   export type ProductTagWhereInput = {
@@ -88036,6 +90859,8 @@ export namespace Prisma {
     idempotencyKey?: StringNullableFilter<"Order"> | string | null
     notes?: StringNullableFilter<"Order"> | string | null
     acquisitionSource?: EnumAcquisitionSourceFilter<"Order"> | $Enums.AcquisitionSource
+    couponCode?: StringNullableFilter<"Order"> | string | null
+    discountAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -88044,6 +90869,7 @@ export namespace Prisma {
     refunds?: RefundListRelationFilter
     affiliateConversions?: AffiliateConversionListRelationFilter
     commissionLedger?: CommissionLedgerListRelationFilter
+    licenseKeys?: LicenseKeyListRelationFilter
   }
 
   export type OrderOrderByWithRelationInput = {
@@ -88057,6 +90883,8 @@ export namespace Prisma {
     idempotencyKey?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     acquisitionSource?: SortOrder
+    couponCode?: SortOrderInput | SortOrder
+    discountAmount?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     buyer?: UserOrderByWithRelationInput
@@ -88065,6 +90893,7 @@ export namespace Prisma {
     refunds?: RefundOrderByRelationAggregateInput
     affiliateConversions?: AffiliateConversionOrderByRelationAggregateInput
     commissionLedger?: CommissionLedgerOrderByRelationAggregateInput
+    licenseKeys?: LicenseKeyOrderByRelationAggregateInput
   }
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -88081,6 +90910,8 @@ export namespace Prisma {
     paymentId?: UuidNullableFilter<"Order"> | string | null
     notes?: StringNullableFilter<"Order"> | string | null
     acquisitionSource?: EnumAcquisitionSourceFilter<"Order"> | $Enums.AcquisitionSource
+    couponCode?: StringNullableFilter<"Order"> | string | null
+    discountAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -88089,6 +90920,7 @@ export namespace Prisma {
     refunds?: RefundListRelationFilter
     affiliateConversions?: AffiliateConversionListRelationFilter
     commissionLedger?: CommissionLedgerListRelationFilter
+    licenseKeys?: LicenseKeyListRelationFilter
   }, "id" | "invoiceNumber" | "idempotencyKey">
 
   export type OrderOrderByWithAggregationInput = {
@@ -88102,6 +90934,8 @@ export namespace Prisma {
     idempotencyKey?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     acquisitionSource?: SortOrder
+    couponCode?: SortOrderInput | SortOrder
+    discountAmount?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: OrderCountOrderByAggregateInput
@@ -88125,6 +90959,8 @@ export namespace Prisma {
     idempotencyKey?: StringNullableWithAggregatesFilter<"Order"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Order"> | string | null
     acquisitionSource?: EnumAcquisitionSourceWithAggregatesFilter<"Order"> | $Enums.AcquisitionSource
+    couponCode?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    discountAmount?: DecimalNullableWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
   }
@@ -91659,6 +94495,168 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UsageRecord"> | Date | string
   }
 
+  export type LicenseKeyWhereInput = {
+    AND?: LicenseKeyWhereInput | LicenseKeyWhereInput[]
+    OR?: LicenseKeyWhereInput[]
+    NOT?: LicenseKeyWhereInput | LicenseKeyWhereInput[]
+    id?: UuidFilter<"LicenseKey"> | string
+    key?: StringFilter<"LicenseKey"> | string
+    productId?: UuidFilter<"LicenseKey"> | string
+    orderId?: UuidFilter<"LicenseKey"> | string
+    orderItemId?: UuidNullableFilter<"LicenseKey"> | string | null
+    buyerId?: UuidFilter<"LicenseKey"> | string
+    maxActivations?: IntFilter<"LicenseKey"> | number
+    status?: EnumLicenseStatusFilter<"LicenseKey"> | $Enums.LicenseStatus
+    expiresAt?: DateTimeNullableFilter<"LicenseKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"LicenseKey"> | Date | string
+    updatedAt?: DateTimeFilter<"LicenseKey"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
+    buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    activations?: LicenseActivationListRelationFilter
+  }
+
+  export type LicenseKeyOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    productId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrderInput | SortOrder
+    buyerId?: SortOrder
+    maxActivations?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    product?: ProductOrderByWithRelationInput
+    order?: OrderOrderByWithRelationInput
+    buyer?: UserOrderByWithRelationInput
+    activations?: LicenseActivationOrderByRelationAggregateInput
+  }
+
+  export type LicenseKeyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    key?: string
+    AND?: LicenseKeyWhereInput | LicenseKeyWhereInput[]
+    OR?: LicenseKeyWhereInput[]
+    NOT?: LicenseKeyWhereInput | LicenseKeyWhereInput[]
+    productId?: UuidFilter<"LicenseKey"> | string
+    orderId?: UuidFilter<"LicenseKey"> | string
+    orderItemId?: UuidNullableFilter<"LicenseKey"> | string | null
+    buyerId?: UuidFilter<"LicenseKey"> | string
+    maxActivations?: IntFilter<"LicenseKey"> | number
+    status?: EnumLicenseStatusFilter<"LicenseKey"> | $Enums.LicenseStatus
+    expiresAt?: DateTimeNullableFilter<"LicenseKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"LicenseKey"> | Date | string
+    updatedAt?: DateTimeFilter<"LicenseKey"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
+    buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    activations?: LicenseActivationListRelationFilter
+  }, "id" | "key">
+
+  export type LicenseKeyOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    productId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrderInput | SortOrder
+    buyerId?: SortOrder
+    maxActivations?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LicenseKeyCountOrderByAggregateInput
+    _avg?: LicenseKeyAvgOrderByAggregateInput
+    _max?: LicenseKeyMaxOrderByAggregateInput
+    _min?: LicenseKeyMinOrderByAggregateInput
+    _sum?: LicenseKeySumOrderByAggregateInput
+  }
+
+  export type LicenseKeyScalarWhereWithAggregatesInput = {
+    AND?: LicenseKeyScalarWhereWithAggregatesInput | LicenseKeyScalarWhereWithAggregatesInput[]
+    OR?: LicenseKeyScalarWhereWithAggregatesInput[]
+    NOT?: LicenseKeyScalarWhereWithAggregatesInput | LicenseKeyScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"LicenseKey"> | string
+    key?: StringWithAggregatesFilter<"LicenseKey"> | string
+    productId?: UuidWithAggregatesFilter<"LicenseKey"> | string
+    orderId?: UuidWithAggregatesFilter<"LicenseKey"> | string
+    orderItemId?: UuidNullableWithAggregatesFilter<"LicenseKey"> | string | null
+    buyerId?: UuidWithAggregatesFilter<"LicenseKey"> | string
+    maxActivations?: IntWithAggregatesFilter<"LicenseKey"> | number
+    status?: EnumLicenseStatusWithAggregatesFilter<"LicenseKey"> | $Enums.LicenseStatus
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"LicenseKey"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LicenseKey"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LicenseKey"> | Date | string
+  }
+
+  export type LicenseActivationWhereInput = {
+    AND?: LicenseActivationWhereInput | LicenseActivationWhereInput[]
+    OR?: LicenseActivationWhereInput[]
+    NOT?: LicenseActivationWhereInput | LicenseActivationWhereInput[]
+    id?: UuidFilter<"LicenseActivation"> | string
+    licenseKeyId?: UuidFilter<"LicenseActivation"> | string
+    deviceId?: StringFilter<"LicenseActivation"> | string
+    deviceName?: StringNullableFilter<"LicenseActivation"> | string | null
+    ipAddress?: StringNullableFilter<"LicenseActivation"> | string | null
+    activatedAt?: DateTimeFilter<"LicenseActivation"> | Date | string
+    lastSeenAt?: DateTimeFilter<"LicenseActivation"> | Date | string
+    licenseKey?: XOR<LicenseKeyScalarRelationFilter, LicenseKeyWhereInput>
+  }
+
+  export type LicenseActivationOrderByWithRelationInput = {
+    id?: SortOrder
+    licenseKeyId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    activatedAt?: SortOrder
+    lastSeenAt?: SortOrder
+    licenseKey?: LicenseKeyOrderByWithRelationInput
+  }
+
+  export type LicenseActivationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    licenseKeyId_deviceId?: LicenseActivationLicenseKeyIdDeviceIdCompoundUniqueInput
+    AND?: LicenseActivationWhereInput | LicenseActivationWhereInput[]
+    OR?: LicenseActivationWhereInput[]
+    NOT?: LicenseActivationWhereInput | LicenseActivationWhereInput[]
+    licenseKeyId?: UuidFilter<"LicenseActivation"> | string
+    deviceId?: StringFilter<"LicenseActivation"> | string
+    deviceName?: StringNullableFilter<"LicenseActivation"> | string | null
+    ipAddress?: StringNullableFilter<"LicenseActivation"> | string | null
+    activatedAt?: DateTimeFilter<"LicenseActivation"> | Date | string
+    lastSeenAt?: DateTimeFilter<"LicenseActivation"> | Date | string
+    licenseKey?: XOR<LicenseKeyScalarRelationFilter, LicenseKeyWhereInput>
+  }, "id" | "licenseKeyId_deviceId">
+
+  export type LicenseActivationOrderByWithAggregationInput = {
+    id?: SortOrder
+    licenseKeyId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    activatedAt?: SortOrder
+    lastSeenAt?: SortOrder
+    _count?: LicenseActivationCountOrderByAggregateInput
+    _max?: LicenseActivationMaxOrderByAggregateInput
+    _min?: LicenseActivationMinOrderByAggregateInput
+  }
+
+  export type LicenseActivationScalarWhereWithAggregatesInput = {
+    AND?: LicenseActivationScalarWhereWithAggregatesInput | LicenseActivationScalarWhereWithAggregatesInput[]
+    OR?: LicenseActivationScalarWhereWithAggregatesInput[]
+    NOT?: LicenseActivationScalarWhereWithAggregatesInput | LicenseActivationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"LicenseActivation"> | string
+    licenseKeyId?: UuidWithAggregatesFilter<"LicenseActivation"> | string
+    deviceId?: StringWithAggregatesFilter<"LicenseActivation"> | string
+    deviceName?: StringNullableWithAggregatesFilter<"LicenseActivation"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"LicenseActivation"> | string | null
+    activatedAt?: DateTimeWithAggregatesFilter<"LicenseActivation"> | Date | string
+    lastSeenAt?: DateTimeWithAggregatesFilter<"LicenseActivation"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -91696,6 +94694,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -91735,6 +94734,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUpdateInput = {
@@ -91774,6 +94774,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -91813,6 +94814,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -93034,6 +96036,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -93046,6 +96050,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -93061,6 +96068,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -93088,6 +96096,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -93100,6 +96110,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -93113,6 +96126,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -93138,6 +96152,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -93150,6 +96166,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -93165,6 +96184,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -93192,6 +96212,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -93204,6 +96226,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -93217,6 +96242,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -93244,6 +96270,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -93256,6 +96284,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -93281,6 +96312,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -93293,6 +96326,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -93320,6 +96356,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -93332,6 +96370,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductTagCreateInput = {
@@ -93720,6 +96761,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     buyer: UserCreateNestedOneWithoutOrdersInput
@@ -93728,6 +96771,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateInput = {
@@ -93741,6 +96785,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -93748,6 +96794,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUpdateInput = {
@@ -93760,6 +96807,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -93768,6 +96817,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateInput = {
@@ -93781,6 +96831,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -93788,6 +96840,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderCreateManyInput = {
@@ -93801,6 +96854,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -93815,6 +96870,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -93830,6 +96887,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -97718,6 +100777,174 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LicenseKeyCreateInput = {
+    id?: string
+    key: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutLicenseKeysInput
+    order: OrderCreateNestedOneWithoutLicenseKeysInput
+    buyer: UserCreateNestedOneWithoutLicenseKeysInput
+    activations?: LicenseActivationCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyUncheckedCreateInput = {
+    id?: string
+    key: string
+    productId: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activations?: LicenseActivationUncheckedCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutLicenseKeysNestedInput
+    order?: OrderUpdateOneRequiredWithoutLicenseKeysNestedInput
+    buyer?: UserUpdateOneRequiredWithoutLicenseKeysNestedInput
+    activations?: LicenseActivationUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activations?: LicenseActivationUncheckedUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyCreateManyInput = {
+    id?: string
+    key: string
+    productId: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LicenseKeyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseKeyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseActivationCreateInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    ipAddress?: string | null
+    activatedAt?: Date | string
+    lastSeenAt?: Date | string
+    licenseKey: LicenseKeyCreateNestedOneWithoutActivationsInput
+  }
+
+  export type LicenseActivationUncheckedCreateInput = {
+    id?: string
+    licenseKeyId: string
+    deviceId: string
+    deviceName?: string | null
+    ipAddress?: string | null
+    activatedAt?: Date | string
+    lastSeenAt?: Date | string
+  }
+
+  export type LicenseActivationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    licenseKey?: LicenseKeyUpdateOneRequiredWithoutActivationsNestedInput
+  }
+
+  export type LicenseActivationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    licenseKeyId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseActivationCreateManyInput = {
+    id?: string
+    licenseKeyId: string
+    deviceId: string
+    deviceName?: string | null
+    ipAddress?: string | null
+    activatedAt?: Date | string
+    lastSeenAt?: Date | string
+  }
+
+  export type LicenseActivationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseActivationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    licenseKeyId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -97919,6 +101146,12 @@ export namespace Prisma {
     none?: PasswordResetTokenWhereInput
   }
 
+  export type LicenseKeyListRelationFilter = {
+    every?: LicenseKeyWhereInput
+    some?: LicenseKeyWhereInput
+    none?: LicenseKeyWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -97981,6 +101214,10 @@ export namespace Prisma {
   }
 
   export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LicenseKeyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -99080,6 +102317,8 @@ export namespace Prisma {
     averageRating?: SortOrder
     reviewCount?: SortOrder
     isFeatured?: SortOrder
+    isHeroProduct?: SortOrder
+    isAffiliatePick?: SortOrder
     publishedAt?: SortOrder
     affiliateEnabled?: SortOrder
     affiliateStatus?: SortOrder
@@ -99092,6 +102331,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    licenseKeysEnabled?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -99105,6 +102347,8 @@ export namespace Prisma {
     reviewCount?: SortOrder
     affiliateCommissionRate?: SortOrder
     affiliateClickCount?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -99131,6 +102375,8 @@ export namespace Prisma {
     averageRating?: SortOrder
     reviewCount?: SortOrder
     isFeatured?: SortOrder
+    isHeroProduct?: SortOrder
+    isAffiliatePick?: SortOrder
     publishedAt?: SortOrder
     affiliateEnabled?: SortOrder
     affiliateStatus?: SortOrder
@@ -99143,6 +102389,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    licenseKeysEnabled?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -99169,6 +102418,8 @@ export namespace Prisma {
     averageRating?: SortOrder
     reviewCount?: SortOrder
     isFeatured?: SortOrder
+    isHeroProduct?: SortOrder
+    isAffiliatePick?: SortOrder
     publishedAt?: SortOrder
     affiliateEnabled?: SortOrder
     affiliateStatus?: SortOrder
@@ -99181,6 +102432,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    licenseKeysEnabled?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -99194,6 +102448,8 @@ export namespace Prisma {
     reviewCount?: SortOrder
     affiliateCommissionRate?: SortOrder
     affiliateClickCount?: SortOrder
+    licenseMaxActivations?: SortOrder
+    licenseValidityDays?: SortOrder
   }
 
   export type EnumProductStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -99570,12 +102826,15 @@ export namespace Prisma {
     idempotencyKey?: SortOrder
     notes?: SortOrder
     acquisitionSource?: SortOrder
+    couponCode?: SortOrder
+    discountAmount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type OrderAvgOrderByAggregateInput = {
     totalAmount?: SortOrder
+    discountAmount?: SortOrder
   }
 
   export type OrderMaxOrderByAggregateInput = {
@@ -99589,6 +102848,8 @@ export namespace Prisma {
     idempotencyKey?: SortOrder
     notes?: SortOrder
     acquisitionSource?: SortOrder
+    couponCode?: SortOrder
+    discountAmount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -99604,12 +102865,15 @@ export namespace Prisma {
     idempotencyKey?: SortOrder
     notes?: SortOrder
     acquisitionSource?: SortOrder
+    couponCode?: SortOrder
+    discountAmount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type OrderSumOrderByAggregateInput = {
     totalAmount?: SortOrder
+    discountAmount?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -102165,6 +105429,123 @@ export namespace Prisma {
     creditsUsed?: SortOrder
   }
 
+  export type EnumLicenseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LicenseStatus | EnumLicenseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLicenseStatusFilter<$PrismaModel> | $Enums.LicenseStatus
+  }
+
+  export type LicenseActivationListRelationFilter = {
+    every?: LicenseActivationWhereInput
+    some?: LicenseActivationWhereInput
+    none?: LicenseActivationWhereInput
+  }
+
+  export type LicenseActivationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LicenseKeyCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    productId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrder
+    buyerId?: SortOrder
+    maxActivations?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LicenseKeyAvgOrderByAggregateInput = {
+    maxActivations?: SortOrder
+  }
+
+  export type LicenseKeyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    productId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrder
+    buyerId?: SortOrder
+    maxActivations?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LicenseKeyMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    productId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrder
+    buyerId?: SortOrder
+    maxActivations?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LicenseKeySumOrderByAggregateInput = {
+    maxActivations?: SortOrder
+  }
+
+  export type EnumLicenseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LicenseStatus | EnumLicenseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLicenseStatusWithAggregatesFilter<$PrismaModel> | $Enums.LicenseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLicenseStatusFilter<$PrismaModel>
+    _max?: NestedEnumLicenseStatusFilter<$PrismaModel>
+  }
+
+  export type LicenseKeyScalarRelationFilter = {
+    is?: LicenseKeyWhereInput
+    isNot?: LicenseKeyWhereInput
+  }
+
+  export type LicenseActivationLicenseKeyIdDeviceIdCompoundUniqueInput = {
+    licenseKeyId: string
+    deviceId: string
+  }
+
+  export type LicenseActivationCountOrderByAggregateInput = {
+    id?: SortOrder
+    licenseKeyId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrder
+    ipAddress?: SortOrder
+    activatedAt?: SortOrder
+    lastSeenAt?: SortOrder
+  }
+
+  export type LicenseActivationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    licenseKeyId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrder
+    ipAddress?: SortOrder
+    activatedAt?: SortOrder
+    lastSeenAt?: SortOrder
+  }
+
+  export type LicenseActivationMinOrderByAggregateInput = {
+    id?: SortOrder
+    licenseKeyId?: SortOrder
+    deviceId?: SortOrder
+    deviceName?: SortOrder
+    ipAddress?: SortOrder
+    activatedAt?: SortOrder
+    lastSeenAt?: SortOrder
+  }
+
   export type UserProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -102319,6 +105700,13 @@ export namespace Prisma {
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
   }
 
+  export type LicenseKeyCreateNestedManyWithoutBuyerInput = {
+    create?: XOR<LicenseKeyCreateWithoutBuyerInput, LicenseKeyUncheckedCreateWithoutBuyerInput> | LicenseKeyCreateWithoutBuyerInput[] | LicenseKeyUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutBuyerInput | LicenseKeyCreateOrConnectWithoutBuyerInput[]
+    createMany?: LicenseKeyCreateManyBuyerInputEnvelope
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+  }
+
   export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -102471,6 +105859,13 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput = {
+    create?: XOR<LicenseKeyCreateWithoutBuyerInput, LicenseKeyUncheckedCreateWithoutBuyerInput> | LicenseKeyCreateWithoutBuyerInput[] | LicenseKeyUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutBuyerInput | LicenseKeyCreateOrConnectWithoutBuyerInput[]
+    createMany?: LicenseKeyCreateManyBuyerInputEnvelope
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -102791,6 +106186,20 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type LicenseKeyUpdateManyWithoutBuyerNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutBuyerInput, LicenseKeyUncheckedCreateWithoutBuyerInput> | LicenseKeyCreateWithoutBuyerInput[] | LicenseKeyUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutBuyerInput | LicenseKeyCreateOrConnectWithoutBuyerInput[]
+    upsert?: LicenseKeyUpsertWithWhereUniqueWithoutBuyerInput | LicenseKeyUpsertWithWhereUniqueWithoutBuyerInput[]
+    createMany?: LicenseKeyCreateManyBuyerInputEnvelope
+    set?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    disconnect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    delete?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    update?: LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput | LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput[]
+    updateMany?: LicenseKeyUpdateManyWithWhereWithoutBuyerInput | LicenseKeyUpdateManyWithWhereWithoutBuyerInput[]
+    deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+  }
+
   export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -103083,6 +106492,20 @@ export namespace Prisma {
     update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutBuyerInput, LicenseKeyUncheckedCreateWithoutBuyerInput> | LicenseKeyCreateWithoutBuyerInput[] | LicenseKeyUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutBuyerInput | LicenseKeyCreateOrConnectWithoutBuyerInput[]
+    upsert?: LicenseKeyUpsertWithWhereUniqueWithoutBuyerInput | LicenseKeyUpsertWithWhereUniqueWithoutBuyerInput[]
+    createMany?: LicenseKeyCreateManyBuyerInputEnvelope
+    set?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    disconnect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    delete?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    update?: LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput | LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput[]
+    updateMany?: LicenseKeyUpdateManyWithWhereWithoutBuyerInput | LicenseKeyUpdateManyWithWhereWithoutBuyerInput[]
+    deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
@@ -103882,6 +107305,13 @@ export namespace Prisma {
     connect?: AffiliatePromotionalAssetWhereUniqueInput | AffiliatePromotionalAssetWhereUniqueInput[]
   }
 
+  export type LicenseKeyCreateNestedManyWithoutProductInput = {
+    create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
+    createMany?: LicenseKeyCreateManyProductInputEnvelope
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+  }
+
   export type ProductTagUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductTagCreateWithoutProductInput, ProductTagUncheckedCreateWithoutProductInput> | ProductTagCreateWithoutProductInput[] | ProductTagUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductTagCreateOrConnectWithoutProductInput | ProductTagCreateOrConnectWithoutProductInput[]
@@ -103971,6 +107401,13 @@ export namespace Prisma {
     connectOrCreate?: AffiliatePromotionalAssetCreateOrConnectWithoutProductInput | AffiliatePromotionalAssetCreateOrConnectWithoutProductInput[]
     createMany?: AffiliatePromotionalAssetCreateManyProductInputEnvelope
     connect?: AffiliatePromotionalAssetWhereUniqueInput | AffiliatePromotionalAssetWhereUniqueInput[]
+  }
+
+  export type LicenseKeyUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
+    createMany?: LicenseKeyCreateManyProductInputEnvelope
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
   }
 
   export type EnumProductStatusFieldUpdateOperationsInput = {
@@ -104212,6 +107649,20 @@ export namespace Prisma {
     deleteMany?: AffiliatePromotionalAssetScalarWhereInput | AffiliatePromotionalAssetScalarWhereInput[]
   }
 
+  export type LicenseKeyUpdateManyWithoutProductNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
+    upsert?: LicenseKeyUpsertWithWhereUniqueWithoutProductInput | LicenseKeyUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: LicenseKeyCreateManyProductInputEnvelope
+    set?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    disconnect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    delete?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    update?: LicenseKeyUpdateWithWhereUniqueWithoutProductInput | LicenseKeyUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: LicenseKeyUpdateManyWithWhereWithoutProductInput | LicenseKeyUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+  }
+
   export type ProductTagUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<ProductTagCreateWithoutProductInput, ProductTagUncheckedCreateWithoutProductInput> | ProductTagCreateWithoutProductInput[] | ProductTagUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductTagCreateOrConnectWithoutProductInput | ProductTagCreateOrConnectWithoutProductInput[]
@@ -104392,6 +107843,20 @@ export namespace Prisma {
     update?: AffiliatePromotionalAssetUpdateWithWhereUniqueWithoutProductInput | AffiliatePromotionalAssetUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: AffiliatePromotionalAssetUpdateManyWithWhereWithoutProductInput | AffiliatePromotionalAssetUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: AffiliatePromotionalAssetScalarWhereInput | AffiliatePromotionalAssetScalarWhereInput[]
+  }
+
+  export type LicenseKeyUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
+    upsert?: LicenseKeyUpsertWithWhereUniqueWithoutProductInput | LicenseKeyUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: LicenseKeyCreateManyProductInputEnvelope
+    set?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    disconnect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    delete?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    update?: LicenseKeyUpdateWithWhereUniqueWithoutProductInput | LicenseKeyUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: LicenseKeyUpdateManyWithWhereWithoutProductInput | LicenseKeyUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
   }
 
   export type ProductCreateNestedOneWithoutTagsInput = {
@@ -104662,6 +108127,13 @@ export namespace Prisma {
     connect?: CommissionLedgerWhereUniqueInput | CommissionLedgerWhereUniqueInput[]
   }
 
+  export type LicenseKeyCreateNestedManyWithoutOrderInput = {
+    create?: XOR<LicenseKeyCreateWithoutOrderInput, LicenseKeyUncheckedCreateWithoutOrderInput> | LicenseKeyCreateWithoutOrderInput[] | LicenseKeyUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutOrderInput | LicenseKeyCreateOrConnectWithoutOrderInput[]
+    createMany?: LicenseKeyCreateManyOrderInputEnvelope
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+  }
+
   export type OrderItemUncheckedCreateNestedManyWithoutOrderInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
@@ -104694,6 +108166,13 @@ export namespace Prisma {
     connectOrCreate?: CommissionLedgerCreateOrConnectWithoutOrderInput | CommissionLedgerCreateOrConnectWithoutOrderInput[]
     createMany?: CommissionLedgerCreateManyOrderInputEnvelope
     connect?: CommissionLedgerWhereUniqueInput | CommissionLedgerWhereUniqueInput[]
+  }
+
+  export type LicenseKeyUncheckedCreateNestedManyWithoutOrderInput = {
+    create?: XOR<LicenseKeyCreateWithoutOrderInput, LicenseKeyUncheckedCreateWithoutOrderInput> | LicenseKeyCreateWithoutOrderInput[] | LicenseKeyUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutOrderInput | LicenseKeyCreateOrConnectWithoutOrderInput[]
+    createMany?: LicenseKeyCreateManyOrderInputEnvelope
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
   }
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
@@ -104778,6 +108257,20 @@ export namespace Prisma {
     deleteMany?: CommissionLedgerScalarWhereInput | CommissionLedgerScalarWhereInput[]
   }
 
+  export type LicenseKeyUpdateManyWithoutOrderNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutOrderInput, LicenseKeyUncheckedCreateWithoutOrderInput> | LicenseKeyCreateWithoutOrderInput[] | LicenseKeyUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutOrderInput | LicenseKeyCreateOrConnectWithoutOrderInput[]
+    upsert?: LicenseKeyUpsertWithWhereUniqueWithoutOrderInput | LicenseKeyUpsertWithWhereUniqueWithoutOrderInput[]
+    createMany?: LicenseKeyCreateManyOrderInputEnvelope
+    set?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    disconnect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    delete?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    update?: LicenseKeyUpdateWithWhereUniqueWithoutOrderInput | LicenseKeyUpdateWithWhereUniqueWithoutOrderInput[]
+    updateMany?: LicenseKeyUpdateManyWithWhereWithoutOrderInput | LicenseKeyUpdateManyWithWhereWithoutOrderInput[]
+    deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+  }
+
   export type OrderItemUncheckedUpdateManyWithoutOrderNestedInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
@@ -104842,6 +108335,20 @@ export namespace Prisma {
     update?: CommissionLedgerUpdateWithWhereUniqueWithoutOrderInput | CommissionLedgerUpdateWithWhereUniqueWithoutOrderInput[]
     updateMany?: CommissionLedgerUpdateManyWithWhereWithoutOrderInput | CommissionLedgerUpdateManyWithWhereWithoutOrderInput[]
     deleteMany?: CommissionLedgerScalarWhereInput | CommissionLedgerScalarWhereInput[]
+  }
+
+  export type LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutOrderInput, LicenseKeyUncheckedCreateWithoutOrderInput> | LicenseKeyCreateWithoutOrderInput[] | LicenseKeyUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutOrderInput | LicenseKeyCreateOrConnectWithoutOrderInput[]
+    upsert?: LicenseKeyUpsertWithWhereUniqueWithoutOrderInput | LicenseKeyUpsertWithWhereUniqueWithoutOrderInput[]
+    createMany?: LicenseKeyCreateManyOrderInputEnvelope
+    set?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    disconnect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    delete?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+    update?: LicenseKeyUpdateWithWhereUniqueWithoutOrderInput | LicenseKeyUpdateWithWhereUniqueWithoutOrderInput[]
+    updateMany?: LicenseKeyUpdateManyWithWhereWithoutOrderInput | LicenseKeyUpdateManyWithWhereWithoutOrderInput[]
+    deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
   }
 
   export type OrderCreateNestedOneWithoutItemsInput = {
@@ -106715,6 +110222,108 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUsageRecordsInput, UserUpdateWithoutUsageRecordsInput>, UserUncheckedUpdateWithoutUsageRecordsInput>
   }
 
+  export type ProductCreateNestedOneWithoutLicenseKeysInput = {
+    create?: XOR<ProductCreateWithoutLicenseKeysInput, ProductUncheckedCreateWithoutLicenseKeysInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutLicenseKeysInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type OrderCreateNestedOneWithoutLicenseKeysInput = {
+    create?: XOR<OrderCreateWithoutLicenseKeysInput, OrderUncheckedCreateWithoutLicenseKeysInput>
+    connectOrCreate?: OrderCreateOrConnectWithoutLicenseKeysInput
+    connect?: OrderWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLicenseKeysInput = {
+    create?: XOR<UserCreateWithoutLicenseKeysInput, UserUncheckedCreateWithoutLicenseKeysInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLicenseKeysInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type LicenseActivationCreateNestedManyWithoutLicenseKeyInput = {
+    create?: XOR<LicenseActivationCreateWithoutLicenseKeyInput, LicenseActivationUncheckedCreateWithoutLicenseKeyInput> | LicenseActivationCreateWithoutLicenseKeyInput[] | LicenseActivationUncheckedCreateWithoutLicenseKeyInput[]
+    connectOrCreate?: LicenseActivationCreateOrConnectWithoutLicenseKeyInput | LicenseActivationCreateOrConnectWithoutLicenseKeyInput[]
+    createMany?: LicenseActivationCreateManyLicenseKeyInputEnvelope
+    connect?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+  }
+
+  export type LicenseActivationUncheckedCreateNestedManyWithoutLicenseKeyInput = {
+    create?: XOR<LicenseActivationCreateWithoutLicenseKeyInput, LicenseActivationUncheckedCreateWithoutLicenseKeyInput> | LicenseActivationCreateWithoutLicenseKeyInput[] | LicenseActivationUncheckedCreateWithoutLicenseKeyInput[]
+    connectOrCreate?: LicenseActivationCreateOrConnectWithoutLicenseKeyInput | LicenseActivationCreateOrConnectWithoutLicenseKeyInput[]
+    createMany?: LicenseActivationCreateManyLicenseKeyInputEnvelope
+    connect?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+  }
+
+  export type EnumLicenseStatusFieldUpdateOperationsInput = {
+    set?: $Enums.LicenseStatus
+  }
+
+  export type ProductUpdateOneRequiredWithoutLicenseKeysNestedInput = {
+    create?: XOR<ProductCreateWithoutLicenseKeysInput, ProductUncheckedCreateWithoutLicenseKeysInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutLicenseKeysInput
+    upsert?: ProductUpsertWithoutLicenseKeysInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutLicenseKeysInput, ProductUpdateWithoutLicenseKeysInput>, ProductUncheckedUpdateWithoutLicenseKeysInput>
+  }
+
+  export type OrderUpdateOneRequiredWithoutLicenseKeysNestedInput = {
+    create?: XOR<OrderCreateWithoutLicenseKeysInput, OrderUncheckedCreateWithoutLicenseKeysInput>
+    connectOrCreate?: OrderCreateOrConnectWithoutLicenseKeysInput
+    upsert?: OrderUpsertWithoutLicenseKeysInput
+    connect?: OrderWhereUniqueInput
+    update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutLicenseKeysInput, OrderUpdateWithoutLicenseKeysInput>, OrderUncheckedUpdateWithoutLicenseKeysInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLicenseKeysNestedInput = {
+    create?: XOR<UserCreateWithoutLicenseKeysInput, UserUncheckedCreateWithoutLicenseKeysInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLicenseKeysInput
+    upsert?: UserUpsertWithoutLicenseKeysInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLicenseKeysInput, UserUpdateWithoutLicenseKeysInput>, UserUncheckedUpdateWithoutLicenseKeysInput>
+  }
+
+  export type LicenseActivationUpdateManyWithoutLicenseKeyNestedInput = {
+    create?: XOR<LicenseActivationCreateWithoutLicenseKeyInput, LicenseActivationUncheckedCreateWithoutLicenseKeyInput> | LicenseActivationCreateWithoutLicenseKeyInput[] | LicenseActivationUncheckedCreateWithoutLicenseKeyInput[]
+    connectOrCreate?: LicenseActivationCreateOrConnectWithoutLicenseKeyInput | LicenseActivationCreateOrConnectWithoutLicenseKeyInput[]
+    upsert?: LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput | LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput[]
+    createMany?: LicenseActivationCreateManyLicenseKeyInputEnvelope
+    set?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    disconnect?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    delete?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    connect?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    update?: LicenseActivationUpdateWithWhereUniqueWithoutLicenseKeyInput | LicenseActivationUpdateWithWhereUniqueWithoutLicenseKeyInput[]
+    updateMany?: LicenseActivationUpdateManyWithWhereWithoutLicenseKeyInput | LicenseActivationUpdateManyWithWhereWithoutLicenseKeyInput[]
+    deleteMany?: LicenseActivationScalarWhereInput | LicenseActivationScalarWhereInput[]
+  }
+
+  export type LicenseActivationUncheckedUpdateManyWithoutLicenseKeyNestedInput = {
+    create?: XOR<LicenseActivationCreateWithoutLicenseKeyInput, LicenseActivationUncheckedCreateWithoutLicenseKeyInput> | LicenseActivationCreateWithoutLicenseKeyInput[] | LicenseActivationUncheckedCreateWithoutLicenseKeyInput[]
+    connectOrCreate?: LicenseActivationCreateOrConnectWithoutLicenseKeyInput | LicenseActivationCreateOrConnectWithoutLicenseKeyInput[]
+    upsert?: LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput | LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput[]
+    createMany?: LicenseActivationCreateManyLicenseKeyInputEnvelope
+    set?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    disconnect?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    delete?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    connect?: LicenseActivationWhereUniqueInput | LicenseActivationWhereUniqueInput[]
+    update?: LicenseActivationUpdateWithWhereUniqueWithoutLicenseKeyInput | LicenseActivationUpdateWithWhereUniqueWithoutLicenseKeyInput[]
+    updateMany?: LicenseActivationUpdateManyWithWhereWithoutLicenseKeyInput | LicenseActivationUpdateManyWithWhereWithoutLicenseKeyInput[]
+    deleteMany?: LicenseActivationScalarWhereInput | LicenseActivationScalarWhereInput[]
+  }
+
+  export type LicenseKeyCreateNestedOneWithoutActivationsInput = {
+    create?: XOR<LicenseKeyCreateWithoutActivationsInput, LicenseKeyUncheckedCreateWithoutActivationsInput>
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutActivationsInput
+    connect?: LicenseKeyWhereUniqueInput
+  }
+
+  export type LicenseKeyUpdateOneRequiredWithoutActivationsNestedInput = {
+    create?: XOR<LicenseKeyCreateWithoutActivationsInput, LicenseKeyUncheckedCreateWithoutActivationsInput>
+    connectOrCreate?: LicenseKeyCreateOrConnectWithoutActivationsInput
+    upsert?: LicenseKeyUpsertWithoutActivationsInput
+    connect?: LicenseKeyWhereUniqueInput
+    update?: XOR<XOR<LicenseKeyUpdateToOneWithWhereWithoutActivationsInput, LicenseKeyUpdateWithoutActivationsInput>, LicenseKeyUncheckedUpdateWithoutActivationsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -107569,6 +111178,23 @@ export namespace Prisma {
     _max?: NestedEnumCreditTransactionTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumLicenseStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LicenseStatus | EnumLicenseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLicenseStatusFilter<$PrismaModel> | $Enums.LicenseStatus
+  }
+
+  export type NestedEnumLicenseStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LicenseStatus | EnumLicenseStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLicenseStatusWithAggregatesFilter<$PrismaModel> | $Enums.LicenseStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLicenseStatusFilter<$PrismaModel>
+    _max?: NestedEnumLicenseStatusFilter<$PrismaModel>
+  }
+
   export type UserProfileCreateWithoutUserInput = {
     id?: string
     bio?: string | null
@@ -107726,6 +111352,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemCreateNestedManyWithoutOrderInput
@@ -107733,6 +111361,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutBuyerInput = {
@@ -107745,6 +111374,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -107752,6 +111383,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutBuyerInput = {
@@ -108334,6 +111966,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LicenseKeyCreateWithoutBuyerInput = {
+    id?: string
+    key: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutLicenseKeysInput
+    order: OrderCreateNestedOneWithoutLicenseKeysInput
+    activations?: LicenseActivationCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyUncheckedCreateWithoutBuyerInput = {
+    id?: string
+    key: string
+    productId: string
+    orderId: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activations?: LicenseActivationUncheckedCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyCreateOrConnectWithoutBuyerInput = {
+    where: LicenseKeyWhereUniqueInput
+    create: XOR<LicenseKeyCreateWithoutBuyerInput, LicenseKeyUncheckedCreateWithoutBuyerInput>
+  }
+
+  export type LicenseKeyCreateManyBuyerInputEnvelope = {
+    data: LicenseKeyCreateManyBuyerInput | LicenseKeyCreateManyBuyerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserProfileUpsertWithoutUserInput = {
     update: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
     create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
@@ -108529,6 +112199,8 @@ export namespace Prisma {
     idempotencyKey?: StringNullableFilter<"Order"> | string | null
     notes?: StringNullableFilter<"Order"> | string | null
     acquisitionSource?: EnumAcquisitionSourceFilter<"Order"> | $Enums.AcquisitionSource
+    couponCode?: StringNullableFilter<"Order"> | string | null
+    discountAmount?: DecimalNullableFilter<"Order"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
   }
@@ -109103,6 +112775,39 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type LicenseKeyUpsertWithWhereUniqueWithoutBuyerInput = {
+    where: LicenseKeyWhereUniqueInput
+    update: XOR<LicenseKeyUpdateWithoutBuyerInput, LicenseKeyUncheckedUpdateWithoutBuyerInput>
+    create: XOR<LicenseKeyCreateWithoutBuyerInput, LicenseKeyUncheckedCreateWithoutBuyerInput>
+  }
+
+  export type LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput = {
+    where: LicenseKeyWhereUniqueInput
+    data: XOR<LicenseKeyUpdateWithoutBuyerInput, LicenseKeyUncheckedUpdateWithoutBuyerInput>
+  }
+
+  export type LicenseKeyUpdateManyWithWhereWithoutBuyerInput = {
+    where: LicenseKeyScalarWhereInput
+    data: XOR<LicenseKeyUpdateManyMutationInput, LicenseKeyUncheckedUpdateManyWithoutBuyerInput>
+  }
+
+  export type LicenseKeyScalarWhereInput = {
+    AND?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+    OR?: LicenseKeyScalarWhereInput[]
+    NOT?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+    id?: UuidFilter<"LicenseKey"> | string
+    key?: StringFilter<"LicenseKey"> | string
+    productId?: UuidFilter<"LicenseKey"> | string
+    orderId?: UuidFilter<"LicenseKey"> | string
+    orderItemId?: UuidNullableFilter<"LicenseKey"> | string | null
+    buyerId?: UuidFilter<"LicenseKey"> | string
+    maxActivations?: IntFilter<"LicenseKey"> | number
+    status?: EnumLicenseStatusFilter<"LicenseKey"> | $Enums.LicenseStatus
+    expiresAt?: DateTimeNullableFilter<"LicenseKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"LicenseKey"> | Date | string
+    updatedAt?: DateTimeFilter<"LicenseKey"> | Date | string
+  }
+
   export type UserCreateWithoutPasswordResetTokensInput = {
     id?: string
     email: string
@@ -109139,6 +112844,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -109177,6 +112883,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -109231,6 +112938,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -109269,6 +112977,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -109307,6 +113016,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -109345,6 +113055,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -109399,6 +113110,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -109437,6 +113149,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type PermissionCreateWithoutRolesInput = {
@@ -109614,6 +113327,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
@@ -109652,6 +113366,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutRolesInput = {
@@ -109729,6 +113444,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
@@ -109767,6 +113483,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type RoleUpsertWithoutUsersInput = {
@@ -109834,6 +113551,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -109872,6 +113590,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -109926,6 +113645,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -109964,6 +113684,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutApiTokensInput = {
@@ -110002,6 +113723,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutApiTokensInput = {
@@ -110040,6 +113762,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutApiTokensInput = {
@@ -110094,6 +113817,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApiTokensInput = {
@@ -110132,6 +113856,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutCreatorProfileInput = {
@@ -110170,6 +113895,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCreatorProfileInput = {
@@ -110208,6 +113934,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCreatorProfileInput = {
@@ -110238,6 +113965,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -110250,6 +113979,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
     files?: ProductFileCreateNestedManyWithoutProductInput
@@ -110264,6 +113996,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCreatorInput = {
@@ -110290,6 +114023,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -110302,6 +114037,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -110315,6 +114053,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCreatorInput = {
@@ -110499,6 +114238,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatorProfileInput = {
@@ -110537,6 +114277,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutCreatorInput = {
@@ -110583,6 +114324,8 @@ export namespace Prisma {
     averageRating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFilter<"Product"> | number
     isFeatured?: BoolFilter<"Product"> | boolean
+    isHeroProduct?: BoolFilter<"Product"> | boolean
+    isAffiliatePick?: BoolFilter<"Product"> | boolean
     publishedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     affiliateEnabled?: BoolFilter<"Product"> | boolean
     affiliateStatus?: EnumProductAffiliateStatusFilter<"Product"> | $Enums.ProductAffiliateStatus
@@ -110595,6 +114338,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    licenseKeysEnabled?: BoolFilter<"Product"> | boolean
+    licenseMaxActivations?: IntFilter<"Product"> | number
+    licenseValidityDays?: IntNullableFilter<"Product"> | number | null
   }
 
   export type CollectionUpsertWithWhereUniqueWithoutCreatorInput = {
@@ -110975,6 +114721,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -111013,6 +114760,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -111120,6 +114868,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -111158,6 +114907,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreatorProfileUpsertWithoutFollowersInput = {
@@ -111321,6 +115071,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -111333,6 +115085,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
     files?: ProductFileCreateNestedManyWithoutProductInput
@@ -111347,6 +115102,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCategoryInput = {
@@ -111373,6 +115129,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -111385,6 +115143,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -111398,6 +115159,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -112225,6 +115987,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LicenseKeyCreateWithoutProductInput = {
+    id?: string
+    key: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    order: OrderCreateNestedOneWithoutLicenseKeysInput
+    buyer: UserCreateNestedOneWithoutLicenseKeysInput
+    activations?: LicenseActivationCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyUncheckedCreateWithoutProductInput = {
+    id?: string
+    key: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activations?: LicenseActivationUncheckedCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyCreateOrConnectWithoutProductInput = {
+    where: LicenseKeyWhereUniqueInput
+    create: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput>
+  }
+
+  export type LicenseKeyCreateManyProductInputEnvelope = {
+    data: LicenseKeyCreateManyProductInput | LicenseKeyCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CreatorProfileUpsertWithoutProductsInput = {
     update: XOR<CreatorProfileUpdateWithoutProductsInput, CreatorProfileUncheckedUpdateWithoutProductsInput>
     create: XOR<CreatorProfileCreateWithoutProductsInput, CreatorProfileUncheckedCreateWithoutProductsInput>
@@ -112672,6 +116472,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AffiliatePromotionalAsset"> | Date | string
   }
 
+  export type LicenseKeyUpsertWithWhereUniqueWithoutProductInput = {
+    where: LicenseKeyWhereUniqueInput
+    update: XOR<LicenseKeyUpdateWithoutProductInput, LicenseKeyUncheckedUpdateWithoutProductInput>
+    create: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput>
+  }
+
+  export type LicenseKeyUpdateWithWhereUniqueWithoutProductInput = {
+    where: LicenseKeyWhereUniqueInput
+    data: XOR<LicenseKeyUpdateWithoutProductInput, LicenseKeyUncheckedUpdateWithoutProductInput>
+  }
+
+  export type LicenseKeyUpdateManyWithWhereWithoutProductInput = {
+    where: LicenseKeyScalarWhereInput
+    data: XOR<LicenseKeyUpdateManyMutationInput, LicenseKeyUncheckedUpdateManyWithoutProductInput>
+  }
+
   export type ProductCreateWithoutTagsInput = {
     id?: string
     title: string
@@ -112695,6 +116511,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -112707,6 +116525,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     files?: ProductFileCreateNestedManyWithoutProductInput
@@ -112721,6 +116542,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutTagsInput = {
@@ -112748,6 +116570,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -112760,6 +116584,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
@@ -112772,6 +116599,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutTagsInput = {
@@ -112832,6 +116660,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -112844,6 +116674,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     files?: ProductFileUpdateManyWithoutProductNestedInput
@@ -112858,6 +116691,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutTagsInput = {
@@ -112885,6 +116719,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -112897,6 +116733,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
@@ -112909,6 +116748,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type TagUpsertWithoutProductsInput = {
@@ -112959,6 +116799,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -112971,6 +116813,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -112985,6 +116830,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutFilesInput = {
@@ -113012,6 +116858,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -113024,6 +116872,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
@@ -113036,6 +116887,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutFilesInput = {
@@ -113100,6 +116952,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -113112,6 +116966,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -113126,6 +116983,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutFilesInput = {
@@ -113153,6 +117011,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -113165,6 +117025,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
@@ -113177,6 +117040,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductVersionUpsertWithoutFilesInput = {
@@ -113231,6 +117095,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -113243,6 +117109,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -113257,6 +117126,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutVersionsInput = {
@@ -113284,6 +117154,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -113296,6 +117168,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
@@ -113308,6 +117183,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutVersionsInput = {
@@ -113383,6 +117259,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -113395,6 +117273,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -113409,6 +117290,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutVersionsInput = {
@@ -113436,6 +117318,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -113448,6 +117332,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
@@ -113460,6 +117347,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductFileUpsertWithWhereUniqueWithoutVersionInput = {
@@ -113534,6 +117422,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -113546,6 +117436,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -113560,6 +117453,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCollectionProductsInput = {
@@ -113587,6 +117481,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -113599,6 +117495,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -113611,6 +117510,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCollectionProductsInput = {
@@ -113691,6 +117591,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -113703,6 +117605,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -113717,6 +117622,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCollectionProductsInput = {
@@ -113744,6 +117650,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -113756,6 +117664,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -113768,6 +117679,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserCreateWithoutCartInput = {
@@ -113806,6 +117718,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCartInput = {
@@ -113844,6 +117757,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCartInput = {
@@ -113926,6 +117840,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCartInput = {
@@ -113964,6 +117879,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CartItemUpsertWithWhereUniqueWithoutCartInput = {
@@ -114026,6 +117942,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -114038,6 +117956,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -114052,6 +117973,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCartItemsInput = {
@@ -114079,6 +118001,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -114091,6 +118015,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -114103,6 +118030,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCartItemsInput = {
@@ -114171,6 +118099,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -114183,6 +118113,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -114197,6 +118130,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCartItemsInput = {
@@ -114224,6 +118158,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -114236,6 +118172,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -114248,6 +118187,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserCreateWithoutOrdersInput = {
@@ -114286,6 +118226,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -114324,6 +118265,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -114552,6 +118494,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LicenseKeyCreateWithoutOrderInput = {
+    id?: string
+    key: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutLicenseKeysInput
+    buyer: UserCreateNestedOneWithoutLicenseKeysInput
+    activations?: LicenseActivationCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyUncheckedCreateWithoutOrderInput = {
+    id?: string
+    key: string
+    productId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activations?: LicenseActivationUncheckedCreateNestedManyWithoutLicenseKeyInput
+  }
+
+  export type LicenseKeyCreateOrConnectWithoutOrderInput = {
+    where: LicenseKeyWhereUniqueInput
+    create: XOR<LicenseKeyCreateWithoutOrderInput, LicenseKeyUncheckedCreateWithoutOrderInput>
+  }
+
+  export type LicenseKeyCreateManyOrderInputEnvelope = {
+    data: LicenseKeyCreateManyOrderInput | LicenseKeyCreateManyOrderInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutOrdersInput = {
     update: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
     create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
@@ -114599,6 +118579,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -114637,6 +118618,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -114815,6 +118797,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CommissionLedger"> | Date | string
   }
 
+  export type LicenseKeyUpsertWithWhereUniqueWithoutOrderInput = {
+    where: LicenseKeyWhereUniqueInput
+    update: XOR<LicenseKeyUpdateWithoutOrderInput, LicenseKeyUncheckedUpdateWithoutOrderInput>
+    create: XOR<LicenseKeyCreateWithoutOrderInput, LicenseKeyUncheckedCreateWithoutOrderInput>
+  }
+
+  export type LicenseKeyUpdateWithWhereUniqueWithoutOrderInput = {
+    where: LicenseKeyWhereUniqueInput
+    data: XOR<LicenseKeyUpdateWithoutOrderInput, LicenseKeyUncheckedUpdateWithoutOrderInput>
+  }
+
+  export type LicenseKeyUpdateManyWithWhereWithoutOrderInput = {
+    where: LicenseKeyScalarWhereInput
+    data: XOR<LicenseKeyUpdateManyMutationInput, LicenseKeyUncheckedUpdateManyWithoutOrderInput>
+  }
+
   export type OrderCreateWithoutItemsInput = {
     id?: string
     status?: $Enums.OrderStatus
@@ -114825,6 +118823,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     buyer: UserCreateNestedOneWithoutOrdersInput
@@ -114832,6 +118832,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutItemsInput = {
@@ -114845,12 +118846,15 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutItemsInput = {
@@ -114881,6 +118885,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -114893,6 +118899,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -114907,6 +118916,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutOrderItemsInput = {
@@ -114934,6 +118944,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -114946,6 +118958,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -114958,6 +118973,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutOrderItemsInput = {
@@ -115015,6 +119031,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -115022,6 +119040,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
@@ -115035,12 +119054,15 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type ProductUpsertWithoutOrderItemsInput = {
@@ -115077,6 +119099,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -115089,6 +119113,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -115103,6 +119130,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutOrderItemsInput = {
@@ -115130,6 +119158,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -115142,6 +119172,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -115154,6 +119187,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type DownloadUpsertWithoutOrderItemInput = {
@@ -115201,6 +119235,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     buyer: UserCreateNestedOneWithoutOrdersInput
@@ -115208,6 +119244,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutPaymentInput = {
@@ -115221,12 +119258,15 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutPaymentInput = {
@@ -115291,6 +119331,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -115298,6 +119340,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutPaymentInput = {
@@ -115311,12 +119354,15 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type RefundUpsertWithWhereUniqueWithoutPaymentInput = {
@@ -115345,6 +119391,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     buyer: UserCreateNestedOneWithoutOrdersInput
@@ -115352,6 +119400,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutRefundsInput = {
@@ -115365,12 +119414,15 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutRefundsInput = {
@@ -115434,6 +119486,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -115441,6 +119495,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutRefundsInput = {
@@ -115454,12 +119509,15 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type PaymentUpsertWithoutRefundsInput = {
@@ -115557,6 +119615,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -115569,6 +119629,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -115583,6 +119646,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutDownloadsInput = {
@@ -115610,6 +119674,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -115622,6 +119688,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -115634,6 +119703,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutDownloadsInput = {
@@ -115677,6 +119747,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutDownloadsInput = {
@@ -115715,6 +119786,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutDownloadsInput = {
@@ -115823,6 +119895,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -115835,6 +119909,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -115849,6 +119926,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutDownloadsInput = {
@@ -115876,6 +119954,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -115888,6 +119968,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -115900,6 +119983,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserUpsertWithoutDownloadsInput = {
@@ -115949,6 +120033,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDownloadsInput = {
@@ -115987,6 +120072,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type DownloadLogUpsertWithWhereUniqueWithoutDownloadInput = {
@@ -116106,6 +120192,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -116118,6 +120206,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -116132,6 +120223,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutReviewsInput = {
@@ -116159,6 +120251,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -116171,6 +120265,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -116183,6 +120280,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutReviewsInput = {
@@ -116226,6 +120324,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
@@ -116264,6 +120363,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutReviewsInput = {
@@ -116327,6 +120427,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -116339,6 +120441,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -116353,6 +120458,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutReviewsInput = {
@@ -116380,6 +120486,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -116392,6 +120500,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -116404,6 +120515,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserUpsertWithoutReviewsInput = {
@@ -116453,6 +120565,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -116491,6 +120604,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type ReviewHelpfulVoteUpsertWithWhereUniqueWithoutReviewInput = {
@@ -116639,6 +120753,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -116677,6 +120792,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -116811,6 +120927,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -116849,6 +120966,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type WalletTransactionUpsertWithWhereUniqueWithoutWalletInput = {
@@ -117310,6 +121428,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutAffiliateInput = {
@@ -117348,6 +121467,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutAffiliateInput = {
@@ -117662,6 +121782,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAffiliateInput = {
@@ -117700,6 +121821,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type AffiliateLinkUpsertWithWhereUniqueWithoutAffiliateInput = {
@@ -117924,6 +122046,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -117936,6 +122060,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -117950,6 +122077,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutAffiliateLinksInput = {
@@ -117977,6 +122105,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -117989,6 +122119,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -118001,6 +122134,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutAffiliateLinksInput = {
@@ -118245,6 +122379,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -118257,6 +122393,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -118271,6 +122410,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutAffiliateLinksInput = {
@@ -118298,6 +122438,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -118310,6 +122452,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -118322,6 +122467,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type AffiliateClickUpsertWithWhereUniqueWithoutLinkInput = {
@@ -118501,6 +122647,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -118513,6 +122661,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -118527,6 +122678,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutAffiliateClicksInput = {
@@ -118554,6 +122706,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -118566,6 +122720,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -118578,6 +122735,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutAffiliateClicksInput = {
@@ -118737,6 +122895,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -118749,6 +122909,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -118763,6 +122926,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutAffiliateClicksInput = {
@@ -118790,6 +122954,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -118802,6 +122968,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -118814,6 +122983,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type AffiliateCreateWithoutAttributionsInput = {
@@ -118945,6 +123115,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -118957,6 +123129,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -118971,6 +123146,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutAffiliateAttributionsInput = {
@@ -118998,6 +123174,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -119010,6 +123188,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -119022,6 +123203,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutAffiliateAttributionsInput = {
@@ -119181,6 +123363,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -119193,6 +123377,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -119207,6 +123394,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutAffiliateAttributionsInput = {
@@ -119234,6 +123422,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -119246,6 +123436,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -119258,6 +123451,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type AffiliateCreateWithoutConversionsInput = {
@@ -119376,6 +123570,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     buyer: UserCreateNestedOneWithoutOrdersInput
@@ -119383,6 +123579,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutOrderInput
     refunds?: RefundCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutAffiliateConversionsInput = {
@@ -119396,12 +123593,15 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutAffiliateConversionsInput = {
@@ -119572,6 +123772,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -119579,6 +123781,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutOrderNestedInput
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutAffiliateConversionsInput = {
@@ -119592,12 +123795,15 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type AffiliatePayoutItemUpsertWithWhereUniqueWithoutConversionInput = {
@@ -119637,6 +123843,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     buyer: UserCreateNestedOneWithoutOrdersInput
@@ -119644,6 +123852,7 @@ export namespace Prisma {
     payment?: PaymentCreateNestedOneWithoutOrderInput
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutCommissionLedgerInput = {
@@ -119657,12 +123866,15 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutCommissionLedgerInput = {
@@ -119691,6 +123903,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -119698,6 +123912,7 @@ export namespace Prisma {
     payment?: PaymentUpdateOneWithoutOrderNestedInput
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutCommissionLedgerInput = {
@@ -119711,12 +123926,15 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type AffiliateCreateWithoutPayoutsInput = {
@@ -120114,6 +124332,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -120126,6 +124346,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -120140,6 +124363,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutPromotionalAssetsInput = {
@@ -120167,6 +124391,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -120179,6 +124405,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -120191,6 +124420,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutPromotionalAssetsInput = {
@@ -120232,6 +124462,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -120244,6 +124476,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -120258,6 +124493,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutPromotionalAssetsInput = {
@@ -120285,6 +124521,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -120297,6 +124535,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -120309,6 +124550,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type AffiliateCreateWithoutFraudFlagsInput = {
@@ -120617,6 +124859,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutWishlistInput = {
@@ -120655,6 +124898,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutWishlistInput = {
@@ -120731,6 +124975,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWishlistInput = {
@@ -120769,6 +125014,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type WishlistItemUpsertWithWhereUniqueWithoutWishlistInput = {
@@ -120831,6 +125077,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -120843,6 +125091,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     creator: CreatorProfileCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     tags?: ProductTagCreateNestedManyWithoutProductInput
@@ -120857,6 +125108,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutWishlistItemsInput = {
@@ -120884,6 +125136,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -120896,6 +125150,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
     tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
     files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -120908,6 +125165,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutWishlistItemsInput = {
@@ -120976,6 +125234,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -120988,6 +125248,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
@@ -121002,6 +125265,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutWishlistItemsInput = {
@@ -121029,6 +125293,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -121041,6 +125307,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -121053,6 +125322,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -121091,6 +125361,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -121129,6 +125400,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -121183,6 +125455,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -121221,6 +125494,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type TicketMessageCreateWithoutTicketInput = {
@@ -121285,6 +125559,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutSupportTicketsInput = {
@@ -121323,6 +125598,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -121366,6 +125642,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTicketsInput = {
@@ -121404,6 +125681,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTicketsInput = {
@@ -121474,6 +125752,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupportTicketsInput = {
@@ -121512,6 +125791,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUpsertWithoutAssignedTicketsInput = {
@@ -121561,6 +125841,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
@@ -121599,6 +125880,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type SupportTicketCreateWithoutMessagesInput = {
@@ -121668,6 +125950,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutTicketMessagesInput = {
@@ -121706,6 +125989,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutTicketMessagesInput = {
@@ -121797,6 +126081,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketMessagesInput = {
@@ -121835,6 +126120,7 @@ export namespace Prisma {
     supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutContactMessagesInput = {
@@ -121873,6 +126159,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutContactMessagesInput = {
@@ -121911,6 +126198,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutContactMessagesInput = {
@@ -121965,6 +126253,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactMessagesInput = {
@@ -122003,6 +126292,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -122041,6 +126331,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -122079,6 +126370,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -122165,6 +126457,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -122203,6 +126496,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreditPurchaseUpsertWithWhereUniqueWithoutSubscriptionInput = {
@@ -122305,6 +126599,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCreditPurchasesInput = {
@@ -122343,6 +126638,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCreditPurchasesInput = {
@@ -122461,6 +126757,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreditPurchasesInput = {
@@ -122499,6 +126796,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreditPackUpsertWithoutPurchasesInput = {
@@ -122613,6 +126911,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCreditBalanceInput = {
@@ -122651,6 +126950,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCreditBalanceInput = {
@@ -122735,6 +127035,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreditBalanceInput = {
@@ -122773,6 +127074,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreditTransactionUpsertWithWhereUniqueWithoutBalanceInput = {
@@ -122897,6 +127199,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutUsageRecordsInput = {
@@ -122935,6 +127238,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutUsageRecordsInput = {
@@ -122989,6 +127293,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsageRecordsInput = {
@@ -123027,6 +127332,656 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+  }
+
+  export type ProductCreateWithoutLicenseKeysInput = {
+    id?: string
+    title: string
+    slug: string
+    description: string
+    shortDescription?: string | null
+    status?: $Enums.ProductStatus
+    coverImage?: string | null
+    thumbnail?: string | null
+    previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    compareAtPrice?: Decimal | DecimalJsLike | number | string | null
+    currency?: string
+    licenseType: $Enums.LicenseType
+    version?: string
+    fileSize?: bigint | number
+    downloadCount?: number
+    viewCount?: number
+    rating?: Decimal | DecimalJsLike | number | string
+    averageRating?: Decimal | DecimalJsLike | number | string
+    reviewCount?: number
+    isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
+    publishedAt?: Date | string | null
+    affiliateEnabled?: boolean
+    affiliateStatus?: $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: string
+    affiliateCommissionRate?: number | null
+    affiliateApprovedAt?: Date | string | null
+    affiliateApprovedBy?: string | null
+    affiliateRejectionReason?: string | null
+    affiliateClickCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
+    creator: CreatorProfileCreateNestedOneWithoutProductsInput
+    category: CategoryCreateNestedOneWithoutProductsInput
+    tags?: ProductTagCreateNestedManyWithoutProductInput
+    files?: ProductFileCreateNestedManyWithoutProductInput
+    versions?: ProductVersionCreateNestedManyWithoutProductInput
+    reviews?: ReviewCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
+    collectionProducts?: CollectionProductCreateNestedManyWithoutProductInput
+    wishlistItems?: WishlistItemCreateNestedManyWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
+    downloads?: DownloadCreateNestedManyWithoutProductInput
+    affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
+    affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
+    affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
+    promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutLicenseKeysInput = {
+    id?: string
+    creatorId: string
+    categoryId: string
+    title: string
+    slug: string
+    description: string
+    shortDescription?: string | null
+    status?: $Enums.ProductStatus
+    coverImage?: string | null
+    thumbnail?: string | null
+    previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    compareAtPrice?: Decimal | DecimalJsLike | number | string | null
+    currency?: string
+    licenseType: $Enums.LicenseType
+    version?: string
+    fileSize?: bigint | number
+    downloadCount?: number
+    viewCount?: number
+    rating?: Decimal | DecimalJsLike | number | string
+    averageRating?: Decimal | DecimalJsLike | number | string
+    reviewCount?: number
+    isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
+    publishedAt?: Date | string | null
+    affiliateEnabled?: boolean
+    affiliateStatus?: $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: string
+    affiliateCommissionRate?: number | null
+    affiliateApprovedAt?: Date | string | null
+    affiliateApprovedBy?: string | null
+    affiliateRejectionReason?: string | null
+    affiliateClickCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
+    tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
+    files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
+    versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    collectionProducts?: CollectionProductUncheckedCreateNestedManyWithoutProductInput
+    wishlistItems?: WishlistItemUncheckedCreateNestedManyWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutProductInput
+    affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
+    affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
+    affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
+    promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutLicenseKeysInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutLicenseKeysInput, ProductUncheckedCreateWithoutLicenseKeysInput>
+  }
+
+  export type OrderCreateWithoutLicenseKeysInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    totalAmount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    invoiceNumber: string
+    paymentId?: string | null
+    idempotencyKey?: string | null
+    notes?: string | null
+    acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buyer: UserCreateNestedOneWithoutOrdersInput
+    items?: OrderItemCreateNestedManyWithoutOrderInput
+    payment?: PaymentCreateNestedOneWithoutOrderInput
+    refunds?: RefundCreateNestedManyWithoutOrderInput
+    affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
+    commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+  }
+
+  export type OrderUncheckedCreateWithoutLicenseKeysInput = {
+    id?: string
+    buyerId: string
+    status?: $Enums.OrderStatus
+    totalAmount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    invoiceNumber: string
+    paymentId?: string | null
+    idempotencyKey?: string | null
+    notes?: string | null
+    acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
+    payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
+    refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
+    affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
+    commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+  }
+
+  export type OrderCreateOrConnectWithoutLicenseKeysInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutLicenseKeysInput, OrderUncheckedCreateWithoutLicenseKeysInput>
+  }
+
+  export type UserCreateWithoutLicenseKeysInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLicenseKeysInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLicenseKeysInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLicenseKeysInput, UserUncheckedCreateWithoutLicenseKeysInput>
+  }
+
+  export type LicenseActivationCreateWithoutLicenseKeyInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    ipAddress?: string | null
+    activatedAt?: Date | string
+    lastSeenAt?: Date | string
+  }
+
+  export type LicenseActivationUncheckedCreateWithoutLicenseKeyInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    ipAddress?: string | null
+    activatedAt?: Date | string
+    lastSeenAt?: Date | string
+  }
+
+  export type LicenseActivationCreateOrConnectWithoutLicenseKeyInput = {
+    where: LicenseActivationWhereUniqueInput
+    create: XOR<LicenseActivationCreateWithoutLicenseKeyInput, LicenseActivationUncheckedCreateWithoutLicenseKeyInput>
+  }
+
+  export type LicenseActivationCreateManyLicenseKeyInputEnvelope = {
+    data: LicenseActivationCreateManyLicenseKeyInput | LicenseActivationCreateManyLicenseKeyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProductUpsertWithoutLicenseKeysInput = {
+    update: XOR<ProductUpdateWithoutLicenseKeysInput, ProductUncheckedUpdateWithoutLicenseKeysInput>
+    create: XOR<ProductCreateWithoutLicenseKeysInput, ProductUncheckedCreateWithoutLicenseKeysInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutLicenseKeysInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutLicenseKeysInput, ProductUncheckedUpdateWithoutLicenseKeysInput>
+  }
+
+  export type ProductUpdateWithoutLicenseKeysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    licenseType?: EnumLicenseTypeFieldUpdateOperationsInput | $Enums.LicenseType
+    version?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    downloadCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
+    affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: StringFieldUpdateOperationsInput | string
+    affiliateCommissionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliateApprovedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateRejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateClickCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
+    creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    tags?: ProductTagUpdateManyWithoutProductNestedInput
+    files?: ProductFileUpdateManyWithoutProductNestedInput
+    versions?: ProductVersionUpdateManyWithoutProductNestedInput
+    reviews?: ReviewUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
+    collectionProducts?: CollectionProductUpdateManyWithoutProductNestedInput
+    wishlistItems?: WishlistItemUpdateManyWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
+    downloads?: DownloadUpdateManyWithoutProductNestedInput
+    affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
+    affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
+    affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
+    promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutLicenseKeysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    licenseType?: EnumLicenseTypeFieldUpdateOperationsInput | $Enums.LicenseType
+    version?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    downloadCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
+    affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: StringFieldUpdateOperationsInput | string
+    affiliateCommissionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliateApprovedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateRejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateClickCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
+    files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
+    versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    collectionProducts?: CollectionProductUncheckedUpdateManyWithoutProductNestedInput
+    wishlistItems?: WishlistItemUncheckedUpdateManyWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutProductNestedInput
+    affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
+    affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
+    affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
+    promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type OrderUpsertWithoutLicenseKeysInput = {
+    update: XOR<OrderUpdateWithoutLicenseKeysInput, OrderUncheckedUpdateWithoutLicenseKeysInput>
+    create: XOR<OrderCreateWithoutLicenseKeysInput, OrderUncheckedCreateWithoutLicenseKeysInput>
+    where?: OrderWhereInput
+  }
+
+  export type OrderUpdateToOneWithWhereWithoutLicenseKeysInput = {
+    where?: OrderWhereInput
+    data: XOR<OrderUpdateWithoutLicenseKeysInput, OrderUncheckedUpdateWithoutLicenseKeysInput>
+  }
+
+  export type OrderUpdateWithoutLicenseKeysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
+    items?: OrderItemUpdateManyWithoutOrderNestedInput
+    payment?: PaymentUpdateOneWithoutOrderNestedInput
+    refunds?: RefundUpdateManyWithoutOrderNestedInput
+    affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
+    commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutLicenseKeysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+    payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
+    refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
+    affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
+    commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+  }
+
+  export type UserUpsertWithoutLicenseKeysInput = {
+    update: XOR<UserUpdateWithoutLicenseKeysInput, UserUncheckedUpdateWithoutLicenseKeysInput>
+    create: XOR<UserCreateWithoutLicenseKeysInput, UserUncheckedCreateWithoutLicenseKeysInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLicenseKeysInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLicenseKeysInput, UserUncheckedUpdateWithoutLicenseKeysInput>
+  }
+
+  export type UserUpdateWithoutLicenseKeysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLicenseKeysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput = {
+    where: LicenseActivationWhereUniqueInput
+    update: XOR<LicenseActivationUpdateWithoutLicenseKeyInput, LicenseActivationUncheckedUpdateWithoutLicenseKeyInput>
+    create: XOR<LicenseActivationCreateWithoutLicenseKeyInput, LicenseActivationUncheckedCreateWithoutLicenseKeyInput>
+  }
+
+  export type LicenseActivationUpdateWithWhereUniqueWithoutLicenseKeyInput = {
+    where: LicenseActivationWhereUniqueInput
+    data: XOR<LicenseActivationUpdateWithoutLicenseKeyInput, LicenseActivationUncheckedUpdateWithoutLicenseKeyInput>
+  }
+
+  export type LicenseActivationUpdateManyWithWhereWithoutLicenseKeyInput = {
+    where: LicenseActivationScalarWhereInput
+    data: XOR<LicenseActivationUpdateManyMutationInput, LicenseActivationUncheckedUpdateManyWithoutLicenseKeyInput>
+  }
+
+  export type LicenseActivationScalarWhereInput = {
+    AND?: LicenseActivationScalarWhereInput | LicenseActivationScalarWhereInput[]
+    OR?: LicenseActivationScalarWhereInput[]
+    NOT?: LicenseActivationScalarWhereInput | LicenseActivationScalarWhereInput[]
+    id?: UuidFilter<"LicenseActivation"> | string
+    licenseKeyId?: UuidFilter<"LicenseActivation"> | string
+    deviceId?: StringFilter<"LicenseActivation"> | string
+    deviceName?: StringNullableFilter<"LicenseActivation"> | string | null
+    ipAddress?: StringNullableFilter<"LicenseActivation"> | string | null
+    activatedAt?: DateTimeFilter<"LicenseActivation"> | Date | string
+    lastSeenAt?: DateTimeFilter<"LicenseActivation"> | Date | string
+  }
+
+  export type LicenseKeyCreateWithoutActivationsInput = {
+    id?: string
+    key: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutLicenseKeysInput
+    order: OrderCreateNestedOneWithoutLicenseKeysInput
+    buyer: UserCreateNestedOneWithoutLicenseKeysInput
+  }
+
+  export type LicenseKeyUncheckedCreateWithoutActivationsInput = {
+    id?: string
+    key: string
+    productId: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LicenseKeyCreateOrConnectWithoutActivationsInput = {
+    where: LicenseKeyWhereUniqueInput
+    create: XOR<LicenseKeyCreateWithoutActivationsInput, LicenseKeyUncheckedCreateWithoutActivationsInput>
+  }
+
+  export type LicenseKeyUpsertWithoutActivationsInput = {
+    update: XOR<LicenseKeyUpdateWithoutActivationsInput, LicenseKeyUncheckedUpdateWithoutActivationsInput>
+    create: XOR<LicenseKeyCreateWithoutActivationsInput, LicenseKeyUncheckedCreateWithoutActivationsInput>
+    where?: LicenseKeyWhereInput
+  }
+
+  export type LicenseKeyUpdateToOneWithWhereWithoutActivationsInput = {
+    where?: LicenseKeyWhereInput
+    data: XOR<LicenseKeyUpdateWithoutActivationsInput, LicenseKeyUncheckedUpdateWithoutActivationsInput>
+  }
+
+  export type LicenseKeyUpdateWithoutActivationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutLicenseKeysNestedInput
+    order?: OrderUpdateOneRequiredWithoutLicenseKeysNestedInput
+    buyer?: UserUpdateOneRequiredWithoutLicenseKeysNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateWithoutActivationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderCreateManyBuyerInput = {
@@ -123039,6 +127994,8 @@ export namespace Prisma {
     idempotencyKey?: string | null
     notes?: string | null
     acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -123191,6 +128148,19 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type LicenseKeyCreateManyBuyerInput = {
+    id?: string
+    key: string
+    productId: string
+    orderId: string
+    orderItemId?: string | null
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type OrderUpdateWithoutBuyerInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -123201,6 +128171,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUpdateManyWithoutOrderNestedInput
@@ -123208,6 +128180,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutBuyerInput = {
@@ -123220,6 +128193,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -123227,6 +128202,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateManyWithoutBuyerInput = {
@@ -123239,6 +128215,8 @@ export namespace Prisma {
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -123697,6 +128675,47 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LicenseKeyUpdateWithoutBuyerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutLicenseKeysNestedInput
+    order?: OrderUpdateOneRequiredWithoutLicenseKeysNestedInput
+    activations?: LicenseActivationUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateWithoutBuyerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activations?: LicenseActivationUncheckedUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateManyWithoutBuyerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserRoleCreateManyRoleInput = {
     id?: string
     userId: string
@@ -123798,6 +128817,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -123810,6 +128831,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
   }
 
   export type CollectionCreateManyCreatorInput = {
@@ -123866,6 +128890,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -123878,6 +128904,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
     files?: ProductFileUpdateManyWithoutProductNestedInput
@@ -123892,6 +128921,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCreatorInput = {
@@ -123918,6 +128948,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -123930,6 +128962,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -123943,6 +128978,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCreatorInput = {
@@ -123969,6 +129005,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -123981,6 +129019,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CollectionUpdateWithoutCreatorInput = {
@@ -124116,6 +129157,8 @@ export namespace Prisma {
     averageRating?: Decimal | DecimalJsLike | number | string
     reviewCount?: number
     isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
     publishedAt?: Date | string | null
     affiliateEnabled?: boolean
     affiliateStatus?: $Enums.ProductAffiliateStatus
@@ -124128,6 +129171,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
   }
 
   export type CategoryUpdateWithoutParentInput = {
@@ -124199,6 +129245,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -124211,6 +129259,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
     tags?: ProductTagUpdateManyWithoutProductNestedInput
     files?: ProductFileUpdateManyWithoutProductNestedInput
@@ -124225,6 +129276,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCategoryInput = {
@@ -124251,6 +129303,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -124263,6 +129317,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
     files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -124276,6 +129333,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCategoryInput = {
@@ -124302,6 +129360,8 @@ export namespace Prisma {
     averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reviewCount?: IntFieldUpdateOperationsInput | number
     isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
     affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
@@ -124314,6 +129374,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductTagCreateManyTagInput = {
@@ -124502,6 +129565,19 @@ export namespace Prisma {
     fileUrl?: string | null
     active?: boolean
     createdAt?: Date | string
+  }
+
+  export type LicenseKeyCreateManyProductInput = {
+    id?: string
+    key: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ProductTagUpdateWithoutProductInput = {
@@ -124938,6 +130014,47 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LicenseKeyUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: OrderUpdateOneRequiredWithoutLicenseKeysNestedInput
+    buyer?: UserUpdateOneRequiredWithoutLicenseKeysNestedInput
+    activations?: LicenseActivationUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activations?: LicenseActivationUncheckedUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProductFileCreateManyVersionInput = {
     id?: string
     productId: string
@@ -125091,6 +130208,19 @@ export namespace Prisma {
     gatewayCurrency?: string | null
     gatewayReference?: string | null
     createdAt?: Date | string
+  }
+
+  export type LicenseKeyCreateManyOrderInput = {
+    id?: string
+    key: string
+    productId: string
+    orderItemId?: string | null
+    buyerId: string
+    maxActivations?: number
+    status?: $Enums.LicenseStatus
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type OrderItemUpdateWithoutOrderInput = {
@@ -125308,6 +130438,47 @@ export namespace Prisma {
     gatewayCurrency?: NullableStringFieldUpdateOperationsInput | string | null
     gatewayReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseKeyUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutLicenseKeysNestedInput
+    buyer?: UserUpdateOneRequiredWithoutLicenseKeysNestedInput
+    activations?: LicenseActivationUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activations?: LicenseActivationUncheckedUpdateManyWithoutLicenseKeyNestedInput
+  }
+
+  export type LicenseKeyUncheckedUpdateManyWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    maxActivations?: IntFieldUpdateOperationsInput | number
+    status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RefundCreateManyPaymentInput = {
@@ -126480,6 +131651,42 @@ export namespace Prisma {
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseActivationCreateManyLicenseKeyInput = {
+    id?: string
+    deviceId: string
+    deviceName?: string | null
+    ipAddress?: string | null
+    activatedAt?: Date | string
+    lastSeenAt?: Date | string
+  }
+
+  export type LicenseActivationUpdateWithoutLicenseKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseActivationUncheckedUpdateWithoutLicenseKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LicenseActivationUncheckedUpdateManyWithoutLicenseKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

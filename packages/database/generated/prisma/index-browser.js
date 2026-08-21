@@ -321,6 +321,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   averageRating: 'averageRating',
   reviewCount: 'reviewCount',
   isFeatured: 'isFeatured',
+  isHeroProduct: 'isHeroProduct',
+  isAffiliatePick: 'isAffiliatePick',
   publishedAt: 'publishedAt',
   affiliateEnabled: 'affiliateEnabled',
   affiliateStatus: 'affiliateStatus',
@@ -332,7 +334,10 @@ exports.Prisma.ProductScalarFieldEnum = {
   affiliateClickCount: 'affiliateClickCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  licenseKeysEnabled: 'licenseKeysEnabled',
+  licenseMaxActivations: 'licenseMaxActivations',
+  licenseValidityDays: 'licenseValidityDays'
 };
 
 exports.Prisma.ProductTagScalarFieldEnum = {
@@ -400,6 +405,8 @@ exports.Prisma.OrderScalarFieldEnum = {
   idempotencyKey: 'idempotencyKey',
   notes: 'notes',
   acquisitionSource: 'acquisitionSource',
+  couponCode: 'couponCode',
+  discountAmount: 'discountAmount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -952,6 +959,30 @@ exports.Prisma.UsageRecordScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LicenseKeyScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  productId: 'productId',
+  orderId: 'orderId',
+  orderItemId: 'orderItemId',
+  buyerId: 'buyerId',
+  maxActivations: 'maxActivations',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LicenseActivationScalarFieldEnum = {
+  id: 'id',
+  licenseKeyId: 'licenseKeyId',
+  deviceId: 'deviceId',
+  deviceName: 'deviceName',
+  ipAddress: 'ipAddress',
+  activatedAt: 'activatedAt',
+  lastSeenAt: 'lastSeenAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1210,6 +1241,12 @@ exports.CreditTransactionType = exports.$Enums.CreditTransactionType = {
   EXPIRY: 'EXPIRY'
 };
 
+exports.LicenseStatus = exports.$Enums.LicenseStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  REVOKED: 'REVOKED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -1275,7 +1312,9 @@ exports.Prisma.ModelName = {
   CreditPurchase: 'CreditPurchase',
   CreditBalance: 'CreditBalance',
   CreditTransaction: 'CreditTransaction',
-  UsageRecord: 'UsageRecord'
+  UsageRecord: 'UsageRecord',
+  LicenseKey: 'LicenseKey',
+  LicenseActivation: 'LicenseActivation'
 };
 
 /**

@@ -58,6 +58,9 @@ export class ProductsService {
     thumbnail?: string;
     coverImage?: string;
     previewImages?: string[];
+    licenseKeysEnabled?: boolean;
+    licenseMaxActivations?: number;
+    licenseValidityDays?: number | null;
     deliveryUrl?: string;
     affiliateEnabled?: boolean;
     affiliateCommissionRate?: number;
@@ -124,6 +127,9 @@ export class ProductsService {
           thumbnail: data.thumbnail || null,
           coverImage: data.coverImage || null,
           previewImages: data.previewImages ?? [],
+          licenseKeysEnabled: data.licenseKeysEnabled ?? false,
+          licenseMaxActivations: data.licenseMaxActivations ?? 2,
+          licenseValidityDays: data.licenseValidityDays ?? null,
           deliveryUrl: data.deliveryUrl ? data.deliveryUrl.trim() : null,
           affiliateEnabled,
           affiliateStatus: affiliateEnabled ? 'PENDING_REVIEW' : 'DISABLED',

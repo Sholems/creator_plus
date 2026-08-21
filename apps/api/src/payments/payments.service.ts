@@ -6,6 +6,7 @@ import { WebhookEvent } from './providers/payment-provider.interface';
 import { EmailService } from '../email/email.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from '../affiliates/commission.service';
+import { LicensesService } from '../licenses/licenses.service';
 import { clawBackCreatorCredits } from '../common/money-reversal';
 import { groupBy } from '../common/group-by';
 import { webBaseUrl } from '../common/urls';
@@ -23,6 +24,7 @@ export class PaymentsService {
     private readonly emailService: EmailService,
     private readonly notificationsService: NotificationsService,
     private readonly commissionService: CommissionService,
+    private readonly licensesService: LicensesService,
   ) {}
 
   private readonly logger = new Logger(PaymentsService.name);
@@ -302,6 +304,21 @@ export class PaymentsService {
           userId: order.buyerId,
           token: uuidv4(),
           expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        })),
+      });
+
+      // Issue license keys for any license-enabled items (no-op otherwise).
+      await this.licensesService.issueForOrder(tx, {
+        id: order.id,
+        buyerId: order.buyerId,
+        items: order.items.map((i) => ({
+          id: i.id,
+          productId: i.productId,
+          product: {
+            licenseKeysEnabled: i.product.licenseKeysEnabled,
+            licenseMaxActivations: i.product.licenseMaxActivations,
+            licenseValidityDays: i.product.licenseValidityDays,
+          },
         })),
       });
 
