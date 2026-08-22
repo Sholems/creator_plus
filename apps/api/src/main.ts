@@ -53,6 +53,32 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1');
 
+  // The public license endpoints are a cross-origin API: any creator's app (on
+  // its own domain) calls them to activate/validate a key. They use no cookies —
+  // the license key travels in the body — so a wildcard, credential-less CORS
+  // policy is safe here and must run BEFORE the credentialed app-only policy
+  // below (which only allows the platform's own origins). Runs first so it can
+  // answer the preflight for these paths regardless of origin.
+  const PUBLIC_LICENSE_PATHS = new Set([
+    '/api/v1/licenses/activate',
+    '/api/v1/licenses/validate',
+    '/api/v1/licenses/deactivate',
+    '/api/v1/licenses/public-key',
+  ]);
+  app.use((req: any, res: any, next: any) => {
+    if (PUBLIC_LICENSE_PATHS.has(req.path)) {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+      res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+      if (req.method === 'OPTIONS') {
+        res.sendStatus(204);
+        return;
+      }
+    }
+    next();
+  });
+
   // Allow a comma-separated list of origins (web on :3000, admin on :3002, ...).
   const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:3002')
     .split(',')
