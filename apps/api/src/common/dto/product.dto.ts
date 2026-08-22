@@ -158,6 +158,23 @@ export class UpdateProductDto {
   @IsString({ each: true })
   previewImages?: string[];
 
+  // Licensing (activation keys). Optional; omitted fields are left unchanged.
+  @IsOptional()
+  @IsBoolean()
+  licenseKeysEnabled?: boolean;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  licenseMaxActivations?: number;
+
+  // Null = lifetime license; a positive number = validity in days.
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  licenseValidityDays?: number | null;
+
   /** Optional external delivery link buyers access after purchase. Empty clears. */
   @IsOptional()
   @IsString()
