@@ -32,6 +32,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     licenseMaxActivations: number;
     licenseValidityDays: number | null;
   }>({ licenseKeysEnabled: false, licenseMaxActivations: 2, licenseValidityDays: null });
+  const [backfilling, setBackfilling] = useState(false);
+  const [backfillMsg, setBackfillMsg] = useState('');
   const [description, setDescription] = useState('');
   const [digitalFile, setDigitalFile] = useState<File | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
@@ -355,6 +357,26 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       </div>
     ) : null;
 
+  const handleBackfill = async () => {
+    if (!token) return;
+    setBackfilling(true);
+    setBackfillMsg('');
+    try {
+      const res = await api.backfillLicenses(token, productId);
+      setBackfillMsg(
+        res.issued > 0
+          ? `Issued ${res.issued} new key${res.issued === 1 ? '' : 's'} to past buyers${res.alreadyIssued ? ` (${res.alreadyIssued} already had one)` : ''}.`
+          : res.totalPaid > 0
+            ? `All ${res.totalPaid} past buyer${res.totalPaid === 1 ? '' : 's'} already have a key.`
+            : 'No past buyers found for this product yet.',
+      );
+    } catch (err: any) {
+      setBackfillMsg(err.message || 'Could not issue keys');
+    } finally {
+      setBackfilling(false);
+    }
+  };
+
   if (isFetching) {
     return (
       <div>
@@ -630,6 +652,29 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             validityDays={licensing.licenseValidityDays}
             onChange={setLicensing}
           />
+
+          {licensing.licenseKeysEnabled && (
+            <div className="rounded-2xl border border-ink-100 bg-cream-50 p-6">
+              <h3 className="font-display text-base font-semibold text-ink-900">Issue keys to past buyers</h3>
+              <p className="mt-1 text-sm text-ink-500">
+                Anyone who bought this product before you enabled license keys has no key yet. Issue keys
+                for those past purchases — they&apos;ll appear in each buyer&apos;s dashboard. This is safe to
+                run more than once; existing keys are never duplicated.
+              </p>
+              <p className="mt-2 text-xs text-ink-400">
+                Save any changes to the settings above first, so new keys use the right device limit and validity.
+              </p>
+              <button
+                type="button"
+                onClick={handleBackfill}
+                disabled={backfilling}
+                className="mt-4 rounded-full border border-forest-300 bg-white px-5 py-2.5 text-sm font-semibold text-forest-800 transition-colors hover:bg-cream-100 disabled:opacity-50"
+              >
+                {backfilling ? 'Issuing…' : 'Issue keys to past buyers'}
+              </button>
+              {backfillMsg && <p className="mt-3 text-sm font-medium text-forest-700">{backfillMsg}</p>}
+            </div>
+          )}
 
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
             <h2 className="font-display text-lg font-semibold text-ink-900">Digital File</h2>

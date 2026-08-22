@@ -56,6 +56,65 @@ export class LicensesService {
     }
   }
 
+  /**
+   * Retroactively issue keys to buyers who purchased a product before licensing
+   * was enabled on it. Idempotent: only creates a key for a paid order item that
+   * doesn't already have one, so it is safe to run repeatedly.
+   */
+  async backfillForProduct(userId: string, productId: string) {
+    const creatorId = await this.creatorProfileId(userId);
+    const product = await prisma.product.findFirst({
+      where: { id: productId, creatorId },
+      select: {
+        id: true,
+        licenseKeysEnabled: true,
+        licenseMaxActivations: true,
+        licenseValidityDays: true,
+      },
+    });
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    if (!product.licenseKeysEnabled) {
+      throw new BadRequestException(
+        'Turn on License Keys for this product and save before issuing keys to past buyers.',
+      );
+    }
+
+    const PAID = ['PAID', 'FULFILLED', 'COMPLETED'] as any[];
+    const [items, existing] = await Promise.all([
+      prisma.orderItem.findMany({
+        where: { productId, order: { status: { in: PAID } } },
+        select: { id: true, order: { select: { id: true, buyerId: true } } },
+      }),
+      prisma.licenseKey.findMany({
+        where: { productId },
+        select: { orderItemId: true },
+      }),
+    ]);
+    const have = new Set(existing.map((e) => e.orderItemId).filter(Boolean));
+    const missing = items.filter((i) => !have.has(i.id));
+
+    const days = product.licenseValidityDays ?? null;
+    const expiresAt = days ? new Date(Date.now() + days * 24 * 60 * 60 * 1000) : null;
+
+    for (const item of missing) {
+      await prisma.licenseKey.create({
+        data: {
+          key: generateLicenseKey(),
+          productId,
+          orderId: item.order.id,
+          orderItemId: item.id,
+          buyerId: item.order.buyerId,
+          maxActivations: product.licenseMaxActivations ?? 2,
+          expiresAt,
+        },
+      });
+    }
+
+    return { issued: missing.length, alreadyIssued: have.size, totalPaid: items.length };
+  }
+
   // ─── Activation (public, called by the buyer's app) ───────────────────────
 
   private async loadKeyOrThrow(key: string) {

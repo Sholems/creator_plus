@@ -93,6 +93,14 @@ export class LicensesController {
     return this.licenses.findForCreator(req.user.sub);
   }
 
+  @Post('creator/backfill/:productId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Issue license keys to past buyers of a product' })
+  backfill(@Request() req: any, @Param('productId') productId: string) {
+    return this.licenses.backfillForProduct(req.user.sub, productId);
+  }
+
   @Post('creator/:id/revoke')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

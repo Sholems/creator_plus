@@ -477,6 +477,13 @@ class ApiClient {
     return this.fetch<any>(`/licenses/creator/${id}`, { method: 'PATCH', body: data, token });
   }
 
+  async backfillLicenses(token: string, productId: string) {
+    return this.fetch<{ issued: number; alreadyIssued: number; totalPaid: number }>(
+      `/licenses/creator/backfill/${productId}`,
+      { method: 'POST', token },
+    );
+  }
+
   async getMyPayouts(token: string, params?: { page?: number; perPage?: number }) {
     const searchParams = new URLSearchParams();
     if (params?.page) searchParams.set('page', params.page.toString());
