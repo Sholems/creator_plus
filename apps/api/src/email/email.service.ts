@@ -86,6 +86,41 @@ export class EmailService {
     return this.send(to, `Order ${order.id.slice(0, 8).toUpperCase()} confirmed`, html);
   }
 
+  async sendEventTicket(
+    to: string,
+    name: string,
+    data: {
+      eventTitle: string;
+      whenText: string;
+      locationText: string;
+      joinUrl?: string | null;
+      ticketCodes: string[];
+      viewUrl: string;
+    },
+  ) {
+    const esc = (s: string) =>
+      String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const many = data.ticketCodes.length > 1;
+    const codes = data.ticketCodes.map((c) => `<code>${esc(c)}</code>`).join(' &nbsp; ');
+    const body = `
+      <p>Hi ${esc(name)},</p>
+      <p>Your ticket${many ? 's are' : ' is'} confirmed for <strong>${esc(data.eventTitle)}</strong>.</p>
+      <p><strong>When:</strong> ${esc(data.whenText)}<br/>
+         <strong>Where:</strong> ${esc(data.locationText)}</p>
+      ${data.joinUrl ? `<p><strong>Join link:</strong> <a href="${esc(data.joinUrl)}">${esc(data.joinUrl)}</a></p>` : ''}
+      <p><strong>Ticket code${many ? 's' : ''}:</strong> ${codes}</p>
+      <p>Show the QR code from your dashboard at the door to check in.</p>
+    `;
+    const html = renderEmailLayout({
+      preview: `Your ticket to ${data.eventTitle}`,
+      eyebrow: 'You’re going!',
+      title: data.eventTitle,
+      body,
+      cta: { label: 'View my tickets', url: data.viewUrl },
+    });
+    return this.send(to, `Your ticket to ${data.eventTitle}`, html);
+  }
+
   async sendNewSale(to: string, name: string, product: { title: string }, amount: number) {
     const html = renderEmailLayout({
       preview: 'You have a new sale!',

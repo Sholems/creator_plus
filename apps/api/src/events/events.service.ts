@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { prisma, Prisma, EventTicketStatus } from '@creatormarket/database';
 import { generateTicketCode } from './event-ticket.util';
+import { EmailService } from '../email/email.service';
+import { webBaseUrl } from '../common/urls';
 
 // Seats are held for this long while the buyer completes payment; an abandoned
 // checkout's holds simply expire and stop counting against capacity.
@@ -20,6 +22,8 @@ const OCCUPYING = (now: Date): Prisma.TicketWhereInput => ({
 
 @Injectable()
 export class EventsService {
+  constructor(private readonly emailService: EmailService) {}
+
   /** Create or update the Event config attached to an EVENT-type product. */
   async upsertForProduct(
     productId: string,
@@ -191,6 +195,65 @@ export class EventsService {
         event: { ...t.event, joinUrl: active ? t.event.joinUrl : null },
       };
     });
+  }
+
+  /** Email the buyer their ticket(s) for an order — join link, when/where, and
+   *  codes. Best-effort; called post-fulfillment. */
+  async sendTicketConfirmations(orderId: string) {
+    const tickets = await prisma.ticket.findMany({
+      where: { orderId, status: EventTicketStatus.VALID },
+      select: {
+        ticketCode: true,
+        buyer: { select: { email: true, displayName: true } },
+        event: {
+          select: {
+            startsAt: true,
+            timezone: true,
+            locationType: true,
+            joinUrl: true,
+            venueName: true,
+            venueAddress: true,
+            product: { select: { title: true } },
+          },
+        },
+      },
+    });
+    if (tickets.length === 0) return;
+
+    const buyer = tickets[0].buyer;
+    if (!buyer?.email) return;
+
+    // Group ticket codes per event (an order usually has one).
+    const groups = new Map<string, { event: (typeof tickets)[number]['event']; codes: string[] }>();
+    for (const t of tickets) {
+      const key = t.event.product.title + t.event.startsAt.toISOString();
+      const g = groups.get(key) ?? { event: t.event, codes: [] };
+      g.codes.push(t.ticketCode);
+      groups.set(key, g);
+    }
+
+    for (const { event, codes } of groups.values()) {
+      const whenText =
+        new Intl.DateTimeFormat('en-NG', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+          timeZone: event.timezone,
+        }).format(event.startsAt) + ` (${event.timezone})`;
+      const locationText =
+        event.locationType === 'VIRTUAL'
+          ? 'Online event'
+          : [event.venueName, event.venueAddress].filter(Boolean).join(', ') || 'In person';
+      await this.emailService
+        .sendEventTicket(buyer.email, buyer.displayName || 'there', {
+          eventTitle: event.product.title,
+          whenText,
+          locationText,
+          joinUrl: event.locationType !== 'PHYSICAL' ? event.joinUrl : null,
+          ticketCodes: codes,
+          viewUrl: `${webBaseUrl()}/dashboard/tickets`,
+        })
+        .catch(() => undefined);
+    }
   }
 
   /** Confirm an order's held seats once payment succeeds (runs in fulfillment tx). */

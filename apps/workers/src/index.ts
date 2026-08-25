@@ -2,6 +2,7 @@ import { emailWorker } from './jobs/email';
 import { searchIndexWorker } from './jobs/search-index';
 import { notificationWorker } from './jobs/notification';
 import { recoveryWorker, scheduleRecovery } from './jobs/recovery';
+import { eventsWorker, scheduleEventsSweep } from './jobs/events';
 
 console.log('Starting workers...');
 
@@ -10,8 +11,13 @@ void scheduleRecovery().catch((err) => {
   console.error('Failed to schedule recovery sweep:', err.message);
 });
 
+// Register the repeatable events sweep (hold release + reminders).
+void scheduleEventsSweep().catch((err) => {
+  console.error('Failed to schedule events sweep:', err.message);
+});
+
 // Handle worker events
-const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker];
+const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker, eventsWorker];
 
 workers.forEach((worker) => {
   worker.on('completed', (job) => {

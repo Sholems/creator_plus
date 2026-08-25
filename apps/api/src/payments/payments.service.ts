@@ -451,6 +451,9 @@ export class PaymentsService {
     try {
     const webBase = webBaseUrl();
 
+      // Event tickets: email the buyer their join link / codes (best-effort).
+      void this.eventsService.sendTicketConfirmations(order.id);
+
       void this.emailService.sendOrderConfirmation(
         order.buyer.email,
         order.buyer.displayName || 'there',
