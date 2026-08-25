@@ -369,6 +369,18 @@ export type LicenseKey = $Result.DefaultSelection<Prisma.$LicenseKeyPayload>
  * A single device that has consumed one activation slot of a license key.
  */
 export type LicenseActivation = $Result.DefaultSelection<Prisma.$LicenseActivationPayload>
+/**
+ * Model Event
+ * Live-event configuration for a product whose productType is EVENT. Times are
+ * stored in UTC; `timezone` (IANA) is the canonical display zone.
+ */
+export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
+/**
+ * Model Ticket
+ * One seat. Reserved as HELD at checkout (with holdExpiresAt), confirmed to
+ * VALID on payment, and CHECKED_IN at the door.
+ */
+export type Ticket = $Result.DefaultSelection<Prisma.$TicketPayload>
 
 /**
  * Enums
@@ -695,6 +707,41 @@ export const LicenseStatus: {
 
 export type LicenseStatus = (typeof LicenseStatus)[keyof typeof LicenseStatus]
 
+
+export const ProductType: {
+  DIGITAL: 'DIGITAL',
+  EVENT: 'EVENT'
+};
+
+export type ProductType = (typeof ProductType)[keyof typeof ProductType]
+
+
+export const EventLocationType: {
+  VIRTUAL: 'VIRTUAL',
+  PHYSICAL: 'PHYSICAL',
+  HYBRID: 'HYBRID'
+};
+
+export type EventLocationType = (typeof EventLocationType)[keyof typeof EventLocationType]
+
+
+export const EventStatus: {
+  PUBLISHED: 'PUBLISHED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
+
+
+export const EventTicketStatus: {
+  HELD: 'HELD',
+  VALID: 'VALID',
+  CHECKED_IN: 'CHECKED_IN',
+  CANCELLED: 'CANCELLED'
+};
+
+export type EventTicketStatus = (typeof EventTicketStatus)[keyof typeof EventTicketStatus]
+
 }
 
 export type UserStatus = $Enums.UserStatus
@@ -812,6 +859,22 @@ export const CreditTransactionType: typeof $Enums.CreditTransactionType
 export type LicenseStatus = $Enums.LicenseStatus
 
 export const LicenseStatus: typeof $Enums.LicenseStatus
+
+export type ProductType = $Enums.ProductType
+
+export const ProductType: typeof $Enums.ProductType
+
+export type EventLocationType = $Enums.EventLocationType
+
+export const EventLocationType: typeof $Enums.EventLocationType
+
+export type EventStatus = $Enums.EventStatus
+
+export const EventStatus: typeof $Enums.EventStatus
+
+export type EventTicketStatus = $Enums.EventTicketStatus
+
+export const EventTicketStatus: typeof $Enums.EventTicketStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1600,6 +1663,26 @@ export class PrismaClient<
     * ```
     */
   get licenseActivation(): Prisma.LicenseActivationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.event`: Exposes CRUD operations for the **Event** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Events
+    * const events = await prisma.event.findMany()
+    * ```
+    */
+  get event(): Prisma.EventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ticket`: Exposes CRUD operations for the **Ticket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tickets
+    * const tickets = await prisma.ticket.findMany()
+    * ```
+    */
+  get ticket(): Prisma.TicketDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2107,7 +2190,9 @@ export namespace Prisma {
     CreditTransaction: 'CreditTransaction',
     UsageRecord: 'UsageRecord',
     LicenseKey: 'LicenseKey',
-    LicenseActivation: 'LicenseActivation'
+    LicenseActivation: 'LicenseActivation',
+    Event: 'Event',
+    Ticket: 'Ticket'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2126,7 +2211,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "licenseKey" | "licenseActivation"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "licenseKey" | "licenseActivation" | "event" | "ticket"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7088,6 +7173,154 @@ export namespace Prisma {
           }
         }
       }
+      Event: {
+        payload: Prisma.$EventPayload<ExtArgs>
+        fields: Prisma.EventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          findFirst: {
+            args: Prisma.EventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          findMany: {
+            args: Prisma.EventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>[]
+          }
+          create: {
+            args: Prisma.EventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          createMany: {
+            args: Prisma.EventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>[]
+          }
+          delete: {
+            args: Prisma.EventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          update: {
+            args: Prisma.EventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          deleteMany: {
+            args: Prisma.EventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>[]
+          }
+          upsert: {
+            args: Prisma.EventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          aggregate: {
+            args: Prisma.EventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEvent>
+          }
+          groupBy: {
+            args: Prisma.EventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventCountArgs<ExtArgs>
+            result: $Utils.Optional<EventCountAggregateOutputType> | number
+          }
+        }
+      }
+      Ticket: {
+        payload: Prisma.$TicketPayload<ExtArgs>
+        fields: Prisma.TicketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TicketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TicketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          findFirst: {
+            args: Prisma.TicketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TicketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          findMany: {
+            args: Prisma.TicketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>[]
+          }
+          create: {
+            args: Prisma.TicketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          createMany: {
+            args: Prisma.TicketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TicketCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>[]
+          }
+          delete: {
+            args: Prisma.TicketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          update: {
+            args: Prisma.TicketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          deleteMany: {
+            args: Prisma.TicketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TicketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TicketUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>[]
+          }
+          upsert: {
+            args: Prisma.TicketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TicketPayload>
+          }
+          aggregate: {
+            args: Prisma.TicketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTicket>
+          }
+          groupBy: {
+            args: Prisma.TicketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TicketGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TicketCountArgs<ExtArgs>
+            result: $Utils.Optional<TicketCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7251,6 +7484,8 @@ export namespace Prisma {
     usageRecord?: UsageRecordOmit
     licenseKey?: LicenseKeyOmit
     licenseActivation?: LicenseActivationOmit
+    event?: EventOmit
+    ticket?: TicketOmit
   }
 
   /* Types for Logging */
@@ -7348,6 +7583,7 @@ export namespace Prisma {
     ticketMessages: number
     passwordResetTokens: number
     licenseKeys: number
+    tickets: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7368,6 +7604,7 @@ export namespace Prisma {
     ticketMessages?: boolean | UserCountOutputTypeCountTicketMessagesArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
     licenseKeys?: boolean | UserCountOutputTypeCountLicenseKeysArgs
+    tickets?: boolean | UserCountOutputTypeCountTicketsArgs
   }
 
   // Custom InputTypes
@@ -7498,6 +7735,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLicenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LicenseKeyWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
   }
 
 
@@ -7952,6 +8196,7 @@ export namespace Prisma {
     affiliateConversions: number
     commissionLedger: number
     licenseKeys: number
+    tickets: number
   }
 
   export type OrderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7960,6 +8205,7 @@ export namespace Prisma {
     affiliateConversions?: boolean | OrderCountOutputTypeCountAffiliateConversionsArgs
     commissionLedger?: boolean | OrderCountOutputTypeCountCommissionLedgerArgs
     licenseKeys?: boolean | OrderCountOutputTypeCountLicenseKeysArgs
+    tickets?: boolean | OrderCountOutputTypeCountTicketsArgs
   }
 
   // Custom InputTypes
@@ -8006,6 +8252,13 @@ export namespace Prisma {
    */
   export type OrderCountOutputTypeCountLicenseKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LicenseKeyWhereInput
+  }
+
+  /**
+   * OrderCountOutputType without action
+   */
+  export type OrderCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
   }
 
 
@@ -8609,6 +8862,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type EventCountOutputType
+   */
+
+  export type EventCountOutputType = {
+    tickets: number
+  }
+
+  export type EventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tickets?: boolean | EventCountOutputTypeCountTicketsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCountOutputType
+     */
+    select?: EventCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -8864,6 +9148,7 @@ export namespace Prisma {
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     licenseKeys?: boolean | User$licenseKeysArgs<ExtArgs>
+    tickets?: boolean | User$ticketsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8941,6 +9226,7 @@ export namespace Prisma {
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     licenseKeys?: boolean | User$licenseKeysArgs<ExtArgs>
+    tickets?: boolean | User$ticketsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8973,6 +9259,7 @@ export namespace Prisma {
       ticketMessages: Prisma.$TicketMessagePayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
       licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
+      tickets: Prisma.$TicketPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9406,6 +9693,7 @@ export namespace Prisma {
     ticketMessages<T extends User$ticketMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     licenseKeys<T extends User$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, User$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10374,6 +10662,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
+  }
+
+  /**
+   * User.tickets
+   */
+  export type User$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
@@ -26316,6 +26628,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    productType: $Enums.ProductType | null
     licenseKeysEnabled: boolean | null
     licenseMaxActivations: number | null
     licenseValidityDays: number | null
@@ -26359,6 +26672,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    productType: $Enums.ProductType | null
     licenseKeysEnabled: boolean | null
     licenseMaxActivations: number | null
     licenseValidityDays: number | null
@@ -26403,6 +26717,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     deletedAt: number
+    productType: number
     licenseKeysEnabled: number
     licenseMaxActivations: number
     licenseValidityDays: number
@@ -26478,6 +26793,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    productType?: true
     licenseKeysEnabled?: true
     licenseMaxActivations?: true
     licenseValidityDays?: true
@@ -26521,6 +26837,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    productType?: true
     licenseKeysEnabled?: true
     licenseMaxActivations?: true
     licenseValidityDays?: true
@@ -26565,6 +26882,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    productType?: true
     licenseKeysEnabled?: true
     licenseMaxActivations?: true
     licenseValidityDays?: true
@@ -26696,6 +27014,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    productType: $Enums.ProductType
     licenseKeysEnabled: boolean
     licenseMaxActivations: number
     licenseValidityDays: number | null
@@ -26759,6 +27078,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    productType?: boolean
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: boolean
     licenseValidityDays?: boolean
@@ -26777,6 +27097,7 @@ export namespace Prisma {
     affiliateClicks?: boolean | Product$affiliateClicksArgs<ExtArgs>
     affiliateAttributions?: boolean | Product$affiliateAttributionsArgs<ExtArgs>
     promotionalAssets?: boolean | Product$promotionalAssetsArgs<ExtArgs>
+    event?: boolean | Product$eventArgs<ExtArgs>
     licenseKeys?: boolean | Product$licenseKeysArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -26820,6 +27141,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    productType?: boolean
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: boolean
     licenseValidityDays?: boolean
@@ -26866,6 +27188,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    productType?: boolean
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: boolean
     licenseValidityDays?: boolean
@@ -26912,12 +27235,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    productType?: boolean
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: boolean
     licenseValidityDays?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorId" | "categoryId" | "title" | "slug" | "description" | "shortDescription" | "status" | "coverImage" | "thumbnail" | "previewImages" | "deliveryUrl" | "price" | "compareAtPrice" | "currency" | "licenseType" | "version" | "fileSize" | "downloadCount" | "viewCount" | "rating" | "averageRating" | "reviewCount" | "isFeatured" | "isHeroProduct" | "isAffiliatePick" | "publishedAt" | "affiliateEnabled" | "affiliateStatus" | "affiliateCommissionType" | "affiliateCommissionRate" | "affiliateApprovedAt" | "affiliateApprovedBy" | "affiliateRejectionReason" | "affiliateClickCount" | "createdAt" | "updatedAt" | "deletedAt" | "licenseKeysEnabled" | "licenseMaxActivations" | "licenseValidityDays", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creatorId" | "categoryId" | "title" | "slug" | "description" | "shortDescription" | "status" | "coverImage" | "thumbnail" | "previewImages" | "deliveryUrl" | "price" | "compareAtPrice" | "currency" | "licenseType" | "version" | "fileSize" | "downloadCount" | "viewCount" | "rating" | "averageRating" | "reviewCount" | "isFeatured" | "isHeroProduct" | "isAffiliatePick" | "publishedAt" | "affiliateEnabled" | "affiliateStatus" | "affiliateCommissionType" | "affiliateCommissionRate" | "affiliateApprovedAt" | "affiliateApprovedBy" | "affiliateRejectionReason" | "affiliateClickCount" | "createdAt" | "updatedAt" | "deletedAt" | "productType" | "licenseKeysEnabled" | "licenseMaxActivations" | "licenseValidityDays", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | CreatorProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -26934,6 +27258,7 @@ export namespace Prisma {
     affiliateClicks?: boolean | Product$affiliateClicksArgs<ExtArgs>
     affiliateAttributions?: boolean | Product$affiliateAttributionsArgs<ExtArgs>
     promotionalAssets?: boolean | Product$promotionalAssetsArgs<ExtArgs>
+    event?: boolean | Product$eventArgs<ExtArgs>
     licenseKeys?: boolean | Product$licenseKeysArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -26964,6 +27289,7 @@ export namespace Prisma {
       affiliateClicks: Prisma.$AffiliateClickPayload<ExtArgs>[]
       affiliateAttributions: Prisma.$AffiliateAttributionPayload<ExtArgs>[]
       promotionalAssets: Prisma.$AffiliatePromotionalAssetPayload<ExtArgs>[]
+      event: Prisma.$EventPayload<ExtArgs> | null
       licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -27005,6 +27331,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      productType: $Enums.ProductType
       licenseKeysEnabled: boolean
       licenseMaxActivations: number
       licenseValidityDays: number | null
@@ -27417,6 +27744,7 @@ export namespace Prisma {
     affiliateClicks<T extends Product$affiliateClicksArgs<ExtArgs> = {}>(args?: Subset<T, Product$affiliateClicksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliateClickPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     affiliateAttributions<T extends Product$affiliateAttributionsArgs<ExtArgs> = {}>(args?: Subset<T, Product$affiliateAttributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliateAttributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     promotionalAssets<T extends Product$promotionalAssetsArgs<ExtArgs> = {}>(args?: Subset<T, Product$promotionalAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliatePromotionalAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    event<T extends Product$eventArgs<ExtArgs> = {}>(args?: Subset<T, Product$eventArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     licenseKeys<T extends Product$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, Product$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -27485,6 +27813,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
     readonly deletedAt: FieldRef<"Product", 'DateTime'>
+    readonly productType: FieldRef<"Product", 'ProductType'>
     readonly licenseKeysEnabled: FieldRef<"Product", 'Boolean'>
     readonly licenseMaxActivations: FieldRef<"Product", 'Int'>
     readonly licenseValidityDays: FieldRef<"Product", 'Int'>
@@ -28193,6 +28522,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AffiliatePromotionalAssetScalarFieldEnum | AffiliatePromotionalAssetScalarFieldEnum[]
+  }
+
+  /**
+   * Product.event
+   */
+  export type Product$eventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    where?: EventWhereInput
   }
 
   /**
@@ -35177,6 +35525,7 @@ export namespace Prisma {
     affiliateConversions?: boolean | Order$affiliateConversionsArgs<ExtArgs>
     commissionLedger?: boolean | Order$commissionLedgerArgs<ExtArgs>
     licenseKeys?: boolean | Order$licenseKeysArgs<ExtArgs>
+    tickets?: boolean | Order$ticketsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
@@ -35242,6 +35591,7 @@ export namespace Prisma {
     affiliateConversions?: boolean | Order$affiliateConversionsArgs<ExtArgs>
     commissionLedger?: boolean | Order$commissionLedgerArgs<ExtArgs>
     licenseKeys?: boolean | Order$licenseKeysArgs<ExtArgs>
+    tickets?: boolean | Order$ticketsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35261,6 +35611,7 @@ export namespace Prisma {
       affiliateConversions: Prisma.$AffiliateConversionPayload<ExtArgs>[]
       commissionLedger: Prisma.$CommissionLedgerPayload<ExtArgs>[]
       licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
+      tickets: Prisma.$TicketPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -35678,6 +36029,7 @@ export namespace Prisma {
     affiliateConversions<T extends Order$affiliateConversionsArgs<ExtArgs> = {}>(args?: Subset<T, Order$affiliateConversionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffiliateConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     commissionLedger<T extends Order$commissionLedgerArgs<ExtArgs> = {}>(args?: Subset<T, Order$commissionLedgerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommissionLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     licenseKeys<T extends Order$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, Order$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tickets<T extends Order$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Order$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -36253,6 +36605,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LicenseKeyScalarFieldEnum | LicenseKeyScalarFieldEnum[]
+  }
+
+  /**
+   * Order.tickets
+   */
+  export type Order$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
   }
 
   /**
@@ -87320,6 +87696,2436 @@ export namespace Prisma {
 
 
   /**
+   * Model Event
+   */
+
+  export type AggregateEvent = {
+    _count: EventCountAggregateOutputType | null
+    _avg: EventAvgAggregateOutputType | null
+    _sum: EventSumAggregateOutputType | null
+    _min: EventMinAggregateOutputType | null
+    _max: EventMaxAggregateOutputType | null
+  }
+
+  export type EventAvgAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type EventSumAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type EventMinAggregateOutputType = {
+    id: string | null
+    productId: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    timezone: string | null
+    locationType: $Enums.EventLocationType | null
+    joinUrl: string | null
+    venueName: string | null
+    venueAddress: string | null
+    capacity: number | null
+    registrationDeadline: Date | null
+    status: $Enums.EventStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventMaxAggregateOutputType = {
+    id: string | null
+    productId: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    timezone: string | null
+    locationType: $Enums.EventLocationType | null
+    joinUrl: string | null
+    venueName: string | null
+    venueAddress: string | null
+    capacity: number | null
+    registrationDeadline: Date | null
+    status: $Enums.EventStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventCountAggregateOutputType = {
+    id: number
+    productId: number
+    startsAt: number
+    endsAt: number
+    timezone: number
+    locationType: number
+    joinUrl: number
+    venueName: number
+    venueAddress: number
+    capacity: number
+    registrationDeadline: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EventAvgAggregateInputType = {
+    capacity?: true
+  }
+
+  export type EventSumAggregateInputType = {
+    capacity?: true
+  }
+
+  export type EventMinAggregateInputType = {
+    id?: true
+    productId?: true
+    startsAt?: true
+    endsAt?: true
+    timezone?: true
+    locationType?: true
+    joinUrl?: true
+    venueName?: true
+    venueAddress?: true
+    capacity?: true
+    registrationDeadline?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventMaxAggregateInputType = {
+    id?: true
+    productId?: true
+    startsAt?: true
+    endsAt?: true
+    timezone?: true
+    locationType?: true
+    joinUrl?: true
+    venueName?: true
+    venueAddress?: true
+    capacity?: true
+    registrationDeadline?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventCountAggregateInputType = {
+    id?: true
+    productId?: true
+    startsAt?: true
+    endsAt?: true
+    timezone?: true
+    locationType?: true
+    joinUrl?: true
+    venueName?: true
+    venueAddress?: true
+    capacity?: true
+    registrationDeadline?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Event to aggregate.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Events
+    **/
+    _count?: true | EventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventMaxAggregateInputType
+  }
+
+  export type GetEventAggregateType<T extends EventAggregateArgs> = {
+        [P in keyof T & keyof AggregateEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEvent[P]>
+      : GetScalarType<T[P], AggregateEvent[P]>
+  }
+
+
+
+
+  export type EventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithAggregationInput | EventOrderByWithAggregationInput[]
+    by: EventScalarFieldEnum[] | EventScalarFieldEnum
+    having?: EventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventCountAggregateInputType | true
+    _avg?: EventAvgAggregateInputType
+    _sum?: EventSumAggregateInputType
+    _min?: EventMinAggregateInputType
+    _max?: EventMaxAggregateInputType
+  }
+
+  export type EventGroupByOutputType = {
+    id: string
+    productId: string
+    startsAt: Date
+    endsAt: Date | null
+    timezone: string
+    locationType: $Enums.EventLocationType
+    joinUrl: string | null
+    venueName: string | null
+    venueAddress: string | null
+    capacity: number | null
+    registrationDeadline: Date | null
+    status: $Enums.EventStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: EventCountAggregateOutputType | null
+    _avg: EventAvgAggregateOutputType | null
+    _sum: EventSumAggregateOutputType | null
+    _min: EventMinAggregateOutputType | null
+    _max: EventMaxAggregateOutputType | null
+  }
+
+  type GetEventGroupByPayload<T extends EventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventGroupByOutputType[P]>
+            : GetScalarType<T[P], EventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    locationType?: boolean
+    joinUrl?: boolean
+    venueName?: boolean
+    venueAddress?: boolean
+    capacity?: boolean
+    registrationDeadline?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    tickets?: boolean | Event$ticketsArgs<ExtArgs>
+    _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event"]>
+
+  export type EventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    locationType?: boolean
+    joinUrl?: boolean
+    venueName?: boolean
+    venueAddress?: boolean
+    capacity?: boolean
+    registrationDeadline?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event"]>
+
+  export type EventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    locationType?: boolean
+    joinUrl?: boolean
+    venueName?: boolean
+    venueAddress?: boolean
+    capacity?: boolean
+    registrationDeadline?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event"]>
+
+  export type EventSelectScalar = {
+    id?: boolean
+    productId?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    locationType?: boolean
+    joinUrl?: boolean
+    venueName?: boolean
+    venueAddress?: boolean
+    capacity?: boolean
+    registrationDeadline?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "startsAt" | "endsAt" | "timezone" | "locationType" | "joinUrl" | "venueName" | "venueAddress" | "capacity" | "registrationDeadline" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+  export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    tickets?: boolean | Event$ticketsArgs<ExtArgs>
+    _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type EventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+  export type $EventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Event"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+      tickets: Prisma.$TicketPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      productId: string
+      startsAt: Date
+      endsAt: Date | null
+      timezone: string
+      locationType: $Enums.EventLocationType
+      joinUrl: string | null
+      venueName: string | null
+      venueAddress: string | null
+      capacity: number | null
+      registrationDeadline: Date | null
+      status: $Enums.EventStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["event"]>
+    composites: {}
+  }
+
+  type EventGetPayload<S extends boolean | null | undefined | EventDefaultArgs> = $Result.GetResult<Prisma.$EventPayload, S>
+
+  type EventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventCountAggregateInputType | true
+    }
+
+  export interface EventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Event'], meta: { name: 'Event' } }
+    /**
+     * Find zero or one Event that matches the filter.
+     * @param {EventFindUniqueArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventFindUniqueArgs>(args: SelectSubset<T, EventFindUniqueArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Event that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventFindUniqueOrThrowArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventFindUniqueOrThrowArgs>(args: SelectSubset<T, EventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Event that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventFindFirstArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventFindFirstArgs>(args?: SelectSubset<T, EventFindFirstArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Event that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventFindFirstOrThrowArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventFindFirstOrThrowArgs>(args?: SelectSubset<T, EventFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Events that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Events
+     * const events = await prisma.event.findMany()
+     * 
+     * // Get first 10 Events
+     * const events = await prisma.event.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventWithIdOnly = await prisma.event.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventFindManyArgs>(args?: SelectSubset<T, EventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Event.
+     * @param {EventCreateArgs} args - Arguments to create a Event.
+     * @example
+     * // Create one Event
+     * const Event = await prisma.event.create({
+     *   data: {
+     *     // ... data to create a Event
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventCreateArgs>(args: SelectSubset<T, EventCreateArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Events.
+     * @param {EventCreateManyArgs} args - Arguments to create many Events.
+     * @example
+     * // Create many Events
+     * const event = await prisma.event.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventCreateManyArgs>(args?: SelectSubset<T, EventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Events and returns the data saved in the database.
+     * @param {EventCreateManyAndReturnArgs} args - Arguments to create many Events.
+     * @example
+     * // Create many Events
+     * const event = await prisma.event.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Events and only return the `id`
+     * const eventWithIdOnly = await prisma.event.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventCreateManyAndReturnArgs>(args?: SelectSubset<T, EventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Event.
+     * @param {EventDeleteArgs} args - Arguments to delete one Event.
+     * @example
+     * // Delete one Event
+     * const Event = await prisma.event.delete({
+     *   where: {
+     *     // ... filter to delete one Event
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventDeleteArgs>(args: SelectSubset<T, EventDeleteArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Event.
+     * @param {EventUpdateArgs} args - Arguments to update one Event.
+     * @example
+     * // Update one Event
+     * const event = await prisma.event.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventUpdateArgs>(args: SelectSubset<T, EventUpdateArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Events.
+     * @param {EventDeleteManyArgs} args - Arguments to filter Events to delete.
+     * @example
+     * // Delete a few Events
+     * const { count } = await prisma.event.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventDeleteManyArgs>(args?: SelectSubset<T, EventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Events
+     * const event = await prisma.event.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventUpdateManyArgs>(args: SelectSubset<T, EventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Events and returns the data updated in the database.
+     * @param {EventUpdateManyAndReturnArgs} args - Arguments to update many Events.
+     * @example
+     * // Update many Events
+     * const event = await prisma.event.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Events and only return the `id`
+     * const eventWithIdOnly = await prisma.event.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventUpdateManyAndReturnArgs>(args: SelectSubset<T, EventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Event.
+     * @param {EventUpsertArgs} args - Arguments to update or create a Event.
+     * @example
+     * // Update or create a Event
+     * const event = await prisma.event.upsert({
+     *   create: {
+     *     // ... data to create a Event
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Event we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventUpsertArgs>(args: SelectSubset<T, EventUpsertArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCountArgs} args - Arguments to filter Events to count.
+     * @example
+     * // Count the number of Events
+     * const count = await prisma.event.count({
+     *   where: {
+     *     // ... the filter for the Events we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventCountArgs>(
+      args?: Subset<T, EventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Event.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventAggregateArgs>(args: Subset<T, EventAggregateArgs>): Prisma.PrismaPromise<GetEventAggregateType<T>>
+
+    /**
+     * Group by Event.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventGroupByArgs['orderBy'] }
+        : { orderBy?: EventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Event model
+   */
+  readonly fields: EventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Event.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tickets<T extends Event$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Event$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Event model
+   */
+  interface EventFieldRefs {
+    readonly id: FieldRef<"Event", 'String'>
+    readonly productId: FieldRef<"Event", 'String'>
+    readonly startsAt: FieldRef<"Event", 'DateTime'>
+    readonly endsAt: FieldRef<"Event", 'DateTime'>
+    readonly timezone: FieldRef<"Event", 'String'>
+    readonly locationType: FieldRef<"Event", 'EventLocationType'>
+    readonly joinUrl: FieldRef<"Event", 'String'>
+    readonly venueName: FieldRef<"Event", 'String'>
+    readonly venueAddress: FieldRef<"Event", 'String'>
+    readonly capacity: FieldRef<"Event", 'Int'>
+    readonly registrationDeadline: FieldRef<"Event", 'DateTime'>
+    readonly status: FieldRef<"Event", 'EventStatus'>
+    readonly createdAt: FieldRef<"Event", 'DateTime'>
+    readonly updatedAt: FieldRef<"Event", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Event findUnique
+   */
+  export type EventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event findUniqueOrThrow
+   */
+  export type EventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event findFirst
+   */
+  export type EventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Events.
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Events.
+     */
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * Event findFirstOrThrow
+   */
+  export type EventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Events.
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Events.
+     */
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * Event findMany
+   */
+  export type EventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Events to fetch.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Events.
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * Event create
+   */
+  export type EventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Event.
+     */
+    data: XOR<EventCreateInput, EventUncheckedCreateInput>
+  }
+
+  /**
+   * Event createMany
+   */
+  export type EventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Events.
+     */
+    data: EventCreateManyInput | EventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Event createManyAndReturn
+   */
+  export type EventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * The data used to create many Events.
+     */
+    data: EventCreateManyInput | EventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Event update
+   */
+  export type EventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Event.
+     */
+    data: XOR<EventUpdateInput, EventUncheckedUpdateInput>
+    /**
+     * Choose, which Event to update.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event updateMany
+   */
+  export type EventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Events.
+     */
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyInput>
+    /**
+     * Filter which Events to update
+     */
+    where?: EventWhereInput
+    /**
+     * Limit how many Events to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Event updateManyAndReturn
+   */
+  export type EventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * The data used to update Events.
+     */
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyInput>
+    /**
+     * Filter which Events to update
+     */
+    where?: EventWhereInput
+    /**
+     * Limit how many Events to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Event upsert
+   */
+  export type EventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Event to update in case it exists.
+     */
+    where: EventWhereUniqueInput
+    /**
+     * In case the Event found by the `where` argument doesn't exist, create a new Event with this data.
+     */
+    create: XOR<EventCreateInput, EventUncheckedCreateInput>
+    /**
+     * In case the Event was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventUpdateInput, EventUncheckedUpdateInput>
+  }
+
+  /**
+   * Event delete
+   */
+  export type EventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter which Event to delete.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event deleteMany
+   */
+  export type EventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Events to delete
+     */
+    where?: EventWhereInput
+    /**
+     * Limit how many Events to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Event.tickets
+   */
+  export type Event$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * Event without action
+   */
+  export type EventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Ticket
+   */
+
+  export type AggregateTicket = {
+    _count: TicketCountAggregateOutputType | null
+    _min: TicketMinAggregateOutputType | null
+    _max: TicketMaxAggregateOutputType | null
+  }
+
+  export type TicketMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    orderId: string | null
+    orderItemId: string | null
+    buyerId: string | null
+    ticketCode: string | null
+    attendeeName: string | null
+    attendeeEmail: string | null
+    status: $Enums.EventTicketStatus | null
+    holdExpiresAt: Date | null
+    checkedInAt: Date | null
+    checkedInBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TicketMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    orderId: string | null
+    orderItemId: string | null
+    buyerId: string | null
+    ticketCode: string | null
+    attendeeName: string | null
+    attendeeEmail: string | null
+    status: $Enums.EventTicketStatus | null
+    holdExpiresAt: Date | null
+    checkedInAt: Date | null
+    checkedInBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TicketCountAggregateOutputType = {
+    id: number
+    eventId: number
+    orderId: number
+    orderItemId: number
+    buyerId: number
+    ticketCode: number
+    attendeeName: number
+    attendeeEmail: number
+    status: number
+    holdExpiresAt: number
+    checkedInAt: number
+    checkedInBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TicketMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    orderId?: true
+    orderItemId?: true
+    buyerId?: true
+    ticketCode?: true
+    attendeeName?: true
+    attendeeEmail?: true
+    status?: true
+    holdExpiresAt?: true
+    checkedInAt?: true
+    checkedInBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TicketMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    orderId?: true
+    orderItemId?: true
+    buyerId?: true
+    ticketCode?: true
+    attendeeName?: true
+    attendeeEmail?: true
+    status?: true
+    holdExpiresAt?: true
+    checkedInAt?: true
+    checkedInBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TicketCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    orderId?: true
+    orderItemId?: true
+    buyerId?: true
+    ticketCode?: true
+    attendeeName?: true
+    attendeeEmail?: true
+    status?: true
+    holdExpiresAt?: true
+    checkedInAt?: true
+    checkedInBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TicketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ticket to aggregate.
+     */
+    where?: TicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tickets to fetch.
+     */
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tickets
+    **/
+    _count?: true | TicketCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TicketMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TicketMaxAggregateInputType
+  }
+
+  export type GetTicketAggregateType<T extends TicketAggregateArgs> = {
+        [P in keyof T & keyof AggregateTicket]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTicket[P]>
+      : GetScalarType<T[P], AggregateTicket[P]>
+  }
+
+
+
+
+  export type TicketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithAggregationInput | TicketOrderByWithAggregationInput[]
+    by: TicketScalarFieldEnum[] | TicketScalarFieldEnum
+    having?: TicketScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TicketCountAggregateInputType | true
+    _min?: TicketMinAggregateInputType
+    _max?: TicketMaxAggregateInputType
+  }
+
+  export type TicketGroupByOutputType = {
+    id: string
+    eventId: string
+    orderId: string
+    orderItemId: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName: string | null
+    attendeeEmail: string | null
+    status: $Enums.EventTicketStatus
+    holdExpiresAt: Date | null
+    checkedInAt: Date | null
+    checkedInBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TicketCountAggregateOutputType | null
+    _min: TicketMinAggregateOutputType | null
+    _max: TicketMaxAggregateOutputType | null
+  }
+
+  type GetTicketGroupByPayload<T extends TicketGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TicketGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TicketGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TicketGroupByOutputType[P]>
+            : GetScalarType<T[P], TicketGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TicketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    ticketCode?: boolean
+    attendeeName?: boolean
+    attendeeEmail?: boolean
+    status?: boolean
+    holdExpiresAt?: boolean
+    checkedInAt?: boolean
+    checkedInBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ticket"]>
+
+  export type TicketSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    ticketCode?: boolean
+    attendeeName?: boolean
+    attendeeEmail?: boolean
+    status?: boolean
+    holdExpiresAt?: boolean
+    checkedInAt?: boolean
+    checkedInBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ticket"]>
+
+  export type TicketSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    ticketCode?: boolean
+    attendeeName?: boolean
+    attendeeEmail?: boolean
+    status?: boolean
+    holdExpiresAt?: boolean
+    checkedInAt?: boolean
+    checkedInBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ticket"]>
+
+  export type TicketSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    orderId?: boolean
+    orderItemId?: boolean
+    buyerId?: boolean
+    ticketCode?: boolean
+    attendeeName?: boolean
+    attendeeEmail?: boolean
+    status?: boolean
+    holdExpiresAt?: boolean
+    checkedInAt?: boolean
+    checkedInBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "orderId" | "orderItemId" | "buyerId" | "ticketCode" | "attendeeName" | "attendeeEmail" | "status" | "holdExpiresAt" | "checkedInAt" | "checkedInBy" | "createdAt" | "updatedAt", ExtArgs["result"]["ticket"]>
+  export type TicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TicketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TicketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    order?: boolean | OrderDefaultArgs<ExtArgs>
+    buyer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Ticket"
+    objects: {
+      event: Prisma.$EventPayload<ExtArgs>
+      order: Prisma.$OrderPayload<ExtArgs>
+      buyer: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      orderId: string
+      orderItemId: string | null
+      buyerId: string
+      ticketCode: string
+      attendeeName: string | null
+      attendeeEmail: string | null
+      status: $Enums.EventTicketStatus
+      holdExpiresAt: Date | null
+      checkedInAt: Date | null
+      checkedInBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["ticket"]>
+    composites: {}
+  }
+
+  type TicketGetPayload<S extends boolean | null | undefined | TicketDefaultArgs> = $Result.GetResult<Prisma.$TicketPayload, S>
+
+  type TicketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TicketFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TicketCountAggregateInputType | true
+    }
+
+  export interface TicketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Ticket'], meta: { name: 'Ticket' } }
+    /**
+     * Find zero or one Ticket that matches the filter.
+     * @param {TicketFindUniqueArgs} args - Arguments to find a Ticket
+     * @example
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TicketFindUniqueArgs>(args: SelectSubset<T, TicketFindUniqueArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Ticket that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TicketFindUniqueOrThrowArgs} args - Arguments to find a Ticket
+     * @example
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TicketFindUniqueOrThrowArgs>(args: SelectSubset<T, TicketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Ticket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketFindFirstArgs} args - Arguments to find a Ticket
+     * @example
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TicketFindFirstArgs>(args?: SelectSubset<T, TicketFindFirstArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Ticket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketFindFirstOrThrowArgs} args - Arguments to find a Ticket
+     * @example
+     * // Get one Ticket
+     * const ticket = await prisma.ticket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TicketFindFirstOrThrowArgs>(args?: SelectSubset<T, TicketFindFirstOrThrowArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tickets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tickets
+     * const tickets = await prisma.ticket.findMany()
+     * 
+     * // Get first 10 Tickets
+     * const tickets = await prisma.ticket.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ticketWithIdOnly = await prisma.ticket.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TicketFindManyArgs>(args?: SelectSubset<T, TicketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Ticket.
+     * @param {TicketCreateArgs} args - Arguments to create a Ticket.
+     * @example
+     * // Create one Ticket
+     * const Ticket = await prisma.ticket.create({
+     *   data: {
+     *     // ... data to create a Ticket
+     *   }
+     * })
+     * 
+     */
+    create<T extends TicketCreateArgs>(args: SelectSubset<T, TicketCreateArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tickets.
+     * @param {TicketCreateManyArgs} args - Arguments to create many Tickets.
+     * @example
+     * // Create many Tickets
+     * const ticket = await prisma.ticket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TicketCreateManyArgs>(args?: SelectSubset<T, TicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tickets and returns the data saved in the database.
+     * @param {TicketCreateManyAndReturnArgs} args - Arguments to create many Tickets.
+     * @example
+     * // Create many Tickets
+     * const ticket = await prisma.ticket.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tickets and only return the `id`
+     * const ticketWithIdOnly = await prisma.ticket.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TicketCreateManyAndReturnArgs>(args?: SelectSubset<T, TicketCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Ticket.
+     * @param {TicketDeleteArgs} args - Arguments to delete one Ticket.
+     * @example
+     * // Delete one Ticket
+     * const Ticket = await prisma.ticket.delete({
+     *   where: {
+     *     // ... filter to delete one Ticket
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TicketDeleteArgs>(args: SelectSubset<T, TicketDeleteArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Ticket.
+     * @param {TicketUpdateArgs} args - Arguments to update one Ticket.
+     * @example
+     * // Update one Ticket
+     * const ticket = await prisma.ticket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TicketUpdateArgs>(args: SelectSubset<T, TicketUpdateArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tickets.
+     * @param {TicketDeleteManyArgs} args - Arguments to filter Tickets to delete.
+     * @example
+     * // Delete a few Tickets
+     * const { count } = await prisma.ticket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TicketDeleteManyArgs>(args?: SelectSubset<T, TicketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tickets
+     * const ticket = await prisma.ticket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TicketUpdateManyArgs>(args: SelectSubset<T, TicketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tickets and returns the data updated in the database.
+     * @param {TicketUpdateManyAndReturnArgs} args - Arguments to update many Tickets.
+     * @example
+     * // Update many Tickets
+     * const ticket = await prisma.ticket.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tickets and only return the `id`
+     * const ticketWithIdOnly = await prisma.ticket.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TicketUpdateManyAndReturnArgs>(args: SelectSubset<T, TicketUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Ticket.
+     * @param {TicketUpsertArgs} args - Arguments to update or create a Ticket.
+     * @example
+     * // Update or create a Ticket
+     * const ticket = await prisma.ticket.upsert({
+     *   create: {
+     *     // ... data to create a Ticket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Ticket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TicketUpsertArgs>(args: SelectSubset<T, TicketUpsertArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketCountArgs} args - Arguments to filter Tickets to count.
+     * @example
+     * // Count the number of Tickets
+     * const count = await prisma.ticket.count({
+     *   where: {
+     *     // ... the filter for the Tickets we want to count
+     *   }
+     * })
+    **/
+    count<T extends TicketCountArgs>(
+      args?: Subset<T, TicketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TicketCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Ticket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TicketAggregateArgs>(args: Subset<T, TicketAggregateArgs>): Prisma.PrismaPromise<GetTicketAggregateType<T>>
+
+    /**
+     * Group by Ticket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TicketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TicketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TicketGroupByArgs['orderBy'] }
+        : { orderBy?: TicketGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TicketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTicketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Ticket model
+   */
+  readonly fields: TicketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Ticket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends EventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EventDefaultArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    buyer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Ticket model
+   */
+  interface TicketFieldRefs {
+    readonly id: FieldRef<"Ticket", 'String'>
+    readonly eventId: FieldRef<"Ticket", 'String'>
+    readonly orderId: FieldRef<"Ticket", 'String'>
+    readonly orderItemId: FieldRef<"Ticket", 'String'>
+    readonly buyerId: FieldRef<"Ticket", 'String'>
+    readonly ticketCode: FieldRef<"Ticket", 'String'>
+    readonly attendeeName: FieldRef<"Ticket", 'String'>
+    readonly attendeeEmail: FieldRef<"Ticket", 'String'>
+    readonly status: FieldRef<"Ticket", 'EventTicketStatus'>
+    readonly holdExpiresAt: FieldRef<"Ticket", 'DateTime'>
+    readonly checkedInAt: FieldRef<"Ticket", 'DateTime'>
+    readonly checkedInBy: FieldRef<"Ticket", 'String'>
+    readonly createdAt: FieldRef<"Ticket", 'DateTime'>
+    readonly updatedAt: FieldRef<"Ticket", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Ticket findUnique
+   */
+  export type TicketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * Filter, which Ticket to fetch.
+     */
+    where: TicketWhereUniqueInput
+  }
+
+  /**
+   * Ticket findUniqueOrThrow
+   */
+  export type TicketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * Filter, which Ticket to fetch.
+     */
+    where: TicketWhereUniqueInput
+  }
+
+  /**
+   * Ticket findFirst
+   */
+  export type TicketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * Filter, which Ticket to fetch.
+     */
+    where?: TicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tickets to fetch.
+     */
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tickets.
+     */
+    cursor?: TicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tickets.
+     */
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * Ticket findFirstOrThrow
+   */
+  export type TicketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * Filter, which Ticket to fetch.
+     */
+    where?: TicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tickets to fetch.
+     */
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tickets.
+     */
+    cursor?: TicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tickets.
+     */
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * Ticket findMany
+   */
+  export type TicketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * Filter, which Tickets to fetch.
+     */
+    where?: TicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tickets to fetch.
+     */
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tickets.
+     */
+    cursor?: TicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tickets.
+     */
+    skip?: number
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * Ticket create
+   */
+  export type TicketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Ticket.
+     */
+    data: XOR<TicketCreateInput, TicketUncheckedCreateInput>
+  }
+
+  /**
+   * Ticket createMany
+   */
+  export type TicketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tickets.
+     */
+    data: TicketCreateManyInput | TicketCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Ticket createManyAndReturn
+   */
+  export type TicketCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tickets.
+     */
+    data: TicketCreateManyInput | TicketCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Ticket update
+   */
+  export type TicketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Ticket.
+     */
+    data: XOR<TicketUpdateInput, TicketUncheckedUpdateInput>
+    /**
+     * Choose, which Ticket to update.
+     */
+    where: TicketWhereUniqueInput
+  }
+
+  /**
+   * Ticket updateMany
+   */
+  export type TicketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tickets.
+     */
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyInput>
+    /**
+     * Filter which Tickets to update
+     */
+    where?: TicketWhereInput
+    /**
+     * Limit how many Tickets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Ticket updateManyAndReturn
+   */
+  export type TicketUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * The data used to update Tickets.
+     */
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyInput>
+    /**
+     * Filter which Tickets to update
+     */
+    where?: TicketWhereInput
+    /**
+     * Limit how many Tickets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Ticket upsert
+   */
+  export type TicketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Ticket to update in case it exists.
+     */
+    where: TicketWhereUniqueInput
+    /**
+     * In case the Ticket found by the `where` argument doesn't exist, create a new Ticket with this data.
+     */
+    create: XOR<TicketCreateInput, TicketUncheckedCreateInput>
+    /**
+     * In case the Ticket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TicketUpdateInput, TicketUncheckedUpdateInput>
+  }
+
+  /**
+   * Ticket delete
+   */
+  export type TicketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    /**
+     * Filter which Ticket to delete.
+     */
+    where: TicketWhereUniqueInput
+  }
+
+  /**
+   * Ticket deleteMany
+   */
+  export type TicketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tickets to delete
+     */
+    where?: TicketWhereInput
+    /**
+     * Limit how many Tickets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Ticket without action
+   */
+  export type TicketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -87592,6 +90398,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
+    productType: 'productType',
     licenseKeysEnabled: 'licenseKeysEnabled',
     licenseMaxActivations: 'licenseMaxActivations',
     licenseValidityDays: 'licenseValidityDays'
@@ -88396,6 +91203,46 @@ export namespace Prisma {
   export type LicenseActivationScalarFieldEnum = (typeof LicenseActivationScalarFieldEnum)[keyof typeof LicenseActivationScalarFieldEnum]
 
 
+  export const EventScalarFieldEnum: {
+    id: 'id',
+    productId: 'productId',
+    startsAt: 'startsAt',
+    endsAt: 'endsAt',
+    timezone: 'timezone',
+    locationType: 'locationType',
+    joinUrl: 'joinUrl',
+    venueName: 'venueName',
+    venueAddress: 'venueAddress',
+    capacity: 'capacity',
+    registrationDeadline: 'registrationDeadline',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+  export const TicketScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    orderId: 'orderId',
+    orderItemId: 'orderItemId',
+    buyerId: 'buyerId',
+    ticketCode: 'ticketCode',
+    attendeeName: 'attendeeName',
+    attendeeEmail: 'attendeeEmail',
+    status: 'status',
+    holdExpiresAt: 'holdExpiresAt',
+    checkedInAt: 'checkedInAt',
+    checkedInBy: 'checkedInBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -88607,6 +91454,20 @@ export namespace Prisma {
    * Reference to a field of type 'ProductAffiliateStatus[]'
    */
   export type ListEnumProductAffiliateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductAffiliateStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProductType'
+   */
+  export type EnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProductType[]'
+   */
+  export type ListEnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType[]'>
     
 
 
@@ -88947,6 +91808,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'EventLocationType'
+   */
+  export type EnumEventLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventLocationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventLocationType[]'
+   */
+  export type ListEnumEventLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventLocationType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventStatus'
+   */
+  export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventStatus[]'
+   */
+  export type ListEnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventTicketStatus'
+   */
+  export type EnumEventTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventTicketStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventTicketStatus[]'
+   */
+  export type ListEnumEventTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventTicketStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -89004,6 +91907,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     licenseKeys?: LicenseKeyListRelationFilter
+    tickets?: TicketListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -89044,6 +91948,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
     licenseKeys?: LicenseKeyOrderByRelationAggregateInput
+    tickets?: TicketOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -89087,6 +91992,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     licenseKeys?: LicenseKeyListRelationFilter
+    tickets?: TicketListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -90216,6 +93122,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    productType?: EnumProductTypeFilter<"Product"> | $Enums.ProductType
     licenseKeysEnabled?: BoolFilter<"Product"> | boolean
     licenseMaxActivations?: IntFilter<"Product"> | number
     licenseValidityDays?: IntNullableFilter<"Product"> | number | null
@@ -90234,6 +93141,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickListRelationFilter
     affiliateAttributions?: AffiliateAttributionListRelationFilter
     promotionalAssets?: AffiliatePromotionalAssetListRelationFilter
+    event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
     licenseKeys?: LicenseKeyListRelationFilter
   }
 
@@ -90276,6 +93184,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    productType?: SortOrder
     licenseKeysEnabled?: SortOrder
     licenseMaxActivations?: SortOrder
     licenseValidityDays?: SortOrderInput | SortOrder
@@ -90294,6 +93203,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickOrderByRelationAggregateInput
     affiliateAttributions?: AffiliateAttributionOrderByRelationAggregateInput
     promotionalAssets?: AffiliatePromotionalAssetOrderByRelationAggregateInput
+    event?: EventOrderByWithRelationInput
     licenseKeys?: LicenseKeyOrderByRelationAggregateInput
   }
 
@@ -90340,6 +93250,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    productType?: EnumProductTypeFilter<"Product"> | $Enums.ProductType
     licenseKeysEnabled?: BoolFilter<"Product"> | boolean
     licenseMaxActivations?: IntFilter<"Product"> | number
     licenseValidityDays?: IntNullableFilter<"Product"> | number | null
@@ -90358,6 +93269,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickListRelationFilter
     affiliateAttributions?: AffiliateAttributionListRelationFilter
     promotionalAssets?: AffiliatePromotionalAssetListRelationFilter
+    event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
     licenseKeys?: LicenseKeyListRelationFilter
   }, "id" | "creatorId_slug">
 
@@ -90400,6 +93312,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    productType?: SortOrder
     licenseKeysEnabled?: SortOrder
     licenseMaxActivations?: SortOrder
     licenseValidityDays?: SortOrderInput | SortOrder
@@ -90452,6 +93365,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
+    productType?: EnumProductTypeWithAggregatesFilter<"Product"> | $Enums.ProductType
     licenseKeysEnabled?: BoolWithAggregatesFilter<"Product"> | boolean
     licenseMaxActivations?: IntWithAggregatesFilter<"Product"> | number
     licenseValidityDays?: IntNullableWithAggregatesFilter<"Product"> | number | null
@@ -90870,6 +93784,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionListRelationFilter
     commissionLedger?: CommissionLedgerListRelationFilter
     licenseKeys?: LicenseKeyListRelationFilter
+    tickets?: TicketListRelationFilter
   }
 
   export type OrderOrderByWithRelationInput = {
@@ -90894,6 +93809,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionOrderByRelationAggregateInput
     commissionLedger?: CommissionLedgerOrderByRelationAggregateInput
     licenseKeys?: LicenseKeyOrderByRelationAggregateInput
+    tickets?: TicketOrderByRelationAggregateInput
   }
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -90921,6 +93837,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionListRelationFilter
     commissionLedger?: CommissionLedgerListRelationFilter
     licenseKeys?: LicenseKeyListRelationFilter
+    tickets?: TicketListRelationFilter
   }, "id" | "invoiceNumber" | "idempotencyKey">
 
   export type OrderOrderByWithAggregationInput = {
@@ -94657,6 +97574,217 @@ export namespace Prisma {
     lastSeenAt?: DateTimeWithAggregatesFilter<"LicenseActivation"> | Date | string
   }
 
+  export type EventWhereInput = {
+    AND?: EventWhereInput | EventWhereInput[]
+    OR?: EventWhereInput[]
+    NOT?: EventWhereInput | EventWhereInput[]
+    id?: UuidFilter<"Event"> | string
+    productId?: UuidFilter<"Event"> | string
+    startsAt?: DateTimeFilter<"Event"> | Date | string
+    endsAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    timezone?: StringFilter<"Event"> | string
+    locationType?: EnumEventLocationTypeFilter<"Event"> | $Enums.EventLocationType
+    joinUrl?: StringNullableFilter<"Event"> | string | null
+    venueName?: StringNullableFilter<"Event"> | string | null
+    venueAddress?: StringNullableFilter<"Event"> | string | null
+    capacity?: IntNullableFilter<"Event"> | number | null
+    registrationDeadline?: DateTimeNullableFilter<"Event"> | Date | string | null
+    status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
+    createdAt?: DateTimeFilter<"Event"> | Date | string
+    updatedAt?: DateTimeFilter<"Event"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    tickets?: TicketListRelationFilter
+  }
+
+  export type EventOrderByWithRelationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrderInput | SortOrder
+    timezone?: SortOrder
+    locationType?: SortOrder
+    joinUrl?: SortOrderInput | SortOrder
+    venueName?: SortOrderInput | SortOrder
+    venueAddress?: SortOrderInput | SortOrder
+    capacity?: SortOrderInput | SortOrder
+    registrationDeadline?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    product?: ProductOrderByWithRelationInput
+    tickets?: TicketOrderByRelationAggregateInput
+  }
+
+  export type EventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    productId?: string
+    AND?: EventWhereInput | EventWhereInput[]
+    OR?: EventWhereInput[]
+    NOT?: EventWhereInput | EventWhereInput[]
+    startsAt?: DateTimeFilter<"Event"> | Date | string
+    endsAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    timezone?: StringFilter<"Event"> | string
+    locationType?: EnumEventLocationTypeFilter<"Event"> | $Enums.EventLocationType
+    joinUrl?: StringNullableFilter<"Event"> | string | null
+    venueName?: StringNullableFilter<"Event"> | string | null
+    venueAddress?: StringNullableFilter<"Event"> | string | null
+    capacity?: IntNullableFilter<"Event"> | number | null
+    registrationDeadline?: DateTimeNullableFilter<"Event"> | Date | string | null
+    status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
+    createdAt?: DateTimeFilter<"Event"> | Date | string
+    updatedAt?: DateTimeFilter<"Event"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    tickets?: TicketListRelationFilter
+  }, "id" | "productId">
+
+  export type EventOrderByWithAggregationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrderInput | SortOrder
+    timezone?: SortOrder
+    locationType?: SortOrder
+    joinUrl?: SortOrderInput | SortOrder
+    venueName?: SortOrderInput | SortOrder
+    venueAddress?: SortOrderInput | SortOrder
+    capacity?: SortOrderInput | SortOrder
+    registrationDeadline?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EventCountOrderByAggregateInput
+    _avg?: EventAvgOrderByAggregateInput
+    _max?: EventMaxOrderByAggregateInput
+    _min?: EventMinOrderByAggregateInput
+    _sum?: EventSumOrderByAggregateInput
+  }
+
+  export type EventScalarWhereWithAggregatesInput = {
+    AND?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
+    OR?: EventScalarWhereWithAggregatesInput[]
+    NOT?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Event"> | string
+    productId?: UuidWithAggregatesFilter<"Event"> | string
+    startsAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    endsAt?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+    timezone?: StringWithAggregatesFilter<"Event"> | string
+    locationType?: EnumEventLocationTypeWithAggregatesFilter<"Event"> | $Enums.EventLocationType
+    joinUrl?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    venueName?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    venueAddress?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    capacity?: IntNullableWithAggregatesFilter<"Event"> | number | null
+    registrationDeadline?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+    status?: EnumEventStatusWithAggregatesFilter<"Event"> | $Enums.EventStatus
+    createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+  }
+
+  export type TicketWhereInput = {
+    AND?: TicketWhereInput | TicketWhereInput[]
+    OR?: TicketWhereInput[]
+    NOT?: TicketWhereInput | TicketWhereInput[]
+    id?: UuidFilter<"Ticket"> | string
+    eventId?: UuidFilter<"Ticket"> | string
+    orderId?: UuidFilter<"Ticket"> | string
+    orderItemId?: UuidNullableFilter<"Ticket"> | string | null
+    buyerId?: UuidFilter<"Ticket"> | string
+    ticketCode?: StringFilter<"Ticket"> | string
+    attendeeName?: StringNullableFilter<"Ticket"> | string | null
+    attendeeEmail?: StringNullableFilter<"Ticket"> | string | null
+    status?: EnumEventTicketStatusFilter<"Ticket"> | $Enums.EventTicketStatus
+    holdExpiresAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    checkedInAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    checkedInBy?: UuidNullableFilter<"Ticket"> | string | null
+    createdAt?: DateTimeFilter<"Ticket"> | Date | string
+    updatedAt?: DateTimeFilter<"Ticket"> | Date | string
+    event?: XOR<EventScalarRelationFilter, EventWhereInput>
+    order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
+    buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TicketOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrderInput | SortOrder
+    buyerId?: SortOrder
+    ticketCode?: SortOrder
+    attendeeName?: SortOrderInput | SortOrder
+    attendeeEmail?: SortOrderInput | SortOrder
+    status?: SortOrder
+    holdExpiresAt?: SortOrderInput | SortOrder
+    checkedInAt?: SortOrderInput | SortOrder
+    checkedInBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    event?: EventOrderByWithRelationInput
+    order?: OrderOrderByWithRelationInput
+    buyer?: UserOrderByWithRelationInput
+  }
+
+  export type TicketWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ticketCode?: string
+    AND?: TicketWhereInput | TicketWhereInput[]
+    OR?: TicketWhereInput[]
+    NOT?: TicketWhereInput | TicketWhereInput[]
+    eventId?: UuidFilter<"Ticket"> | string
+    orderId?: UuidFilter<"Ticket"> | string
+    orderItemId?: UuidNullableFilter<"Ticket"> | string | null
+    buyerId?: UuidFilter<"Ticket"> | string
+    attendeeName?: StringNullableFilter<"Ticket"> | string | null
+    attendeeEmail?: StringNullableFilter<"Ticket"> | string | null
+    status?: EnumEventTicketStatusFilter<"Ticket"> | $Enums.EventTicketStatus
+    holdExpiresAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    checkedInAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    checkedInBy?: UuidNullableFilter<"Ticket"> | string | null
+    createdAt?: DateTimeFilter<"Ticket"> | Date | string
+    updatedAt?: DateTimeFilter<"Ticket"> | Date | string
+    event?: XOR<EventScalarRelationFilter, EventWhereInput>
+    order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
+    buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "ticketCode">
+
+  export type TicketOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrderInput | SortOrder
+    buyerId?: SortOrder
+    ticketCode?: SortOrder
+    attendeeName?: SortOrderInput | SortOrder
+    attendeeEmail?: SortOrderInput | SortOrder
+    status?: SortOrder
+    holdExpiresAt?: SortOrderInput | SortOrder
+    checkedInAt?: SortOrderInput | SortOrder
+    checkedInBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TicketCountOrderByAggregateInput
+    _max?: TicketMaxOrderByAggregateInput
+    _min?: TicketMinOrderByAggregateInput
+  }
+
+  export type TicketScalarWhereWithAggregatesInput = {
+    AND?: TicketScalarWhereWithAggregatesInput | TicketScalarWhereWithAggregatesInput[]
+    OR?: TicketScalarWhereWithAggregatesInput[]
+    NOT?: TicketScalarWhereWithAggregatesInput | TicketScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Ticket"> | string
+    eventId?: UuidWithAggregatesFilter<"Ticket"> | string
+    orderId?: UuidWithAggregatesFilter<"Ticket"> | string
+    orderItemId?: UuidNullableWithAggregatesFilter<"Ticket"> | string | null
+    buyerId?: UuidWithAggregatesFilter<"Ticket"> | string
+    ticketCode?: StringWithAggregatesFilter<"Ticket"> | string
+    attendeeName?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
+    attendeeEmail?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
+    status?: EnumEventTicketStatusWithAggregatesFilter<"Ticket"> | $Enums.EventTicketStatus
+    holdExpiresAt?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
+    checkedInAt?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
+    checkedInBy?: UuidNullableWithAggregatesFilter<"Ticket"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -94695,6 +97823,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -94735,6 +97864,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUpdateInput = {
@@ -94775,6 +97905,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -94815,6 +97946,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -96050,6 +99182,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -96068,6 +99201,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -96110,6 +99244,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -96126,6 +99261,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -96166,6 +99302,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -96184,6 +99321,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -96226,6 +99364,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -96242,6 +99381,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -96284,6 +99424,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -96326,6 +99467,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -96370,6 +99512,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -96772,6 +99915,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateInput = {
@@ -96795,6 +99939,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUpdateInput = {
@@ -96818,6 +99963,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateInput = {
@@ -96841,6 +99987,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderCreateManyInput = {
@@ -100945,6 +104092,244 @@ export namespace Prisma {
     lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EventCreateInput = {
+    id?: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutEventInput
+    tickets?: TicketCreateNestedManyWithoutEventInput
+  }
+
+  export type EventUncheckedCreateInput = {
+    id?: string
+    productId: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tickets?: TicketUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type EventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutEventNestedInput
+    tickets?: TicketUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tickets?: TicketUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventCreateManyInput = {
+    id?: string
+    productId: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketCreateInput = {
+    id?: string
+    orderItemId?: string | null
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: EventCreateNestedOneWithoutTicketsInput
+    order: OrderCreateNestedOneWithoutTicketsInput
+    buyer: UserCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: EventUpdateOneRequiredWithoutTicketsNestedInput
+    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
+    buyer?: UserUpdateOneRequiredWithoutTicketsNestedInput
+  }
+
+  export type TicketUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketCreateManyInput = {
+    id?: string
+    eventId: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -101152,6 +104537,12 @@ export namespace Prisma {
     none?: LicenseKeyWhereInput
   }
 
+  export type TicketListRelationFilter = {
+    every?: TicketWhereInput
+    some?: TicketWhereInput
+    none?: TicketWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -101218,6 +104609,10 @@ export namespace Prisma {
   }
 
   export type LicenseKeyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TicketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -102192,6 +105587,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumProductTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProductTypeFilter<$PrismaModel> | $Enums.ProductType
+  }
+
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
@@ -102249,6 +105651,11 @@ export namespace Prisma {
     every?: AffiliatePromotionalAssetWhereInput
     some?: AffiliatePromotionalAssetWhereInput
     none?: AffiliatePromotionalAssetWhereInput
+  }
+
+  export type EventNullableScalarRelationFilter = {
+    is?: EventWhereInput | null
+    isNot?: EventWhereInput | null
   }
 
   export type ProductFileOrderByRelationAggregateInput = {
@@ -102331,6 +105738,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    productType?: SortOrder
     licenseKeysEnabled?: SortOrder
     licenseMaxActivations?: SortOrder
     licenseValidityDays?: SortOrder
@@ -102389,6 +105797,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    productType?: SortOrder
     licenseKeysEnabled?: SortOrder
     licenseMaxActivations?: SortOrder
     licenseValidityDays?: SortOrder
@@ -102432,6 +105841,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    productType?: SortOrder
     licenseKeysEnabled?: SortOrder
     licenseMaxActivations?: SortOrder
     licenseValidityDays?: SortOrder
@@ -102528,6 +105938,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumProductTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProductTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProductTypeFilter<$PrismaModel>
+    _max?: NestedEnumProductTypeFilter<$PrismaModel>
   }
 
   export type ProductScalarRelationFilter = {
@@ -105546,6 +108966,172 @@ export namespace Prisma {
     lastSeenAt?: SortOrder
   }
 
+  export type EnumEventLocationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventLocationType | EnumEventLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventLocationTypeFilter<$PrismaModel> | $Enums.EventLocationType
+  }
+
+  export type EnumEventStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventStatus | EnumEventStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventStatusFilter<$PrismaModel> | $Enums.EventStatus
+  }
+
+  export type EventCountOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    timezone?: SortOrder
+    locationType?: SortOrder
+    joinUrl?: SortOrder
+    venueName?: SortOrder
+    venueAddress?: SortOrder
+    capacity?: SortOrder
+    registrationDeadline?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventAvgOrderByAggregateInput = {
+    capacity?: SortOrder
+  }
+
+  export type EventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    timezone?: SortOrder
+    locationType?: SortOrder
+    joinUrl?: SortOrder
+    venueName?: SortOrder
+    venueAddress?: SortOrder
+    capacity?: SortOrder
+    registrationDeadline?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventMinOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    timezone?: SortOrder
+    locationType?: SortOrder
+    joinUrl?: SortOrder
+    venueName?: SortOrder
+    venueAddress?: SortOrder
+    capacity?: SortOrder
+    registrationDeadline?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventSumOrderByAggregateInput = {
+    capacity?: SortOrder
+  }
+
+  export type EnumEventLocationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventLocationType | EnumEventLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventLocationTypeWithAggregatesFilter<$PrismaModel> | $Enums.EventLocationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventLocationTypeFilter<$PrismaModel>
+    _max?: NestedEnumEventLocationTypeFilter<$PrismaModel>
+  }
+
+  export type EnumEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventStatus | EnumEventStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.EventStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventStatusFilter<$PrismaModel>
+    _max?: NestedEnumEventStatusFilter<$PrismaModel>
+  }
+
+  export type EnumEventTicketStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventTicketStatus | EnumEventTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventTicketStatusFilter<$PrismaModel> | $Enums.EventTicketStatus
+  }
+
+  export type EventScalarRelationFilter = {
+    is?: EventWhereInput
+    isNot?: EventWhereInput
+  }
+
+  export type TicketCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrder
+    buyerId?: SortOrder
+    ticketCode?: SortOrder
+    attendeeName?: SortOrder
+    attendeeEmail?: SortOrder
+    status?: SortOrder
+    holdExpiresAt?: SortOrder
+    checkedInAt?: SortOrder
+    checkedInBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TicketMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrder
+    buyerId?: SortOrder
+    ticketCode?: SortOrder
+    attendeeName?: SortOrder
+    attendeeEmail?: SortOrder
+    status?: SortOrder
+    holdExpiresAt?: SortOrder
+    checkedInAt?: SortOrder
+    checkedInBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TicketMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    orderId?: SortOrder
+    orderItemId?: SortOrder
+    buyerId?: SortOrder
+    ticketCode?: SortOrder
+    attendeeName?: SortOrder
+    attendeeEmail?: SortOrder
+    status?: SortOrder
+    holdExpiresAt?: SortOrder
+    checkedInAt?: SortOrder
+    checkedInBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumEventTicketStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventTicketStatus | EnumEventTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventTicketStatusWithAggregatesFilter<$PrismaModel> | $Enums.EventTicketStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventTicketStatusFilter<$PrismaModel>
+    _max?: NestedEnumEventTicketStatusFilter<$PrismaModel>
+  }
+
   export type UserProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -105707,6 +109293,13 @@ export namespace Prisma {
     connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
   }
 
+  export type TicketCreateNestedManyWithoutBuyerInput = {
+    create?: XOR<TicketCreateWithoutBuyerInput, TicketUncheckedCreateWithoutBuyerInput> | TicketCreateWithoutBuyerInput[] | TicketUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutBuyerInput | TicketCreateOrConnectWithoutBuyerInput[]
+    createMany?: TicketCreateManyBuyerInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
   export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -105866,6 +109459,13 @@ export namespace Prisma {
     connectOrCreate?: LicenseKeyCreateOrConnectWithoutBuyerInput | LicenseKeyCreateOrConnectWithoutBuyerInput[]
     createMany?: LicenseKeyCreateManyBuyerInputEnvelope
     connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutBuyerInput = {
+    create?: XOR<TicketCreateWithoutBuyerInput, TicketUncheckedCreateWithoutBuyerInput> | TicketCreateWithoutBuyerInput[] | TicketUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutBuyerInput | TicketCreateOrConnectWithoutBuyerInput[]
+    createMany?: TicketCreateManyBuyerInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -106200,6 +109800,20 @@ export namespace Prisma {
     deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
   }
 
+  export type TicketUpdateManyWithoutBuyerNestedInput = {
+    create?: XOR<TicketCreateWithoutBuyerInput, TicketUncheckedCreateWithoutBuyerInput> | TicketCreateWithoutBuyerInput[] | TicketUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutBuyerInput | TicketCreateOrConnectWithoutBuyerInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutBuyerInput | TicketUpsertWithWhereUniqueWithoutBuyerInput[]
+    createMany?: TicketCreateManyBuyerInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutBuyerInput | TicketUpdateWithWhereUniqueWithoutBuyerInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutBuyerInput | TicketUpdateManyWithWhereWithoutBuyerInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
   export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -106506,6 +110120,20 @@ export namespace Prisma {
     update?: LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput | LicenseKeyUpdateWithWhereUniqueWithoutBuyerInput[]
     updateMany?: LicenseKeyUpdateManyWithWhereWithoutBuyerInput | LicenseKeyUpdateManyWithWhereWithoutBuyerInput[]
     deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutBuyerNestedInput = {
+    create?: XOR<TicketCreateWithoutBuyerInput, TicketUncheckedCreateWithoutBuyerInput> | TicketCreateWithoutBuyerInput[] | TicketUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutBuyerInput | TicketCreateOrConnectWithoutBuyerInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutBuyerInput | TicketUpsertWithWhereUniqueWithoutBuyerInput[]
+    createMany?: TicketCreateManyBuyerInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutBuyerInput | TicketUpdateWithWhereUniqueWithoutBuyerInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutBuyerInput | TicketUpdateManyWithWhereWithoutBuyerInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
@@ -107305,6 +110933,12 @@ export namespace Prisma {
     connect?: AffiliatePromotionalAssetWhereUniqueInput | AffiliatePromotionalAssetWhereUniqueInput[]
   }
 
+  export type EventCreateNestedOneWithoutProductInput = {
+    create?: XOR<EventCreateWithoutProductInput, EventUncheckedCreateWithoutProductInput>
+    connectOrCreate?: EventCreateOrConnectWithoutProductInput
+    connect?: EventWhereUniqueInput
+  }
+
   export type LicenseKeyCreateNestedManyWithoutProductInput = {
     create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
     connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
@@ -107403,6 +111037,12 @@ export namespace Prisma {
     connect?: AffiliatePromotionalAssetWhereUniqueInput | AffiliatePromotionalAssetWhereUniqueInput[]
   }
 
+  export type EventUncheckedCreateNestedOneWithoutProductInput = {
+    create?: XOR<EventCreateWithoutProductInput, EventUncheckedCreateWithoutProductInput>
+    connectOrCreate?: EventCreateOrConnectWithoutProductInput
+    connect?: EventWhereUniqueInput
+  }
+
   export type LicenseKeyUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
     connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
@@ -107449,6 +111089,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumProductTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProductType
   }
 
   export type CreatorProfileUpdateOneRequiredWithoutProductsNestedInput = {
@@ -107649,6 +111293,16 @@ export namespace Prisma {
     deleteMany?: AffiliatePromotionalAssetScalarWhereInput | AffiliatePromotionalAssetScalarWhereInput[]
   }
 
+  export type EventUpdateOneWithoutProductNestedInput = {
+    create?: XOR<EventCreateWithoutProductInput, EventUncheckedCreateWithoutProductInput>
+    connectOrCreate?: EventCreateOrConnectWithoutProductInput
+    upsert?: EventUpsertWithoutProductInput
+    disconnect?: EventWhereInput | boolean
+    delete?: EventWhereInput | boolean
+    connect?: EventWhereUniqueInput
+    update?: XOR<XOR<EventUpdateToOneWithWhereWithoutProductInput, EventUpdateWithoutProductInput>, EventUncheckedUpdateWithoutProductInput>
+  }
+
   export type LicenseKeyUpdateManyWithoutProductNestedInput = {
     create?: XOR<LicenseKeyCreateWithoutProductInput, LicenseKeyUncheckedCreateWithoutProductInput> | LicenseKeyCreateWithoutProductInput[] | LicenseKeyUncheckedCreateWithoutProductInput[]
     connectOrCreate?: LicenseKeyCreateOrConnectWithoutProductInput | LicenseKeyCreateOrConnectWithoutProductInput[]
@@ -107843,6 +111497,16 @@ export namespace Prisma {
     update?: AffiliatePromotionalAssetUpdateWithWhereUniqueWithoutProductInput | AffiliatePromotionalAssetUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: AffiliatePromotionalAssetUpdateManyWithWhereWithoutProductInput | AffiliatePromotionalAssetUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: AffiliatePromotionalAssetScalarWhereInput | AffiliatePromotionalAssetScalarWhereInput[]
+  }
+
+  export type EventUncheckedUpdateOneWithoutProductNestedInput = {
+    create?: XOR<EventCreateWithoutProductInput, EventUncheckedCreateWithoutProductInput>
+    connectOrCreate?: EventCreateOrConnectWithoutProductInput
+    upsert?: EventUpsertWithoutProductInput
+    disconnect?: EventWhereInput | boolean
+    delete?: EventWhereInput | boolean
+    connect?: EventWhereUniqueInput
+    update?: XOR<XOR<EventUpdateToOneWithWhereWithoutProductInput, EventUpdateWithoutProductInput>, EventUncheckedUpdateWithoutProductInput>
   }
 
   export type LicenseKeyUncheckedUpdateManyWithoutProductNestedInput = {
@@ -108134,6 +111798,13 @@ export namespace Prisma {
     connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
   }
 
+  export type TicketCreateNestedManyWithoutOrderInput = {
+    create?: XOR<TicketCreateWithoutOrderInput, TicketUncheckedCreateWithoutOrderInput> | TicketCreateWithoutOrderInput[] | TicketUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutOrderInput | TicketCreateOrConnectWithoutOrderInput[]
+    createMany?: TicketCreateManyOrderInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
   export type OrderItemUncheckedCreateNestedManyWithoutOrderInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
@@ -108173,6 +111844,13 @@ export namespace Prisma {
     connectOrCreate?: LicenseKeyCreateOrConnectWithoutOrderInput | LicenseKeyCreateOrConnectWithoutOrderInput[]
     createMany?: LicenseKeyCreateManyOrderInputEnvelope
     connect?: LicenseKeyWhereUniqueInput | LicenseKeyWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutOrderInput = {
+    create?: XOR<TicketCreateWithoutOrderInput, TicketUncheckedCreateWithoutOrderInput> | TicketCreateWithoutOrderInput[] | TicketUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutOrderInput | TicketCreateOrConnectWithoutOrderInput[]
+    createMany?: TicketCreateManyOrderInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
   }
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
@@ -108271,6 +111949,20 @@ export namespace Prisma {
     deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
   }
 
+  export type TicketUpdateManyWithoutOrderNestedInput = {
+    create?: XOR<TicketCreateWithoutOrderInput, TicketUncheckedCreateWithoutOrderInput> | TicketCreateWithoutOrderInput[] | TicketUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutOrderInput | TicketCreateOrConnectWithoutOrderInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutOrderInput | TicketUpsertWithWhereUniqueWithoutOrderInput[]
+    createMany?: TicketCreateManyOrderInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutOrderInput | TicketUpdateWithWhereUniqueWithoutOrderInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutOrderInput | TicketUpdateManyWithWhereWithoutOrderInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
   export type OrderItemUncheckedUpdateManyWithoutOrderNestedInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
@@ -108349,6 +112041,20 @@ export namespace Prisma {
     update?: LicenseKeyUpdateWithWhereUniqueWithoutOrderInput | LicenseKeyUpdateWithWhereUniqueWithoutOrderInput[]
     updateMany?: LicenseKeyUpdateManyWithWhereWithoutOrderInput | LicenseKeyUpdateManyWithWhereWithoutOrderInput[]
     deleteMany?: LicenseKeyScalarWhereInput | LicenseKeyScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutOrderNestedInput = {
+    create?: XOR<TicketCreateWithoutOrderInput, TicketUncheckedCreateWithoutOrderInput> | TicketCreateWithoutOrderInput[] | TicketUncheckedCreateWithoutOrderInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutOrderInput | TicketCreateOrConnectWithoutOrderInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutOrderInput | TicketUpsertWithWhereUniqueWithoutOrderInput[]
+    createMany?: TicketCreateManyOrderInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutOrderInput | TicketUpdateWithWhereUniqueWithoutOrderInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutOrderInput | TicketUpdateManyWithWhereWithoutOrderInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
   }
 
   export type OrderCreateNestedOneWithoutItemsInput = {
@@ -110324,6 +114030,116 @@ export namespace Prisma {
     update?: XOR<XOR<LicenseKeyUpdateToOneWithWhereWithoutActivationsInput, LicenseKeyUpdateWithoutActivationsInput>, LicenseKeyUncheckedUpdateWithoutActivationsInput>
   }
 
+  export type ProductCreateNestedOneWithoutEventInput = {
+    create?: XOR<ProductCreateWithoutEventInput, ProductUncheckedCreateWithoutEventInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutEventInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type TicketCreateNestedManyWithoutEventInput = {
+    create?: XOR<TicketCreateWithoutEventInput, TicketUncheckedCreateWithoutEventInput> | TicketCreateWithoutEventInput[] | TicketUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutEventInput | TicketCreateOrConnectWithoutEventInput[]
+    createMany?: TicketCreateManyEventInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<TicketCreateWithoutEventInput, TicketUncheckedCreateWithoutEventInput> | TicketCreateWithoutEventInput[] | TicketUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutEventInput | TicketCreateOrConnectWithoutEventInput[]
+    createMany?: TicketCreateManyEventInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type EnumEventLocationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.EventLocationType
+  }
+
+  export type EnumEventStatusFieldUpdateOperationsInput = {
+    set?: $Enums.EventStatus
+  }
+
+  export type ProductUpdateOneRequiredWithoutEventNestedInput = {
+    create?: XOR<ProductCreateWithoutEventInput, ProductUncheckedCreateWithoutEventInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutEventInput
+    upsert?: ProductUpsertWithoutEventInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutEventInput, ProductUpdateWithoutEventInput>, ProductUncheckedUpdateWithoutEventInput>
+  }
+
+  export type TicketUpdateManyWithoutEventNestedInput = {
+    create?: XOR<TicketCreateWithoutEventInput, TicketUncheckedCreateWithoutEventInput> | TicketCreateWithoutEventInput[] | TicketUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutEventInput | TicketCreateOrConnectWithoutEventInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutEventInput | TicketUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: TicketCreateManyEventInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutEventInput | TicketUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutEventInput | TicketUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<TicketCreateWithoutEventInput, TicketUncheckedCreateWithoutEventInput> | TicketCreateWithoutEventInput[] | TicketUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutEventInput | TicketCreateOrConnectWithoutEventInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutEventInput | TicketUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: TicketCreateManyEventInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutEventInput | TicketUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutEventInput | TicketUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type EventCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<EventCreateWithoutTicketsInput, EventUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: EventCreateOrConnectWithoutTicketsInput
+    connect?: EventWhereUniqueInput
+  }
+
+  export type OrderCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<OrderCreateWithoutTicketsInput, OrderUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: OrderCreateOrConnectWithoutTicketsInput
+    connect?: OrderWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTicketsInput = {
+    create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumEventTicketStatusFieldUpdateOperationsInput = {
+    set?: $Enums.EventTicketStatus
+  }
+
+  export type EventUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<EventCreateWithoutTicketsInput, EventUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: EventCreateOrConnectWithoutTicketsInput
+    upsert?: EventUpsertWithoutTicketsInput
+    connect?: EventWhereUniqueInput
+    update?: XOR<XOR<EventUpdateToOneWithWhereWithoutTicketsInput, EventUpdateWithoutTicketsInput>, EventUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type OrderUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<OrderCreateWithoutTicketsInput, OrderUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: OrderCreateOrConnectWithoutTicketsInput
+    upsert?: OrderUpsertWithoutTicketsInput
+    connect?: OrderWhereUniqueInput
+    update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutTicketsInput, OrderUpdateWithoutTicketsInput>, OrderUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
+    upsert?: UserUpsertWithoutTicketsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketsInput, UserUpdateWithoutTicketsInput>, UserUncheckedUpdateWithoutTicketsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -110675,6 +114491,13 @@ export namespace Prisma {
     not?: NestedEnumProductAffiliateStatusFilter<$PrismaModel> | $Enums.ProductAffiliateStatus
   }
 
+  export type NestedEnumProductTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProductTypeFilter<$PrismaModel> | $Enums.ProductType
+  }
+
   export type NestedEnumProductStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ProductStatus | EnumProductStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ProductStatus[] | ListEnumProductStatusFieldRefInput<$PrismaModel>
@@ -110762,6 +114585,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumProductTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProductTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProductTypeFilter<$PrismaModel>
+    _max?: NestedEnumProductTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
@@ -111195,6 +115028,57 @@ export namespace Prisma {
     _max?: NestedEnumLicenseStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumEventLocationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventLocationType | EnumEventLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventLocationTypeFilter<$PrismaModel> | $Enums.EventLocationType
+  }
+
+  export type NestedEnumEventStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventStatus | EnumEventStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventStatusFilter<$PrismaModel> | $Enums.EventStatus
+  }
+
+  export type NestedEnumEventLocationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventLocationType | EnumEventLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventLocationType[] | ListEnumEventLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventLocationTypeWithAggregatesFilter<$PrismaModel> | $Enums.EventLocationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventLocationTypeFilter<$PrismaModel>
+    _max?: NestedEnumEventLocationTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventStatus | EnumEventStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventStatus[] | ListEnumEventStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.EventStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventStatusFilter<$PrismaModel>
+    _max?: NestedEnumEventStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumEventTicketStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventTicketStatus | EnumEventTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventTicketStatusFilter<$PrismaModel> | $Enums.EventTicketStatus
+  }
+
+  export type NestedEnumEventTicketStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventTicketStatus | EnumEventTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventTicketStatus[] | ListEnumEventTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventTicketStatusWithAggregatesFilter<$PrismaModel> | $Enums.EventTicketStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventTicketStatusFilter<$PrismaModel>
+    _max?: NestedEnumEventTicketStatusFilter<$PrismaModel>
+  }
+
   export type UserProfileCreateWithoutUserInput = {
     id?: string
     bio?: string | null
@@ -111362,6 +115246,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutBuyerInput = {
@@ -111384,6 +115269,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutBuyerInput = {
@@ -112001,6 +115887,48 @@ export namespace Prisma {
 
   export type LicenseKeyCreateManyBuyerInputEnvelope = {
     data: LicenseKeyCreateManyBuyerInput | LicenseKeyCreateManyBuyerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TicketCreateWithoutBuyerInput = {
+    id?: string
+    orderItemId?: string | null
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: EventCreateNestedOneWithoutTicketsInput
+    order: OrderCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateWithoutBuyerInput = {
+    id?: string
+    eventId: string
+    orderId: string
+    orderItemId?: string | null
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketCreateOrConnectWithoutBuyerInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutBuyerInput, TicketUncheckedCreateWithoutBuyerInput>
+  }
+
+  export type TicketCreateManyBuyerInputEnvelope = {
+    data: TicketCreateManyBuyerInput | TicketCreateManyBuyerInput[]
     skipDuplicates?: boolean
   }
 
@@ -112808,6 +116736,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"LicenseKey"> | Date | string
   }
 
+  export type TicketUpsertWithWhereUniqueWithoutBuyerInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutBuyerInput, TicketUncheckedUpdateWithoutBuyerInput>
+    create: XOR<TicketCreateWithoutBuyerInput, TicketUncheckedCreateWithoutBuyerInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutBuyerInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutBuyerInput, TicketUncheckedUpdateWithoutBuyerInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutBuyerInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutBuyerInput>
+  }
+
+  export type TicketScalarWhereInput = {
+    AND?: TicketScalarWhereInput | TicketScalarWhereInput[]
+    OR?: TicketScalarWhereInput[]
+    NOT?: TicketScalarWhereInput | TicketScalarWhereInput[]
+    id?: UuidFilter<"Ticket"> | string
+    eventId?: UuidFilter<"Ticket"> | string
+    orderId?: UuidFilter<"Ticket"> | string
+    orderItemId?: UuidNullableFilter<"Ticket"> | string | null
+    buyerId?: UuidFilter<"Ticket"> | string
+    ticketCode?: StringFilter<"Ticket"> | string
+    attendeeName?: StringNullableFilter<"Ticket"> | string | null
+    attendeeEmail?: StringNullableFilter<"Ticket"> | string | null
+    status?: EnumEventTicketStatusFilter<"Ticket"> | $Enums.EventTicketStatus
+    holdExpiresAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    checkedInAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    checkedInBy?: UuidNullableFilter<"Ticket"> | string | null
+    createdAt?: DateTimeFilter<"Ticket"> | Date | string
+    updatedAt?: DateTimeFilter<"Ticket"> | Date | string
+  }
+
   export type UserCreateWithoutPasswordResetTokensInput = {
     id?: string
     email: string
@@ -112845,6 +116809,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -112884,6 +116849,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -112939,6 +116905,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -112978,6 +116945,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -113017,6 +116985,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -113056,6 +117025,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -113111,6 +117081,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -113150,6 +117121,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type PermissionCreateWithoutRolesInput = {
@@ -113328,6 +117300,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
@@ -113367,6 +117340,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutRolesInput = {
@@ -113445,6 +117419,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
@@ -113484,6 +117459,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type RoleUpsertWithoutUsersInput = {
@@ -113552,6 +117528,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -113591,6 +117568,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -113646,6 +117624,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -113685,6 +117664,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutApiTokensInput = {
@@ -113724,6 +117704,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutApiTokensInput = {
@@ -113763,6 +117744,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutApiTokensInput = {
@@ -113818,6 +117800,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApiTokensInput = {
@@ -113857,6 +117840,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutCreatorProfileInput = {
@@ -113896,6 +117880,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCreatorProfileInput = {
@@ -113935,6 +117920,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCreatorProfileInput = {
@@ -113979,6 +117965,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -113996,6 +117983,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -114037,6 +118025,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -114053,6 +118042,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -114239,6 +118229,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatorProfileInput = {
@@ -114278,6 +118269,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutCreatorInput = {
@@ -114338,6 +118330,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    productType?: EnumProductTypeFilter<"Product"> | $Enums.ProductType
     licenseKeysEnabled?: BoolFilter<"Product"> | boolean
     licenseMaxActivations?: IntFilter<"Product"> | number
     licenseValidityDays?: IntNullableFilter<"Product"> | number | null
@@ -114722,6 +118715,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -114761,6 +118755,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -114869,6 +118864,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -114908,6 +118904,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreatorProfileUpsertWithoutFollowersInput = {
@@ -115085,6 +119082,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -115102,6 +119100,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -115143,6 +119142,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -115159,6 +119159,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -115987,6 +119988,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EventCreateWithoutProductInput = {
+    id?: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tickets?: TicketCreateNestedManyWithoutEventInput
+  }
+
+  export type EventUncheckedCreateWithoutProductInput = {
+    id?: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tickets?: TicketUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type EventCreateOrConnectWithoutProductInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutProductInput, EventUncheckedCreateWithoutProductInput>
+  }
+
   export type LicenseKeyCreateWithoutProductInput = {
     id?: string
     key: string
@@ -116472,6 +120512,51 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AffiliatePromotionalAsset"> | Date | string
   }
 
+  export type EventUpsertWithoutProductInput = {
+    update: XOR<EventUpdateWithoutProductInput, EventUncheckedUpdateWithoutProductInput>
+    create: XOR<EventCreateWithoutProductInput, EventUncheckedCreateWithoutProductInput>
+    where?: EventWhereInput
+  }
+
+  export type EventUpdateToOneWithWhereWithoutProductInput = {
+    where?: EventWhereInput
+    data: XOR<EventUpdateWithoutProductInput, EventUncheckedUpdateWithoutProductInput>
+  }
+
+  export type EventUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tickets?: TicketUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tickets?: TicketUncheckedUpdateManyWithoutEventNestedInput
+  }
+
   export type LicenseKeyUpsertWithWhereUniqueWithoutProductInput = {
     where: LicenseKeyWhereUniqueInput
     update: XOR<LicenseKeyUpdateWithoutProductInput, LicenseKeyUncheckedUpdateWithoutProductInput>
@@ -116525,6 +120610,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -116542,6 +120628,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -116584,6 +120671,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -116599,6 +120687,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -116674,6 +120763,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -116691,6 +120781,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -116733,6 +120824,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -116748,6 +120840,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -116813,6 +120906,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -116830,6 +120924,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -116872,6 +120967,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -116887,6 +120983,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -116966,6 +121063,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -116983,6 +121081,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -117025,6 +121124,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -117040,6 +121140,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -117109,6 +121210,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -117126,6 +121228,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -117168,6 +121271,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -117183,6 +121287,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -117273,6 +121378,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -117290,6 +121396,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -117332,6 +121439,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -117347,6 +121455,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -117436,6 +121545,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -117453,6 +121563,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -117495,6 +121606,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -117510,6 +121622,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -117605,6 +121718,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -117622,6 +121736,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -117664,6 +121779,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -117679,6 +121795,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -117719,6 +121836,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCartInput = {
@@ -117758,6 +121876,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCartInput = {
@@ -117841,6 +121960,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCartInput = {
@@ -117880,6 +122000,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CartItemUpsertWithWhereUniqueWithoutCartInput = {
@@ -117956,6 +122077,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -117973,6 +122095,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -118015,6 +122138,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -118030,6 +122154,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -118113,6 +122238,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -118130,6 +122256,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -118172,6 +122299,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -118187,6 +122315,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -118227,6 +122356,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -118266,6 +122396,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -118532,6 +122663,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TicketCreateWithoutOrderInput = {
+    id?: string
+    orderItemId?: string | null
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: EventCreateNestedOneWithoutTicketsInput
+    buyer: UserCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateWithoutOrderInput = {
+    id?: string
+    eventId: string
+    orderItemId?: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketCreateOrConnectWithoutOrderInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutOrderInput, TicketUncheckedCreateWithoutOrderInput>
+  }
+
+  export type TicketCreateManyOrderInputEnvelope = {
+    data: TicketCreateManyOrderInput | TicketCreateManyOrderInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutOrdersInput = {
     update: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
     create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
@@ -118580,6 +122753,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -118619,6 +122793,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -118813,6 +122988,22 @@ export namespace Prisma {
     data: XOR<LicenseKeyUpdateManyMutationInput, LicenseKeyUncheckedUpdateManyWithoutOrderInput>
   }
 
+  export type TicketUpsertWithWhereUniqueWithoutOrderInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutOrderInput, TicketUncheckedUpdateWithoutOrderInput>
+    create: XOR<TicketCreateWithoutOrderInput, TicketUncheckedCreateWithoutOrderInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutOrderInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutOrderInput, TicketUncheckedUpdateWithoutOrderInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutOrderInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutOrderInput>
+  }
+
   export type OrderCreateWithoutItemsInput = {
     id?: string
     status?: $Enums.OrderStatus
@@ -118833,6 +123024,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutItemsInput = {
@@ -118855,6 +123047,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutItemsInput = {
@@ -118899,6 +123092,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -118916,6 +123110,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -118958,6 +123153,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -118973,6 +123169,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -119041,6 +123238,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
@@ -119063,6 +123261,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type ProductUpsertWithoutOrderItemsInput = {
@@ -119113,6 +123312,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -119130,6 +123330,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -119172,6 +123373,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -119187,6 +123389,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -119245,6 +123448,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutPaymentInput = {
@@ -119267,6 +123471,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutPaymentInput = {
@@ -119341,6 +123546,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutPaymentInput = {
@@ -119363,6 +123569,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type RefundUpsertWithWhereUniqueWithoutPaymentInput = {
@@ -119401,6 +123608,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutRefundsInput = {
@@ -119423,6 +123631,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutRefundsInput = {
@@ -119496,6 +123705,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutRefundsInput = {
@@ -119518,6 +123728,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type PaymentUpsertWithoutRefundsInput = {
@@ -119629,6 +123840,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -119646,6 +123858,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -119688,6 +123901,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -119703,6 +123917,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -119748,6 +123963,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutDownloadsInput = {
@@ -119787,6 +124003,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutDownloadsInput = {
@@ -119909,6 +124126,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -119926,6 +124144,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -119968,6 +124187,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -119983,6 +124203,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -120034,6 +124255,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDownloadsInput = {
@@ -120073,6 +124295,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type DownloadLogUpsertWithWhereUniqueWithoutDownloadInput = {
@@ -120206,6 +124429,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -120223,6 +124447,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -120265,6 +124490,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -120280,6 +124506,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -120325,6 +124552,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
@@ -120364,6 +124592,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutReviewsInput = {
@@ -120441,6 +124670,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -120458,6 +124688,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -120500,6 +124731,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -120515,6 +124747,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -120566,6 +124799,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -120605,6 +124839,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type ReviewHelpfulVoteUpsertWithWhereUniqueWithoutReviewInput = {
@@ -120754,6 +124989,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -120793,6 +125029,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -120928,6 +125165,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -120967,6 +125205,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type WalletTransactionUpsertWithWhereUniqueWithoutWalletInput = {
@@ -121429,6 +125668,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutAffiliateInput = {
@@ -121468,6 +125708,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutAffiliateInput = {
@@ -121783,6 +126024,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAffiliateInput = {
@@ -121822,6 +126064,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type AffiliateLinkUpsertWithWhereUniqueWithoutAffiliateInput = {
@@ -122060,6 +126303,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -122077,6 +126321,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -122119,6 +126364,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -122134,6 +126380,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -122393,6 +126640,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -122410,6 +126658,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -122452,6 +126701,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -122467,6 +126717,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -122661,6 +126912,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -122678,6 +126930,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -122720,6 +126973,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -122735,6 +126989,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -122909,6 +127164,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -122926,6 +127182,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -122968,6 +127225,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -122983,6 +127241,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -123129,6 +127388,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -123146,6 +127406,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -123188,6 +127449,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -123203,6 +127465,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -123377,6 +127640,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -123394,6 +127658,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -123436,6 +127701,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -123451,6 +127717,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -123580,6 +127847,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutAffiliateConversionsInput = {
@@ -123602,6 +127870,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutAffiliateConversionsInput = {
@@ -123782,6 +128051,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutAffiliateConversionsInput = {
@@ -123804,6 +128074,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type AffiliatePayoutItemUpsertWithWhereUniqueWithoutConversionInput = {
@@ -123853,6 +128124,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutCommissionLedgerInput = {
@@ -123875,6 +128147,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutCommissionLedgerInput = {
@@ -123913,6 +128186,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutCommissionLedgerInput = {
@@ -123935,6 +128209,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type AffiliateCreateWithoutPayoutsInput = {
@@ -124346,6 +128621,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -124363,6 +128639,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -124405,6 +128682,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -124420,6 +128698,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -124476,6 +128755,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -124493,6 +128773,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -124535,6 +128816,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -124550,6 +128832,7 @@ export namespace Prisma {
     affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -124860,6 +129143,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutWishlistInput = {
@@ -124899,6 +129183,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutWishlistInput = {
@@ -124976,6 +129261,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWishlistInput = {
@@ -125015,6 +129301,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type WishlistItemUpsertWithWhereUniqueWithoutWishlistInput = {
@@ -125091,6 +129378,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -125108,6 +129396,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
   }
 
@@ -125150,6 +129439,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -125165,6 +129455,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -125248,6 +129539,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -125265,6 +129557,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -125307,6 +129600,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -125322,6 +129616,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -125362,6 +129657,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -125401,6 +129697,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -125456,6 +129753,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -125495,6 +129793,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type TicketMessageCreateWithoutTicketInput = {
@@ -125560,6 +129859,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutSupportTicketsInput = {
@@ -125599,6 +129899,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -125643,6 +129944,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTicketsInput = {
@@ -125682,6 +129984,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTicketsInput = {
@@ -125753,6 +130056,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupportTicketsInput = {
@@ -125792,6 +130096,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUpsertWithoutAssignedTicketsInput = {
@@ -125842,6 +130147,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
@@ -125881,6 +130187,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type SupportTicketCreateWithoutMessagesInput = {
@@ -125951,6 +130258,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutTicketMessagesInput = {
@@ -125990,6 +130298,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutTicketMessagesInput = {
@@ -126082,6 +130391,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketMessagesInput = {
@@ -126121,6 +130431,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutContactMessagesInput = {
@@ -126160,6 +130471,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutContactMessagesInput = {
@@ -126199,6 +130511,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutContactMessagesInput = {
@@ -126254,6 +130567,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactMessagesInput = {
@@ -126293,6 +130607,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -126332,6 +130647,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -126371,6 +130687,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -126458,6 +130775,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -126497,6 +130815,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreditPurchaseUpsertWithWhereUniqueWithoutSubscriptionInput = {
@@ -126600,6 +130919,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCreditPurchasesInput = {
@@ -126639,6 +130959,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCreditPurchasesInput = {
@@ -126758,6 +131079,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreditPurchasesInput = {
@@ -126797,6 +131119,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreditPackUpsertWithoutPurchasesInput = {
@@ -126912,6 +131235,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutCreditBalanceInput = {
@@ -126951,6 +131275,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutCreditBalanceInput = {
@@ -127036,6 +131361,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreditBalanceInput = {
@@ -127075,6 +131401,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type CreditTransactionUpsertWithWhereUniqueWithoutBalanceInput = {
@@ -127200,6 +131527,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutUsageRecordsInput = {
@@ -127239,6 +131567,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutUsageRecordsInput = {
@@ -127294,6 +131623,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsageRecordsInput = {
@@ -127333,6 +131663,7 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type ProductCreateWithoutLicenseKeysInput = {
@@ -127372,6 +131703,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -127390,6 +131722,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    event?: EventCreateNestedOneWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutLicenseKeysInput = {
@@ -127431,6 +131764,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -127447,6 +131781,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
     affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    event?: EventUncheckedCreateNestedOneWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutLicenseKeysInput = {
@@ -127474,6 +131809,7 @@ export namespace Prisma {
     refunds?: RefundCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    tickets?: TicketCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutLicenseKeysInput = {
@@ -127496,6 +131832,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
     affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
     commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutLicenseKeysInput = {
@@ -127540,6 +131877,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
   }
 
   export type UserUncheckedCreateWithoutLicenseKeysInput = {
@@ -127579,6 +131917,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type UserCreateOrConnectWithoutLicenseKeysInput = {
@@ -127662,6 +132001,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -127680,6 +132020,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutLicenseKeysInput = {
@@ -127721,6 +132062,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -127737,6 +132079,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
   }
 
   export type OrderUpsertWithoutLicenseKeysInput = {
@@ -127770,6 +132113,7 @@ export namespace Prisma {
     refunds?: RefundUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutLicenseKeysInput = {
@@ -127792,6 +132136,7 @@ export namespace Prisma {
     refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type UserUpsertWithoutLicenseKeysInput = {
@@ -127842,6 +132187,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLicenseKeysInput = {
@@ -127881,6 +132227,7 @@ export namespace Prisma {
     assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput = {
@@ -127982,6 +132329,684 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductCreateWithoutEventInput = {
+    id?: string
+    title: string
+    slug: string
+    description: string
+    shortDescription?: string | null
+    status?: $Enums.ProductStatus
+    coverImage?: string | null
+    thumbnail?: string | null
+    previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    compareAtPrice?: Decimal | DecimalJsLike | number | string | null
+    currency?: string
+    licenseType: $Enums.LicenseType
+    version?: string
+    fileSize?: bigint | number
+    downloadCount?: number
+    viewCount?: number
+    rating?: Decimal | DecimalJsLike | number | string
+    averageRating?: Decimal | DecimalJsLike | number | string
+    reviewCount?: number
+    isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
+    publishedAt?: Date | string | null
+    affiliateEnabled?: boolean
+    affiliateStatus?: $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: string
+    affiliateCommissionRate?: number | null
+    affiliateApprovedAt?: Date | string | null
+    affiliateApprovedBy?: string | null
+    affiliateRejectionReason?: string | null
+    affiliateClickCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
+    creator: CreatorProfileCreateNestedOneWithoutProductsInput
+    category: CategoryCreateNestedOneWithoutProductsInput
+    tags?: ProductTagCreateNestedManyWithoutProductInput
+    files?: ProductFileCreateNestedManyWithoutProductInput
+    versions?: ProductVersionCreateNestedManyWithoutProductInput
+    reviews?: ReviewCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
+    collectionProducts?: CollectionProductCreateNestedManyWithoutProductInput
+    wishlistItems?: WishlistItemCreateNestedManyWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
+    downloads?: DownloadCreateNestedManyWithoutProductInput
+    affiliateLinks?: AffiliateLinkCreateNestedManyWithoutProductInput
+    affiliateClicks?: AffiliateClickCreateNestedManyWithoutProductInput
+    affiliateAttributions?: AffiliateAttributionCreateNestedManyWithoutProductInput
+    promotionalAssets?: AffiliatePromotionalAssetCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutEventInput = {
+    id?: string
+    creatorId: string
+    categoryId: string
+    title: string
+    slug: string
+    description: string
+    shortDescription?: string | null
+    status?: $Enums.ProductStatus
+    coverImage?: string | null
+    thumbnail?: string | null
+    previewImages?: ProductCreatepreviewImagesInput | string[]
+    deliveryUrl?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    compareAtPrice?: Decimal | DecimalJsLike | number | string | null
+    currency?: string
+    licenseType: $Enums.LicenseType
+    version?: string
+    fileSize?: bigint | number
+    downloadCount?: number
+    viewCount?: number
+    rating?: Decimal | DecimalJsLike | number | string
+    averageRating?: Decimal | DecimalJsLike | number | string
+    reviewCount?: number
+    isFeatured?: boolean
+    isHeroProduct?: boolean
+    isAffiliatePick?: boolean
+    publishedAt?: Date | string | null
+    affiliateEnabled?: boolean
+    affiliateStatus?: $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: string
+    affiliateCommissionRate?: number | null
+    affiliateApprovedAt?: Date | string | null
+    affiliateApprovedBy?: string | null
+    affiliateRejectionReason?: string | null
+    affiliateClickCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
+    licenseKeysEnabled?: boolean
+    licenseMaxActivations?: number
+    licenseValidityDays?: number | null
+    tags?: ProductTagUncheckedCreateNestedManyWithoutProductInput
+    files?: ProductFileUncheckedCreateNestedManyWithoutProductInput
+    versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    collectionProducts?: CollectionProductUncheckedCreateNestedManyWithoutProductInput
+    wishlistItems?: WishlistItemUncheckedCreateNestedManyWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutProductInput
+    affiliateLinks?: AffiliateLinkUncheckedCreateNestedManyWithoutProductInput
+    affiliateClicks?: AffiliateClickUncheckedCreateNestedManyWithoutProductInput
+    affiliateAttributions?: AffiliateAttributionUncheckedCreateNestedManyWithoutProductInput
+    promotionalAssets?: AffiliatePromotionalAssetUncheckedCreateNestedManyWithoutProductInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutEventInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutEventInput, ProductUncheckedCreateWithoutEventInput>
+  }
+
+  export type TicketCreateWithoutEventInput = {
+    id?: string
+    orderItemId?: string | null
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    order: OrderCreateNestedOneWithoutTicketsInput
+    buyer: UserCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TicketUncheckedCreateWithoutEventInput = {
+    id?: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketCreateOrConnectWithoutEventInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutEventInput, TicketUncheckedCreateWithoutEventInput>
+  }
+
+  export type TicketCreateManyEventInputEnvelope = {
+    data: TicketCreateManyEventInput | TicketCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProductUpsertWithoutEventInput = {
+    update: XOR<ProductUpdateWithoutEventInput, ProductUncheckedUpdateWithoutEventInput>
+    create: XOR<ProductCreateWithoutEventInput, ProductUncheckedCreateWithoutEventInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutEventInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutEventInput, ProductUncheckedUpdateWithoutEventInput>
+  }
+
+  export type ProductUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    licenseType?: EnumLicenseTypeFieldUpdateOperationsInput | $Enums.LicenseType
+    version?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    downloadCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
+    affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: StringFieldUpdateOperationsInput | string
+    affiliateCommissionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliateApprovedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateRejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateClickCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
+    creator?: CreatorProfileUpdateOneRequiredWithoutProductsNestedInput
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    tags?: ProductTagUpdateManyWithoutProductNestedInput
+    files?: ProductFileUpdateManyWithoutProductNestedInput
+    versions?: ProductVersionUpdateManyWithoutProductNestedInput
+    reviews?: ReviewUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
+    collectionProducts?: CollectionProductUpdateManyWithoutProductNestedInput
+    wishlistItems?: WishlistItemUpdateManyWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
+    downloads?: DownloadUpdateManyWithoutProductNestedInput
+    affiliateLinks?: AffiliateLinkUpdateManyWithoutProductNestedInput
+    affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
+    affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
+    promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    previewImages?: ProductUpdatepreviewImagesInput | string[]
+    deliveryUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    compareAtPrice?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    licenseType?: EnumLicenseTypeFieldUpdateOperationsInput | $Enums.LicenseType
+    version?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    downloadCount?: IntFieldUpdateOperationsInput | number
+    viewCount?: IntFieldUpdateOperationsInput | number
+    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    averageRating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reviewCount?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    isHeroProduct?: BoolFieldUpdateOperationsInput | boolean
+    isAffiliatePick?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateEnabled?: BoolFieldUpdateOperationsInput | boolean
+    affiliateStatus?: EnumProductAffiliateStatusFieldUpdateOperationsInput | $Enums.ProductAffiliateStatus
+    affiliateCommissionType?: StringFieldUpdateOperationsInput | string
+    affiliateCommissionRate?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliateApprovedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    affiliateApprovedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateRejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    affiliateClickCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
+    licenseMaxActivations?: IntFieldUpdateOperationsInput | number
+    licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
+    tags?: ProductTagUncheckedUpdateManyWithoutProductNestedInput
+    files?: ProductFileUncheckedUpdateManyWithoutProductNestedInput
+    versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    collectionProducts?: CollectionProductUncheckedUpdateManyWithoutProductNestedInput
+    wishlistItems?: WishlistItemUncheckedUpdateManyWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutProductNestedInput
+    affiliateLinks?: AffiliateLinkUncheckedUpdateManyWithoutProductNestedInput
+    affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
+    affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
+    promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type TicketUpsertWithWhereUniqueWithoutEventInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutEventInput, TicketUncheckedUpdateWithoutEventInput>
+    create: XOR<TicketCreateWithoutEventInput, TicketUncheckedCreateWithoutEventInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutEventInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutEventInput, TicketUncheckedUpdateWithoutEventInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutEventInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type EventCreateWithoutTicketsInput = {
+    id?: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutEventInput
+  }
+
+  export type EventUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    productId: string
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    locationType?: $Enums.EventLocationType
+    joinUrl?: string | null
+    venueName?: string | null
+    venueAddress?: string | null
+    capacity?: number | null
+    registrationDeadline?: Date | string | null
+    status?: $Enums.EventStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventCreateOrConnectWithoutTicketsInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutTicketsInput, EventUncheckedCreateWithoutTicketsInput>
+  }
+
+  export type OrderCreateWithoutTicketsInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    totalAmount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    invoiceNumber: string
+    paymentId?: string | null
+    idempotencyKey?: string | null
+    notes?: string | null
+    acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    buyer: UserCreateNestedOneWithoutOrdersInput
+    items?: OrderItemCreateNestedManyWithoutOrderInput
+    payment?: PaymentCreateNestedOneWithoutOrderInput
+    refunds?: RefundCreateNestedManyWithoutOrderInput
+    affiliateConversions?: AffiliateConversionCreateNestedManyWithoutOrderInput
+    commissionLedger?: CommissionLedgerCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutOrderInput
+  }
+
+  export type OrderUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    buyerId: string
+    status?: $Enums.OrderStatus
+    totalAmount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    invoiceNumber: string
+    paymentId?: string | null
+    idempotencyKey?: string | null
+    notes?: string | null
+    acquisitionSource?: $Enums.AcquisitionSource
+    couponCode?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
+    payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
+    refunds?: RefundUncheckedCreateNestedManyWithoutOrderInput
+    affiliateConversions?: AffiliateConversionUncheckedCreateNestedManyWithoutOrderInput
+    commissionLedger?: CommissionLedgerUncheckedCreateNestedManyWithoutOrderInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutOrderInput
+  }
+
+  export type OrderCreateOrConnectWithoutTicketsInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutTicketsInput, OrderUncheckedCreateWithoutTicketsInput>
+  }
+
+  export type UserCreateWithoutTicketsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+  }
+
+  export type UserUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+  }
+
+  export type UserCreateOrConnectWithoutTicketsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+  }
+
+  export type EventUpsertWithoutTicketsInput = {
+    update: XOR<EventUpdateWithoutTicketsInput, EventUncheckedUpdateWithoutTicketsInput>
+    create: XOR<EventCreateWithoutTicketsInput, EventUncheckedCreateWithoutTicketsInput>
+    where?: EventWhereInput
+  }
+
+  export type EventUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: EventWhereInput
+    data: XOR<EventUpdateWithoutTicketsInput, EventUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type EventUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    locationType?: EnumEventLocationTypeFieldUpdateOperationsInput | $Enums.EventLocationType
+    joinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    venueName?: NullableStringFieldUpdateOperationsInput | string | null
+    venueAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrderUpsertWithoutTicketsInput = {
+    update: XOR<OrderUpdateWithoutTicketsInput, OrderUncheckedUpdateWithoutTicketsInput>
+    create: XOR<OrderCreateWithoutTicketsInput, OrderUncheckedCreateWithoutTicketsInput>
+    where?: OrderWhereInput
+  }
+
+  export type OrderUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: OrderWhereInput
+    data: XOR<OrderUpdateWithoutTicketsInput, OrderUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type OrderUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    buyer?: UserUpdateOneRequiredWithoutOrdersNestedInput
+    items?: OrderItemUpdateManyWithoutOrderNestedInput
+    payment?: PaymentUpdateOneWithoutOrderNestedInput
+    refunds?: RefundUpdateManyWithoutOrderNestedInput
+    affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
+    commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    buyerId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    acquisitionSource?: EnumAcquisitionSourceFieldUpdateOperationsInput | $Enums.AcquisitionSource
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+    payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
+    refunds?: RefundUncheckedUpdateManyWithoutOrderNestedInput
+    affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
+    commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+  }
+
+  export type UserUpsertWithoutTicketsInput = {
+    update: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
+    create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type UserUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type OrderCreateManyBuyerInput = {
@@ -128161,6 +133186,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type TicketCreateManyBuyerInput = {
+    id?: string
+    eventId: string
+    orderId: string
+    orderItemId?: string | null
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type OrderUpdateWithoutBuyerInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
@@ -128181,6 +133222,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutBuyerInput = {
@@ -128203,6 +133245,7 @@ export namespace Prisma {
     affiliateConversions?: AffiliateConversionUncheckedUpdateManyWithoutOrderNestedInput
     commissionLedger?: CommissionLedgerUncheckedUpdateManyWithoutOrderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutOrderNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateManyWithoutBuyerInput = {
@@ -128716,6 +133759,54 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TicketUpdateWithoutBuyerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: EventUpdateOneRequiredWithoutTicketsNestedInput
+    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
+  }
+
+  export type TicketUncheckedUpdateWithoutBuyerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketUncheckedUpdateManyWithoutBuyerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserRoleCreateManyRoleInput = {
     id?: string
     userId: string
@@ -128831,6 +133922,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -128904,6 +133996,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -128921,6 +134014,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -128962,6 +134056,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -128978,6 +134073,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -129019,6 +134115,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -129171,6 +134268,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    productType?: $Enums.ProductType
     licenseKeysEnabled?: boolean
     licenseMaxActivations?: number
     licenseValidityDays?: number | null
@@ -129259,6 +134357,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -129276,6 +134375,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUpdateManyWithoutProductNestedInput
+    event?: EventUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutProductNestedInput
   }
 
@@ -129317,6 +134417,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -129333,6 +134434,7 @@ export namespace Prisma {
     affiliateClicks?: AffiliateClickUncheckedUpdateManyWithoutProductNestedInput
     affiliateAttributions?: AffiliateAttributionUncheckedUpdateManyWithoutProductNestedInput
     promotionalAssets?: AffiliatePromotionalAssetUncheckedUpdateManyWithoutProductNestedInput
+    event?: EventUncheckedUpdateOneWithoutProductNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -129374,6 +134476,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    productType?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     licenseKeysEnabled?: BoolFieldUpdateOperationsInput | boolean
     licenseMaxActivations?: IntFieldUpdateOperationsInput | number
     licenseValidityDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -130223,6 +135326,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type TicketCreateManyOrderInput = {
+    id?: string
+    eventId: string
+    orderItemId?: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type OrderItemUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
     productName?: StringFieldUpdateOperationsInput | string
@@ -130477,6 +135596,54 @@ export namespace Prisma {
     maxActivations?: IntFieldUpdateOperationsInput | number
     status?: EnumLicenseStatusFieldUpdateOperationsInput | $Enums.LicenseStatus
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: EventUpdateOneRequiredWithoutTicketsNestedInput
+    buyer?: UserUpdateOneRequiredWithoutTicketsNestedInput
+  }
+
+  export type TicketUncheckedUpdateWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketUncheckedUpdateManyWithoutOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -131687,6 +136854,70 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     activatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketCreateManyEventInput = {
+    id?: string
+    orderId: string
+    orderItemId?: string | null
+    buyerId: string
+    ticketCode: string
+    attendeeName?: string | null
+    attendeeEmail?: string | null
+    status?: $Enums.EventTicketStatus
+    holdExpiresAt?: Date | string | null
+    checkedInAt?: Date | string | null
+    checkedInBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TicketUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: OrderUpdateOneRequiredWithoutTicketsNestedInput
+    buyer?: UserUpdateOneRequiredWithoutTicketsNestedInput
+  }
+
+  export type TicketUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerId?: StringFieldUpdateOperationsInput | string
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEventTicketStatusFieldUpdateOperationsInput | $Enums.EventTicketStatus
+    holdExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

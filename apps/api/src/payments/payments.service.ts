@@ -6,6 +6,7 @@ import { WebhookEvent } from './providers/payment-provider.interface';
 import { EmailService } from '../email/email.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from '../affiliates/commission.service';
+import { EventsService } from '../events/events.service';
 import { LicensesService } from '../licenses/licenses.service';
 import { clawBackCreatorCredits } from '../common/money-reversal';
 import { groupBy } from '../common/group-by';
@@ -25,6 +26,7 @@ export class PaymentsService {
     private readonly notificationsService: NotificationsService,
     private readonly commissionService: CommissionService,
     private readonly licensesService: LicensesService,
+    private readonly eventsService: EventsService,
   ) {}
 
   private readonly logger = new Logger(PaymentsService.name);
@@ -321,6 +323,9 @@ export class PaymentsService {
           },
         })),
       });
+
+      // Confirm any held event seats now that payment has cleared.
+      await this.eventsService.confirmForOrder(tx, order.id);
 
       // Redeem the coupon exactly once, now that the order is actually paid.
       // (Deferred from apply/create time so abandoned carts and apply-then-remove
@@ -622,6 +627,8 @@ export class PaymentsService {
       where: { id: payment.orderId },
       data: { status: 'FAILED' },
     });
+    // Release any held event seats back to the pool.
+    await this.eventsService.cancelTicketsForOrder(payment.orderId);
   }
 
   /**
@@ -653,6 +660,9 @@ export class PaymentsService {
       );
       await clawBackCreatorCredits(tx, payment.orderId, creatorNets);
     });
+
+    // Release event seats held/confirmed by this order.
+    await this.eventsService.cancelTicketsForOrder(payment.orderId);
   }
 
   private async findPaymentForEvent(event: WebhookEvent) {

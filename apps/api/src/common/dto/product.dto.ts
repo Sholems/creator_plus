@@ -1,8 +1,52 @@
-import { IsString, IsNumber, IsInt, IsOptional, IsArray, ArrayMaxSize, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf } from 'class-validator';
+import { IsString, IsNumber, IsInt, IsOptional, IsArray, ArrayMaxSize, Min, Max, Matches, IsEnum, MinLength, MaxLength, IsBoolean, IsIn, IsUrl, ValidateIf, ValidateNested, IsDateString } from 'class-validator';
+import { Type } from 'class-transformer';
 
 // Creator-selectable affiliate reward rates (MVP). Anything outside this set is
 // rejected — the calculator trusts stored values at fulfillment time.
 export const AFFILIATE_RATE_OPTIONS = [20, 25, 30, 35, 40, 50] as const;
+
+// Live-event configuration attached to an EVENT-type product.
+export class EventConfigDto {
+  @IsDateString()
+  startsAt: string;
+
+  @IsOptional()
+  @IsDateString()
+  endsAt?: string | null;
+
+  @IsOptional()
+  @IsString()
+  timezone?: string;
+
+  @IsOptional()
+  @IsIn(['VIRTUAL', 'PHYSICAL', 'HYBRID'])
+  locationType?: 'VIRTUAL' | 'PHYSICAL' | 'HYBRID';
+
+  @IsOptional()
+  @IsString()
+  joinUrl?: string | null;
+
+  @IsOptional()
+  @IsString()
+  venueName?: string | null;
+
+  @IsOptional()
+  @IsString()
+  venueAddress?: string | null;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  capacity?: number | null;
+
+  @IsOptional()
+  @IsDateString()
+  registrationDeadline?: string | null;
+
+  @IsOptional()
+  @IsIn(['PUBLISHED', 'CANCELLED'])
+  status?: 'PUBLISHED' | 'CANCELLED';
+}
 
 export class CreateProductDto {
   @IsString()
@@ -81,6 +125,16 @@ export class CreateProductDto {
   @IsInt()
   @Min(1)
   licenseValidityDays?: number | null;
+
+  // Product kind and, for events, the live-event config.
+  @IsOptional()
+  @IsIn(['DIGITAL', 'EVENT'])
+  productType?: 'DIGITAL' | 'EVENT';
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => EventConfigDto)
+  event?: EventConfigDto;
 
   /**
    * Optional external delivery link (hosted file, Drive/Dropbox, or a landing
@@ -174,6 +228,15 @@ export class UpdateProductDto {
   @IsInt()
   @Min(1)
   licenseValidityDays?: number | null;
+
+  @IsOptional()
+  @IsIn(['DIGITAL', 'EVENT'])
+  productType?: 'DIGITAL' | 'EVENT';
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => EventConfigDto)
+  event?: EventConfigDto;
 
   /** Optional external delivery link buyers access after purchase. Empty clears. */
   @IsOptional()

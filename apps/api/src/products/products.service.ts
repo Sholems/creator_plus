@@ -11,6 +11,7 @@ import { StorageService } from '../storage/storage.service';
 import { SearchService } from '../search/search.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { EmailService } from '../email/email.service';
+import { EventsService } from '../events/events.service';
 import { validateFile, getMaxFileSizeFromSettings } from '../common/file-validation';
 import {
   DEFAULT_AFFILIATE_COMMISSION_RATE,
@@ -31,6 +32,7 @@ export class ProductsService {
     private searchService: SearchService,
     private notificationsService: NotificationsService,
     private emailService: EmailService,
+    private eventsService: EventsService,
   ) {}
 
   private async syncSearchIndex(product: any) {
@@ -61,6 +63,8 @@ export class ProductsService {
     licenseKeysEnabled?: boolean;
     licenseMaxActivations?: number;
     licenseValidityDays?: number | null;
+    productType?: 'DIGITAL' | 'EVENT';
+    event?: any;
     deliveryUrl?: string;
     affiliateEnabled?: boolean;
     affiliateCommissionRate?: number;
@@ -130,6 +134,7 @@ export class ProductsService {
           licenseKeysEnabled: data.licenseKeysEnabled ?? false,
           licenseMaxActivations: data.licenseMaxActivations ?? 2,
           licenseValidityDays: data.licenseValidityDays ?? null,
+          productType: (data.productType || 'DIGITAL') as any,
           deliveryUrl: data.deliveryUrl ? data.deliveryUrl.trim() : null,
           affiliateEnabled,
           affiliateStatus: affiliateEnabled ? 'PENDING_REVIEW' : 'DISABLED',
@@ -166,6 +171,11 @@ export class ProductsService {
         );
       }
       throw error;
+    }
+
+    // Attach event config for EVENT-type products.
+    if (data.productType === 'EVENT' && data.event) {
+      await this.eventsService.upsertForProduct(product.id, data.event);
     }
 
     void this.syncSearchIndex(product);
@@ -456,7 +466,9 @@ export class ProductsService {
       }
     }
 
-    const { tags, affiliateEnabled, affiliateCommissionRate, ...rest } = data;
+    // `event` is a relation, not a Product column — pull it out before the
+    // scalar update and persist it separately below.
+    const { tags, affiliateEnabled, affiliateCommissionRate, event: eventConfig, ...rest } = data;
 
     if ('deliveryUrl' in rest) {
       // Empty string means "clear the link"; a trimmed value is stored as-is.
@@ -567,6 +579,11 @@ export class ProductsService {
         },
       },
     });
+
+    // Persist event config when provided (creator set up / edited the event).
+    if (eventConfig) {
+      await this.eventsService.upsertForProduct(id, eventConfig);
+    }
 
     void this.syncSearchIndex(updated);
 

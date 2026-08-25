@@ -55,6 +55,7 @@ model User {
   ticketMessages TicketMessage[]          @relation("SentTicketMessages")
   passwordResetTokens PasswordResetToken[]
   licenseKeys    LicenseKey[]
+  tickets        Ticket[]
 
   @@map("users")
 }
@@ -387,6 +388,10 @@ model Product {
   affiliateAttributions AffiliateAttribution[]
   promotionalAssets AffiliatePromotionalAsset[]
 
+  // Product kind: a normal digital download, or a ticketed live event.
+  productType           ProductType @default(DIGITAL) @map("product_type")
+  event                 Event?
+
   // Optional per-product licensing (activation keys for downloadable apps).
   licenseKeysEnabled    Boolean @default(false) @map("license_keys_enabled")
   licenseMaxActivations Int     @default(2) @map("license_max_activations")
@@ -555,6 +560,7 @@ model Order {
   affiliateConversions AffiliateConversion[]
   commissionLedger CommissionLedger[]
   licenseKeys      LicenseKey[]
+  tickets          Ticket[]
 
   @@index([buyerId])
   @@index([status])
@@ -1677,4 +1683,84 @@ model LicenseActivation {
   @@unique([licenseKeyId, deviceId])
   @@index([licenseKeyId])
   @@map("license_activations")
+}
+
+// ==========================================
+// EVENTS / TICKETING DOMAIN
+// ==========================================
+
+enum ProductType {
+  DIGITAL
+  EVENT
+}
+
+enum EventLocationType {
+  VIRTUAL
+  PHYSICAL
+  HYBRID
+}
+
+enum EventStatus {
+  PUBLISHED
+  CANCELLED
+}
+
+enum EventTicketStatus {
+  HELD
+  VALID
+  CHECKED_IN
+  CANCELLED
+}
+
+/// Live-event configuration for a product whose productType is EVENT. Times are
+/// stored in UTC; `timezone` (IANA) is the canonical display zone.
+model Event {
+  id                  String            @id @default(uuid()) @db.Uuid
+  productId           String            @unique @map("product_id") @db.Uuid
+  startsAt            DateTime          @map("starts_at")
+  endsAt              DateTime?         @map("ends_at")
+  timezone            String            @default("Africa/Lagos")
+  locationType        EventLocationType @default(VIRTUAL) @map("location_type")
+  joinUrl             String?           @map("join_url")
+  venueName           String?           @map("venue_name")
+  venueAddress        String?           @map("venue_address")
+  capacity            Int?              // null = unlimited seats
+  registrationDeadline DateTime?        @map("registration_deadline")
+  status              EventStatus       @default(PUBLISHED)
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+
+  product Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tickets Ticket[]
+
+  @@map("events")
+}
+
+/// One seat. Reserved as HELD at checkout (with holdExpiresAt), confirmed to
+/// VALID on payment, and CHECKED_IN at the door.
+model Ticket {
+  id            String       @id @default(uuid()) @db.Uuid
+  eventId       String       @map("event_id") @db.Uuid
+  orderId       String       @map("order_id") @db.Uuid
+  orderItemId   String?      @map("order_item_id") @db.Uuid
+  buyerId       String       @map("buyer_id") @db.Uuid
+  ticketCode    String       @unique @map("ticket_code")
+  attendeeName  String?      @map("attendee_name")
+  attendeeEmail String?      @map("attendee_email")
+  status        EventTicketStatus @default(HELD)
+  holdExpiresAt DateTime?    @map("hold_expires_at")
+  checkedInAt   DateTime?    @map("checked_in_at")
+  checkedInBy   String?      @map("checked_in_by") @db.Uuid
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  buyer User  @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([buyerId])
+  @@index([orderId])
+  @@index([eventId, status])
+  @@map("tickets")
 }

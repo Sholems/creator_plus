@@ -335,6 +335,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
+  productType: 'productType',
   licenseKeysEnabled: 'licenseKeysEnabled',
   licenseMaxActivations: 'licenseMaxActivations',
   licenseValidityDays: 'licenseValidityDays'
@@ -983,6 +984,40 @@ exports.Prisma.LicenseActivationScalarFieldEnum = {
   lastSeenAt: 'lastSeenAt'
 };
 
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  timezone: 'timezone',
+  locationType: 'locationType',
+  joinUrl: 'joinUrl',
+  venueName: 'venueName',
+  venueAddress: 'venueAddress',
+  capacity: 'capacity',
+  registrationDeadline: 'registrationDeadline',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TicketScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  orderId: 'orderId',
+  orderItemId: 'orderItemId',
+  buyerId: 'buyerId',
+  ticketCode: 'ticketCode',
+  attendeeName: 'attendeeName',
+  attendeeEmail: 'attendeeEmail',
+  status: 'status',
+  holdExpiresAt: 'holdExpiresAt',
+  checkedInAt: 'checkedInAt',
+  checkedInBy: 'checkedInBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1048,6 +1083,11 @@ exports.ProductAffiliateStatus = exports.$Enums.ProductAffiliateStatus = {
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',
   SUSPENDED: 'SUSPENDED'
+};
+
+exports.ProductType = exports.$Enums.ProductType = {
+  DIGITAL: 'DIGITAL',
+  EVENT: 'EVENT'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {
@@ -1247,6 +1287,24 @@ exports.LicenseStatus = exports.$Enums.LicenseStatus = {
   REVOKED: 'REVOKED'
 };
 
+exports.EventLocationType = exports.$Enums.EventLocationType = {
+  VIRTUAL: 'VIRTUAL',
+  PHYSICAL: 'PHYSICAL',
+  HYBRID: 'HYBRID'
+};
+
+exports.EventStatus = exports.$Enums.EventStatus = {
+  PUBLISHED: 'PUBLISHED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.EventTicketStatus = exports.$Enums.EventTicketStatus = {
+  HELD: 'HELD',
+  VALID: 'VALID',
+  CHECKED_IN: 'CHECKED_IN',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -1314,7 +1372,9 @@ exports.Prisma.ModelName = {
   CreditTransaction: 'CreditTransaction',
   UsageRecord: 'UsageRecord',
   LicenseKey: 'LicenseKey',
-  LicenseActivation: 'LicenseActivation'
+  LicenseActivation: 'LicenseActivation',
+  Event: 'Event',
+  Ticket: 'Ticket'
 };
 
 /**

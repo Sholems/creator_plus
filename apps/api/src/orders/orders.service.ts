@@ -9,6 +9,7 @@ import type { AcquisitionSource } from '@creatormarket/database';
 import { Decimal } from '@prisma/client/runtime/library';
 import { CouponsService } from '../coupons/coupons.service';
 import { AffiliatesService } from '../affiliates/affiliates.service';
+import { EventsService } from '../events/events.service';
 import { classifyAcquisition } from '../affiliates/commission-math';
 import { paginate, pageMeta } from '../common/pagination';
 
@@ -29,6 +30,7 @@ export class OrdersService {
   constructor(
     private readonly couponsService: CouponsService,
     private readonly affiliatesService: AffiliatesService,
+    private readonly eventsService: EventsService,
   ) {}
 
   async create(
@@ -155,6 +157,20 @@ export class OrdersService {
         },
       },
     });
+
+    // Reserve seats for any event items (holds that expire if unpaid). If the
+    // event is sold out / closed, void the just-created order and surface the
+    // error so the buyer isn't left with a dead PENDING order.
+    try {
+      await this.eventsService.reserveForOrder({
+        id: order.id,
+        buyerId,
+        items: order.items.map((i) => ({ id: i.id, productId: i.productId, quantity: i.quantity })),
+      });
+    } catch (err) {
+      await prisma.order.delete({ where: { id: order.id } }).catch(() => undefined);
+      throw err;
+    }
 
     // NOTE: the coupon is NOT redeemed here. Redemption (the usedCount
     // increment + CouponRedemption row) happens once at fulfillment, so an
@@ -427,6 +443,9 @@ export class OrdersService {
     if (!['PENDING', 'PROCESSING'].includes(order.status)) {
       throw new ForbiddenException('Cannot cancel order in current status');
     }
+
+    // Release any held event seats back to the pool.
+    await this.eventsService.cancelTicketsForOrder(id);
 
     return prisma.order.update({
       where: { id },

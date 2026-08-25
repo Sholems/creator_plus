@@ -7,9 +7,10 @@ import { NotificationsModule } from '../notifications/notifications.module';
 import { SettingsModule } from '../settings/settings.module';
 import { AffiliatesModule } from '../affiliates/affiliates.module';
 import { LicensesModule } from '../licenses/licenses.module';
+import { EventsModule } from '../events/events.module';
 
 @Module({
-  imports: [EmailModule, NotificationsModule, SettingsModule, AffiliatesModule, LicensesModule],
+  imports: [EmailModule, NotificationsModule, SettingsModule, AffiliatesModule, LicensesModule, EventsModule],
   controllers: [PaymentsController],
   providers: [PaymentsService, PaymentProviderFactory],
   exports: [PaymentsService, PaymentProviderFactory],
