@@ -6,6 +6,7 @@ import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { AdinkraMark } from '@/components/brand/adinkra';
 import { formatEventWhen, localTimezoneLabel, calendarDataUri } from '@/lib/event';
+import { QrCode } from '@/components/market/qr-code';
 
 interface Ticket {
   id: string;
@@ -105,6 +106,18 @@ export default function MyTicketsPage() {
                   </div>
                   <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${meta.classes}`}>{meta.label}</span>
                 </div>
+
+                {!cancelled && (
+                  <div className="mt-4 flex items-center gap-4 border-t border-ink-100 pt-4">
+                    <div className="rounded-xl border border-ink-100 bg-white p-2">
+                      <QrCode value={t.ticketCode} size={112} />
+                    </div>
+                    <div>
+                      <p className="text-xs text-ink-400">Show this at the door to check in</p>
+                      <p className="mt-1 font-mono text-lg font-bold tracking-wide text-ink-900">{t.ticketCode}</p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-ink-100 pt-4">
                   <span className="rounded-lg bg-cream-100 px-2.5 py-1 font-mono text-sm font-bold tracking-wide text-ink-900">
