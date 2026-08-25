@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { prisma, Prisma, EventTicketStatus } from '@creatormarket/database';
 import { generateTicketCode } from './event-ticket.util';
 
@@ -205,5 +210,125 @@ export class EventsService {
       },
       data: { status: EventTicketStatus.CANCELLED, holdExpiresAt: null },
     });
+  }
+
+  // ─── Creator dashboard ────────────────────────────────────────────────────
+
+  private async creatorProfileId(userId: string) {
+    const profile = await prisma.creatorProfile.findUnique({
+      where: { userId },
+      select: { id: true },
+    });
+    if (!profile) throw new ForbiddenException('You must be a creator');
+    return profile.id;
+  }
+
+  /** Events across the creator's products, with sold / checked-in counts. */
+  async findForCreator(userId: string) {
+    const creatorId = await this.creatorProfileId(userId);
+    const events = await prisma.event.findMany({
+      where: { product: { creatorId } },
+      select: {
+        id: true,
+        startsAt: true,
+        endsAt: true,
+        timezone: true,
+        locationType: true,
+        capacity: true,
+        status: true,
+        product: { select: { id: true, title: true, slug: true } },
+      },
+      orderBy: { startsAt: 'desc' },
+    });
+    const ids = events.map((e) => e.id);
+    const [sold, checkedIn] = await Promise.all([
+      prisma.ticket.groupBy({
+        by: ['eventId'],
+        where: {
+          eventId: { in: ids },
+          status: { in: [EventTicketStatus.VALID, EventTicketStatus.CHECKED_IN] },
+        },
+        _count: { _all: true },
+      }),
+      prisma.ticket.groupBy({
+        by: ['eventId'],
+        where: { eventId: { in: ids }, status: EventTicketStatus.CHECKED_IN },
+        _count: { _all: true },
+      }),
+    ]);
+    const soldBy = new Map(sold.map((s) => [s.eventId, s._count._all]));
+    const inBy = new Map(checkedIn.map((s) => [s.eventId, s._count._all]));
+    return events.map((e) => ({
+      ...e,
+      sold: soldBy.get(e.id) ?? 0,
+      checkedIn: inBy.get(e.id) ?? 0,
+    }));
+  }
+
+  private async creatorEventOrThrow(userId: string, productId: string) {
+    const creatorId = await this.creatorProfileId(userId);
+    const event = await prisma.event.findUnique({
+      where: { productId },
+      select: { id: true, product: { select: { creatorId: true, title: true } } },
+    });
+    if (!event || event.product.creatorId !== creatorId) {
+      throw new NotFoundException('Event not found');
+    }
+    return event;
+  }
+
+  /** Attendee list (paid tickets) for one of the creator's events. */
+  async attendeesForProduct(userId: string, productId: string) {
+    const event = await this.creatorEventOrThrow(userId, productId);
+    const tickets = await prisma.ticket.findMany({
+      where: {
+        eventId: event.id,
+        status: { in: [EventTicketStatus.VALID, EventTicketStatus.CHECKED_IN] },
+      },
+      select: {
+        id: true,
+        ticketCode: true,
+        status: true,
+        checkedInAt: true,
+        createdAt: true,
+        buyer: { select: { displayName: true, email: true } },
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+    return { eventTitle: event.product.title, tickets };
+  }
+
+  /** Check a ticket in at the door (creator only). Atomic — a ticket can't be
+   *  checked in twice by concurrent scans. */
+  async checkIn(userId: string, productId: string, ticketCode: string) {
+    const event = await this.creatorEventOrThrow(userId, productId);
+    const ticket = await prisma.ticket.findUnique({
+      where: { ticketCode: (ticketCode || '').trim().toUpperCase() },
+      select: {
+        id: true,
+        eventId: true,
+        status: true,
+        buyer: { select: { displayName: true, email: true } },
+      },
+    });
+    if (!ticket || ticket.eventId !== event.id) {
+      throw new NotFoundException('No ticket with that code for this event');
+    }
+    const attendee = ticket.buyer?.displayName || ticket.buyer?.email || 'Attendee';
+    if (ticket.status === EventTicketStatus.CANCELLED) {
+      throw new BadRequestException('This ticket was cancelled');
+    }
+
+    const claimed = await prisma.ticket.updateMany({
+      where: { id: ticket.id, status: EventTicketStatus.VALID },
+      data: { status: EventTicketStatus.CHECKED_IN, checkedInAt: new Date(), checkedInBy: userId },
+    });
+    if (claimed.count === 0) {
+      if (ticket.status === EventTicketStatus.CHECKED_IN) {
+        return { ok: true, alreadyCheckedIn: true, attendee };
+      }
+      throw new BadRequestException('This ticket is not valid for entry');
+    }
+    return { ok: true, alreadyCheckedIn: false, attendee };
   }
 }

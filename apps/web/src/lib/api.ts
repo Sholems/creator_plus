@@ -318,6 +318,23 @@ class ApiClient {
     return this.fetch<any[]>('/events/mine/tickets', { token });
   }
 
+  // Events (creator)
+  async getCreatorEvents(token: string) {
+    return this.fetch<any[]>('/events/creator', { token });
+  }
+
+  async getEventAttendees(token: string, productId: string) {
+    return this.fetch<any>(`/events/creator/${productId}/attendees`, { token });
+  }
+
+  async checkInTicket(token: string, productId: string, ticketCode: string) {
+    return this.fetch<any>(`/events/creator/${productId}/checkin`, {
+      method: 'POST',
+      body: { ticketCode },
+      token,
+    });
+  }
+
   async createOrder(token: string, items: any[], options?: { couponCode?: string }) {
     const visitorId = readVisitorId();
     const body: any = options?.couponCode ? { items, couponCode: options.couponCode } : { items };

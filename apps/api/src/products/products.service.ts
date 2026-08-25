@@ -263,6 +263,7 @@ export class ProductsService {
               tag: true,
             },
           },
+          event: true,
           _count: {
             select: {
               orderItems: {

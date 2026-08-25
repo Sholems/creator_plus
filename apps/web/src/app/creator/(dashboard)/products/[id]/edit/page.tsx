@@ -9,10 +9,30 @@ import { htmlToPlainText } from '@/lib/rich-text';
 import { AffiliateProgramForm } from '@/components/creator/affiliate-program-form';
 import { GalleryUploader } from '@/components/creator/gallery-uploader';
 import { LicenseOptionsForm } from '@/components/creator/license-options-form';
+import { EventOptionsForm, type EventConfigValue } from '@/components/creator/event-options-form';
 import { cn } from '@creatormarket/ui';
 
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
+
+const emptyEvent: EventConfigValue = {
+  startsAt: null, endsAt: null, timezone: '', locationType: 'VIRTUAL',
+  joinUrl: '', venueName: '', venueAddress: '', capacity: null, registrationDeadline: null,
+};
+
+function eventPayload(ev: EventConfigValue) {
+  return {
+    startsAt: ev.startsAt,
+    endsAt: ev.endsAt || undefined,
+    timezone: ev.timezone || undefined,
+    locationType: ev.locationType,
+    joinUrl: ev.joinUrl || undefined,
+    venueName: ev.venueName || undefined,
+    venueAddress: ev.venueAddress || undefined,
+    capacity: ev.capacity ?? undefined,
+    registrationDeadline: ev.registrationDeadline || undefined,
+  };
+}
 
 export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: productId } = use(params);
@@ -32,6 +52,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     licenseMaxActivations: number;
     licenseValidityDays: number | null;
   }>({ licenseKeysEnabled: false, licenseMaxActivations: 2, licenseValidityDays: null });
+  const [productType, setProductType] = useState<'DIGITAL' | 'EVENT'>('DIGITAL');
+  const [eventConfig, setEventConfig] = useState<EventConfigValue>(emptyEvent);
   const [backfilling, setBackfilling] = useState(false);
   const [backfillMsg, setBackfillMsg] = useState('');
   const [description, setDescription] = useState('');
@@ -135,6 +157,20 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         licenseMaxActivations: product.licenseMaxActivations ?? 2,
         licenseValidityDays: product.licenseValidityDays ?? null,
       });
+      setProductType(product.productType === 'EVENT' ? 'EVENT' : 'DIGITAL');
+      if (product.event) {
+        setEventConfig({
+          startsAt: product.event.startsAt ?? null,
+          endsAt: product.event.endsAt ?? null,
+          timezone: product.event.timezone ?? '',
+          locationType: product.event.locationType ?? 'VIRTUAL',
+          joinUrl: product.event.joinUrl ?? '',
+          venueName: product.event.venueName ?? '',
+          venueAddress: product.event.venueAddress ?? '',
+          capacity: product.event.capacity ?? null,
+          registrationDeadline: product.event.registrationDeadline ?? null,
+        });
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to load product');
     } finally {
@@ -157,6 +193,11 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     }
     if (!formData.categoryId) {
       setError('Please select a category.');
+      setIsLoading(false);
+      return;
+    }
+    if (productType === 'EVENT' && !eventConfig.startsAt) {
+      setError('Please set the event start date and time.');
       setIsLoading(false);
       return;
     }
@@ -211,9 +252,11 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         thumbnail: thumbnailUrl,
         previewImages: galleryImages,
         coverImage: galleryImages[0] || undefined,
-        licenseKeysEnabled: licensing.licenseKeysEnabled,
+        licenseKeysEnabled: productType === 'EVENT' ? false : licensing.licenseKeysEnabled,
         licenseMaxActivations: licensing.licenseMaxActivations,
         licenseValidityDays: licensing.licenseValidityDays,
+        productType,
+        event: productType === 'EVENT' ? eventPayload(eventConfig) : undefined,
         deliveryUrl: deliveryUrl.trim(),
         affiliateEnabled: affiliate.affiliateEnabled,
         affiliateCommissionRate: affiliate.affiliateEnabled
@@ -435,6 +478,29 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       <form onSubmit={handleSubmit} noValidate className="mt-8 max-w-3xl">
         <div className="space-y-6">
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
+            <h2 className="font-display text-lg font-semibold text-ink-900">Product type</h2>
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              {([
+                { t: 'DIGITAL', title: 'Digital product', sub: 'Files, templates, courses, apps' },
+                { t: 'EVENT', title: 'Live event', sub: 'Webinars & ticketed events' },
+              ] as const).map((o) => (
+                <button
+                  key={o.t}
+                  type="button"
+                  onClick={() => setProductType(o.t)}
+                  className={cn(
+                    'rounded-xl border p-4 text-left transition',
+                    productType === o.t ? 'border-forest-600 bg-forest-50' : 'border-ink-100 hover:border-forest-300',
+                  )}
+                >
+                  <p className="text-sm font-semibold text-ink-900">{o.title}</p>
+                  <p className="mt-0.5 text-xs text-ink-500">{o.sub}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
             <h2 className="font-display text-lg font-semibold text-ink-900">Basic Information</h2>
 
             <div className="mt-4 space-y-4">
@@ -646,6 +712,12 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             <GalleryUploader value={galleryImages} onChange={setGalleryImages} />
           </div>
 
+          {productType === 'EVENT' && (
+            <EventOptionsForm value={eventConfig} onChange={setEventConfig} />
+          )}
+
+          {productType === 'DIGITAL' && (
+          <>
           <LicenseOptionsForm
             enabled={licensing.licenseKeysEnabled}
             maxActivations={licensing.licenseMaxActivations}
@@ -791,6 +863,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
               </>
             )}
           </div>
+          </>
+          )}
         </div>
 
         <div className="mt-8 flex items-center justify-end gap-4">

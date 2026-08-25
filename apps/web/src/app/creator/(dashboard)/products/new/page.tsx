@@ -9,7 +9,34 @@ import { htmlToPlainText } from '@/lib/rich-text';
 import { AffiliateProgramForm } from '@/components/creator/affiliate-program-form';
 import { GalleryUploader } from '@/components/creator/gallery-uploader';
 import { LicenseOptionsForm } from '@/components/creator/license-options-form';
+import { EventOptionsForm, type EventConfigValue } from '@/components/creator/event-options-form';
 import { cn } from '@creatormarket/ui';
+
+const emptyEvent: EventConfigValue = {
+  startsAt: null,
+  endsAt: null,
+  timezone: '',
+  locationType: 'VIRTUAL',
+  joinUrl: '',
+  venueName: '',
+  venueAddress: '',
+  capacity: null,
+  registrationDeadline: null,
+};
+
+function eventPayload(ev: EventConfigValue) {
+  return {
+    startsAt: ev.startsAt,
+    endsAt: ev.endsAt || undefined,
+    timezone: ev.timezone || undefined,
+    locationType: ev.locationType,
+    joinUrl: ev.joinUrl || undefined,
+    venueName: ev.venueName || undefined,
+    venueAddress: ev.venueAddress || undefined,
+    capacity: ev.capacity ?? undefined,
+    registrationDeadline: ev.registrationDeadline || undefined,
+  };
+}
 
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
@@ -29,6 +56,8 @@ export default function NewProductPage() {
     licenseMaxActivations: number;
     licenseValidityDays: number | null;
   }>({ licenseKeysEnabled: false, licenseMaxActivations: 2, licenseValidityDays: null });
+  const [productType, setProductType] = useState<'DIGITAL' | 'EVENT'>('DIGITAL');
+  const [eventConfig, setEventConfig] = useState<EventConfigValue>(emptyEvent);
   const [digitalFile, setDigitalFile] = useState<File | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<'file' | 'url'>('file');
   const [deliveryUrl, setDeliveryUrl] = useState('');
@@ -102,6 +131,11 @@ export default function NewProductPage() {
       setIsLoading(false);
       return;
     }
+    if (productType === 'EVENT' && !eventConfig.startsAt) {
+      setError('Please set the event start date and time.');
+      setIsLoading(false);
+      return;
+    }
     const compareAt = formData.compareAtPrice ? parseFloat(formData.compareAtPrice) : undefined;
     if (compareAt !== undefined && (isNaN(compareAt) || compareAt <= price)) {
       setError('Sale price (original) must be higher than the selling price.');
@@ -143,9 +177,11 @@ export default function NewProductPage() {
         thumbnail: thumbnailUrl,
         previewImages: galleryImages,
         coverImage: galleryImages[0] || undefined,
-        licenseKeysEnabled: licensing.licenseKeysEnabled,
+        licenseKeysEnabled: productType === 'EVENT' ? false : licensing.licenseKeysEnabled,
         licenseMaxActivations: licensing.licenseMaxActivations,
         licenseValidityDays: licensing.licenseValidityDays,
+        productType,
+        event: productType === 'EVENT' ? eventPayload(eventConfig) : undefined,
         deliveryUrl: deliveryUrl.trim(),
         affiliateEnabled: affiliate.affiliateEnabled,
         affiliateCommissionRate: affiliate.affiliateEnabled
@@ -220,6 +256,29 @@ export default function NewProductPage() {
 
       <form onSubmit={handleSubmit} noValidate className="mt-8 max-w-3xl">
         <div className="space-y-6">
+          <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
+            <h2 className="font-display text-lg font-semibold text-ink-900">What are you selling?</h2>
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              {([
+                { t: 'DIGITAL', title: 'Digital product', sub: 'Files, templates, courses, apps' },
+                { t: 'EVENT', title: 'Live event', sub: 'Webinars & ticketed events' },
+              ] as const).map((o) => (
+                <button
+                  key={o.t}
+                  type="button"
+                  onClick={() => setProductType(o.t)}
+                  className={cn(
+                    'rounded-xl border p-4 text-left transition',
+                    productType === o.t ? 'border-forest-600 bg-forest-50' : 'border-ink-100 hover:border-forest-300',
+                  )}
+                >
+                  <p className="text-sm font-semibold text-ink-900">{o.title}</p>
+                  <p className="mt-0.5 text-xs text-ink-500">{o.sub}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
             <h2 className="font-display text-lg font-semibold text-ink-900">Basic Information</h2>
 
@@ -407,13 +466,20 @@ export default function NewProductPage() {
             <GalleryUploader value={galleryImages} onChange={setGalleryImages} />
           </div>
 
-          <LicenseOptionsForm
-            enabled={licensing.licenseKeysEnabled}
-            maxActivations={licensing.licenseMaxActivations}
-            validityDays={licensing.licenseValidityDays}
-            onChange={setLicensing}
-          />
+          {productType === 'EVENT' && (
+            <EventOptionsForm value={eventConfig} onChange={setEventConfig} />
+          )}
 
+          {productType === 'DIGITAL' && (
+            <LicenseOptionsForm
+              enabled={licensing.licenseKeysEnabled}
+              maxActivations={licensing.licenseMaxActivations}
+              validityDays={licensing.licenseValidityDays}
+              onChange={setLicensing}
+            />
+          )}
+
+          {productType === 'DIGITAL' && (
           <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(22,33,27,0.04)]">
             <h2 className="font-display text-lg font-semibold text-ink-900">Digital File</h2>
             <p className="mt-1 text-sm text-ink-500">
@@ -511,6 +577,7 @@ export default function NewProductPage() {
               </>
             )}
           </div>
+          )}
         </div>
 
         <div className="mt-8 flex items-center justify-end gap-4">
