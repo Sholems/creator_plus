@@ -333,6 +333,7 @@ export class ProductsService {
           select: { id: true, fileName: true, fileSize: true, mimeType: true },
           orderBy: { createdAt: 'asc' },
         },
+        event: true,
         versions: {
           orderBy: {
             createdAt: 'desc',

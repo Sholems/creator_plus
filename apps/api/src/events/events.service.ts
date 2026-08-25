@@ -147,6 +147,47 @@ export class EventsService {
     });
   }
 
+  /** Tickets a buyer owns (paid or cancelled). Join link is only revealed for
+   *  active tickets. */
+  async findTicketsForBuyer(userId: string) {
+    const tickets = await prisma.ticket.findMany({
+      where: {
+        buyerId: userId,
+        status: {
+          in: [EventTicketStatus.VALID, EventTicketStatus.CHECKED_IN, EventTicketStatus.CANCELLED],
+        },
+      },
+      include: {
+        event: {
+          select: {
+            id: true,
+            startsAt: true,
+            endsAt: true,
+            timezone: true,
+            locationType: true,
+            joinUrl: true,
+            venueName: true,
+            venueAddress: true,
+            status: true,
+            product: { select: { id: true, title: true, slug: true, thumbnail: true } },
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return tickets.map((t) => {
+      const active = t.status === EventTicketStatus.VALID || t.status === EventTicketStatus.CHECKED_IN;
+      return {
+        id: t.id,
+        ticketCode: t.ticketCode,
+        status: t.status,
+        checkedInAt: t.checkedInAt,
+        event: { ...t.event, joinUrl: active ? t.event.joinUrl : null },
+      };
+    });
+  }
+
   /** Confirm an order's held seats once payment succeeds (runs in fulfillment tx). */
   async confirmForOrder(tx: Prisma.TransactionClient, orderId: string) {
     await tx.ticket.updateMany({

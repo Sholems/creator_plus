@@ -8,6 +8,7 @@ import { cn } from '@creatormarket/ui';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { formatNaira } from '@/lib/format';
+import { formatEventWhen, localTimezoneLabel } from '@/lib/event';
 import { RichText } from '@/components/market/rich-text';
 import { safeJsonLd } from '@/lib/json-ld';
 import { AdinkraMark } from '@/components/brand/adinkra';
@@ -67,6 +68,7 @@ export function ProductDetailClient({
   const [reviewsPage, setReviewsPage] = useState(1);
   const [hasMoreReviews, setHasMoreReviews] = useState((initialReviews?.length ?? 0) >= 10);
   const [loadingMoreReviews, setLoadingMoreReviews] = useState(false);
+  const [eventAvail, setEventAvail] = useState<any>(null);
 
   // Content arrives server-rendered via props (SSR/SEO). On mount in the
   // browser, refresh it and register the view — this plain GET increments
@@ -83,6 +85,15 @@ export function ProductDetailClient({
       .then((me) => setIsAffiliateActive(me?.status === 'ACTIVE'))
       .catch(() => setIsAffiliateActive(false));
   }, [token]);
+
+  // Live seat availability for event products.
+  useEffect(() => {
+    if (initialProduct?.productType !== 'EVENT') return;
+    api
+      .getEventAvailability(initialProduct.id)
+      .then(setEventAvail)
+      .catch(() => undefined);
+  }, [initialProduct?.id, initialProduct?.productType]);
 
   // Hydrate the wishlist toggle so an already-saved product shows "Saved".
   useEffect(() => {
@@ -274,6 +285,12 @@ export function ProductDetailClient({
   const reviewCount = product._count?.reviews ?? product.reviewCount ?? 0;
   const avgRating = Number(product.averageRating) || 0;
 
+  // Event product: date/time/location + live seat state.
+  const isEvent = product.productType === 'EVENT';
+  const ev = product.event;
+  const eventSoldOut = isEvent && (eventAvail?.soldOut || eventAvail?.available === false);
+  const seatsLeft = eventAvail?.seatsLeft;
+
   // Media gallery: thumbnail first, then cover + preview images, de-duplicated.
   const gallery: string[] = [
     ...new Set(
@@ -462,25 +479,63 @@ export function ProductDetailClient({
                 </span>
               </>
             )}
-            <p className="ml-auto text-xs text-ink-400">{product.licenseType || 'Personal'} license</p>
+            {!isEvent && (
+              <p className="ml-auto text-xs text-ink-400">{product.licenseType || 'Personal'} license</p>
+            )}
           </div>
+
+          {isEvent && ev && (
+            <div className="mt-4 space-y-2 rounded-xl border border-ink-100 bg-cream-50 p-4 text-sm">
+              <div className="flex items-start gap-2.5">
+                <svg className="mt-0.5 h-4 w-4 shrink-0 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <div>
+                  <p className="font-medium text-ink-900">{formatEventWhen(ev.startsAt, ev.endsAt)}</p>
+                  <p className="text-xs text-ink-400">Shown in {localTimezoneLabel()}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <svg className="mt-0.5 h-4 w-4 shrink-0 text-forest-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <p className="text-ink-700">
+                  {ev.locationType === 'VIRTUAL'
+                    ? 'Online event — join link sent after purchase'
+                    : ev.venueName || ev.venueAddress || 'In-person event'}
+                </p>
+              </div>
+              {typeof seatsLeft === 'number' && (
+                <p className={`text-xs font-medium ${eventSoldOut ? 'text-clay-600' : 'text-forest-700'}`}>
+                  {eventSoldOut ? 'Sold out' : `${seatsLeft} seat${seatsLeft === 1 ? '' : 's'} left`}
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Actions */}
           <div className="mt-5 flex flex-col gap-3">
             <button
               onClick={handlePurchase}
-              disabled={isPurchasing}
+              disabled={isPurchasing || (isEvent && eventSoldOut)}
               className="w-full rounded-full bg-forest-800 px-4 py-3.5 text-sm font-semibold text-cream-50 shadow-sm transition-colors hover:bg-forest-700 disabled:opacity-50"
             >
-              {isPurchasing ? 'Processing…' : 'Buy Now'}
+              {isPurchasing
+                ? 'Processing…'
+                : isEvent
+                  ? eventSoldOut ? 'Sold out' : 'Get Ticket'
+                  : 'Buy Now'}
             </button>
-            <button
-              onClick={handleAddToCart}
-              disabled={isAddingToCart}
-              className="w-full rounded-full border border-forest-300 bg-white px-4 py-3.5 text-sm font-semibold text-forest-800 transition-colors hover:bg-cream-100 disabled:opacity-50"
-            >
-              {isAddingToCart ? 'Adding…' : 'Add to Cart'}
-            </button>
+            {!isEvent && (
+              <button
+                onClick={handleAddToCart}
+                disabled={isAddingToCart}
+                className="w-full rounded-full border border-forest-300 bg-white px-4 py-3.5 text-sm font-semibold text-forest-800 transition-colors hover:bg-cream-100 disabled:opacity-50"
+              >
+                {isAddingToCart ? 'Adding…' : 'Add to Cart'}
+              </button>
+            )}
             {cartMessage && (
               <p className="text-center text-sm font-medium text-forest-700">{cartMessage}</p>
             )}
@@ -514,7 +569,10 @@ export function ProductDetailClient({
           {/* Trust signals */}
           <div className="mt-5 space-y-2.5 border-t border-ink-100 pt-5 text-sm text-ink-600">
             {[
-              { icon: 'M5 13l4 4L19 7', text: 'Instant download after payment' },
+              {
+                icon: 'M5 13l4 4L19 7',
+                text: isEvent ? 'Ticket & details sent right after payment' : 'Instant download after payment',
+              },
               { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', text: 'Secure, encrypted checkout' },
               { icon: 'M3 10h18M7 15h2m4 0h4M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', text: 'Pay securely with Paystack' },
             ].map((row) => (
@@ -950,19 +1008,21 @@ export function ProductDetailClient({
             )}
           </div>
           <div className="ml-auto flex gap-2">
-            <button
-              onClick={handleAddToCart}
-              disabled={isAddingToCart}
-              className="rounded-full border border-forest-300 bg-white px-4 py-2.5 text-sm font-semibold text-forest-800 disabled:opacity-50"
-            >
-              {isAddingToCart ? '…' : 'Add'}
-            </button>
+            {!isEvent && (
+              <button
+                onClick={handleAddToCart}
+                disabled={isAddingToCart}
+                className="rounded-full border border-forest-300 bg-white px-4 py-2.5 text-sm font-semibold text-forest-800 disabled:opacity-50"
+              >
+                {isAddingToCart ? '…' : 'Add'}
+              </button>
+            )}
             <button
               onClick={handlePurchase}
-              disabled={isPurchasing}
+              disabled={isPurchasing || (isEvent && eventSoldOut)}
               className="rounded-full bg-forest-800 px-6 py-2.5 text-sm font-semibold text-cream-50 disabled:opacity-50"
             >
-              {isPurchasing ? 'Processing…' : 'Buy Now'}
+              {isPurchasing ? 'Processing…' : isEvent ? (eventSoldOut ? 'Sold out' : 'Get Ticket') : 'Buy Now'}
             </button>
           </div>
         </div>

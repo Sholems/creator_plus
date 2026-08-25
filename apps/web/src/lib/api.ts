@@ -309,6 +309,15 @@ class ApiClient {
     return this.fetch<any>(`/orders/${id}`, { token });
   }
 
+  // Events / tickets
+  async getEventAvailability(productId: string) {
+    return this.fetch<any>(`/events/${productId}/availability`);
+  }
+
+  async getMyEventTickets(token: string) {
+    return this.fetch<any[]>('/events/mine/tickets', { token });
+  }
+
   async createOrder(token: string, items: any[], options?: { couponCode?: string }) {
     const visitorId = readVisitorId();
     const body: any = options?.couponCode ? { items, couponCode: options.couponCode } : { items };
