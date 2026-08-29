@@ -1082,6 +1082,152 @@ export class AdminService {
   }
 
   // ------------------------------------------------------------------
+  // QR Studio support
+  // ------------------------------------------------------------------
+
+  async getQrCampaigns(page = 1, perPage = 20, status?: string, search?: string) {
+    const skip = (page - 1) * perPage;
+    const where: any = {};
+    if (status) where.status = status;
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { publicCode: { contains: search, mode: 'insensitive' } },
+        { owner: { email: { contains: search, mode: 'insensitive' } } },
+      ];
+    }
+
+    const [campaigns, total] = await Promise.all([
+      prisma.qrCampaign.findMany({
+        where,
+        skip,
+        take: perPage,
+        orderBy: { createdAt: 'desc' },
+        include: {
+          owner: { select: { id: true, email: true, displayName: true } },
+          entitlement: { select: { offerCode: true, status: true, expiresAt: true } },
+          _count: { select: { assets: true, events: true } },
+        },
+      }),
+      prisma.qrCampaign.count({ where }),
+    ]);
+
+    return {
+      data: campaigns.map((campaign) => ({
+        id: campaign.id,
+        title: campaign.title,
+        publicCode: campaign.publicCode,
+        contentType: campaign.contentType,
+        status: campaign.status,
+        scanMode: campaign.scanMode,
+        owner: campaign.owner,
+        entitlement: campaign.entitlement,
+        assetsCount: campaign._count.assets,
+        eventsCount: campaign._count.events,
+        createdAt: campaign.createdAt,
+        expiresAt: campaign.expiresAt,
+      })),
+      pagination: this.paginate(page, perPage, total),
+    };
+  }
+
+  async getQrCampaignDetail(id: string) {
+    const campaign = await prisma.qrCampaign.findUnique({
+      where: { id },
+      include: {
+        owner: { select: { id: true, email: true, displayName: true } },
+        entitlement: { select: { offerCode: true, status: true, startsAt: true, expiresAt: true } },
+        assets: {
+          select: {
+            id: true,
+            kind: true,
+            fileName: true,
+            fileSize: true,
+            mimeType: true,
+            safetyStatus: true,
+            safetyReason: true,
+            active: true,
+            createdAt: true,
+          },
+          orderBy: { createdAt: 'desc' },
+        },
+        events: {
+          take: 10,
+          orderBy: { createdAt: 'desc' },
+          select: {
+            id: true,
+            kind: true,
+            referrerOrigin: true,
+            userAgentFamily: true,
+            deviceClass: true,
+            country: true,
+            createdAt: true,
+          },
+        },
+        adminActions: {
+          take: 10,
+          orderBy: { createdAt: 'desc' },
+          select: {
+            id: true,
+            action: true,
+            reasonCode: true,
+            reason: true,
+            createdAt: true,
+            actor: { select: { email: true } },
+          },
+        },
+      },
+    });
+    if (!campaign) throw new NotFoundException('QR campaign not found');
+
+    return {
+      ...campaign,
+      destinationUrl: campaign.destinationUrl,
+      assets: campaign.assets,
+    };
+  }
+
+  async pauseOrArchiveQrCampaign(
+    adminId: string,
+    id: string,
+    input: { reasonCode?: string; reason?: string; archive?: boolean },
+  ) {
+    const campaign = await prisma.qrCampaign.findUnique({ where: { id } });
+    if (!campaign) throw new NotFoundException('QR campaign not found');
+    const nextStatus = input.archive ? 'ARCHIVED' : 'PAUSED';
+    const reasonCode = input.reasonCode?.trim() || 'SUPPORT_ACTION';
+
+    const updated = await prisma.$transaction(async (tx) => {
+      const updatedCampaign = await tx.qrCampaign.update({
+        where: { id },
+        data: {
+          status: nextStatus,
+          archivedAt: nextStatus === 'ARCHIVED' ? new Date() : campaign.archivedAt,
+        },
+      });
+      await tx.qrAdminAction.create({
+        data: {
+          campaignId: id,
+          actorId: adminId,
+          action: nextStatus === 'ARCHIVED' ? 'archive' : 'pause',
+          reasonCode,
+          reason: input.reason?.trim() || null,
+          previousState: { status: campaign.status },
+          newState: { status: updatedCampaign.status },
+        },
+      });
+      return updatedCampaign;
+    });
+
+    this.audit(adminId, null, `qr_campaign.${nextStatus.toLowerCase()}`, 'qr_campaign', id, {
+      reasonCode,
+      status: nextStatus,
+    });
+
+    return updated;
+  }
+
+  // ------------------------------------------------------------------
   // Helpers
   // ------------------------------------------------------------------
 

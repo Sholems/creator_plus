@@ -14,6 +14,7 @@ import { BroadcastDto } from './dto/broadcast.dto';
 import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
 import { CreateFeatureFlagDto, UpdateFeatureFlagDto } from '../feature-flags/dto/feature-flag.dto';
 import { UpdateContactStatusDto } from '../contact/dto/contact.dto';
+import { QrAdminActionDto } from '../qr-studio/dto/qr-campaign.dto';
 import {
   AssignTicketDto,
   ReplyTicketDto,
@@ -80,6 +81,29 @@ export class AdminController {
     @Query('search') search?: string,
   ) {
     return this.adminService.getProducts(status, Number(page) || 1, Number(perPage) || 20, search);
+  }
+
+  @Get('qr-studio/campaigns')
+  @ApiOperation({ summary: 'List QR Studio campaigns for support' })
+  getQrCampaigns(
+    @Query('status') status?: string,
+    @Query('page') page?: string,
+    @Query('perPage') perPage?: string,
+    @Query('search') search?: string,
+  ) {
+    return this.adminService.getQrCampaigns(Number(page) || 1, Number(perPage) || 20, status, search);
+  }
+
+  @Get('qr-studio/campaigns/:id')
+  @ApiOperation({ summary: 'Get QR Studio campaign detail for support' })
+  getQrCampaignDetail(@Param('id') id: string) {
+    return this.adminService.getQrCampaignDetail(id);
+  }
+
+  @Post('qr-studio/campaigns/:id/safety-action')
+  @ApiOperation({ summary: 'Pause or archive a QR Studio campaign with an audit reason' })
+  pauseOrArchiveQrCampaign(@Request() req, @Param('id') id: string, @Body() dto: QrAdminActionDto) {
+    return this.adminService.pauseOrArchiveQrCampaign(req.user.sub, id, dto);
   }
 
   @Get('orders')

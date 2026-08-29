@@ -102,6 +102,23 @@ export const api = {
       `/admin/products?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
       { token },
     ),
+  getQrCampaigns: (token: string, params?: { status?: string; page?: number; perPage?: number; search?: string }) =>
+    request<any>(
+      `/admin/qr-studio/campaigns?page=${params?.page ?? 1}&perPage=${params?.perPage ?? 20}${params?.status ? `&status=${params.status}` : ''}${params?.search ? `&search=${encodeURIComponent(params.search)}` : ''}`,
+      { token },
+    ),
+  getQrCampaign: (token: string, id: string) =>
+    request<any>(`/admin/qr-studio/campaigns/${id}`, { token }),
+  pauseOrArchiveQrCampaign: (
+    token: string,
+    id: string,
+    body: { reasonCode: string; reason?: string; archive?: boolean },
+  ) =>
+    request<any>(`/admin/qr-studio/campaigns/${id}/safety-action`, {
+      method: 'POST',
+      body,
+      token,
+    }),
   approveProduct: (token: string, id: string) =>
     request<any>(`/admin/products/${id}/approve`, { method: 'POST', token }),
   rejectProduct: (token: string, id: string, reason?: string) =>

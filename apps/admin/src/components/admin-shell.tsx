@@ -81,6 +81,15 @@ const NAV_SECTIONS: { heading: string; links: NavLink[] }[] = [
         ),
       },
       {
+        href: '/qr-studio',
+        label: 'QR Studio',
+        icon: (
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.5h5.25v5.25H3.75V4.5zm11.25 0h5.25v5.25H15V4.5zM3.75 15h5.25v5.25H3.75V15zm11.25 0h1.5v1.5H15V15zm3.75 0h1.5v5.25H18.75V15zM15 18.75h1.5v1.5H15v-1.5z" />
+          </svg>
+        ),
+      },
+      {
         href: '/users',
         label: 'Users',
         icon: (
