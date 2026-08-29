@@ -387,6 +387,75 @@ class ApiClient {
     });
   }
 
+  // QR Studio
+  async getQrOffers(token: string) {
+    return this.fetch<any[]>('/qr-studio/billing/offers', { token });
+  }
+
+  async createQrCheckout(token: string, offerCode: string) {
+    return this.fetch<any>('/qr-studio/billing/checkout', {
+      method: 'POST',
+      body: { offerCode },
+      token,
+    });
+  }
+
+  async getQrCampaigns(token: string) {
+    return this.fetch<any[]>('/qr-studio/campaigns', { token });
+  }
+
+  async createQrCampaign(token: string, data: any) {
+    return this.fetch<any>('/qr-studio/campaigns', {
+      method: 'POST',
+      body: data,
+      token,
+    });
+  }
+
+  async updateQrCampaign(token: string, id: string, data: any) {
+    return this.fetch<any>(`/qr-studio/campaigns/${id}`, {
+      method: 'PATCH',
+      body: data,
+      token,
+    });
+  }
+
+  async setQrCampaignStatus(token: string, id: string, status: 'ACTIVE' | 'PAUSED' | 'ARCHIVED') {
+    return this.fetch<any>(`/qr-studio/campaigns/${id}/status`, {
+      method: 'POST',
+      body: { status },
+      token,
+    });
+  }
+
+  async uploadQrCampaignFile(token: string, campaignId: string, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch(`${this.baseUrl}/qr-studio/campaigns/${campaignId}/assets/file`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'File upload failed' }));
+      throw new Error(error.message || `File upload failed: ${response.status}`);
+    }
+
+    return response.json();
+  }
+
+  async resolveQrCampaign(code: string) {
+    return this.fetch<any>(`/qr/${encodeURIComponent(code)}`);
+  }
+
+  async openQrCampaignFile(code: string) {
+    return this.fetch<any>(`/qr/${encodeURIComponent(code)}/open`);
+  }
+
   // Reviews
   async getProductReviews(productId: string, params?: { page?: number; perPage?: number }) {
     const searchParams = new URLSearchParams();

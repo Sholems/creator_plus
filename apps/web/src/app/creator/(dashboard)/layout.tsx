@@ -11,6 +11,7 @@ import { DashboardSwitcher } from '@/components/market/dashboard-switcher';
 const creatorLinks: { href: Route; label: string }[] = [
   { href: '/creator', label: 'Overview' },
   { href: '/creator/products', label: 'Products' },
+  { href: '/creator/qr-studio' as Route, label: 'QR Studio' },
   { href: '/creator/orders' as Route, label: 'Sales' },
   { href: '/creator/events' as Route, label: 'Events' },
   { href: '/creator/coupons', label: 'Coupons' },
