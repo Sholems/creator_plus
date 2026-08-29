@@ -56,6 +56,10 @@ model User {
   passwordResetTokens PasswordResetToken[]
   licenseKeys         LicenseKey[]
   tickets             Ticket[]
+  qrEntitlements      QrEntitlement[]
+  qrPayments          QrPayment[]
+  qrCampaigns         QrCampaign[]
+  qrAdminActions      QrAdminAction[]      @relation("QrAdminActor")
 
   @@map("users")
 }
@@ -1629,6 +1633,230 @@ model UsageRecord {
 
   @@index([userId, createdAt])
   @@map("usage_records")
+}
+
+// ==========================================
+// QR STUDIO DOMAIN
+// ==========================================
+
+enum QrOfferCode {
+  SINGLE
+  PACK
+  PRO_MONTHLY
+  PRO_YEARLY
+}
+
+enum QrPaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+enum QrEntitlementStatus {
+  ACTIVE
+  EXPIRED
+  EXHAUSTED
+  REVOKED
+}
+
+enum QrEntitlementKind {
+  CAMPAIGN_CREDIT
+  PRO_PASS
+}
+
+enum QrCampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  EXPIRED
+  ARCHIVED
+}
+
+enum QrContentType {
+  FILE
+  IMAGE_GALLERY
+  WEBSITE
+  PRODUCT_PAGE
+  CREATOR_PROFILE
+  WHATSAPP
+  SOCIAL_LINK_HUB
+  TEXT_NOTE
+}
+
+enum QrScanMode {
+  LANDING_PAGE
+  DIRECT_OPEN
+}
+
+enum QrAssetKind {
+  CAMPAIGN_FILE
+  BRAND_LOGO
+  GALLERY_IMAGE
+}
+
+enum QrAssetSafetyStatus {
+  PENDING_SCAN
+  APPROVED
+  BLOCKED
+}
+
+enum QrEventKind {
+  SCAN
+  OPEN
+}
+
+model QrPayment {
+  id                 String          @id @default(uuid()) @db.Uuid
+  userId             String          @map("user_id") @db.Uuid
+  offerCode          QrOfferCode     @map("offer_code")
+  offerName          String          @map("offer_name")
+  amount             Decimal         @db.Decimal(10, 2)
+  currency           String          @default("NGN")
+  campaignCredits    Int             @default(0) @map("campaign_credits")
+  maxActiveCampaigns Int?            @map("max_active_campaigns")
+  accessStartsAt     DateTime?       @map("access_starts_at")
+  accessEndsAt       DateTime?       @map("access_ends_at")
+  status             QrPaymentStatus @default(PENDING)
+  provider           String          @default("paystack")
+  providerPaymentId  String?         @map("provider_payment_id")
+  providerReference  String          @unique @map("provider_reference")
+  providerResponse   Json?           @map("provider_response")
+  fulfilledAt        DateTime?       @map("fulfilled_at")
+  createdAt          DateTime        @default(now()) @map("created_at")
+  updatedAt          DateTime        @updatedAt @map("updated_at")
+
+  user         User            @relation(fields: [userId], references: [id], onDelete: Restrict)
+  entitlements QrEntitlement[]
+
+  @@index([userId])
+  @@index([offerCode])
+  @@index([status])
+  @@index([createdAt])
+  @@map("qr_payments")
+}
+
+model QrEntitlement {
+  id                   String              @id @default(uuid()) @db.Uuid
+  userId               String              @map("user_id") @db.Uuid
+  paymentId            String?             @map("payment_id") @db.Uuid
+  offerCode            QrOfferCode         @map("offer_code")
+  kind                 QrEntitlementKind
+  status               QrEntitlementStatus @default(ACTIVE)
+  campaignCreditsTotal Int                 @default(0) @map("campaign_credits_total")
+  campaignCreditsUsed  Int                 @default(0) @map("campaign_credits_used")
+  maxActiveCampaigns   Int?                @map("max_active_campaigns")
+  startsAt             DateTime            @default(now()) @map("starts_at")
+  expiresAt            DateTime            @map("expires_at")
+  revokedAt            DateTime?           @map("revoked_at")
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @updatedAt @map("updated_at")
+
+  user      User         @relation(fields: [userId], references: [id], onDelete: Restrict)
+  payment   QrPayment?   @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  campaigns QrCampaign[]
+
+  @@index([userId, status])
+  @@index([offerCode])
+  @@index([expiresAt])
+  @@map("qr_entitlements")
+}
+
+model QrCampaign {
+  id                String           @id @default(uuid()) @db.Uuid
+  ownerId           String           @map("owner_id") @db.Uuid
+  entitlementId     String?          @map("entitlement_id") @db.Uuid
+  publicCode        String           @unique @map("public_code")
+  title             String
+  description       String?
+  contentType       QrContentType    @map("content_type")
+  status            QrCampaignStatus @default(DRAFT)
+  scanMode          QrScanMode       @default(LANDING_PAGE) @map("scan_mode")
+  destinationUrl    String?          @map("destination_url")
+  destinationData   Json?            @map("destination_data")
+  brandName         String?          @map("brand_name")
+  brandLogoAssetId  String?          @map("brand_logo_asset_id") @db.Uuid
+  brandPrimaryColor String?          @map("brand_primary_color")
+  brandAccentColor  String?          @map("brand_accent_color")
+  designSettings    Json?            @map("design_settings")
+  activatedAt       DateTime?        @map("activated_at")
+  expiresAt         DateTime?        @map("expires_at")
+  archivedAt        DateTime?        @map("archived_at")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+
+  owner        User            @relation(fields: [ownerId], references: [id], onDelete: Restrict)
+  entitlement  QrEntitlement?  @relation(fields: [entitlementId], references: [id], onDelete: SetNull)
+  assets       QrAsset[]
+  events       QrScanEvent[]
+  adminActions QrAdminAction[]
+
+  @@index([ownerId, status])
+  @@index([entitlementId])
+  @@index([contentType])
+  @@index([expiresAt])
+  @@map("qr_campaigns")
+}
+
+model QrAsset {
+  id              String              @id @default(uuid()) @db.Uuid
+  campaignId      String              @map("campaign_id") @db.Uuid
+  kind            QrAssetKind
+  fileName        String              @map("file_name")
+  fileKey         String              @map("file_key")
+  fileSize        BigInt              @map("file_size")
+  mimeType        String              @map("mime_type")
+  checksum        String?
+  safetyStatus    QrAssetSafetyStatus @default(PENDING_SCAN) @map("safety_status")
+  safetyReason    String?             @map("safety_reason")
+  scannerMetadata Json?               @map("scanner_metadata")
+  active          Boolean             @default(true)
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @updatedAt @map("updated_at")
+
+  campaign QrCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, kind, active])
+  @@index([safetyStatus])
+  @@map("qr_assets")
+}
+
+model QrScanEvent {
+  id              String      @id @default(uuid()) @db.Uuid
+  campaignId      String      @map("campaign_id") @db.Uuid
+  kind            QrEventKind
+  requestHash     String?     @map("request_hash")
+  referrerOrigin  String?     @map("referrer_origin")
+  userAgentFamily String?     @map("user_agent_family")
+  deviceClass     String?     @map("device_class")
+  country         String?
+  createdAt       DateTime    @default(now()) @map("created_at")
+
+  campaign QrCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, kind, createdAt])
+  @@index([createdAt])
+  @@map("qr_scan_events")
+}
+
+model QrAdminAction {
+  id            String   @id @default(uuid()) @db.Uuid
+  campaignId    String   @map("campaign_id") @db.Uuid
+  actorId       String?  @map("actor_id") @db.Uuid
+  action        String
+  reasonCode    String   @map("reason_code")
+  reason        String?
+  previousState Json?    @map("previous_state")
+  newState      Json?    @map("new_state")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  campaign QrCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  actor    User?      @relation("QrAdminActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([campaignId])
+  @@index([actorId])
+  @@index([createdAt])
+  @@map("qr_admin_actions")
 }
 
 // ==========================================

@@ -359,6 +359,36 @@ export type CreditTransaction = $Result.DefaultSelection<Prisma.$CreditTransacti
  */
 export type UsageRecord = $Result.DefaultSelection<Prisma.$UsageRecordPayload>
 /**
+ * Model QrPayment
+ * 
+ */
+export type QrPayment = $Result.DefaultSelection<Prisma.$QrPaymentPayload>
+/**
+ * Model QrEntitlement
+ * 
+ */
+export type QrEntitlement = $Result.DefaultSelection<Prisma.$QrEntitlementPayload>
+/**
+ * Model QrCampaign
+ * 
+ */
+export type QrCampaign = $Result.DefaultSelection<Prisma.$QrCampaignPayload>
+/**
+ * Model QrAsset
+ * 
+ */
+export type QrAsset = $Result.DefaultSelection<Prisma.$QrAssetPayload>
+/**
+ * Model QrScanEvent
+ * 
+ */
+export type QrScanEvent = $Result.DefaultSelection<Prisma.$QrScanEventPayload>
+/**
+ * Model QrAdminAction
+ * 
+ */
+export type QrAdminAction = $Result.DefaultSelection<Prisma.$QrAdminActionPayload>
+/**
  * Model LicenseKey
  * One key per purchased item for license-enabled products. Activations are
  * capped at maxActivations; expiresAt is null for a lifetime license.
@@ -699,6 +729,103 @@ export const CreditTransactionType: {
 export type CreditTransactionType = (typeof CreditTransactionType)[keyof typeof CreditTransactionType]
 
 
+export const QrOfferCode: {
+  SINGLE: 'SINGLE',
+  PACK: 'PACK',
+  PRO_MONTHLY: 'PRO_MONTHLY',
+  PRO_YEARLY: 'PRO_YEARLY'
+};
+
+export type QrOfferCode = (typeof QrOfferCode)[keyof typeof QrOfferCode]
+
+
+export const QrPaymentStatus: {
+  PENDING: 'PENDING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+};
+
+export type QrPaymentStatus = (typeof QrPaymentStatus)[keyof typeof QrPaymentStatus]
+
+
+export const QrEntitlementStatus: {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  EXHAUSTED: 'EXHAUSTED',
+  REVOKED: 'REVOKED'
+};
+
+export type QrEntitlementStatus = (typeof QrEntitlementStatus)[keyof typeof QrEntitlementStatus]
+
+
+export const QrEntitlementKind: {
+  CAMPAIGN_CREDIT: 'CAMPAIGN_CREDIT',
+  PRO_PASS: 'PRO_PASS'
+};
+
+export type QrEntitlementKind = (typeof QrEntitlementKind)[keyof typeof QrEntitlementKind]
+
+
+export const QrCampaignStatus: {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  EXPIRED: 'EXPIRED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type QrCampaignStatus = (typeof QrCampaignStatus)[keyof typeof QrCampaignStatus]
+
+
+export const QrContentType: {
+  FILE: 'FILE',
+  IMAGE_GALLERY: 'IMAGE_GALLERY',
+  WEBSITE: 'WEBSITE',
+  PRODUCT_PAGE: 'PRODUCT_PAGE',
+  CREATOR_PROFILE: 'CREATOR_PROFILE',
+  WHATSAPP: 'WHATSAPP',
+  SOCIAL_LINK_HUB: 'SOCIAL_LINK_HUB',
+  TEXT_NOTE: 'TEXT_NOTE'
+};
+
+export type QrContentType = (typeof QrContentType)[keyof typeof QrContentType]
+
+
+export const QrScanMode: {
+  LANDING_PAGE: 'LANDING_PAGE',
+  DIRECT_OPEN: 'DIRECT_OPEN'
+};
+
+export type QrScanMode = (typeof QrScanMode)[keyof typeof QrScanMode]
+
+
+export const QrAssetKind: {
+  CAMPAIGN_FILE: 'CAMPAIGN_FILE',
+  BRAND_LOGO: 'BRAND_LOGO',
+  GALLERY_IMAGE: 'GALLERY_IMAGE'
+};
+
+export type QrAssetKind = (typeof QrAssetKind)[keyof typeof QrAssetKind]
+
+
+export const QrAssetSafetyStatus: {
+  PENDING_SCAN: 'PENDING_SCAN',
+  APPROVED: 'APPROVED',
+  BLOCKED: 'BLOCKED'
+};
+
+export type QrAssetSafetyStatus = (typeof QrAssetSafetyStatus)[keyof typeof QrAssetSafetyStatus]
+
+
+export const QrEventKind: {
+  SCAN: 'SCAN',
+  OPEN: 'OPEN'
+};
+
+export type QrEventKind = (typeof QrEventKind)[keyof typeof QrEventKind]
+
+
 export const LicenseStatus: {
   ACTIVE: 'ACTIVE',
   SUSPENDED: 'SUSPENDED',
@@ -855,6 +982,46 @@ export const CreditPurchaseStatus: typeof $Enums.CreditPurchaseStatus
 export type CreditTransactionType = $Enums.CreditTransactionType
 
 export const CreditTransactionType: typeof $Enums.CreditTransactionType
+
+export type QrOfferCode = $Enums.QrOfferCode
+
+export const QrOfferCode: typeof $Enums.QrOfferCode
+
+export type QrPaymentStatus = $Enums.QrPaymentStatus
+
+export const QrPaymentStatus: typeof $Enums.QrPaymentStatus
+
+export type QrEntitlementStatus = $Enums.QrEntitlementStatus
+
+export const QrEntitlementStatus: typeof $Enums.QrEntitlementStatus
+
+export type QrEntitlementKind = $Enums.QrEntitlementKind
+
+export const QrEntitlementKind: typeof $Enums.QrEntitlementKind
+
+export type QrCampaignStatus = $Enums.QrCampaignStatus
+
+export const QrCampaignStatus: typeof $Enums.QrCampaignStatus
+
+export type QrContentType = $Enums.QrContentType
+
+export const QrContentType: typeof $Enums.QrContentType
+
+export type QrScanMode = $Enums.QrScanMode
+
+export const QrScanMode: typeof $Enums.QrScanMode
+
+export type QrAssetKind = $Enums.QrAssetKind
+
+export const QrAssetKind: typeof $Enums.QrAssetKind
+
+export type QrAssetSafetyStatus = $Enums.QrAssetSafetyStatus
+
+export const QrAssetSafetyStatus: typeof $Enums.QrAssetSafetyStatus
+
+export type QrEventKind = $Enums.QrEventKind
+
+export const QrEventKind: typeof $Enums.QrEventKind
 
 export type LicenseStatus = $Enums.LicenseStatus
 
@@ -1645,6 +1812,66 @@ export class PrismaClient<
   get usageRecord(): Prisma.UsageRecordDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.qrPayment`: Exposes CRUD operations for the **QrPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrPayments
+    * const qrPayments = await prisma.qrPayment.findMany()
+    * ```
+    */
+  get qrPayment(): Prisma.QrPaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrEntitlement`: Exposes CRUD operations for the **QrEntitlement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrEntitlements
+    * const qrEntitlements = await prisma.qrEntitlement.findMany()
+    * ```
+    */
+  get qrEntitlement(): Prisma.QrEntitlementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrCampaign`: Exposes CRUD operations for the **QrCampaign** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrCampaigns
+    * const qrCampaigns = await prisma.qrCampaign.findMany()
+    * ```
+    */
+  get qrCampaign(): Prisma.QrCampaignDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrAsset`: Exposes CRUD operations for the **QrAsset** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrAssets
+    * const qrAssets = await prisma.qrAsset.findMany()
+    * ```
+    */
+  get qrAsset(): Prisma.QrAssetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrScanEvent`: Exposes CRUD operations for the **QrScanEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrScanEvents
+    * const qrScanEvents = await prisma.qrScanEvent.findMany()
+    * ```
+    */
+  get qrScanEvent(): Prisma.QrScanEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrAdminAction`: Exposes CRUD operations for the **QrAdminAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrAdminActions
+    * const qrAdminActions = await prisma.qrAdminAction.findMany()
+    * ```
+    */
+  get qrAdminAction(): Prisma.QrAdminActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.licenseKey`: Exposes CRUD operations for the **LicenseKey** model.
     * Example usage:
     * ```ts
@@ -2189,6 +2416,12 @@ export namespace Prisma {
     CreditBalance: 'CreditBalance',
     CreditTransaction: 'CreditTransaction',
     UsageRecord: 'UsageRecord',
+    QrPayment: 'QrPayment',
+    QrEntitlement: 'QrEntitlement',
+    QrCampaign: 'QrCampaign',
+    QrAsset: 'QrAsset',
+    QrScanEvent: 'QrScanEvent',
+    QrAdminAction: 'QrAdminAction',
     LicenseKey: 'LicenseKey',
     LicenseActivation: 'LicenseActivation',
     Event: 'Event',
@@ -2211,7 +2444,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "licenseKey" | "licenseActivation" | "event" | "ticket"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7025,6 +7258,450 @@ export namespace Prisma {
           }
         }
       }
+      QrPayment: {
+        payload: Prisma.$QrPaymentPayload<ExtArgs>
+        fields: Prisma.QrPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.QrPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.QrPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.QrPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.QrPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.QrPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>
+          }
+          update: {
+            args: Prisma.QrPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrPaymentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.QrPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrPayment>
+          }
+          groupBy: {
+            args: Prisma.QrPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<QrPaymentCountAggregateOutputType> | number
+          }
+        }
+      }
+      QrEntitlement: {
+        payload: Prisma.$QrEntitlementPayload<ExtArgs>
+        fields: Prisma.QrEntitlementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrEntitlementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrEntitlementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>
+          }
+          findFirst: {
+            args: Prisma.QrEntitlementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrEntitlementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>
+          }
+          findMany: {
+            args: Prisma.QrEntitlementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>[]
+          }
+          create: {
+            args: Prisma.QrEntitlementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>
+          }
+          createMany: {
+            args: Prisma.QrEntitlementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrEntitlementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>[]
+          }
+          delete: {
+            args: Prisma.QrEntitlementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>
+          }
+          update: {
+            args: Prisma.QrEntitlementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrEntitlementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrEntitlementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrEntitlementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrEntitlementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrEntitlementPayload>
+          }
+          aggregate: {
+            args: Prisma.QrEntitlementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrEntitlement>
+          }
+          groupBy: {
+            args: Prisma.QrEntitlementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrEntitlementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrEntitlementCountArgs<ExtArgs>
+            result: $Utils.Optional<QrEntitlementCountAggregateOutputType> | number
+          }
+        }
+      }
+      QrCampaign: {
+        payload: Prisma.$QrCampaignPayload<ExtArgs>
+        fields: Prisma.QrCampaignFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrCampaignFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrCampaignFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>
+          }
+          findFirst: {
+            args: Prisma.QrCampaignFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrCampaignFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>
+          }
+          findMany: {
+            args: Prisma.QrCampaignFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>[]
+          }
+          create: {
+            args: Prisma.QrCampaignCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>
+          }
+          createMany: {
+            args: Prisma.QrCampaignCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrCampaignCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>[]
+          }
+          delete: {
+            args: Prisma.QrCampaignDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>
+          }
+          update: {
+            args: Prisma.QrCampaignUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrCampaignDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrCampaignUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrCampaignUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrCampaignUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCampaignPayload>
+          }
+          aggregate: {
+            args: Prisma.QrCampaignAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrCampaign>
+          }
+          groupBy: {
+            args: Prisma.QrCampaignGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrCampaignGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrCampaignCountArgs<ExtArgs>
+            result: $Utils.Optional<QrCampaignCountAggregateOutputType> | number
+          }
+        }
+      }
+      QrAsset: {
+        payload: Prisma.$QrAssetPayload<ExtArgs>
+        fields: Prisma.QrAssetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrAssetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrAssetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>
+          }
+          findFirst: {
+            args: Prisma.QrAssetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrAssetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>
+          }
+          findMany: {
+            args: Prisma.QrAssetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>[]
+          }
+          create: {
+            args: Prisma.QrAssetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>
+          }
+          createMany: {
+            args: Prisma.QrAssetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrAssetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>[]
+          }
+          delete: {
+            args: Prisma.QrAssetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>
+          }
+          update: {
+            args: Prisma.QrAssetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrAssetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrAssetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrAssetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrAssetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAssetPayload>
+          }
+          aggregate: {
+            args: Prisma.QrAssetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrAsset>
+          }
+          groupBy: {
+            args: Prisma.QrAssetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrAssetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrAssetCountArgs<ExtArgs>
+            result: $Utils.Optional<QrAssetCountAggregateOutputType> | number
+          }
+        }
+      }
+      QrScanEvent: {
+        payload: Prisma.$QrScanEventPayload<ExtArgs>
+        fields: Prisma.QrScanEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrScanEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrScanEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>
+          }
+          findFirst: {
+            args: Prisma.QrScanEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrScanEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>
+          }
+          findMany: {
+            args: Prisma.QrScanEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>[]
+          }
+          create: {
+            args: Prisma.QrScanEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>
+          }
+          createMany: {
+            args: Prisma.QrScanEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrScanEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>[]
+          }
+          delete: {
+            args: Prisma.QrScanEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>
+          }
+          update: {
+            args: Prisma.QrScanEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrScanEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrScanEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrScanEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrScanEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrScanEventPayload>
+          }
+          aggregate: {
+            args: Prisma.QrScanEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrScanEvent>
+          }
+          groupBy: {
+            args: Prisma.QrScanEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrScanEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrScanEventCountArgs<ExtArgs>
+            result: $Utils.Optional<QrScanEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      QrAdminAction: {
+        payload: Prisma.$QrAdminActionPayload<ExtArgs>
+        fields: Prisma.QrAdminActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrAdminActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrAdminActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>
+          }
+          findFirst: {
+            args: Prisma.QrAdminActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrAdminActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>
+          }
+          findMany: {
+            args: Prisma.QrAdminActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>[]
+          }
+          create: {
+            args: Prisma.QrAdminActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>
+          }
+          createMany: {
+            args: Prisma.QrAdminActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrAdminActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>[]
+          }
+          delete: {
+            args: Prisma.QrAdminActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>
+          }
+          update: {
+            args: Prisma.QrAdminActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrAdminActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrAdminActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrAdminActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrAdminActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrAdminActionPayload>
+          }
+          aggregate: {
+            args: Prisma.QrAdminActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrAdminAction>
+          }
+          groupBy: {
+            args: Prisma.QrAdminActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrAdminActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrAdminActionCountArgs<ExtArgs>
+            result: $Utils.Optional<QrAdminActionCountAggregateOutputType> | number
+          }
+        }
+      }
       LicenseKey: {
         payload: Prisma.$LicenseKeyPayload<ExtArgs>
         fields: Prisma.LicenseKeyFieldRefs
@@ -7482,6 +8159,12 @@ export namespace Prisma {
     creditBalance?: CreditBalanceOmit
     creditTransaction?: CreditTransactionOmit
     usageRecord?: UsageRecordOmit
+    qrPayment?: QrPaymentOmit
+    qrEntitlement?: QrEntitlementOmit
+    qrCampaign?: QrCampaignOmit
+    qrAsset?: QrAssetOmit
+    qrScanEvent?: QrScanEventOmit
+    qrAdminAction?: QrAdminActionOmit
     licenseKey?: LicenseKeyOmit
     licenseActivation?: LicenseActivationOmit
     event?: EventOmit
@@ -7584,6 +8267,10 @@ export namespace Prisma {
     passwordResetTokens: number
     licenseKeys: number
     tickets: number
+    qrEntitlements: number
+    qrPayments: number
+    qrCampaigns: number
+    qrAdminActions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7605,6 +8292,10 @@ export namespace Prisma {
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
     licenseKeys?: boolean | UserCountOutputTypeCountLicenseKeysArgs
     tickets?: boolean | UserCountOutputTypeCountTicketsArgs
+    qrEntitlements?: boolean | UserCountOutputTypeCountQrEntitlementsArgs
+    qrPayments?: boolean | UserCountOutputTypeCountQrPaymentsArgs
+    qrCampaigns?: boolean | UserCountOutputTypeCountQrCampaignsArgs
+    qrAdminActions?: boolean | UserCountOutputTypeCountQrAdminActionsArgs
   }
 
   // Custom InputTypes
@@ -7742,6 +8433,34 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TicketWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQrEntitlementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrEntitlementWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQrPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrPaymentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQrCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrCampaignWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountQrAdminActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrAdminActionWhereInput
   }
 
 
@@ -8831,6 +9550,117 @@ export namespace Prisma {
 
 
   /**
+   * Count Type QrPaymentCountOutputType
+   */
+
+  export type QrPaymentCountOutputType = {
+    entitlements: number
+  }
+
+  export type QrPaymentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    entitlements?: boolean | QrPaymentCountOutputTypeCountEntitlementsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QrPaymentCountOutputType without action
+   */
+  export type QrPaymentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPaymentCountOutputType
+     */
+    select?: QrPaymentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QrPaymentCountOutputType without action
+   */
+  export type QrPaymentCountOutputTypeCountEntitlementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrEntitlementWhereInput
+  }
+
+
+  /**
+   * Count Type QrEntitlementCountOutputType
+   */
+
+  export type QrEntitlementCountOutputType = {
+    campaigns: number
+  }
+
+  export type QrEntitlementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaigns?: boolean | QrEntitlementCountOutputTypeCountCampaignsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QrEntitlementCountOutputType without action
+   */
+  export type QrEntitlementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlementCountOutputType
+     */
+    select?: QrEntitlementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QrEntitlementCountOutputType without action
+   */
+  export type QrEntitlementCountOutputTypeCountCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrCampaignWhereInput
+  }
+
+
+  /**
+   * Count Type QrCampaignCountOutputType
+   */
+
+  export type QrCampaignCountOutputType = {
+    assets: number
+    events: number
+    adminActions: number
+  }
+
+  export type QrCampaignCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assets?: boolean | QrCampaignCountOutputTypeCountAssetsArgs
+    events?: boolean | QrCampaignCountOutputTypeCountEventsArgs
+    adminActions?: boolean | QrCampaignCountOutputTypeCountAdminActionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QrCampaignCountOutputType without action
+   */
+  export type QrCampaignCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaignCountOutputType
+     */
+    select?: QrCampaignCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QrCampaignCountOutputType without action
+   */
+  export type QrCampaignCountOutputTypeCountAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrAssetWhereInput
+  }
+
+  /**
+   * QrCampaignCountOutputType without action
+   */
+  export type QrCampaignCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrScanEventWhereInput
+  }
+
+  /**
+   * QrCampaignCountOutputType without action
+   */
+  export type QrCampaignCountOutputTypeCountAdminActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrAdminActionWhereInput
+  }
+
+
+  /**
    * Count Type LicenseKeyCountOutputType
    */
 
@@ -9149,6 +9979,10 @@ export namespace Prisma {
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     licenseKeys?: boolean | User$licenseKeysArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
+    qrEntitlements?: boolean | User$qrEntitlementsArgs<ExtArgs>
+    qrPayments?: boolean | User$qrPaymentsArgs<ExtArgs>
+    qrCampaigns?: boolean | User$qrCampaignsArgs<ExtArgs>
+    qrAdminActions?: boolean | User$qrAdminActionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -9227,6 +10061,10 @@ export namespace Prisma {
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     licenseKeys?: boolean | User$licenseKeysArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
+    qrEntitlements?: boolean | User$qrEntitlementsArgs<ExtArgs>
+    qrPayments?: boolean | User$qrPaymentsArgs<ExtArgs>
+    qrCampaigns?: boolean | User$qrCampaignsArgs<ExtArgs>
+    qrAdminActions?: boolean | User$qrAdminActionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -9260,6 +10098,10 @@ export namespace Prisma {
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
       licenseKeys: Prisma.$LicenseKeyPayload<ExtArgs>[]
       tickets: Prisma.$TicketPayload<ExtArgs>[]
+      qrEntitlements: Prisma.$QrEntitlementPayload<ExtArgs>[]
+      qrPayments: Prisma.$QrPaymentPayload<ExtArgs>[]
+      qrCampaigns: Prisma.$QrCampaignPayload<ExtArgs>[]
+      qrAdminActions: Prisma.$QrAdminActionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9694,6 +10536,10 @@ export namespace Prisma {
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     licenseKeys<T extends User$licenseKeysArgs<ExtArgs> = {}>(args?: Subset<T, User$licenseKeysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LicenseKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    qrEntitlements<T extends User$qrEntitlementsArgs<ExtArgs> = {}>(args?: Subset<T, User$qrEntitlementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    qrPayments<T extends User$qrPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$qrPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    qrCampaigns<T extends User$qrCampaignsArgs<ExtArgs> = {}>(args?: Subset<T, User$qrCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    qrAdminActions<T extends User$qrAdminActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$qrAdminActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10686,6 +11532,102 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * User.qrEntitlements
+   */
+  export type User$qrEntitlementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    where?: QrEntitlementWhereInput
+    orderBy?: QrEntitlementOrderByWithRelationInput | QrEntitlementOrderByWithRelationInput[]
+    cursor?: QrEntitlementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrEntitlementScalarFieldEnum | QrEntitlementScalarFieldEnum[]
+  }
+
+  /**
+   * User.qrPayments
+   */
+  export type User$qrPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    where?: QrPaymentWhereInput
+    orderBy?: QrPaymentOrderByWithRelationInput | QrPaymentOrderByWithRelationInput[]
+    cursor?: QrPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrPaymentScalarFieldEnum | QrPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * User.qrCampaigns
+   */
+  export type User$qrCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    where?: QrCampaignWhereInput
+    orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
+    cursor?: QrCampaignWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * User.qrAdminActions
+   */
+  export type User$qrAdminActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    where?: QrAdminActionWhereInput
+    orderBy?: QrAdminActionOrderByWithRelationInput | QrAdminActionOrderByWithRelationInput[]
+    cursor?: QrAdminActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrAdminActionScalarFieldEnum | QrAdminActionScalarFieldEnum[]
   }
 
   /**
@@ -85396,6 +86338,7390 @@ export namespace Prisma {
 
 
   /**
+   * Model QrPayment
+   */
+
+  export type AggregateQrPayment = {
+    _count: QrPaymentCountAggregateOutputType | null
+    _avg: QrPaymentAvgAggregateOutputType | null
+    _sum: QrPaymentSumAggregateOutputType | null
+    _min: QrPaymentMinAggregateOutputType | null
+    _max: QrPaymentMaxAggregateOutputType | null
+  }
+
+  export type QrPaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+    campaignCredits: number | null
+    maxActiveCampaigns: number | null
+  }
+
+  export type QrPaymentSumAggregateOutputType = {
+    amount: Decimal | null
+    campaignCredits: number | null
+    maxActiveCampaigns: number | null
+  }
+
+  export type QrPaymentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    offerCode: $Enums.QrOfferCode | null
+    offerName: string | null
+    amount: Decimal | null
+    currency: string | null
+    campaignCredits: number | null
+    maxActiveCampaigns: number | null
+    accessStartsAt: Date | null
+    accessEndsAt: Date | null
+    status: $Enums.QrPaymentStatus | null
+    provider: string | null
+    providerPaymentId: string | null
+    providerReference: string | null
+    fulfilledAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrPaymentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    offerCode: $Enums.QrOfferCode | null
+    offerName: string | null
+    amount: Decimal | null
+    currency: string | null
+    campaignCredits: number | null
+    maxActiveCampaigns: number | null
+    accessStartsAt: Date | null
+    accessEndsAt: Date | null
+    status: $Enums.QrPaymentStatus | null
+    provider: string | null
+    providerPaymentId: string | null
+    providerReference: string | null
+    fulfilledAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrPaymentCountAggregateOutputType = {
+    id: number
+    userId: number
+    offerCode: number
+    offerName: number
+    amount: number
+    currency: number
+    campaignCredits: number
+    maxActiveCampaigns: number
+    accessStartsAt: number
+    accessEndsAt: number
+    status: number
+    provider: number
+    providerPaymentId: number
+    providerReference: number
+    providerResponse: number
+    fulfilledAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QrPaymentAvgAggregateInputType = {
+    amount?: true
+    campaignCredits?: true
+    maxActiveCampaigns?: true
+  }
+
+  export type QrPaymentSumAggregateInputType = {
+    amount?: true
+    campaignCredits?: true
+    maxActiveCampaigns?: true
+  }
+
+  export type QrPaymentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    offerCode?: true
+    offerName?: true
+    amount?: true
+    currency?: true
+    campaignCredits?: true
+    maxActiveCampaigns?: true
+    accessStartsAt?: true
+    accessEndsAt?: true
+    status?: true
+    provider?: true
+    providerPaymentId?: true
+    providerReference?: true
+    fulfilledAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrPaymentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    offerCode?: true
+    offerName?: true
+    amount?: true
+    currency?: true
+    campaignCredits?: true
+    maxActiveCampaigns?: true
+    accessStartsAt?: true
+    accessEndsAt?: true
+    status?: true
+    provider?: true
+    providerPaymentId?: true
+    providerReference?: true
+    fulfilledAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrPaymentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    offerCode?: true
+    offerName?: true
+    amount?: true
+    currency?: true
+    campaignCredits?: true
+    maxActiveCampaigns?: true
+    accessStartsAt?: true
+    accessEndsAt?: true
+    status?: true
+    provider?: true
+    providerPaymentId?: true
+    providerReference?: true
+    providerResponse?: true
+    fulfilledAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QrPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrPayment to aggregate.
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPayments to fetch.
+     */
+    orderBy?: QrPaymentOrderByWithRelationInput | QrPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrPayments
+    **/
+    _count?: true | QrPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QrPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QrPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrPaymentMaxAggregateInputType
+  }
+
+  export type GetQrPaymentAggregateType<T extends QrPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrPayment[P]>
+      : GetScalarType<T[P], AggregateQrPayment[P]>
+  }
+
+
+
+
+  export type QrPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrPaymentWhereInput
+    orderBy?: QrPaymentOrderByWithAggregationInput | QrPaymentOrderByWithAggregationInput[]
+    by: QrPaymentScalarFieldEnum[] | QrPaymentScalarFieldEnum
+    having?: QrPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrPaymentCountAggregateInputType | true
+    _avg?: QrPaymentAvgAggregateInputType
+    _sum?: QrPaymentSumAggregateInputType
+    _min?: QrPaymentMinAggregateInputType
+    _max?: QrPaymentMaxAggregateInputType
+  }
+
+  export type QrPaymentGroupByOutputType = {
+    id: string
+    userId: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal
+    currency: string
+    campaignCredits: number
+    maxActiveCampaigns: number | null
+    accessStartsAt: Date | null
+    accessEndsAt: Date | null
+    status: $Enums.QrPaymentStatus
+    provider: string
+    providerPaymentId: string | null
+    providerReference: string
+    providerResponse: JsonValue | null
+    fulfilledAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: QrPaymentCountAggregateOutputType | null
+    _avg: QrPaymentAvgAggregateOutputType | null
+    _sum: QrPaymentSumAggregateOutputType | null
+    _min: QrPaymentMinAggregateOutputType | null
+    _max: QrPaymentMaxAggregateOutputType | null
+  }
+
+  type GetQrPaymentGroupByPayload<T extends QrPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], QrPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    offerCode?: boolean
+    offerName?: boolean
+    amount?: boolean
+    currency?: boolean
+    campaignCredits?: boolean
+    maxActiveCampaigns?: boolean
+    accessStartsAt?: boolean
+    accessEndsAt?: boolean
+    status?: boolean
+    provider?: boolean
+    providerPaymentId?: boolean
+    providerReference?: boolean
+    providerResponse?: boolean
+    fulfilledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    entitlements?: boolean | QrPayment$entitlementsArgs<ExtArgs>
+    _count?: boolean | QrPaymentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrPayment"]>
+
+  export type QrPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    offerCode?: boolean
+    offerName?: boolean
+    amount?: boolean
+    currency?: boolean
+    campaignCredits?: boolean
+    maxActiveCampaigns?: boolean
+    accessStartsAt?: boolean
+    accessEndsAt?: boolean
+    status?: boolean
+    provider?: boolean
+    providerPaymentId?: boolean
+    providerReference?: boolean
+    providerResponse?: boolean
+    fulfilledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrPayment"]>
+
+  export type QrPaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    offerCode?: boolean
+    offerName?: boolean
+    amount?: boolean
+    currency?: boolean
+    campaignCredits?: boolean
+    maxActiveCampaigns?: boolean
+    accessStartsAt?: boolean
+    accessEndsAt?: boolean
+    status?: boolean
+    provider?: boolean
+    providerPaymentId?: boolean
+    providerReference?: boolean
+    providerResponse?: boolean
+    fulfilledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrPayment"]>
+
+  export type QrPaymentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    offerCode?: boolean
+    offerName?: boolean
+    amount?: boolean
+    currency?: boolean
+    campaignCredits?: boolean
+    maxActiveCampaigns?: boolean
+    accessStartsAt?: boolean
+    accessEndsAt?: boolean
+    status?: boolean
+    provider?: boolean
+    providerPaymentId?: boolean
+    providerReference?: boolean
+    providerResponse?: boolean
+    fulfilledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QrPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "offerCode" | "offerName" | "amount" | "currency" | "campaignCredits" | "maxActiveCampaigns" | "accessStartsAt" | "accessEndsAt" | "status" | "provider" | "providerPaymentId" | "providerReference" | "providerResponse" | "fulfilledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["qrPayment"]>
+  export type QrPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    entitlements?: boolean | QrPayment$entitlementsArgs<ExtArgs>
+    _count?: boolean | QrPaymentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QrPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type QrPaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $QrPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrPayment"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      entitlements: Prisma.$QrEntitlementPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      offerCode: $Enums.QrOfferCode
+      offerName: string
+      amount: Prisma.Decimal
+      currency: string
+      campaignCredits: number
+      maxActiveCampaigns: number | null
+      accessStartsAt: Date | null
+      accessEndsAt: Date | null
+      status: $Enums.QrPaymentStatus
+      provider: string
+      providerPaymentId: string | null
+      providerReference: string
+      providerResponse: Prisma.JsonValue | null
+      fulfilledAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["qrPayment"]>
+    composites: {}
+  }
+
+  type QrPaymentGetPayload<S extends boolean | null | undefined | QrPaymentDefaultArgs> = $Result.GetResult<Prisma.$QrPaymentPayload, S>
+
+  type QrPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrPaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrPaymentCountAggregateInputType | true
+    }
+
+  export interface QrPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrPayment'], meta: { name: 'QrPayment' } }
+    /**
+     * Find zero or one QrPayment that matches the filter.
+     * @param {QrPaymentFindUniqueArgs} args - Arguments to find a QrPayment
+     * @example
+     * // Get one QrPayment
+     * const qrPayment = await prisma.qrPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrPaymentFindUniqueArgs>(args: SelectSubset<T, QrPaymentFindUniqueArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrPayment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrPaymentFindUniqueOrThrowArgs} args - Arguments to find a QrPayment
+     * @example
+     * // Get one QrPayment
+     * const qrPayment = await prisma.qrPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, QrPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentFindFirstArgs} args - Arguments to find a QrPayment
+     * @example
+     * // Get one QrPayment
+     * const qrPayment = await prisma.qrPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrPaymentFindFirstArgs>(args?: SelectSubset<T, QrPaymentFindFirstArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentFindFirstOrThrowArgs} args - Arguments to find a QrPayment
+     * @example
+     * // Get one QrPayment
+     * const qrPayment = await prisma.qrPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, QrPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrPayments
+     * const qrPayments = await prisma.qrPayment.findMany()
+     * 
+     * // Get first 10 QrPayments
+     * const qrPayments = await prisma.qrPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrPaymentWithIdOnly = await prisma.qrPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrPaymentFindManyArgs>(args?: SelectSubset<T, QrPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrPayment.
+     * @param {QrPaymentCreateArgs} args - Arguments to create a QrPayment.
+     * @example
+     * // Create one QrPayment
+     * const QrPayment = await prisma.qrPayment.create({
+     *   data: {
+     *     // ... data to create a QrPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrPaymentCreateArgs>(args: SelectSubset<T, QrPaymentCreateArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrPayments.
+     * @param {QrPaymentCreateManyArgs} args - Arguments to create many QrPayments.
+     * @example
+     * // Create many QrPayments
+     * const qrPayment = await prisma.qrPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrPaymentCreateManyArgs>(args?: SelectSubset<T, QrPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrPayments and returns the data saved in the database.
+     * @param {QrPaymentCreateManyAndReturnArgs} args - Arguments to create many QrPayments.
+     * @example
+     * // Create many QrPayments
+     * const qrPayment = await prisma.qrPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrPayments and only return the `id`
+     * const qrPaymentWithIdOnly = await prisma.qrPayment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, QrPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrPayment.
+     * @param {QrPaymentDeleteArgs} args - Arguments to delete one QrPayment.
+     * @example
+     * // Delete one QrPayment
+     * const QrPayment = await prisma.qrPayment.delete({
+     *   where: {
+     *     // ... filter to delete one QrPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrPaymentDeleteArgs>(args: SelectSubset<T, QrPaymentDeleteArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrPayment.
+     * @param {QrPaymentUpdateArgs} args - Arguments to update one QrPayment.
+     * @example
+     * // Update one QrPayment
+     * const qrPayment = await prisma.qrPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrPaymentUpdateArgs>(args: SelectSubset<T, QrPaymentUpdateArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrPayments.
+     * @param {QrPaymentDeleteManyArgs} args - Arguments to filter QrPayments to delete.
+     * @example
+     * // Delete a few QrPayments
+     * const { count } = await prisma.qrPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrPaymentDeleteManyArgs>(args?: SelectSubset<T, QrPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrPayments
+     * const qrPayment = await prisma.qrPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrPaymentUpdateManyArgs>(args: SelectSubset<T, QrPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrPayments and returns the data updated in the database.
+     * @param {QrPaymentUpdateManyAndReturnArgs} args - Arguments to update many QrPayments.
+     * @example
+     * // Update many QrPayments
+     * const qrPayment = await prisma.qrPayment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrPayments and only return the `id`
+     * const qrPaymentWithIdOnly = await prisma.qrPayment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrPaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, QrPaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrPayment.
+     * @param {QrPaymentUpsertArgs} args - Arguments to update or create a QrPayment.
+     * @example
+     * // Update or create a QrPayment
+     * const qrPayment = await prisma.qrPayment.upsert({
+     *   create: {
+     *     // ... data to create a QrPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrPaymentUpsertArgs>(args: SelectSubset<T, QrPaymentUpsertArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentCountArgs} args - Arguments to filter QrPayments to count.
+     * @example
+     * // Count the number of QrPayments
+     * const count = await prisma.qrPayment.count({
+     *   where: {
+     *     // ... the filter for the QrPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrPaymentCountArgs>(
+      args?: Subset<T, QrPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrPaymentAggregateArgs>(args: Subset<T, QrPaymentAggregateArgs>): Prisma.PrismaPromise<GetQrPaymentAggregateType<T>>
+
+    /**
+     * Group by QrPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: QrPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrPayment model
+   */
+  readonly fields: QrPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    entitlements<T extends QrPayment$entitlementsArgs<ExtArgs> = {}>(args?: Subset<T, QrPayment$entitlementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrPayment model
+   */
+  interface QrPaymentFieldRefs {
+    readonly id: FieldRef<"QrPayment", 'String'>
+    readonly userId: FieldRef<"QrPayment", 'String'>
+    readonly offerCode: FieldRef<"QrPayment", 'QrOfferCode'>
+    readonly offerName: FieldRef<"QrPayment", 'String'>
+    readonly amount: FieldRef<"QrPayment", 'Decimal'>
+    readonly currency: FieldRef<"QrPayment", 'String'>
+    readonly campaignCredits: FieldRef<"QrPayment", 'Int'>
+    readonly maxActiveCampaigns: FieldRef<"QrPayment", 'Int'>
+    readonly accessStartsAt: FieldRef<"QrPayment", 'DateTime'>
+    readonly accessEndsAt: FieldRef<"QrPayment", 'DateTime'>
+    readonly status: FieldRef<"QrPayment", 'QrPaymentStatus'>
+    readonly provider: FieldRef<"QrPayment", 'String'>
+    readonly providerPaymentId: FieldRef<"QrPayment", 'String'>
+    readonly providerReference: FieldRef<"QrPayment", 'String'>
+    readonly providerResponse: FieldRef<"QrPayment", 'Json'>
+    readonly fulfilledAt: FieldRef<"QrPayment", 'DateTime'>
+    readonly createdAt: FieldRef<"QrPayment", 'DateTime'>
+    readonly updatedAt: FieldRef<"QrPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrPayment findUnique
+   */
+  export type QrPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPayment to fetch.
+     */
+    where: QrPaymentWhereUniqueInput
+  }
+
+  /**
+   * QrPayment findUniqueOrThrow
+   */
+  export type QrPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPayment to fetch.
+     */
+    where: QrPaymentWhereUniqueInput
+  }
+
+  /**
+   * QrPayment findFirst
+   */
+  export type QrPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPayment to fetch.
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPayments to fetch.
+     */
+    orderBy?: QrPaymentOrderByWithRelationInput | QrPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrPayments.
+     */
+    cursor?: QrPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrPayments.
+     */
+    distinct?: QrPaymentScalarFieldEnum | QrPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * QrPayment findFirstOrThrow
+   */
+  export type QrPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPayment to fetch.
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPayments to fetch.
+     */
+    orderBy?: QrPaymentOrderByWithRelationInput | QrPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrPayments.
+     */
+    cursor?: QrPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrPayments.
+     */
+    distinct?: QrPaymentScalarFieldEnum | QrPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * QrPayment findMany
+   */
+  export type QrPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPayments to fetch.
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPayments to fetch.
+     */
+    orderBy?: QrPaymentOrderByWithRelationInput | QrPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrPayments.
+     */
+    cursor?: QrPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPayments.
+     */
+    skip?: number
+    distinct?: QrPaymentScalarFieldEnum | QrPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * QrPayment create
+   */
+  export type QrPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrPayment.
+     */
+    data: XOR<QrPaymentCreateInput, QrPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * QrPayment createMany
+   */
+  export type QrPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrPayments.
+     */
+    data: QrPaymentCreateManyInput | QrPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrPayment createManyAndReturn
+   */
+  export type QrPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrPayments.
+     */
+    data: QrPaymentCreateManyInput | QrPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrPayment update
+   */
+  export type QrPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrPayment.
+     */
+    data: XOR<QrPaymentUpdateInput, QrPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which QrPayment to update.
+     */
+    where: QrPaymentWhereUniqueInput
+  }
+
+  /**
+   * QrPayment updateMany
+   */
+  export type QrPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrPayments.
+     */
+    data: XOR<QrPaymentUpdateManyMutationInput, QrPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which QrPayments to update
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * Limit how many QrPayments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrPayment updateManyAndReturn
+   */
+  export type QrPaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to update QrPayments.
+     */
+    data: XOR<QrPaymentUpdateManyMutationInput, QrPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which QrPayments to update
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * Limit how many QrPayments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrPayment upsert
+   */
+  export type QrPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrPayment to update in case it exists.
+     */
+    where: QrPaymentWhereUniqueInput
+    /**
+     * In case the QrPayment found by the `where` argument doesn't exist, create a new QrPayment with this data.
+     */
+    create: XOR<QrPaymentCreateInput, QrPaymentUncheckedCreateInput>
+    /**
+     * In case the QrPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrPaymentUpdateInput, QrPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * QrPayment delete
+   */
+  export type QrPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    /**
+     * Filter which QrPayment to delete.
+     */
+    where: QrPaymentWhereUniqueInput
+  }
+
+  /**
+   * QrPayment deleteMany
+   */
+  export type QrPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrPayments to delete
+     */
+    where?: QrPaymentWhereInput
+    /**
+     * Limit how many QrPayments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrPayment.entitlements
+   */
+  export type QrPayment$entitlementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    where?: QrEntitlementWhereInput
+    orderBy?: QrEntitlementOrderByWithRelationInput | QrEntitlementOrderByWithRelationInput[]
+    cursor?: QrEntitlementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrEntitlementScalarFieldEnum | QrEntitlementScalarFieldEnum[]
+  }
+
+  /**
+   * QrPayment without action
+   */
+  export type QrPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrEntitlement
+   */
+
+  export type AggregateQrEntitlement = {
+    _count: QrEntitlementCountAggregateOutputType | null
+    _avg: QrEntitlementAvgAggregateOutputType | null
+    _sum: QrEntitlementSumAggregateOutputType | null
+    _min: QrEntitlementMinAggregateOutputType | null
+    _max: QrEntitlementMaxAggregateOutputType | null
+  }
+
+  export type QrEntitlementAvgAggregateOutputType = {
+    campaignCreditsTotal: number | null
+    campaignCreditsUsed: number | null
+    maxActiveCampaigns: number | null
+  }
+
+  export type QrEntitlementSumAggregateOutputType = {
+    campaignCreditsTotal: number | null
+    campaignCreditsUsed: number | null
+    maxActiveCampaigns: number | null
+  }
+
+  export type QrEntitlementMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    paymentId: string | null
+    offerCode: $Enums.QrOfferCode | null
+    kind: $Enums.QrEntitlementKind | null
+    status: $Enums.QrEntitlementStatus | null
+    campaignCreditsTotal: number | null
+    campaignCreditsUsed: number | null
+    maxActiveCampaigns: number | null
+    startsAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrEntitlementMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    paymentId: string | null
+    offerCode: $Enums.QrOfferCode | null
+    kind: $Enums.QrEntitlementKind | null
+    status: $Enums.QrEntitlementStatus | null
+    campaignCreditsTotal: number | null
+    campaignCreditsUsed: number | null
+    maxActiveCampaigns: number | null
+    startsAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrEntitlementCountAggregateOutputType = {
+    id: number
+    userId: number
+    paymentId: number
+    offerCode: number
+    kind: number
+    status: number
+    campaignCreditsTotal: number
+    campaignCreditsUsed: number
+    maxActiveCampaigns: number
+    startsAt: number
+    expiresAt: number
+    revokedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QrEntitlementAvgAggregateInputType = {
+    campaignCreditsTotal?: true
+    campaignCreditsUsed?: true
+    maxActiveCampaigns?: true
+  }
+
+  export type QrEntitlementSumAggregateInputType = {
+    campaignCreditsTotal?: true
+    campaignCreditsUsed?: true
+    maxActiveCampaigns?: true
+  }
+
+  export type QrEntitlementMinAggregateInputType = {
+    id?: true
+    userId?: true
+    paymentId?: true
+    offerCode?: true
+    kind?: true
+    status?: true
+    campaignCreditsTotal?: true
+    campaignCreditsUsed?: true
+    maxActiveCampaigns?: true
+    startsAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrEntitlementMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    paymentId?: true
+    offerCode?: true
+    kind?: true
+    status?: true
+    campaignCreditsTotal?: true
+    campaignCreditsUsed?: true
+    maxActiveCampaigns?: true
+    startsAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrEntitlementCountAggregateInputType = {
+    id?: true
+    userId?: true
+    paymentId?: true
+    offerCode?: true
+    kind?: true
+    status?: true
+    campaignCreditsTotal?: true
+    campaignCreditsUsed?: true
+    maxActiveCampaigns?: true
+    startsAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QrEntitlementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrEntitlement to aggregate.
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrEntitlements to fetch.
+     */
+    orderBy?: QrEntitlementOrderByWithRelationInput | QrEntitlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrEntitlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrEntitlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrEntitlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrEntitlements
+    **/
+    _count?: true | QrEntitlementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QrEntitlementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QrEntitlementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrEntitlementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrEntitlementMaxAggregateInputType
+  }
+
+  export type GetQrEntitlementAggregateType<T extends QrEntitlementAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrEntitlement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrEntitlement[P]>
+      : GetScalarType<T[P], AggregateQrEntitlement[P]>
+  }
+
+
+
+
+  export type QrEntitlementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrEntitlementWhereInput
+    orderBy?: QrEntitlementOrderByWithAggregationInput | QrEntitlementOrderByWithAggregationInput[]
+    by: QrEntitlementScalarFieldEnum[] | QrEntitlementScalarFieldEnum
+    having?: QrEntitlementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrEntitlementCountAggregateInputType | true
+    _avg?: QrEntitlementAvgAggregateInputType
+    _sum?: QrEntitlementSumAggregateInputType
+    _min?: QrEntitlementMinAggregateInputType
+    _max?: QrEntitlementMaxAggregateInputType
+  }
+
+  export type QrEntitlementGroupByOutputType = {
+    id: string
+    userId: string
+    paymentId: string | null
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status: $Enums.QrEntitlementStatus
+    campaignCreditsTotal: number
+    campaignCreditsUsed: number
+    maxActiveCampaigns: number | null
+    startsAt: Date
+    expiresAt: Date
+    revokedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: QrEntitlementCountAggregateOutputType | null
+    _avg: QrEntitlementAvgAggregateOutputType | null
+    _sum: QrEntitlementSumAggregateOutputType | null
+    _min: QrEntitlementMinAggregateOutputType | null
+    _max: QrEntitlementMaxAggregateOutputType | null
+  }
+
+  type GetQrEntitlementGroupByPayload<T extends QrEntitlementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrEntitlementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrEntitlementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrEntitlementGroupByOutputType[P]>
+            : GetScalarType<T[P], QrEntitlementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrEntitlementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    kind?: boolean
+    status?: boolean
+    campaignCreditsTotal?: boolean
+    campaignCreditsUsed?: boolean
+    maxActiveCampaigns?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    payment?: boolean | QrEntitlement$paymentArgs<ExtArgs>
+    campaigns?: boolean | QrEntitlement$campaignsArgs<ExtArgs>
+    _count?: boolean | QrEntitlementCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrEntitlement"]>
+
+  export type QrEntitlementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    kind?: boolean
+    status?: boolean
+    campaignCreditsTotal?: boolean
+    campaignCreditsUsed?: boolean
+    maxActiveCampaigns?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    payment?: boolean | QrEntitlement$paymentArgs<ExtArgs>
+  }, ExtArgs["result"]["qrEntitlement"]>
+
+  export type QrEntitlementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    kind?: boolean
+    status?: boolean
+    campaignCreditsTotal?: boolean
+    campaignCreditsUsed?: boolean
+    maxActiveCampaigns?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    payment?: boolean | QrEntitlement$paymentArgs<ExtArgs>
+  }, ExtArgs["result"]["qrEntitlement"]>
+
+  export type QrEntitlementSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    kind?: boolean
+    status?: boolean
+    campaignCreditsTotal?: boolean
+    campaignCreditsUsed?: boolean
+    maxActiveCampaigns?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QrEntitlementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "paymentId" | "offerCode" | "kind" | "status" | "campaignCreditsTotal" | "campaignCreditsUsed" | "maxActiveCampaigns" | "startsAt" | "expiresAt" | "revokedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["qrEntitlement"]>
+  export type QrEntitlementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    payment?: boolean | QrEntitlement$paymentArgs<ExtArgs>
+    campaigns?: boolean | QrEntitlement$campaignsArgs<ExtArgs>
+    _count?: boolean | QrEntitlementCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QrEntitlementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    payment?: boolean | QrEntitlement$paymentArgs<ExtArgs>
+  }
+  export type QrEntitlementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    payment?: boolean | QrEntitlement$paymentArgs<ExtArgs>
+  }
+
+  export type $QrEntitlementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrEntitlement"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      payment: Prisma.$QrPaymentPayload<ExtArgs> | null
+      campaigns: Prisma.$QrCampaignPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      paymentId: string | null
+      offerCode: $Enums.QrOfferCode
+      kind: $Enums.QrEntitlementKind
+      status: $Enums.QrEntitlementStatus
+      campaignCreditsTotal: number
+      campaignCreditsUsed: number
+      maxActiveCampaigns: number | null
+      startsAt: Date
+      expiresAt: Date
+      revokedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["qrEntitlement"]>
+    composites: {}
+  }
+
+  type QrEntitlementGetPayload<S extends boolean | null | undefined | QrEntitlementDefaultArgs> = $Result.GetResult<Prisma.$QrEntitlementPayload, S>
+
+  type QrEntitlementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrEntitlementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrEntitlementCountAggregateInputType | true
+    }
+
+  export interface QrEntitlementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrEntitlement'], meta: { name: 'QrEntitlement' } }
+    /**
+     * Find zero or one QrEntitlement that matches the filter.
+     * @param {QrEntitlementFindUniqueArgs} args - Arguments to find a QrEntitlement
+     * @example
+     * // Get one QrEntitlement
+     * const qrEntitlement = await prisma.qrEntitlement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrEntitlementFindUniqueArgs>(args: SelectSubset<T, QrEntitlementFindUniqueArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrEntitlement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrEntitlementFindUniqueOrThrowArgs} args - Arguments to find a QrEntitlement
+     * @example
+     * // Get one QrEntitlement
+     * const qrEntitlement = await prisma.qrEntitlement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrEntitlementFindUniqueOrThrowArgs>(args: SelectSubset<T, QrEntitlementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrEntitlement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementFindFirstArgs} args - Arguments to find a QrEntitlement
+     * @example
+     * // Get one QrEntitlement
+     * const qrEntitlement = await prisma.qrEntitlement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrEntitlementFindFirstArgs>(args?: SelectSubset<T, QrEntitlementFindFirstArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrEntitlement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementFindFirstOrThrowArgs} args - Arguments to find a QrEntitlement
+     * @example
+     * // Get one QrEntitlement
+     * const qrEntitlement = await prisma.qrEntitlement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrEntitlementFindFirstOrThrowArgs>(args?: SelectSubset<T, QrEntitlementFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrEntitlements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrEntitlements
+     * const qrEntitlements = await prisma.qrEntitlement.findMany()
+     * 
+     * // Get first 10 QrEntitlements
+     * const qrEntitlements = await prisma.qrEntitlement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrEntitlementWithIdOnly = await prisma.qrEntitlement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrEntitlementFindManyArgs>(args?: SelectSubset<T, QrEntitlementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrEntitlement.
+     * @param {QrEntitlementCreateArgs} args - Arguments to create a QrEntitlement.
+     * @example
+     * // Create one QrEntitlement
+     * const QrEntitlement = await prisma.qrEntitlement.create({
+     *   data: {
+     *     // ... data to create a QrEntitlement
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrEntitlementCreateArgs>(args: SelectSubset<T, QrEntitlementCreateArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrEntitlements.
+     * @param {QrEntitlementCreateManyArgs} args - Arguments to create many QrEntitlements.
+     * @example
+     * // Create many QrEntitlements
+     * const qrEntitlement = await prisma.qrEntitlement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrEntitlementCreateManyArgs>(args?: SelectSubset<T, QrEntitlementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrEntitlements and returns the data saved in the database.
+     * @param {QrEntitlementCreateManyAndReturnArgs} args - Arguments to create many QrEntitlements.
+     * @example
+     * // Create many QrEntitlements
+     * const qrEntitlement = await prisma.qrEntitlement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrEntitlements and only return the `id`
+     * const qrEntitlementWithIdOnly = await prisma.qrEntitlement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrEntitlementCreateManyAndReturnArgs>(args?: SelectSubset<T, QrEntitlementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrEntitlement.
+     * @param {QrEntitlementDeleteArgs} args - Arguments to delete one QrEntitlement.
+     * @example
+     * // Delete one QrEntitlement
+     * const QrEntitlement = await prisma.qrEntitlement.delete({
+     *   where: {
+     *     // ... filter to delete one QrEntitlement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrEntitlementDeleteArgs>(args: SelectSubset<T, QrEntitlementDeleteArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrEntitlement.
+     * @param {QrEntitlementUpdateArgs} args - Arguments to update one QrEntitlement.
+     * @example
+     * // Update one QrEntitlement
+     * const qrEntitlement = await prisma.qrEntitlement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrEntitlementUpdateArgs>(args: SelectSubset<T, QrEntitlementUpdateArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrEntitlements.
+     * @param {QrEntitlementDeleteManyArgs} args - Arguments to filter QrEntitlements to delete.
+     * @example
+     * // Delete a few QrEntitlements
+     * const { count } = await prisma.qrEntitlement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrEntitlementDeleteManyArgs>(args?: SelectSubset<T, QrEntitlementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrEntitlements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrEntitlements
+     * const qrEntitlement = await prisma.qrEntitlement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrEntitlementUpdateManyArgs>(args: SelectSubset<T, QrEntitlementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrEntitlements and returns the data updated in the database.
+     * @param {QrEntitlementUpdateManyAndReturnArgs} args - Arguments to update many QrEntitlements.
+     * @example
+     * // Update many QrEntitlements
+     * const qrEntitlement = await prisma.qrEntitlement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrEntitlements and only return the `id`
+     * const qrEntitlementWithIdOnly = await prisma.qrEntitlement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrEntitlementUpdateManyAndReturnArgs>(args: SelectSubset<T, QrEntitlementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrEntitlement.
+     * @param {QrEntitlementUpsertArgs} args - Arguments to update or create a QrEntitlement.
+     * @example
+     * // Update or create a QrEntitlement
+     * const qrEntitlement = await prisma.qrEntitlement.upsert({
+     *   create: {
+     *     // ... data to create a QrEntitlement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrEntitlement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrEntitlementUpsertArgs>(args: SelectSubset<T, QrEntitlementUpsertArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrEntitlements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementCountArgs} args - Arguments to filter QrEntitlements to count.
+     * @example
+     * // Count the number of QrEntitlements
+     * const count = await prisma.qrEntitlement.count({
+     *   where: {
+     *     // ... the filter for the QrEntitlements we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrEntitlementCountArgs>(
+      args?: Subset<T, QrEntitlementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrEntitlementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrEntitlement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrEntitlementAggregateArgs>(args: Subset<T, QrEntitlementAggregateArgs>): Prisma.PrismaPromise<GetQrEntitlementAggregateType<T>>
+
+    /**
+     * Group by QrEntitlement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrEntitlementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrEntitlementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrEntitlementGroupByArgs['orderBy'] }
+        : { orderBy?: QrEntitlementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrEntitlementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrEntitlementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrEntitlement model
+   */
+  readonly fields: QrEntitlementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrEntitlement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrEntitlementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    payment<T extends QrEntitlement$paymentArgs<ExtArgs> = {}>(args?: Subset<T, QrEntitlement$paymentArgs<ExtArgs>>): Prisma__QrPaymentClient<$Result.GetResult<Prisma.$QrPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    campaigns<T extends QrEntitlement$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, QrEntitlement$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrEntitlement model
+   */
+  interface QrEntitlementFieldRefs {
+    readonly id: FieldRef<"QrEntitlement", 'String'>
+    readonly userId: FieldRef<"QrEntitlement", 'String'>
+    readonly paymentId: FieldRef<"QrEntitlement", 'String'>
+    readonly offerCode: FieldRef<"QrEntitlement", 'QrOfferCode'>
+    readonly kind: FieldRef<"QrEntitlement", 'QrEntitlementKind'>
+    readonly status: FieldRef<"QrEntitlement", 'QrEntitlementStatus'>
+    readonly campaignCreditsTotal: FieldRef<"QrEntitlement", 'Int'>
+    readonly campaignCreditsUsed: FieldRef<"QrEntitlement", 'Int'>
+    readonly maxActiveCampaigns: FieldRef<"QrEntitlement", 'Int'>
+    readonly startsAt: FieldRef<"QrEntitlement", 'DateTime'>
+    readonly expiresAt: FieldRef<"QrEntitlement", 'DateTime'>
+    readonly revokedAt: FieldRef<"QrEntitlement", 'DateTime'>
+    readonly createdAt: FieldRef<"QrEntitlement", 'DateTime'>
+    readonly updatedAt: FieldRef<"QrEntitlement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrEntitlement findUnique
+   */
+  export type QrEntitlementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * Filter, which QrEntitlement to fetch.
+     */
+    where: QrEntitlementWhereUniqueInput
+  }
+
+  /**
+   * QrEntitlement findUniqueOrThrow
+   */
+  export type QrEntitlementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * Filter, which QrEntitlement to fetch.
+     */
+    where: QrEntitlementWhereUniqueInput
+  }
+
+  /**
+   * QrEntitlement findFirst
+   */
+  export type QrEntitlementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * Filter, which QrEntitlement to fetch.
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrEntitlements to fetch.
+     */
+    orderBy?: QrEntitlementOrderByWithRelationInput | QrEntitlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrEntitlements.
+     */
+    cursor?: QrEntitlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrEntitlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrEntitlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrEntitlements.
+     */
+    distinct?: QrEntitlementScalarFieldEnum | QrEntitlementScalarFieldEnum[]
+  }
+
+  /**
+   * QrEntitlement findFirstOrThrow
+   */
+  export type QrEntitlementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * Filter, which QrEntitlement to fetch.
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrEntitlements to fetch.
+     */
+    orderBy?: QrEntitlementOrderByWithRelationInput | QrEntitlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrEntitlements.
+     */
+    cursor?: QrEntitlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrEntitlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrEntitlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrEntitlements.
+     */
+    distinct?: QrEntitlementScalarFieldEnum | QrEntitlementScalarFieldEnum[]
+  }
+
+  /**
+   * QrEntitlement findMany
+   */
+  export type QrEntitlementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * Filter, which QrEntitlements to fetch.
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrEntitlements to fetch.
+     */
+    orderBy?: QrEntitlementOrderByWithRelationInput | QrEntitlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrEntitlements.
+     */
+    cursor?: QrEntitlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrEntitlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrEntitlements.
+     */
+    skip?: number
+    distinct?: QrEntitlementScalarFieldEnum | QrEntitlementScalarFieldEnum[]
+  }
+
+  /**
+   * QrEntitlement create
+   */
+  export type QrEntitlementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrEntitlement.
+     */
+    data: XOR<QrEntitlementCreateInput, QrEntitlementUncheckedCreateInput>
+  }
+
+  /**
+   * QrEntitlement createMany
+   */
+  export type QrEntitlementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrEntitlements.
+     */
+    data: QrEntitlementCreateManyInput | QrEntitlementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrEntitlement createManyAndReturn
+   */
+  export type QrEntitlementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrEntitlements.
+     */
+    data: QrEntitlementCreateManyInput | QrEntitlementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrEntitlement update
+   */
+  export type QrEntitlementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrEntitlement.
+     */
+    data: XOR<QrEntitlementUpdateInput, QrEntitlementUncheckedUpdateInput>
+    /**
+     * Choose, which QrEntitlement to update.
+     */
+    where: QrEntitlementWhereUniqueInput
+  }
+
+  /**
+   * QrEntitlement updateMany
+   */
+  export type QrEntitlementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrEntitlements.
+     */
+    data: XOR<QrEntitlementUpdateManyMutationInput, QrEntitlementUncheckedUpdateManyInput>
+    /**
+     * Filter which QrEntitlements to update
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * Limit how many QrEntitlements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrEntitlement updateManyAndReturn
+   */
+  export type QrEntitlementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * The data used to update QrEntitlements.
+     */
+    data: XOR<QrEntitlementUpdateManyMutationInput, QrEntitlementUncheckedUpdateManyInput>
+    /**
+     * Filter which QrEntitlements to update
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * Limit how many QrEntitlements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrEntitlement upsert
+   */
+  export type QrEntitlementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrEntitlement to update in case it exists.
+     */
+    where: QrEntitlementWhereUniqueInput
+    /**
+     * In case the QrEntitlement found by the `where` argument doesn't exist, create a new QrEntitlement with this data.
+     */
+    create: XOR<QrEntitlementCreateInput, QrEntitlementUncheckedCreateInput>
+    /**
+     * In case the QrEntitlement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrEntitlementUpdateInput, QrEntitlementUncheckedUpdateInput>
+  }
+
+  /**
+   * QrEntitlement delete
+   */
+  export type QrEntitlementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    /**
+     * Filter which QrEntitlement to delete.
+     */
+    where: QrEntitlementWhereUniqueInput
+  }
+
+  /**
+   * QrEntitlement deleteMany
+   */
+  export type QrEntitlementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrEntitlements to delete
+     */
+    where?: QrEntitlementWhereInput
+    /**
+     * Limit how many QrEntitlements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrEntitlement.payment
+   */
+  export type QrEntitlement$paymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPayment
+     */
+    select?: QrPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPayment
+     */
+    omit?: QrPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPaymentInclude<ExtArgs> | null
+    where?: QrPaymentWhereInput
+  }
+
+  /**
+   * QrEntitlement.campaigns
+   */
+  export type QrEntitlement$campaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    where?: QrCampaignWhereInput
+    orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
+    cursor?: QrCampaignWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * QrEntitlement without action
+   */
+  export type QrEntitlementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrCampaign
+   */
+
+  export type AggregateQrCampaign = {
+    _count: QrCampaignCountAggregateOutputType | null
+    _min: QrCampaignMinAggregateOutputType | null
+    _max: QrCampaignMaxAggregateOutputType | null
+  }
+
+  export type QrCampaignMinAggregateOutputType = {
+    id: string | null
+    ownerId: string | null
+    entitlementId: string | null
+    publicCode: string | null
+    title: string | null
+    description: string | null
+    contentType: $Enums.QrContentType | null
+    status: $Enums.QrCampaignStatus | null
+    scanMode: $Enums.QrScanMode | null
+    destinationUrl: string | null
+    brandName: string | null
+    brandLogoAssetId: string | null
+    brandPrimaryColor: string | null
+    brandAccentColor: string | null
+    activatedAt: Date | null
+    expiresAt: Date | null
+    archivedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrCampaignMaxAggregateOutputType = {
+    id: string | null
+    ownerId: string | null
+    entitlementId: string | null
+    publicCode: string | null
+    title: string | null
+    description: string | null
+    contentType: $Enums.QrContentType | null
+    status: $Enums.QrCampaignStatus | null
+    scanMode: $Enums.QrScanMode | null
+    destinationUrl: string | null
+    brandName: string | null
+    brandLogoAssetId: string | null
+    brandPrimaryColor: string | null
+    brandAccentColor: string | null
+    activatedAt: Date | null
+    expiresAt: Date | null
+    archivedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrCampaignCountAggregateOutputType = {
+    id: number
+    ownerId: number
+    entitlementId: number
+    publicCode: number
+    title: number
+    description: number
+    contentType: number
+    status: number
+    scanMode: number
+    destinationUrl: number
+    destinationData: number
+    brandName: number
+    brandLogoAssetId: number
+    brandPrimaryColor: number
+    brandAccentColor: number
+    designSettings: number
+    activatedAt: number
+    expiresAt: number
+    archivedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QrCampaignMinAggregateInputType = {
+    id?: true
+    ownerId?: true
+    entitlementId?: true
+    publicCode?: true
+    title?: true
+    description?: true
+    contentType?: true
+    status?: true
+    scanMode?: true
+    destinationUrl?: true
+    brandName?: true
+    brandLogoAssetId?: true
+    brandPrimaryColor?: true
+    brandAccentColor?: true
+    activatedAt?: true
+    expiresAt?: true
+    archivedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrCampaignMaxAggregateInputType = {
+    id?: true
+    ownerId?: true
+    entitlementId?: true
+    publicCode?: true
+    title?: true
+    description?: true
+    contentType?: true
+    status?: true
+    scanMode?: true
+    destinationUrl?: true
+    brandName?: true
+    brandLogoAssetId?: true
+    brandPrimaryColor?: true
+    brandAccentColor?: true
+    activatedAt?: true
+    expiresAt?: true
+    archivedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrCampaignCountAggregateInputType = {
+    id?: true
+    ownerId?: true
+    entitlementId?: true
+    publicCode?: true
+    title?: true
+    description?: true
+    contentType?: true
+    status?: true
+    scanMode?: true
+    destinationUrl?: true
+    destinationData?: true
+    brandName?: true
+    brandLogoAssetId?: true
+    brandPrimaryColor?: true
+    brandAccentColor?: true
+    designSettings?: true
+    activatedAt?: true
+    expiresAt?: true
+    archivedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QrCampaignAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrCampaign to aggregate.
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCampaigns to fetch.
+     */
+    orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCampaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrCampaigns
+    **/
+    _count?: true | QrCampaignCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrCampaignMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrCampaignMaxAggregateInputType
+  }
+
+  export type GetQrCampaignAggregateType<T extends QrCampaignAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrCampaign]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrCampaign[P]>
+      : GetScalarType<T[P], AggregateQrCampaign[P]>
+  }
+
+
+
+
+  export type QrCampaignGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrCampaignWhereInput
+    orderBy?: QrCampaignOrderByWithAggregationInput | QrCampaignOrderByWithAggregationInput[]
+    by: QrCampaignScalarFieldEnum[] | QrCampaignScalarFieldEnum
+    having?: QrCampaignScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrCampaignCountAggregateInputType | true
+    _min?: QrCampaignMinAggregateInputType
+    _max?: QrCampaignMaxAggregateInputType
+  }
+
+  export type QrCampaignGroupByOutputType = {
+    id: string
+    ownerId: string
+    entitlementId: string | null
+    publicCode: string
+    title: string
+    description: string | null
+    contentType: $Enums.QrContentType
+    status: $Enums.QrCampaignStatus
+    scanMode: $Enums.QrScanMode
+    destinationUrl: string | null
+    destinationData: JsonValue | null
+    brandName: string | null
+    brandLogoAssetId: string | null
+    brandPrimaryColor: string | null
+    brandAccentColor: string | null
+    designSettings: JsonValue | null
+    activatedAt: Date | null
+    expiresAt: Date | null
+    archivedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: QrCampaignCountAggregateOutputType | null
+    _min: QrCampaignMinAggregateOutputType | null
+    _max: QrCampaignMaxAggregateOutputType | null
+  }
+
+  type GetQrCampaignGroupByPayload<T extends QrCampaignGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrCampaignGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrCampaignGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrCampaignGroupByOutputType[P]>
+            : GetScalarType<T[P], QrCampaignGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrCampaignSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ownerId?: boolean
+    entitlementId?: boolean
+    publicCode?: boolean
+    title?: boolean
+    description?: boolean
+    contentType?: boolean
+    status?: boolean
+    scanMode?: boolean
+    destinationUrl?: boolean
+    destinationData?: boolean
+    brandName?: boolean
+    brandLogoAssetId?: boolean
+    brandPrimaryColor?: boolean
+    brandAccentColor?: boolean
+    designSettings?: boolean
+    activatedAt?: boolean
+    expiresAt?: boolean
+    archivedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
+    assets?: boolean | QrCampaign$assetsArgs<ExtArgs>
+    events?: boolean | QrCampaign$eventsArgs<ExtArgs>
+    adminActions?: boolean | QrCampaign$adminActionsArgs<ExtArgs>
+    _count?: boolean | QrCampaignCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCampaign"]>
+
+  export type QrCampaignSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ownerId?: boolean
+    entitlementId?: boolean
+    publicCode?: boolean
+    title?: boolean
+    description?: boolean
+    contentType?: boolean
+    status?: boolean
+    scanMode?: boolean
+    destinationUrl?: boolean
+    destinationData?: boolean
+    brandName?: boolean
+    brandLogoAssetId?: boolean
+    brandPrimaryColor?: boolean
+    brandAccentColor?: boolean
+    designSettings?: boolean
+    activatedAt?: boolean
+    expiresAt?: boolean
+    archivedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCampaign"]>
+
+  export type QrCampaignSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ownerId?: boolean
+    entitlementId?: boolean
+    publicCode?: boolean
+    title?: boolean
+    description?: boolean
+    contentType?: boolean
+    status?: boolean
+    scanMode?: boolean
+    destinationUrl?: boolean
+    destinationData?: boolean
+    brandName?: boolean
+    brandLogoAssetId?: boolean
+    brandPrimaryColor?: boolean
+    brandAccentColor?: boolean
+    designSettings?: boolean
+    activatedAt?: boolean
+    expiresAt?: boolean
+    archivedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCampaign"]>
+
+  export type QrCampaignSelectScalar = {
+    id?: boolean
+    ownerId?: boolean
+    entitlementId?: boolean
+    publicCode?: boolean
+    title?: boolean
+    description?: boolean
+    contentType?: boolean
+    status?: boolean
+    scanMode?: boolean
+    destinationUrl?: boolean
+    destinationData?: boolean
+    brandName?: boolean
+    brandLogoAssetId?: boolean
+    brandPrimaryColor?: boolean
+    brandAccentColor?: boolean
+    designSettings?: boolean
+    activatedAt?: boolean
+    expiresAt?: boolean
+    archivedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QrCampaignOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "entitlementId" | "publicCode" | "title" | "description" | "contentType" | "status" | "scanMode" | "destinationUrl" | "destinationData" | "brandName" | "brandLogoAssetId" | "brandPrimaryColor" | "brandAccentColor" | "designSettings" | "activatedAt" | "expiresAt" | "archivedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["qrCampaign"]>
+  export type QrCampaignInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
+    assets?: boolean | QrCampaign$assetsArgs<ExtArgs>
+    events?: boolean | QrCampaign$eventsArgs<ExtArgs>
+    adminActions?: boolean | QrCampaign$adminActionsArgs<ExtArgs>
+    _count?: boolean | QrCampaignCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QrCampaignIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
+  }
+  export type QrCampaignIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
+  }
+
+  export type $QrCampaignPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrCampaign"
+    objects: {
+      owner: Prisma.$UserPayload<ExtArgs>
+      entitlement: Prisma.$QrEntitlementPayload<ExtArgs> | null
+      assets: Prisma.$QrAssetPayload<ExtArgs>[]
+      events: Prisma.$QrScanEventPayload<ExtArgs>[]
+      adminActions: Prisma.$QrAdminActionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ownerId: string
+      entitlementId: string | null
+      publicCode: string
+      title: string
+      description: string | null
+      contentType: $Enums.QrContentType
+      status: $Enums.QrCampaignStatus
+      scanMode: $Enums.QrScanMode
+      destinationUrl: string | null
+      destinationData: Prisma.JsonValue | null
+      brandName: string | null
+      brandLogoAssetId: string | null
+      brandPrimaryColor: string | null
+      brandAccentColor: string | null
+      designSettings: Prisma.JsonValue | null
+      activatedAt: Date | null
+      expiresAt: Date | null
+      archivedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["qrCampaign"]>
+    composites: {}
+  }
+
+  type QrCampaignGetPayload<S extends boolean | null | undefined | QrCampaignDefaultArgs> = $Result.GetResult<Prisma.$QrCampaignPayload, S>
+
+  type QrCampaignCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrCampaignFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrCampaignCountAggregateInputType | true
+    }
+
+  export interface QrCampaignDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrCampaign'], meta: { name: 'QrCampaign' } }
+    /**
+     * Find zero or one QrCampaign that matches the filter.
+     * @param {QrCampaignFindUniqueArgs} args - Arguments to find a QrCampaign
+     * @example
+     * // Get one QrCampaign
+     * const qrCampaign = await prisma.qrCampaign.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrCampaignFindUniqueArgs>(args: SelectSubset<T, QrCampaignFindUniqueArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrCampaign that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrCampaignFindUniqueOrThrowArgs} args - Arguments to find a QrCampaign
+     * @example
+     * // Get one QrCampaign
+     * const qrCampaign = await prisma.qrCampaign.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrCampaignFindUniqueOrThrowArgs>(args: SelectSubset<T, QrCampaignFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrCampaign that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignFindFirstArgs} args - Arguments to find a QrCampaign
+     * @example
+     * // Get one QrCampaign
+     * const qrCampaign = await prisma.qrCampaign.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrCampaignFindFirstArgs>(args?: SelectSubset<T, QrCampaignFindFirstArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrCampaign that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignFindFirstOrThrowArgs} args - Arguments to find a QrCampaign
+     * @example
+     * // Get one QrCampaign
+     * const qrCampaign = await prisma.qrCampaign.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrCampaignFindFirstOrThrowArgs>(args?: SelectSubset<T, QrCampaignFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrCampaigns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrCampaigns
+     * const qrCampaigns = await prisma.qrCampaign.findMany()
+     * 
+     * // Get first 10 QrCampaigns
+     * const qrCampaigns = await prisma.qrCampaign.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrCampaignWithIdOnly = await prisma.qrCampaign.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrCampaignFindManyArgs>(args?: SelectSubset<T, QrCampaignFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrCampaign.
+     * @param {QrCampaignCreateArgs} args - Arguments to create a QrCampaign.
+     * @example
+     * // Create one QrCampaign
+     * const QrCampaign = await prisma.qrCampaign.create({
+     *   data: {
+     *     // ... data to create a QrCampaign
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrCampaignCreateArgs>(args: SelectSubset<T, QrCampaignCreateArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrCampaigns.
+     * @param {QrCampaignCreateManyArgs} args - Arguments to create many QrCampaigns.
+     * @example
+     * // Create many QrCampaigns
+     * const qrCampaign = await prisma.qrCampaign.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrCampaignCreateManyArgs>(args?: SelectSubset<T, QrCampaignCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrCampaigns and returns the data saved in the database.
+     * @param {QrCampaignCreateManyAndReturnArgs} args - Arguments to create many QrCampaigns.
+     * @example
+     * // Create many QrCampaigns
+     * const qrCampaign = await prisma.qrCampaign.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrCampaigns and only return the `id`
+     * const qrCampaignWithIdOnly = await prisma.qrCampaign.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrCampaignCreateManyAndReturnArgs>(args?: SelectSubset<T, QrCampaignCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrCampaign.
+     * @param {QrCampaignDeleteArgs} args - Arguments to delete one QrCampaign.
+     * @example
+     * // Delete one QrCampaign
+     * const QrCampaign = await prisma.qrCampaign.delete({
+     *   where: {
+     *     // ... filter to delete one QrCampaign
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrCampaignDeleteArgs>(args: SelectSubset<T, QrCampaignDeleteArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrCampaign.
+     * @param {QrCampaignUpdateArgs} args - Arguments to update one QrCampaign.
+     * @example
+     * // Update one QrCampaign
+     * const qrCampaign = await prisma.qrCampaign.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrCampaignUpdateArgs>(args: SelectSubset<T, QrCampaignUpdateArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrCampaigns.
+     * @param {QrCampaignDeleteManyArgs} args - Arguments to filter QrCampaigns to delete.
+     * @example
+     * // Delete a few QrCampaigns
+     * const { count } = await prisma.qrCampaign.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrCampaignDeleteManyArgs>(args?: SelectSubset<T, QrCampaignDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrCampaigns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrCampaigns
+     * const qrCampaign = await prisma.qrCampaign.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrCampaignUpdateManyArgs>(args: SelectSubset<T, QrCampaignUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrCampaigns and returns the data updated in the database.
+     * @param {QrCampaignUpdateManyAndReturnArgs} args - Arguments to update many QrCampaigns.
+     * @example
+     * // Update many QrCampaigns
+     * const qrCampaign = await prisma.qrCampaign.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrCampaigns and only return the `id`
+     * const qrCampaignWithIdOnly = await prisma.qrCampaign.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrCampaignUpdateManyAndReturnArgs>(args: SelectSubset<T, QrCampaignUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrCampaign.
+     * @param {QrCampaignUpsertArgs} args - Arguments to update or create a QrCampaign.
+     * @example
+     * // Update or create a QrCampaign
+     * const qrCampaign = await prisma.qrCampaign.upsert({
+     *   create: {
+     *     // ... data to create a QrCampaign
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrCampaign we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrCampaignUpsertArgs>(args: SelectSubset<T, QrCampaignUpsertArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrCampaigns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignCountArgs} args - Arguments to filter QrCampaigns to count.
+     * @example
+     * // Count the number of QrCampaigns
+     * const count = await prisma.qrCampaign.count({
+     *   where: {
+     *     // ... the filter for the QrCampaigns we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrCampaignCountArgs>(
+      args?: Subset<T, QrCampaignCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrCampaignCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrCampaign.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrCampaignAggregateArgs>(args: Subset<T, QrCampaignAggregateArgs>): Prisma.PrismaPromise<GetQrCampaignAggregateType<T>>
+
+    /**
+     * Group by QrCampaign.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCampaignGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrCampaignGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrCampaignGroupByArgs['orderBy'] }
+        : { orderBy?: QrCampaignGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrCampaignGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrCampaignGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrCampaign model
+   */
+  readonly fields: QrCampaignFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrCampaign.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrCampaignClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    entitlement<T extends QrCampaign$entitlementArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$entitlementArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    assets<T extends QrCampaign$assetsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    events<T extends QrCampaign$eventsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    adminActions<T extends QrCampaign$adminActionsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$adminActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrCampaign model
+   */
+  interface QrCampaignFieldRefs {
+    readonly id: FieldRef<"QrCampaign", 'String'>
+    readonly ownerId: FieldRef<"QrCampaign", 'String'>
+    readonly entitlementId: FieldRef<"QrCampaign", 'String'>
+    readonly publicCode: FieldRef<"QrCampaign", 'String'>
+    readonly title: FieldRef<"QrCampaign", 'String'>
+    readonly description: FieldRef<"QrCampaign", 'String'>
+    readonly contentType: FieldRef<"QrCampaign", 'QrContentType'>
+    readonly status: FieldRef<"QrCampaign", 'QrCampaignStatus'>
+    readonly scanMode: FieldRef<"QrCampaign", 'QrScanMode'>
+    readonly destinationUrl: FieldRef<"QrCampaign", 'String'>
+    readonly destinationData: FieldRef<"QrCampaign", 'Json'>
+    readonly brandName: FieldRef<"QrCampaign", 'String'>
+    readonly brandLogoAssetId: FieldRef<"QrCampaign", 'String'>
+    readonly brandPrimaryColor: FieldRef<"QrCampaign", 'String'>
+    readonly brandAccentColor: FieldRef<"QrCampaign", 'String'>
+    readonly designSettings: FieldRef<"QrCampaign", 'Json'>
+    readonly activatedAt: FieldRef<"QrCampaign", 'DateTime'>
+    readonly expiresAt: FieldRef<"QrCampaign", 'DateTime'>
+    readonly archivedAt: FieldRef<"QrCampaign", 'DateTime'>
+    readonly createdAt: FieldRef<"QrCampaign", 'DateTime'>
+    readonly updatedAt: FieldRef<"QrCampaign", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrCampaign findUnique
+   */
+  export type QrCampaignFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCampaign to fetch.
+     */
+    where: QrCampaignWhereUniqueInput
+  }
+
+  /**
+   * QrCampaign findUniqueOrThrow
+   */
+  export type QrCampaignFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCampaign to fetch.
+     */
+    where: QrCampaignWhereUniqueInput
+  }
+
+  /**
+   * QrCampaign findFirst
+   */
+  export type QrCampaignFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCampaign to fetch.
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCampaigns to fetch.
+     */
+    orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrCampaigns.
+     */
+    cursor?: QrCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCampaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrCampaigns.
+     */
+    distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * QrCampaign findFirstOrThrow
+   */
+  export type QrCampaignFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCampaign to fetch.
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCampaigns to fetch.
+     */
+    orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrCampaigns.
+     */
+    cursor?: QrCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCampaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrCampaigns.
+     */
+    distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * QrCampaign findMany
+   */
+  export type QrCampaignFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCampaigns to fetch.
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCampaigns to fetch.
+     */
+    orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrCampaigns.
+     */
+    cursor?: QrCampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCampaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCampaigns.
+     */
+    skip?: number
+    distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
+  }
+
+  /**
+   * QrCampaign create
+   */
+  export type QrCampaignCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrCampaign.
+     */
+    data: XOR<QrCampaignCreateInput, QrCampaignUncheckedCreateInput>
+  }
+
+  /**
+   * QrCampaign createMany
+   */
+  export type QrCampaignCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrCampaigns.
+     */
+    data: QrCampaignCreateManyInput | QrCampaignCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrCampaign createManyAndReturn
+   */
+  export type QrCampaignCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrCampaigns.
+     */
+    data: QrCampaignCreateManyInput | QrCampaignCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrCampaign update
+   */
+  export type QrCampaignUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrCampaign.
+     */
+    data: XOR<QrCampaignUpdateInput, QrCampaignUncheckedUpdateInput>
+    /**
+     * Choose, which QrCampaign to update.
+     */
+    where: QrCampaignWhereUniqueInput
+  }
+
+  /**
+   * QrCampaign updateMany
+   */
+  export type QrCampaignUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrCampaigns.
+     */
+    data: XOR<QrCampaignUpdateManyMutationInput, QrCampaignUncheckedUpdateManyInput>
+    /**
+     * Filter which QrCampaigns to update
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * Limit how many QrCampaigns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCampaign updateManyAndReturn
+   */
+  export type QrCampaignUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * The data used to update QrCampaigns.
+     */
+    data: XOR<QrCampaignUpdateManyMutationInput, QrCampaignUncheckedUpdateManyInput>
+    /**
+     * Filter which QrCampaigns to update
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * Limit how many QrCampaigns to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrCampaign upsert
+   */
+  export type QrCampaignUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrCampaign to update in case it exists.
+     */
+    where: QrCampaignWhereUniqueInput
+    /**
+     * In case the QrCampaign found by the `where` argument doesn't exist, create a new QrCampaign with this data.
+     */
+    create: XOR<QrCampaignCreateInput, QrCampaignUncheckedCreateInput>
+    /**
+     * In case the QrCampaign was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrCampaignUpdateInput, QrCampaignUncheckedUpdateInput>
+  }
+
+  /**
+   * QrCampaign delete
+   */
+  export type QrCampaignDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+    /**
+     * Filter which QrCampaign to delete.
+     */
+    where: QrCampaignWhereUniqueInput
+  }
+
+  /**
+   * QrCampaign deleteMany
+   */
+  export type QrCampaignDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrCampaigns to delete
+     */
+    where?: QrCampaignWhereInput
+    /**
+     * Limit how many QrCampaigns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCampaign.entitlement
+   */
+  export type QrCampaign$entitlementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrEntitlement
+     */
+    select?: QrEntitlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrEntitlement
+     */
+    omit?: QrEntitlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrEntitlementInclude<ExtArgs> | null
+    where?: QrEntitlementWhereInput
+  }
+
+  /**
+   * QrCampaign.assets
+   */
+  export type QrCampaign$assetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    where?: QrAssetWhereInput
+    orderBy?: QrAssetOrderByWithRelationInput | QrAssetOrderByWithRelationInput[]
+    cursor?: QrAssetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrAssetScalarFieldEnum | QrAssetScalarFieldEnum[]
+  }
+
+  /**
+   * QrCampaign.events
+   */
+  export type QrCampaign$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    where?: QrScanEventWhereInput
+    orderBy?: QrScanEventOrderByWithRelationInput | QrScanEventOrderByWithRelationInput[]
+    cursor?: QrScanEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrScanEventScalarFieldEnum | QrScanEventScalarFieldEnum[]
+  }
+
+  /**
+   * QrCampaign.adminActions
+   */
+  export type QrCampaign$adminActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    where?: QrAdminActionWhereInput
+    orderBy?: QrAdminActionOrderByWithRelationInput | QrAdminActionOrderByWithRelationInput[]
+    cursor?: QrAdminActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrAdminActionScalarFieldEnum | QrAdminActionScalarFieldEnum[]
+  }
+
+  /**
+   * QrCampaign without action
+   */
+  export type QrCampaignDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCampaign
+     */
+    select?: QrCampaignSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCampaign
+     */
+    omit?: QrCampaignOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCampaignInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrAsset
+   */
+
+  export type AggregateQrAsset = {
+    _count: QrAssetCountAggregateOutputType | null
+    _avg: QrAssetAvgAggregateOutputType | null
+    _sum: QrAssetSumAggregateOutputType | null
+    _min: QrAssetMinAggregateOutputType | null
+    _max: QrAssetMaxAggregateOutputType | null
+  }
+
+  export type QrAssetAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type QrAssetSumAggregateOutputType = {
+    fileSize: bigint | null
+  }
+
+  export type QrAssetMinAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    kind: $Enums.QrAssetKind | null
+    fileName: string | null
+    fileKey: string | null
+    fileSize: bigint | null
+    mimeType: string | null
+    checksum: string | null
+    safetyStatus: $Enums.QrAssetSafetyStatus | null
+    safetyReason: string | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrAssetMaxAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    kind: $Enums.QrAssetKind | null
+    fileName: string | null
+    fileKey: string | null
+    fileSize: bigint | null
+    mimeType: string | null
+    checksum: string | null
+    safetyStatus: $Enums.QrAssetSafetyStatus | null
+    safetyReason: string | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrAssetCountAggregateOutputType = {
+    id: number
+    campaignId: number
+    kind: number
+    fileName: number
+    fileKey: number
+    fileSize: number
+    mimeType: number
+    checksum: number
+    safetyStatus: number
+    safetyReason: number
+    scannerMetadata: number
+    active: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QrAssetAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type QrAssetSumAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type QrAssetMinAggregateInputType = {
+    id?: true
+    campaignId?: true
+    kind?: true
+    fileName?: true
+    fileKey?: true
+    fileSize?: true
+    mimeType?: true
+    checksum?: true
+    safetyStatus?: true
+    safetyReason?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrAssetMaxAggregateInputType = {
+    id?: true
+    campaignId?: true
+    kind?: true
+    fileName?: true
+    fileKey?: true
+    fileSize?: true
+    mimeType?: true
+    checksum?: true
+    safetyStatus?: true
+    safetyReason?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrAssetCountAggregateInputType = {
+    id?: true
+    campaignId?: true
+    kind?: true
+    fileName?: true
+    fileKey?: true
+    fileSize?: true
+    mimeType?: true
+    checksum?: true
+    safetyStatus?: true
+    safetyReason?: true
+    scannerMetadata?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QrAssetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrAsset to aggregate.
+     */
+    where?: QrAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAssets to fetch.
+     */
+    orderBy?: QrAssetOrderByWithRelationInput | QrAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrAssets
+    **/
+    _count?: true | QrAssetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QrAssetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QrAssetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrAssetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrAssetMaxAggregateInputType
+  }
+
+  export type GetQrAssetAggregateType<T extends QrAssetAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrAsset]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrAsset[P]>
+      : GetScalarType<T[P], AggregateQrAsset[P]>
+  }
+
+
+
+
+  export type QrAssetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrAssetWhereInput
+    orderBy?: QrAssetOrderByWithAggregationInput | QrAssetOrderByWithAggregationInput[]
+    by: QrAssetScalarFieldEnum[] | QrAssetScalarFieldEnum
+    having?: QrAssetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrAssetCountAggregateInputType | true
+    _avg?: QrAssetAvgAggregateInputType
+    _sum?: QrAssetSumAggregateInputType
+    _min?: QrAssetMinAggregateInputType
+    _max?: QrAssetMaxAggregateInputType
+  }
+
+  export type QrAssetGroupByOutputType = {
+    id: string
+    campaignId: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint
+    mimeType: string
+    checksum: string | null
+    safetyStatus: $Enums.QrAssetSafetyStatus
+    safetyReason: string | null
+    scannerMetadata: JsonValue | null
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: QrAssetCountAggregateOutputType | null
+    _avg: QrAssetAvgAggregateOutputType | null
+    _sum: QrAssetSumAggregateOutputType | null
+    _min: QrAssetMinAggregateOutputType | null
+    _max: QrAssetMaxAggregateOutputType | null
+  }
+
+  type GetQrAssetGroupByPayload<T extends QrAssetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrAssetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrAssetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrAssetGroupByOutputType[P]>
+            : GetScalarType<T[P], QrAssetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrAssetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    fileName?: boolean
+    fileKey?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    checksum?: boolean
+    safetyStatus?: boolean
+    safetyReason?: boolean
+    scannerMetadata?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrAsset"]>
+
+  export type QrAssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    fileName?: boolean
+    fileKey?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    checksum?: boolean
+    safetyStatus?: boolean
+    safetyReason?: boolean
+    scannerMetadata?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrAsset"]>
+
+  export type QrAssetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    fileName?: boolean
+    fileKey?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    checksum?: boolean
+    safetyStatus?: boolean
+    safetyReason?: boolean
+    scannerMetadata?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrAsset"]>
+
+  export type QrAssetSelectScalar = {
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    fileName?: boolean
+    fileKey?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    checksum?: boolean
+    safetyStatus?: boolean
+    safetyReason?: boolean
+    scannerMetadata?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QrAssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "kind" | "fileName" | "fileKey" | "fileSize" | "mimeType" | "checksum" | "safetyStatus" | "safetyReason" | "scannerMetadata" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["qrAsset"]>
+  export type QrAssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+  export type QrAssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+  export type QrAssetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+
+  export type $QrAssetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrAsset"
+    objects: {
+      campaign: Prisma.$QrCampaignPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      campaignId: string
+      kind: $Enums.QrAssetKind
+      fileName: string
+      fileKey: string
+      fileSize: bigint
+      mimeType: string
+      checksum: string | null
+      safetyStatus: $Enums.QrAssetSafetyStatus
+      safetyReason: string | null
+      scannerMetadata: Prisma.JsonValue | null
+      active: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["qrAsset"]>
+    composites: {}
+  }
+
+  type QrAssetGetPayload<S extends boolean | null | undefined | QrAssetDefaultArgs> = $Result.GetResult<Prisma.$QrAssetPayload, S>
+
+  type QrAssetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrAssetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrAssetCountAggregateInputType | true
+    }
+
+  export interface QrAssetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrAsset'], meta: { name: 'QrAsset' } }
+    /**
+     * Find zero or one QrAsset that matches the filter.
+     * @param {QrAssetFindUniqueArgs} args - Arguments to find a QrAsset
+     * @example
+     * // Get one QrAsset
+     * const qrAsset = await prisma.qrAsset.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrAssetFindUniqueArgs>(args: SelectSubset<T, QrAssetFindUniqueArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrAsset that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrAssetFindUniqueOrThrowArgs} args - Arguments to find a QrAsset
+     * @example
+     * // Get one QrAsset
+     * const qrAsset = await prisma.qrAsset.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrAssetFindUniqueOrThrowArgs>(args: SelectSubset<T, QrAssetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrAsset that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetFindFirstArgs} args - Arguments to find a QrAsset
+     * @example
+     * // Get one QrAsset
+     * const qrAsset = await prisma.qrAsset.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrAssetFindFirstArgs>(args?: SelectSubset<T, QrAssetFindFirstArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrAsset that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetFindFirstOrThrowArgs} args - Arguments to find a QrAsset
+     * @example
+     * // Get one QrAsset
+     * const qrAsset = await prisma.qrAsset.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrAssetFindFirstOrThrowArgs>(args?: SelectSubset<T, QrAssetFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrAssets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrAssets
+     * const qrAssets = await prisma.qrAsset.findMany()
+     * 
+     * // Get first 10 QrAssets
+     * const qrAssets = await prisma.qrAsset.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrAssetWithIdOnly = await prisma.qrAsset.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrAssetFindManyArgs>(args?: SelectSubset<T, QrAssetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrAsset.
+     * @param {QrAssetCreateArgs} args - Arguments to create a QrAsset.
+     * @example
+     * // Create one QrAsset
+     * const QrAsset = await prisma.qrAsset.create({
+     *   data: {
+     *     // ... data to create a QrAsset
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrAssetCreateArgs>(args: SelectSubset<T, QrAssetCreateArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrAssets.
+     * @param {QrAssetCreateManyArgs} args - Arguments to create many QrAssets.
+     * @example
+     * // Create many QrAssets
+     * const qrAsset = await prisma.qrAsset.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrAssetCreateManyArgs>(args?: SelectSubset<T, QrAssetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrAssets and returns the data saved in the database.
+     * @param {QrAssetCreateManyAndReturnArgs} args - Arguments to create many QrAssets.
+     * @example
+     * // Create many QrAssets
+     * const qrAsset = await prisma.qrAsset.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrAssets and only return the `id`
+     * const qrAssetWithIdOnly = await prisma.qrAsset.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrAssetCreateManyAndReturnArgs>(args?: SelectSubset<T, QrAssetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrAsset.
+     * @param {QrAssetDeleteArgs} args - Arguments to delete one QrAsset.
+     * @example
+     * // Delete one QrAsset
+     * const QrAsset = await prisma.qrAsset.delete({
+     *   where: {
+     *     // ... filter to delete one QrAsset
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrAssetDeleteArgs>(args: SelectSubset<T, QrAssetDeleteArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrAsset.
+     * @param {QrAssetUpdateArgs} args - Arguments to update one QrAsset.
+     * @example
+     * // Update one QrAsset
+     * const qrAsset = await prisma.qrAsset.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrAssetUpdateArgs>(args: SelectSubset<T, QrAssetUpdateArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrAssets.
+     * @param {QrAssetDeleteManyArgs} args - Arguments to filter QrAssets to delete.
+     * @example
+     * // Delete a few QrAssets
+     * const { count } = await prisma.qrAsset.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrAssetDeleteManyArgs>(args?: SelectSubset<T, QrAssetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrAssets
+     * const qrAsset = await prisma.qrAsset.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrAssetUpdateManyArgs>(args: SelectSubset<T, QrAssetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrAssets and returns the data updated in the database.
+     * @param {QrAssetUpdateManyAndReturnArgs} args - Arguments to update many QrAssets.
+     * @example
+     * // Update many QrAssets
+     * const qrAsset = await prisma.qrAsset.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrAssets and only return the `id`
+     * const qrAssetWithIdOnly = await prisma.qrAsset.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrAssetUpdateManyAndReturnArgs>(args: SelectSubset<T, QrAssetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrAsset.
+     * @param {QrAssetUpsertArgs} args - Arguments to update or create a QrAsset.
+     * @example
+     * // Update or create a QrAsset
+     * const qrAsset = await prisma.qrAsset.upsert({
+     *   create: {
+     *     // ... data to create a QrAsset
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrAsset we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrAssetUpsertArgs>(args: SelectSubset<T, QrAssetUpsertArgs<ExtArgs>>): Prisma__QrAssetClient<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetCountArgs} args - Arguments to filter QrAssets to count.
+     * @example
+     * // Count the number of QrAssets
+     * const count = await prisma.qrAsset.count({
+     *   where: {
+     *     // ... the filter for the QrAssets we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrAssetCountArgs>(
+      args?: Subset<T, QrAssetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrAssetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrAsset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrAssetAggregateArgs>(args: Subset<T, QrAssetAggregateArgs>): Prisma.PrismaPromise<GetQrAssetAggregateType<T>>
+
+    /**
+     * Group by QrAsset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAssetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrAssetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrAssetGroupByArgs['orderBy'] }
+        : { orderBy?: QrAssetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrAssetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrAssetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrAsset model
+   */
+  readonly fields: QrAssetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrAsset.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrAssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    campaign<T extends QrCampaignDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaignDefaultArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrAsset model
+   */
+  interface QrAssetFieldRefs {
+    readonly id: FieldRef<"QrAsset", 'String'>
+    readonly campaignId: FieldRef<"QrAsset", 'String'>
+    readonly kind: FieldRef<"QrAsset", 'QrAssetKind'>
+    readonly fileName: FieldRef<"QrAsset", 'String'>
+    readonly fileKey: FieldRef<"QrAsset", 'String'>
+    readonly fileSize: FieldRef<"QrAsset", 'BigInt'>
+    readonly mimeType: FieldRef<"QrAsset", 'String'>
+    readonly checksum: FieldRef<"QrAsset", 'String'>
+    readonly safetyStatus: FieldRef<"QrAsset", 'QrAssetSafetyStatus'>
+    readonly safetyReason: FieldRef<"QrAsset", 'String'>
+    readonly scannerMetadata: FieldRef<"QrAsset", 'Json'>
+    readonly active: FieldRef<"QrAsset", 'Boolean'>
+    readonly createdAt: FieldRef<"QrAsset", 'DateTime'>
+    readonly updatedAt: FieldRef<"QrAsset", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrAsset findUnique
+   */
+  export type QrAssetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAsset to fetch.
+     */
+    where: QrAssetWhereUniqueInput
+  }
+
+  /**
+   * QrAsset findUniqueOrThrow
+   */
+  export type QrAssetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAsset to fetch.
+     */
+    where: QrAssetWhereUniqueInput
+  }
+
+  /**
+   * QrAsset findFirst
+   */
+  export type QrAssetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAsset to fetch.
+     */
+    where?: QrAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAssets to fetch.
+     */
+    orderBy?: QrAssetOrderByWithRelationInput | QrAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrAssets.
+     */
+    cursor?: QrAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrAssets.
+     */
+    distinct?: QrAssetScalarFieldEnum | QrAssetScalarFieldEnum[]
+  }
+
+  /**
+   * QrAsset findFirstOrThrow
+   */
+  export type QrAssetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAsset to fetch.
+     */
+    where?: QrAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAssets to fetch.
+     */
+    orderBy?: QrAssetOrderByWithRelationInput | QrAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrAssets.
+     */
+    cursor?: QrAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrAssets.
+     */
+    distinct?: QrAssetScalarFieldEnum | QrAssetScalarFieldEnum[]
+  }
+
+  /**
+   * QrAsset findMany
+   */
+  export type QrAssetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAssets to fetch.
+     */
+    where?: QrAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAssets to fetch.
+     */
+    orderBy?: QrAssetOrderByWithRelationInput | QrAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrAssets.
+     */
+    cursor?: QrAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAssets.
+     */
+    skip?: number
+    distinct?: QrAssetScalarFieldEnum | QrAssetScalarFieldEnum[]
+  }
+
+  /**
+   * QrAsset create
+   */
+  export type QrAssetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrAsset.
+     */
+    data: XOR<QrAssetCreateInput, QrAssetUncheckedCreateInput>
+  }
+
+  /**
+   * QrAsset createMany
+   */
+  export type QrAssetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrAssets.
+     */
+    data: QrAssetCreateManyInput | QrAssetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrAsset createManyAndReturn
+   */
+  export type QrAssetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrAssets.
+     */
+    data: QrAssetCreateManyInput | QrAssetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrAsset update
+   */
+  export type QrAssetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrAsset.
+     */
+    data: XOR<QrAssetUpdateInput, QrAssetUncheckedUpdateInput>
+    /**
+     * Choose, which QrAsset to update.
+     */
+    where: QrAssetWhereUniqueInput
+  }
+
+  /**
+   * QrAsset updateMany
+   */
+  export type QrAssetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrAssets.
+     */
+    data: XOR<QrAssetUpdateManyMutationInput, QrAssetUncheckedUpdateManyInput>
+    /**
+     * Filter which QrAssets to update
+     */
+    where?: QrAssetWhereInput
+    /**
+     * Limit how many QrAssets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrAsset updateManyAndReturn
+   */
+  export type QrAssetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * The data used to update QrAssets.
+     */
+    data: XOR<QrAssetUpdateManyMutationInput, QrAssetUncheckedUpdateManyInput>
+    /**
+     * Filter which QrAssets to update
+     */
+    where?: QrAssetWhereInput
+    /**
+     * Limit how many QrAssets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrAsset upsert
+   */
+  export type QrAssetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrAsset to update in case it exists.
+     */
+    where: QrAssetWhereUniqueInput
+    /**
+     * In case the QrAsset found by the `where` argument doesn't exist, create a new QrAsset with this data.
+     */
+    create: XOR<QrAssetCreateInput, QrAssetUncheckedCreateInput>
+    /**
+     * In case the QrAsset was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrAssetUpdateInput, QrAssetUncheckedUpdateInput>
+  }
+
+  /**
+   * QrAsset delete
+   */
+  export type QrAssetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+    /**
+     * Filter which QrAsset to delete.
+     */
+    where: QrAssetWhereUniqueInput
+  }
+
+  /**
+   * QrAsset deleteMany
+   */
+  export type QrAssetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrAssets to delete
+     */
+    where?: QrAssetWhereInput
+    /**
+     * Limit how many QrAssets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrAsset without action
+   */
+  export type QrAssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAsset
+     */
+    select?: QrAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAsset
+     */
+    omit?: QrAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAssetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrScanEvent
+   */
+
+  export type AggregateQrScanEvent = {
+    _count: QrScanEventCountAggregateOutputType | null
+    _min: QrScanEventMinAggregateOutputType | null
+    _max: QrScanEventMaxAggregateOutputType | null
+  }
+
+  export type QrScanEventMinAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    kind: $Enums.QrEventKind | null
+    requestHash: string | null
+    referrerOrigin: string | null
+    userAgentFamily: string | null
+    deviceClass: string | null
+    country: string | null
+    createdAt: Date | null
+  }
+
+  export type QrScanEventMaxAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    kind: $Enums.QrEventKind | null
+    requestHash: string | null
+    referrerOrigin: string | null
+    userAgentFamily: string | null
+    deviceClass: string | null
+    country: string | null
+    createdAt: Date | null
+  }
+
+  export type QrScanEventCountAggregateOutputType = {
+    id: number
+    campaignId: number
+    kind: number
+    requestHash: number
+    referrerOrigin: number
+    userAgentFamily: number
+    deviceClass: number
+    country: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type QrScanEventMinAggregateInputType = {
+    id?: true
+    campaignId?: true
+    kind?: true
+    requestHash?: true
+    referrerOrigin?: true
+    userAgentFamily?: true
+    deviceClass?: true
+    country?: true
+    createdAt?: true
+  }
+
+  export type QrScanEventMaxAggregateInputType = {
+    id?: true
+    campaignId?: true
+    kind?: true
+    requestHash?: true
+    referrerOrigin?: true
+    userAgentFamily?: true
+    deviceClass?: true
+    country?: true
+    createdAt?: true
+  }
+
+  export type QrScanEventCountAggregateInputType = {
+    id?: true
+    campaignId?: true
+    kind?: true
+    requestHash?: true
+    referrerOrigin?: true
+    userAgentFamily?: true
+    deviceClass?: true
+    country?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type QrScanEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrScanEvent to aggregate.
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrScanEvents to fetch.
+     */
+    orderBy?: QrScanEventOrderByWithRelationInput | QrScanEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrScanEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrScanEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrScanEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrScanEvents
+    **/
+    _count?: true | QrScanEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrScanEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrScanEventMaxAggregateInputType
+  }
+
+  export type GetQrScanEventAggregateType<T extends QrScanEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrScanEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrScanEvent[P]>
+      : GetScalarType<T[P], AggregateQrScanEvent[P]>
+  }
+
+
+
+
+  export type QrScanEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrScanEventWhereInput
+    orderBy?: QrScanEventOrderByWithAggregationInput | QrScanEventOrderByWithAggregationInput[]
+    by: QrScanEventScalarFieldEnum[] | QrScanEventScalarFieldEnum
+    having?: QrScanEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrScanEventCountAggregateInputType | true
+    _min?: QrScanEventMinAggregateInputType
+    _max?: QrScanEventMaxAggregateInputType
+  }
+
+  export type QrScanEventGroupByOutputType = {
+    id: string
+    campaignId: string
+    kind: $Enums.QrEventKind
+    requestHash: string | null
+    referrerOrigin: string | null
+    userAgentFamily: string | null
+    deviceClass: string | null
+    country: string | null
+    createdAt: Date
+    _count: QrScanEventCountAggregateOutputType | null
+    _min: QrScanEventMinAggregateOutputType | null
+    _max: QrScanEventMaxAggregateOutputType | null
+  }
+
+  type GetQrScanEventGroupByPayload<T extends QrScanEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrScanEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrScanEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrScanEventGroupByOutputType[P]>
+            : GetScalarType<T[P], QrScanEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrScanEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    requestHash?: boolean
+    referrerOrigin?: boolean
+    userAgentFamily?: boolean
+    deviceClass?: boolean
+    country?: boolean
+    createdAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrScanEvent"]>
+
+  export type QrScanEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    requestHash?: boolean
+    referrerOrigin?: boolean
+    userAgentFamily?: boolean
+    deviceClass?: boolean
+    country?: boolean
+    createdAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrScanEvent"]>
+
+  export type QrScanEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    requestHash?: boolean
+    referrerOrigin?: boolean
+    userAgentFamily?: boolean
+    deviceClass?: boolean
+    country?: boolean
+    createdAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrScanEvent"]>
+
+  export type QrScanEventSelectScalar = {
+    id?: boolean
+    campaignId?: boolean
+    kind?: boolean
+    requestHash?: boolean
+    referrerOrigin?: boolean
+    userAgentFamily?: boolean
+    deviceClass?: boolean
+    country?: boolean
+    createdAt?: boolean
+  }
+
+  export type QrScanEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "kind" | "requestHash" | "referrerOrigin" | "userAgentFamily" | "deviceClass" | "country" | "createdAt", ExtArgs["result"]["qrScanEvent"]>
+  export type QrScanEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+  export type QrScanEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+  export type QrScanEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+
+  export type $QrScanEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrScanEvent"
+    objects: {
+      campaign: Prisma.$QrCampaignPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      campaignId: string
+      kind: $Enums.QrEventKind
+      requestHash: string | null
+      referrerOrigin: string | null
+      userAgentFamily: string | null
+      deviceClass: string | null
+      country: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["qrScanEvent"]>
+    composites: {}
+  }
+
+  type QrScanEventGetPayload<S extends boolean | null | undefined | QrScanEventDefaultArgs> = $Result.GetResult<Prisma.$QrScanEventPayload, S>
+
+  type QrScanEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrScanEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrScanEventCountAggregateInputType | true
+    }
+
+  export interface QrScanEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrScanEvent'], meta: { name: 'QrScanEvent' } }
+    /**
+     * Find zero or one QrScanEvent that matches the filter.
+     * @param {QrScanEventFindUniqueArgs} args - Arguments to find a QrScanEvent
+     * @example
+     * // Get one QrScanEvent
+     * const qrScanEvent = await prisma.qrScanEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrScanEventFindUniqueArgs>(args: SelectSubset<T, QrScanEventFindUniqueArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrScanEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrScanEventFindUniqueOrThrowArgs} args - Arguments to find a QrScanEvent
+     * @example
+     * // Get one QrScanEvent
+     * const qrScanEvent = await prisma.qrScanEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrScanEventFindUniqueOrThrowArgs>(args: SelectSubset<T, QrScanEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrScanEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventFindFirstArgs} args - Arguments to find a QrScanEvent
+     * @example
+     * // Get one QrScanEvent
+     * const qrScanEvent = await prisma.qrScanEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrScanEventFindFirstArgs>(args?: SelectSubset<T, QrScanEventFindFirstArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrScanEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventFindFirstOrThrowArgs} args - Arguments to find a QrScanEvent
+     * @example
+     * // Get one QrScanEvent
+     * const qrScanEvent = await prisma.qrScanEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrScanEventFindFirstOrThrowArgs>(args?: SelectSubset<T, QrScanEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrScanEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrScanEvents
+     * const qrScanEvents = await prisma.qrScanEvent.findMany()
+     * 
+     * // Get first 10 QrScanEvents
+     * const qrScanEvents = await prisma.qrScanEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrScanEventWithIdOnly = await prisma.qrScanEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrScanEventFindManyArgs>(args?: SelectSubset<T, QrScanEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrScanEvent.
+     * @param {QrScanEventCreateArgs} args - Arguments to create a QrScanEvent.
+     * @example
+     * // Create one QrScanEvent
+     * const QrScanEvent = await prisma.qrScanEvent.create({
+     *   data: {
+     *     // ... data to create a QrScanEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrScanEventCreateArgs>(args: SelectSubset<T, QrScanEventCreateArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrScanEvents.
+     * @param {QrScanEventCreateManyArgs} args - Arguments to create many QrScanEvents.
+     * @example
+     * // Create many QrScanEvents
+     * const qrScanEvent = await prisma.qrScanEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrScanEventCreateManyArgs>(args?: SelectSubset<T, QrScanEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrScanEvents and returns the data saved in the database.
+     * @param {QrScanEventCreateManyAndReturnArgs} args - Arguments to create many QrScanEvents.
+     * @example
+     * // Create many QrScanEvents
+     * const qrScanEvent = await prisma.qrScanEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrScanEvents and only return the `id`
+     * const qrScanEventWithIdOnly = await prisma.qrScanEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrScanEventCreateManyAndReturnArgs>(args?: SelectSubset<T, QrScanEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrScanEvent.
+     * @param {QrScanEventDeleteArgs} args - Arguments to delete one QrScanEvent.
+     * @example
+     * // Delete one QrScanEvent
+     * const QrScanEvent = await prisma.qrScanEvent.delete({
+     *   where: {
+     *     // ... filter to delete one QrScanEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrScanEventDeleteArgs>(args: SelectSubset<T, QrScanEventDeleteArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrScanEvent.
+     * @param {QrScanEventUpdateArgs} args - Arguments to update one QrScanEvent.
+     * @example
+     * // Update one QrScanEvent
+     * const qrScanEvent = await prisma.qrScanEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrScanEventUpdateArgs>(args: SelectSubset<T, QrScanEventUpdateArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrScanEvents.
+     * @param {QrScanEventDeleteManyArgs} args - Arguments to filter QrScanEvents to delete.
+     * @example
+     * // Delete a few QrScanEvents
+     * const { count } = await prisma.qrScanEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrScanEventDeleteManyArgs>(args?: SelectSubset<T, QrScanEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrScanEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrScanEvents
+     * const qrScanEvent = await prisma.qrScanEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrScanEventUpdateManyArgs>(args: SelectSubset<T, QrScanEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrScanEvents and returns the data updated in the database.
+     * @param {QrScanEventUpdateManyAndReturnArgs} args - Arguments to update many QrScanEvents.
+     * @example
+     * // Update many QrScanEvents
+     * const qrScanEvent = await prisma.qrScanEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrScanEvents and only return the `id`
+     * const qrScanEventWithIdOnly = await prisma.qrScanEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrScanEventUpdateManyAndReturnArgs>(args: SelectSubset<T, QrScanEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrScanEvent.
+     * @param {QrScanEventUpsertArgs} args - Arguments to update or create a QrScanEvent.
+     * @example
+     * // Update or create a QrScanEvent
+     * const qrScanEvent = await prisma.qrScanEvent.upsert({
+     *   create: {
+     *     // ... data to create a QrScanEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrScanEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrScanEventUpsertArgs>(args: SelectSubset<T, QrScanEventUpsertArgs<ExtArgs>>): Prisma__QrScanEventClient<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrScanEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventCountArgs} args - Arguments to filter QrScanEvents to count.
+     * @example
+     * // Count the number of QrScanEvents
+     * const count = await prisma.qrScanEvent.count({
+     *   where: {
+     *     // ... the filter for the QrScanEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrScanEventCountArgs>(
+      args?: Subset<T, QrScanEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrScanEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrScanEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrScanEventAggregateArgs>(args: Subset<T, QrScanEventAggregateArgs>): Prisma.PrismaPromise<GetQrScanEventAggregateType<T>>
+
+    /**
+     * Group by QrScanEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrScanEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrScanEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrScanEventGroupByArgs['orderBy'] }
+        : { orderBy?: QrScanEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrScanEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrScanEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrScanEvent model
+   */
+  readonly fields: QrScanEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrScanEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrScanEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    campaign<T extends QrCampaignDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaignDefaultArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrScanEvent model
+   */
+  interface QrScanEventFieldRefs {
+    readonly id: FieldRef<"QrScanEvent", 'String'>
+    readonly campaignId: FieldRef<"QrScanEvent", 'String'>
+    readonly kind: FieldRef<"QrScanEvent", 'QrEventKind'>
+    readonly requestHash: FieldRef<"QrScanEvent", 'String'>
+    readonly referrerOrigin: FieldRef<"QrScanEvent", 'String'>
+    readonly userAgentFamily: FieldRef<"QrScanEvent", 'String'>
+    readonly deviceClass: FieldRef<"QrScanEvent", 'String'>
+    readonly country: FieldRef<"QrScanEvent", 'String'>
+    readonly createdAt: FieldRef<"QrScanEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrScanEvent findUnique
+   */
+  export type QrScanEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * Filter, which QrScanEvent to fetch.
+     */
+    where: QrScanEventWhereUniqueInput
+  }
+
+  /**
+   * QrScanEvent findUniqueOrThrow
+   */
+  export type QrScanEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * Filter, which QrScanEvent to fetch.
+     */
+    where: QrScanEventWhereUniqueInput
+  }
+
+  /**
+   * QrScanEvent findFirst
+   */
+  export type QrScanEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * Filter, which QrScanEvent to fetch.
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrScanEvents to fetch.
+     */
+    orderBy?: QrScanEventOrderByWithRelationInput | QrScanEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrScanEvents.
+     */
+    cursor?: QrScanEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrScanEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrScanEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrScanEvents.
+     */
+    distinct?: QrScanEventScalarFieldEnum | QrScanEventScalarFieldEnum[]
+  }
+
+  /**
+   * QrScanEvent findFirstOrThrow
+   */
+  export type QrScanEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * Filter, which QrScanEvent to fetch.
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrScanEvents to fetch.
+     */
+    orderBy?: QrScanEventOrderByWithRelationInput | QrScanEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrScanEvents.
+     */
+    cursor?: QrScanEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrScanEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrScanEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrScanEvents.
+     */
+    distinct?: QrScanEventScalarFieldEnum | QrScanEventScalarFieldEnum[]
+  }
+
+  /**
+   * QrScanEvent findMany
+   */
+  export type QrScanEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * Filter, which QrScanEvents to fetch.
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrScanEvents to fetch.
+     */
+    orderBy?: QrScanEventOrderByWithRelationInput | QrScanEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrScanEvents.
+     */
+    cursor?: QrScanEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrScanEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrScanEvents.
+     */
+    skip?: number
+    distinct?: QrScanEventScalarFieldEnum | QrScanEventScalarFieldEnum[]
+  }
+
+  /**
+   * QrScanEvent create
+   */
+  export type QrScanEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrScanEvent.
+     */
+    data: XOR<QrScanEventCreateInput, QrScanEventUncheckedCreateInput>
+  }
+
+  /**
+   * QrScanEvent createMany
+   */
+  export type QrScanEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrScanEvents.
+     */
+    data: QrScanEventCreateManyInput | QrScanEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrScanEvent createManyAndReturn
+   */
+  export type QrScanEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrScanEvents.
+     */
+    data: QrScanEventCreateManyInput | QrScanEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrScanEvent update
+   */
+  export type QrScanEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrScanEvent.
+     */
+    data: XOR<QrScanEventUpdateInput, QrScanEventUncheckedUpdateInput>
+    /**
+     * Choose, which QrScanEvent to update.
+     */
+    where: QrScanEventWhereUniqueInput
+  }
+
+  /**
+   * QrScanEvent updateMany
+   */
+  export type QrScanEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrScanEvents.
+     */
+    data: XOR<QrScanEventUpdateManyMutationInput, QrScanEventUncheckedUpdateManyInput>
+    /**
+     * Filter which QrScanEvents to update
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * Limit how many QrScanEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrScanEvent updateManyAndReturn
+   */
+  export type QrScanEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * The data used to update QrScanEvents.
+     */
+    data: XOR<QrScanEventUpdateManyMutationInput, QrScanEventUncheckedUpdateManyInput>
+    /**
+     * Filter which QrScanEvents to update
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * Limit how many QrScanEvents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrScanEvent upsert
+   */
+  export type QrScanEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrScanEvent to update in case it exists.
+     */
+    where: QrScanEventWhereUniqueInput
+    /**
+     * In case the QrScanEvent found by the `where` argument doesn't exist, create a new QrScanEvent with this data.
+     */
+    create: XOR<QrScanEventCreateInput, QrScanEventUncheckedCreateInput>
+    /**
+     * In case the QrScanEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrScanEventUpdateInput, QrScanEventUncheckedUpdateInput>
+  }
+
+  /**
+   * QrScanEvent delete
+   */
+  export type QrScanEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    /**
+     * Filter which QrScanEvent to delete.
+     */
+    where: QrScanEventWhereUniqueInput
+  }
+
+  /**
+   * QrScanEvent deleteMany
+   */
+  export type QrScanEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrScanEvents to delete
+     */
+    where?: QrScanEventWhereInput
+    /**
+     * Limit how many QrScanEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrScanEvent without action
+   */
+  export type QrScanEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrAdminAction
+   */
+
+  export type AggregateQrAdminAction = {
+    _count: QrAdminActionCountAggregateOutputType | null
+    _min: QrAdminActionMinAggregateOutputType | null
+    _max: QrAdminActionMaxAggregateOutputType | null
+  }
+
+  export type QrAdminActionMinAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    actorId: string | null
+    action: string | null
+    reasonCode: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type QrAdminActionMaxAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    actorId: string | null
+    action: string | null
+    reasonCode: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type QrAdminActionCountAggregateOutputType = {
+    id: number
+    campaignId: number
+    actorId: number
+    action: number
+    reasonCode: number
+    reason: number
+    previousState: number
+    newState: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type QrAdminActionMinAggregateInputType = {
+    id?: true
+    campaignId?: true
+    actorId?: true
+    action?: true
+    reasonCode?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type QrAdminActionMaxAggregateInputType = {
+    id?: true
+    campaignId?: true
+    actorId?: true
+    action?: true
+    reasonCode?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type QrAdminActionCountAggregateInputType = {
+    id?: true
+    campaignId?: true
+    actorId?: true
+    action?: true
+    reasonCode?: true
+    reason?: true
+    previousState?: true
+    newState?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type QrAdminActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrAdminAction to aggregate.
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAdminActions to fetch.
+     */
+    orderBy?: QrAdminActionOrderByWithRelationInput | QrAdminActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrAdminActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAdminActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAdminActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrAdminActions
+    **/
+    _count?: true | QrAdminActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrAdminActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrAdminActionMaxAggregateInputType
+  }
+
+  export type GetQrAdminActionAggregateType<T extends QrAdminActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrAdminAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrAdminAction[P]>
+      : GetScalarType<T[P], AggregateQrAdminAction[P]>
+  }
+
+
+
+
+  export type QrAdminActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrAdminActionWhereInput
+    orderBy?: QrAdminActionOrderByWithAggregationInput | QrAdminActionOrderByWithAggregationInput[]
+    by: QrAdminActionScalarFieldEnum[] | QrAdminActionScalarFieldEnum
+    having?: QrAdminActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrAdminActionCountAggregateInputType | true
+    _min?: QrAdminActionMinAggregateInputType
+    _max?: QrAdminActionMaxAggregateInputType
+  }
+
+  export type QrAdminActionGroupByOutputType = {
+    id: string
+    campaignId: string
+    actorId: string | null
+    action: string
+    reasonCode: string
+    reason: string | null
+    previousState: JsonValue | null
+    newState: JsonValue | null
+    createdAt: Date
+    _count: QrAdminActionCountAggregateOutputType | null
+    _min: QrAdminActionMinAggregateOutputType | null
+    _max: QrAdminActionMaxAggregateOutputType | null
+  }
+
+  type GetQrAdminActionGroupByPayload<T extends QrAdminActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrAdminActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrAdminActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrAdminActionGroupByOutputType[P]>
+            : GetScalarType<T[P], QrAdminActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrAdminActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    actorId?: boolean
+    action?: boolean
+    reasonCode?: boolean
+    reason?: boolean
+    previousState?: boolean
+    newState?: boolean
+    createdAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    actor?: boolean | QrAdminAction$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["qrAdminAction"]>
+
+  export type QrAdminActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    actorId?: boolean
+    action?: boolean
+    reasonCode?: boolean
+    reason?: boolean
+    previousState?: boolean
+    newState?: boolean
+    createdAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    actor?: boolean | QrAdminAction$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["qrAdminAction"]>
+
+  export type QrAdminActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    actorId?: boolean
+    action?: boolean
+    reasonCode?: boolean
+    reason?: boolean
+    previousState?: boolean
+    newState?: boolean
+    createdAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    actor?: boolean | QrAdminAction$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["qrAdminAction"]>
+
+  export type QrAdminActionSelectScalar = {
+    id?: boolean
+    campaignId?: boolean
+    actorId?: boolean
+    action?: boolean
+    reasonCode?: boolean
+    reason?: boolean
+    previousState?: boolean
+    newState?: boolean
+    createdAt?: boolean
+  }
+
+  export type QrAdminActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "actorId" | "action" | "reasonCode" | "reason" | "previousState" | "newState" | "createdAt", ExtArgs["result"]["qrAdminAction"]>
+  export type QrAdminActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    actor?: boolean | QrAdminAction$actorArgs<ExtArgs>
+  }
+  export type QrAdminActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    actor?: boolean | QrAdminAction$actorArgs<ExtArgs>
+  }
+  export type QrAdminActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    actor?: boolean | QrAdminAction$actorArgs<ExtArgs>
+  }
+
+  export type $QrAdminActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrAdminAction"
+    objects: {
+      campaign: Prisma.$QrCampaignPayload<ExtArgs>
+      actor: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      campaignId: string
+      actorId: string | null
+      action: string
+      reasonCode: string
+      reason: string | null
+      previousState: Prisma.JsonValue | null
+      newState: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["qrAdminAction"]>
+    composites: {}
+  }
+
+  type QrAdminActionGetPayload<S extends boolean | null | undefined | QrAdminActionDefaultArgs> = $Result.GetResult<Prisma.$QrAdminActionPayload, S>
+
+  type QrAdminActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrAdminActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrAdminActionCountAggregateInputType | true
+    }
+
+  export interface QrAdminActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrAdminAction'], meta: { name: 'QrAdminAction' } }
+    /**
+     * Find zero or one QrAdminAction that matches the filter.
+     * @param {QrAdminActionFindUniqueArgs} args - Arguments to find a QrAdminAction
+     * @example
+     * // Get one QrAdminAction
+     * const qrAdminAction = await prisma.qrAdminAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrAdminActionFindUniqueArgs>(args: SelectSubset<T, QrAdminActionFindUniqueArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrAdminAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrAdminActionFindUniqueOrThrowArgs} args - Arguments to find a QrAdminAction
+     * @example
+     * // Get one QrAdminAction
+     * const qrAdminAction = await prisma.qrAdminAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrAdminActionFindUniqueOrThrowArgs>(args: SelectSubset<T, QrAdminActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrAdminAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionFindFirstArgs} args - Arguments to find a QrAdminAction
+     * @example
+     * // Get one QrAdminAction
+     * const qrAdminAction = await prisma.qrAdminAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrAdminActionFindFirstArgs>(args?: SelectSubset<T, QrAdminActionFindFirstArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrAdminAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionFindFirstOrThrowArgs} args - Arguments to find a QrAdminAction
+     * @example
+     * // Get one QrAdminAction
+     * const qrAdminAction = await prisma.qrAdminAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrAdminActionFindFirstOrThrowArgs>(args?: SelectSubset<T, QrAdminActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrAdminActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrAdminActions
+     * const qrAdminActions = await prisma.qrAdminAction.findMany()
+     * 
+     * // Get first 10 QrAdminActions
+     * const qrAdminActions = await prisma.qrAdminAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrAdminActionWithIdOnly = await prisma.qrAdminAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrAdminActionFindManyArgs>(args?: SelectSubset<T, QrAdminActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrAdminAction.
+     * @param {QrAdminActionCreateArgs} args - Arguments to create a QrAdminAction.
+     * @example
+     * // Create one QrAdminAction
+     * const QrAdminAction = await prisma.qrAdminAction.create({
+     *   data: {
+     *     // ... data to create a QrAdminAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrAdminActionCreateArgs>(args: SelectSubset<T, QrAdminActionCreateArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrAdminActions.
+     * @param {QrAdminActionCreateManyArgs} args - Arguments to create many QrAdminActions.
+     * @example
+     * // Create many QrAdminActions
+     * const qrAdminAction = await prisma.qrAdminAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrAdminActionCreateManyArgs>(args?: SelectSubset<T, QrAdminActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrAdminActions and returns the data saved in the database.
+     * @param {QrAdminActionCreateManyAndReturnArgs} args - Arguments to create many QrAdminActions.
+     * @example
+     * // Create many QrAdminActions
+     * const qrAdminAction = await prisma.qrAdminAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrAdminActions and only return the `id`
+     * const qrAdminActionWithIdOnly = await prisma.qrAdminAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrAdminActionCreateManyAndReturnArgs>(args?: SelectSubset<T, QrAdminActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrAdminAction.
+     * @param {QrAdminActionDeleteArgs} args - Arguments to delete one QrAdminAction.
+     * @example
+     * // Delete one QrAdminAction
+     * const QrAdminAction = await prisma.qrAdminAction.delete({
+     *   where: {
+     *     // ... filter to delete one QrAdminAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrAdminActionDeleteArgs>(args: SelectSubset<T, QrAdminActionDeleteArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrAdminAction.
+     * @param {QrAdminActionUpdateArgs} args - Arguments to update one QrAdminAction.
+     * @example
+     * // Update one QrAdminAction
+     * const qrAdminAction = await prisma.qrAdminAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrAdminActionUpdateArgs>(args: SelectSubset<T, QrAdminActionUpdateArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrAdminActions.
+     * @param {QrAdminActionDeleteManyArgs} args - Arguments to filter QrAdminActions to delete.
+     * @example
+     * // Delete a few QrAdminActions
+     * const { count } = await prisma.qrAdminAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrAdminActionDeleteManyArgs>(args?: SelectSubset<T, QrAdminActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrAdminActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrAdminActions
+     * const qrAdminAction = await prisma.qrAdminAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrAdminActionUpdateManyArgs>(args: SelectSubset<T, QrAdminActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrAdminActions and returns the data updated in the database.
+     * @param {QrAdminActionUpdateManyAndReturnArgs} args - Arguments to update many QrAdminActions.
+     * @example
+     * // Update many QrAdminActions
+     * const qrAdminAction = await prisma.qrAdminAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrAdminActions and only return the `id`
+     * const qrAdminActionWithIdOnly = await prisma.qrAdminAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrAdminActionUpdateManyAndReturnArgs>(args: SelectSubset<T, QrAdminActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrAdminAction.
+     * @param {QrAdminActionUpsertArgs} args - Arguments to update or create a QrAdminAction.
+     * @example
+     * // Update or create a QrAdminAction
+     * const qrAdminAction = await prisma.qrAdminAction.upsert({
+     *   create: {
+     *     // ... data to create a QrAdminAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrAdminAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrAdminActionUpsertArgs>(args: SelectSubset<T, QrAdminActionUpsertArgs<ExtArgs>>): Prisma__QrAdminActionClient<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrAdminActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionCountArgs} args - Arguments to filter QrAdminActions to count.
+     * @example
+     * // Count the number of QrAdminActions
+     * const count = await prisma.qrAdminAction.count({
+     *   where: {
+     *     // ... the filter for the QrAdminActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrAdminActionCountArgs>(
+      args?: Subset<T, QrAdminActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrAdminActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrAdminAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrAdminActionAggregateArgs>(args: Subset<T, QrAdminActionAggregateArgs>): Prisma.PrismaPromise<GetQrAdminActionAggregateType<T>>
+
+    /**
+     * Group by QrAdminAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrAdminActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrAdminActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrAdminActionGroupByArgs['orderBy'] }
+        : { orderBy?: QrAdminActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrAdminActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrAdminActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrAdminAction model
+   */
+  readonly fields: QrAdminActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrAdminAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrAdminActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    campaign<T extends QrCampaignDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaignDefaultArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    actor<T extends QrAdminAction$actorArgs<ExtArgs> = {}>(args?: Subset<T, QrAdminAction$actorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrAdminAction model
+   */
+  interface QrAdminActionFieldRefs {
+    readonly id: FieldRef<"QrAdminAction", 'String'>
+    readonly campaignId: FieldRef<"QrAdminAction", 'String'>
+    readonly actorId: FieldRef<"QrAdminAction", 'String'>
+    readonly action: FieldRef<"QrAdminAction", 'String'>
+    readonly reasonCode: FieldRef<"QrAdminAction", 'String'>
+    readonly reason: FieldRef<"QrAdminAction", 'String'>
+    readonly previousState: FieldRef<"QrAdminAction", 'Json'>
+    readonly newState: FieldRef<"QrAdminAction", 'Json'>
+    readonly createdAt: FieldRef<"QrAdminAction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrAdminAction findUnique
+   */
+  export type QrAdminActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAdminAction to fetch.
+     */
+    where: QrAdminActionWhereUniqueInput
+  }
+
+  /**
+   * QrAdminAction findUniqueOrThrow
+   */
+  export type QrAdminActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAdminAction to fetch.
+     */
+    where: QrAdminActionWhereUniqueInput
+  }
+
+  /**
+   * QrAdminAction findFirst
+   */
+  export type QrAdminActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAdminAction to fetch.
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAdminActions to fetch.
+     */
+    orderBy?: QrAdminActionOrderByWithRelationInput | QrAdminActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrAdminActions.
+     */
+    cursor?: QrAdminActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAdminActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAdminActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrAdminActions.
+     */
+    distinct?: QrAdminActionScalarFieldEnum | QrAdminActionScalarFieldEnum[]
+  }
+
+  /**
+   * QrAdminAction findFirstOrThrow
+   */
+  export type QrAdminActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAdminAction to fetch.
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAdminActions to fetch.
+     */
+    orderBy?: QrAdminActionOrderByWithRelationInput | QrAdminActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrAdminActions.
+     */
+    cursor?: QrAdminActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAdminActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAdminActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrAdminActions.
+     */
+    distinct?: QrAdminActionScalarFieldEnum | QrAdminActionScalarFieldEnum[]
+  }
+
+  /**
+   * QrAdminAction findMany
+   */
+  export type QrAdminActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrAdminActions to fetch.
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrAdminActions to fetch.
+     */
+    orderBy?: QrAdminActionOrderByWithRelationInput | QrAdminActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrAdminActions.
+     */
+    cursor?: QrAdminActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrAdminActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrAdminActions.
+     */
+    skip?: number
+    distinct?: QrAdminActionScalarFieldEnum | QrAdminActionScalarFieldEnum[]
+  }
+
+  /**
+   * QrAdminAction create
+   */
+  export type QrAdminActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrAdminAction.
+     */
+    data: XOR<QrAdminActionCreateInput, QrAdminActionUncheckedCreateInput>
+  }
+
+  /**
+   * QrAdminAction createMany
+   */
+  export type QrAdminActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrAdminActions.
+     */
+    data: QrAdminActionCreateManyInput | QrAdminActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrAdminAction createManyAndReturn
+   */
+  export type QrAdminActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrAdminActions.
+     */
+    data: QrAdminActionCreateManyInput | QrAdminActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrAdminAction update
+   */
+  export type QrAdminActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrAdminAction.
+     */
+    data: XOR<QrAdminActionUpdateInput, QrAdminActionUncheckedUpdateInput>
+    /**
+     * Choose, which QrAdminAction to update.
+     */
+    where: QrAdminActionWhereUniqueInput
+  }
+
+  /**
+   * QrAdminAction updateMany
+   */
+  export type QrAdminActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrAdminActions.
+     */
+    data: XOR<QrAdminActionUpdateManyMutationInput, QrAdminActionUncheckedUpdateManyInput>
+    /**
+     * Filter which QrAdminActions to update
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * Limit how many QrAdminActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrAdminAction updateManyAndReturn
+   */
+  export type QrAdminActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * The data used to update QrAdminActions.
+     */
+    data: XOR<QrAdminActionUpdateManyMutationInput, QrAdminActionUncheckedUpdateManyInput>
+    /**
+     * Filter which QrAdminActions to update
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * Limit how many QrAdminActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrAdminAction upsert
+   */
+  export type QrAdminActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrAdminAction to update in case it exists.
+     */
+    where: QrAdminActionWhereUniqueInput
+    /**
+     * In case the QrAdminAction found by the `where` argument doesn't exist, create a new QrAdminAction with this data.
+     */
+    create: XOR<QrAdminActionCreateInput, QrAdminActionUncheckedCreateInput>
+    /**
+     * In case the QrAdminAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrAdminActionUpdateInput, QrAdminActionUncheckedUpdateInput>
+  }
+
+  /**
+   * QrAdminAction delete
+   */
+  export type QrAdminActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+    /**
+     * Filter which QrAdminAction to delete.
+     */
+    where: QrAdminActionWhereUniqueInput
+  }
+
+  /**
+   * QrAdminAction deleteMany
+   */
+  export type QrAdminActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrAdminActions to delete
+     */
+    where?: QrAdminActionWhereInput
+    /**
+     * Limit how many QrAdminActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrAdminAction.actor
+   */
+  export type QrAdminAction$actorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * QrAdminAction without action
+   */
+  export type QrAdminActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrAdminAction
+     */
+    select?: QrAdminActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrAdminAction
+     */
+    omit?: QrAdminActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrAdminActionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model LicenseKey
    */
 
@@ -91173,6 +99499,127 @@ export namespace Prisma {
   export type UsageRecordScalarFieldEnum = (typeof UsageRecordScalarFieldEnum)[keyof typeof UsageRecordScalarFieldEnum]
 
 
+  export const QrPaymentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    offerCode: 'offerCode',
+    offerName: 'offerName',
+    amount: 'amount',
+    currency: 'currency',
+    campaignCredits: 'campaignCredits',
+    maxActiveCampaigns: 'maxActiveCampaigns',
+    accessStartsAt: 'accessStartsAt',
+    accessEndsAt: 'accessEndsAt',
+    status: 'status',
+    provider: 'provider',
+    providerPaymentId: 'providerPaymentId',
+    providerReference: 'providerReference',
+    providerResponse: 'providerResponse',
+    fulfilledAt: 'fulfilledAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QrPaymentScalarFieldEnum = (typeof QrPaymentScalarFieldEnum)[keyof typeof QrPaymentScalarFieldEnum]
+
+
+  export const QrEntitlementScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    paymentId: 'paymentId',
+    offerCode: 'offerCode',
+    kind: 'kind',
+    status: 'status',
+    campaignCreditsTotal: 'campaignCreditsTotal',
+    campaignCreditsUsed: 'campaignCreditsUsed',
+    maxActiveCampaigns: 'maxActiveCampaigns',
+    startsAt: 'startsAt',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QrEntitlementScalarFieldEnum = (typeof QrEntitlementScalarFieldEnum)[keyof typeof QrEntitlementScalarFieldEnum]
+
+
+  export const QrCampaignScalarFieldEnum: {
+    id: 'id',
+    ownerId: 'ownerId',
+    entitlementId: 'entitlementId',
+    publicCode: 'publicCode',
+    title: 'title',
+    description: 'description',
+    contentType: 'contentType',
+    status: 'status',
+    scanMode: 'scanMode',
+    destinationUrl: 'destinationUrl',
+    destinationData: 'destinationData',
+    brandName: 'brandName',
+    brandLogoAssetId: 'brandLogoAssetId',
+    brandPrimaryColor: 'brandPrimaryColor',
+    brandAccentColor: 'brandAccentColor',
+    designSettings: 'designSettings',
+    activatedAt: 'activatedAt',
+    expiresAt: 'expiresAt',
+    archivedAt: 'archivedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QrCampaignScalarFieldEnum = (typeof QrCampaignScalarFieldEnum)[keyof typeof QrCampaignScalarFieldEnum]
+
+
+  export const QrAssetScalarFieldEnum: {
+    id: 'id',
+    campaignId: 'campaignId',
+    kind: 'kind',
+    fileName: 'fileName',
+    fileKey: 'fileKey',
+    fileSize: 'fileSize',
+    mimeType: 'mimeType',
+    checksum: 'checksum',
+    safetyStatus: 'safetyStatus',
+    safetyReason: 'safetyReason',
+    scannerMetadata: 'scannerMetadata',
+    active: 'active',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QrAssetScalarFieldEnum = (typeof QrAssetScalarFieldEnum)[keyof typeof QrAssetScalarFieldEnum]
+
+
+  export const QrScanEventScalarFieldEnum: {
+    id: 'id',
+    campaignId: 'campaignId',
+    kind: 'kind',
+    requestHash: 'requestHash',
+    referrerOrigin: 'referrerOrigin',
+    userAgentFamily: 'userAgentFamily',
+    deviceClass: 'deviceClass',
+    country: 'country',
+    createdAt: 'createdAt'
+  };
+
+  export type QrScanEventScalarFieldEnum = (typeof QrScanEventScalarFieldEnum)[keyof typeof QrScanEventScalarFieldEnum]
+
+
+  export const QrAdminActionScalarFieldEnum: {
+    id: 'id',
+    campaignId: 'campaignId',
+    actorId: 'actorId',
+    action: 'action',
+    reasonCode: 'reasonCode',
+    reason: 'reason',
+    previousState: 'previousState',
+    newState: 'newState',
+    createdAt: 'createdAt'
+  };
+
+  export type QrAdminActionScalarFieldEnum = (typeof QrAdminActionScalarFieldEnum)[keyof typeof QrAdminActionScalarFieldEnum]
+
+
   export const LicenseKeyScalarFieldEnum: {
     id: 'id',
     key: 'key',
@@ -91794,6 +100241,146 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'QrOfferCode'
+   */
+  export type EnumQrOfferCodeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrOfferCode'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrOfferCode[]'
+   */
+  export type ListEnumQrOfferCodeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrOfferCode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrPaymentStatus'
+   */
+  export type EnumQrPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrPaymentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrPaymentStatus[]'
+   */
+  export type ListEnumQrPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrPaymentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrEntitlementKind'
+   */
+  export type EnumQrEntitlementKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrEntitlementKind[]'
+   */
+  export type ListEnumQrEntitlementKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementKind[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrEntitlementStatus'
+   */
+  export type EnumQrEntitlementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrEntitlementStatus[]'
+   */
+  export type ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrContentType'
+   */
+  export type EnumQrContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrContentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrContentType[]'
+   */
+  export type ListEnumQrContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrContentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrCampaignStatus'
+   */
+  export type EnumQrCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCampaignStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrCampaignStatus[]'
+   */
+  export type ListEnumQrCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCampaignStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrScanMode'
+   */
+  export type EnumQrScanModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrScanMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrScanMode[]'
+   */
+  export type ListEnumQrScanModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrScanMode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrAssetKind'
+   */
+  export type EnumQrAssetKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrAssetKind[]'
+   */
+  export type ListEnumQrAssetKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetKind[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrAssetSafetyStatus'
+   */
+  export type EnumQrAssetSafetyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetSafetyStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrAssetSafetyStatus[]'
+   */
+  export type ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetSafetyStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrEventKind'
+   */
+  export type EnumQrEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEventKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrEventKind[]'
+   */
+  export type ListEnumQrEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEventKind[]'>
+    
+
+
+  /**
    * Reference to a field of type 'LicenseStatus'
    */
   export type EnumLicenseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseStatus'>
@@ -91908,6 +100495,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     licenseKeys?: LicenseKeyListRelationFilter
     tickets?: TicketListRelationFilter
+    qrEntitlements?: QrEntitlementListRelationFilter
+    qrPayments?: QrPaymentListRelationFilter
+    qrCampaigns?: QrCampaignListRelationFilter
+    qrAdminActions?: QrAdminActionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -91949,6 +100540,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
     licenseKeys?: LicenseKeyOrderByRelationAggregateInput
     tickets?: TicketOrderByRelationAggregateInput
+    qrEntitlements?: QrEntitlementOrderByRelationAggregateInput
+    qrPayments?: QrPaymentOrderByRelationAggregateInput
+    qrCampaigns?: QrCampaignOrderByRelationAggregateInput
+    qrAdminActions?: QrAdminActionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -91993,6 +100588,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     licenseKeys?: LicenseKeyListRelationFilter
     tickets?: TicketListRelationFilter
+    qrEntitlements?: QrEntitlementListRelationFilter
+    qrPayments?: QrPaymentListRelationFilter
+    qrCampaigns?: QrCampaignListRelationFilter
+    qrAdminActions?: QrAdminActionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -97412,6 +106011,641 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UsageRecord"> | Date | string
   }
 
+  export type QrPaymentWhereInput = {
+    AND?: QrPaymentWhereInput | QrPaymentWhereInput[]
+    OR?: QrPaymentWhereInput[]
+    NOT?: QrPaymentWhereInput | QrPaymentWhereInput[]
+    id?: UuidFilter<"QrPayment"> | string
+    userId?: UuidFilter<"QrPayment"> | string
+    offerCode?: EnumQrOfferCodeFilter<"QrPayment"> | $Enums.QrOfferCode
+    offerName?: StringFilter<"QrPayment"> | string
+    amount?: DecimalFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"QrPayment"> | string
+    campaignCredits?: IntFilter<"QrPayment"> | number
+    maxActiveCampaigns?: IntNullableFilter<"QrPayment"> | number | null
+    accessStartsAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    accessEndsAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    status?: EnumQrPaymentStatusFilter<"QrPayment"> | $Enums.QrPaymentStatus
+    provider?: StringFilter<"QrPayment"> | string
+    providerPaymentId?: StringNullableFilter<"QrPayment"> | string | null
+    providerReference?: StringFilter<"QrPayment"> | string
+    providerResponse?: JsonNullableFilter<"QrPayment">
+    fulfilledAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"QrPayment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    entitlements?: QrEntitlementListRelationFilter
+  }
+
+  export type QrPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerCode?: SortOrder
+    offerName?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrderInput | SortOrder
+    accessStartsAt?: SortOrderInput | SortOrder
+    accessEndsAt?: SortOrderInput | SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    providerPaymentId?: SortOrderInput | SortOrder
+    providerReference?: SortOrder
+    providerResponse?: SortOrderInput | SortOrder
+    fulfilledAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    entitlements?: QrEntitlementOrderByRelationAggregateInput
+  }
+
+  export type QrPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    providerReference?: string
+    AND?: QrPaymentWhereInput | QrPaymentWhereInput[]
+    OR?: QrPaymentWhereInput[]
+    NOT?: QrPaymentWhereInput | QrPaymentWhereInput[]
+    userId?: UuidFilter<"QrPayment"> | string
+    offerCode?: EnumQrOfferCodeFilter<"QrPayment"> | $Enums.QrOfferCode
+    offerName?: StringFilter<"QrPayment"> | string
+    amount?: DecimalFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"QrPayment"> | string
+    campaignCredits?: IntFilter<"QrPayment"> | number
+    maxActiveCampaigns?: IntNullableFilter<"QrPayment"> | number | null
+    accessStartsAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    accessEndsAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    status?: EnumQrPaymentStatusFilter<"QrPayment"> | $Enums.QrPaymentStatus
+    provider?: StringFilter<"QrPayment"> | string
+    providerPaymentId?: StringNullableFilter<"QrPayment"> | string | null
+    providerResponse?: JsonNullableFilter<"QrPayment">
+    fulfilledAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"QrPayment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    entitlements?: QrEntitlementListRelationFilter
+  }, "id" | "providerReference">
+
+  export type QrPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerCode?: SortOrder
+    offerName?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrderInput | SortOrder
+    accessStartsAt?: SortOrderInput | SortOrder
+    accessEndsAt?: SortOrderInput | SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    providerPaymentId?: SortOrderInput | SortOrder
+    providerReference?: SortOrder
+    providerResponse?: SortOrderInput | SortOrder
+    fulfilledAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QrPaymentCountOrderByAggregateInput
+    _avg?: QrPaymentAvgOrderByAggregateInput
+    _max?: QrPaymentMaxOrderByAggregateInput
+    _min?: QrPaymentMinOrderByAggregateInput
+    _sum?: QrPaymentSumOrderByAggregateInput
+  }
+
+  export type QrPaymentScalarWhereWithAggregatesInput = {
+    AND?: QrPaymentScalarWhereWithAggregatesInput | QrPaymentScalarWhereWithAggregatesInput[]
+    OR?: QrPaymentScalarWhereWithAggregatesInput[]
+    NOT?: QrPaymentScalarWhereWithAggregatesInput | QrPaymentScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrPayment"> | string
+    userId?: UuidWithAggregatesFilter<"QrPayment"> | string
+    offerCode?: EnumQrOfferCodeWithAggregatesFilter<"QrPayment"> | $Enums.QrOfferCode
+    offerName?: StringWithAggregatesFilter<"QrPayment"> | string
+    amount?: DecimalWithAggregatesFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"QrPayment"> | string
+    campaignCredits?: IntWithAggregatesFilter<"QrPayment"> | number
+    maxActiveCampaigns?: IntNullableWithAggregatesFilter<"QrPayment"> | number | null
+    accessStartsAt?: DateTimeNullableWithAggregatesFilter<"QrPayment"> | Date | string | null
+    accessEndsAt?: DateTimeNullableWithAggregatesFilter<"QrPayment"> | Date | string | null
+    status?: EnumQrPaymentStatusWithAggregatesFilter<"QrPayment"> | $Enums.QrPaymentStatus
+    provider?: StringWithAggregatesFilter<"QrPayment"> | string
+    providerPaymentId?: StringNullableWithAggregatesFilter<"QrPayment"> | string | null
+    providerReference?: StringWithAggregatesFilter<"QrPayment"> | string
+    providerResponse?: JsonNullableWithAggregatesFilter<"QrPayment">
+    fulfilledAt?: DateTimeNullableWithAggregatesFilter<"QrPayment"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QrPayment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QrPayment"> | Date | string
+  }
+
+  export type QrEntitlementWhereInput = {
+    AND?: QrEntitlementWhereInput | QrEntitlementWhereInput[]
+    OR?: QrEntitlementWhereInput[]
+    NOT?: QrEntitlementWhereInput | QrEntitlementWhereInput[]
+    id?: UuidFilter<"QrEntitlement"> | string
+    userId?: UuidFilter<"QrEntitlement"> | string
+    paymentId?: UuidNullableFilter<"QrEntitlement"> | string | null
+    offerCode?: EnumQrOfferCodeFilter<"QrEntitlement"> | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFilter<"QrEntitlement"> | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFilter<"QrEntitlement"> | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFilter<"QrEntitlement"> | number
+    campaignCreditsUsed?: IntFilter<"QrEntitlement"> | number
+    maxActiveCampaigns?: IntNullableFilter<"QrEntitlement"> | number | null
+    startsAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    expiresAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    revokedAt?: DateTimeNullableFilter<"QrEntitlement"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    updatedAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    payment?: XOR<QrPaymentNullableScalarRelationFilter, QrPaymentWhereInput> | null
+    campaigns?: QrCampaignListRelationFilter
+  }
+
+  export type QrEntitlementOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrderInput | SortOrder
+    offerCode?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrderInput | SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    payment?: QrPaymentOrderByWithRelationInput
+    campaigns?: QrCampaignOrderByRelationAggregateInput
+  }
+
+  export type QrEntitlementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QrEntitlementWhereInput | QrEntitlementWhereInput[]
+    OR?: QrEntitlementWhereInput[]
+    NOT?: QrEntitlementWhereInput | QrEntitlementWhereInput[]
+    userId?: UuidFilter<"QrEntitlement"> | string
+    paymentId?: UuidNullableFilter<"QrEntitlement"> | string | null
+    offerCode?: EnumQrOfferCodeFilter<"QrEntitlement"> | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFilter<"QrEntitlement"> | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFilter<"QrEntitlement"> | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFilter<"QrEntitlement"> | number
+    campaignCreditsUsed?: IntFilter<"QrEntitlement"> | number
+    maxActiveCampaigns?: IntNullableFilter<"QrEntitlement"> | number | null
+    startsAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    expiresAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    revokedAt?: DateTimeNullableFilter<"QrEntitlement"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    updatedAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    payment?: XOR<QrPaymentNullableScalarRelationFilter, QrPaymentWhereInput> | null
+    campaigns?: QrCampaignListRelationFilter
+  }, "id">
+
+  export type QrEntitlementOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrderInput | SortOrder
+    offerCode?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrderInput | SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QrEntitlementCountOrderByAggregateInput
+    _avg?: QrEntitlementAvgOrderByAggregateInput
+    _max?: QrEntitlementMaxOrderByAggregateInput
+    _min?: QrEntitlementMinOrderByAggregateInput
+    _sum?: QrEntitlementSumOrderByAggregateInput
+  }
+
+  export type QrEntitlementScalarWhereWithAggregatesInput = {
+    AND?: QrEntitlementScalarWhereWithAggregatesInput | QrEntitlementScalarWhereWithAggregatesInput[]
+    OR?: QrEntitlementScalarWhereWithAggregatesInput[]
+    NOT?: QrEntitlementScalarWhereWithAggregatesInput | QrEntitlementScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrEntitlement"> | string
+    userId?: UuidWithAggregatesFilter<"QrEntitlement"> | string
+    paymentId?: UuidNullableWithAggregatesFilter<"QrEntitlement"> | string | null
+    offerCode?: EnumQrOfferCodeWithAggregatesFilter<"QrEntitlement"> | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindWithAggregatesFilter<"QrEntitlement"> | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusWithAggregatesFilter<"QrEntitlement"> | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntWithAggregatesFilter<"QrEntitlement"> | number
+    campaignCreditsUsed?: IntWithAggregatesFilter<"QrEntitlement"> | number
+    maxActiveCampaigns?: IntNullableWithAggregatesFilter<"QrEntitlement"> | number | null
+    startsAt?: DateTimeWithAggregatesFilter<"QrEntitlement"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"QrEntitlement"> | Date | string
+    revokedAt?: DateTimeNullableWithAggregatesFilter<"QrEntitlement"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QrEntitlement"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QrEntitlement"> | Date | string
+  }
+
+  export type QrCampaignWhereInput = {
+    AND?: QrCampaignWhereInput | QrCampaignWhereInput[]
+    OR?: QrCampaignWhereInput[]
+    NOT?: QrCampaignWhereInput | QrCampaignWhereInput[]
+    id?: UuidFilter<"QrCampaign"> | string
+    ownerId?: UuidFilter<"QrCampaign"> | string
+    entitlementId?: UuidNullableFilter<"QrCampaign"> | string | null
+    publicCode?: StringFilter<"QrCampaign"> | string
+    title?: StringFilter<"QrCampaign"> | string
+    description?: StringNullableFilter<"QrCampaign"> | string | null
+    contentType?: EnumQrContentTypeFilter<"QrCampaign"> | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFilter<"QrCampaign"> | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFilter<"QrCampaign"> | $Enums.QrScanMode
+    destinationUrl?: StringNullableFilter<"QrCampaign"> | string | null
+    destinationData?: JsonNullableFilter<"QrCampaign">
+    brandName?: StringNullableFilter<"QrCampaign"> | string | null
+    brandLogoAssetId?: UuidNullableFilter<"QrCampaign"> | string | null
+    brandPrimaryColor?: StringNullableFilter<"QrCampaign"> | string | null
+    brandAccentColor?: StringNullableFilter<"QrCampaign"> | string | null
+    designSettings?: JsonNullableFilter<"QrCampaign">
+    activatedAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    archivedAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrCampaign"> | Date | string
+    updatedAt?: DateTimeFilter<"QrCampaign"> | Date | string
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    entitlement?: XOR<QrEntitlementNullableScalarRelationFilter, QrEntitlementWhereInput> | null
+    assets?: QrAssetListRelationFilter
+    events?: QrScanEventListRelationFilter
+    adminActions?: QrAdminActionListRelationFilter
+  }
+
+  export type QrCampaignOrderByWithRelationInput = {
+    id?: SortOrder
+    ownerId?: SortOrder
+    entitlementId?: SortOrderInput | SortOrder
+    publicCode?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    contentType?: SortOrder
+    status?: SortOrder
+    scanMode?: SortOrder
+    destinationUrl?: SortOrderInput | SortOrder
+    destinationData?: SortOrderInput | SortOrder
+    brandName?: SortOrderInput | SortOrder
+    brandLogoAssetId?: SortOrderInput | SortOrder
+    brandPrimaryColor?: SortOrderInput | SortOrder
+    brandAccentColor?: SortOrderInput | SortOrder
+    designSettings?: SortOrderInput | SortOrder
+    activatedAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    archivedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    owner?: UserOrderByWithRelationInput
+    entitlement?: QrEntitlementOrderByWithRelationInput
+    assets?: QrAssetOrderByRelationAggregateInput
+    events?: QrScanEventOrderByRelationAggregateInput
+    adminActions?: QrAdminActionOrderByRelationAggregateInput
+  }
+
+  export type QrCampaignWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    publicCode?: string
+    AND?: QrCampaignWhereInput | QrCampaignWhereInput[]
+    OR?: QrCampaignWhereInput[]
+    NOT?: QrCampaignWhereInput | QrCampaignWhereInput[]
+    ownerId?: UuidFilter<"QrCampaign"> | string
+    entitlementId?: UuidNullableFilter<"QrCampaign"> | string | null
+    title?: StringFilter<"QrCampaign"> | string
+    description?: StringNullableFilter<"QrCampaign"> | string | null
+    contentType?: EnumQrContentTypeFilter<"QrCampaign"> | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFilter<"QrCampaign"> | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFilter<"QrCampaign"> | $Enums.QrScanMode
+    destinationUrl?: StringNullableFilter<"QrCampaign"> | string | null
+    destinationData?: JsonNullableFilter<"QrCampaign">
+    brandName?: StringNullableFilter<"QrCampaign"> | string | null
+    brandLogoAssetId?: UuidNullableFilter<"QrCampaign"> | string | null
+    brandPrimaryColor?: StringNullableFilter<"QrCampaign"> | string | null
+    brandAccentColor?: StringNullableFilter<"QrCampaign"> | string | null
+    designSettings?: JsonNullableFilter<"QrCampaign">
+    activatedAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    archivedAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrCampaign"> | Date | string
+    updatedAt?: DateTimeFilter<"QrCampaign"> | Date | string
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    entitlement?: XOR<QrEntitlementNullableScalarRelationFilter, QrEntitlementWhereInput> | null
+    assets?: QrAssetListRelationFilter
+    events?: QrScanEventListRelationFilter
+    adminActions?: QrAdminActionListRelationFilter
+  }, "id" | "publicCode">
+
+  export type QrCampaignOrderByWithAggregationInput = {
+    id?: SortOrder
+    ownerId?: SortOrder
+    entitlementId?: SortOrderInput | SortOrder
+    publicCode?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    contentType?: SortOrder
+    status?: SortOrder
+    scanMode?: SortOrder
+    destinationUrl?: SortOrderInput | SortOrder
+    destinationData?: SortOrderInput | SortOrder
+    brandName?: SortOrderInput | SortOrder
+    brandLogoAssetId?: SortOrderInput | SortOrder
+    brandPrimaryColor?: SortOrderInput | SortOrder
+    brandAccentColor?: SortOrderInput | SortOrder
+    designSettings?: SortOrderInput | SortOrder
+    activatedAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    archivedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QrCampaignCountOrderByAggregateInput
+    _max?: QrCampaignMaxOrderByAggregateInput
+    _min?: QrCampaignMinOrderByAggregateInput
+  }
+
+  export type QrCampaignScalarWhereWithAggregatesInput = {
+    AND?: QrCampaignScalarWhereWithAggregatesInput | QrCampaignScalarWhereWithAggregatesInput[]
+    OR?: QrCampaignScalarWhereWithAggregatesInput[]
+    NOT?: QrCampaignScalarWhereWithAggregatesInput | QrCampaignScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrCampaign"> | string
+    ownerId?: UuidWithAggregatesFilter<"QrCampaign"> | string
+    entitlementId?: UuidNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    publicCode?: StringWithAggregatesFilter<"QrCampaign"> | string
+    title?: StringWithAggregatesFilter<"QrCampaign"> | string
+    description?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    contentType?: EnumQrContentTypeWithAggregatesFilter<"QrCampaign"> | $Enums.QrContentType
+    status?: EnumQrCampaignStatusWithAggregatesFilter<"QrCampaign"> | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeWithAggregatesFilter<"QrCampaign"> | $Enums.QrScanMode
+    destinationUrl?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    destinationData?: JsonNullableWithAggregatesFilter<"QrCampaign">
+    brandName?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    brandLogoAssetId?: UuidNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    brandPrimaryColor?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    brandAccentColor?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    designSettings?: JsonNullableWithAggregatesFilter<"QrCampaign">
+    activatedAt?: DateTimeNullableWithAggregatesFilter<"QrCampaign"> | Date | string | null
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"QrCampaign"> | Date | string | null
+    archivedAt?: DateTimeNullableWithAggregatesFilter<"QrCampaign"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QrCampaign"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QrCampaign"> | Date | string
+  }
+
+  export type QrAssetWhereInput = {
+    AND?: QrAssetWhereInput | QrAssetWhereInput[]
+    OR?: QrAssetWhereInput[]
+    NOT?: QrAssetWhereInput | QrAssetWhereInput[]
+    id?: UuidFilter<"QrAsset"> | string
+    campaignId?: UuidFilter<"QrAsset"> | string
+    kind?: EnumQrAssetKindFilter<"QrAsset"> | $Enums.QrAssetKind
+    fileName?: StringFilter<"QrAsset"> | string
+    fileKey?: StringFilter<"QrAsset"> | string
+    fileSize?: BigIntFilter<"QrAsset"> | bigint | number
+    mimeType?: StringFilter<"QrAsset"> | string
+    checksum?: StringNullableFilter<"QrAsset"> | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFilter<"QrAsset"> | $Enums.QrAssetSafetyStatus
+    safetyReason?: StringNullableFilter<"QrAsset"> | string | null
+    scannerMetadata?: JsonNullableFilter<"QrAsset">
+    active?: BoolFilter<"QrAsset"> | boolean
+    createdAt?: DateTimeFilter<"QrAsset"> | Date | string
+    updatedAt?: DateTimeFilter<"QrAsset"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+  }
+
+  export type QrAssetOrderByWithRelationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    fileName?: SortOrder
+    fileKey?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    checksum?: SortOrderInput | SortOrder
+    safetyStatus?: SortOrder
+    safetyReason?: SortOrderInput | SortOrder
+    scannerMetadata?: SortOrderInput | SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    campaign?: QrCampaignOrderByWithRelationInput
+  }
+
+  export type QrAssetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QrAssetWhereInput | QrAssetWhereInput[]
+    OR?: QrAssetWhereInput[]
+    NOT?: QrAssetWhereInput | QrAssetWhereInput[]
+    campaignId?: UuidFilter<"QrAsset"> | string
+    kind?: EnumQrAssetKindFilter<"QrAsset"> | $Enums.QrAssetKind
+    fileName?: StringFilter<"QrAsset"> | string
+    fileKey?: StringFilter<"QrAsset"> | string
+    fileSize?: BigIntFilter<"QrAsset"> | bigint | number
+    mimeType?: StringFilter<"QrAsset"> | string
+    checksum?: StringNullableFilter<"QrAsset"> | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFilter<"QrAsset"> | $Enums.QrAssetSafetyStatus
+    safetyReason?: StringNullableFilter<"QrAsset"> | string | null
+    scannerMetadata?: JsonNullableFilter<"QrAsset">
+    active?: BoolFilter<"QrAsset"> | boolean
+    createdAt?: DateTimeFilter<"QrAsset"> | Date | string
+    updatedAt?: DateTimeFilter<"QrAsset"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+  }, "id">
+
+  export type QrAssetOrderByWithAggregationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    fileName?: SortOrder
+    fileKey?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    checksum?: SortOrderInput | SortOrder
+    safetyStatus?: SortOrder
+    safetyReason?: SortOrderInput | SortOrder
+    scannerMetadata?: SortOrderInput | SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QrAssetCountOrderByAggregateInput
+    _avg?: QrAssetAvgOrderByAggregateInput
+    _max?: QrAssetMaxOrderByAggregateInput
+    _min?: QrAssetMinOrderByAggregateInput
+    _sum?: QrAssetSumOrderByAggregateInput
+  }
+
+  export type QrAssetScalarWhereWithAggregatesInput = {
+    AND?: QrAssetScalarWhereWithAggregatesInput | QrAssetScalarWhereWithAggregatesInput[]
+    OR?: QrAssetScalarWhereWithAggregatesInput[]
+    NOT?: QrAssetScalarWhereWithAggregatesInput | QrAssetScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrAsset"> | string
+    campaignId?: UuidWithAggregatesFilter<"QrAsset"> | string
+    kind?: EnumQrAssetKindWithAggregatesFilter<"QrAsset"> | $Enums.QrAssetKind
+    fileName?: StringWithAggregatesFilter<"QrAsset"> | string
+    fileKey?: StringWithAggregatesFilter<"QrAsset"> | string
+    fileSize?: BigIntWithAggregatesFilter<"QrAsset"> | bigint | number
+    mimeType?: StringWithAggregatesFilter<"QrAsset"> | string
+    checksum?: StringNullableWithAggregatesFilter<"QrAsset"> | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusWithAggregatesFilter<"QrAsset"> | $Enums.QrAssetSafetyStatus
+    safetyReason?: StringNullableWithAggregatesFilter<"QrAsset"> | string | null
+    scannerMetadata?: JsonNullableWithAggregatesFilter<"QrAsset">
+    active?: BoolWithAggregatesFilter<"QrAsset"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"QrAsset"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QrAsset"> | Date | string
+  }
+
+  export type QrScanEventWhereInput = {
+    AND?: QrScanEventWhereInput | QrScanEventWhereInput[]
+    OR?: QrScanEventWhereInput[]
+    NOT?: QrScanEventWhereInput | QrScanEventWhereInput[]
+    id?: UuidFilter<"QrScanEvent"> | string
+    campaignId?: UuidFilter<"QrScanEvent"> | string
+    kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
+    requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
+    referrerOrigin?: StringNullableFilter<"QrScanEvent"> | string | null
+    userAgentFamily?: StringNullableFilter<"QrScanEvent"> | string | null
+    deviceClass?: StringNullableFilter<"QrScanEvent"> | string | null
+    country?: StringNullableFilter<"QrScanEvent"> | string | null
+    createdAt?: DateTimeFilter<"QrScanEvent"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+  }
+
+  export type QrScanEventOrderByWithRelationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    requestHash?: SortOrderInput | SortOrder
+    referrerOrigin?: SortOrderInput | SortOrder
+    userAgentFamily?: SortOrderInput | SortOrder
+    deviceClass?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    campaign?: QrCampaignOrderByWithRelationInput
+  }
+
+  export type QrScanEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QrScanEventWhereInput | QrScanEventWhereInput[]
+    OR?: QrScanEventWhereInput[]
+    NOT?: QrScanEventWhereInput | QrScanEventWhereInput[]
+    campaignId?: UuidFilter<"QrScanEvent"> | string
+    kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
+    requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
+    referrerOrigin?: StringNullableFilter<"QrScanEvent"> | string | null
+    userAgentFamily?: StringNullableFilter<"QrScanEvent"> | string | null
+    deviceClass?: StringNullableFilter<"QrScanEvent"> | string | null
+    country?: StringNullableFilter<"QrScanEvent"> | string | null
+    createdAt?: DateTimeFilter<"QrScanEvent"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+  }, "id">
+
+  export type QrScanEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    requestHash?: SortOrderInput | SortOrder
+    referrerOrigin?: SortOrderInput | SortOrder
+    userAgentFamily?: SortOrderInput | SortOrder
+    deviceClass?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: QrScanEventCountOrderByAggregateInput
+    _max?: QrScanEventMaxOrderByAggregateInput
+    _min?: QrScanEventMinOrderByAggregateInput
+  }
+
+  export type QrScanEventScalarWhereWithAggregatesInput = {
+    AND?: QrScanEventScalarWhereWithAggregatesInput | QrScanEventScalarWhereWithAggregatesInput[]
+    OR?: QrScanEventScalarWhereWithAggregatesInput[]
+    NOT?: QrScanEventScalarWhereWithAggregatesInput | QrScanEventScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrScanEvent"> | string
+    campaignId?: UuidWithAggregatesFilter<"QrScanEvent"> | string
+    kind?: EnumQrEventKindWithAggregatesFilter<"QrScanEvent"> | $Enums.QrEventKind
+    requestHash?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
+    referrerOrigin?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
+    userAgentFamily?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
+    deviceClass?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
+    country?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QrScanEvent"> | Date | string
+  }
+
+  export type QrAdminActionWhereInput = {
+    AND?: QrAdminActionWhereInput | QrAdminActionWhereInput[]
+    OR?: QrAdminActionWhereInput[]
+    NOT?: QrAdminActionWhereInput | QrAdminActionWhereInput[]
+    id?: UuidFilter<"QrAdminAction"> | string
+    campaignId?: UuidFilter<"QrAdminAction"> | string
+    actorId?: UuidNullableFilter<"QrAdminAction"> | string | null
+    action?: StringFilter<"QrAdminAction"> | string
+    reasonCode?: StringFilter<"QrAdminAction"> | string
+    reason?: StringNullableFilter<"QrAdminAction"> | string | null
+    previousState?: JsonNullableFilter<"QrAdminAction">
+    newState?: JsonNullableFilter<"QrAdminAction">
+    createdAt?: DateTimeFilter<"QrAdminAction"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+    actor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type QrAdminActionOrderByWithRelationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    actorId?: SortOrderInput | SortOrder
+    action?: SortOrder
+    reasonCode?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    previousState?: SortOrderInput | SortOrder
+    newState?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    campaign?: QrCampaignOrderByWithRelationInput
+    actor?: UserOrderByWithRelationInput
+  }
+
+  export type QrAdminActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QrAdminActionWhereInput | QrAdminActionWhereInput[]
+    OR?: QrAdminActionWhereInput[]
+    NOT?: QrAdminActionWhereInput | QrAdminActionWhereInput[]
+    campaignId?: UuidFilter<"QrAdminAction"> | string
+    actorId?: UuidNullableFilter<"QrAdminAction"> | string | null
+    action?: StringFilter<"QrAdminAction"> | string
+    reasonCode?: StringFilter<"QrAdminAction"> | string
+    reason?: StringNullableFilter<"QrAdminAction"> | string | null
+    previousState?: JsonNullableFilter<"QrAdminAction">
+    newState?: JsonNullableFilter<"QrAdminAction">
+    createdAt?: DateTimeFilter<"QrAdminAction"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+    actor?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type QrAdminActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    actorId?: SortOrderInput | SortOrder
+    action?: SortOrder
+    reasonCode?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    previousState?: SortOrderInput | SortOrder
+    newState?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: QrAdminActionCountOrderByAggregateInput
+    _max?: QrAdminActionMaxOrderByAggregateInput
+    _min?: QrAdminActionMinOrderByAggregateInput
+  }
+
+  export type QrAdminActionScalarWhereWithAggregatesInput = {
+    AND?: QrAdminActionScalarWhereWithAggregatesInput | QrAdminActionScalarWhereWithAggregatesInput[]
+    OR?: QrAdminActionScalarWhereWithAggregatesInput[]
+    NOT?: QrAdminActionScalarWhereWithAggregatesInput | QrAdminActionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrAdminAction"> | string
+    campaignId?: UuidWithAggregatesFilter<"QrAdminAction"> | string
+    actorId?: UuidNullableWithAggregatesFilter<"QrAdminAction"> | string | null
+    action?: StringWithAggregatesFilter<"QrAdminAction"> | string
+    reasonCode?: StringWithAggregatesFilter<"QrAdminAction"> | string
+    reason?: StringNullableWithAggregatesFilter<"QrAdminAction"> | string | null
+    previousState?: JsonNullableWithAggregatesFilter<"QrAdminAction">
+    newState?: JsonNullableWithAggregatesFilter<"QrAdminAction">
+    createdAt?: DateTimeWithAggregatesFilter<"QrAdminAction"> | Date | string
+  }
+
   export type LicenseKeyWhereInput = {
     AND?: LicenseKeyWhereInput | LicenseKeyWhereInput[]
     OR?: LicenseKeyWhereInput[]
@@ -97824,6 +107058,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -97865,6 +107103,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserUpdateInput = {
@@ -97906,6 +107148,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -97947,6 +107193,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -103924,6 +113174,738 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type QrPaymentCreateInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutQrPaymentsInput
+    entitlements?: QrEntitlementCreateNestedManyWithoutPaymentInput
+  }
+
+  export type QrPaymentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    entitlements?: QrEntitlementUncheckedCreateNestedManyWithoutPaymentInput
+  }
+
+  export type QrPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutQrPaymentsNestedInput
+    entitlements?: QrEntitlementUpdateManyWithoutPaymentNestedInput
+  }
+
+  export type QrPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    entitlements?: QrEntitlementUncheckedUpdateManyWithoutPaymentNestedInput
+  }
+
+  export type QrPaymentCreateManyInput = {
+    id?: string
+    userId: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrEntitlementCreateInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutQrEntitlementsInput
+    payment?: QrPaymentCreateNestedOneWithoutEntitlementsInput
+    campaigns?: QrCampaignCreateNestedManyWithoutEntitlementInput
+  }
+
+  export type QrEntitlementUncheckedCreateInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    campaigns?: QrCampaignUncheckedCreateNestedManyWithoutEntitlementInput
+  }
+
+  export type QrEntitlementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutQrEntitlementsNestedInput
+    payment?: QrPaymentUpdateOneWithoutEntitlementsNestedInput
+    campaigns?: QrCampaignUpdateManyWithoutEntitlementNestedInput
+  }
+
+  export type QrEntitlementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaigns?: QrCampaignUncheckedUpdateManyWithoutEntitlementNestedInput
+  }
+
+  export type QrEntitlementCreateManyInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrEntitlementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrEntitlementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCampaignCreateInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutQrCampaignsInput
+    entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
+    assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateInput = {
+    id?: string
+    ownerId: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
+    entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
+    assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignCreateManyInput = {
+    id?: string
+    ownerId: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrCampaignUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCampaignUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetCreateInput = {
+    id?: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint | number
+    mimeType: string
+    checksum?: string | null
+    safetyStatus?: $Enums.QrAssetSafetyStatus
+    safetyReason?: string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutAssetsInput
+  }
+
+  export type QrAssetUncheckedCreateInput = {
+    id?: string
+    campaignId: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint | number
+    mimeType: string
+    checksum?: string | null
+    safetyStatus?: $Enums.QrAssetSafetyStatus
+    safetyReason?: string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrAssetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutAssetsNestedInput
+  }
+
+  export type QrAssetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetCreateManyInput = {
+    id?: string
+    campaignId: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint | number
+    mimeType: string
+    checksum?: string | null
+    safetyStatus?: $Enums.QrAssetSafetyStatus
+    safetyReason?: string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrAssetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventCreateInput = {
+    id?: string
+    kind: $Enums.QrEventKind
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutEventsInput
+  }
+
+  export type QrScanEventUncheckedCreateInput = {
+    id?: string
+    campaignId: string
+    kind: $Enums.QrEventKind
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrScanEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutEventsNestedInput
+  }
+
+  export type QrScanEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventCreateManyInput = {
+    id?: string
+    campaignId: string
+    kind: $Enums.QrEventKind
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrScanEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionCreateInput = {
+    id?: string
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutAdminActionsInput
+    actor?: UserCreateNestedOneWithoutQrAdminActionsInput
+  }
+
+  export type QrAdminActionUncheckedCreateInput = {
+    id?: string
+    campaignId: string
+    actorId?: string | null
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type QrAdminActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutAdminActionsNestedInput
+    actor?: UserUpdateOneWithoutQrAdminActionsNestedInput
+  }
+
+  export type QrAdminActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionCreateManyInput = {
+    id?: string
+    campaignId: string
+    actorId?: string | null
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type QrAdminActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LicenseKeyCreateInput = {
     id?: string
     key: string
@@ -104543,6 +114525,30 @@ export namespace Prisma {
     none?: TicketWhereInput
   }
 
+  export type QrEntitlementListRelationFilter = {
+    every?: QrEntitlementWhereInput
+    some?: QrEntitlementWhereInput
+    none?: QrEntitlementWhereInput
+  }
+
+  export type QrPaymentListRelationFilter = {
+    every?: QrPaymentWhereInput
+    some?: QrPaymentWhereInput
+    none?: QrPaymentWhereInput
+  }
+
+  export type QrCampaignListRelationFilter = {
+    every?: QrCampaignWhereInput
+    some?: QrCampaignWhereInput
+    none?: QrCampaignWhereInput
+  }
+
+  export type QrAdminActionListRelationFilter = {
+    every?: QrAdminActionWhereInput
+    some?: QrAdminActionWhereInput
+    none?: QrAdminActionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -104613,6 +114619,22 @@ export namespace Prisma {
   }
 
   export type TicketOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrEntitlementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrPaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrCampaignOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrAdminActionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -108849,6 +118871,540 @@ export namespace Prisma {
     creditsUsed?: SortOrder
   }
 
+  export type EnumQrOfferCodeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrOfferCode | EnumQrOfferCodeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrOfferCodeFilter<$PrismaModel> | $Enums.QrOfferCode
+  }
+
+  export type EnumQrPaymentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrPaymentStatus | EnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrPaymentStatusFilter<$PrismaModel> | $Enums.QrPaymentStatus
+  }
+
+  export type QrPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerCode?: SortOrder
+    offerName?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrder
+    accessStartsAt?: SortOrder
+    accessEndsAt?: SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    providerPaymentId?: SortOrder
+    providerReference?: SortOrder
+    providerResponse?: SortOrder
+    fulfilledAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrPaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrder
+  }
+
+  export type QrPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerCode?: SortOrder
+    offerName?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrder
+    accessStartsAt?: SortOrder
+    accessEndsAt?: SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    providerPaymentId?: SortOrder
+    providerReference?: SortOrder
+    fulfilledAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    offerCode?: SortOrder
+    offerName?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrder
+    accessStartsAt?: SortOrder
+    accessEndsAt?: SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    providerPaymentId?: SortOrder
+    providerReference?: SortOrder
+    fulfilledAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrPaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
+    campaignCredits?: SortOrder
+    maxActiveCampaigns?: SortOrder
+  }
+
+  export type EnumQrOfferCodeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrOfferCode | EnumQrOfferCodeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrOfferCodeWithAggregatesFilter<$PrismaModel> | $Enums.QrOfferCode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrOfferCodeFilter<$PrismaModel>
+    _max?: NestedEnumQrOfferCodeFilter<$PrismaModel>
+  }
+
+  export type EnumQrPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrPaymentStatus | EnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrPaymentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrPaymentStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrPaymentStatusFilter<$PrismaModel>
+  }
+
+  export type EnumQrEntitlementKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementKind | EnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementKindFilter<$PrismaModel> | $Enums.QrEntitlementKind
+  }
+
+  export type EnumQrEntitlementStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementStatus | EnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementStatusFilter<$PrismaModel> | $Enums.QrEntitlementStatus
+  }
+
+  export type QrPaymentNullableScalarRelationFilter = {
+    is?: QrPaymentWhereInput | null
+    isNot?: QrPaymentWhereInput | null
+  }
+
+  export type QrEntitlementCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrder
+    offerCode?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrEntitlementAvgOrderByAggregateInput = {
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrder
+  }
+
+  export type QrEntitlementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrder
+    offerCode?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrEntitlementMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrder
+    offerCode?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrEntitlementSumOrderByAggregateInput = {
+    campaignCreditsTotal?: SortOrder
+    campaignCreditsUsed?: SortOrder
+    maxActiveCampaigns?: SortOrder
+  }
+
+  export type EnumQrEntitlementKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementKind | EnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementKindWithAggregatesFilter<$PrismaModel> | $Enums.QrEntitlementKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrEntitlementKindFilter<$PrismaModel>
+    _max?: NestedEnumQrEntitlementKindFilter<$PrismaModel>
+  }
+
+  export type EnumQrEntitlementStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementStatus | EnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrEntitlementStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrEntitlementStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrEntitlementStatusFilter<$PrismaModel>
+  }
+
+  export type EnumQrContentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrContentType | EnumQrContentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrContentTypeFilter<$PrismaModel> | $Enums.QrContentType
+  }
+
+  export type EnumQrCampaignStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCampaignStatus | EnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCampaignStatusFilter<$PrismaModel> | $Enums.QrCampaignStatus
+  }
+
+  export type EnumQrScanModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrScanMode | EnumQrScanModeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrScanModeFilter<$PrismaModel> | $Enums.QrScanMode
+  }
+
+  export type QrEntitlementNullableScalarRelationFilter = {
+    is?: QrEntitlementWhereInput | null
+    isNot?: QrEntitlementWhereInput | null
+  }
+
+  export type QrAssetListRelationFilter = {
+    every?: QrAssetWhereInput
+    some?: QrAssetWhereInput
+    none?: QrAssetWhereInput
+  }
+
+  export type QrScanEventListRelationFilter = {
+    every?: QrScanEventWhereInput
+    some?: QrScanEventWhereInput
+    none?: QrScanEventWhereInput
+  }
+
+  export type QrAssetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrScanEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrCampaignCountOrderByAggregateInput = {
+    id?: SortOrder
+    ownerId?: SortOrder
+    entitlementId?: SortOrder
+    publicCode?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    contentType?: SortOrder
+    status?: SortOrder
+    scanMode?: SortOrder
+    destinationUrl?: SortOrder
+    destinationData?: SortOrder
+    brandName?: SortOrder
+    brandLogoAssetId?: SortOrder
+    brandPrimaryColor?: SortOrder
+    brandAccentColor?: SortOrder
+    designSettings?: SortOrder
+    activatedAt?: SortOrder
+    expiresAt?: SortOrder
+    archivedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrCampaignMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ownerId?: SortOrder
+    entitlementId?: SortOrder
+    publicCode?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    contentType?: SortOrder
+    status?: SortOrder
+    scanMode?: SortOrder
+    destinationUrl?: SortOrder
+    brandName?: SortOrder
+    brandLogoAssetId?: SortOrder
+    brandPrimaryColor?: SortOrder
+    brandAccentColor?: SortOrder
+    activatedAt?: SortOrder
+    expiresAt?: SortOrder
+    archivedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrCampaignMinOrderByAggregateInput = {
+    id?: SortOrder
+    ownerId?: SortOrder
+    entitlementId?: SortOrder
+    publicCode?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    contentType?: SortOrder
+    status?: SortOrder
+    scanMode?: SortOrder
+    destinationUrl?: SortOrder
+    brandName?: SortOrder
+    brandLogoAssetId?: SortOrder
+    brandPrimaryColor?: SortOrder
+    brandAccentColor?: SortOrder
+    activatedAt?: SortOrder
+    expiresAt?: SortOrder
+    archivedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumQrContentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrContentType | EnumQrContentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrContentTypeWithAggregatesFilter<$PrismaModel> | $Enums.QrContentType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrContentTypeFilter<$PrismaModel>
+    _max?: NestedEnumQrContentTypeFilter<$PrismaModel>
+  }
+
+  export type EnumQrCampaignStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCampaignStatus | EnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCampaignStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrCampaignStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrCampaignStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrCampaignStatusFilter<$PrismaModel>
+  }
+
+  export type EnumQrScanModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrScanMode | EnumQrScanModeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrScanModeWithAggregatesFilter<$PrismaModel> | $Enums.QrScanMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrScanModeFilter<$PrismaModel>
+    _max?: NestedEnumQrScanModeFilter<$PrismaModel>
+  }
+
+  export type EnumQrAssetKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetKind | EnumQrAssetKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetKindFilter<$PrismaModel> | $Enums.QrAssetKind
+  }
+
+  export type EnumQrAssetSafetyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetSafetyStatus | EnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel> | $Enums.QrAssetSafetyStatus
+  }
+
+  export type QrCampaignScalarRelationFilter = {
+    is?: QrCampaignWhereInput
+    isNot?: QrCampaignWhereInput
+  }
+
+  export type QrAssetCountOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    fileName?: SortOrder
+    fileKey?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    checksum?: SortOrder
+    safetyStatus?: SortOrder
+    safetyReason?: SortOrder
+    scannerMetadata?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrAssetAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type QrAssetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    fileName?: SortOrder
+    fileKey?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    checksum?: SortOrder
+    safetyStatus?: SortOrder
+    safetyReason?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrAssetMinOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    fileName?: SortOrder
+    fileKey?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    checksum?: SortOrder
+    safetyStatus?: SortOrder
+    safetyReason?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrAssetSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type EnumQrAssetKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetKind | EnumQrAssetKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetKindWithAggregatesFilter<$PrismaModel> | $Enums.QrAssetKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrAssetKindFilter<$PrismaModel>
+    _max?: NestedEnumQrAssetKindFilter<$PrismaModel>
+  }
+
+  export type EnumQrAssetSafetyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetSafetyStatus | EnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetSafetyStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrAssetSafetyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel>
+  }
+
+  export type EnumQrEventKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEventKind | EnumQrEventKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEventKindFilter<$PrismaModel> | $Enums.QrEventKind
+  }
+
+  export type QrScanEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    requestHash?: SortOrder
+    referrerOrigin?: SortOrder
+    userAgentFamily?: SortOrder
+    deviceClass?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrScanEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    requestHash?: SortOrder
+    referrerOrigin?: SortOrder
+    userAgentFamily?: SortOrder
+    deviceClass?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrScanEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    kind?: SortOrder
+    requestHash?: SortOrder
+    referrerOrigin?: SortOrder
+    userAgentFamily?: SortOrder
+    deviceClass?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumQrEventKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEventKind | EnumQrEventKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEventKindWithAggregatesFilter<$PrismaModel> | $Enums.QrEventKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrEventKindFilter<$PrismaModel>
+    _max?: NestedEnumQrEventKindFilter<$PrismaModel>
+  }
+
+  export type QrAdminActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    actorId?: SortOrder
+    action?: SortOrder
+    reasonCode?: SortOrder
+    reason?: SortOrder
+    previousState?: SortOrder
+    newState?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrAdminActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    actorId?: SortOrder
+    action?: SortOrder
+    reasonCode?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrAdminActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    actorId?: SortOrder
+    action?: SortOrder
+    reasonCode?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type EnumLicenseStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.LicenseStatus | EnumLicenseStatusFieldRefInput<$PrismaModel>
     in?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
@@ -109300,6 +119856,34 @@ export namespace Prisma {
     connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
   }
 
+  export type QrEntitlementCreateNestedManyWithoutUserInput = {
+    create?: XOR<QrEntitlementCreateWithoutUserInput, QrEntitlementUncheckedCreateWithoutUserInput> | QrEntitlementCreateWithoutUserInput[] | QrEntitlementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutUserInput | QrEntitlementCreateOrConnectWithoutUserInput[]
+    createMany?: QrEntitlementCreateManyUserInputEnvelope
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+  }
+
+  export type QrPaymentCreateNestedManyWithoutUserInput = {
+    create?: XOR<QrPaymentCreateWithoutUserInput, QrPaymentUncheckedCreateWithoutUserInput> | QrPaymentCreateWithoutUserInput[] | QrPaymentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrPaymentCreateOrConnectWithoutUserInput | QrPaymentCreateOrConnectWithoutUserInput[]
+    createMany?: QrPaymentCreateManyUserInputEnvelope
+    connect?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+  }
+
+  export type QrCampaignCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<QrCampaignCreateWithoutOwnerInput, QrCampaignUncheckedCreateWithoutOwnerInput> | QrCampaignCreateWithoutOwnerInput[] | QrCampaignUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutOwnerInput | QrCampaignCreateOrConnectWithoutOwnerInput[]
+    createMany?: QrCampaignCreateManyOwnerInputEnvelope
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+  }
+
+  export type QrAdminActionCreateNestedManyWithoutActorInput = {
+    create?: XOR<QrAdminActionCreateWithoutActorInput, QrAdminActionUncheckedCreateWithoutActorInput> | QrAdminActionCreateWithoutActorInput[] | QrAdminActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutActorInput | QrAdminActionCreateOrConnectWithoutActorInput[]
+    createMany?: QrAdminActionCreateManyActorInputEnvelope
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+  }
+
   export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -109466,6 +120050,34 @@ export namespace Prisma {
     connectOrCreate?: TicketCreateOrConnectWithoutBuyerInput | TicketCreateOrConnectWithoutBuyerInput[]
     createMany?: TicketCreateManyBuyerInputEnvelope
     connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type QrEntitlementUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<QrEntitlementCreateWithoutUserInput, QrEntitlementUncheckedCreateWithoutUserInput> | QrEntitlementCreateWithoutUserInput[] | QrEntitlementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutUserInput | QrEntitlementCreateOrConnectWithoutUserInput[]
+    createMany?: QrEntitlementCreateManyUserInputEnvelope
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+  }
+
+  export type QrPaymentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<QrPaymentCreateWithoutUserInput, QrPaymentUncheckedCreateWithoutUserInput> | QrPaymentCreateWithoutUserInput[] | QrPaymentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrPaymentCreateOrConnectWithoutUserInput | QrPaymentCreateOrConnectWithoutUserInput[]
+    createMany?: QrPaymentCreateManyUserInputEnvelope
+    connect?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+  }
+
+  export type QrCampaignUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<QrCampaignCreateWithoutOwnerInput, QrCampaignUncheckedCreateWithoutOwnerInput> | QrCampaignCreateWithoutOwnerInput[] | QrCampaignUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutOwnerInput | QrCampaignCreateOrConnectWithoutOwnerInput[]
+    createMany?: QrCampaignCreateManyOwnerInputEnvelope
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+  }
+
+  export type QrAdminActionUncheckedCreateNestedManyWithoutActorInput = {
+    create?: XOR<QrAdminActionCreateWithoutActorInput, QrAdminActionUncheckedCreateWithoutActorInput> | QrAdminActionCreateWithoutActorInput[] | QrAdminActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutActorInput | QrAdminActionCreateOrConnectWithoutActorInput[]
+    createMany?: QrAdminActionCreateManyActorInputEnvelope
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -109814,6 +120426,62 @@ export namespace Prisma {
     deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
   }
 
+  export type QrEntitlementUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QrEntitlementCreateWithoutUserInput, QrEntitlementUncheckedCreateWithoutUserInput> | QrEntitlementCreateWithoutUserInput[] | QrEntitlementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutUserInput | QrEntitlementCreateOrConnectWithoutUserInput[]
+    upsert?: QrEntitlementUpsertWithWhereUniqueWithoutUserInput | QrEntitlementUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QrEntitlementCreateManyUserInputEnvelope
+    set?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    disconnect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    delete?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    update?: QrEntitlementUpdateWithWhereUniqueWithoutUserInput | QrEntitlementUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QrEntitlementUpdateManyWithWhereWithoutUserInput | QrEntitlementUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QrEntitlementScalarWhereInput | QrEntitlementScalarWhereInput[]
+  }
+
+  export type QrPaymentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QrPaymentCreateWithoutUserInput, QrPaymentUncheckedCreateWithoutUserInput> | QrPaymentCreateWithoutUserInput[] | QrPaymentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrPaymentCreateOrConnectWithoutUserInput | QrPaymentCreateOrConnectWithoutUserInput[]
+    upsert?: QrPaymentUpsertWithWhereUniqueWithoutUserInput | QrPaymentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QrPaymentCreateManyUserInputEnvelope
+    set?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    disconnect?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    delete?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    connect?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    update?: QrPaymentUpdateWithWhereUniqueWithoutUserInput | QrPaymentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QrPaymentUpdateManyWithWhereWithoutUserInput | QrPaymentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QrPaymentScalarWhereInput | QrPaymentScalarWhereInput[]
+  }
+
+  export type QrCampaignUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutOwnerInput, QrCampaignUncheckedCreateWithoutOwnerInput> | QrCampaignCreateWithoutOwnerInput[] | QrCampaignUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutOwnerInput | QrCampaignCreateOrConnectWithoutOwnerInput[]
+    upsert?: QrCampaignUpsertWithWhereUniqueWithoutOwnerInput | QrCampaignUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: QrCampaignCreateManyOwnerInputEnvelope
+    set?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    disconnect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    delete?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    update?: QrCampaignUpdateWithWhereUniqueWithoutOwnerInput | QrCampaignUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: QrCampaignUpdateManyWithWhereWithoutOwnerInput | QrCampaignUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
+  }
+
+  export type QrAdminActionUpdateManyWithoutActorNestedInput = {
+    create?: XOR<QrAdminActionCreateWithoutActorInput, QrAdminActionUncheckedCreateWithoutActorInput> | QrAdminActionCreateWithoutActorInput[] | QrAdminActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutActorInput | QrAdminActionCreateOrConnectWithoutActorInput[]
+    upsert?: QrAdminActionUpsertWithWhereUniqueWithoutActorInput | QrAdminActionUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: QrAdminActionCreateManyActorInputEnvelope
+    set?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    disconnect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    delete?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    update?: QrAdminActionUpdateWithWhereUniqueWithoutActorInput | QrAdminActionUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: QrAdminActionUpdateManyWithWhereWithoutActorInput | QrAdminActionUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
+  }
+
   export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -110134,6 +120802,62 @@ export namespace Prisma {
     update?: TicketUpdateWithWhereUniqueWithoutBuyerInput | TicketUpdateWithWhereUniqueWithoutBuyerInput[]
     updateMany?: TicketUpdateManyWithWhereWithoutBuyerInput | TicketUpdateManyWithWhereWithoutBuyerInput[]
     deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type QrEntitlementUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QrEntitlementCreateWithoutUserInput, QrEntitlementUncheckedCreateWithoutUserInput> | QrEntitlementCreateWithoutUserInput[] | QrEntitlementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutUserInput | QrEntitlementCreateOrConnectWithoutUserInput[]
+    upsert?: QrEntitlementUpsertWithWhereUniqueWithoutUserInput | QrEntitlementUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QrEntitlementCreateManyUserInputEnvelope
+    set?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    disconnect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    delete?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    update?: QrEntitlementUpdateWithWhereUniqueWithoutUserInput | QrEntitlementUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QrEntitlementUpdateManyWithWhereWithoutUserInput | QrEntitlementUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QrEntitlementScalarWhereInput | QrEntitlementScalarWhereInput[]
+  }
+
+  export type QrPaymentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<QrPaymentCreateWithoutUserInput, QrPaymentUncheckedCreateWithoutUserInput> | QrPaymentCreateWithoutUserInput[] | QrPaymentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: QrPaymentCreateOrConnectWithoutUserInput | QrPaymentCreateOrConnectWithoutUserInput[]
+    upsert?: QrPaymentUpsertWithWhereUniqueWithoutUserInput | QrPaymentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: QrPaymentCreateManyUserInputEnvelope
+    set?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    disconnect?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    delete?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    connect?: QrPaymentWhereUniqueInput | QrPaymentWhereUniqueInput[]
+    update?: QrPaymentUpdateWithWhereUniqueWithoutUserInput | QrPaymentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: QrPaymentUpdateManyWithWhereWithoutUserInput | QrPaymentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: QrPaymentScalarWhereInput | QrPaymentScalarWhereInput[]
+  }
+
+  export type QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutOwnerInput, QrCampaignUncheckedCreateWithoutOwnerInput> | QrCampaignCreateWithoutOwnerInput[] | QrCampaignUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutOwnerInput | QrCampaignCreateOrConnectWithoutOwnerInput[]
+    upsert?: QrCampaignUpsertWithWhereUniqueWithoutOwnerInput | QrCampaignUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: QrCampaignCreateManyOwnerInputEnvelope
+    set?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    disconnect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    delete?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    update?: QrCampaignUpdateWithWhereUniqueWithoutOwnerInput | QrCampaignUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: QrCampaignUpdateManyWithWhereWithoutOwnerInput | QrCampaignUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
+  }
+
+  export type QrAdminActionUncheckedUpdateManyWithoutActorNestedInput = {
+    create?: XOR<QrAdminActionCreateWithoutActorInput, QrAdminActionUncheckedCreateWithoutActorInput> | QrAdminActionCreateWithoutActorInput[] | QrAdminActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutActorInput | QrAdminActionCreateOrConnectWithoutActorInput[]
+    upsert?: QrAdminActionUpsertWithWhereUniqueWithoutActorInput | QrAdminActionUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: QrAdminActionCreateManyActorInputEnvelope
+    set?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    disconnect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    delete?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    update?: QrAdminActionUpdateWithWhereUniqueWithoutActorInput | QrAdminActionUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: QrAdminActionUpdateManyWithWhereWithoutActorInput | QrAdminActionUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
@@ -113928,6 +124652,388 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUsageRecordsInput, UserUpdateWithoutUsageRecordsInput>, UserUncheckedUpdateWithoutUsageRecordsInput>
   }
 
+  export type UserCreateNestedOneWithoutQrPaymentsInput = {
+    create?: XOR<UserCreateWithoutQrPaymentsInput, UserUncheckedCreateWithoutQrPaymentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrPaymentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type QrEntitlementCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<QrEntitlementCreateWithoutPaymentInput, QrEntitlementUncheckedCreateWithoutPaymentInput> | QrEntitlementCreateWithoutPaymentInput[] | QrEntitlementUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutPaymentInput | QrEntitlementCreateOrConnectWithoutPaymentInput[]
+    createMany?: QrEntitlementCreateManyPaymentInputEnvelope
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+  }
+
+  export type QrEntitlementUncheckedCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<QrEntitlementCreateWithoutPaymentInput, QrEntitlementUncheckedCreateWithoutPaymentInput> | QrEntitlementCreateWithoutPaymentInput[] | QrEntitlementUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutPaymentInput | QrEntitlementCreateOrConnectWithoutPaymentInput[]
+    createMany?: QrEntitlementCreateManyPaymentInputEnvelope
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+  }
+
+  export type EnumQrOfferCodeFieldUpdateOperationsInput = {
+    set?: $Enums.QrOfferCode
+  }
+
+  export type EnumQrPaymentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.QrPaymentStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutQrPaymentsNestedInput = {
+    create?: XOR<UserCreateWithoutQrPaymentsInput, UserUncheckedCreateWithoutQrPaymentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrPaymentsInput
+    upsert?: UserUpsertWithoutQrPaymentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutQrPaymentsInput, UserUpdateWithoutQrPaymentsInput>, UserUncheckedUpdateWithoutQrPaymentsInput>
+  }
+
+  export type QrEntitlementUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<QrEntitlementCreateWithoutPaymentInput, QrEntitlementUncheckedCreateWithoutPaymentInput> | QrEntitlementCreateWithoutPaymentInput[] | QrEntitlementUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutPaymentInput | QrEntitlementCreateOrConnectWithoutPaymentInput[]
+    upsert?: QrEntitlementUpsertWithWhereUniqueWithoutPaymentInput | QrEntitlementUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: QrEntitlementCreateManyPaymentInputEnvelope
+    set?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    disconnect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    delete?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    update?: QrEntitlementUpdateWithWhereUniqueWithoutPaymentInput | QrEntitlementUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: QrEntitlementUpdateManyWithWhereWithoutPaymentInput | QrEntitlementUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: QrEntitlementScalarWhereInput | QrEntitlementScalarWhereInput[]
+  }
+
+  export type QrEntitlementUncheckedUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<QrEntitlementCreateWithoutPaymentInput, QrEntitlementUncheckedCreateWithoutPaymentInput> | QrEntitlementCreateWithoutPaymentInput[] | QrEntitlementUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutPaymentInput | QrEntitlementCreateOrConnectWithoutPaymentInput[]
+    upsert?: QrEntitlementUpsertWithWhereUniqueWithoutPaymentInput | QrEntitlementUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: QrEntitlementCreateManyPaymentInputEnvelope
+    set?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    disconnect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    delete?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    connect?: QrEntitlementWhereUniqueInput | QrEntitlementWhereUniqueInput[]
+    update?: QrEntitlementUpdateWithWhereUniqueWithoutPaymentInput | QrEntitlementUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: QrEntitlementUpdateManyWithWhereWithoutPaymentInput | QrEntitlementUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: QrEntitlementScalarWhereInput | QrEntitlementScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutQrEntitlementsInput = {
+    create?: XOR<UserCreateWithoutQrEntitlementsInput, UserUncheckedCreateWithoutQrEntitlementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrEntitlementsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type QrPaymentCreateNestedOneWithoutEntitlementsInput = {
+    create?: XOR<QrPaymentCreateWithoutEntitlementsInput, QrPaymentUncheckedCreateWithoutEntitlementsInput>
+    connectOrCreate?: QrPaymentCreateOrConnectWithoutEntitlementsInput
+    connect?: QrPaymentWhereUniqueInput
+  }
+
+  export type QrCampaignCreateNestedManyWithoutEntitlementInput = {
+    create?: XOR<QrCampaignCreateWithoutEntitlementInput, QrCampaignUncheckedCreateWithoutEntitlementInput> | QrCampaignCreateWithoutEntitlementInput[] | QrCampaignUncheckedCreateWithoutEntitlementInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutEntitlementInput | QrCampaignCreateOrConnectWithoutEntitlementInput[]
+    createMany?: QrCampaignCreateManyEntitlementInputEnvelope
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+  }
+
+  export type QrCampaignUncheckedCreateNestedManyWithoutEntitlementInput = {
+    create?: XOR<QrCampaignCreateWithoutEntitlementInput, QrCampaignUncheckedCreateWithoutEntitlementInput> | QrCampaignCreateWithoutEntitlementInput[] | QrCampaignUncheckedCreateWithoutEntitlementInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutEntitlementInput | QrCampaignCreateOrConnectWithoutEntitlementInput[]
+    createMany?: QrCampaignCreateManyEntitlementInputEnvelope
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+  }
+
+  export type EnumQrEntitlementKindFieldUpdateOperationsInput = {
+    set?: $Enums.QrEntitlementKind
+  }
+
+  export type EnumQrEntitlementStatusFieldUpdateOperationsInput = {
+    set?: $Enums.QrEntitlementStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutQrEntitlementsNestedInput = {
+    create?: XOR<UserCreateWithoutQrEntitlementsInput, UserUncheckedCreateWithoutQrEntitlementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrEntitlementsInput
+    upsert?: UserUpsertWithoutQrEntitlementsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutQrEntitlementsInput, UserUpdateWithoutQrEntitlementsInput>, UserUncheckedUpdateWithoutQrEntitlementsInput>
+  }
+
+  export type QrPaymentUpdateOneWithoutEntitlementsNestedInput = {
+    create?: XOR<QrPaymentCreateWithoutEntitlementsInput, QrPaymentUncheckedCreateWithoutEntitlementsInput>
+    connectOrCreate?: QrPaymentCreateOrConnectWithoutEntitlementsInput
+    upsert?: QrPaymentUpsertWithoutEntitlementsInput
+    disconnect?: QrPaymentWhereInput | boolean
+    delete?: QrPaymentWhereInput | boolean
+    connect?: QrPaymentWhereUniqueInput
+    update?: XOR<XOR<QrPaymentUpdateToOneWithWhereWithoutEntitlementsInput, QrPaymentUpdateWithoutEntitlementsInput>, QrPaymentUncheckedUpdateWithoutEntitlementsInput>
+  }
+
+  export type QrCampaignUpdateManyWithoutEntitlementNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutEntitlementInput, QrCampaignUncheckedCreateWithoutEntitlementInput> | QrCampaignCreateWithoutEntitlementInput[] | QrCampaignUncheckedCreateWithoutEntitlementInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutEntitlementInput | QrCampaignCreateOrConnectWithoutEntitlementInput[]
+    upsert?: QrCampaignUpsertWithWhereUniqueWithoutEntitlementInput | QrCampaignUpsertWithWhereUniqueWithoutEntitlementInput[]
+    createMany?: QrCampaignCreateManyEntitlementInputEnvelope
+    set?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    disconnect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    delete?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    update?: QrCampaignUpdateWithWhereUniqueWithoutEntitlementInput | QrCampaignUpdateWithWhereUniqueWithoutEntitlementInput[]
+    updateMany?: QrCampaignUpdateManyWithWhereWithoutEntitlementInput | QrCampaignUpdateManyWithWhereWithoutEntitlementInput[]
+    deleteMany?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
+  }
+
+  export type QrCampaignUncheckedUpdateManyWithoutEntitlementNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutEntitlementInput, QrCampaignUncheckedCreateWithoutEntitlementInput> | QrCampaignCreateWithoutEntitlementInput[] | QrCampaignUncheckedCreateWithoutEntitlementInput[]
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutEntitlementInput | QrCampaignCreateOrConnectWithoutEntitlementInput[]
+    upsert?: QrCampaignUpsertWithWhereUniqueWithoutEntitlementInput | QrCampaignUpsertWithWhereUniqueWithoutEntitlementInput[]
+    createMany?: QrCampaignCreateManyEntitlementInputEnvelope
+    set?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    disconnect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    delete?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    connect?: QrCampaignWhereUniqueInput | QrCampaignWhereUniqueInput[]
+    update?: QrCampaignUpdateWithWhereUniqueWithoutEntitlementInput | QrCampaignUpdateWithWhereUniqueWithoutEntitlementInput[]
+    updateMany?: QrCampaignUpdateManyWithWhereWithoutEntitlementInput | QrCampaignUpdateManyWithWhereWithoutEntitlementInput[]
+    deleteMany?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutQrCampaignsInput = {
+    create?: XOR<UserCreateWithoutQrCampaignsInput, UserUncheckedCreateWithoutQrCampaignsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrCampaignsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type QrEntitlementCreateNestedOneWithoutCampaignsInput = {
+    create?: XOR<QrEntitlementCreateWithoutCampaignsInput, QrEntitlementUncheckedCreateWithoutCampaignsInput>
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutCampaignsInput
+    connect?: QrEntitlementWhereUniqueInput
+  }
+
+  export type QrAssetCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrAssetCreateWithoutCampaignInput, QrAssetUncheckedCreateWithoutCampaignInput> | QrAssetCreateWithoutCampaignInput[] | QrAssetUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAssetCreateOrConnectWithoutCampaignInput | QrAssetCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrAssetCreateManyCampaignInputEnvelope
+    connect?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+  }
+
+  export type QrScanEventCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrScanEventCreateWithoutCampaignInput, QrScanEventUncheckedCreateWithoutCampaignInput> | QrScanEventCreateWithoutCampaignInput[] | QrScanEventUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutCampaignInput | QrScanEventCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrScanEventCreateManyCampaignInputEnvelope
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+  }
+
+  export type QrAdminActionCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrAdminActionCreateManyCampaignInputEnvelope
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+  }
+
+  export type QrAssetUncheckedCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrAssetCreateWithoutCampaignInput, QrAssetUncheckedCreateWithoutCampaignInput> | QrAssetCreateWithoutCampaignInput[] | QrAssetUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAssetCreateOrConnectWithoutCampaignInput | QrAssetCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrAssetCreateManyCampaignInputEnvelope
+    connect?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+  }
+
+  export type QrScanEventUncheckedCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrScanEventCreateWithoutCampaignInput, QrScanEventUncheckedCreateWithoutCampaignInput> | QrScanEventCreateWithoutCampaignInput[] | QrScanEventUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutCampaignInput | QrScanEventCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrScanEventCreateManyCampaignInputEnvelope
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+  }
+
+  export type QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrAdminActionCreateManyCampaignInputEnvelope
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+  }
+
+  export type EnumQrContentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.QrContentType
+  }
+
+  export type EnumQrCampaignStatusFieldUpdateOperationsInput = {
+    set?: $Enums.QrCampaignStatus
+  }
+
+  export type EnumQrScanModeFieldUpdateOperationsInput = {
+    set?: $Enums.QrScanMode
+  }
+
+  export type UserUpdateOneRequiredWithoutQrCampaignsNestedInput = {
+    create?: XOR<UserCreateWithoutQrCampaignsInput, UserUncheckedCreateWithoutQrCampaignsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrCampaignsInput
+    upsert?: UserUpsertWithoutQrCampaignsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutQrCampaignsInput, UserUpdateWithoutQrCampaignsInput>, UserUncheckedUpdateWithoutQrCampaignsInput>
+  }
+
+  export type QrEntitlementUpdateOneWithoutCampaignsNestedInput = {
+    create?: XOR<QrEntitlementCreateWithoutCampaignsInput, QrEntitlementUncheckedCreateWithoutCampaignsInput>
+    connectOrCreate?: QrEntitlementCreateOrConnectWithoutCampaignsInput
+    upsert?: QrEntitlementUpsertWithoutCampaignsInput
+    disconnect?: QrEntitlementWhereInput | boolean
+    delete?: QrEntitlementWhereInput | boolean
+    connect?: QrEntitlementWhereUniqueInput
+    update?: XOR<XOR<QrEntitlementUpdateToOneWithWhereWithoutCampaignsInput, QrEntitlementUpdateWithoutCampaignsInput>, QrEntitlementUncheckedUpdateWithoutCampaignsInput>
+  }
+
+  export type QrAssetUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrAssetCreateWithoutCampaignInput, QrAssetUncheckedCreateWithoutCampaignInput> | QrAssetCreateWithoutCampaignInput[] | QrAssetUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAssetCreateOrConnectWithoutCampaignInput | QrAssetCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrAssetUpsertWithWhereUniqueWithoutCampaignInput | QrAssetUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrAssetCreateManyCampaignInputEnvelope
+    set?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    disconnect?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    delete?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    connect?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    update?: QrAssetUpdateWithWhereUniqueWithoutCampaignInput | QrAssetUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrAssetUpdateManyWithWhereWithoutCampaignInput | QrAssetUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrAssetScalarWhereInput | QrAssetScalarWhereInput[]
+  }
+
+  export type QrScanEventUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrScanEventCreateWithoutCampaignInput, QrScanEventUncheckedCreateWithoutCampaignInput> | QrScanEventCreateWithoutCampaignInput[] | QrScanEventUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutCampaignInput | QrScanEventCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrScanEventUpsertWithWhereUniqueWithoutCampaignInput | QrScanEventUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrScanEventCreateManyCampaignInputEnvelope
+    set?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    disconnect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    delete?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    update?: QrScanEventUpdateWithWhereUniqueWithoutCampaignInput | QrScanEventUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrScanEventUpdateManyWithWhereWithoutCampaignInput | QrScanEventUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
+  }
+
+  export type QrAdminActionUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrAdminActionUpsertWithWhereUniqueWithoutCampaignInput | QrAdminActionUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrAdminActionCreateManyCampaignInputEnvelope
+    set?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    disconnect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    delete?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    update?: QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput | QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrAdminActionUpdateManyWithWhereWithoutCampaignInput | QrAdminActionUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
+  }
+
+  export type QrAssetUncheckedUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrAssetCreateWithoutCampaignInput, QrAssetUncheckedCreateWithoutCampaignInput> | QrAssetCreateWithoutCampaignInput[] | QrAssetUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAssetCreateOrConnectWithoutCampaignInput | QrAssetCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrAssetUpsertWithWhereUniqueWithoutCampaignInput | QrAssetUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrAssetCreateManyCampaignInputEnvelope
+    set?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    disconnect?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    delete?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    connect?: QrAssetWhereUniqueInput | QrAssetWhereUniqueInput[]
+    update?: QrAssetUpdateWithWhereUniqueWithoutCampaignInput | QrAssetUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrAssetUpdateManyWithWhereWithoutCampaignInput | QrAssetUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrAssetScalarWhereInput | QrAssetScalarWhereInput[]
+  }
+
+  export type QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrScanEventCreateWithoutCampaignInput, QrScanEventUncheckedCreateWithoutCampaignInput> | QrScanEventCreateWithoutCampaignInput[] | QrScanEventUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutCampaignInput | QrScanEventCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrScanEventUpsertWithWhereUniqueWithoutCampaignInput | QrScanEventUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrScanEventCreateManyCampaignInputEnvelope
+    set?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    disconnect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    delete?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    update?: QrScanEventUpdateWithWhereUniqueWithoutCampaignInput | QrScanEventUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrScanEventUpdateManyWithWhereWithoutCampaignInput | QrScanEventUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
+  }
+
+  export type QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrAdminActionUpsertWithWhereUniqueWithoutCampaignInput | QrAdminActionUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrAdminActionCreateManyCampaignInputEnvelope
+    set?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    disconnect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    delete?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+    update?: QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput | QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrAdminActionUpdateManyWithWhereWithoutCampaignInput | QrAdminActionUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
+  }
+
+  export type QrCampaignCreateNestedOneWithoutAssetsInput = {
+    create?: XOR<QrCampaignCreateWithoutAssetsInput, QrCampaignUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutAssetsInput
+    connect?: QrCampaignWhereUniqueInput
+  }
+
+  export type EnumQrAssetKindFieldUpdateOperationsInput = {
+    set?: $Enums.QrAssetKind
+  }
+
+  export type EnumQrAssetSafetyStatusFieldUpdateOperationsInput = {
+    set?: $Enums.QrAssetSafetyStatus
+  }
+
+  export type QrCampaignUpdateOneRequiredWithoutAssetsNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutAssetsInput, QrCampaignUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutAssetsInput
+    upsert?: QrCampaignUpsertWithoutAssetsInput
+    connect?: QrCampaignWhereUniqueInput
+    update?: XOR<XOR<QrCampaignUpdateToOneWithWhereWithoutAssetsInput, QrCampaignUpdateWithoutAssetsInput>, QrCampaignUncheckedUpdateWithoutAssetsInput>
+  }
+
+  export type QrCampaignCreateNestedOneWithoutEventsInput = {
+    create?: XOR<QrCampaignCreateWithoutEventsInput, QrCampaignUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutEventsInput
+    connect?: QrCampaignWhereUniqueInput
+  }
+
+  export type EnumQrEventKindFieldUpdateOperationsInput = {
+    set?: $Enums.QrEventKind
+  }
+
+  export type QrCampaignUpdateOneRequiredWithoutEventsNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutEventsInput, QrCampaignUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutEventsInput
+    upsert?: QrCampaignUpsertWithoutEventsInput
+    connect?: QrCampaignWhereUniqueInput
+    update?: XOR<XOR<QrCampaignUpdateToOneWithWhereWithoutEventsInput, QrCampaignUpdateWithoutEventsInput>, QrCampaignUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type QrCampaignCreateNestedOneWithoutAdminActionsInput = {
+    create?: XOR<QrCampaignCreateWithoutAdminActionsInput, QrCampaignUncheckedCreateWithoutAdminActionsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutAdminActionsInput
+    connect?: QrCampaignWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutQrAdminActionsInput = {
+    create?: XOR<UserCreateWithoutQrAdminActionsInput, UserUncheckedCreateWithoutQrAdminActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrAdminActionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type QrCampaignUpdateOneRequiredWithoutAdminActionsNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutAdminActionsInput, QrCampaignUncheckedCreateWithoutAdminActionsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutAdminActionsInput
+    upsert?: QrCampaignUpsertWithoutAdminActionsInput
+    connect?: QrCampaignWhereUniqueInput
+    update?: XOR<XOR<QrCampaignUpdateToOneWithWhereWithoutAdminActionsInput, QrCampaignUpdateWithoutAdminActionsInput>, QrCampaignUncheckedUpdateWithoutAdminActionsInput>
+  }
+
+  export type UserUpdateOneWithoutQrAdminActionsNestedInput = {
+    create?: XOR<UserCreateWithoutQrAdminActionsInput, UserUncheckedCreateWithoutQrAdminActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutQrAdminActionsInput
+    upsert?: UserUpsertWithoutQrAdminActionsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutQrAdminActionsInput, UserUpdateWithoutQrAdminActionsInput>, UserUncheckedUpdateWithoutQrAdminActionsInput>
+  }
+
   export type ProductCreateNestedOneWithoutLicenseKeysInput = {
     create?: XOR<ProductCreateWithoutLicenseKeysInput, ProductUncheckedCreateWithoutLicenseKeysInput>
     connectOrCreate?: ProductCreateOrConnectWithoutLicenseKeysInput
@@ -115011,6 +126117,176 @@ export namespace Prisma {
     _max?: NestedEnumCreditTransactionTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumQrOfferCodeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrOfferCode | EnumQrOfferCodeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrOfferCodeFilter<$PrismaModel> | $Enums.QrOfferCode
+  }
+
+  export type NestedEnumQrPaymentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrPaymentStatus | EnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrPaymentStatusFilter<$PrismaModel> | $Enums.QrPaymentStatus
+  }
+
+  export type NestedEnumQrOfferCodeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrOfferCode | EnumQrOfferCodeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrOfferCodeWithAggregatesFilter<$PrismaModel> | $Enums.QrOfferCode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrOfferCodeFilter<$PrismaModel>
+    _max?: NestedEnumQrOfferCodeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrPaymentStatus | EnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrPaymentStatus[] | ListEnumQrPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrPaymentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrPaymentStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrPaymentStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrEntitlementKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementKind | EnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementKindFilter<$PrismaModel> | $Enums.QrEntitlementKind
+  }
+
+  export type NestedEnumQrEntitlementStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementStatus | EnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementStatusFilter<$PrismaModel> | $Enums.QrEntitlementStatus
+  }
+
+  export type NestedEnumQrEntitlementKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementKind | EnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementKind[] | ListEnumQrEntitlementKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementKindWithAggregatesFilter<$PrismaModel> | $Enums.QrEntitlementKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrEntitlementKindFilter<$PrismaModel>
+    _max?: NestedEnumQrEntitlementKindFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrEntitlementStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEntitlementStatus | EnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEntitlementStatus[] | ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEntitlementStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrEntitlementStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrEntitlementStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrEntitlementStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrContentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrContentType | EnumQrContentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrContentTypeFilter<$PrismaModel> | $Enums.QrContentType
+  }
+
+  export type NestedEnumQrCampaignStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCampaignStatus | EnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCampaignStatusFilter<$PrismaModel> | $Enums.QrCampaignStatus
+  }
+
+  export type NestedEnumQrScanModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrScanMode | EnumQrScanModeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrScanModeFilter<$PrismaModel> | $Enums.QrScanMode
+  }
+
+  export type NestedEnumQrContentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrContentType | EnumQrContentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrContentType[] | ListEnumQrContentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrContentTypeWithAggregatesFilter<$PrismaModel> | $Enums.QrContentType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrContentTypeFilter<$PrismaModel>
+    _max?: NestedEnumQrContentTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrCampaignStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCampaignStatus | EnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCampaignStatus[] | ListEnumQrCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCampaignStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrCampaignStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrCampaignStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrCampaignStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrScanModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrScanMode | EnumQrScanModeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrScanMode[] | ListEnumQrScanModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrScanModeWithAggregatesFilter<$PrismaModel> | $Enums.QrScanMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrScanModeFilter<$PrismaModel>
+    _max?: NestedEnumQrScanModeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrAssetKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetKind | EnumQrAssetKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetKindFilter<$PrismaModel> | $Enums.QrAssetKind
+  }
+
+  export type NestedEnumQrAssetSafetyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetSafetyStatus | EnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel> | $Enums.QrAssetSafetyStatus
+  }
+
+  export type NestedEnumQrAssetKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetKind | EnumQrAssetKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetKindWithAggregatesFilter<$PrismaModel> | $Enums.QrAssetKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrAssetKindFilter<$PrismaModel>
+    _max?: NestedEnumQrAssetKindFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrAssetSafetyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrAssetSafetyStatus | EnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrAssetSafetyStatusWithAggregatesFilter<$PrismaModel> | $Enums.QrAssetSafetyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel>
+    _max?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumQrEventKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEventKind | EnumQrEventKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEventKindFilter<$PrismaModel> | $Enums.QrEventKind
+  }
+
+  export type NestedEnumQrEventKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrEventKind | EnumQrEventKindFieldRefInput<$PrismaModel>
+    in?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrEventKind[] | ListEnumQrEventKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrEventKindWithAggregatesFilter<$PrismaModel> | $Enums.QrEventKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrEventKindFilter<$PrismaModel>
+    _max?: NestedEnumQrEventKindFilter<$PrismaModel>
+  }
+
   export type NestedEnumLicenseStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.LicenseStatus | EnumLicenseStatusFieldRefInput<$PrismaModel>
     in?: $Enums.LicenseStatus[] | ListEnumLicenseStatusFieldRefInput<$PrismaModel>
@@ -115932,6 +127208,196 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type QrEntitlementCreateWithoutUserInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: QrPaymentCreateNestedOneWithoutEntitlementsInput
+    campaigns?: QrCampaignCreateNestedManyWithoutEntitlementInput
+  }
+
+  export type QrEntitlementUncheckedCreateWithoutUserInput = {
+    id?: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    campaigns?: QrCampaignUncheckedCreateNestedManyWithoutEntitlementInput
+  }
+
+  export type QrEntitlementCreateOrConnectWithoutUserInput = {
+    where: QrEntitlementWhereUniqueInput
+    create: XOR<QrEntitlementCreateWithoutUserInput, QrEntitlementUncheckedCreateWithoutUserInput>
+  }
+
+  export type QrEntitlementCreateManyUserInputEnvelope = {
+    data: QrEntitlementCreateManyUserInput | QrEntitlementCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrPaymentCreateWithoutUserInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    entitlements?: QrEntitlementCreateNestedManyWithoutPaymentInput
+  }
+
+  export type QrPaymentUncheckedCreateWithoutUserInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    entitlements?: QrEntitlementUncheckedCreateNestedManyWithoutPaymentInput
+  }
+
+  export type QrPaymentCreateOrConnectWithoutUserInput = {
+    where: QrPaymentWhereUniqueInput
+    create: XOR<QrPaymentCreateWithoutUserInput, QrPaymentUncheckedCreateWithoutUserInput>
+  }
+
+  export type QrPaymentCreateManyUserInputEnvelope = {
+    data: QrPaymentCreateManyUserInput | QrPaymentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrCampaignCreateWithoutOwnerInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
+    assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignCreateOrConnectWithoutOwnerInput = {
+    where: QrCampaignWhereUniqueInput
+    create: XOR<QrCampaignCreateWithoutOwnerInput, QrCampaignUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type QrCampaignCreateManyOwnerInputEnvelope = {
+    data: QrCampaignCreateManyOwnerInput | QrCampaignCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrAdminActionCreateWithoutActorInput = {
+    id?: string
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutAdminActionsInput
+  }
+
+  export type QrAdminActionUncheckedCreateWithoutActorInput = {
+    id?: string
+    campaignId: string
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type QrAdminActionCreateOrConnectWithoutActorInput = {
+    where: QrAdminActionWhereUniqueInput
+    create: XOR<QrAdminActionCreateWithoutActorInput, QrAdminActionUncheckedCreateWithoutActorInput>
+  }
+
+  export type QrAdminActionCreateManyActorInputEnvelope = {
+    data: QrAdminActionCreateManyActorInput | QrAdminActionCreateManyActorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserProfileUpsertWithoutUserInput = {
     update: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
     create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
@@ -116772,6 +128238,156 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
   }
 
+  export type QrEntitlementUpsertWithWhereUniqueWithoutUserInput = {
+    where: QrEntitlementWhereUniqueInput
+    update: XOR<QrEntitlementUpdateWithoutUserInput, QrEntitlementUncheckedUpdateWithoutUserInput>
+    create: XOR<QrEntitlementCreateWithoutUserInput, QrEntitlementUncheckedCreateWithoutUserInput>
+  }
+
+  export type QrEntitlementUpdateWithWhereUniqueWithoutUserInput = {
+    where: QrEntitlementWhereUniqueInput
+    data: XOR<QrEntitlementUpdateWithoutUserInput, QrEntitlementUncheckedUpdateWithoutUserInput>
+  }
+
+  export type QrEntitlementUpdateManyWithWhereWithoutUserInput = {
+    where: QrEntitlementScalarWhereInput
+    data: XOR<QrEntitlementUpdateManyMutationInput, QrEntitlementUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type QrEntitlementScalarWhereInput = {
+    AND?: QrEntitlementScalarWhereInput | QrEntitlementScalarWhereInput[]
+    OR?: QrEntitlementScalarWhereInput[]
+    NOT?: QrEntitlementScalarWhereInput | QrEntitlementScalarWhereInput[]
+    id?: UuidFilter<"QrEntitlement"> | string
+    userId?: UuidFilter<"QrEntitlement"> | string
+    paymentId?: UuidNullableFilter<"QrEntitlement"> | string | null
+    offerCode?: EnumQrOfferCodeFilter<"QrEntitlement"> | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFilter<"QrEntitlement"> | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFilter<"QrEntitlement"> | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFilter<"QrEntitlement"> | number
+    campaignCreditsUsed?: IntFilter<"QrEntitlement"> | number
+    maxActiveCampaigns?: IntNullableFilter<"QrEntitlement"> | number | null
+    startsAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    expiresAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    revokedAt?: DateTimeNullableFilter<"QrEntitlement"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+    updatedAt?: DateTimeFilter<"QrEntitlement"> | Date | string
+  }
+
+  export type QrPaymentUpsertWithWhereUniqueWithoutUserInput = {
+    where: QrPaymentWhereUniqueInput
+    update: XOR<QrPaymentUpdateWithoutUserInput, QrPaymentUncheckedUpdateWithoutUserInput>
+    create: XOR<QrPaymentCreateWithoutUserInput, QrPaymentUncheckedCreateWithoutUserInput>
+  }
+
+  export type QrPaymentUpdateWithWhereUniqueWithoutUserInput = {
+    where: QrPaymentWhereUniqueInput
+    data: XOR<QrPaymentUpdateWithoutUserInput, QrPaymentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type QrPaymentUpdateManyWithWhereWithoutUserInput = {
+    where: QrPaymentScalarWhereInput
+    data: XOR<QrPaymentUpdateManyMutationInput, QrPaymentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type QrPaymentScalarWhereInput = {
+    AND?: QrPaymentScalarWhereInput | QrPaymentScalarWhereInput[]
+    OR?: QrPaymentScalarWhereInput[]
+    NOT?: QrPaymentScalarWhereInput | QrPaymentScalarWhereInput[]
+    id?: UuidFilter<"QrPayment"> | string
+    userId?: UuidFilter<"QrPayment"> | string
+    offerCode?: EnumQrOfferCodeFilter<"QrPayment"> | $Enums.QrOfferCode
+    offerName?: StringFilter<"QrPayment"> | string
+    amount?: DecimalFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"QrPayment"> | string
+    campaignCredits?: IntFilter<"QrPayment"> | number
+    maxActiveCampaigns?: IntNullableFilter<"QrPayment"> | number | null
+    accessStartsAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    accessEndsAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    status?: EnumQrPaymentStatusFilter<"QrPayment"> | $Enums.QrPaymentStatus
+    provider?: StringFilter<"QrPayment"> | string
+    providerPaymentId?: StringNullableFilter<"QrPayment"> | string | null
+    providerReference?: StringFilter<"QrPayment"> | string
+    providerResponse?: JsonNullableFilter<"QrPayment">
+    fulfilledAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"QrPayment"> | Date | string
+  }
+
+  export type QrCampaignUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: QrCampaignWhereUniqueInput
+    update: XOR<QrCampaignUpdateWithoutOwnerInput, QrCampaignUncheckedUpdateWithoutOwnerInput>
+    create: XOR<QrCampaignCreateWithoutOwnerInput, QrCampaignUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type QrCampaignUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: QrCampaignWhereUniqueInput
+    data: XOR<QrCampaignUpdateWithoutOwnerInput, QrCampaignUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type QrCampaignUpdateManyWithWhereWithoutOwnerInput = {
+    where: QrCampaignScalarWhereInput
+    data: XOR<QrCampaignUpdateManyMutationInput, QrCampaignUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type QrCampaignScalarWhereInput = {
+    AND?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
+    OR?: QrCampaignScalarWhereInput[]
+    NOT?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
+    id?: UuidFilter<"QrCampaign"> | string
+    ownerId?: UuidFilter<"QrCampaign"> | string
+    entitlementId?: UuidNullableFilter<"QrCampaign"> | string | null
+    publicCode?: StringFilter<"QrCampaign"> | string
+    title?: StringFilter<"QrCampaign"> | string
+    description?: StringNullableFilter<"QrCampaign"> | string | null
+    contentType?: EnumQrContentTypeFilter<"QrCampaign"> | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFilter<"QrCampaign"> | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFilter<"QrCampaign"> | $Enums.QrScanMode
+    destinationUrl?: StringNullableFilter<"QrCampaign"> | string | null
+    destinationData?: JsonNullableFilter<"QrCampaign">
+    brandName?: StringNullableFilter<"QrCampaign"> | string | null
+    brandLogoAssetId?: UuidNullableFilter<"QrCampaign"> | string | null
+    brandPrimaryColor?: StringNullableFilter<"QrCampaign"> | string | null
+    brandAccentColor?: StringNullableFilter<"QrCampaign"> | string | null
+    designSettings?: JsonNullableFilter<"QrCampaign">
+    activatedAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    archivedAt?: DateTimeNullableFilter<"QrCampaign"> | Date | string | null
+    createdAt?: DateTimeFilter<"QrCampaign"> | Date | string
+    updatedAt?: DateTimeFilter<"QrCampaign"> | Date | string
+  }
+
+  export type QrAdminActionUpsertWithWhereUniqueWithoutActorInput = {
+    where: QrAdminActionWhereUniqueInput
+    update: XOR<QrAdminActionUpdateWithoutActorInput, QrAdminActionUncheckedUpdateWithoutActorInput>
+    create: XOR<QrAdminActionCreateWithoutActorInput, QrAdminActionUncheckedCreateWithoutActorInput>
+  }
+
+  export type QrAdminActionUpdateWithWhereUniqueWithoutActorInput = {
+    where: QrAdminActionWhereUniqueInput
+    data: XOR<QrAdminActionUpdateWithoutActorInput, QrAdminActionUncheckedUpdateWithoutActorInput>
+  }
+
+  export type QrAdminActionUpdateManyWithWhereWithoutActorInput = {
+    where: QrAdminActionScalarWhereInput
+    data: XOR<QrAdminActionUpdateManyMutationInput, QrAdminActionUncheckedUpdateManyWithoutActorInput>
+  }
+
+  export type QrAdminActionScalarWhereInput = {
+    AND?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
+    OR?: QrAdminActionScalarWhereInput[]
+    NOT?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
+    id?: UuidFilter<"QrAdminAction"> | string
+    campaignId?: UuidFilter<"QrAdminAction"> | string
+    actorId?: UuidNullableFilter<"QrAdminAction"> | string | null
+    action?: StringFilter<"QrAdminAction"> | string
+    reasonCode?: StringFilter<"QrAdminAction"> | string
+    reason?: StringNullableFilter<"QrAdminAction"> | string | null
+    previousState?: JsonNullableFilter<"QrAdminAction">
+    newState?: JsonNullableFilter<"QrAdminAction">
+    createdAt?: DateTimeFilter<"QrAdminAction"> | Date | string
+  }
+
   export type UserCreateWithoutPasswordResetTokensInput = {
     id?: string
     email: string
@@ -116810,6 +128426,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -116850,6 +128470,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -116906,6 +128530,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -116946,6 +128574,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -116986,6 +128618,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -117026,6 +128662,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -117082,6 +128722,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -117122,6 +128766,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type PermissionCreateWithoutRolesInput = {
@@ -117301,6 +128949,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
@@ -117341,6 +128993,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutRolesInput = {
@@ -117420,6 +129076,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
@@ -117460,6 +129120,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type RoleUpsertWithoutUsersInput = {
@@ -117529,6 +129193,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -117569,6 +129237,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -117625,6 +129297,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -117665,6 +129341,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutApiTokensInput = {
@@ -117705,6 +129385,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutApiTokensInput = {
@@ -117745,6 +129429,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutApiTokensInput = {
@@ -117801,6 +129489,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApiTokensInput = {
@@ -117841,6 +129533,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutCreatorProfileInput = {
@@ -117881,6 +129577,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCreatorProfileInput = {
@@ -117921,6 +129621,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCreatorProfileInput = {
@@ -118230,6 +129934,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatorProfileInput = {
@@ -118270,6 +129978,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type ProductUpsertWithWhereUniqueWithoutCreatorInput = {
@@ -118716,6 +130428,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -118756,6 +130472,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -118865,6 +130585,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -118905,6 +130629,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type CreatorProfileUpsertWithoutFollowersInput = {
@@ -121837,6 +133565,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCartInput = {
@@ -121877,6 +133609,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCartInput = {
@@ -121961,6 +133697,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCartInput = {
@@ -122001,6 +133741,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type CartItemUpsertWithWhereUniqueWithoutCartInput = {
@@ -122357,6 +134101,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -122397,6 +134145,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -122754,6 +134506,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -122794,6 +134550,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -123964,6 +135724,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutDownloadsInput = {
@@ -124004,6 +135768,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutDownloadsInput = {
@@ -124256,6 +136024,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDownloadsInput = {
@@ -124296,6 +136068,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type DownloadLogUpsertWithWhereUniqueWithoutDownloadInput = {
@@ -124553,6 +136329,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
@@ -124593,6 +136373,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutReviewsInput = {
@@ -124800,6 +136584,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -124840,6 +136628,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type ReviewHelpfulVoteUpsertWithWhereUniqueWithoutReviewInput = {
@@ -124990,6 +136782,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -125030,6 +136826,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -125166,6 +136966,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -125206,6 +137010,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type WalletTransactionUpsertWithWhereUniqueWithoutWalletInput = {
@@ -125669,6 +137477,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutAffiliateInput = {
@@ -125709,6 +137521,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutAffiliateInput = {
@@ -126025,6 +137841,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAffiliateInput = {
@@ -126065,6 +137885,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type AffiliateLinkUpsertWithWhereUniqueWithoutAffiliateInput = {
@@ -129144,6 +140968,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutWishlistInput = {
@@ -129184,6 +141012,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutWishlistInput = {
@@ -129262,6 +141094,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWishlistInput = {
@@ -129302,6 +141138,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type WishlistItemUpsertWithWhereUniqueWithoutWishlistInput = {
@@ -129658,6 +141498,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -129698,6 +141542,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -129754,6 +141602,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -129794,6 +141646,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type TicketMessageCreateWithoutTicketInput = {
@@ -129860,6 +141716,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutSupportTicketsInput = {
@@ -129900,6 +141760,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -129945,6 +141809,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTicketsInput = {
@@ -129985,6 +141853,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTicketsInput = {
@@ -130057,6 +141929,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupportTicketsInput = {
@@ -130097,6 +141973,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserUpsertWithoutAssignedTicketsInput = {
@@ -130148,6 +142028,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
@@ -130188,6 +142072,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type SupportTicketCreateWithoutMessagesInput = {
@@ -130259,6 +142147,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutTicketMessagesInput = {
@@ -130299,6 +142191,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutTicketMessagesInput = {
@@ -130392,6 +142288,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketMessagesInput = {
@@ -130432,6 +142332,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutContactMessagesInput = {
@@ -130472,6 +142376,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutContactMessagesInput = {
@@ -130512,6 +142420,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutContactMessagesInput = {
@@ -130568,6 +142480,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactMessagesInput = {
@@ -130608,6 +142524,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -130648,6 +142568,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -130688,6 +142612,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -130776,6 +142704,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -130816,6 +142748,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type CreditPurchaseUpsertWithWhereUniqueWithoutSubscriptionInput = {
@@ -130920,6 +142856,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCreditPurchasesInput = {
@@ -130960,6 +142900,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCreditPurchasesInput = {
@@ -131080,6 +143024,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreditPurchasesInput = {
@@ -131120,6 +143068,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type CreditPackUpsertWithoutPurchasesInput = {
@@ -131236,6 +143188,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutCreditBalanceInput = {
@@ -131276,6 +143232,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutCreditBalanceInput = {
@@ -131362,6 +143322,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreditBalanceInput = {
@@ -131402,6 +143366,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type CreditTransactionUpsertWithWhereUniqueWithoutBalanceInput = {
@@ -131528,6 +143496,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutUsageRecordsInput = {
@@ -131568,6 +143540,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutUsageRecordsInput = {
@@ -131624,6 +143600,10 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsageRecordsInput = {
@@ -131664,6 +143644,1649 @@ export namespace Prisma {
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserCreateWithoutQrPaymentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutQrPaymentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutQrPaymentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutQrPaymentsInput, UserUncheckedCreateWithoutQrPaymentsInput>
+  }
+
+  export type QrEntitlementCreateWithoutPaymentInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutQrEntitlementsInput
+    campaigns?: QrCampaignCreateNestedManyWithoutEntitlementInput
+  }
+
+  export type QrEntitlementUncheckedCreateWithoutPaymentInput = {
+    id?: string
+    userId: string
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    campaigns?: QrCampaignUncheckedCreateNestedManyWithoutEntitlementInput
+  }
+
+  export type QrEntitlementCreateOrConnectWithoutPaymentInput = {
+    where: QrEntitlementWhereUniqueInput
+    create: XOR<QrEntitlementCreateWithoutPaymentInput, QrEntitlementUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type QrEntitlementCreateManyPaymentInputEnvelope = {
+    data: QrEntitlementCreateManyPaymentInput | QrEntitlementCreateManyPaymentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutQrPaymentsInput = {
+    update: XOR<UserUpdateWithoutQrPaymentsInput, UserUncheckedUpdateWithoutQrPaymentsInput>
+    create: XOR<UserCreateWithoutQrPaymentsInput, UserUncheckedCreateWithoutQrPaymentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutQrPaymentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutQrPaymentsInput, UserUncheckedUpdateWithoutQrPaymentsInput>
+  }
+
+  export type UserUpdateWithoutQrPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutQrPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type QrEntitlementUpsertWithWhereUniqueWithoutPaymentInput = {
+    where: QrEntitlementWhereUniqueInput
+    update: XOR<QrEntitlementUpdateWithoutPaymentInput, QrEntitlementUncheckedUpdateWithoutPaymentInput>
+    create: XOR<QrEntitlementCreateWithoutPaymentInput, QrEntitlementUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type QrEntitlementUpdateWithWhereUniqueWithoutPaymentInput = {
+    where: QrEntitlementWhereUniqueInput
+    data: XOR<QrEntitlementUpdateWithoutPaymentInput, QrEntitlementUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type QrEntitlementUpdateManyWithWhereWithoutPaymentInput = {
+    where: QrEntitlementScalarWhereInput
+    data: XOR<QrEntitlementUpdateManyMutationInput, QrEntitlementUncheckedUpdateManyWithoutPaymentInput>
+  }
+
+  export type UserCreateWithoutQrEntitlementsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutQrEntitlementsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutQrEntitlementsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutQrEntitlementsInput, UserUncheckedCreateWithoutQrEntitlementsInput>
+  }
+
+  export type QrPaymentCreateWithoutEntitlementsInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutQrPaymentsInput
+  }
+
+  export type QrPaymentUncheckedCreateWithoutEntitlementsInput = {
+    id?: string
+    userId: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrPaymentCreateOrConnectWithoutEntitlementsInput = {
+    where: QrPaymentWhereUniqueInput
+    create: XOR<QrPaymentCreateWithoutEntitlementsInput, QrPaymentUncheckedCreateWithoutEntitlementsInput>
+  }
+
+  export type QrCampaignCreateWithoutEntitlementInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutQrCampaignsInput
+    assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateWithoutEntitlementInput = {
+    id?: string
+    ownerId: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignCreateOrConnectWithoutEntitlementInput = {
+    where: QrCampaignWhereUniqueInput
+    create: XOR<QrCampaignCreateWithoutEntitlementInput, QrCampaignUncheckedCreateWithoutEntitlementInput>
+  }
+
+  export type QrCampaignCreateManyEntitlementInputEnvelope = {
+    data: QrCampaignCreateManyEntitlementInput | QrCampaignCreateManyEntitlementInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutQrEntitlementsInput = {
+    update: XOR<UserUpdateWithoutQrEntitlementsInput, UserUncheckedUpdateWithoutQrEntitlementsInput>
+    create: XOR<UserCreateWithoutQrEntitlementsInput, UserUncheckedCreateWithoutQrEntitlementsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutQrEntitlementsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutQrEntitlementsInput, UserUncheckedUpdateWithoutQrEntitlementsInput>
+  }
+
+  export type UserUpdateWithoutQrEntitlementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutQrEntitlementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type QrPaymentUpsertWithoutEntitlementsInput = {
+    update: XOR<QrPaymentUpdateWithoutEntitlementsInput, QrPaymentUncheckedUpdateWithoutEntitlementsInput>
+    create: XOR<QrPaymentCreateWithoutEntitlementsInput, QrPaymentUncheckedCreateWithoutEntitlementsInput>
+    where?: QrPaymentWhereInput
+  }
+
+  export type QrPaymentUpdateToOneWithWhereWithoutEntitlementsInput = {
+    where?: QrPaymentWhereInput
+    data: XOR<QrPaymentUpdateWithoutEntitlementsInput, QrPaymentUncheckedUpdateWithoutEntitlementsInput>
+  }
+
+  export type QrPaymentUpdateWithoutEntitlementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutQrPaymentsNestedInput
+  }
+
+  export type QrPaymentUncheckedUpdateWithoutEntitlementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCampaignUpsertWithWhereUniqueWithoutEntitlementInput = {
+    where: QrCampaignWhereUniqueInput
+    update: XOR<QrCampaignUpdateWithoutEntitlementInput, QrCampaignUncheckedUpdateWithoutEntitlementInput>
+    create: XOR<QrCampaignCreateWithoutEntitlementInput, QrCampaignUncheckedCreateWithoutEntitlementInput>
+  }
+
+  export type QrCampaignUpdateWithWhereUniqueWithoutEntitlementInput = {
+    where: QrCampaignWhereUniqueInput
+    data: XOR<QrCampaignUpdateWithoutEntitlementInput, QrCampaignUncheckedUpdateWithoutEntitlementInput>
+  }
+
+  export type QrCampaignUpdateManyWithWhereWithoutEntitlementInput = {
+    where: QrCampaignScalarWhereInput
+    data: XOR<QrCampaignUpdateManyMutationInput, QrCampaignUncheckedUpdateManyWithoutEntitlementInput>
+  }
+
+  export type UserCreateWithoutQrCampaignsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutQrCampaignsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutQrCampaignsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutQrCampaignsInput, UserUncheckedCreateWithoutQrCampaignsInput>
+  }
+
+  export type QrEntitlementCreateWithoutCampaignsInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutQrEntitlementsInput
+    payment?: QrPaymentCreateNestedOneWithoutEntitlementsInput
+  }
+
+  export type QrEntitlementUncheckedCreateWithoutCampaignsInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrEntitlementCreateOrConnectWithoutCampaignsInput = {
+    where: QrEntitlementWhereUniqueInput
+    create: XOR<QrEntitlementCreateWithoutCampaignsInput, QrEntitlementUncheckedCreateWithoutCampaignsInput>
+  }
+
+  export type QrAssetCreateWithoutCampaignInput = {
+    id?: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint | number
+    mimeType: string
+    checksum?: string | null
+    safetyStatus?: $Enums.QrAssetSafetyStatus
+    safetyReason?: string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrAssetUncheckedCreateWithoutCampaignInput = {
+    id?: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint | number
+    mimeType: string
+    checksum?: string | null
+    safetyStatus?: $Enums.QrAssetSafetyStatus
+    safetyReason?: string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrAssetCreateOrConnectWithoutCampaignInput = {
+    where: QrAssetWhereUniqueInput
+    create: XOR<QrAssetCreateWithoutCampaignInput, QrAssetUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrAssetCreateManyCampaignInputEnvelope = {
+    data: QrAssetCreateManyCampaignInput | QrAssetCreateManyCampaignInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrScanEventCreateWithoutCampaignInput = {
+    id?: string
+    kind: $Enums.QrEventKind
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrScanEventUncheckedCreateWithoutCampaignInput = {
+    id?: string
+    kind: $Enums.QrEventKind
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrScanEventCreateOrConnectWithoutCampaignInput = {
+    where: QrScanEventWhereUniqueInput
+    create: XOR<QrScanEventCreateWithoutCampaignInput, QrScanEventUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrScanEventCreateManyCampaignInputEnvelope = {
+    data: QrScanEventCreateManyCampaignInput | QrScanEventCreateManyCampaignInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrAdminActionCreateWithoutCampaignInput = {
+    id?: string
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    actor?: UserCreateNestedOneWithoutQrAdminActionsInput
+  }
+
+  export type QrAdminActionUncheckedCreateWithoutCampaignInput = {
+    id?: string
+    actorId?: string | null
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type QrAdminActionCreateOrConnectWithoutCampaignInput = {
+    where: QrAdminActionWhereUniqueInput
+    create: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrAdminActionCreateManyCampaignInputEnvelope = {
+    data: QrAdminActionCreateManyCampaignInput | QrAdminActionCreateManyCampaignInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutQrCampaignsInput = {
+    update: XOR<UserUpdateWithoutQrCampaignsInput, UserUncheckedUpdateWithoutQrCampaignsInput>
+    create: XOR<UserCreateWithoutQrCampaignsInput, UserUncheckedCreateWithoutQrCampaignsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutQrCampaignsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutQrCampaignsInput, UserUncheckedUpdateWithoutQrCampaignsInput>
+  }
+
+  export type UserUpdateWithoutQrCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutQrCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type QrEntitlementUpsertWithoutCampaignsInput = {
+    update: XOR<QrEntitlementUpdateWithoutCampaignsInput, QrEntitlementUncheckedUpdateWithoutCampaignsInput>
+    create: XOR<QrEntitlementCreateWithoutCampaignsInput, QrEntitlementUncheckedCreateWithoutCampaignsInput>
+    where?: QrEntitlementWhereInput
+  }
+
+  export type QrEntitlementUpdateToOneWithWhereWithoutCampaignsInput = {
+    where?: QrEntitlementWhereInput
+    data: XOR<QrEntitlementUpdateWithoutCampaignsInput, QrEntitlementUncheckedUpdateWithoutCampaignsInput>
+  }
+
+  export type QrEntitlementUpdateWithoutCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutQrEntitlementsNestedInput
+    payment?: QrPaymentUpdateOneWithoutEntitlementsNestedInput
+  }
+
+  export type QrEntitlementUncheckedUpdateWithoutCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetUpsertWithWhereUniqueWithoutCampaignInput = {
+    where: QrAssetWhereUniqueInput
+    update: XOR<QrAssetUpdateWithoutCampaignInput, QrAssetUncheckedUpdateWithoutCampaignInput>
+    create: XOR<QrAssetCreateWithoutCampaignInput, QrAssetUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrAssetUpdateWithWhereUniqueWithoutCampaignInput = {
+    where: QrAssetWhereUniqueInput
+    data: XOR<QrAssetUpdateWithoutCampaignInput, QrAssetUncheckedUpdateWithoutCampaignInput>
+  }
+
+  export type QrAssetUpdateManyWithWhereWithoutCampaignInput = {
+    where: QrAssetScalarWhereInput
+    data: XOR<QrAssetUpdateManyMutationInput, QrAssetUncheckedUpdateManyWithoutCampaignInput>
+  }
+
+  export type QrAssetScalarWhereInput = {
+    AND?: QrAssetScalarWhereInput | QrAssetScalarWhereInput[]
+    OR?: QrAssetScalarWhereInput[]
+    NOT?: QrAssetScalarWhereInput | QrAssetScalarWhereInput[]
+    id?: UuidFilter<"QrAsset"> | string
+    campaignId?: UuidFilter<"QrAsset"> | string
+    kind?: EnumQrAssetKindFilter<"QrAsset"> | $Enums.QrAssetKind
+    fileName?: StringFilter<"QrAsset"> | string
+    fileKey?: StringFilter<"QrAsset"> | string
+    fileSize?: BigIntFilter<"QrAsset"> | bigint | number
+    mimeType?: StringFilter<"QrAsset"> | string
+    checksum?: StringNullableFilter<"QrAsset"> | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFilter<"QrAsset"> | $Enums.QrAssetSafetyStatus
+    safetyReason?: StringNullableFilter<"QrAsset"> | string | null
+    scannerMetadata?: JsonNullableFilter<"QrAsset">
+    active?: BoolFilter<"QrAsset"> | boolean
+    createdAt?: DateTimeFilter<"QrAsset"> | Date | string
+    updatedAt?: DateTimeFilter<"QrAsset"> | Date | string
+  }
+
+  export type QrScanEventUpsertWithWhereUniqueWithoutCampaignInput = {
+    where: QrScanEventWhereUniqueInput
+    update: XOR<QrScanEventUpdateWithoutCampaignInput, QrScanEventUncheckedUpdateWithoutCampaignInput>
+    create: XOR<QrScanEventCreateWithoutCampaignInput, QrScanEventUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrScanEventUpdateWithWhereUniqueWithoutCampaignInput = {
+    where: QrScanEventWhereUniqueInput
+    data: XOR<QrScanEventUpdateWithoutCampaignInput, QrScanEventUncheckedUpdateWithoutCampaignInput>
+  }
+
+  export type QrScanEventUpdateManyWithWhereWithoutCampaignInput = {
+    where: QrScanEventScalarWhereInput
+    data: XOR<QrScanEventUpdateManyMutationInput, QrScanEventUncheckedUpdateManyWithoutCampaignInput>
+  }
+
+  export type QrScanEventScalarWhereInput = {
+    AND?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
+    OR?: QrScanEventScalarWhereInput[]
+    NOT?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
+    id?: UuidFilter<"QrScanEvent"> | string
+    campaignId?: UuidFilter<"QrScanEvent"> | string
+    kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
+    requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
+    referrerOrigin?: StringNullableFilter<"QrScanEvent"> | string | null
+    userAgentFamily?: StringNullableFilter<"QrScanEvent"> | string | null
+    deviceClass?: StringNullableFilter<"QrScanEvent"> | string | null
+    country?: StringNullableFilter<"QrScanEvent"> | string | null
+    createdAt?: DateTimeFilter<"QrScanEvent"> | Date | string
+  }
+
+  export type QrAdminActionUpsertWithWhereUniqueWithoutCampaignInput = {
+    where: QrAdminActionWhereUniqueInput
+    update: XOR<QrAdminActionUpdateWithoutCampaignInput, QrAdminActionUncheckedUpdateWithoutCampaignInput>
+    create: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput = {
+    where: QrAdminActionWhereUniqueInput
+    data: XOR<QrAdminActionUpdateWithoutCampaignInput, QrAdminActionUncheckedUpdateWithoutCampaignInput>
+  }
+
+  export type QrAdminActionUpdateManyWithWhereWithoutCampaignInput = {
+    where: QrAdminActionScalarWhereInput
+    data: XOR<QrAdminActionUpdateManyMutationInput, QrAdminActionUncheckedUpdateManyWithoutCampaignInput>
+  }
+
+  export type QrCampaignCreateWithoutAssetsInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutQrCampaignsInput
+    entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
+    events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateWithoutAssetsInput = {
+    id?: string
+    ownerId: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignCreateOrConnectWithoutAssetsInput = {
+    where: QrCampaignWhereUniqueInput
+    create: XOR<QrCampaignCreateWithoutAssetsInput, QrCampaignUncheckedCreateWithoutAssetsInput>
+  }
+
+  export type QrCampaignUpsertWithoutAssetsInput = {
+    update: XOR<QrCampaignUpdateWithoutAssetsInput, QrCampaignUncheckedUpdateWithoutAssetsInput>
+    create: XOR<QrCampaignCreateWithoutAssetsInput, QrCampaignUncheckedCreateWithoutAssetsInput>
+    where?: QrCampaignWhereInput
+  }
+
+  export type QrCampaignUpdateToOneWithWhereWithoutAssetsInput = {
+    where?: QrCampaignWhereInput
+    data: XOR<QrCampaignUpdateWithoutAssetsInput, QrCampaignUncheckedUpdateWithoutAssetsInput>
+  }
+
+  export type QrCampaignUpdateWithoutAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
+    entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
+    events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateWithoutAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignCreateWithoutEventsInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutQrCampaignsInput
+    entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
+    assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateWithoutEventsInput = {
+    id?: string
+    ownerId: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignCreateOrConnectWithoutEventsInput = {
+    where: QrCampaignWhereUniqueInput
+    create: XOR<QrCampaignCreateWithoutEventsInput, QrCampaignUncheckedCreateWithoutEventsInput>
+  }
+
+  export type QrCampaignUpsertWithoutEventsInput = {
+    update: XOR<QrCampaignUpdateWithoutEventsInput, QrCampaignUncheckedUpdateWithoutEventsInput>
+    create: XOR<QrCampaignCreateWithoutEventsInput, QrCampaignUncheckedCreateWithoutEventsInput>
+    where?: QrCampaignWhereInput
+  }
+
+  export type QrCampaignUpdateToOneWithWhereWithoutEventsInput = {
+    where?: QrCampaignWhereInput
+    data: XOR<QrCampaignUpdateWithoutEventsInput, QrCampaignUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type QrCampaignUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
+    entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
+    assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignCreateWithoutAdminActionsInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutQrCampaignsInput
+    entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
+    assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateWithoutAdminActionsInput = {
+    id?: string
+    ownerId: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignCreateOrConnectWithoutAdminActionsInput = {
+    where: QrCampaignWhereUniqueInput
+    create: XOR<QrCampaignCreateWithoutAdminActionsInput, QrCampaignUncheckedCreateWithoutAdminActionsInput>
+  }
+
+  export type UserCreateWithoutQrAdminActionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutQrAdminActionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutQrAdminActionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutQrAdminActionsInput, UserUncheckedCreateWithoutQrAdminActionsInput>
+  }
+
+  export type QrCampaignUpsertWithoutAdminActionsInput = {
+    update: XOR<QrCampaignUpdateWithoutAdminActionsInput, QrCampaignUncheckedUpdateWithoutAdminActionsInput>
+    create: XOR<QrCampaignCreateWithoutAdminActionsInput, QrCampaignUncheckedCreateWithoutAdminActionsInput>
+    where?: QrCampaignWhereInput
+  }
+
+  export type QrCampaignUpdateToOneWithWhereWithoutAdminActionsInput = {
+    where?: QrCampaignWhereInput
+    data: XOR<QrCampaignUpdateWithoutAdminActionsInput, QrCampaignUncheckedUpdateWithoutAdminActionsInput>
+  }
+
+  export type QrCampaignUpdateWithoutAdminActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
+    entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
+    assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateWithoutAdminActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type UserUpsertWithoutQrAdminActionsInput = {
+    update: XOR<UserUpdateWithoutQrAdminActionsInput, UserUncheckedUpdateWithoutQrAdminActionsInput>
+    create: XOR<UserCreateWithoutQrAdminActionsInput, UserUncheckedCreateWithoutQrAdminActionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutQrAdminActionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutQrAdminActionsInput, UserUncheckedUpdateWithoutQrAdminActionsInput>
+  }
+
+  export type UserUpdateWithoutQrAdminActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutQrAdminActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type ProductCreateWithoutLicenseKeysInput = {
@@ -131878,6 +145501,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutLicenseKeysInput = {
@@ -131918,6 +145545,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutLicenseKeysInput = {
@@ -132188,6 +145819,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLicenseKeysInput = {
@@ -132228,6 +145863,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type LicenseActivationUpsertWithWhereUniqueWithoutLicenseKeyInput = {
@@ -132769,6 +146408,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
   }
 
   export type UserUncheckedCreateWithoutTicketsInput = {
@@ -132809,6 +146452,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
   }
 
   export type UserCreateOrConnectWithoutTicketsInput = {
@@ -132967,6 +146614,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketsInput = {
@@ -133007,6 +146658,10 @@ export namespace Prisma {
     ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type OrderCreateManyBuyerInput = {
@@ -133200,6 +146855,76 @@ export namespace Prisma {
     checkedInBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type QrEntitlementCreateManyUserInput = {
+    id?: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrPaymentCreateManyUserInput = {
+    id?: string
+    offerCode: $Enums.QrOfferCode
+    offerName: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    campaignCredits?: number
+    maxActiveCampaigns?: number | null
+    accessStartsAt?: Date | string | null
+    accessEndsAt?: Date | string | null
+    status?: $Enums.QrPaymentStatus
+    provider?: string
+    providerPaymentId?: string | null
+    providerReference: string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrCampaignCreateManyOwnerInput = {
+    id?: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrAdminActionCreateManyActorInput = {
+    id?: string
+    campaignId: string
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
   }
 
   export type OrderUpdateWithoutBuyerInput = {
@@ -133805,6 +147530,226 @@ export namespace Prisma {
     checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrEntitlementUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: QrPaymentUpdateOneWithoutEntitlementsNestedInput
+    campaigns?: QrCampaignUpdateManyWithoutEntitlementNestedInput
+  }
+
+  export type QrEntitlementUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaigns?: QrCampaignUncheckedUpdateManyWithoutEntitlementNestedInput
+  }
+
+  export type QrEntitlementUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrPaymentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    entitlements?: QrEntitlementUpdateManyWithoutPaymentNestedInput
+  }
+
+  export type QrPaymentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    entitlements?: QrEntitlementUncheckedUpdateManyWithoutPaymentNestedInput
+  }
+
+  export type QrPaymentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    offerName?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    campaignCredits?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    accessStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumQrPaymentStatusFieldUpdateOperationsInput | $Enums.QrPaymentStatus
+    provider?: StringFieldUpdateOperationsInput | string
+    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerReference?: StringFieldUpdateOperationsInput | string
+    providerResponse?: NullableJsonNullValueInput | InputJsonValue
+    fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCampaignUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
+    assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateManyWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutAdminActionsNestedInput
+  }
+
+  export type QrAdminActionUncheckedUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionUncheckedUpdateManyWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserRoleCreateManyRoleInput = {
@@ -136817,6 +150762,322 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrEntitlementCreateManyPaymentInput = {
+    id?: string
+    userId: string
+    offerCode: $Enums.QrOfferCode
+    kind: $Enums.QrEntitlementKind
+    status?: $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: number
+    campaignCreditsUsed?: number
+    maxActiveCampaigns?: number | null
+    startsAt?: Date | string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrEntitlementUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutQrEntitlementsNestedInput
+    campaigns?: QrCampaignUpdateManyWithoutEntitlementNestedInput
+  }
+
+  export type QrEntitlementUncheckedUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaigns?: QrCampaignUncheckedUpdateManyWithoutEntitlementNestedInput
+  }
+
+  export type QrEntitlementUncheckedUpdateManyWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    kind?: EnumQrEntitlementKindFieldUpdateOperationsInput | $Enums.QrEntitlementKind
+    status?: EnumQrEntitlementStatusFieldUpdateOperationsInput | $Enums.QrEntitlementStatus
+    campaignCreditsTotal?: IntFieldUpdateOperationsInput | number
+    campaignCreditsUsed?: IntFieldUpdateOperationsInput | number
+    maxActiveCampaigns?: NullableIntFieldUpdateOperationsInput | number | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCampaignCreateManyEntitlementInput = {
+    id?: string
+    ownerId: string
+    publicCode: string
+    title: string
+    description?: string | null
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrCampaignUpdateWithoutEntitlementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
+    assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateWithoutEntitlementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateManyWithoutEntitlementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetCreateManyCampaignInput = {
+    id?: string
+    kind: $Enums.QrAssetKind
+    fileName: string
+    fileKey: string
+    fileSize: bigint | number
+    mimeType: string
+    checksum?: string | null
+    safetyStatus?: $Enums.QrAssetSafetyStatus
+    safetyReason?: string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrScanEventCreateManyCampaignInput = {
+    id?: string
+    kind: $Enums.QrEventKind
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrAdminActionCreateManyCampaignInput = {
+    id?: string
+    actorId?: string | null
+    action: string
+    reasonCode: string
+    reason?: string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type QrAssetUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetUncheckedUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAssetUncheckedUpdateManyWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrAssetKindFieldUpdateOperationsInput | $Enums.QrAssetKind
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileKey?: StringFieldUpdateOperationsInput | string
+    fileSize?: BigIntFieldUpdateOperationsInput | bigint | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    checksum?: NullableStringFieldUpdateOperationsInput | string | null
+    safetyStatus?: EnumQrAssetSafetyStatusFieldUpdateOperationsInput | $Enums.QrAssetSafetyStatus
+    safetyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    scannerMetadata?: NullableJsonNullValueInput | InputJsonValue
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventUncheckedUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventUncheckedUpdateManyWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    actor?: UserUpdateOneWithoutQrAdminActionsNestedInput
+  }
+
+  export type QrAdminActionUncheckedUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrAdminActionUncheckedUpdateManyWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    reasonCode?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    previousState?: NullableJsonNullValueInput | InputJsonValue
+    newState?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

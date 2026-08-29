@@ -960,6 +960,109 @@ exports.Prisma.UsageRecordScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.QrPaymentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  offerCode: 'offerCode',
+  offerName: 'offerName',
+  amount: 'amount',
+  currency: 'currency',
+  campaignCredits: 'campaignCredits',
+  maxActiveCampaigns: 'maxActiveCampaigns',
+  accessStartsAt: 'accessStartsAt',
+  accessEndsAt: 'accessEndsAt',
+  status: 'status',
+  provider: 'provider',
+  providerPaymentId: 'providerPaymentId',
+  providerReference: 'providerReference',
+  providerResponse: 'providerResponse',
+  fulfilledAt: 'fulfilledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrEntitlementScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  paymentId: 'paymentId',
+  offerCode: 'offerCode',
+  kind: 'kind',
+  status: 'status',
+  campaignCreditsTotal: 'campaignCreditsTotal',
+  campaignCreditsUsed: 'campaignCreditsUsed',
+  maxActiveCampaigns: 'maxActiveCampaigns',
+  startsAt: 'startsAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrCampaignScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  entitlementId: 'entitlementId',
+  publicCode: 'publicCode',
+  title: 'title',
+  description: 'description',
+  contentType: 'contentType',
+  status: 'status',
+  scanMode: 'scanMode',
+  destinationUrl: 'destinationUrl',
+  destinationData: 'destinationData',
+  brandName: 'brandName',
+  brandLogoAssetId: 'brandLogoAssetId',
+  brandPrimaryColor: 'brandPrimaryColor',
+  brandAccentColor: 'brandAccentColor',
+  designSettings: 'designSettings',
+  activatedAt: 'activatedAt',
+  expiresAt: 'expiresAt',
+  archivedAt: 'archivedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrAssetScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  kind: 'kind',
+  fileName: 'fileName',
+  fileKey: 'fileKey',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  checksum: 'checksum',
+  safetyStatus: 'safetyStatus',
+  safetyReason: 'safetyReason',
+  scannerMetadata: 'scannerMetadata',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrScanEventScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  kind: 'kind',
+  requestHash: 'requestHash',
+  referrerOrigin: 'referrerOrigin',
+  userAgentFamily: 'userAgentFamily',
+  deviceClass: 'deviceClass',
+  country: 'country',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.QrAdminActionScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  actorId: 'actorId',
+  action: 'action',
+  reasonCode: 'reasonCode',
+  reason: 'reason',
+  previousState: 'previousState',
+  newState: 'newState',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.LicenseKeyScalarFieldEnum = {
   id: 'id',
   key: 'key',
@@ -1281,6 +1384,73 @@ exports.CreditTransactionType = exports.$Enums.CreditTransactionType = {
   EXPIRY: 'EXPIRY'
 };
 
+exports.QrOfferCode = exports.$Enums.QrOfferCode = {
+  SINGLE: 'SINGLE',
+  PACK: 'PACK',
+  PRO_MONTHLY: 'PRO_MONTHLY',
+  PRO_YEARLY: 'PRO_YEARLY'
+};
+
+exports.QrPaymentStatus = exports.$Enums.QrPaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+};
+
+exports.QrEntitlementKind = exports.$Enums.QrEntitlementKind = {
+  CAMPAIGN_CREDIT: 'CAMPAIGN_CREDIT',
+  PRO_PASS: 'PRO_PASS'
+};
+
+exports.QrEntitlementStatus = exports.$Enums.QrEntitlementStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  EXHAUSTED: 'EXHAUSTED',
+  REVOKED: 'REVOKED'
+};
+
+exports.QrContentType = exports.$Enums.QrContentType = {
+  FILE: 'FILE',
+  IMAGE_GALLERY: 'IMAGE_GALLERY',
+  WEBSITE: 'WEBSITE',
+  PRODUCT_PAGE: 'PRODUCT_PAGE',
+  CREATOR_PROFILE: 'CREATOR_PROFILE',
+  WHATSAPP: 'WHATSAPP',
+  SOCIAL_LINK_HUB: 'SOCIAL_LINK_HUB',
+  TEXT_NOTE: 'TEXT_NOTE'
+};
+
+exports.QrCampaignStatus = exports.$Enums.QrCampaignStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  EXPIRED: 'EXPIRED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.QrScanMode = exports.$Enums.QrScanMode = {
+  LANDING_PAGE: 'LANDING_PAGE',
+  DIRECT_OPEN: 'DIRECT_OPEN'
+};
+
+exports.QrAssetKind = exports.$Enums.QrAssetKind = {
+  CAMPAIGN_FILE: 'CAMPAIGN_FILE',
+  BRAND_LOGO: 'BRAND_LOGO',
+  GALLERY_IMAGE: 'GALLERY_IMAGE'
+};
+
+exports.QrAssetSafetyStatus = exports.$Enums.QrAssetSafetyStatus = {
+  PENDING_SCAN: 'PENDING_SCAN',
+  APPROVED: 'APPROVED',
+  BLOCKED: 'BLOCKED'
+};
+
+exports.QrEventKind = exports.$Enums.QrEventKind = {
+  SCAN: 'SCAN',
+  OPEN: 'OPEN'
+};
+
 exports.LicenseStatus = exports.$Enums.LicenseStatus = {
   ACTIVE: 'ACTIVE',
   SUSPENDED: 'SUSPENDED',
@@ -1371,6 +1541,12 @@ exports.Prisma.ModelName = {
   CreditBalance: 'CreditBalance',
   CreditTransaction: 'CreditTransaction',
   UsageRecord: 'UsageRecord',
+  QrPayment: 'QrPayment',
+  QrEntitlement: 'QrEntitlement',
+  QrCampaign: 'QrCampaign',
+  QrAsset: 'QrAsset',
+  QrScanEvent: 'QrScanEvent',
+  QrAdminAction: 'QrAdminAction',
   LicenseKey: 'LicenseKey',
   LicenseActivation: 'LicenseActivation',
   Event: 'Event',
