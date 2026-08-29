@@ -1227,6 +1227,56 @@ export class AdminService {
     return updated;
   }
 
+  /**
+   * Approve or block a pending QR file asset. Approval is what lets a hosted
+   * file campaign activate in production (fail-closed until reviewed). Audited;
+   * never returns the private file key.
+   */
+  async setQrAssetSafety(
+    adminId: string,
+    campaignId: string,
+    assetId: string,
+    input: { status: 'APPROVED' | 'BLOCKED'; reasonCode?: string; reason?: string },
+  ) {
+    const asset = await prisma.qrAsset.findFirst({ where: { id: assetId, campaignId } });
+    if (!asset) throw new NotFoundException('QR asset not found');
+
+    const reasonCode = input.reasonCode?.trim() || (input.status === 'BLOCKED' ? 'SAFETY_BLOCK' : 'SAFETY_APPROVE');
+
+    const updated = await prisma.$transaction(async (tx) => {
+      const next = await tx.qrAsset.update({
+        where: { id: assetId },
+        data: {
+          safetyStatus: input.status,
+          safetyReason: input.status === 'BLOCKED' ? input.reason?.trim() || 'Blocked by admin' : null,
+        },
+        select: {
+          id: true, kind: true, fileName: true, fileSize: true, mimeType: true,
+          safetyStatus: true, safetyReason: true, active: true, createdAt: true,
+        },
+      });
+      await tx.qrAdminAction.create({
+        data: {
+          campaignId,
+          actorId: adminId,
+          action: input.status === 'APPROVED' ? 'approve_asset' : 'block_asset',
+          reasonCode,
+          reason: input.reason?.trim() || null,
+          previousState: { safetyStatus: asset.safetyStatus },
+          newState: { safetyStatus: input.status },
+        },
+      });
+      return next;
+    });
+
+    this.audit(adminId, null, `qr_asset.${input.status.toLowerCase()}`, 'qr_asset', assetId, {
+      campaignId,
+      reasonCode,
+    });
+
+    return updated;
+  }
+
   // ------------------------------------------------------------------
   // Helpers
   // ------------------------------------------------------------------

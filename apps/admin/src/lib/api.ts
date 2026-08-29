@@ -119,6 +119,17 @@ export const api = {
       body,
       token,
     }),
+  setQrAssetSafety: (
+    token: string,
+    campaignId: string,
+    assetId: string,
+    body: { status: 'APPROVED' | 'BLOCKED'; reasonCode?: string; reason?: string },
+  ) =>
+    request<any>(`/admin/qr-studio/campaigns/${campaignId}/assets/${assetId}/safety`, {
+      method: 'POST',
+      body,
+      token,
+    }),
   approveProduct: (token: string, id: string) =>
     request<any>(`/admin/products/${id}/approve`, { method: 'POST', token }),
   rejectProduct: (token: string, id: string, reason?: string) =>

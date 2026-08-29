@@ -5,6 +5,7 @@ import { AdminService } from './admin.service';
 jest.mock('@creatorplus/database', () => ({
   prisma: {
     qrCampaign: { findUnique: jest.fn(), update: jest.fn() },
+    qrAsset: { findFirst: jest.fn() },
     qrAdminAction: { create: jest.fn() },
     auditLog: { create: jest.fn() },
     $transaction: jest.fn(),
@@ -65,6 +66,49 @@ describe('AdminService.pauseOrArchiveQrCampaign (U9)', () => {
     );
     expect(tx.qrAdminAction.create).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ action: 'archive' }) }),
+    );
+  });
+
+  it('approves a pending file asset and audits it (unblocks activation)', async () => {
+    p.qrAsset.findFirst.mockResolvedValue({ id: 'a1', campaignId: 'c1', safetyStatus: 'PENDING_SCAN' });
+    const tx = {
+      qrAsset: { update: jest.fn().mockResolvedValue({ id: 'a1', safetyStatus: 'APPROVED' }) },
+      qrAdminAction: { create: jest.fn() },
+    };
+    p.$transaction.mockImplementation(async (cb: any) => cb(tx));
+
+    await makeService().setQrAssetSafety('admin-1', 'c1', 'a1', { status: 'APPROVED' });
+
+    expect(tx.qrAsset.update).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 'a1' }, data: expect.objectContaining({ safetyStatus: 'APPROVED', safetyReason: null }) }),
+    );
+    expect(tx.qrAdminAction.create).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ action: 'approve_asset', actorId: 'admin-1' }) }),
+    );
+  });
+
+  it('blocks a file asset with a reason', async () => {
+    p.qrAsset.findFirst.mockResolvedValue({ id: 'a1', campaignId: 'c1', safetyStatus: 'PENDING_SCAN' });
+    const tx = {
+      qrAsset: { update: jest.fn().mockResolvedValue({ id: 'a1', safetyStatus: 'BLOCKED' }) },
+      qrAdminAction: { create: jest.fn() },
+    };
+    p.$transaction.mockImplementation(async (cb: any) => cb(tx));
+
+    await makeService().setQrAssetSafety('admin-1', 'c1', 'a1', { status: 'BLOCKED', reason: 'malware' });
+
+    expect(tx.qrAsset.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ safetyStatus: 'BLOCKED', safetyReason: 'malware' }) }),
+    );
+    expect(tx.qrAdminAction.create).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ action: 'block_asset' }) }),
+    );
+  });
+
+  it('throws NotFound when the asset is not on the campaign', async () => {
+    p.qrAsset.findFirst.mockResolvedValue(null);
+    await expect(makeService().setQrAssetSafety('admin-1', 'c1', 'zzz', { status: 'APPROVED' })).rejects.toBeInstanceOf(
+      NotFoundException,
     );
   });
 });

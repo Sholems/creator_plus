@@ -14,7 +14,7 @@ import { BroadcastDto } from './dto/broadcast.dto';
 import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
 import { CreateFeatureFlagDto, UpdateFeatureFlagDto } from '../feature-flags/dto/feature-flag.dto';
 import { UpdateContactStatusDto } from '../contact/dto/contact.dto';
-import { QrAdminActionDto } from '../qr-studio/dto/qr-campaign.dto';
+import { QrAdminActionDto, QrAssetSafetyDto } from '../qr-studio/dto/qr-campaign.dto';
 import {
   AssignTicketDto,
   ReplyTicketDto,
@@ -104,6 +104,17 @@ export class AdminController {
   @ApiOperation({ summary: 'Pause or archive a QR Studio campaign with an audit reason' })
   pauseOrArchiveQrCampaign(@Request() req, @Param('id') id: string, @Body() dto: QrAdminActionDto) {
     return this.adminService.pauseOrArchiveQrCampaign(req.user.sub, id, dto);
+  }
+
+  @Post('qr-studio/campaigns/:id/assets/:assetId/safety')
+  @ApiOperation({ summary: 'Approve or block a pending QR file asset (audited)' })
+  setQrAssetSafety(
+    @Request() req,
+    @Param('id') id: string,
+    @Param('assetId') assetId: string,
+    @Body() dto: QrAssetSafetyDto,
+  ) {
+    return this.adminService.setQrAssetSafety(req.user.sub, id, assetId, dto);
   }
 
   @Get('orders')

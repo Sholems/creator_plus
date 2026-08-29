@@ -1,4 +1,4 @@
-import { IsBoolean, IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsEnum, IsIn, IsOptional, IsString, MaxLength } from 'class-validator';
 import { QrCampaignStatus, QrContentType, QrScanMode } from '@creatorplus/database';
 
 export class CreateQrCampaignDto {
@@ -93,4 +93,19 @@ export class QrAdminActionDto {
   @IsOptional()
   @IsBoolean()
   archive?: boolean;
+}
+
+export class QrAssetSafetyDto {
+  @IsIn(['APPROVED', 'BLOCKED'])
+  status: 'APPROVED' | 'BLOCKED';
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(64)
+  reasonCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  reason?: string;
 }

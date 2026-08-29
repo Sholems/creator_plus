@@ -35,6 +35,28 @@ export default function AdminQrCampaignDetailPage({ params }: { params: Promise<
     void load();
   }, [token, id]);
 
+  const setSafety = async (assetId: string, status: 'APPROVED' | 'BLOCKED') => {
+    if (!token) return;
+    let reason: string | undefined;
+    if (status === 'BLOCKED') {
+      reason = window.prompt('Reason for blocking this file (shown to the creator):') || undefined;
+      if (!reason) return;
+    } else if (!window.confirm('Approve this file? It becomes downloadable to scanners once the campaign is active.')) {
+      return;
+    }
+    setBusy(true);
+    setMessage('');
+    try {
+      await api.setQrAssetSafety(token, id, assetId, { status, reason });
+      setMessage(`File ${status === 'APPROVED' ? 'approved' : 'blocked'}.`);
+      void load();
+    } catch (e: any) {
+      setError(e.message || 'Action failed');
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const act = async (archive: boolean) => {
     if (!token) return;
     if (!window.confirm(`${archive ? 'Archive' : 'Pause'} this campaign? This is audited.`)) return;
@@ -106,14 +128,31 @@ export default function AdminQrCampaignDetailPage({ params }: { params: Promise<
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead><tr className="text-left text-xs text-gray-400"><th className="py-1">File</th><th>Type</th><th>Safety</th><th>Active</th></tr></thead>
+              <thead><tr className="text-left text-xs text-gray-400"><th className="py-1">File</th><th>Type</th><th>Safety</th><th>Active</th><th className="text-right">Review</th></tr></thead>
               <tbody className="divide-y divide-gray-100">
                 {c.assets.map((a: any) => (
                   <tr key={a.id}>
                     <td className="py-2 text-gray-800">{a.fileName}</td>
                     <td className="text-gray-500">{a.mimeType}</td>
-                    <td className="text-gray-500">{a.safetyStatus}{a.safetyReason ? ` (${a.safetyReason})` : ''}</td>
+                    <td className="text-gray-500">
+                      <span className={
+                        a.safetyStatus === 'APPROVED' ? 'text-emerald-700' : a.safetyStatus === 'BLOCKED' ? 'text-red-700' : 'text-amber-700'
+                      }>
+                        {a.safetyStatus}
+                      </span>
+                      {a.safetyReason ? ` (${a.safetyReason})` : ''}
+                    </td>
                     <td className="text-gray-500">{a.active ? 'yes' : 'no'}</td>
+                    <td className="py-2 text-right">
+                      <div className="inline-flex gap-2">
+                        {a.safetyStatus !== 'APPROVED' && (
+                          <button onClick={() => setSafety(a.id, 'APPROVED')} disabled={busy} className="rounded border border-emerald-300 px-2 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-50 disabled:opacity-50">Approve</button>
+                        )}
+                        {a.safetyStatus !== 'BLOCKED' && (
+                          <button onClick={() => setSafety(a.id, 'BLOCKED')} disabled={busy} className="rounded border border-red-300 px-2 py-1 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-50">Block</button>
+                        )}
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
