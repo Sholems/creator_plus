@@ -136,6 +136,10 @@ export class QrCampaignsService {
 
   async activate(userId: string, id: string) {
     const campaign = await this.requireOwnerCampaign(userId, id);
+    if (campaign.status === 'ACTIVE' && (!campaign.expiresAt || campaign.expiresAt > new Date())) {
+      return this.findMineById(userId, id);
+    }
+
     const entitlement = await this.entitlements.chooseEntitlementForActivation(
       userId,
       campaign.contentType,
