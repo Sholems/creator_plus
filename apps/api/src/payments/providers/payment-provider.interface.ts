@@ -24,6 +24,9 @@ export interface CreateCheckoutInput {
   successUrl: string;
   cancelUrl: string;
   platformFeePercent: number;
+  purpose?: 'marketplace_order' | 'qr_studio';
+  referencePrefix?: string;
+  metadata?: Record<string, any>;
 }
 
 export interface CreateCheckoutResult {

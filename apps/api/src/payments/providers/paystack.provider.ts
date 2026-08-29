@@ -36,7 +36,18 @@ export class PaystackProvider implements PaymentProvider {
       throw new Error('Paystack secret key is not configured');
     }
 
-    const reference = `CM_${Date.now()}_${uuidv4().slice(0, 8)}`;
+    const prefix = input.referencePrefix || 'CM';
+    const reference = `${prefix}_${Date.now()}_${uuidv4().slice(0, 8)}`;
+    const metadata = input.metadata ?? {
+      orderId: input.orderId,
+      custom_fields: [
+        {
+          display_name: 'Order',
+          variable_name: 'order_id',
+          value: input.orderId,
+        },
+      ],
+    };
 
     const response = await fetch(`${PAYSTACK_API}/transaction/initialize`, {
       method: 'POST',
@@ -51,14 +62,8 @@ export class PaystackProvider implements PaymentProvider {
         reference,
         callback_url: input.successUrl,
         metadata: {
-          orderId: input.orderId,
-          custom_fields: [
-            {
-              display_name: 'Order',
-              variable_name: 'order_id',
-              value: input.orderId,
-            },
-          ],
+          purpose: input.purpose || 'marketplace_order',
+          ...metadata,
         },
       }),
     });

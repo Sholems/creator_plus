@@ -11,6 +11,12 @@ import { LicensesService } from '../licenses/licenses.service';
 import { clawBackCreatorCredits } from '../common/money-reversal';
 import { groupBy } from '../common/group-by';
 import { webBaseUrl } from '../common/urls';
+import {
+  addDays,
+  getQrOffer,
+  isQrStudioEnabled,
+  QR_PAYMENT_REFERENCE_PREFIX,
+} from '../qr-studio/qr-offer-definitions';
 
 // Order statuses that mean "already fulfilled" — used by the atomic claim so a
 // duplicate/concurrent webhook can never double-process an order.
@@ -170,6 +176,14 @@ export class PaymentsService {
       return { received: true, ignored: true };
     }
 
+    if (providerName === 'paystack') {
+      const qrResult = await this.handleQrWebhookIfOwned(event);
+      if (qrResult.handled) return { received: true, qrStudio: true };
+      if (qrResult.blockMarketplaceFallback) {
+        return { received: true, ignored: true };
+      }
+    }
+
     if (event.type === 'checkout.completed') {
       await this.markOrderPaid(event);
     } else if (event.type === 'checkout.failed') {
@@ -179,6 +193,113 @@ export class PaymentsService {
     }
 
     return { received: true };
+  }
+
+  private async handleQrWebhookIfOwned(event: WebhookEvent): Promise<{
+    handled: boolean;
+    blockMarketplaceFallback: boolean;
+  }> {
+    const refs = [event.providerPaymentId, event.providerReference].filter(Boolean) as string[];
+    const rawPurpose = event.raw?.data?.metadata?.purpose;
+    const isQrIntent =
+      refs.some((ref) => ref.startsWith(`${QR_PAYMENT_REFERENCE_PREFIX}_`)) ||
+      rawPurpose === 'qr_studio' ||
+      Boolean(event.raw?.data?.metadata?.qrPaymentId);
+
+    if (!isQrIntent) return { handled: false, blockMarketplaceFallback: false };
+    if (!isQrStudioEnabled()) return { handled: false, blockMarketplaceFallback: true };
+
+    const ownershipChecks = [
+      ...refs.map((ref) => ({ providerReference: ref })),
+      ...refs.map((ref) => ({ providerPaymentId: ref })),
+      ...(event.raw?.data?.metadata?.qrPaymentId
+        ? [{ id: event.raw.data.metadata.qrPaymentId }]
+        : []),
+    ];
+
+    if (ownershipChecks.length === 0) {
+      this.logger.warn(`[qr-webhook] QR-looking Paystack event had no reference`);
+      return { handled: false, blockMarketplaceFallback: true };
+    }
+
+    const payment = await prisma.qrPayment.findFirst({
+      where: { OR: ownershipChecks },
+    });
+
+    if (!payment) {
+      this.logger.warn(`[qr-webhook] QR-looking Paystack event had no QR payment row`);
+      return { handled: false, blockMarketplaceFallback: true };
+    }
+
+    if (event.type === 'checkout.completed') {
+      await this.fulfillQrPayment(payment.id, event);
+      return { handled: true, blockMarketplaceFallback: true };
+    }
+
+    if (event.type === 'checkout.failed') {
+      await prisma.qrPayment.updateMany({
+        where: { id: payment.id, status: 'PENDING' },
+        data: { status: 'FAILED', providerResponse: { webhook: event.raw } },
+      });
+      return { handled: true, blockMarketplaceFallback: true };
+    }
+
+    if (event.type === 'payment.refunded') {
+      await prisma.qrPayment.updateMany({
+        where: { id: payment.id, status: { not: 'REFUNDED' } },
+        data: { status: 'REFUNDED', providerResponse: { webhook: event.raw } },
+      });
+      return { handled: true, blockMarketplaceFallback: true };
+    }
+
+    return { handled: false, blockMarketplaceFallback: true };
+  }
+
+  private async fulfillQrPayment(paymentId: string, event: WebhookEvent) {
+    await prisma.$transaction(async (tx) => {
+      const payment = await tx.qrPayment.findUnique({ where: { id: paymentId } });
+      if (!payment) return;
+
+      if (event.amount != null) {
+        const expected = payment.amount.toNumber();
+        if (Math.abs(event.amount - expected) > 1) {
+          await tx.qrPayment.update({
+            where: { id: payment.id },
+            data: { status: 'FAILED', providerResponse: { webhook: event.raw, error: 'amount_mismatch' } },
+          });
+          throw new BadRequestException('Webhook amount does not match the QR Studio offer');
+        }
+      }
+
+      const claimed = await tx.qrPayment.updateMany({
+        where: { id: payment.id, status: 'PENDING', fulfilledAt: null },
+        data: {
+          status: 'SUCCEEDED',
+          providerPaymentId: event.providerPaymentId ?? payment.providerPaymentId,
+          providerReference: event.providerReference ?? payment.providerReference,
+          providerResponse: { webhook: event.raw },
+          fulfilledAt: new Date(),
+        },
+      });
+      if (claimed.count === 0) return;
+
+      const offer = getQrOffer(payment.offerCode);
+      const startsAt = payment.accessStartsAt ?? new Date();
+      await tx.qrEntitlement.create({
+        data: {
+          userId: payment.userId,
+          paymentId: payment.id,
+          offerCode: offer.code,
+          kind: offer.kind,
+          status: 'ACTIVE',
+          campaignCreditsTotal: offer.campaignCredits,
+          campaignCreditsUsed: 0,
+          maxActiveCampaigns: offer.maxActiveCampaigns,
+          startsAt,
+          expiresAt: payment.accessEndsAt ?? addDays(startsAt, offer.durationDays),
+        },
+      });
+    });
   }
 
   private async markOrderPaid(event: WebhookEvent) {

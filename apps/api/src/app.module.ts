@@ -28,6 +28,7 @@ import { FeatureFlagsModule } from './feature-flags/feature-flags.module';
 import { HealthModule } from './health/health.module';
 import { EventsModule } from './events/events.module';
 import { LicensesModule } from './licenses/licenses.module';
+import { QrStudioModule } from './qr-studio/qr-studio.module';
 import { buildThrottlerStorage } from './common/throttler-redis.storage';
 import { StorageController } from './storage/storage.controller';
 import { PaymentsController } from './payments/payments.controller';
@@ -71,6 +72,7 @@ import { PaymentsController } from './payments/payments.controller';
     HealthModule,
     LicensesModule,
     EventsModule,
+    QrStudioModule,
   ],
   controllers: [StorageController, PaymentsController],
   providers: [
