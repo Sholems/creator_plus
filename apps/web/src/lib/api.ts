@@ -392,6 +392,14 @@ class ApiClient {
     return this.fetch<any[]>('/qr-studio/billing/offers', { token });
   }
 
+  async getQrAccess(token: string) {
+    return this.fetch<any>('/qr-studio/billing/access', { token });
+  }
+
+  async getQrPayment(token: string, id: string) {
+    return this.fetch<any>(`/qr-studio/billing/payments/${id}`, { token });
+  }
+
   async createQrCheckout(token: string, offerCode: string) {
     return this.fetch<any>('/qr-studio/billing/checkout', {
       method: 'POST',

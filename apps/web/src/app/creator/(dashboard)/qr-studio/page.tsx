@@ -10,6 +10,16 @@ const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
 
 const SAFE_QR_DARK = '#143c2b';
+const BRAND_KIT_KEY = 'cp_qr_brand_kit';
+
+// Design presets — the default is available to everyone; the rest are Pro (R6).
+const DESIGN_PRESETS = [
+  { id: 'forest', label: 'Forest', primary: '#166534', accent: '#f59e0b', pro: false },
+  { id: 'midnight', label: 'Midnight', primary: '#0f172a', accent: '#38bdf8', pro: true },
+  { id: 'plum', label: 'Plum', primary: '#4c1d95', accent: '#c084fc', pro: true },
+  { id: 'ember', label: 'Ember', primary: '#7c2d12', accent: '#fb923c', pro: true },
+  { id: 'mono', label: 'Mono', primary: '#111827', accent: '#6b7280', pro: true },
+];
 
 // Contrast ratio of a hex color against white — QR modules need a very dark
 // foreground (>= 7:1) to stay reliably scannable, especially with a logo.
@@ -47,6 +57,11 @@ export default function QrStudioPage() {
   const [qrPreview, setQrPreview] = useState('');
   const [qrSvg, setQrSvg] = useState('');
   const [scanWarning, setScanWarning] = useState('');
+  const [access, setAccess] = useState<any>(null);
+  const [presetId, setPresetId] = useState('forest');
+  const [paymentNote, setPaymentNote] = useState('');
+
+  const hasPro = !!access?.hasPro;
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -65,6 +80,50 @@ export default function QrStudioPage() {
   useEffect(() => {
     if (!token) return;
     void load();
+  }, [token]);
+
+  // Returning from Paystack: reflect canceled / pending / webhook-delayed states
+  // and grant-on-confirmation without leaving the page (R34).
+  useEffect(() => {
+    if (!token || typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const paymentId = params.get('payment');
+    const status = params.get('status');
+    if (!paymentId) return;
+    window.history.replaceState({}, '', window.location.pathname);
+
+    if (status === 'canceled') {
+      setPaymentNote('Payment was canceled — no plan was purchased.');
+      return;
+    }
+
+    let cancelled = false;
+    setPaymentNote('Verifying your payment…');
+    (async () => {
+      for (let i = 0; i < 5 && !cancelled; i += 1) {
+        try {
+          const pay = await api.getQrPayment(token, paymentId);
+          if (pay?.status === 'SUCCEEDED') {
+            setPaymentNote('Payment confirmed — your QR Studio access is ready.');
+            await load();
+            return;
+          }
+          if (pay?.status === 'FAILED') {
+            setPaymentNote('That payment did not go through. You can try again.');
+            return;
+          }
+        } catch {
+          /* keep waiting */
+        }
+        await new Promise((r) => setTimeout(r, 2500));
+      }
+      if (!cancelled) {
+        setPaymentNote('Payment received — access is being confirmed. Refresh in a moment if it is not visible yet.');
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [token]);
 
   useEffect(() => {
@@ -108,12 +167,14 @@ export default function QrStudioPage() {
     setLoading(true);
     setError('');
     try {
-      const [offerData, campaignData] = await Promise.all([
+      const [offerData, campaignData, accessData] = await Promise.all([
         api.getQrOffers(token),
         api.getQrCampaigns(token),
+        api.getQrAccess(token).catch(() => null),
       ]);
       setOffers(offerData);
       setCampaigns(campaignData);
+      setAccess(accessData);
       setSelectedCampaign(campaignData[0] ?? null);
     } catch (err: any) {
       setError(err.message || 'Could not load QR Studio');
@@ -151,6 +212,7 @@ export default function QrStudioPage() {
         brandName: form.brandName,
         brandPrimaryColor: form.brandPrimaryColor,
         brandAccentColor: form.brandAccentColor,
+        designSettings: { preset: presetId },
       });
 
       if (file && form.contentType === 'FILE') {
@@ -185,6 +247,44 @@ export default function QrStudioPage() {
     }
   }
 
+  function applyPreset(preset: (typeof DESIGN_PRESETS)[number]) {
+    if (preset.pro && !hasPro) {
+      setError('That design preset is part of Pro QR Studio.');
+      return;
+    }
+    setError('');
+    setPresetId(preset.id);
+    setForm((f) => ({ ...f, brandPrimaryColor: preset.primary, brandAccentColor: preset.accent }));
+  }
+
+  function saveBrandKit() {
+    try {
+      localStorage.setItem(
+        BRAND_KIT_KEY,
+        JSON.stringify({ brandName: form.brandName, brandPrimaryColor: form.brandPrimaryColor, brandAccentColor: form.brandAccentColor, presetId }),
+      );
+      setMessage('Brand kit saved. Apply it on any new campaign.');
+    } catch {
+      setError('Could not save your brand kit in this browser.');
+    }
+  }
+
+  function applyBrandKit() {
+    try {
+      const raw = localStorage.getItem(BRAND_KIT_KEY);
+      if (!raw) {
+        setError('No saved brand kit yet — save one first.');
+        return;
+      }
+      const kit = JSON.parse(raw);
+      setForm((f) => ({ ...f, brandName: kit.brandName ?? '', brandPrimaryColor: kit.brandPrimaryColor ?? f.brandPrimaryColor, brandAccentColor: kit.brandAccentColor ?? f.brandAccentColor }));
+      if (kit.presetId) setPresetId(kit.presetId);
+      setError('');
+    } catch {
+      setError('Could not read your saved brand kit.');
+    }
+  }
+
   if (!token) {
     return (
       <div className="rounded-2xl border border-ink-100 bg-white p-6">
@@ -205,10 +305,23 @@ export default function QrStudioPage() {
           </p>
         </div>
         <div className="rounded-2xl border border-forest-100 bg-forest-50 px-4 py-3 text-sm text-forest-800">
-          <span className="font-semibold">{activeCount}</span> active campaigns
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">{activeCount}</span> active campaigns
+            {hasPro && <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[0.625rem] font-bold text-gold-700">PRO</span>}
+          </div>
+          {access && (
+            <p className="mt-0.5 text-xs text-forest-600">
+              {access.hasPaidAccess ? 'Paid access active' : 'No paid plan yet — pick one below.'}
+            </p>
+          )}
         </div>
       </div>
 
+      {paymentNote && (
+        <div className="mt-5 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800" role="status">
+          {paymentNote}
+        </div>
+      )}
       {error && (
         <div className="mt-5 rounded-xl border border-clay-200 bg-clay-50 px-4 py-3 text-sm text-clay-700" role="alert">
           {error}
@@ -325,6 +438,54 @@ export default function QrStudioPage() {
                 />
               </div>
             </div>
+
+            <div className="rounded-xl border border-ink-100 bg-cream-50 p-4">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-ink-800">Design &amp; branding</p>
+                {!hasPro && <span className="rounded-full bg-forest-100 px-2 py-0.5 text-[0.625rem] font-semibold text-forest-700">More presets with Pro</span>}
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {DESIGN_PRESETS.map((preset) => {
+                  const locked = preset.pro && !hasPro;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      onClick={() => applyPreset(preset)}
+                      className={cn(
+                        'flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition',
+                        presetId === preset.id ? 'border-forest-600 bg-forest-50 text-forest-800' : 'border-ink-200 text-ink-700 hover:border-forest-300',
+                        locked && 'opacity-50',
+                      )}
+                    >
+                      <span className="h-3 w-3 rounded-full" style={{ backgroundColor: preset.primary }} />
+                      {preset.label}
+                      {locked && <span className="text-[0.625rem] text-gold-600">Pro</span>}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-4">
+                <label className="flex items-center gap-2 text-xs text-ink-600">
+                  Primary
+                  <input type="color" value={form.brandPrimaryColor} onChange={(e) => setForm({ ...form, brandPrimaryColor: e.target.value })} className="h-7 w-9 cursor-pointer rounded border border-ink-200" />
+                </label>
+                <label className="flex items-center gap-2 text-xs text-ink-600">
+                  Accent
+                  <input type="color" value={form.brandAccentColor} onChange={(e) => setForm({ ...form, brandAccentColor: e.target.value })} className="h-7 w-9 cursor-pointer rounded border border-ink-200" />
+                </label>
+                {hasPro && (
+                  <div className="ml-auto flex gap-2">
+                    <button type="button" onClick={saveBrandKit} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Save brand kit</button>
+                    <button type="button" onClick={applyBrandKit} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Apply brand kit</button>
+                  </div>
+                )}
+              </div>
+              {contrastWithWhite(form.brandPrimaryColor) < 7 && (
+                <p className="mt-2 text-xs text-gold-700">Tip: a darker primary colour scans more reliably.</p>
+              )}
+            </div>
+
             <div className="flex flex-wrap gap-3 pt-2">
               <button
                 type="submit"
