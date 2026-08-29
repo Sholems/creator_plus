@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import type { Route } from 'next';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -150,6 +152,12 @@ export default function AdminQrStudioPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2">
+                      <Link
+                        href={`/qr-studio/${campaign.id}` as Route}
+                        className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100"
+                      >
+                        Details
+                      </Link>
                       <button
                         type="button"
                         onClick={() => safetyAction(campaign.id)}

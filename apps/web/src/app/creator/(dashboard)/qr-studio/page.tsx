@@ -9,6 +9,23 @@ import { cn } from '@creatorplus/ui';
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
 
+const SAFE_QR_DARK = '#143c2b';
+
+// Contrast ratio of a hex color against white — QR modules need a very dark
+// foreground (>= 7:1) to stay reliably scannable, especially with a logo.
+function contrastWithWhite(hex?: string | null): number {
+  if (!hex) return 0;
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return 0;
+  const n = parseInt(m[1], 16);
+  const srgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((c) => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  });
+  const lum = 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+  return 1.05 / (lum + 0.05);
+}
+
 type Campaign = {
   id: string;
   publicCode: string;
@@ -18,6 +35,7 @@ type Campaign = {
   contentType: string;
   status: string;
   scanMode: string;
+  brandPrimaryColor?: string | null;
   assets?: { id: string; fileName: string; safetyStatus: string }[];
 };
 
@@ -27,6 +45,8 @@ export default function QrStudioPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [qrPreview, setQrPreview] = useState('');
+  const [qrSvg, setQrSvg] = useState('');
+  const [scanWarning, setScanWarning] = useState('');
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -50,18 +70,31 @@ export default function QrStudioPage() {
   useEffect(() => {
     if (!selectedCampaign) {
       setQrPreview('');
+      setQrSvg('');
+      setScanWarning('');
       return;
     }
     const base = typeof window === 'undefined' ? '' : window.location.origin;
-    QRCode.toDataURL(`${base}/qr/${selectedCampaign.publicCode}`, {
-      errorCorrectionLevel: 'H',
-      margin: 4,
-      color: {
-        dark: '#143c2b',
-        light: '#ffffff',
-      },
-      width: 720,
-    }).then(setQrPreview).catch(() => setQrPreview(''));
+    const url = `${base}/qr/${selectedCampaign.publicCode}`;
+
+    // Brand color is used for the modules only when it stays dark enough to
+    // scan; otherwise fall back to a safe dark and warn (R19, R21).
+    const brand = selectedCampaign.brandPrimaryColor;
+    const brandOk = contrastWithWhite(brand) >= 7;
+    const dark = brandOk && brand ? brand : SAFE_QR_DARK;
+    setScanWarning(
+      brand && !brandOk
+        ? 'Your brand colour is too light to scan reliably, so a darker shade was used for the code. Pick a darker brand colour to use it directly.'
+        : '',
+    );
+
+    // High error correction + a generous quiet zone keep logo-branded codes
+    // reliable (R19). Export both a digital PNG and a print-ready vector SVG (R20).
+    const opts = { errorCorrectionLevel: 'H' as const, margin: 4, color: { dark, light: '#ffffff' } };
+    QRCode.toDataURL(url, { ...opts, width: 720 }).then(setQrPreview).catch(() => setQrPreview(''));
+    QRCode.toString(url, { ...opts, type: 'svg', width: 1024 })
+      .then((svg) => setQrSvg(`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`))
+      .catch(() => setQrSvg(''));
   }, [selectedCampaign]);
 
   const hasCampaigns = campaigns.length > 0;
@@ -316,13 +349,34 @@ export default function QrStudioPage() {
               <p className="mt-1 text-center text-xs text-ink-500">
                 Encodes /qr/{selectedCampaign.publicCode}, not an R2 file URL.
               </p>
-              <a
-                href={qrPreview}
-                download={`${selectedCampaign.title || 'creatorplus-qr'}.png`}
-                className="mt-4 block rounded-full bg-gold-500 px-4 py-2 text-center text-sm font-semibold text-ink-900 hover:bg-gold-400"
-              >
-                Download PNG
-              </a>
+              {scanWarning && (
+                <p className="mt-3 rounded-xl border border-gold-200 bg-gold-50 px-3 py-2 text-xs text-gold-800">
+                  {scanWarning}
+                </p>
+              )}
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <a
+                  href={qrPreview}
+                  download={`${selectedCampaign.title || 'creatorplus-qr'}.png`}
+                  className="rounded-full bg-gold-500 px-4 py-2 text-center text-sm font-semibold text-ink-900 hover:bg-gold-400"
+                >
+                  Download PNG
+                </a>
+                <a
+                  href={qrSvg || undefined}
+                  download={`${selectedCampaign.title || 'creatorplus-qr'}.svg`}
+                  aria-disabled={!qrSvg}
+                  className={cn(
+                    'rounded-full border border-forest-300 px-4 py-2 text-center text-sm font-semibold text-forest-800 hover:bg-cream-100',
+                    !qrSvg && 'pointer-events-none opacity-50',
+                  )}
+                >
+                  Print-ready SVG
+                </a>
+              </div>
+              <p className="mt-2 text-center text-xs text-ink-400">
+                Use the SVG for print — it stays sharp at any size.
+              </p>
             </div>
           ) : (
             <p className="mt-4 text-sm text-ink-500">
