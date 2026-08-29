@@ -1,14 +1,14 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 2 --- Business Requirements & User Personas
 
-> Working Name: **CreatorMarket**
+> Working Name: **CreatorPlus**
 
 ------------------------------------------------------------------------
 
 # 2.1 Business Objectives
 
-CreatorMarket is a global multi-vendor marketplace dedicated to digital
+CreatorPlus is a global multi-vendor marketplace dedicated to digital
 products. The platform enables creators to publish, license, market, and
 sell digital assets while giving buyers a trusted destination for
 discovery and secure purchases.

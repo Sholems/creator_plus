@@ -25,7 +25,7 @@ export class StorageService {
       },
     });
 
-    this.bucket = process.env.R2_BUCKET_NAME || process.env.R2_BUCKET || 'creatormarket';
+    this.bucket = process.env.R2_BUCKET_NAME || process.env.R2_BUCKET || 'creatorplus';
   }
 
   /**

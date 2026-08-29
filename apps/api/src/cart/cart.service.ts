@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 
 const VALID_LICENSE_TYPES = ['PERSONAL', 'COMMERCIAL', 'EXTENDED', 'ENTERPRISE'] as const;
 

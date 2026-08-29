@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { formatNaira } from '@/lib/format';

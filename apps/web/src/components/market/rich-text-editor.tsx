@@ -9,7 +9,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
 import { Node, mergeAttributes } from '@tiptap/core';
 import { useCallback, useRef, useState } from 'react';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 /* ------------------------------------------------------------------ */
 /*  Custom Iframe node                                                 */

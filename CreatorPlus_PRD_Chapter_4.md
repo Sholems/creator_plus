@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 4 --- User Stories & Acceptance Criteria
 

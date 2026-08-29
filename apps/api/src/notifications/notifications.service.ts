@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { prisma, NotificationType } from '@creatormarket/database';
+import { prisma, NotificationType } from '@creatorplus/database';
 import { paginate, pageMeta } from '../common/pagination';
 
 @Injectable()

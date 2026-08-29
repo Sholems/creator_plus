@@ -1,4 +1,4 @@
-# CreatorMarket / Oja — Remediation Implementation Plan
+# CreatorPlus / CreatorPlus — Remediation Implementation Plan
 
 **Status:** Draft for engineering review
 **Scope:** Correctness, security, performance and quality fixes identified in the codebase audit
@@ -40,7 +40,7 @@ Work the milestones in order. Do **not** ship C1–C5 without the tests in M0, b
 Conventions used below:
 
 - `tx` is the transactional Prisma client passed to `prisma.$transaction(async (tx) => { ... })`.
-- Money helpers use `Prisma.Decimal` (imported from `@creatormarket/database`).
+- Money helpers use `Prisma.Decimal` (imported from `@creatorplus/database`).
 
 ---
 
@@ -65,7 +65,7 @@ module.exports = {
   coverageDirectory: './coverage',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^@creatormarket/database$': '<rootDir>/../../packages/database/src',
+    '^@creatorplus/database$': '<rootDir>/../../packages/database/src',
   },
 };
 ```
@@ -79,7 +79,7 @@ module.exports = {
 
 ```ts
 import { execSync } from 'child_process';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 
 export async function resetDb() {
   // Truncate every table between tests. Order-independent via CASCADE.
@@ -101,7 +101,7 @@ export async function migrateTestDb() {
    - `downloads.spec.ts` — limit enforcement + ownership.
 
 ### Acceptance criteria
-- `npm run test --workspace @creatormarket/api` runs and reports coverage.
+- `npm run test --workspace @creatorplus/api` runs and reports coverage.
 - CI (`.github/workflows/ci.yml`) runs the suite on every PR (spin up the Postgres service container).
 
 ---
@@ -628,7 +628,7 @@ async issueSignedUrls(token: string, userId: string) {
 1. Install:
 
 ```bash
-npm install --workspace @creatormarket/api @nestjs/throttler helmet
+npm install --workspace @creatorplus/api @nestjs/throttler helmet
 ```
 
 2. Global throttler in `app.module.ts`:

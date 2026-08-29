@@ -30,7 +30,7 @@ RUN npm install -g prisma@6.19.3 \
     && prisma generate --schema=packages/database/prisma/schema.prisma
 
 # Build API (+ its workspace deps)
-RUN npx turbo build --filter=@creatormarket/api...
+RUN npx turbo build --filter=@creatorplus/api...
 
 # Production stage
 FROM node:20-slim AS production
@@ -54,7 +54,7 @@ COPY --from=builder /app/node_modules ./node_modules
 # workspace deps into it, otherwise the app crashes with MODULE_NOT_FOUND.
 COPY --from=builder /app/apps/api/node_modules ./node_modules
 COPY --from=builder /app/apps/api/package.json ./
-# Workspace packages (@creatormarket/database, @creatormarket/shared) — npm
+# Workspace packages (@creatorplus/database, @creatorplus/shared) — npm
 # symlinks them into root node_modules, so the packages must exist in the image
 # for those symlinks to resolve at runtime. The database package also carries
 # the Prisma schema + migrations that `migrate deploy` runs at startup.

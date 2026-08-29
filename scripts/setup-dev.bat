@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo CreatorMarket Development Setup
+echo CreatorPlus Development Setup
 echo ========================================
 echo.
 

@@ -3,7 +3,7 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { Prisma } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
 import { AppModule } from './app.module';
 import { validateEnv } from './config/validate-env';
 import { initObservability } from './common/observability';

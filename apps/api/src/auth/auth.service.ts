@@ -2,8 +2,8 @@ import { Injectable, UnauthorizedException, ConflictException, ForbiddenExceptio
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { createHash, randomUUID, randomBytes } from 'crypto';
-import { prisma } from '@creatormarket/database';
-import { syncBrevoContact } from '@creatormarket/email';
+import { prisma } from '@creatorplus/database';
+import { syncBrevoContact } from '@creatorplus/email';
 import { EmailService } from '../email/email.service';
 import { generateSecret, verifyTotp, buildOtpAuthUri, generateBackupCodes } from '../common/totp';
 

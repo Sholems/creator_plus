@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 12 --- Commerce, Orders, Payments & Checkout Engine
 
@@ -317,7 +317,7 @@ Commerce Metrics
 
 # Deliverables
 
-This chapter establishes the complete commerce engine for CreatorMarket,
+This chapter establishes the complete commerce engine for CreatorPlus,
 covering the full lifecycle from cart creation through payment,
 fulfillment, invoicing, reconciliation, and reporting.
 

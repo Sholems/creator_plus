@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 14 --- Affiliate, Referral & Growth Engine
 
@@ -238,7 +238,7 @@ Requirements:
 
 # Deliverables
 
-This chapter defines CreatorMarket's growth engine, enabling scalable
+This chapter defines CreatorPlus's growth engine, enabling scalable
 customer acquisition, creator promotion, and partner engagement while
 maintaining accurate attribution and fraud resistance.
 

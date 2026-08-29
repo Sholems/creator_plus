@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 13 --- Wallet, Ledger, Payouts & Financial Architecture
 
@@ -272,7 +272,7 @@ Exports:
 
 # Deliverables
 
-This chapter establishes the financial backbone of CreatorMarket,
+This chapter establishes the financial backbone of CreatorPlus,
 ensuring every monetary event is traceable, balanced, secure, and
 scalable.
 

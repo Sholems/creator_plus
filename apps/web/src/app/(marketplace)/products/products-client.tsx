@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { api } from '@/lib/api';
 import { AdinkraMark } from '@/components/brand/adinkra';
 import { SectionHeading } from '@/components/market/section-heading';

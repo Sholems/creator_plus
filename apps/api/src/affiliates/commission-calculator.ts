@@ -1,5 +1,5 @@
-import { Prisma } from '@creatormarket/database';
-import type { AcquisitionSource } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
+import type { AcquisitionSource } from '@creatorplus/database';
 import {
   Decimal,
   ItemSplit,

@@ -1,5 +1,5 @@
-import { prisma } from '@creatormarket/database';
-import { renderEmailLayout } from '@creatormarket/email';
+import { prisma } from '@creatorplus/database';
+import { renderEmailLayout } from '@creatorplus/email';
 import { QUEUE_NAMES, createWorker, emailQueue, eventsQueue } from '../queues';
 
 /**

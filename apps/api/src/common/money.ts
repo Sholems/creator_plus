@@ -1,4 +1,4 @@
-import { Prisma } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
 
 /**
  * Money helpers. All marketplace money arithmetic goes through Prisma.Decimal

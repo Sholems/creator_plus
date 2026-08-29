@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { SectionHeading } from '@/components/market/section-heading';

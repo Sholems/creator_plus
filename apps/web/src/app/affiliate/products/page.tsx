@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 interface AffiliateLink {
   id: string;

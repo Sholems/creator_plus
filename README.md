@@ -1,4 +1,4 @@
-# Oja
+# CreatorPlus
 
 The market for African digital creators — a multi-vendor marketplace for buying
 and selling digital products, built for Nigeria first, expanding across Africa
@@ -74,9 +74,9 @@ Provider webhooks are handled at `POST /api/v1/payments/webhook/:provider`.
 ## Project Structure
 
 ```
-creatormarket/
+CreatorPlus/
 ├── apps/
-│   ├── web/          # Next.js frontend (Oja marketplace)
+│   ├── web/          # Next.js frontend (CreatorPlus marketplace)
 │   ├── api/          # NestJS backend API
 │   ├── admin/        # Admin dashboard
 │   └── workers/      # Background workers

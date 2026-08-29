@@ -28,7 +28,7 @@ COPY tsconfig.json turbo.json ./
 RUN npm install -g prisma@6.19.3 \
     && prisma generate --schema=packages/database/prisma/schema.prisma
 
-RUN npx turbo build --filter=@creatormarket/workers...
+RUN npx turbo build --filter=@creatorplus/workers...
 
 # Production stage
 FROM node:20-slim AS production

@@ -1,4 +1,4 @@
-﻿from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
@@ -10,7 +10,7 @@ with sync_playwright() as p:
     print("=== ADMIN :3002 ===")
     page.goto("http://localhost:3002/login")
     page.wait_for_load_state("networkidle")
-    page.fill('input[type="email"]', "admin@creatormarket.ng")
+    page.fill('input[type="email"]', "admin@mycreatorplus.com")
     page.fill('input[type="password"]', "Admin@123456")
     page.click('button[type="submit"]')
     page.wait_for_load_state("networkidle")

@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 5 --- Information Architecture & User Experience
 
@@ -24,7 +24,7 @@ the UX, frontend implementation, and API design.
 -   Flash Deals
 -   Blog
 -   Pricing
--   Sell on CreatorMarket
+-   Sell on CreatorPlus
 -   Help Center
 
 Utility Navigation

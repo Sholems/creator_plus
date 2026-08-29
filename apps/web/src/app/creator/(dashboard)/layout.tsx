@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { useAuth } from '@/lib/auth';
 import { DashboardSwitcher } from '@/components/market/dashboard-switcher';
 

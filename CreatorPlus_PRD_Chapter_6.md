@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 6 --- Database Design & Data Model
 
@@ -7,7 +7,7 @@
 # Purpose
 
 This chapter defines the logical database architecture for
-CreatorMarket. The schema is organized into domains to maximize
+CreatorPlus. The schema is organized into domains to maximize
 maintainability, scalability, and future expansion.
 
 > **Database Engine:** PostgreSQL 18\

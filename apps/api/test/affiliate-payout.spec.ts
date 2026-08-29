@@ -1,4 +1,4 @@
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { CommissionService } from '../src/affiliates/commission.service';
 import { AffiliatesService } from '../src/affiliates/affiliates.service';
 import {
@@ -46,7 +46,7 @@ describe('AffiliatesService.requestPayout (integration)', () => {
         affiliateId: affiliate.id,
         productId: product.id,
         code: `lnk-${randomUUID().slice(0, 8)}`,
-        url: 'https://creatormarket.ng/?ref=x',
+        url: 'https://mycreatorplus.com/?ref=x',
       },
     });
     const order = await createPendingOrder(buyer.id, product);

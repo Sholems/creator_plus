@@ -1,5 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 
 export interface UploadableFile {
   originalname: string;

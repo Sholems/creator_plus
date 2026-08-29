@@ -1,6 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { MeiliSearch } from 'meilisearch';
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 
 export interface SearchFilters {
   q?: string;

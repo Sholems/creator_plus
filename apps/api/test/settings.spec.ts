@@ -1,4 +1,4 @@
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { SettingsService } from '../src/settings/settings.service';
 import { resetDb } from './helpers';
 

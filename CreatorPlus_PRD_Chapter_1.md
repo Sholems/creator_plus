@@ -1,8 +1,8 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 1 --- Executive Summary & Product Vision
 
-> **Working Name:** CreatorMarket
+> **Working Name:** CreatorPlus
 
 ------------------------------------------------------------------------
 

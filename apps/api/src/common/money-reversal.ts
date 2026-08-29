@@ -1,4 +1,4 @@
-import { Prisma } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
 
 /**
  * Debit back the exact creator net that fulfillment credited for an order, per

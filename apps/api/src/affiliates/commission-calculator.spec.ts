@@ -1,4 +1,4 @@
-import { Prisma } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
 import {
   AFFILIATE_COMMISSION_RATES,
   DEFAULT_AFFILIATE_COMMISSION_RATE,

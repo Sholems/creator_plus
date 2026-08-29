@@ -5,7 +5,7 @@ import {
   BadRequestException,
   ConflictException,
 } from '@nestjs/common';
-import { prisma, ProductStatus, Prisma } from '@creatormarket/database';
+import { prisma, ProductStatus, Prisma } from '@creatorplus/database';
 import { paginate, pageMeta } from '../common/pagination';
 import { StorageService } from '../storage/storage.service';
 import { SearchService } from '../search/search.service';

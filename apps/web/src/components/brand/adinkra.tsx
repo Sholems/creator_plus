@@ -1,4 +1,4 @@
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 /**
  * Adinkrahene — the "chief" of the Adinkra symbols, a West African symbol of

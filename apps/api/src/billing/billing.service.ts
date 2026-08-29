@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import Stripe from 'stripe';
-import { prisma, PlanTier, SubscriptionStatus, CreditPurchaseStatus } from '@creatormarket/database';
+import { prisma, PlanTier, SubscriptionStatus, CreditPurchaseStatus } from '@creatorplus/database';
 import { webBaseUrl } from '../common/urls';
 
 @Injectable()

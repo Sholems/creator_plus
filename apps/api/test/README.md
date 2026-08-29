@@ -12,7 +12,7 @@ Two tiers:
 Unit tests only:
 
 ```bash
-npm run test --workspace @creatormarket/api -- src/common
+npm run test --workspace @creatorplus/api -- src/common
 ```
 
 Integration tests — point `DATABASE_URL` at a throwaway database first, then push
@@ -20,8 +20,8 @@ the schema:
 
 ```bash
 docker compose up -d postgres
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/creatormarket_test npm run db:push
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/creatormarket_test npm run test --workspace @creatormarket/api -- test
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/creatorplus_test npm run db:push
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/creatorplus_test npm run test --workspace @creatorplus/api -- test
 ```
 
 Integration specs run serially (`maxWorkers: 1`) and `TRUNCATE ... CASCADE`

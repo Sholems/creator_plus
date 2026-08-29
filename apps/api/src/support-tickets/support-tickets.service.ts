@@ -3,7 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { paginate, pageMeta } from '../common/pagination';
 import { NotificationsService } from '../notifications/notifications.service';
 import {

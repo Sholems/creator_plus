@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 16 --- Infrastructure, DevOps & Deployment Architecture
 
@@ -8,7 +8,7 @@
 
 This chapter defines the production infrastructure, deployment
 architecture, DevOps practices, and operational standards required to
-run CreatorMarket reliably, securely, and at scale.
+run CreatorPlus reliably, securely, and at scale.
 
 ------------------------------------------------------------------------
 
@@ -340,7 +340,7 @@ Practices
 # Deliverables
 
 This chapter establishes the infrastructure and DevOps foundation for
-CreatorMarket, enabling secure deployments, operational resilience,
+CreatorPlus, enabling secure deployments, operational resilience,
 observability, and scalable growth.
 
 **Next Chapter:** Chapter 17 --- Quality Assurance, Testing & Release

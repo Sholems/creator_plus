@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { EmailService } from '../email/email.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { SearchService } from '../search/search.service';

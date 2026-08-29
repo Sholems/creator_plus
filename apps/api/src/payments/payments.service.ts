@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException, ForbiddenException, Logger } from '@nestjs/common';
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { v4 as uuidv4 } from 'uuid';
 import { PaymentProviderFactory } from './providers/payment-provider.factory';
 import { WebhookEvent } from './providers/payment-provider.interface';

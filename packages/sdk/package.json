@@ -1,5 +1,5 @@
 {
-  "name": "@creatormarket/sdk",
+  "name": "@creatorplus/sdk",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/index.js",
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@creatormarket/shared": "*"
+    "@creatorplus/shared": "*"
   },
   "devDependencies": {
     "typescript": "^5.7.0"

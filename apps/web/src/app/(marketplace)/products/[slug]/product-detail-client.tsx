@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { formatNaira } from '@/lib/format';

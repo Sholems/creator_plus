@@ -1,4 +1,4 @@
-import { Prisma } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
 import { computeEarnings, lineCommission, toDecimal } from './money';
 
 describe('money helpers', () => {

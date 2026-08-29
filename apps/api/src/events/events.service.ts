@@ -4,7 +4,7 @@ import {
   ForbiddenException,
   NotFoundException,
 } from '@nestjs/common';
-import { prisma, Prisma, EventTicketStatus } from '@creatormarket/database';
+import { prisma, Prisma, EventTicketStatus } from '@creatorplus/database';
 import { generateTicketCode } from './event-ticket.util';
 import { EmailService } from '../email/email.service';
 import { webBaseUrl } from '../common/urls';

@@ -5,7 +5,7 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { generateLicenseKey } from './license-key.util';
 import { LicenseSigningService } from './license-signing.service';
 

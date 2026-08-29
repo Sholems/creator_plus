@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 18 --- AI Platform, Search Intelligence & Future Innovation
 
@@ -7,14 +7,14 @@
 # Purpose
 
 This chapter defines the AI architecture and intelligent capabilities
-that power CreatorMarket, enabling smarter discovery, creator
+that power CreatorPlus, enabling smarter discovery, creator
 productivity, operational efficiency, and personalized user experiences.
 
 ------------------------------------------------------------------------
 
 # 18.1 AI Vision
 
-CreatorMarket is designed as an AI-native marketplace where artificial
+CreatorPlus is designed as an AI-native marketplace where artificial
 intelligence augments---not replaces---human creativity.
 
 Objectives:
@@ -275,7 +275,7 @@ AI KPIs
 
 # Deliverables
 
-This chapter establishes CreatorMarket's AI platform, enabling
+This chapter establishes CreatorPlus's AI platform, enabling
 intelligent discovery, creator productivity, operational automation, and
 personalized customer experiences while maintaining governance and
 scalability.

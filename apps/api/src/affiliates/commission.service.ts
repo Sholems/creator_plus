@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { prisma, Prisma } from '@creatormarket/database';
-import type { AcquisitionSource } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
+import type { AcquisitionSource } from '@creatorplus/database';
 import {
   round2,
   allocateDiscount,

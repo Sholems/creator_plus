@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { cached } from '../common/cache';
 
 const CATEGORIES_CACHE_KEY = 'categories:all';

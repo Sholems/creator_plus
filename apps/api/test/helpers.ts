@@ -1,4 +1,4 @@
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { randomUUID } from 'crypto';
 
 /**

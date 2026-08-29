@@ -5,7 +5,7 @@ import {
   ForbiddenException,
   BadRequestException,
 } from '@nestjs/common';
-import { prisma, Prisma, AffiliateStatus } from '@creatormarket/database';
+import { prisma, Prisma, AffiliateStatus } from '@creatorplus/database';
 import { v4 as uuidv4 } from 'uuid';
 import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from './commission.service';

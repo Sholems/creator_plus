@@ -7,7 +7,7 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
-    '^@creatormarket/database$': '<rootDir>/../../packages/database/src',
+    '^@creatorplus/database$': '<rootDir>/../../packages/database/src',
   },
   testEnvironment: 'node',
   // Integration specs open real DB connections; give them room and run serially

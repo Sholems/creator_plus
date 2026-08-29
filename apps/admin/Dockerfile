@@ -21,7 +21,7 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ARG NEXT_PUBLIC_WEB_URL
 ENV NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL
 
-RUN npx turbo build --filter=@creatormarket/admin...
+RUN npx turbo build --filter=@creatorplus/admin...
 
 # Production stage
 FROM node:20-slim AS production

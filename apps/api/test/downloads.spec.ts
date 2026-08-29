@@ -1,4 +1,4 @@
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { ForbiddenException, BadRequestException } from '@nestjs/common';
 import { DownloadsService } from '../src/downloads/downloads.service';
 import {

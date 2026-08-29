@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 const TYPE_ICONS: Record<string, string> = {
   SALE: '💰',

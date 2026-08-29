@@ -1,9 +1,9 @@
-// Environment configuration for CreatorMarket
+// Environment configuration for CreatorPlus
 
 export const config = {
   // Application
   app: {
-    name: 'CreatorMarket',
+    name: 'CreatorPlus',
     version: process.env.npm_package_version || '0.1.0',
     port: parseInt(process.env.PORT || '3001'),
     corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
@@ -11,7 +11,7 @@ export const config = {
 
   // Database
   database: {
-    url: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/creatormarket',
+    url: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/creatorplus',
   },
 
   // Redis
@@ -38,7 +38,7 @@ export const config = {
     accountId: process.env.R2_ACCOUNT_ID || '',
     accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
     secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
-    bucketName: process.env.R2_BUCKET_NAME || 'creatormarket',
+    bucketName: process.env.R2_BUCKET_NAME || 'creatorplus',
     publicUrl: process.env.R2_PUBLIC_URL || '',
   },
 
@@ -69,7 +69,7 @@ export const config = {
         pass: process.env.SMTP_PASS || '',
       },
     },
-    from: process.env.EMAIL_FROM || 'CreatorMarket <noreply@creatormarket.com>',
+    from: process.env.EMAIL_FROM || 'CreatorPlus <noreply@mycreatorplus.com>',
   },
 
   // AI

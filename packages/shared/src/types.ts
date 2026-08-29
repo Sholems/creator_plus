@@ -1,4 +1,4 @@
-// Common types for CreatorMarket
+// Common types for CreatorPlus
 
 export type ProductStatus = 'draft' | 'pending' | 'approved' | 'rejected' | 'published' | 'archived';
 

@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 17 --- Quality Assurance, Testing & Release Management
 
@@ -8,7 +8,7 @@
 
 This chapter defines the quality engineering strategy, testing
 framework, release process, and operational safeguards that ensure
-CreatorMarket is reliable, secure, and production-ready.
+CreatorPlus is reliable, secure, and production-ready.
 
 ------------------------------------------------------------------------
 
@@ -307,7 +307,7 @@ Product KPIs
 # Deliverables
 
 This chapter establishes the quality assurance and release management
-framework for CreatorMarket, ensuring features are validated,
+framework for CreatorPlus, ensuring features are validated,
 deployments are safe, and the platform remains reliable as it scales.
 
 **Next Chapter:** Chapter 18 --- AI Platform, Search Intelligence &

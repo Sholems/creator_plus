@@ -1,4 +1,4 @@
-"""Full E2E verification for CreatorMarket checklist:
+"""Full E2E verification for CreatorPlus checklist:
 - creator login smart redirect -> /creator, Creator badge in header
 - dashboard switcher (buyer <-> creator)
 - buyer login -> /dashboard, Start selling CTA in user menu + switcher
@@ -240,7 +240,7 @@ with sync_playwright() as p:
     for attempt in range(2):
         apage.goto(f"{ADMIN}/login")
         settle(apage)
-        apage.fill('input[type="email"]', "admin@creatormarket.ng")
+        apage.fill('input[type="email"]', "admin@mycreatorplus.com")
         apage.fill('input[type="password"]', "Admin@123456")
         apage.click('button[type="submit"]')
         settle(apage, 3500)
@@ -261,7 +261,7 @@ with sync_playwright() as p:
             return False
         return role in row.first.inner_text()
 
-    check("admin@creatormarket.ng row shows super_admin", row_has("admin@creatormarket.ng", "super_admin"))
+    check("admin@mycreatorplus.com row shows super_admin", row_has("admin@mycreatorplus.com", "super_admin"))
     check("ada@example.com row shows creator", row_has("ada@example.com", "creator"))
     check("sarah@example.com row shows buyer", row_has("sarah@example.com", "buyer"))
 

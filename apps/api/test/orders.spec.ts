@@ -1,4 +1,4 @@
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { OrdersService } from '../src/orders/orders.service';
 import { resetDb, createUser, createCreatorWithProduct } from './helpers';
 

@@ -1,4 +1,4 @@
-// CreatorMarket API SDK
+// CreatorPlus API SDK
 
 import type {
   Product,
@@ -10,14 +10,14 @@ import type {
   ApiResponse,
   PaginatedResponse,
   PaginationParams,
-} from '@creatormarket/shared';
+} from '@creatorplus/shared';
 
 export interface SDKConfig {
   baseUrl: string;
   apiKey?: string;
 }
 
-export class CreatorMarketSDK {
+export class CreatorPlusSDK {
   private baseUrl: string;
   private apiKey?: string;
 
@@ -121,4 +121,4 @@ export class CreatorMarketSDK {
   }
 }
 
-export default CreatorMarketSDK;
+export default CreatorPlusSDK;

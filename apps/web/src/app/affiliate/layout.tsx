@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import type { Route } from 'next';
 import { usePathname } from 'next/navigation';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { AffiliateGate } from '@/components/affiliate/affiliate-gate';

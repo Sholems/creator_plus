@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Route } from 'next';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 export function SectionHeading({
   eyebrow,

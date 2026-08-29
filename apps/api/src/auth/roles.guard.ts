@@ -5,7 +5,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { ROLES_KEY } from './roles.decorator';
 
 /**

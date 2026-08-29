@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Prisma } from '@creatormarket/database';
+import { Prisma } from '@creatorplus/database';
 
 @Injectable()
 export class SerializeInterceptor implements NestInterceptor {

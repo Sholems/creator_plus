@@ -5,7 +5,7 @@ import {
   BadRequestException,
   Logger,
 } from '@nestjs/common';
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { PaymentProviderFactory } from '../payments/providers/payment-provider.factory';
 import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from '../affiliates/commission.service';

@@ -1,7 +1,7 @@
 import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { getRedis } from '../common/redis';
 
 @ApiTags('health')

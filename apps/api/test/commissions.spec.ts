@@ -1,4 +1,4 @@
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { CommissionService } from '../src/affiliates/commission.service';
 import {
   resetDb,
@@ -35,7 +35,7 @@ describe('CommissionService (integration)', () => {
         affiliateId: affiliate.id,
         productId,
         code: `lnk-${randomUUID().slice(0, 8)}`,
-        url: `https://creatormarket.ng/?ref=${randomUUID().slice(0, 8)}`,
+        url: `https://mycreatorplus.com/?ref=${randomUUID().slice(0, 8)}`,
         status: 'ACTIVE',
       },
     });
@@ -249,7 +249,7 @@ describe('CommissionService (integration)', () => {
         affiliateId: affiliate.id,
         productId: product.id,
         code: `lnk-${randomUUID().slice(0, 8)}`,
-        url: 'https://creatormarket.ng/?ref=x',
+        url: 'https://mycreatorplus.com/?ref=x',
       },
     });
     const order = await createPendingOrder(buyer.id, product);
@@ -300,7 +300,7 @@ describe('CommissionService (integration)', () => {
         affiliateId: affiliate.id,
         productId: product.id,
         code: `lnk-${randomUUID().slice(0, 8)}`,
-        url: 'https://creatormarket.ng/?ref=self',
+        url: 'https://mycreatorplus.com/?ref=self',
       },
     });
     const order = await createPendingOrder(buyer.id, product);
@@ -334,7 +334,7 @@ describe('CommissionService release + reverse (integration)', () => {
         affiliateId: affiliate.id,
         productId: product.id,
         code: `lnk-${randomUUID().slice(0, 8)}`,
-        url: 'https://creatormarket.ng/?ref=x',
+        url: 'https://mycreatorplus.com/?ref=x',
       },
     });
     const order = await createPendingOrder(buyer.id, product);

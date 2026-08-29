@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 export function DashboardSwitcher() {
   const { isCreator } = useAuth();

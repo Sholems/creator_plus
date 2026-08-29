@@ -1,4 +1,4 @@
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 /**
  * CreatorPlus brand mark — the official CP+ app icon (green rounded square,

@@ -8,7 +8,7 @@ import {
   renderPaymentReminderEmail,
   renderEmailLayout,
   SITE_NAME,
-} from '@creatormarket/email';
+} from '@creatorplus/email';
 import { enqueueEmail } from '../common/queue';
 import { webBaseUrl } from '../common/urls';
 
@@ -18,7 +18,7 @@ export class EmailService {
   private transporter: nodemailer.Transporter;
 
   constructor() {
-    // Brevo SMTP relay by default (see @creatormarket/email transport);
+    // Brevo SMTP relay by default (see @creatorplus/email transport);
     // any SMTP provider can be used by overriding the SMTP_* env vars.
     this.transporter = createEmailTransport();
   }

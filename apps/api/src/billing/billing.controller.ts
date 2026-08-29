@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import { BillingService } from './billing.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateSubscriptionCheckoutDto, PurchaseCreditPackDto } from './dto/billing.dto';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 
 @ApiTags('billing')
 @Controller('billing')

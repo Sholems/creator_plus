@@ -1,4 +1,4 @@
-# CreatorMarket Engineering Bible
+# CreatorPlus Engineering Bible
 
 ## Chapter 20 --- Complete Prisma Schema & Database Blueprint
 

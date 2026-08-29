@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 8 --- Authentication, Authorization & Security Architecture
 
@@ -344,7 +344,7 @@ Platform Requirements
 # Deliverables
 
 This chapter defines the authentication, authorization, and security
-foundation for CreatorMarket, ensuring every module operates under
+foundation for CreatorPlus, ensuring every module operates under
 consistent enterprise-grade security controls.
 
 **Next Chapter:** Chapter 9 --- Marketplace Domain (Products,

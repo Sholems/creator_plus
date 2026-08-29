@@ -1,4 +1,4 @@
-import { prisma, Prisma } from '@creatormarket/database';
+import { prisma, Prisma } from '@creatorplus/database';
 import { PaymentsService } from '../src/payments/payments.service';
 import { CommissionService } from '../src/affiliates/commission.service';
 import {

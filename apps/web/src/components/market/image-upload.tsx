@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 interface ImageUploadProps {
   label: string;

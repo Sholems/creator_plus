@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { StorageService } from '../storage/storage.service';
 import { paginate, pageMeta } from '../common/pagination';
 

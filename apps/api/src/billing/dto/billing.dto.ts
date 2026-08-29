@@ -1,6 +1,6 @@
 import { IsEnum, IsString, IsOptional } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PlanTier } from '@creatormarket/database';
+import { PlanTier } from '@creatorplus/database';
 
 export class CreateSubscriptionCheckoutDto {
   @ApiProperty({ enum: PlanTier, description: 'Subscription tier' })

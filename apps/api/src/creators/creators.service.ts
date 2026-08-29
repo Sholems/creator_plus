@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ConflictException, ForbiddenException, BadRequestException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { OrdersService } from '../orders/orders.service';
 
 @Injectable()

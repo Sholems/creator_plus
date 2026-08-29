@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 7 --- REST API Specification & Service Contracts
 
@@ -8,7 +8,7 @@
 
 This chapter defines the REST API standards, service boundaries,
 endpoint conventions, request/response patterns, and integration
-contracts for CreatorMarket.
+contracts for CreatorPlus.
 
 > Architecture Style: RESTful APIs with asynchronous events for
 > background processing.
@@ -20,7 +20,7 @@ contracts for CreatorMarket.
 ## Base URL
 
 ``` text
-https://api.creatormarket.com/v1
+https://api.mycreatorplus.com/v1
 ```
 
 Future versions:

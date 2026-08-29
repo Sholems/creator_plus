@@ -10,7 +10,7 @@ import { AffiliateProgramForm } from '@/components/creator/affiliate-program-for
 import { GalleryUploader } from '@/components/creator/gallery-uploader';
 import { LicenseOptionsForm } from '@/components/creator/license-options-form';
 import { EventOptionsForm, type EventConfigValue } from '@/components/creator/event-options-form';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';

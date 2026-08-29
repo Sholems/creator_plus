@@ -4,8 +4,8 @@ import {
   ForbiddenException,
   BadRequestException,
 } from '@nestjs/common';
-import { prisma, OrderStatus, Prisma } from '@creatormarket/database';
-import type { AcquisitionSource } from '@creatormarket/database';
+import { prisma, OrderStatus, Prisma } from '@creatorplus/database';
+import type { AcquisitionSource } from '@creatorplus/database';
 import { Decimal } from '@prisma/client/runtime/library';
 import { CouponsService } from '../coupons/coupons.service';
 import { AffiliatesService } from '../affiliates/affiliates.service';

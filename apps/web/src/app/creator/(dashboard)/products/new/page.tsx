@@ -10,7 +10,7 @@ import { AffiliateProgramForm } from '@/components/creator/affiliate-program-for
 import { GalleryUploader } from '@/components/creator/gallery-uploader';
 import { LicenseOptionsForm } from '@/components/creator/license-options-form';
 import { EventOptionsForm, type EventConfigValue } from '@/components/creator/event-options-form';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 const emptyEvent: EventConfigValue = {
   startsAt: null,

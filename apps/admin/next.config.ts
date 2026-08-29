@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  transpilePackages: ['@creatormarket/ui', '@creatormarket/shared'],
+  transpilePackages: ['@creatorplus/ui', '@creatorplus/shared'],
   typedRoutes: true,
 };
 

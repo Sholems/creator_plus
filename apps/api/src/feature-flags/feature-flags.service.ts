@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { createHash } from 'crypto';
 import { CreateFeatureFlagDto, UpdateFeatureFlagDto } from './dto/feature-flag.dto';
 

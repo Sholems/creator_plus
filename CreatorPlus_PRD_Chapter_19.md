@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 19 --- Product Roadmap, Scaling Strategy & Long-Term Vision
 
@@ -7,14 +7,14 @@
 # Purpose
 
 This chapter defines the phased delivery strategy, long-term vision, and
-measurable objectives that will guide CreatorMarket from MVP to a
+measurable objectives that will guide CreatorPlus from MVP to a
 globally recognized digital products marketplace.
 
 ------------------------------------------------------------------------
 
 # 19.1 Product Vision
 
-CreatorMarket aims to become the preferred marketplace for discovering,
+CreatorPlus aims to become the preferred marketplace for discovering,
 buying, and selling digital products while empowering creators with
 tools to build sustainable businesses.
 
@@ -262,7 +262,7 @@ Year 3
 
 # 19.15 Five-Year Vision
 
-CreatorMarket becomes:
+CreatorPlus becomes:
 
 -   A leading global digital products marketplace
 -   A trusted platform for creators and businesses
@@ -273,7 +273,7 @@ CreatorMarket becomes:
 
 # Deliverables
 
-This chapter concludes the CreatorMarket Product Requirements Document
+This chapter concludes the CreatorPlus Product Requirements Document
 by providing the strategic roadmap, scaling vision, and long-term
 direction for the platform.
 
@@ -293,4 +293,4 @@ documents should be produced:
 9.  AI Implementation Guide
 10. Developer Handbook
 
-**End of CreatorMarket PRD (Core Edition).**
+**End of CreatorPlus PRD (Core Edition).**

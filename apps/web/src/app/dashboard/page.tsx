@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { formatNaira } from '@/lib/format';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 const STATUS_STYLES: Record<string, string> = {
   PAID: 'bg-forest-100 text-forest-700',

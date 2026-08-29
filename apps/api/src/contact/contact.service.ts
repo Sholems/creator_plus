@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { prisma } from '@creatormarket/database';
+import { prisma } from '@creatorplus/database';
 import { paginate, pageMeta } from '../common/pagination';
 import { CreateContactDto, UpdateContactStatusDto } from './dto/contact.dto';
 

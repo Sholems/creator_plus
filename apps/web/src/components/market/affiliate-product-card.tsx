@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { formatNaira } from '@/lib/format';
 
 export interface AffiliateProduct {

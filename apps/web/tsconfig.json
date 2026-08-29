@@ -14,8 +14,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@creatormarket/ui": ["../../packages/ui/src"],
-      "@creatormarket/shared": ["../../packages/shared/src"]
+      "@creatorplus/ui": ["../../packages/ui/src"],
+      "@creatorplus/shared": ["../../packages/shared/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

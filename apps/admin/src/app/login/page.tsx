@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
                 required
                 autoFocus
                 className="w-full rounded-lg border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-forest-400 transition focus:border-gold-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
-                placeholder="admin@creatormarket.ng"
+                placeholder="admin@mycreatorplus.com"
               />
             </div>
             <div>

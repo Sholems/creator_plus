@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 const TONES: Record<string, string> = {
   gold: 'bg-gold-50 text-gold-600',

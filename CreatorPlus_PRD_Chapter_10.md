@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 10 --- Seller Platform & Creator Experience
 
@@ -14,7 +14,7 @@ customer engagement, and payouts.
 
 # 10.1 Creator Philosophy
 
-CreatorMarket is designed to help creators build long-term businesses,
+CreatorPlus is designed to help creators build long-term businesses,
 not just upload files.
 
 Core principles:
@@ -340,6 +340,6 @@ Platform KPIs
 
 This chapter defines the complete creator experience, providing the
 tools needed to publish, market, manage, and grow a digital product
-business on CreatorMarket.
+business on CreatorPlus.
 
 **Next Chapter:** Chapter 11 --- Buyer Experience & Customer Platform.

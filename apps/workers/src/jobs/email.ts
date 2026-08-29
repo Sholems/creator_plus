@@ -1,4 +1,4 @@
-import { createEmailTransport, fromAddress } from '@creatormarket/email';
+import { createEmailTransport, fromAddress } from '@creatorplus/email';
 import { createWorker } from '../queues';
 
 /**

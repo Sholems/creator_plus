@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 3 --- Functional Requirements (Module-by-Module)
 
@@ -7,7 +7,7 @@
 # Purpose
 
 This chapter defines the functional behavior of every major module in
-CreatorMarket. Each module includes its objective, key capabilities,
+CreatorPlus. Each module includes its objective, key capabilities,
 actors, and success criteria.
 
 ------------------------------------------------------------------------

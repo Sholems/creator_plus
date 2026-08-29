@@ -1,4 +1,4 @@
-// Common utilities for CreatorMarket
+// Common utilities for CreatorPlus
 
 export function slugify(text: string): string {
   return text
@@ -9,7 +9,7 @@ export function slugify(text: string): string {
 }
 
 export function formatCurrency(amount: number, currency: string = 'NGN'): string {
-  // CreatorMarket is Nigeria-first, so default to Naira (en-NG locale).
+  // CreatorPlus is Nigeria-first, so default to Naira (en-NG locale).
   const locale = currency === 'NGN' ? 'en-NG' : 'en-US';
   return new Intl.NumberFormat(locale, {
     style: 'currency',

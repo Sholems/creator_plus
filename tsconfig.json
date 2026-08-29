@@ -18,13 +18,13 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@creatormarket/ui": ["./packages/ui/src"],
-      "@creatormarket/database": ["./packages/database/src"],
-      "@creatormarket/auth": ["./packages/auth/src"],
-      "@creatormarket/shared": ["./packages/shared/src"],
-      "@creatormarket/config": ["./packages/config/src"],
-      "@creatormarket/sdk": ["./packages/sdk/src"],
-      "@creatormarket/email": ["./packages/email/src"]
+      "@creatorplus/ui": ["./packages/ui/src"],
+      "@creatorplus/database": ["./packages/database/src"],
+      "@creatorplus/auth": ["./packages/auth/src"],
+      "@creatorplus/shared": ["./packages/shared/src"],
+      "@creatorplus/config": ["./packages/config/src"],
+      "@creatorplus/sdk": ["./packages/sdk/src"],
+      "@creatorplus/email": ["./packages/email/src"]
     }
   },
   "exclude": ["node_modules"]

@@ -1,5 +1,5 @@
 {
-  "name": "@creatormarket/workers",
+  "name": "@creatorplus/workers",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,10 +12,10 @@
     "bullmq": "^5.30.0",
     "ioredis": "^5.4.2",
     "nodemailer": "^6.9.0",
-    "@creatormarket/database": "*",
-    "@creatormarket/email": "*",
-    "@creatormarket/shared": "*",
-    "@creatormarket/config": "*"
+    "@creatorplus/database": "*",
+    "@creatorplus/email": "*",
+    "@creatorplus/shared": "*",
+    "@creatorplus/config": "*"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

@@ -8,7 +8,7 @@ import { api } from '@/lib/api';
 import { AdinkraMark, AdinkraField } from '@/components/brand/adinkra';
 import { ImageUpload } from '@/components/market/image-upload';
 import { SITE_DOMAIN, SITE_NAME } from '@/lib/brand';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 
 const STEPS = [
   { n: 1, title: 'Store identity', desc: 'Name your store & claim your URL' },

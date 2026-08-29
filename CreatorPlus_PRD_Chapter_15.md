@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 15 --- Administration, Moderation & Platform Operations
 
@@ -7,7 +7,7 @@
 # Purpose
 
 This chapter defines the internal systems, tools, workflows, and
-governance required to operate CreatorMarket securely, efficiently, and
+governance required to operate CreatorPlus securely, efficiently, and
 at scale.
 
 ------------------------------------------------------------------------
@@ -328,7 +328,7 @@ Operational requirements
 # Deliverables
 
 This chapter defines the operational framework required to administer,
-moderate, support, secure, and continuously improve CreatorMarket while
+moderate, support, secure, and continuously improve CreatorPlus while
 maintaining compliance and platform trust.
 
 **Next Chapter:** Chapter 16 --- Infrastructure, DevOps & Deployment

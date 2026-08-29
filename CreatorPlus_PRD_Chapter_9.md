@@ -1,4 +1,4 @@
-# CreatorMarket PRD
+# CreatorPlus PRD
 
 ## Chapter 9 --- Marketplace Domain (Products, Categories, Search & Discovery)
 

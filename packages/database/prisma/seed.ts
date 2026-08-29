@@ -17,7 +17,7 @@ async function main() {
   const superAdminRole = roles.find((r) => r.name === 'super_admin')!;
   const superAdmin = await prisma.user.create({
     data: {
-      email: 'admin@creatormarket.ng',
+      email: 'admin@mycreatorplus.com',
       passwordHash: await bcrypt.hash('Admin@123456', 12),
       displayName: 'Platform Admin',
       emailVerified: true,

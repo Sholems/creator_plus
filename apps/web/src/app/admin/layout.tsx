@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { cn } from '@creatormarket/ui';
+import { cn } from '@creatorplus/ui';
 import { useAuth } from '@/lib/auth';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';

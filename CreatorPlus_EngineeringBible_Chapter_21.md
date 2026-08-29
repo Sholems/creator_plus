@@ -1,4 +1,4 @@
-# CreatorMarket Engineering Bible
+# CreatorPlus Engineering Bible
 
 ## Chapter 21 --- Marketplace UX Refactor: Customer vs. Affiliate Marketplaces
 
