@@ -40,4 +40,34 @@ describe('validateEnv', () => {
       validateEnv({ DATABASE_URL: 'postgresql://x', JWT_SECRET: 'short' } as any),
     ).not.toThrow();
   });
+
+  it('rejects invalid QR signed URL TTL values', () => {
+    expect(() =>
+      validateEnv({
+        ...base,
+        QR_SIGNED_URL_TTL_SECONDS: '30',
+      } as any),
+    ).toThrow(/QR_SIGNED_URL_TTL_SECONDS/);
+  });
+
+  it('rejects a too-short QR analytics hash secret in production when QR Studio is enabled', () => {
+    expect(() =>
+      validateEnv({
+        ...base,
+        NODE_ENV: 'production',
+        QR_ANALYTICS_HASH_SECRET: 'short',
+      } as any),
+    ).toThrow(/QR_ANALYTICS_HASH_SECRET/);
+  });
+
+  it('allows a short QR analytics hash secret in production when QR Studio is disabled', () => {
+    expect(() =>
+      validateEnv({
+        ...base,
+        NODE_ENV: 'production',
+        QR_STUDIO_ENABLED: 'false',
+        QR_ANALYTICS_HASH_SECRET: 'short',
+      } as any),
+    ).not.toThrow();
+  });
 });

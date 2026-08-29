@@ -32,4 +32,20 @@ export function validateEnv(env: NodeJS.ProcessEnv = process.env): void {
       'JWT_SECRET is too short for production (need at least 32 characters).',
     );
   }
+
+  if (env.QR_SIGNED_URL_TTL_SECONDS) {
+    const ttl = Number(env.QR_SIGNED_URL_TTL_SECONDS);
+    if (!Number.isInteger(ttl) || ttl < 60 || ttl > 900) {
+      throw new Error(
+        'QR_SIGNED_URL_TTL_SECONDS must be an integer between 60 and 900 seconds.',
+      );
+    }
+  }
+
+  const qrStudioEnabled = env.QR_STUDIO_ENABLED !== 'false';
+  if (isProd && qrStudioEnabled && env.QR_ANALYTICS_HASH_SECRET && env.QR_ANALYTICS_HASH_SECRET.length < 32) {
+    throw new Error(
+      'QR_ANALYTICS_HASH_SECRET is too short for production (need at least 32 characters).',
+    );
+  }
 }

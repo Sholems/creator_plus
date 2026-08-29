@@ -62,8 +62,8 @@ export class PaystackProvider implements PaymentProvider {
         reference,
         callback_url: input.successUrl,
         metadata: {
-          purpose: input.purpose || 'marketplace_order',
           ...metadata,
+          purpose: input.purpose || 'marketplace_order',
         },
       }),
     });
