@@ -100,9 +100,84 @@ export function validateCampaignDestination(
     case 'PRODUCT_PAGE':
     case 'CREATOR_PROFILE':
       return { destinationUrl: normalizeSafePublicUrl(destinationUrl), destinationData: destinationData ?? null };
+    case 'VCARD': {
+      const fullName = String(destinationData?.fullName ?? '').trim();
+      if (!fullName) throw new BadRequestException('A name is required for a contact card');
+      const email = String(destinationData?.email ?? '').trim();
+      if (email && !isValidEmail(email)) throw new BadRequestException('Enter a valid email address');
+      const phone = String(destinationData?.phone ?? '').replace(/[^\d+]/g, '');
+      const website = destinationData?.website ? normalizeSafePublicUrl(String(destinationData.website)) : null;
+      return {
+        destinationUrl: null,
+        destinationData: {
+          fullName: fullName.slice(0, 120),
+          org: String(destinationData?.org ?? '').trim().slice(0, 120) || undefined,
+          title: String(destinationData?.title ?? '').trim().slice(0, 120) || undefined,
+          phone: phone || undefined,
+          email: email || undefined,
+          website: website || undefined,
+        },
+      };
+    }
+    case 'COUPON': {
+      const code = String(destinationData?.code ?? '').trim();
+      if (!code) throw new BadRequestException('A coupon code is required');
+      const ctaUrl = destinationData?.ctaUrl ? normalizeSafePublicUrl(String(destinationData.ctaUrl)) : null;
+      return {
+        destinationUrl: null,
+        destinationData: {
+          code: code.slice(0, 64),
+          description: String(destinationData?.description ?? '').trim().slice(0, 500) || undefined,
+          expiresAt: destinationData?.expiresAt ? String(destinationData.expiresAt).slice(0, 40) : undefined,
+          ctaUrl: ctaUrl || undefined,
+        },
+      };
+    }
+    case 'LOCATION': {
+      const lat = destinationData?.latitude;
+      const lng = destinationData?.longitude;
+      const address = String(destinationData?.address ?? '').trim();
+      const hasCoords = typeof lat === 'number' && typeof lng === 'number' && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
+      if (!hasCoords && !address) throw new BadRequestException('Provide an address or coordinates');
+      const query = hasCoords ? `${lat},${lng}` : address;
+      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+      return {
+        destinationUrl: mapUrl,
+        destinationData: {
+          label: String(destinationData?.label ?? '').trim().slice(0, 120) || undefined,
+          latitude: hasCoords ? lat : undefined,
+          longitude: hasCoords ? lng : undefined,
+          address: address.slice(0, 300) || undefined,
+        },
+      };
+    }
+    case 'EMAIL': {
+      const email = String(destinationData?.email ?? '').trim();
+      if (!isValidEmail(email)) throw new BadRequestException('Enter a valid email address');
+      return {
+        destinationUrl: null,
+        destinationData: {
+          email,
+          subject: String(destinationData?.subject ?? '').trim().slice(0, 200) || undefined,
+          body: String(destinationData?.body ?? '').trim().slice(0, 2000) || undefined,
+        },
+      };
+    }
+    case 'SMS': {
+      const phone = String(destinationData?.phone ?? '').replace(/[^\d+]/g, '');
+      if (!/^\+?[1-9]\d{7,14}$/.test(phone)) throw new BadRequestException('Enter a valid phone number');
+      return {
+        destinationUrl: null,
+        destinationData: { phone, message: String(destinationData?.message ?? '').trim().slice(0, 500) || undefined },
+      };
+    }
     default:
       throw new BadRequestException('Unsupported QR content type');
   }
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 function isUnsafeHost(hostname: string): boolean {

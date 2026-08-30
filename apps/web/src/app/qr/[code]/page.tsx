@@ -109,7 +109,89 @@ export default function PublicQrPage() {
             </a>
           </div>
         )}
+
+        {!data.asset && !data.destinationUrl && data.destinationData && (
+          <ContentBlock contentType={data.contentType} d={data.destinationData} title={data.title} />
+        )}
       </section>
     </main>
   );
+}
+
+const btn = 'mt-4 block w-full rounded-full bg-forest-800 px-5 py-3 text-center text-sm font-semibold text-cream-50 hover:bg-forest-700';
+
+function ContentBlock({ contentType, d, title }: { contentType: string; d: any; title: string }) {
+  const [copied, setCopied] = useState(false);
+
+  if (contentType === 'TEXT_NOTE') {
+    return <div className="mt-6 whitespace-pre-wrap rounded-2xl border border-ink-100 bg-cream-50 p-4 text-sm leading-6 text-ink-800">{d.text}</div>;
+  }
+
+  if (contentType === 'SOCIAL_LINK_HUB') {
+    return (
+      <div className="mt-6 space-y-2">
+        {(d.links ?? []).map((l: any, i: number) => (
+          <a key={i} href={l.url} rel="noreferrer" className="block rounded-full border border-ink-200 bg-white px-5 py-3 text-center text-sm font-semibold text-forest-800 hover:bg-cream-100">
+            {l.label || l.url}
+          </a>
+        ))}
+      </div>
+    );
+  }
+
+  if (contentType === 'VCARD') {
+    const vcf = [
+      'BEGIN:VCARD', 'VERSION:3.0', `FN:${d.fullName ?? ''}`,
+      d.org ? `ORG:${d.org}` : '', d.title ? `TITLE:${d.title}` : '',
+      d.phone ? `TEL:${d.phone}` : '', d.email ? `EMAIL:${d.email}` : '',
+      d.website ? `URL:${d.website}` : '', 'END:VCARD',
+    ].filter(Boolean).join('\n');
+    const href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vcf)}`;
+    return (
+      <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-4 text-sm text-ink-700">
+        <p className="text-base font-semibold text-ink-900">{d.fullName}</p>
+        {(d.title || d.org) && <p className="text-ink-500">{[d.title, d.org].filter(Boolean).join(' · ')}</p>}
+        {d.phone && <p className="mt-2">{d.phone}</p>}
+        {d.email && <p>{d.email}</p>}
+        {d.website && <a href={d.website} rel="noreferrer" className="text-forest-700 hover:underline">{d.website}</a>}
+        <a href={href} download={`${(d.fullName || 'contact').replace(/\s+/g, '-')}.vcf`} className={btn}>Save contact</a>
+      </div>
+    );
+  }
+
+  if (contentType === 'COUPON') {
+    return (
+      <div className="mt-6 rounded-2xl border border-dashed border-forest-300 bg-forest-50 p-5 text-center">
+        <p className="eyebrow text-forest-600">Your code</p>
+        <p className="mt-1 font-mono text-2xl font-bold tracking-wide text-forest-900">{d.code}</p>
+        <button type="button" onClick={() => { navigator.clipboard?.writeText(d.code); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="mt-2 text-xs font-semibold text-forest-700 hover:underline">
+          {copied ? 'Copied!' : 'Copy code'}
+        </button>
+        {d.description && <p className="mt-3 text-sm text-ink-700">{d.description}</p>}
+        {d.expiresAt && <p className="mt-1 text-xs text-ink-500">Expires {d.expiresAt}</p>}
+        {d.ctaUrl && <a href={d.ctaUrl} rel="noreferrer" className={btn}>Shop now</a>}
+      </div>
+    );
+  }
+
+  if (contentType === 'EMAIL') {
+    const q = [d.subject ? `subject=${encodeURIComponent(d.subject)}` : '', d.body ? `body=${encodeURIComponent(d.body)}` : ''].filter(Boolean).join('&');
+    return (
+      <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-4 text-center">
+        <p className="text-sm text-ink-700">{d.email}</p>
+        <a href={`mailto:${d.email}${q ? `?${q}` : ''}`} className={btn}>Send email</a>
+      </div>
+    );
+  }
+
+  if (contentType === 'SMS') {
+    return (
+      <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-4 text-center">
+        <p className="text-sm text-ink-700">{d.phone}</p>
+        <a href={`sms:${d.phone}${d.message ? `?body=${encodeURIComponent(d.message)}` : ''}`} className={btn}>Send SMS</a>
+      </div>
+    );
+  }
+
+  return null;
 }

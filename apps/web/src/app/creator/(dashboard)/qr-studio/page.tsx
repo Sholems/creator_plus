@@ -61,6 +61,8 @@ export default function QrStudioPage() {
   const [presetId, setPresetId] = useState('forest');
   const [paymentNote, setPaymentNote] = useState('');
   const [couponCode, setCouponCode] = useState('');
+  const [contentData, setContentData] = useState<Record<string, any>>({});
+  const cd = (k: string, v: any) => setContentData((d) => ({ ...d, [k]: v }));
 
   const hasPro = !!access?.hasPro;
   const [loading, setLoading] = useState(true);
@@ -198,6 +200,39 @@ export default function QrStudioPage() {
     }
   }
 
+  function buildContentPayload(): { destinationUrl?: string; destinationData?: any } {
+    const t = form.contentType;
+    if (['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE'].includes(t)) return { destinationUrl: form.destinationUrl };
+    if (t === 'TEXT_NOTE') return { destinationData: { text: contentData.text } };
+    if (t === 'WHATSAPP' || t === 'SMS') return { destinationData: { phone: contentData.phone, message: contentData.message } };
+    if (t === 'SOCIAL_LINK_HUB') {
+      const links = String(contentData.linksText ?? '')
+        .split('\n')
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .map((line) => {
+          const [label, url] = line.split('|').map((s) => s.trim());
+          return { label: label ?? '', url: url ?? label };
+        });
+      return { destinationData: { links } };
+    }
+    if (t === 'VCARD')
+      return { destinationData: { fullName: contentData.fullName, org: contentData.org, title: contentData.title, phone: contentData.phone, email: contentData.email, website: contentData.website } };
+    if (t === 'COUPON')
+      return { destinationData: { code: contentData.code, description: contentData.description, expiresAt: contentData.expiresAt, ctaUrl: contentData.ctaUrl } };
+    if (t === 'LOCATION')
+      return {
+        destinationData: {
+          address: contentData.address,
+          label: contentData.label,
+          latitude: contentData.latitude ? Number(contentData.latitude) : undefined,
+          longitude: contentData.longitude ? Number(contentData.longitude) : undefined,
+        },
+      };
+    if (t === 'EMAIL') return { destinationData: { email: contentData.email, subject: contentData.subject, body: contentData.body } };
+    return {};
+  }
+
   async function createCampaign(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!token) return;
@@ -209,7 +244,7 @@ export default function QrStudioPage() {
         title: form.title,
         description: form.description,
         contentType: form.contentType,
-        destinationUrl: form.contentType === 'WEBSITE' ? form.destinationUrl : undefined,
+        ...buildContentPayload(),
         brandName: form.brandName,
         brandPrimaryColor: form.brandPrimaryColor,
         brandAccentColor: form.brandAccentColor,
@@ -400,32 +435,84 @@ export default function QrStudioPage() {
                 <option value="TEXT_NOTE">Text note — Pro</option>
                 <option value="WHATSAPP">WhatsApp chat — Pro</option>
                 <option value="SOCIAL_LINK_HUB">Social link hub — Pro</option>
+                <option value="VCARD">Contact card (vCard) — Pro</option>
+                <option value="COUPON">Coupon / promo — Pro</option>
+                <option value="LOCATION">Location / map — Pro</option>
+                <option value="EMAIL">Email action — Pro</option>
+                <option value="SMS">SMS action — Pro</option>
               </select>
             </div>
-            {form.contentType === 'FILE' ? (
+
+            {form.contentType === 'FILE' && (
               <div>
                 <label className="text-sm font-medium text-ink-700" htmlFor="qr-file">PDF or document</label>
-                <input
-                  id="qr-file"
-                  type="file"
-                  className={inputClass}
-                  onChange={(event) => setFile(event.target.files?.[0] ?? null)}
-                />
-                <p className="mt-1 text-xs text-ink-500">
-                  Files are stored in the existing CreatorPlus Cloudflare R2 bucket and served through checked scan routes.
-                </p>
+                <input id="qr-file" type="file" className={inputClass} onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
+                <p className="mt-1 text-xs text-ink-500">Stored in Cloudflare R2 and served through checked scan routes.</p>
               </div>
-            ) : (
+            )}
+            {['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE'].includes(form.contentType) && (
               <div>
-                <label className="text-sm font-medium text-ink-700" htmlFor="qr-url">Destination URL</label>
-                <input
-                  id="qr-url"
-                  type="url"
-                  className={inputClass}
-                  value={form.destinationUrl}
-                  onChange={(event) => setForm({ ...form, destinationUrl: event.target.value })}
-                  placeholder="https://example.com"
-                />
+                <label className="text-sm font-medium text-ink-700">Destination URL</label>
+                <input type="url" className={inputClass} value={form.destinationUrl} onChange={(e) => setForm({ ...form, destinationUrl: e.target.value })} placeholder="https://example.com" />
+              </div>
+            )}
+            {form.contentType === 'TEXT_NOTE' && (
+              <div>
+                <label className="text-sm font-medium text-ink-700">Text</label>
+                <textarea className={inputClass} rows={3} value={contentData.text ?? ''} onChange={(e) => cd('text', e.target.value)} placeholder="The note scanners will see" />
+              </div>
+            )}
+            {(form.contentType === 'WHATSAPP' || form.contentType === 'SMS') && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="text-sm font-medium text-ink-700">Phone (international)</label>
+                  <input className={inputClass} value={contentData.phone ?? ''} onChange={(e) => cd('phone', e.target.value)} placeholder="+2348012345678" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-ink-700">Prefilled message (optional)</label>
+                  <input className={inputClass} value={contentData.message ?? ''} onChange={(e) => cd('message', e.target.value)} />
+                </div>
+              </div>
+            )}
+            {form.contentType === 'SOCIAL_LINK_HUB' && (
+              <div>
+                <label className="text-sm font-medium text-ink-700">Links (one per line, as “Label | https://url”)</label>
+                <textarea className={inputClass} rows={3} value={contentData.linksText ?? ''} onChange={(e) => cd('linksText', e.target.value)} placeholder={'Instagram | https://instagram.com/you'} />
+              </div>
+            )}
+            {form.contentType === 'VCARD' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input className={inputClass} value={contentData.fullName ?? ''} onChange={(e) => cd('fullName', e.target.value)} placeholder="Full name*" />
+                <input className={inputClass} value={contentData.org ?? ''} onChange={(e) => cd('org', e.target.value)} placeholder="Company" />
+                <input className={inputClass} value={contentData.title ?? ''} onChange={(e) => cd('title', e.target.value)} placeholder="Job title" />
+                <input className={inputClass} value={contentData.phone ?? ''} onChange={(e) => cd('phone', e.target.value)} placeholder="Phone" />
+                <input className={inputClass} value={contentData.email ?? ''} onChange={(e) => cd('email', e.target.value)} placeholder="Email" />
+                <input className={inputClass} value={contentData.website ?? ''} onChange={(e) => cd('website', e.target.value)} placeholder="https://website" />
+              </div>
+            )}
+            {form.contentType === 'COUPON' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input className={inputClass} value={contentData.code ?? ''} onChange={(e) => cd('code', e.target.value)} placeholder="Promo code*" />
+                <input className={inputClass} value={contentData.expiresAt ?? ''} onChange={(e) => cd('expiresAt', e.target.value)} placeholder="Expires (e.g. Dec 31)" />
+                <input className={`${inputClass} sm:col-span-2`} value={contentData.description ?? ''} onChange={(e) => cd('description', e.target.value)} placeholder="Description" />
+                <input className={`${inputClass} sm:col-span-2`} value={contentData.ctaUrl ?? ''} onChange={(e) => cd('ctaUrl', e.target.value)} placeholder="Shop link (optional, https)" />
+              </div>
+            )}
+            {form.contentType === 'LOCATION' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input className={`${inputClass} sm:col-span-2`} value={contentData.address ?? ''} onChange={(e) => cd('address', e.target.value)} placeholder="Address (or use coordinates)" />
+                <input className={inputClass} value={contentData.label ?? ''} onChange={(e) => cd('label', e.target.value)} placeholder="Place name" />
+                <div className="grid grid-cols-2 gap-2">
+                  <input className={inputClass} value={contentData.latitude ?? ''} onChange={(e) => cd('latitude', e.target.value)} placeholder="Latitude" />
+                  <input className={inputClass} value={contentData.longitude ?? ''} onChange={(e) => cd('longitude', e.target.value)} placeholder="Longitude" />
+                </div>
+              </div>
+            )}
+            {form.contentType === 'EMAIL' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input className={inputClass} value={contentData.email ?? ''} onChange={(e) => cd('email', e.target.value)} placeholder="Email address*" />
+                <input className={inputClass} value={contentData.subject ?? ''} onChange={(e) => cd('subject', e.target.value)} placeholder="Subject" />
+                <textarea className={`${inputClass} sm:col-span-2`} rows={2} value={contentData.body ?? ''} onChange={(e) => cd('body', e.target.value)} placeholder="Message body" />
               </div>
             )}
             <div className="grid gap-4 sm:grid-cols-2">

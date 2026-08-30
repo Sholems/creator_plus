@@ -46,4 +46,38 @@ describe('QR content validation', () => {
       destinationData: { links: [{ label: 'Site', url: 'https://example.com/' }] },
     });
   });
+
+  it('validates a vCard contact card', () => {
+    expect(
+      validateCampaignDestination('VCARD', null, { fullName: 'Ada Lovelace', email: 'ada@x.com', website: 'https://ada.dev' }),
+    ).toMatchObject({ destinationUrl: null, destinationData: { fullName: 'Ada Lovelace', email: 'ada@x.com', website: 'https://ada.dev/' } });
+    expect(() => validateCampaignDestination('VCARD', null, { fullName: '' })).toThrow('name is required');
+    expect(() => validateCampaignDestination('VCARD', null, { fullName: 'A', email: 'bad' })).toThrow('valid email');
+  });
+
+  it('validates a coupon-content type', () => {
+    expect(validateCampaignDestination('COUPON', null, { code: 'SALE10', description: '10% off' })).toMatchObject({
+      destinationData: { code: 'SALE10', description: '10% off' },
+    });
+    expect(() => validateCampaignDestination('COUPON', null, {})).toThrow('coupon code is required');
+  });
+
+  it('builds a safe maps URL for a location', () => {
+    const res = validateCampaignDestination('LOCATION', null, { latitude: 6.5244, longitude: 3.3792, label: 'Lagos' });
+    expect(res.destinationUrl).toContain('https://www.google.com/maps');
+    expect(res.destinationUrl).toContain('6.5244%2C3.3792');
+    expect(() => validateCampaignDestination('LOCATION', null, {})).toThrow('address or coordinates');
+  });
+
+  it('validates email and SMS actions', () => {
+    expect(validateCampaignDestination('EMAIL', null, { email: 'hi@x.com', subject: 'Yo' })).toMatchObject({
+      destinationUrl: null,
+      destinationData: { email: 'hi@x.com', subject: 'Yo' },
+    });
+    expect(() => validateCampaignDestination('EMAIL', null, { email: 'bad' })).toThrow('valid email');
+    expect(validateCampaignDestination('SMS', null, { phone: '+2348012345678', message: 'Hi' })).toMatchObject({
+      destinationData: { phone: '+2348012345678', message: 'Hi' },
+    });
+    expect(() => validateCampaignDestination('SMS', null, { phone: '123' })).toThrow('valid phone');
+  });
 });

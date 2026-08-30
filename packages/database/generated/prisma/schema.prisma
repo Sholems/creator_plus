@@ -1682,6 +1682,11 @@ enum QrContentType {
   WHATSAPP
   SOCIAL_LINK_HUB
   TEXT_NOTE
+  VCARD
+  COUPON
+  LOCATION
+  EMAIL
+  SMS
 }
 
 enum QrScanMode {

@@ -67,6 +67,7 @@ export class QrPublicService {
       description: campaign.description,
       contentType: campaign.contentType,
       destinationUrl: primaryAsset ? null : destinationUrl,
+      destinationData: primaryAsset ? null : campaign.destinationData,
       externalDomain,
       canOpenFile,
       asset: canOpenFile && primaryAsset

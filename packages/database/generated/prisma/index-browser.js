@@ -1447,7 +1447,12 @@ exports.QrContentType = exports.$Enums.QrContentType = {
   CREATOR_PROFILE: 'CREATOR_PROFILE',
   WHATSAPP: 'WHATSAPP',
   SOCIAL_LINK_HUB: 'SOCIAL_LINK_HUB',
-  TEXT_NOTE: 'TEXT_NOTE'
+  TEXT_NOTE: 'TEXT_NOTE',
+  VCARD: 'VCARD',
+  COUPON: 'COUPON',
+  LOCATION: 'LOCATION',
+  EMAIL: 'EMAIL',
+  SMS: 'SMS'
 };
 
 exports.QrCampaignStatus = exports.$Enums.QrCampaignStatus = {
