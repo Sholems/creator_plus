@@ -1691,6 +1691,7 @@ enum QrContentType {
   VIDEO
   AUDIO
   EVENT
+  WIFI
 }
 
 enum QrScanMode {

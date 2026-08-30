@@ -205,6 +205,7 @@ export default function QrStudioPage() {
     if (['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE', 'EVENT'].includes(t)) return { destinationUrl: form.destinationUrl };
     if (t === 'VIDEO' || t === 'AUDIO') return { destinationData: { url: contentData.url } };
     if (t === 'APP_LINK') return { destinationData: { iosUrl: contentData.iosUrl || undefined, androidUrl: contentData.androidUrl || undefined, webUrl: contentData.webUrl || undefined } };
+    if (t === 'WIFI') return { destinationData: { ssid: contentData.ssid, password: contentData.password, encryption: contentData.encryption || 'WPA', hidden: !!contentData.hidden } };
     if (t === 'TEXT_NOTE') return { destinationData: { text: contentData.text } };
     if (t === 'WHATSAPP' || t === 'SMS') return { destinationData: { phone: contentData.phone, message: contentData.message } };
     if (t === 'SOCIAL_LINK_HUB') {
@@ -446,6 +447,7 @@ export default function QrStudioPage() {
                 <option value="VIDEO">Video (YouTube / Vimeo) — Pro</option>
                 <option value="AUDIO">Audio (Spotify / SoundCloud) — Pro</option>
                 <option value="APP_LINK">App download — Pro</option>
+                <option value="WIFI">Wi-Fi network — Pro</option>
               </select>
             </div>
 
@@ -473,6 +475,22 @@ export default function QrStudioPage() {
                 <input className={`${inputClass} sm:col-span-2`} value={contentData.iosUrl ?? ''} onChange={(e) => cd('iosUrl', e.target.value)} placeholder="App Store URL (apps.apple.com)" />
                 <input className={`${inputClass} sm:col-span-2`} value={contentData.androidUrl ?? ''} onChange={(e) => cd('androidUrl', e.target.value)} placeholder="Play Store URL (play.google.com)" />
                 <input className={`${inputClass} sm:col-span-2`} value={contentData.webUrl ?? ''} onChange={(e) => cd('webUrl', e.target.value)} placeholder="Web fallback URL (optional)" />
+              </div>
+            )}
+            {form.contentType === 'WIFI' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input className={inputClass} value={contentData.ssid ?? ''} onChange={(e) => cd('ssid', e.target.value)} placeholder="Network name (SSID)*" />
+                <select className={inputClass} value={contentData.encryption ?? 'WPA'} onChange={(e) => cd('encryption', e.target.value)}>
+                  <option value="WPA">WPA / WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass">Open (no password)</option>
+                </select>
+                {contentData.encryption !== 'nopass' && (
+                  <input className={`${inputClass} sm:col-span-2`} value={contentData.password ?? ''} onChange={(e) => cd('password', e.target.value)} placeholder="Password" />
+                )}
+                <label className="flex items-center gap-2 text-sm text-ink-600">
+                  <input type="checkbox" checked={!!contentData.hidden} onChange={(e) => cd('hidden', e.target.checked)} /> Hidden network
+                </label>
               </div>
             )}
             {form.contentType === 'TEXT_NOTE' && (

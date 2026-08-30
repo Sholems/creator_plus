@@ -190,6 +190,21 @@ export function validateCampaignDestination(
       // Deep-link a CreatorPlus event/product page or a validated public event URL.
       return { destinationUrl: normalizeSafePublicUrl(destinationUrl), destinationData: destinationData ?? null };
     }
+    case 'WIFI': {
+      const ssid = String(destinationData?.ssid ?? '').trim();
+      if (!ssid) throw new BadRequestException('A network name (SSID) is required');
+      const enc = destinationData?.encryption;
+      const encryption = enc === 'WEP' || enc === 'nopass' ? enc : 'WPA';
+      return {
+        destinationUrl: null,
+        destinationData: {
+          ssid: ssid.slice(0, 64),
+          password: encryption === 'nopass' ? undefined : String(destinationData?.password ?? '').slice(0, 128) || undefined,
+          encryption,
+          hidden: !!destinationData?.hidden,
+        },
+      };
+    }
     default:
       throw new BadRequestException('Unsupported QR content type');
   }

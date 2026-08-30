@@ -105,4 +105,14 @@ describe('QR content validation', () => {
       destinationUrl: 'https://mycreatorplus.com/products/e',
     });
   });
+
+  it('validates Wi-Fi content and drops the password for open networks', () => {
+    expect(validateCampaignDestination('WIFI', null, { ssid: 'CafeNet', password: 'secret', encryption: 'WPA' })).toMatchObject({
+      destinationData: { ssid: 'CafeNet', password: 'secret', encryption: 'WPA', hidden: false },
+    });
+    expect(validateCampaignDestination('WIFI', null, { ssid: 'Open', encryption: 'nopass', password: 'x' })).toMatchObject({
+      destinationData: { ssid: 'Open', encryption: 'nopass', password: undefined },
+    });
+    expect(() => validateCampaignDestination('WIFI', null, {})).toThrow('SSID');
+  });
 });

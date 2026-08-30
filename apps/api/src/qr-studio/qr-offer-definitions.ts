@@ -85,6 +85,7 @@ export const PRO_QR_CONTENT_TYPES = new Set<QrContentType>([
   'VIDEO',
   'AUDIO',
   'EVENT',
+  'WIFI',
 ]);
 
 export function getQrOffer(code: QrOfferCode): QrOfferDefinition {

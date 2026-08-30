@@ -237,6 +237,27 @@ function ContentBlock({ contentType, d, title }: { contentType: string; d: any; 
     );
   }
 
+  if (contentType === 'WIFI') {
+    return (
+      <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-4 text-sm text-ink-700">
+        <p className="text-xs text-ink-500">Connect to Wi-Fi</p>
+        <div className="mt-2 flex items-center justify-between gap-3">
+          <span className="text-ink-500">Network</span>
+          <span className="font-mono font-semibold text-ink-900">{d.ssid}</span>
+        </div>
+        {d.password && (
+          <div className="mt-2 flex items-center justify-between gap-3">
+            <span className="text-ink-500">Password</span>
+            <button type="button" onClick={() => { navigator.clipboard?.writeText(d.password); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="font-mono font-semibold text-forest-800 hover:underline">
+              {copied ? 'Copied!' : d.password}
+            </button>
+          </div>
+        )}
+        {d.encryption === 'nopass' && <p className="mt-2 text-xs text-ink-500">Open network — no password needed.</p>}
+      </div>
+    );
+  }
+
   return null;
 }
 

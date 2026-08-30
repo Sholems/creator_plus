@@ -1456,7 +1456,8 @@ exports.QrContentType = exports.$Enums.QrContentType = {
   APP_LINK: 'APP_LINK',
   VIDEO: 'VIDEO',
   AUDIO: 'AUDIO',
-  EVENT: 'EVENT'
+  EVENT: 'EVENT',
+  WIFI: 'WIFI'
 };
 
 exports.QrCampaignStatus = exports.$Enums.QrCampaignStatus = {
