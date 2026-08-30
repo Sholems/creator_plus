@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { QrDesigner, DEFAULT_QR_DESIGN, type QrDesign } from '@/components/qr-studio/qr-designer';
+import { AvatarUploader, SocialLinksEditor } from '@/components/qr-studio/rich-fields';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { cn } from '@creatorplus/ui';
@@ -238,7 +239,15 @@ export default function QrStudioPage() {
       return { destinationData: { links } };
     }
     if (t === 'VCARD')
-      return { destinationData: { fullName: contentData.fullName, org: contentData.org, title: contentData.title, phone: contentData.phone, email: contentData.email, website: contentData.website } };
+      return {
+        destinationData: {
+          fullName: contentData.fullName, org: contentData.org, title: contentData.title,
+          phone: contentData.phone, email: contentData.email, website: contentData.website,
+          address: contentData.address,
+          socials: (contentData.socials ?? []).map((s: string) => s.trim()).filter(Boolean),
+          avatarUrl: contentData.avatarUrl || undefined,
+        },
+      };
     if (t === 'COUPON')
       return { destinationData: { code: contentData.code, description: contentData.description, expiresAt: contentData.expiresAt, ctaUrl: contentData.ctaUrl } };
     if (t === 'LOCATION')
@@ -536,13 +545,21 @@ export default function QrStudioPage() {
               </div>
             )}
             {form.contentType === 'VCARD' && (
-              <div className="grid gap-4 sm:grid-cols-2">
-                <input className={inputClass} value={contentData.fullName ?? ''} onChange={(e) => cd('fullName', e.target.value)} placeholder="Full name*" />
-                <input className={inputClass} value={contentData.org ?? ''} onChange={(e) => cd('org', e.target.value)} placeholder="Company" />
-                <input className={inputClass} value={contentData.title ?? ''} onChange={(e) => cd('title', e.target.value)} placeholder="Job title" />
-                <input className={inputClass} value={contentData.phone ?? ''} onChange={(e) => cd('phone', e.target.value)} placeholder="Phone" />
-                <input className={inputClass} value={contentData.email ?? ''} onChange={(e) => cd('email', e.target.value)} placeholder="Email" />
-                <input className={inputClass} value={contentData.website ?? ''} onChange={(e) => cd('website', e.target.value)} placeholder="https://website" />
+              <div className="space-y-4">
+                {token && <AvatarUploader token={token} value={contentData.avatarUrl} onChange={(url) => cd('avatarUrl', url)} />}
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input className={inputClass} value={contentData.fullName ?? ''} onChange={(e) => cd('fullName', e.target.value)} placeholder="Full name*" />
+                  <input className={inputClass} value={contentData.org ?? ''} onChange={(e) => cd('org', e.target.value)} placeholder="Company" />
+                  <input className={inputClass} value={contentData.title ?? ''} onChange={(e) => cd('title', e.target.value)} placeholder="Job title" />
+                  <input className={inputClass} value={contentData.phone ?? ''} onChange={(e) => cd('phone', e.target.value)} placeholder="Phone (click-to-call)" />
+                  <input className={inputClass} value={contentData.email ?? ''} onChange={(e) => cd('email', e.target.value)} placeholder="Email" />
+                  <input className={inputClass} value={contentData.website ?? ''} onChange={(e) => cd('website', e.target.value)} placeholder="https://website" />
+                  <input className={`${inputClass} sm:col-span-2`} value={contentData.address ?? ''} onChange={(e) => cd('address', e.target.value)} placeholder="Address (opens in Maps)" />
+                </div>
+                <div>
+                  <p className="mb-2 text-sm font-medium text-ink-700">Social links</p>
+                  <SocialLinksEditor value={contentData.socials ?? []} onChange={(v) => cd('socials', v)} />
+                </div>
               </div>
             )}
             {form.contentType === 'COUPON' && (

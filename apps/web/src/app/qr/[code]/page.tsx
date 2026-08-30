@@ -3,8 +3,29 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import { useParams } from 'next/navigation';
 import { api } from '@/lib/api';
+import { PlatformIcon, detectPlatform } from '@/components/qr-studio/brand-icons';
 
 const FOREST = '#143c2b';
+
+function monogram(name?: string): string {
+  const parts = String(name ?? '').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return '★';
+  return (parts[0][0] + (parts[1]?.[0] ?? '')).toUpperCase();
+}
+
+function SocialRow({ socials, size = 22 }: { socials: string[]; size?: number }) {
+  if (!socials?.length) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      {socials.map((url, i) => (
+        <a key={i} href={url} rel="noreferrer" target="_blank" aria-label={detectPlatform(url)}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-ink-100 bg-white transition hover:bg-cream-100">
+          <PlatformIcon platform={detectPlatform(url)} size={size} />
+        </a>
+      ))}
+    </div>
+  );
+}
 
 /** Pick a brand accent that white text still reads on; fall back to forest. */
 function pickAccent(hex?: string | null): string {
@@ -216,22 +237,40 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
   }
 
   if (contentType === 'VCARD') {
+    const socials: string[] = Array.isArray(d.socials) ? d.socials : [];
+    const mapsHref = d.address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.address)}` : null;
     const vcf = [
       'BEGIN:VCARD', 'VERSION:3.0', `FN:${d.fullName ?? ''}`,
       d.org ? `ORG:${d.org}` : '', d.title ? `TITLE:${d.title}` : '',
-      d.phone ? `TEL:${d.phone}` : '', d.email ? `EMAIL:${d.email}` : '',
-      d.website ? `URL:${d.website}` : '', 'END:VCARD',
+      d.phone ? `TEL;TYPE=CELL:${d.phone}` : '', d.email ? `EMAIL:${d.email}` : '',
+      d.website ? `URL:${d.website}` : '',
+      d.address ? `ADR;TYPE=WORK:;;${d.address};;;;` : '',
+      d.avatarUrl ? `PHOTO;VALUE=URI:${d.avatarUrl}` : '',
+      ...socials.map((s) => `URL:${s}`),
+      'END:VCARD',
     ].filter(Boolean).join('\n');
     const href = `data:text/vcard;charset=utf-8,${encodeURIComponent(vcf)}`;
     return (
       <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-5 text-sm text-ink-700">
-        <p className="text-lg font-semibold text-ink-900">{d.fullName}</p>
-        {(d.title || d.org) && <p className="text-ink-500">{[d.title, d.org].filter(Boolean).join(' · ')}</p>}
-        <div className="mt-3 space-y-1">
-          {d.phone && <p><a href={`tel:${d.phone}`} className="hover:underline">{d.phone}</a></p>}
-          {d.email && <p><a href={`mailto:${d.email}`} className="hover:underline">{d.email}</a></p>}
-          {d.website && <a href={d.website} rel="noreferrer" className="hover:underline" style={{ color: accent }}>{d.website}</a>}
+        <div className="flex items-center gap-4">
+          {d.avatarUrl
+            ? <img src={d.avatarUrl} alt={d.fullName} className="h-20 w-20 shrink-0 rounded-full object-cover" />
+            : <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full text-2xl font-bold text-white" style={{ background: accent }}>{monogram(d.fullName)}</span>}
+          <div className="min-w-0">
+            <p className="text-lg font-semibold text-ink-900">{d.fullName}</p>
+            {(d.title || d.org) && <p className="text-ink-500">{[d.title, d.org].filter(Boolean).join(' · ')}</p>}
+          </div>
         </div>
+
+        <div className="mt-4 space-y-2">
+          {d.phone && <a href={`tel:${d.phone}`} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Call</span><span style={{ color: accent }}>{d.phone}</span></a>}
+          {d.email && <a href={`mailto:${d.email}`} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Email</span><span className="truncate pl-3" style={{ color: accent }}>{d.email}</span></a>}
+          {d.website && <a href={d.website} rel="noreferrer" target="_blank" className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Website</span><span className="truncate pl-3" style={{ color: accent }}>{d.website.replace(/^https?:\/\//, '')}</span></a>}
+          {mapsHref && <a href={mapsHref} rel="noreferrer" target="_blank" className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Address</span><span className="truncate pl-3 text-right" style={{ color: accent }}>{d.address}</span></a>}
+        </div>
+
+        {socials.length > 0 && <div className="mt-4"><SocialRow socials={socials} /></div>}
+
         <a href={href} download={`${(d.fullName || 'contact').replace(/\s+/g, '-')}.vcf`} className={primary} style={primaryStyle}>Save contact</a>
       </div>
     );

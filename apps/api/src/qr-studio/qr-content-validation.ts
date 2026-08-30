@@ -107,6 +107,8 @@ export function validateCampaignDestination(
       if (email && !isValidEmail(email)) throw new BadRequestException('Enter a valid email address');
       const phone = String(destinationData?.phone ?? '').replace(/[^\d+]/g, '');
       const website = destinationData?.website ? normalizeSafePublicUrl(String(destinationData.website)) : null;
+      const socials = normalizeSocialLinks(destinationData?.socials, 8);
+      const avatarUrl = destinationData?.avatarUrl ? assertOwnStorageUrl(String(destinationData.avatarUrl)) : undefined;
       return {
         destinationUrl: null,
         destinationData: {
@@ -116,6 +118,9 @@ export function validateCampaignDestination(
           phone: phone || undefined,
           email: email || undefined,
           website: website || undefined,
+          address: String(destinationData?.address ?? '').trim().slice(0, 300) || undefined,
+          socials: socials.length ? socials : undefined,
+          avatarUrl,
         },
       };
     }
@@ -218,6 +223,45 @@ const VIDEO_HOSTS = ['youtube.com', 'youtu.be', 'vimeo.com'];
 const AUDIO_HOSTS = ['open.spotify.com', 'spotify.com', 'soundcloud.com'];
 const APP_STORE_HOSTS = ['apps.apple.com', 'itunes.apple.com'];
 const PLAY_STORE_HOSTS = ['play.google.com'];
+
+/** An image URL that must live on our own R2 public bucket — creators upload via
+ *  /storage/upload, which returns `${R2_PUBLIC_URL}/<key>`. This blocks arbitrary
+ *  external images (hotlinking, tracking pixels, unmoderated hosts) on scan pages. */
+export function assertOwnStorageUrl(value: string): string {
+  const raw = String(value ?? '').trim();
+  const base = (process.env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
+  if (!base) throw new BadRequestException('Image uploads are not configured');
+  if (!raw.startsWith(`${base}/`)) throw new BadRequestException('Images must be uploaded to CreatorPlus');
+  try {
+    new URL(raw);
+  } catch {
+    throw new BadRequestException('Enter a valid image URL');
+  }
+  return raw;
+}
+
+/** Validate a list of public profile/social links (each a safe https URL). */
+export function normalizeSocialLinks(input: any, max = 10): string[] {
+  const arr = Array.isArray(input) ? input : [];
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const item of arr) {
+    const value = typeof item === 'string' ? item : item?.url;
+    if (!value || !String(value).trim()) continue;
+    let url: string | null = null;
+    try {
+      url = normalizeSafePublicUrl(String(value));
+    } catch {
+      continue; // skip invalid/unsafe links rather than failing the whole card
+    }
+    if (url && !seen.has(url)) {
+      seen.add(url);
+      out.push(url);
+      if (out.length >= max) break;
+    }
+  }
+  return out;
+}
 
 /** A safe public URL that must also be hosted on one of the allowed embed/store
  *  hosts — prevents arbitrary iframes/redirects on public scan pages. */

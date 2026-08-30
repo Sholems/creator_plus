@@ -55,6 +55,29 @@ describe('QR content validation', () => {
     expect(() => validateCampaignDestination('VCARD', null, { fullName: 'A', email: 'bad' })).toThrow('valid email');
   });
 
+  it('enriches a vCard with social links and an own-storage avatar', () => {
+    const prev = process.env.R2_PUBLIC_URL;
+    process.env.R2_PUBLIC_URL = 'https://cdn.mycreatorplus.com';
+    try {
+      const res = validateCampaignDestination('VCARD', null, {
+        fullName: 'Ada Lovelace',
+        socials: ['https://instagram.com/ada', 'https://instagram.com/ada', 'not a url'],
+        avatarUrl: 'https://cdn.mycreatorplus.com/qr-avatars/abc.jpg',
+        address: '1 Analytical Engine Rd',
+      });
+      expect(res.destinationData).toMatchObject({
+        socials: ['https://instagram.com/ada'],
+        avatarUrl: 'https://cdn.mycreatorplus.com/qr-avatars/abc.jpg',
+        address: '1 Analytical Engine Rd',
+      });
+      expect(() =>
+        validateCampaignDestination('VCARD', null, { fullName: 'Ada', avatarUrl: 'https://evil.example/x.jpg' }),
+      ).toThrow('uploaded to CreatorPlus');
+    } finally {
+      process.env.R2_PUBLIC_URL = prev;
+    }
+  });
+
   it('validates a coupon-content type', () => {
     expect(validateCampaignDestination('COUPON', null, { code: 'SALE10', description: '10% off' })).toMatchObject({
       destinationData: { code: 'SALE10', description: '10% off' },
