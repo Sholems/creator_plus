@@ -225,13 +225,34 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
   }
 
   if (contentType === 'SOCIAL_LINK_HUB') {
+    const socials: string[] = Array.isArray(d.socials) ? d.socials : [];
+    const links: any[] = Array.isArray(d.links) ? d.links : [];
+    const name = d.displayName || title;
+    const hasHeader = d.avatarUrl || d.displayName || d.bio;
     return (
-      <div className="mt-6 space-y-2">
-        {(d.links ?? []).map((l: any, i: number) => (
-          <a key={i} href={l.url} rel="noreferrer" className="block rounded-full border border-ink-200 bg-white px-5 py-3 text-center text-sm font-semibold text-ink-800 transition hover:bg-cream-100" style={{ borderColor: tint(accent, 0.35) }}>
-            {l.label || l.url}
-          </a>
-        ))}
+      <div className="mt-6">
+        {hasHeader && (
+          <div className="flex flex-col items-center text-center">
+            {d.avatarUrl
+              ? <img src={d.avatarUrl} alt={name} className="h-24 w-24 rounded-full object-cover" />
+              : <span className="flex h-24 w-24 items-center justify-center rounded-full text-3xl font-bold text-white" style={{ background: accent }}>{monogram(name)}</span>}
+            {d.displayName && <p className="mt-3 text-lg font-semibold text-ink-900">{d.displayName}</p>}
+            {d.bio && <p className="mt-1 text-sm leading-6 text-ink-600">{d.bio}</p>}
+          </div>
+        )}
+        {socials.length > 0 && <div className="mt-4 flex justify-center"><SocialRow socials={socials} /></div>}
+        {d.whatsapp && (
+          <a href={`https://wa.me/${String(d.whatsapp).replace(/^\+/, '')}`} target="_blank" rel="noreferrer" className={primary} style={primaryStyle}>Chat on WhatsApp</a>
+        )}
+        <div className="mt-3 space-y-2">
+          {links.map((l, i) => (
+            <a key={i} href={l.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white px-4 py-3 text-sm font-semibold text-ink-800 transition hover:bg-cream-100">
+              <PlatformIcon platform={detectPlatform(l.url)} size={20} />
+              <span className="flex-1 text-center">{l.label || l.url}</span>
+              <span className="w-5" />
+            </a>
+          ))}
+        </div>
       </div>
     );
   }

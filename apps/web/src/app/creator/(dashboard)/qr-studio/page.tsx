@@ -236,7 +236,16 @@ export default function QrStudioPage() {
           const [label, url] = line.split('|').map((s) => s.trim());
           return { label: label ?? '', url: url ?? label };
         });
-      return { destinationData: { links } };
+      return {
+        destinationData: {
+          displayName: contentData.displayName,
+          bio: contentData.bio,
+          avatarUrl: contentData.avatarUrl || undefined,
+          whatsapp: contentData.whatsapp,
+          socials: (contentData.socials ?? []).map((s: string) => s.trim()).filter(Boolean),
+          links,
+        },
+      };
     }
     if (t === 'VCARD')
       return {
@@ -464,7 +473,7 @@ export default function QrStudioPage() {
                 <option value="WEBSITE">Website / custom link</option>
                 <option value="TEXT_NOTE">Text note — Pro</option>
                 <option value="WHATSAPP">WhatsApp chat — Pro</option>
-                <option value="SOCIAL_LINK_HUB">Social link hub — Pro</option>
+                <option value="SOCIAL_LINK_HUB">Profile / link-in-bio — Pro</option>
                 <option value="VCARD">Contact card (vCard) — Pro</option>
                 <option value="COUPON">Coupon / promo — Pro</option>
                 <option value="LOCATION">Location / map — Pro</option>
@@ -539,9 +548,21 @@ export default function QrStudioPage() {
               </div>
             )}
             {form.contentType === 'SOCIAL_LINK_HUB' && (
-              <div>
-                <label className="text-sm font-medium text-ink-700">Links (one per line, as “Label | https://url”)</label>
-                <textarea className={inputClass} rows={3} value={contentData.linksText ?? ''} onChange={(e) => cd('linksText', e.target.value)} placeholder={'Instagram | https://instagram.com/you'} />
+              <div className="space-y-4">
+                {token && <AvatarUploader token={token} value={contentData.avatarUrl} onChange={(url) => cd('avatarUrl', url)} />}
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input className={inputClass} value={contentData.displayName ?? ''} onChange={(e) => cd('displayName', e.target.value)} placeholder="Display name" />
+                  <input className={inputClass} value={contentData.whatsapp ?? ''} onChange={(e) => cd('whatsapp', e.target.value)} placeholder="WhatsApp number (optional)" />
+                  <textarea className={`${inputClass} sm:col-span-2`} rows={2} value={contentData.bio ?? ''} onChange={(e) => cd('bio', e.target.value)} placeholder="Short bio / tagline" />
+                </div>
+                <div>
+                  <p className="mb-2 text-sm font-medium text-ink-700">Social icons</p>
+                  <SocialLinksEditor value={contentData.socials ?? []} onChange={(v) => cd('socials', v)} />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-ink-700">Featured link buttons (one per line, as “Label | https://url”)</label>
+                  <textarea className={inputClass} rows={3} value={contentData.linksText ?? ''} onChange={(e) => cd('linksText', e.target.value)} placeholder={'My shop | https://shop.example.com'} />
+                </div>
               </div>
             )}
             {form.contentType === 'VCARD' && (

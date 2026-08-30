@@ -88,13 +88,32 @@ export function validateCampaignDestination(
       return { destinationUrl: `https://wa.me/${raw.replace(/^\+/, '')}`, destinationData: { phone: raw, message } };
     }
     case 'SOCIAL_LINK_HUB': {
-      const links = Array.isArray(destinationData?.links) ? destinationData.links : [];
-      const safeLinks = links.slice(0, 10).map((link: any) => ({
-        label: String(link?.label ?? '').trim().slice(0, 60),
-        url: normalizeSafePublicUrl(String(link?.url ?? '')),
-      }));
-      if (safeLinks.length === 0) throw new BadRequestException('Add at least one social link');
-      return { destinationUrl: null, destinationData: { links: safeLinks } };
+      const rawLinks = Array.isArray(destinationData?.links) ? destinationData.links : [];
+      const links: { label: string; url: string }[] = [];
+      for (const link of rawLinks.slice(0, 12)) {
+        let url: string | null = null;
+        try {
+          url = normalizeSafePublicUrl(String(link?.url ?? ''));
+        } catch {
+          continue; // skip invalid links instead of failing the whole page
+        }
+        if (url) links.push({ label: String(link?.label ?? '').trim().slice(0, 60), url });
+      }
+      const socials = normalizeSocialLinks(destinationData?.socials, 8);
+      if (links.length === 0 && socials.length === 0) throw new BadRequestException('Add at least one link');
+      const avatarUrl = destinationData?.avatarUrl ? assertOwnStorageUrl(String(destinationData.avatarUrl)) : undefined;
+      const whatsapp = String(destinationData?.whatsapp ?? '').replace(/[^\d+]/g, '');
+      return {
+        destinationUrl: null,
+        destinationData: {
+          displayName: String(destinationData?.displayName ?? '').trim().slice(0, 80) || undefined,
+          bio: String(destinationData?.bio ?? '').trim().slice(0, 300) || undefined,
+          avatarUrl,
+          socials: socials.length ? socials : undefined,
+          whatsapp: /^\+?[1-9]\d{7,14}$/.test(whatsapp) ? whatsapp : undefined,
+          links,
+        },
+      };
     }
     case 'WEBSITE':
     case 'PRODUCT_PAGE':
