@@ -1452,7 +1452,11 @@ exports.QrContentType = exports.$Enums.QrContentType = {
   COUPON: 'COUPON',
   LOCATION: 'LOCATION',
   EMAIL: 'EMAIL',
-  SMS: 'SMS'
+  SMS: 'SMS',
+  APP_LINK: 'APP_LINK',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  EVENT: 'EVENT'
 };
 
 exports.QrCampaignStatus = exports.$Enums.QrCampaignStatus = {

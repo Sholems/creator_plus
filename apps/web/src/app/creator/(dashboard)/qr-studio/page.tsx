@@ -202,7 +202,9 @@ export default function QrStudioPage() {
 
   function buildContentPayload(): { destinationUrl?: string; destinationData?: any } {
     const t = form.contentType;
-    if (['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE'].includes(t)) return { destinationUrl: form.destinationUrl };
+    if (['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE', 'EVENT'].includes(t)) return { destinationUrl: form.destinationUrl };
+    if (t === 'VIDEO' || t === 'AUDIO') return { destinationData: { url: contentData.url } };
+    if (t === 'APP_LINK') return { destinationData: { iosUrl: contentData.iosUrl || undefined, androidUrl: contentData.androidUrl || undefined, webUrl: contentData.webUrl || undefined } };
     if (t === 'TEXT_NOTE') return { destinationData: { text: contentData.text } };
     if (t === 'WHATSAPP' || t === 'SMS') return { destinationData: { phone: contentData.phone, message: contentData.message } };
     if (t === 'SOCIAL_LINK_HUB') {
@@ -440,6 +442,10 @@ export default function QrStudioPage() {
                 <option value="LOCATION">Location / map — Pro</option>
                 <option value="EMAIL">Email action — Pro</option>
                 <option value="SMS">SMS action — Pro</option>
+                <option value="EVENT">Event / ticket page — Pro</option>
+                <option value="VIDEO">Video (YouTube / Vimeo) — Pro</option>
+                <option value="AUDIO">Audio (Spotify / SoundCloud) — Pro</option>
+                <option value="APP_LINK">App download — Pro</option>
               </select>
             </div>
 
@@ -450,10 +456,23 @@ export default function QrStudioPage() {
                 <p className="mt-1 text-xs text-ink-500">Stored in Cloudflare R2 and served through checked scan routes.</p>
               </div>
             )}
-            {['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE'].includes(form.contentType) && (
+            {['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE', 'EVENT'].includes(form.contentType) && (
               <div>
-                <label className="text-sm font-medium text-ink-700">Destination URL</label>
-                <input type="url" className={inputClass} value={form.destinationUrl} onChange={(e) => setForm({ ...form, destinationUrl: e.target.value })} placeholder="https://example.com" />
+                <label className="text-sm font-medium text-ink-700">{form.contentType === 'EVENT' ? 'Event / ticket page URL' : 'Destination URL'}</label>
+                <input type="url" className={inputClass} value={form.destinationUrl} onChange={(e) => setForm({ ...form, destinationUrl: e.target.value })} placeholder="https://mycreatorplus.com/products/your-event" />
+              </div>
+            )}
+            {(form.contentType === 'VIDEO' || form.contentType === 'AUDIO') && (
+              <div>
+                <label className="text-sm font-medium text-ink-700">{form.contentType === 'VIDEO' ? 'YouTube / Vimeo URL' : 'Spotify / SoundCloud URL'}</label>
+                <input type="url" className={inputClass} value={contentData.url ?? ''} onChange={(e) => cd('url', e.target.value)} placeholder="https://…" />
+              </div>
+            )}
+            {form.contentType === 'APP_LINK' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input className={`${inputClass} sm:col-span-2`} value={contentData.iosUrl ?? ''} onChange={(e) => cd('iosUrl', e.target.value)} placeholder="App Store URL (apps.apple.com)" />
+                <input className={`${inputClass} sm:col-span-2`} value={contentData.androidUrl ?? ''} onChange={(e) => cd('androidUrl', e.target.value)} placeholder="Play Store URL (play.google.com)" />
+                <input className={`${inputClass} sm:col-span-2`} value={contentData.webUrl ?? ''} onChange={(e) => cd('webUrl', e.target.value)} placeholder="Web fallback URL (optional)" />
               </div>
             )}
             {form.contentType === 'TEXT_NOTE' && (

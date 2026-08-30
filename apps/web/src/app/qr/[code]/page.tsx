@@ -193,5 +193,75 @@ function ContentBlock({ contentType, d, title }: { contentType: string; d: any; 
     );
   }
 
+  if (contentType === 'VIDEO') {
+    const embed = videoEmbed(d.url);
+    return (
+      <div className="mt-6">
+        {embed ? (
+          <div className="aspect-video overflow-hidden rounded-2xl border border-ink-100">
+            <iframe src={embed} title={title} className="h-full w-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+          </div>
+        ) : (
+          <a href={d.url} rel="noreferrer" className={btn}>Watch video</a>
+        )}
+      </div>
+    );
+  }
+
+  if (contentType === 'AUDIO') {
+    const embed = spotifyEmbed(d.url);
+    return (
+      <div className="mt-6">
+        {embed ? (
+          <iframe src={embed} title={title} className="w-full rounded-2xl" height={152} allow="encrypted-media" />
+        ) : (
+          <a href={d.url} rel="noreferrer" className={btn}>Listen</a>
+        )}
+      </div>
+    );
+  }
+
+  if (contentType === 'APP_LINK') {
+    const isIos = typeof navigator !== 'undefined' && /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isAndroid = typeof navigator !== 'undefined' && /android/i.test(navigator.userAgent);
+    const primary = isIos ? d.iosUrl : isAndroid ? d.androidUrl : d.webUrl || d.iosUrl || d.androidUrl;
+    return (
+      <div className="mt-6 space-y-2">
+        {primary && <a href={primary} rel="noreferrer" className={btn}>Get the app</a>}
+        <div className="flex flex-wrap justify-center gap-2 pt-1">
+          {d.iosUrl && <a href={d.iosUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">App Store</a>}
+          {d.androidUrl && <a href={d.androidUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">Google Play</a>}
+          {d.webUrl && <a href={d.webUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">Open on web</a>}
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+function videoEmbed(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('youtu.be')) return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+    if (u.hostname.includes('youtube.com')) {
+      const v = u.searchParams.get('v');
+      return v ? `https://www.youtube.com/embed/${v}` : null;
+    }
+    if (u.hostname.includes('vimeo.com')) {
+      const id = u.pathname.split('/').filter(Boolean)[0];
+      return id ? `https://player.vimeo.com/video/${id}` : null;
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
+function spotifyEmbed(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('spotify.com')) {
+      return `https://open.spotify.com${u.pathname.replace(/^\/(track|album|playlist|episode|show)\//, '/embed/$1/')}`;
+    }
+  } catch { /* ignore */ }
   return null;
 }

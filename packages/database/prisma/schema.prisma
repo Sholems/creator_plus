@@ -1688,6 +1688,10 @@ enum QrContentType {
   LOCATION
   EMAIL
   SMS
+  APP_LINK
+  VIDEO
+  AUDIO
+  EVENT
 }
 
 enum QrScanMode {

@@ -171,6 +171,25 @@ export function validateCampaignDestination(
         destinationData: { phone, message: String(destinationData?.message ?? '').trim().slice(0, 500) || undefined },
       };
     }
+    case 'VIDEO': {
+      const url = assertHostAllowed(String(destinationData?.url ?? destinationUrl ?? ''), VIDEO_HOSTS, 'video');
+      return { destinationUrl: null, destinationData: { url } };
+    }
+    case 'AUDIO': {
+      const url = assertHostAllowed(String(destinationData?.url ?? destinationUrl ?? ''), AUDIO_HOSTS, 'audio');
+      return { destinationUrl: null, destinationData: { url } };
+    }
+    case 'APP_LINK': {
+      const iosUrl = destinationData?.iosUrl ? assertHostAllowed(String(destinationData.iosUrl), APP_STORE_HOSTS, 'App Store') : undefined;
+      const androidUrl = destinationData?.androidUrl ? assertHostAllowed(String(destinationData.androidUrl), PLAY_STORE_HOSTS, 'Play Store') : undefined;
+      const webUrl = destinationData?.webUrl ? normalizeSafePublicUrl(String(destinationData.webUrl)) : undefined;
+      if (!iosUrl && !androidUrl && !webUrl) throw new BadRequestException('Add at least one app or web link');
+      return { destinationUrl: null, destinationData: { iosUrl, androidUrl, webUrl } };
+    }
+    case 'EVENT': {
+      // Deep-link a CreatorPlus event/product page or a validated public event URL.
+      return { destinationUrl: normalizeSafePublicUrl(destinationUrl), destinationData: destinationData ?? null };
+    }
     default:
       throw new BadRequestException('Unsupported QR content type');
   }
@@ -178,6 +197,22 @@ export function validateCampaignDestination(
 
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+const VIDEO_HOSTS = ['youtube.com', 'youtu.be', 'vimeo.com'];
+const AUDIO_HOSTS = ['open.spotify.com', 'spotify.com', 'soundcloud.com'];
+const APP_STORE_HOSTS = ['apps.apple.com', 'itunes.apple.com'];
+const PLAY_STORE_HOSTS = ['play.google.com'];
+
+/** A safe public URL that must also be hosted on one of the allowed embed/store
+ *  hosts — prevents arbitrary iframes/redirects on public scan pages. */
+export function assertHostAllowed(value: string, hosts: string[], label: string): string {
+  const url = normalizeSafePublicUrl(value);
+  if (!url) throw new BadRequestException(`A ${label} URL is required`);
+  const host = new URL(url).hostname.toLowerCase();
+  const ok = hosts.some((h) => host === h || host.endsWith(`.${h}`));
+  if (!ok) throw new BadRequestException(`That does not look like a supported ${label} link`);
+  return url;
 }
 
 function isUnsafeHost(hostname: string): boolean {

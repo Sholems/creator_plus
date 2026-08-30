@@ -802,7 +802,11 @@ export const QrContentType: {
   COUPON: 'COUPON',
   LOCATION: 'LOCATION',
   EMAIL: 'EMAIL',
-  SMS: 'SMS'
+  SMS: 'SMS',
+  APP_LINK: 'APP_LINK',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  EVENT: 'EVENT'
 };
 
 export type QrContentType = (typeof QrContentType)[keyof typeof QrContentType]

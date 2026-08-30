@@ -80,4 +80,29 @@ describe('QR content validation', () => {
     });
     expect(() => validateCampaignDestination('SMS', null, { phone: '123' })).toThrow('valid phone');
   });
+
+  it('allowlists video and audio hosts (blocks arbitrary embeds)', () => {
+    expect(validateCampaignDestination('VIDEO', null, { url: 'https://youtu.be/abc123' })).toMatchObject({
+      destinationData: { url: 'https://youtu.be/abc123' },
+    });
+    expect(() => validateCampaignDestination('VIDEO', null, { url: 'https://evil.example/x' })).toThrow('supported video');
+    expect(validateCampaignDestination('AUDIO', null, { url: 'https://open.spotify.com/track/1' })).toMatchObject({
+      destinationData: { url: 'https://open.spotify.com/track/1' },
+    });
+    expect(() => validateCampaignDestination('AUDIO', null, { url: 'https://evil.example/x' })).toThrow('supported audio');
+  });
+
+  it('validates app-store links and requires at least one', () => {
+    expect(
+      validateCampaignDestination('APP_LINK', null, { iosUrl: 'https://apps.apple.com/app/id1', androidUrl: 'https://play.google.com/store/apps/details?id=x' }),
+    ).toMatchObject({ destinationData: { iosUrl: 'https://apps.apple.com/app/id1' } });
+    expect(() => validateCampaignDestination('APP_LINK', null, { iosUrl: 'https://evil.example/x' })).toThrow('App Store');
+    expect(() => validateCampaignDestination('APP_LINK', null, {})).toThrow('at least one');
+  });
+
+  it('treats an event as a validated public URL', () => {
+    expect(validateCampaignDestination('EVENT', 'https://mycreatorplus.com/products/e', null)).toMatchObject({
+      destinationUrl: 'https://mycreatorplus.com/products/e',
+    });
+  });
 });

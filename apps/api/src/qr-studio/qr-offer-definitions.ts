@@ -81,6 +81,10 @@ export const PRO_QR_CONTENT_TYPES = new Set<QrContentType>([
   'LOCATION',
   'EMAIL',
   'SMS',
+  'APP_LINK',
+  'VIDEO',
+  'AUDIO',
+  'EVENT',
 ]);
 
 export function getQrOffer(code: QrOfferCode): QrOfferDefinition {
