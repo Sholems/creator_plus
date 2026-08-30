@@ -411,6 +411,17 @@ export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
  * VALID on payment, and CHECKED_IN at the door.
  */
 export type Ticket = $Result.DefaultSelection<Prisma.$TicketPayload>
+/**
+ * Model QrCoupon
+ * Admin-created discount code applied at QR Studio checkout. A 100% (or full
+ * fixed) discount brings the charge to zero and grants access without Paystack.
+ */
+export type QrCoupon = $Result.DefaultSelection<Prisma.$QrCouponPayload>
+/**
+ * Model QrCouponRedemption
+ * 
+ */
+export type QrCouponRedemption = $Result.DefaultSelection<Prisma.$QrCouponRedemptionPayload>
 
 /**
  * Enums
@@ -869,6 +880,14 @@ export const EventTicketStatus: {
 
 export type EventTicketStatus = (typeof EventTicketStatus)[keyof typeof EventTicketStatus]
 
+
+export const QrCouponType: {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED: 'FIXED'
+};
+
+export type QrCouponType = (typeof QrCouponType)[keyof typeof QrCouponType]
+
 }
 
 export type UserStatus = $Enums.UserStatus
@@ -1042,6 +1061,10 @@ export const EventStatus: typeof $Enums.EventStatus
 export type EventTicketStatus = $Enums.EventTicketStatus
 
 export const EventTicketStatus: typeof $Enums.EventTicketStatus
+
+export type QrCouponType = $Enums.QrCouponType
+
+export const QrCouponType: typeof $Enums.QrCouponType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1910,6 +1933,26 @@ export class PrismaClient<
     * ```
     */
   get ticket(): Prisma.TicketDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrCoupon`: Exposes CRUD operations for the **QrCoupon** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrCoupons
+    * const qrCoupons = await prisma.qrCoupon.findMany()
+    * ```
+    */
+  get qrCoupon(): Prisma.QrCouponDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrCouponRedemption`: Exposes CRUD operations for the **QrCouponRedemption** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrCouponRedemptions
+    * const qrCouponRedemptions = await prisma.qrCouponRedemption.findMany()
+    * ```
+    */
+  get qrCouponRedemption(): Prisma.QrCouponRedemptionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2425,7 +2468,9 @@ export namespace Prisma {
     LicenseKey: 'LicenseKey',
     LicenseActivation: 'LicenseActivation',
     Event: 'Event',
-    Ticket: 'Ticket'
+    Ticket: 'Ticket',
+    QrCoupon: 'QrCoupon',
+    QrCouponRedemption: 'QrCouponRedemption'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2444,7 +2489,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7998,6 +8043,154 @@ export namespace Prisma {
           }
         }
       }
+      QrCoupon: {
+        payload: Prisma.$QrCouponPayload<ExtArgs>
+        fields: Prisma.QrCouponFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrCouponFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrCouponFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>
+          }
+          findFirst: {
+            args: Prisma.QrCouponFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrCouponFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>
+          }
+          findMany: {
+            args: Prisma.QrCouponFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>[]
+          }
+          create: {
+            args: Prisma.QrCouponCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>
+          }
+          createMany: {
+            args: Prisma.QrCouponCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrCouponCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>[]
+          }
+          delete: {
+            args: Prisma.QrCouponDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>
+          }
+          update: {
+            args: Prisma.QrCouponUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrCouponDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrCouponUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrCouponUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrCouponUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponPayload>
+          }
+          aggregate: {
+            args: Prisma.QrCouponAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrCoupon>
+          }
+          groupBy: {
+            args: Prisma.QrCouponGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrCouponGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrCouponCountArgs<ExtArgs>
+            result: $Utils.Optional<QrCouponCountAggregateOutputType> | number
+          }
+        }
+      }
+      QrCouponRedemption: {
+        payload: Prisma.$QrCouponRedemptionPayload<ExtArgs>
+        fields: Prisma.QrCouponRedemptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrCouponRedemptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrCouponRedemptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>
+          }
+          findFirst: {
+            args: Prisma.QrCouponRedemptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrCouponRedemptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>
+          }
+          findMany: {
+            args: Prisma.QrCouponRedemptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>[]
+          }
+          create: {
+            args: Prisma.QrCouponRedemptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>
+          }
+          createMany: {
+            args: Prisma.QrCouponRedemptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrCouponRedemptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>[]
+          }
+          delete: {
+            args: Prisma.QrCouponRedemptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>
+          }
+          update: {
+            args: Prisma.QrCouponRedemptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrCouponRedemptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrCouponRedemptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrCouponRedemptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrCouponRedemptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrCouponRedemptionPayload>
+          }
+          aggregate: {
+            args: Prisma.QrCouponRedemptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrCouponRedemption>
+          }
+          groupBy: {
+            args: Prisma.QrCouponRedemptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrCouponRedemptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrCouponRedemptionCountArgs<ExtArgs>
+            result: $Utils.Optional<QrCouponRedemptionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -8169,6 +8362,8 @@ export namespace Prisma {
     licenseActivation?: LicenseActivationOmit
     event?: EventOmit
     ticket?: TicketOmit
+    qrCoupon?: QrCouponOmit
+    qrCouponRedemption?: QrCouponRedemptionOmit
   }
 
   /* Types for Logging */
@@ -9719,6 +9914,37 @@ export namespace Prisma {
    */
   export type EventCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TicketWhereInput
+  }
+
+
+  /**
+   * Count Type QrCouponCountOutputType
+   */
+
+  export type QrCouponCountOutputType = {
+    redemptions: number
+  }
+
+  export type QrCouponCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redemptions?: boolean | QrCouponCountOutputTypeCountRedemptionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QrCouponCountOutputType without action
+   */
+  export type QrCouponCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponCountOutputType
+     */
+    select?: QrCouponCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QrCouponCountOutputType without action
+   */
+  export type QrCouponCountOutputTypeCountRedemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrCouponRedemptionWhereInput
   }
 
 
@@ -86353,12 +86579,14 @@ export namespace Prisma {
     amount: Decimal | null
     campaignCredits: number | null
     maxActiveCampaigns: number | null
+    discountAmount: Decimal | null
   }
 
   export type QrPaymentSumAggregateOutputType = {
     amount: Decimal | null
     campaignCredits: number | null
     maxActiveCampaigns: number | null
+    discountAmount: Decimal | null
   }
 
   export type QrPaymentMinAggregateOutputType = {
@@ -86377,6 +86605,9 @@ export namespace Prisma {
     providerPaymentId: string | null
     providerReference: string | null
     fulfilledAt: Date | null
+    couponCode: string | null
+    couponId: string | null
+    discountAmount: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -86397,6 +86628,9 @@ export namespace Prisma {
     providerPaymentId: string | null
     providerReference: string | null
     fulfilledAt: Date | null
+    couponCode: string | null
+    couponId: string | null
+    discountAmount: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -86418,6 +86652,9 @@ export namespace Prisma {
     providerReference: number
     providerResponse: number
     fulfilledAt: number
+    couponCode: number
+    couponId: number
+    discountAmount: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -86428,12 +86665,14 @@ export namespace Prisma {
     amount?: true
     campaignCredits?: true
     maxActiveCampaigns?: true
+    discountAmount?: true
   }
 
   export type QrPaymentSumAggregateInputType = {
     amount?: true
     campaignCredits?: true
     maxActiveCampaigns?: true
+    discountAmount?: true
   }
 
   export type QrPaymentMinAggregateInputType = {
@@ -86452,6 +86691,9 @@ export namespace Prisma {
     providerPaymentId?: true
     providerReference?: true
     fulfilledAt?: true
+    couponCode?: true
+    couponId?: true
+    discountAmount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -86472,6 +86714,9 @@ export namespace Prisma {
     providerPaymentId?: true
     providerReference?: true
     fulfilledAt?: true
+    couponCode?: true
+    couponId?: true
+    discountAmount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -86493,6 +86738,9 @@ export namespace Prisma {
     providerReference?: true
     providerResponse?: true
     fulfilledAt?: true
+    couponCode?: true
+    couponId?: true
+    discountAmount?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -86601,6 +86849,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse: JsonValue | null
     fulfilledAt: Date | null
+    couponCode: string | null
+    couponId: string | null
+    discountAmount: Decimal | null
     createdAt: Date
     updatedAt: Date
     _count: QrPaymentCountAggregateOutputType | null
@@ -86641,6 +86892,9 @@ export namespace Prisma {
     providerReference?: boolean
     providerResponse?: boolean
     fulfilledAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -86665,6 +86919,9 @@ export namespace Prisma {
     providerReference?: boolean
     providerResponse?: boolean
     fulfilledAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -86687,6 +86944,9 @@ export namespace Prisma {
     providerReference?: boolean
     providerResponse?: boolean
     fulfilledAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -86709,11 +86969,14 @@ export namespace Prisma {
     providerReference?: boolean
     providerResponse?: boolean
     fulfilledAt?: boolean
+    couponCode?: boolean
+    couponId?: boolean
+    discountAmount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type QrPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "offerCode" | "offerName" | "amount" | "currency" | "campaignCredits" | "maxActiveCampaigns" | "accessStartsAt" | "accessEndsAt" | "status" | "provider" | "providerPaymentId" | "providerReference" | "providerResponse" | "fulfilledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["qrPayment"]>
+  export type QrPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "offerCode" | "offerName" | "amount" | "currency" | "campaignCredits" | "maxActiveCampaigns" | "accessStartsAt" | "accessEndsAt" | "status" | "provider" | "providerPaymentId" | "providerReference" | "providerResponse" | "fulfilledAt" | "couponCode" | "couponId" | "discountAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["qrPayment"]>
   export type QrPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     entitlements?: boolean | QrPayment$entitlementsArgs<ExtArgs>
@@ -86749,6 +87012,9 @@ export namespace Prisma {
       providerReference: string
       providerResponse: Prisma.JsonValue | null
       fulfilledAt: Date | null
+      couponCode: string | null
+      couponId: string | null
+      discountAmount: Prisma.Decimal | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["qrPayment"]>
@@ -87192,6 +87458,9 @@ export namespace Prisma {
     readonly providerReference: FieldRef<"QrPayment", 'String'>
     readonly providerResponse: FieldRef<"QrPayment", 'Json'>
     readonly fulfilledAt: FieldRef<"QrPayment", 'DateTime'>
+    readonly couponCode: FieldRef<"QrPayment", 'String'>
+    readonly couponId: FieldRef<"QrPayment", 'String'>
+    readonly discountAmount: FieldRef<"QrPayment", 'Decimal'>
     readonly createdAt: FieldRef<"QrPayment", 'DateTime'>
     readonly updatedAt: FieldRef<"QrPayment", 'DateTime'>
   }
@@ -98452,6 +98721,2336 @@ export namespace Prisma {
 
 
   /**
+   * Model QrCoupon
+   */
+
+  export type AggregateQrCoupon = {
+    _count: QrCouponCountAggregateOutputType | null
+    _avg: QrCouponAvgAggregateOutputType | null
+    _sum: QrCouponSumAggregateOutputType | null
+    _min: QrCouponMinAggregateOutputType | null
+    _max: QrCouponMaxAggregateOutputType | null
+  }
+
+  export type QrCouponAvgAggregateOutputType = {
+    value: Decimal | null
+    maxRedemptions: number | null
+    redeemedCount: number | null
+  }
+
+  export type QrCouponSumAggregateOutputType = {
+    value: Decimal | null
+    maxRedemptions: number | null
+    redeemedCount: number | null
+  }
+
+  export type QrCouponMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    type: $Enums.QrCouponType | null
+    value: Decimal | null
+    maxRedemptions: number | null
+    redeemedCount: number | null
+    isActive: boolean | null
+    startsAt: Date | null
+    expiresAt: Date | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrCouponMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    type: $Enums.QrCouponType | null
+    value: Decimal | null
+    maxRedemptions: number | null
+    redeemedCount: number | null
+    isActive: boolean | null
+    startsAt: Date | null
+    expiresAt: Date | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrCouponCountAggregateOutputType = {
+    id: number
+    code: number
+    type: number
+    value: number
+    appliesToOffers: number
+    maxRedemptions: number
+    redeemedCount: number
+    isActive: number
+    startsAt: number
+    expiresAt: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QrCouponAvgAggregateInputType = {
+    value?: true
+    maxRedemptions?: true
+    redeemedCount?: true
+  }
+
+  export type QrCouponSumAggregateInputType = {
+    value?: true
+    maxRedemptions?: true
+    redeemedCount?: true
+  }
+
+  export type QrCouponMinAggregateInputType = {
+    id?: true
+    code?: true
+    type?: true
+    value?: true
+    maxRedemptions?: true
+    redeemedCount?: true
+    isActive?: true
+    startsAt?: true
+    expiresAt?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrCouponMaxAggregateInputType = {
+    id?: true
+    code?: true
+    type?: true
+    value?: true
+    maxRedemptions?: true
+    redeemedCount?: true
+    isActive?: true
+    startsAt?: true
+    expiresAt?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrCouponCountAggregateInputType = {
+    id?: true
+    code?: true
+    type?: true
+    value?: true
+    appliesToOffers?: true
+    maxRedemptions?: true
+    redeemedCount?: true
+    isActive?: true
+    startsAt?: true
+    expiresAt?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QrCouponAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrCoupon to aggregate.
+     */
+    where?: QrCouponWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCoupons to fetch.
+     */
+    orderBy?: QrCouponOrderByWithRelationInput | QrCouponOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrCouponWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCoupons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCoupons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrCoupons
+    **/
+    _count?: true | QrCouponCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QrCouponAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QrCouponSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrCouponMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrCouponMaxAggregateInputType
+  }
+
+  export type GetQrCouponAggregateType<T extends QrCouponAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrCoupon]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrCoupon[P]>
+      : GetScalarType<T[P], AggregateQrCoupon[P]>
+  }
+
+
+
+
+  export type QrCouponGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrCouponWhereInput
+    orderBy?: QrCouponOrderByWithAggregationInput | QrCouponOrderByWithAggregationInput[]
+    by: QrCouponScalarFieldEnum[] | QrCouponScalarFieldEnum
+    having?: QrCouponScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrCouponCountAggregateInputType | true
+    _avg?: QrCouponAvgAggregateInputType
+    _sum?: QrCouponSumAggregateInputType
+    _min?: QrCouponMinAggregateInputType
+    _max?: QrCouponMaxAggregateInputType
+  }
+
+  export type QrCouponGroupByOutputType = {
+    id: string
+    code: string
+    type: $Enums.QrCouponType
+    value: Decimal
+    appliesToOffers: $Enums.QrOfferCode[]
+    maxRedemptions: number | null
+    redeemedCount: number
+    isActive: boolean
+    startsAt: Date | null
+    expiresAt: Date | null
+    createdById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: QrCouponCountAggregateOutputType | null
+    _avg: QrCouponAvgAggregateOutputType | null
+    _sum: QrCouponSumAggregateOutputType | null
+    _min: QrCouponMinAggregateOutputType | null
+    _max: QrCouponMaxAggregateOutputType | null
+  }
+
+  type GetQrCouponGroupByPayload<T extends QrCouponGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrCouponGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrCouponGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrCouponGroupByOutputType[P]>
+            : GetScalarType<T[P], QrCouponGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrCouponSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    type?: boolean
+    value?: boolean
+    appliesToOffers?: boolean
+    maxRedemptions?: boolean
+    redeemedCount?: boolean
+    isActive?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    redemptions?: boolean | QrCoupon$redemptionsArgs<ExtArgs>
+    _count?: boolean | QrCouponCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCoupon"]>
+
+  export type QrCouponSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    type?: boolean
+    value?: boolean
+    appliesToOffers?: boolean
+    maxRedemptions?: boolean
+    redeemedCount?: boolean
+    isActive?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["qrCoupon"]>
+
+  export type QrCouponSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    type?: boolean
+    value?: boolean
+    appliesToOffers?: boolean
+    maxRedemptions?: boolean
+    redeemedCount?: boolean
+    isActive?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["qrCoupon"]>
+
+  export type QrCouponSelectScalar = {
+    id?: boolean
+    code?: boolean
+    type?: boolean
+    value?: boolean
+    appliesToOffers?: boolean
+    maxRedemptions?: boolean
+    redeemedCount?: boolean
+    isActive?: boolean
+    startsAt?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QrCouponOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "type" | "value" | "appliesToOffers" | "maxRedemptions" | "redeemedCount" | "isActive" | "startsAt" | "expiresAt" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["qrCoupon"]>
+  export type QrCouponInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redemptions?: boolean | QrCoupon$redemptionsArgs<ExtArgs>
+    _count?: boolean | QrCouponCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QrCouponIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type QrCouponIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $QrCouponPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrCoupon"
+    objects: {
+      redemptions: Prisma.$QrCouponRedemptionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      type: $Enums.QrCouponType
+      value: Prisma.Decimal
+      appliesToOffers: $Enums.QrOfferCode[]
+      maxRedemptions: number | null
+      redeemedCount: number
+      isActive: boolean
+      startsAt: Date | null
+      expiresAt: Date | null
+      createdById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["qrCoupon"]>
+    composites: {}
+  }
+
+  type QrCouponGetPayload<S extends boolean | null | undefined | QrCouponDefaultArgs> = $Result.GetResult<Prisma.$QrCouponPayload, S>
+
+  type QrCouponCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrCouponFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrCouponCountAggregateInputType | true
+    }
+
+  export interface QrCouponDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrCoupon'], meta: { name: 'QrCoupon' } }
+    /**
+     * Find zero or one QrCoupon that matches the filter.
+     * @param {QrCouponFindUniqueArgs} args - Arguments to find a QrCoupon
+     * @example
+     * // Get one QrCoupon
+     * const qrCoupon = await prisma.qrCoupon.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrCouponFindUniqueArgs>(args: SelectSubset<T, QrCouponFindUniqueArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrCoupon that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrCouponFindUniqueOrThrowArgs} args - Arguments to find a QrCoupon
+     * @example
+     * // Get one QrCoupon
+     * const qrCoupon = await prisma.qrCoupon.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrCouponFindUniqueOrThrowArgs>(args: SelectSubset<T, QrCouponFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrCoupon that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponFindFirstArgs} args - Arguments to find a QrCoupon
+     * @example
+     * // Get one QrCoupon
+     * const qrCoupon = await prisma.qrCoupon.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrCouponFindFirstArgs>(args?: SelectSubset<T, QrCouponFindFirstArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrCoupon that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponFindFirstOrThrowArgs} args - Arguments to find a QrCoupon
+     * @example
+     * // Get one QrCoupon
+     * const qrCoupon = await prisma.qrCoupon.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrCouponFindFirstOrThrowArgs>(args?: SelectSubset<T, QrCouponFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrCoupons that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrCoupons
+     * const qrCoupons = await prisma.qrCoupon.findMany()
+     * 
+     * // Get first 10 QrCoupons
+     * const qrCoupons = await prisma.qrCoupon.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrCouponWithIdOnly = await prisma.qrCoupon.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrCouponFindManyArgs>(args?: SelectSubset<T, QrCouponFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrCoupon.
+     * @param {QrCouponCreateArgs} args - Arguments to create a QrCoupon.
+     * @example
+     * // Create one QrCoupon
+     * const QrCoupon = await prisma.qrCoupon.create({
+     *   data: {
+     *     // ... data to create a QrCoupon
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrCouponCreateArgs>(args: SelectSubset<T, QrCouponCreateArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrCoupons.
+     * @param {QrCouponCreateManyArgs} args - Arguments to create many QrCoupons.
+     * @example
+     * // Create many QrCoupons
+     * const qrCoupon = await prisma.qrCoupon.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrCouponCreateManyArgs>(args?: SelectSubset<T, QrCouponCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrCoupons and returns the data saved in the database.
+     * @param {QrCouponCreateManyAndReturnArgs} args - Arguments to create many QrCoupons.
+     * @example
+     * // Create many QrCoupons
+     * const qrCoupon = await prisma.qrCoupon.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrCoupons and only return the `id`
+     * const qrCouponWithIdOnly = await prisma.qrCoupon.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrCouponCreateManyAndReturnArgs>(args?: SelectSubset<T, QrCouponCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrCoupon.
+     * @param {QrCouponDeleteArgs} args - Arguments to delete one QrCoupon.
+     * @example
+     * // Delete one QrCoupon
+     * const QrCoupon = await prisma.qrCoupon.delete({
+     *   where: {
+     *     // ... filter to delete one QrCoupon
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrCouponDeleteArgs>(args: SelectSubset<T, QrCouponDeleteArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrCoupon.
+     * @param {QrCouponUpdateArgs} args - Arguments to update one QrCoupon.
+     * @example
+     * // Update one QrCoupon
+     * const qrCoupon = await prisma.qrCoupon.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrCouponUpdateArgs>(args: SelectSubset<T, QrCouponUpdateArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrCoupons.
+     * @param {QrCouponDeleteManyArgs} args - Arguments to filter QrCoupons to delete.
+     * @example
+     * // Delete a few QrCoupons
+     * const { count } = await prisma.qrCoupon.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrCouponDeleteManyArgs>(args?: SelectSubset<T, QrCouponDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrCoupons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrCoupons
+     * const qrCoupon = await prisma.qrCoupon.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrCouponUpdateManyArgs>(args: SelectSubset<T, QrCouponUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrCoupons and returns the data updated in the database.
+     * @param {QrCouponUpdateManyAndReturnArgs} args - Arguments to update many QrCoupons.
+     * @example
+     * // Update many QrCoupons
+     * const qrCoupon = await prisma.qrCoupon.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrCoupons and only return the `id`
+     * const qrCouponWithIdOnly = await prisma.qrCoupon.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrCouponUpdateManyAndReturnArgs>(args: SelectSubset<T, QrCouponUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrCoupon.
+     * @param {QrCouponUpsertArgs} args - Arguments to update or create a QrCoupon.
+     * @example
+     * // Update or create a QrCoupon
+     * const qrCoupon = await prisma.qrCoupon.upsert({
+     *   create: {
+     *     // ... data to create a QrCoupon
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrCoupon we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrCouponUpsertArgs>(args: SelectSubset<T, QrCouponUpsertArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrCoupons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponCountArgs} args - Arguments to filter QrCoupons to count.
+     * @example
+     * // Count the number of QrCoupons
+     * const count = await prisma.qrCoupon.count({
+     *   where: {
+     *     // ... the filter for the QrCoupons we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrCouponCountArgs>(
+      args?: Subset<T, QrCouponCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrCouponCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrCoupon.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrCouponAggregateArgs>(args: Subset<T, QrCouponAggregateArgs>): Prisma.PrismaPromise<GetQrCouponAggregateType<T>>
+
+    /**
+     * Group by QrCoupon.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrCouponGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrCouponGroupByArgs['orderBy'] }
+        : { orderBy?: QrCouponGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrCouponGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrCouponGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrCoupon model
+   */
+  readonly fields: QrCouponFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrCoupon.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrCouponClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    redemptions<T extends QrCoupon$redemptionsArgs<ExtArgs> = {}>(args?: Subset<T, QrCoupon$redemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrCoupon model
+   */
+  interface QrCouponFieldRefs {
+    readonly id: FieldRef<"QrCoupon", 'String'>
+    readonly code: FieldRef<"QrCoupon", 'String'>
+    readonly type: FieldRef<"QrCoupon", 'QrCouponType'>
+    readonly value: FieldRef<"QrCoupon", 'Decimal'>
+    readonly appliesToOffers: FieldRef<"QrCoupon", 'QrOfferCode[]'>
+    readonly maxRedemptions: FieldRef<"QrCoupon", 'Int'>
+    readonly redeemedCount: FieldRef<"QrCoupon", 'Int'>
+    readonly isActive: FieldRef<"QrCoupon", 'Boolean'>
+    readonly startsAt: FieldRef<"QrCoupon", 'DateTime'>
+    readonly expiresAt: FieldRef<"QrCoupon", 'DateTime'>
+    readonly createdById: FieldRef<"QrCoupon", 'String'>
+    readonly createdAt: FieldRef<"QrCoupon", 'DateTime'>
+    readonly updatedAt: FieldRef<"QrCoupon", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrCoupon findUnique
+   */
+  export type QrCouponFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCoupon to fetch.
+     */
+    where: QrCouponWhereUniqueInput
+  }
+
+  /**
+   * QrCoupon findUniqueOrThrow
+   */
+  export type QrCouponFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCoupon to fetch.
+     */
+    where: QrCouponWhereUniqueInput
+  }
+
+  /**
+   * QrCoupon findFirst
+   */
+  export type QrCouponFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCoupon to fetch.
+     */
+    where?: QrCouponWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCoupons to fetch.
+     */
+    orderBy?: QrCouponOrderByWithRelationInput | QrCouponOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrCoupons.
+     */
+    cursor?: QrCouponWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCoupons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCoupons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrCoupons.
+     */
+    distinct?: QrCouponScalarFieldEnum | QrCouponScalarFieldEnum[]
+  }
+
+  /**
+   * QrCoupon findFirstOrThrow
+   */
+  export type QrCouponFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCoupon to fetch.
+     */
+    where?: QrCouponWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCoupons to fetch.
+     */
+    orderBy?: QrCouponOrderByWithRelationInput | QrCouponOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrCoupons.
+     */
+    cursor?: QrCouponWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCoupons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCoupons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrCoupons.
+     */
+    distinct?: QrCouponScalarFieldEnum | QrCouponScalarFieldEnum[]
+  }
+
+  /**
+   * QrCoupon findMany
+   */
+  export type QrCouponFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCoupons to fetch.
+     */
+    where?: QrCouponWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCoupons to fetch.
+     */
+    orderBy?: QrCouponOrderByWithRelationInput | QrCouponOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrCoupons.
+     */
+    cursor?: QrCouponWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCoupons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCoupons.
+     */
+    skip?: number
+    distinct?: QrCouponScalarFieldEnum | QrCouponScalarFieldEnum[]
+  }
+
+  /**
+   * QrCoupon create
+   */
+  export type QrCouponCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrCoupon.
+     */
+    data: XOR<QrCouponCreateInput, QrCouponUncheckedCreateInput>
+  }
+
+  /**
+   * QrCoupon createMany
+   */
+  export type QrCouponCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrCoupons.
+     */
+    data: QrCouponCreateManyInput | QrCouponCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrCoupon createManyAndReturn
+   */
+  export type QrCouponCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrCoupons.
+     */
+    data: QrCouponCreateManyInput | QrCouponCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrCoupon update
+   */
+  export type QrCouponUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrCoupon.
+     */
+    data: XOR<QrCouponUpdateInput, QrCouponUncheckedUpdateInput>
+    /**
+     * Choose, which QrCoupon to update.
+     */
+    where: QrCouponWhereUniqueInput
+  }
+
+  /**
+   * QrCoupon updateMany
+   */
+  export type QrCouponUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrCoupons.
+     */
+    data: XOR<QrCouponUpdateManyMutationInput, QrCouponUncheckedUpdateManyInput>
+    /**
+     * Filter which QrCoupons to update
+     */
+    where?: QrCouponWhereInput
+    /**
+     * Limit how many QrCoupons to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCoupon updateManyAndReturn
+   */
+  export type QrCouponUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * The data used to update QrCoupons.
+     */
+    data: XOR<QrCouponUpdateManyMutationInput, QrCouponUncheckedUpdateManyInput>
+    /**
+     * Filter which QrCoupons to update
+     */
+    where?: QrCouponWhereInput
+    /**
+     * Limit how many QrCoupons to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCoupon upsert
+   */
+  export type QrCouponUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrCoupon to update in case it exists.
+     */
+    where: QrCouponWhereUniqueInput
+    /**
+     * In case the QrCoupon found by the `where` argument doesn't exist, create a new QrCoupon with this data.
+     */
+    create: XOR<QrCouponCreateInput, QrCouponUncheckedCreateInput>
+    /**
+     * In case the QrCoupon was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrCouponUpdateInput, QrCouponUncheckedUpdateInput>
+  }
+
+  /**
+   * QrCoupon delete
+   */
+  export type QrCouponDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+    /**
+     * Filter which QrCoupon to delete.
+     */
+    where: QrCouponWhereUniqueInput
+  }
+
+  /**
+   * QrCoupon deleteMany
+   */
+  export type QrCouponDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrCoupons to delete
+     */
+    where?: QrCouponWhereInput
+    /**
+     * Limit how many QrCoupons to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCoupon.redemptions
+   */
+  export type QrCoupon$redemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    where?: QrCouponRedemptionWhereInput
+    orderBy?: QrCouponRedemptionOrderByWithRelationInput | QrCouponRedemptionOrderByWithRelationInput[]
+    cursor?: QrCouponRedemptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrCouponRedemptionScalarFieldEnum | QrCouponRedemptionScalarFieldEnum[]
+  }
+
+  /**
+   * QrCoupon without action
+   */
+  export type QrCouponDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCoupon
+     */
+    select?: QrCouponSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCoupon
+     */
+    omit?: QrCouponOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrCouponRedemption
+   */
+
+  export type AggregateQrCouponRedemption = {
+    _count: QrCouponRedemptionCountAggregateOutputType | null
+    _avg: QrCouponRedemptionAvgAggregateOutputType | null
+    _sum: QrCouponRedemptionSumAggregateOutputType | null
+    _min: QrCouponRedemptionMinAggregateOutputType | null
+    _max: QrCouponRedemptionMaxAggregateOutputType | null
+  }
+
+  export type QrCouponRedemptionAvgAggregateOutputType = {
+    discount: Decimal | null
+  }
+
+  export type QrCouponRedemptionSumAggregateOutputType = {
+    discount: Decimal | null
+  }
+
+  export type QrCouponRedemptionMinAggregateOutputType = {
+    id: string | null
+    couponId: string | null
+    userId: string | null
+    paymentId: string | null
+    offerCode: $Enums.QrOfferCode | null
+    discount: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type QrCouponRedemptionMaxAggregateOutputType = {
+    id: string | null
+    couponId: string | null
+    userId: string | null
+    paymentId: string | null
+    offerCode: $Enums.QrOfferCode | null
+    discount: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type QrCouponRedemptionCountAggregateOutputType = {
+    id: number
+    couponId: number
+    userId: number
+    paymentId: number
+    offerCode: number
+    discount: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type QrCouponRedemptionAvgAggregateInputType = {
+    discount?: true
+  }
+
+  export type QrCouponRedemptionSumAggregateInputType = {
+    discount?: true
+  }
+
+  export type QrCouponRedemptionMinAggregateInputType = {
+    id?: true
+    couponId?: true
+    userId?: true
+    paymentId?: true
+    offerCode?: true
+    discount?: true
+    createdAt?: true
+  }
+
+  export type QrCouponRedemptionMaxAggregateInputType = {
+    id?: true
+    couponId?: true
+    userId?: true
+    paymentId?: true
+    offerCode?: true
+    discount?: true
+    createdAt?: true
+  }
+
+  export type QrCouponRedemptionCountAggregateInputType = {
+    id?: true
+    couponId?: true
+    userId?: true
+    paymentId?: true
+    offerCode?: true
+    discount?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type QrCouponRedemptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrCouponRedemption to aggregate.
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCouponRedemptions to fetch.
+     */
+    orderBy?: QrCouponRedemptionOrderByWithRelationInput | QrCouponRedemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrCouponRedemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCouponRedemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCouponRedemptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrCouponRedemptions
+    **/
+    _count?: true | QrCouponRedemptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QrCouponRedemptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QrCouponRedemptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrCouponRedemptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrCouponRedemptionMaxAggregateInputType
+  }
+
+  export type GetQrCouponRedemptionAggregateType<T extends QrCouponRedemptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrCouponRedemption]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrCouponRedemption[P]>
+      : GetScalarType<T[P], AggregateQrCouponRedemption[P]>
+  }
+
+
+
+
+  export type QrCouponRedemptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrCouponRedemptionWhereInput
+    orderBy?: QrCouponRedemptionOrderByWithAggregationInput | QrCouponRedemptionOrderByWithAggregationInput[]
+    by: QrCouponRedemptionScalarFieldEnum[] | QrCouponRedemptionScalarFieldEnum
+    having?: QrCouponRedemptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrCouponRedemptionCountAggregateInputType | true
+    _avg?: QrCouponRedemptionAvgAggregateInputType
+    _sum?: QrCouponRedemptionSumAggregateInputType
+    _min?: QrCouponRedemptionMinAggregateInputType
+    _max?: QrCouponRedemptionMaxAggregateInputType
+  }
+
+  export type QrCouponRedemptionGroupByOutputType = {
+    id: string
+    couponId: string
+    userId: string
+    paymentId: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal
+    createdAt: Date
+    _count: QrCouponRedemptionCountAggregateOutputType | null
+    _avg: QrCouponRedemptionAvgAggregateOutputType | null
+    _sum: QrCouponRedemptionSumAggregateOutputType | null
+    _min: QrCouponRedemptionMinAggregateOutputType | null
+    _max: QrCouponRedemptionMaxAggregateOutputType | null
+  }
+
+  type GetQrCouponRedemptionGroupByPayload<T extends QrCouponRedemptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrCouponRedemptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrCouponRedemptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrCouponRedemptionGroupByOutputType[P]>
+            : GetScalarType<T[P], QrCouponRedemptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrCouponRedemptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    couponId?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    discount?: boolean
+    createdAt?: boolean
+    coupon?: boolean | QrCouponDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCouponRedemption"]>
+
+  export type QrCouponRedemptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    couponId?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    discount?: boolean
+    createdAt?: boolean
+    coupon?: boolean | QrCouponDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCouponRedemption"]>
+
+  export type QrCouponRedemptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    couponId?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    discount?: boolean
+    createdAt?: boolean
+    coupon?: boolean | QrCouponDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrCouponRedemption"]>
+
+  export type QrCouponRedemptionSelectScalar = {
+    id?: boolean
+    couponId?: boolean
+    userId?: boolean
+    paymentId?: boolean
+    offerCode?: boolean
+    discount?: boolean
+    createdAt?: boolean
+  }
+
+  export type QrCouponRedemptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "couponId" | "userId" | "paymentId" | "offerCode" | "discount" | "createdAt", ExtArgs["result"]["qrCouponRedemption"]>
+  export type QrCouponRedemptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coupon?: boolean | QrCouponDefaultArgs<ExtArgs>
+  }
+  export type QrCouponRedemptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coupon?: boolean | QrCouponDefaultArgs<ExtArgs>
+  }
+  export type QrCouponRedemptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    coupon?: boolean | QrCouponDefaultArgs<ExtArgs>
+  }
+
+  export type $QrCouponRedemptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrCouponRedemption"
+    objects: {
+      coupon: Prisma.$QrCouponPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      couponId: string
+      userId: string
+      paymentId: string | null
+      offerCode: $Enums.QrOfferCode
+      discount: Prisma.Decimal
+      createdAt: Date
+    }, ExtArgs["result"]["qrCouponRedemption"]>
+    composites: {}
+  }
+
+  type QrCouponRedemptionGetPayload<S extends boolean | null | undefined | QrCouponRedemptionDefaultArgs> = $Result.GetResult<Prisma.$QrCouponRedemptionPayload, S>
+
+  type QrCouponRedemptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrCouponRedemptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrCouponRedemptionCountAggregateInputType | true
+    }
+
+  export interface QrCouponRedemptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrCouponRedemption'], meta: { name: 'QrCouponRedemption' } }
+    /**
+     * Find zero or one QrCouponRedemption that matches the filter.
+     * @param {QrCouponRedemptionFindUniqueArgs} args - Arguments to find a QrCouponRedemption
+     * @example
+     * // Get one QrCouponRedemption
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrCouponRedemptionFindUniqueArgs>(args: SelectSubset<T, QrCouponRedemptionFindUniqueArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrCouponRedemption that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrCouponRedemptionFindUniqueOrThrowArgs} args - Arguments to find a QrCouponRedemption
+     * @example
+     * // Get one QrCouponRedemption
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrCouponRedemptionFindUniqueOrThrowArgs>(args: SelectSubset<T, QrCouponRedemptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrCouponRedemption that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionFindFirstArgs} args - Arguments to find a QrCouponRedemption
+     * @example
+     * // Get one QrCouponRedemption
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrCouponRedemptionFindFirstArgs>(args?: SelectSubset<T, QrCouponRedemptionFindFirstArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrCouponRedemption that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionFindFirstOrThrowArgs} args - Arguments to find a QrCouponRedemption
+     * @example
+     * // Get one QrCouponRedemption
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrCouponRedemptionFindFirstOrThrowArgs>(args?: SelectSubset<T, QrCouponRedemptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrCouponRedemptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrCouponRedemptions
+     * const qrCouponRedemptions = await prisma.qrCouponRedemption.findMany()
+     * 
+     * // Get first 10 QrCouponRedemptions
+     * const qrCouponRedemptions = await prisma.qrCouponRedemption.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrCouponRedemptionWithIdOnly = await prisma.qrCouponRedemption.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrCouponRedemptionFindManyArgs>(args?: SelectSubset<T, QrCouponRedemptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrCouponRedemption.
+     * @param {QrCouponRedemptionCreateArgs} args - Arguments to create a QrCouponRedemption.
+     * @example
+     * // Create one QrCouponRedemption
+     * const QrCouponRedemption = await prisma.qrCouponRedemption.create({
+     *   data: {
+     *     // ... data to create a QrCouponRedemption
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrCouponRedemptionCreateArgs>(args: SelectSubset<T, QrCouponRedemptionCreateArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrCouponRedemptions.
+     * @param {QrCouponRedemptionCreateManyArgs} args - Arguments to create many QrCouponRedemptions.
+     * @example
+     * // Create many QrCouponRedemptions
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrCouponRedemptionCreateManyArgs>(args?: SelectSubset<T, QrCouponRedemptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrCouponRedemptions and returns the data saved in the database.
+     * @param {QrCouponRedemptionCreateManyAndReturnArgs} args - Arguments to create many QrCouponRedemptions.
+     * @example
+     * // Create many QrCouponRedemptions
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrCouponRedemptions and only return the `id`
+     * const qrCouponRedemptionWithIdOnly = await prisma.qrCouponRedemption.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrCouponRedemptionCreateManyAndReturnArgs>(args?: SelectSubset<T, QrCouponRedemptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrCouponRedemption.
+     * @param {QrCouponRedemptionDeleteArgs} args - Arguments to delete one QrCouponRedemption.
+     * @example
+     * // Delete one QrCouponRedemption
+     * const QrCouponRedemption = await prisma.qrCouponRedemption.delete({
+     *   where: {
+     *     // ... filter to delete one QrCouponRedemption
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrCouponRedemptionDeleteArgs>(args: SelectSubset<T, QrCouponRedemptionDeleteArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrCouponRedemption.
+     * @param {QrCouponRedemptionUpdateArgs} args - Arguments to update one QrCouponRedemption.
+     * @example
+     * // Update one QrCouponRedemption
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrCouponRedemptionUpdateArgs>(args: SelectSubset<T, QrCouponRedemptionUpdateArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrCouponRedemptions.
+     * @param {QrCouponRedemptionDeleteManyArgs} args - Arguments to filter QrCouponRedemptions to delete.
+     * @example
+     * // Delete a few QrCouponRedemptions
+     * const { count } = await prisma.qrCouponRedemption.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrCouponRedemptionDeleteManyArgs>(args?: SelectSubset<T, QrCouponRedemptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrCouponRedemptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrCouponRedemptions
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrCouponRedemptionUpdateManyArgs>(args: SelectSubset<T, QrCouponRedemptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrCouponRedemptions and returns the data updated in the database.
+     * @param {QrCouponRedemptionUpdateManyAndReturnArgs} args - Arguments to update many QrCouponRedemptions.
+     * @example
+     * // Update many QrCouponRedemptions
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrCouponRedemptions and only return the `id`
+     * const qrCouponRedemptionWithIdOnly = await prisma.qrCouponRedemption.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrCouponRedemptionUpdateManyAndReturnArgs>(args: SelectSubset<T, QrCouponRedemptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrCouponRedemption.
+     * @param {QrCouponRedemptionUpsertArgs} args - Arguments to update or create a QrCouponRedemption.
+     * @example
+     * // Update or create a QrCouponRedemption
+     * const qrCouponRedemption = await prisma.qrCouponRedemption.upsert({
+     *   create: {
+     *     // ... data to create a QrCouponRedemption
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrCouponRedemption we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrCouponRedemptionUpsertArgs>(args: SelectSubset<T, QrCouponRedemptionUpsertArgs<ExtArgs>>): Prisma__QrCouponRedemptionClient<$Result.GetResult<Prisma.$QrCouponRedemptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrCouponRedemptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionCountArgs} args - Arguments to filter QrCouponRedemptions to count.
+     * @example
+     * // Count the number of QrCouponRedemptions
+     * const count = await prisma.qrCouponRedemption.count({
+     *   where: {
+     *     // ... the filter for the QrCouponRedemptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrCouponRedemptionCountArgs>(
+      args?: Subset<T, QrCouponRedemptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrCouponRedemptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrCouponRedemption.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrCouponRedemptionAggregateArgs>(args: Subset<T, QrCouponRedemptionAggregateArgs>): Prisma.PrismaPromise<GetQrCouponRedemptionAggregateType<T>>
+
+    /**
+     * Group by QrCouponRedemption.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrCouponRedemptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrCouponRedemptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrCouponRedemptionGroupByArgs['orderBy'] }
+        : { orderBy?: QrCouponRedemptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrCouponRedemptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrCouponRedemptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrCouponRedemption model
+   */
+  readonly fields: QrCouponRedemptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrCouponRedemption.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrCouponRedemptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    coupon<T extends QrCouponDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QrCouponDefaultArgs<ExtArgs>>): Prisma__QrCouponClient<$Result.GetResult<Prisma.$QrCouponPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrCouponRedemption model
+   */
+  interface QrCouponRedemptionFieldRefs {
+    readonly id: FieldRef<"QrCouponRedemption", 'String'>
+    readonly couponId: FieldRef<"QrCouponRedemption", 'String'>
+    readonly userId: FieldRef<"QrCouponRedemption", 'String'>
+    readonly paymentId: FieldRef<"QrCouponRedemption", 'String'>
+    readonly offerCode: FieldRef<"QrCouponRedemption", 'QrOfferCode'>
+    readonly discount: FieldRef<"QrCouponRedemption", 'Decimal'>
+    readonly createdAt: FieldRef<"QrCouponRedemption", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrCouponRedemption findUnique
+   */
+  export type QrCouponRedemptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCouponRedemption to fetch.
+     */
+    where: QrCouponRedemptionWhereUniqueInput
+  }
+
+  /**
+   * QrCouponRedemption findUniqueOrThrow
+   */
+  export type QrCouponRedemptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCouponRedemption to fetch.
+     */
+    where: QrCouponRedemptionWhereUniqueInput
+  }
+
+  /**
+   * QrCouponRedemption findFirst
+   */
+  export type QrCouponRedemptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCouponRedemption to fetch.
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCouponRedemptions to fetch.
+     */
+    orderBy?: QrCouponRedemptionOrderByWithRelationInput | QrCouponRedemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrCouponRedemptions.
+     */
+    cursor?: QrCouponRedemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCouponRedemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCouponRedemptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrCouponRedemptions.
+     */
+    distinct?: QrCouponRedemptionScalarFieldEnum | QrCouponRedemptionScalarFieldEnum[]
+  }
+
+  /**
+   * QrCouponRedemption findFirstOrThrow
+   */
+  export type QrCouponRedemptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCouponRedemption to fetch.
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCouponRedemptions to fetch.
+     */
+    orderBy?: QrCouponRedemptionOrderByWithRelationInput | QrCouponRedemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrCouponRedemptions.
+     */
+    cursor?: QrCouponRedemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCouponRedemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCouponRedemptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrCouponRedemptions.
+     */
+    distinct?: QrCouponRedemptionScalarFieldEnum | QrCouponRedemptionScalarFieldEnum[]
+  }
+
+  /**
+   * QrCouponRedemption findMany
+   */
+  export type QrCouponRedemptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which QrCouponRedemptions to fetch.
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrCouponRedemptions to fetch.
+     */
+    orderBy?: QrCouponRedemptionOrderByWithRelationInput | QrCouponRedemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrCouponRedemptions.
+     */
+    cursor?: QrCouponRedemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrCouponRedemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrCouponRedemptions.
+     */
+    skip?: number
+    distinct?: QrCouponRedemptionScalarFieldEnum | QrCouponRedemptionScalarFieldEnum[]
+  }
+
+  /**
+   * QrCouponRedemption create
+   */
+  export type QrCouponRedemptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrCouponRedemption.
+     */
+    data: XOR<QrCouponRedemptionCreateInput, QrCouponRedemptionUncheckedCreateInput>
+  }
+
+  /**
+   * QrCouponRedemption createMany
+   */
+  export type QrCouponRedemptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrCouponRedemptions.
+     */
+    data: QrCouponRedemptionCreateManyInput | QrCouponRedemptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrCouponRedemption createManyAndReturn
+   */
+  export type QrCouponRedemptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrCouponRedemptions.
+     */
+    data: QrCouponRedemptionCreateManyInput | QrCouponRedemptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrCouponRedemption update
+   */
+  export type QrCouponRedemptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrCouponRedemption.
+     */
+    data: XOR<QrCouponRedemptionUpdateInput, QrCouponRedemptionUncheckedUpdateInput>
+    /**
+     * Choose, which QrCouponRedemption to update.
+     */
+    where: QrCouponRedemptionWhereUniqueInput
+  }
+
+  /**
+   * QrCouponRedemption updateMany
+   */
+  export type QrCouponRedemptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrCouponRedemptions.
+     */
+    data: XOR<QrCouponRedemptionUpdateManyMutationInput, QrCouponRedemptionUncheckedUpdateManyInput>
+    /**
+     * Filter which QrCouponRedemptions to update
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * Limit how many QrCouponRedemptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCouponRedemption updateManyAndReturn
+   */
+  export type QrCouponRedemptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * The data used to update QrCouponRedemptions.
+     */
+    data: XOR<QrCouponRedemptionUpdateManyMutationInput, QrCouponRedemptionUncheckedUpdateManyInput>
+    /**
+     * Filter which QrCouponRedemptions to update
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * Limit how many QrCouponRedemptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrCouponRedemption upsert
+   */
+  export type QrCouponRedemptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrCouponRedemption to update in case it exists.
+     */
+    where: QrCouponRedemptionWhereUniqueInput
+    /**
+     * In case the QrCouponRedemption found by the `where` argument doesn't exist, create a new QrCouponRedemption with this data.
+     */
+    create: XOR<QrCouponRedemptionCreateInput, QrCouponRedemptionUncheckedCreateInput>
+    /**
+     * In case the QrCouponRedemption was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrCouponRedemptionUpdateInput, QrCouponRedemptionUncheckedUpdateInput>
+  }
+
+  /**
+   * QrCouponRedemption delete
+   */
+  export type QrCouponRedemptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+    /**
+     * Filter which QrCouponRedemption to delete.
+     */
+    where: QrCouponRedemptionWhereUniqueInput
+  }
+
+  /**
+   * QrCouponRedemption deleteMany
+   */
+  export type QrCouponRedemptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrCouponRedemptions to delete
+     */
+    where?: QrCouponRedemptionWhereInput
+    /**
+     * Limit how many QrCouponRedemptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrCouponRedemption without action
+   */
+  export type QrCouponRedemptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrCouponRedemption
+     */
+    select?: QrCouponRedemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrCouponRedemption
+     */
+    omit?: QrCouponRedemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrCouponRedemptionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -99516,6 +102115,9 @@ export namespace Prisma {
     providerReference: 'providerReference',
     providerResponse: 'providerResponse',
     fulfilledAt: 'fulfilledAt',
+    couponCode: 'couponCode',
+    couponId: 'couponId',
+    discountAmount: 'discountAmount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -99688,6 +102290,38 @@ export namespace Prisma {
   };
 
   export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
+
+
+  export const QrCouponScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    type: 'type',
+    value: 'value',
+    appliesToOffers: 'appliesToOffers',
+    maxRedemptions: 'maxRedemptions',
+    redeemedCount: 'redeemedCount',
+    isActive: 'isActive',
+    startsAt: 'startsAt',
+    expiresAt: 'expiresAt',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QrCouponScalarFieldEnum = (typeof QrCouponScalarFieldEnum)[keyof typeof QrCouponScalarFieldEnum]
+
+
+  export const QrCouponRedemptionScalarFieldEnum: {
+    id: 'id',
+    couponId: 'couponId',
+    userId: 'userId',
+    paymentId: 'paymentId',
+    offerCode: 'offerCode',
+    discount: 'discount',
+    createdAt: 'createdAt'
+  };
+
+  export type QrCouponRedemptionScalarFieldEnum = (typeof QrCouponRedemptionScalarFieldEnum)[keyof typeof QrCouponRedemptionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -100433,6 +103067,20 @@ export namespace Prisma {
    * Reference to a field of type 'EventTicketStatus[]'
    */
   export type ListEnumEventTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventTicketStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrCouponType'
+   */
+  export type EnumQrCouponTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCouponType'>
+    
+
+
+  /**
+   * Reference to a field of type 'QrCouponType[]'
+   */
+  export type ListEnumQrCouponTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCouponType[]'>
     
 
 
@@ -106031,6 +108679,9 @@ export namespace Prisma {
     providerReference?: StringFilter<"QrPayment"> | string
     providerResponse?: JsonNullableFilter<"QrPayment">
     fulfilledAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    couponCode?: StringNullableFilter<"QrPayment"> | string | null
+    couponId?: UuidNullableFilter<"QrPayment"> | string | null
+    discountAmount?: DecimalNullableFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"QrPayment"> | Date | string
     updatedAt?: DateTimeFilter<"QrPayment"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -106054,6 +108705,9 @@ export namespace Prisma {
     providerReference?: SortOrder
     providerResponse?: SortOrderInput | SortOrder
     fulfilledAt?: SortOrderInput | SortOrder
+    couponCode?: SortOrderInput | SortOrder
+    couponId?: SortOrderInput | SortOrder
+    discountAmount?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -106080,6 +108734,9 @@ export namespace Prisma {
     providerPaymentId?: StringNullableFilter<"QrPayment"> | string | null
     providerResponse?: JsonNullableFilter<"QrPayment">
     fulfilledAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    couponCode?: StringNullableFilter<"QrPayment"> | string | null
+    couponId?: UuidNullableFilter<"QrPayment"> | string | null
+    discountAmount?: DecimalNullableFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"QrPayment"> | Date | string
     updatedAt?: DateTimeFilter<"QrPayment"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -106103,6 +108760,9 @@ export namespace Prisma {
     providerReference?: SortOrder
     providerResponse?: SortOrderInput | SortOrder
     fulfilledAt?: SortOrderInput | SortOrder
+    couponCode?: SortOrderInput | SortOrder
+    couponId?: SortOrderInput | SortOrder
+    discountAmount?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: QrPaymentCountOrderByAggregateInput
@@ -106132,6 +108792,9 @@ export namespace Prisma {
     providerReference?: StringWithAggregatesFilter<"QrPayment"> | string
     providerResponse?: JsonNullableWithAggregatesFilter<"QrPayment">
     fulfilledAt?: DateTimeNullableWithAggregatesFilter<"QrPayment"> | Date | string | null
+    couponCode?: StringNullableWithAggregatesFilter<"QrPayment"> | string | null
+    couponId?: UuidNullableWithAggregatesFilter<"QrPayment"> | string | null
+    discountAmount?: DecimalNullableWithAggregatesFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeWithAggregatesFilter<"QrPayment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"QrPayment"> | Date | string
   }
@@ -107017,6 +109680,170 @@ export namespace Prisma {
     checkedInBy?: UuidNullableWithAggregatesFilter<"Ticket"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
+  }
+
+  export type QrCouponWhereInput = {
+    AND?: QrCouponWhereInput | QrCouponWhereInput[]
+    OR?: QrCouponWhereInput[]
+    NOT?: QrCouponWhereInput | QrCouponWhereInput[]
+    id?: UuidFilter<"QrCoupon"> | string
+    code?: StringFilter<"QrCoupon"> | string
+    type?: EnumQrCouponTypeFilter<"QrCoupon"> | $Enums.QrCouponType
+    value?: DecimalFilter<"QrCoupon"> | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: EnumQrOfferCodeNullableListFilter<"QrCoupon">
+    maxRedemptions?: IntNullableFilter<"QrCoupon"> | number | null
+    redeemedCount?: IntFilter<"QrCoupon"> | number
+    isActive?: BoolFilter<"QrCoupon"> | boolean
+    startsAt?: DateTimeNullableFilter<"QrCoupon"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"QrCoupon"> | Date | string | null
+    createdById?: UuidNullableFilter<"QrCoupon"> | string | null
+    createdAt?: DateTimeFilter<"QrCoupon"> | Date | string
+    updatedAt?: DateTimeFilter<"QrCoupon"> | Date | string
+    redemptions?: QrCouponRedemptionListRelationFilter
+  }
+
+  export type QrCouponOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    appliesToOffers?: SortOrder
+    maxRedemptions?: SortOrderInput | SortOrder
+    redeemedCount?: SortOrder
+    isActive?: SortOrder
+    startsAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    redemptions?: QrCouponRedemptionOrderByRelationAggregateInput
+  }
+
+  export type QrCouponWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: QrCouponWhereInput | QrCouponWhereInput[]
+    OR?: QrCouponWhereInput[]
+    NOT?: QrCouponWhereInput | QrCouponWhereInput[]
+    type?: EnumQrCouponTypeFilter<"QrCoupon"> | $Enums.QrCouponType
+    value?: DecimalFilter<"QrCoupon"> | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: EnumQrOfferCodeNullableListFilter<"QrCoupon">
+    maxRedemptions?: IntNullableFilter<"QrCoupon"> | number | null
+    redeemedCount?: IntFilter<"QrCoupon"> | number
+    isActive?: BoolFilter<"QrCoupon"> | boolean
+    startsAt?: DateTimeNullableFilter<"QrCoupon"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"QrCoupon"> | Date | string | null
+    createdById?: UuidNullableFilter<"QrCoupon"> | string | null
+    createdAt?: DateTimeFilter<"QrCoupon"> | Date | string
+    updatedAt?: DateTimeFilter<"QrCoupon"> | Date | string
+    redemptions?: QrCouponRedemptionListRelationFilter
+  }, "id" | "code">
+
+  export type QrCouponOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    appliesToOffers?: SortOrder
+    maxRedemptions?: SortOrderInput | SortOrder
+    redeemedCount?: SortOrder
+    isActive?: SortOrder
+    startsAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QrCouponCountOrderByAggregateInput
+    _avg?: QrCouponAvgOrderByAggregateInput
+    _max?: QrCouponMaxOrderByAggregateInput
+    _min?: QrCouponMinOrderByAggregateInput
+    _sum?: QrCouponSumOrderByAggregateInput
+  }
+
+  export type QrCouponScalarWhereWithAggregatesInput = {
+    AND?: QrCouponScalarWhereWithAggregatesInput | QrCouponScalarWhereWithAggregatesInput[]
+    OR?: QrCouponScalarWhereWithAggregatesInput[]
+    NOT?: QrCouponScalarWhereWithAggregatesInput | QrCouponScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrCoupon"> | string
+    code?: StringWithAggregatesFilter<"QrCoupon"> | string
+    type?: EnumQrCouponTypeWithAggregatesFilter<"QrCoupon"> | $Enums.QrCouponType
+    value?: DecimalWithAggregatesFilter<"QrCoupon"> | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: EnumQrOfferCodeNullableListFilter<"QrCoupon">
+    maxRedemptions?: IntNullableWithAggregatesFilter<"QrCoupon"> | number | null
+    redeemedCount?: IntWithAggregatesFilter<"QrCoupon"> | number
+    isActive?: BoolWithAggregatesFilter<"QrCoupon"> | boolean
+    startsAt?: DateTimeNullableWithAggregatesFilter<"QrCoupon"> | Date | string | null
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"QrCoupon"> | Date | string | null
+    createdById?: UuidNullableWithAggregatesFilter<"QrCoupon"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QrCoupon"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QrCoupon"> | Date | string
+  }
+
+  export type QrCouponRedemptionWhereInput = {
+    AND?: QrCouponRedemptionWhereInput | QrCouponRedemptionWhereInput[]
+    OR?: QrCouponRedemptionWhereInput[]
+    NOT?: QrCouponRedemptionWhereInput | QrCouponRedemptionWhereInput[]
+    id?: UuidFilter<"QrCouponRedemption"> | string
+    couponId?: UuidFilter<"QrCouponRedemption"> | string
+    userId?: UuidFilter<"QrCouponRedemption"> | string
+    paymentId?: UuidNullableFilter<"QrCouponRedemption"> | string | null
+    offerCode?: EnumQrOfferCodeFilter<"QrCouponRedemption"> | $Enums.QrOfferCode
+    discount?: DecimalFilter<"QrCouponRedemption"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"QrCouponRedemption"> | Date | string
+    coupon?: XOR<QrCouponScalarRelationFilter, QrCouponWhereInput>
+  }
+
+  export type QrCouponRedemptionOrderByWithRelationInput = {
+    id?: SortOrder
+    couponId?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrderInput | SortOrder
+    offerCode?: SortOrder
+    discount?: SortOrder
+    createdAt?: SortOrder
+    coupon?: QrCouponOrderByWithRelationInput
+  }
+
+  export type QrCouponRedemptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: QrCouponRedemptionWhereInput | QrCouponRedemptionWhereInput[]
+    OR?: QrCouponRedemptionWhereInput[]
+    NOT?: QrCouponRedemptionWhereInput | QrCouponRedemptionWhereInput[]
+    couponId?: UuidFilter<"QrCouponRedemption"> | string
+    userId?: UuidFilter<"QrCouponRedemption"> | string
+    paymentId?: UuidNullableFilter<"QrCouponRedemption"> | string | null
+    offerCode?: EnumQrOfferCodeFilter<"QrCouponRedemption"> | $Enums.QrOfferCode
+    discount?: DecimalFilter<"QrCouponRedemption"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"QrCouponRedemption"> | Date | string
+    coupon?: XOR<QrCouponScalarRelationFilter, QrCouponWhereInput>
+  }, "id">
+
+  export type QrCouponRedemptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    couponId?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrderInput | SortOrder
+    offerCode?: SortOrder
+    discount?: SortOrder
+    createdAt?: SortOrder
+    _count?: QrCouponRedemptionCountOrderByAggregateInput
+    _avg?: QrCouponRedemptionAvgOrderByAggregateInput
+    _max?: QrCouponRedemptionMaxOrderByAggregateInput
+    _min?: QrCouponRedemptionMinOrderByAggregateInput
+    _sum?: QrCouponRedemptionSumOrderByAggregateInput
+  }
+
+  export type QrCouponRedemptionScalarWhereWithAggregatesInput = {
+    AND?: QrCouponRedemptionScalarWhereWithAggregatesInput | QrCouponRedemptionScalarWhereWithAggregatesInput[]
+    OR?: QrCouponRedemptionScalarWhereWithAggregatesInput[]
+    NOT?: QrCouponRedemptionScalarWhereWithAggregatesInput | QrCouponRedemptionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrCouponRedemption"> | string
+    couponId?: UuidWithAggregatesFilter<"QrCouponRedemption"> | string
+    userId?: UuidWithAggregatesFilter<"QrCouponRedemption"> | string
+    paymentId?: UuidNullableWithAggregatesFilter<"QrCouponRedemption"> | string | null
+    offerCode?: EnumQrOfferCodeWithAggregatesFilter<"QrCouponRedemption"> | $Enums.QrOfferCode
+    discount?: DecimalWithAggregatesFilter<"QrCouponRedemption"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"QrCouponRedemption"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -113190,6 +116017,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutQrPaymentsInput
@@ -113213,6 +116043,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     entitlements?: QrEntitlementUncheckedCreateNestedManyWithoutPaymentInput
@@ -113234,6 +116067,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutQrPaymentsNestedInput
@@ -113257,6 +116093,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     entitlements?: QrEntitlementUncheckedUpdateManyWithoutPaymentNestedInput
@@ -113279,6 +116118,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -113299,6 +116141,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -113320,6 +116165,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -114310,6 +117158,191 @@ export namespace Prisma {
     checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponCreateInput = {
+    id?: string
+    code: string
+    type: $Enums.QrCouponType
+    value: Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponCreateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: number | null
+    redeemedCount?: number
+    isActive?: boolean
+    startsAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    redemptions?: QrCouponRedemptionCreateNestedManyWithoutCouponInput
+  }
+
+  export type QrCouponUncheckedCreateInput = {
+    id?: string
+    code: string
+    type: $Enums.QrCouponType
+    value: Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponCreateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: number | null
+    redeemedCount?: number
+    isActive?: boolean
+    startsAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    redemptions?: QrCouponRedemptionUncheckedCreateNestedManyWithoutCouponInput
+  }
+
+  export type QrCouponUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumQrCouponTypeFieldUpdateOperationsInput | $Enums.QrCouponType
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponUpdateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: NullableIntFieldUpdateOperationsInput | number | null
+    redeemedCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    redemptions?: QrCouponRedemptionUpdateManyWithoutCouponNestedInput
+  }
+
+  export type QrCouponUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumQrCouponTypeFieldUpdateOperationsInput | $Enums.QrCouponType
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponUpdateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: NullableIntFieldUpdateOperationsInput | number | null
+    redeemedCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    redemptions?: QrCouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput
+  }
+
+  export type QrCouponCreateManyInput = {
+    id?: string
+    code: string
+    type: $Enums.QrCouponType
+    value: Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponCreateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: number | null
+    redeemedCount?: number
+    isActive?: boolean
+    startsAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrCouponUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumQrCouponTypeFieldUpdateOperationsInput | $Enums.QrCouponType
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponUpdateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: NullableIntFieldUpdateOperationsInput | number | null
+    redeemedCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumQrCouponTypeFieldUpdateOperationsInput | $Enums.QrCouponType
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponUpdateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: NullableIntFieldUpdateOperationsInput | number | null
+    redeemedCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponRedemptionCreateInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    coupon: QrCouponCreateNestedOneWithoutRedemptionsInput
+  }
+
+  export type QrCouponRedemptionUncheckedCreateInput = {
+    id?: string
+    couponId: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type QrCouponRedemptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coupon?: QrCouponUpdateOneRequiredWithoutRedemptionsNestedInput
+  }
+
+  export type QrCouponRedemptionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    couponId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponRedemptionCreateManyInput = {
+    id?: string
+    couponId: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type QrCouponRedemptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponRedemptionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    couponId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -118902,6 +121935,9 @@ export namespace Prisma {
     providerReference?: SortOrder
     providerResponse?: SortOrder
     fulfilledAt?: SortOrder
+    couponCode?: SortOrder
+    couponId?: SortOrder
+    discountAmount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -118910,6 +121946,7 @@ export namespace Prisma {
     amount?: SortOrder
     campaignCredits?: SortOrder
     maxActiveCampaigns?: SortOrder
+    discountAmount?: SortOrder
   }
 
   export type QrPaymentMaxOrderByAggregateInput = {
@@ -118928,6 +121965,9 @@ export namespace Prisma {
     providerPaymentId?: SortOrder
     providerReference?: SortOrder
     fulfilledAt?: SortOrder
+    couponCode?: SortOrder
+    couponId?: SortOrder
+    discountAmount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -118948,6 +121988,9 @@ export namespace Prisma {
     providerPaymentId?: SortOrder
     providerReference?: SortOrder
     fulfilledAt?: SortOrder
+    couponCode?: SortOrder
+    couponId?: SortOrder
+    discountAmount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -118956,6 +121999,7 @@ export namespace Prisma {
     amount?: SortOrder
     campaignCredits?: SortOrder
     maxActiveCampaigns?: SortOrder
+    discountAmount?: SortOrder
   }
 
   export type EnumQrOfferCodeWithAggregatesFilter<$PrismaModel = never> = {
@@ -119686,6 +122730,142 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEventTicketStatusFilter<$PrismaModel>
     _max?: NestedEnumEventTicketStatusFilter<$PrismaModel>
+  }
+
+  export type EnumQrCouponTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCouponType | EnumQrCouponTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCouponTypeFilter<$PrismaModel> | $Enums.QrCouponType
+  }
+
+  export type EnumQrOfferCodeNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel> | null
+    has?: $Enums.QrOfferCode | EnumQrOfferCodeFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.QrOfferCode[] | ListEnumQrOfferCodeFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type QrCouponRedemptionListRelationFilter = {
+    every?: QrCouponRedemptionWhereInput
+    some?: QrCouponRedemptionWhereInput
+    none?: QrCouponRedemptionWhereInput
+  }
+
+  export type QrCouponRedemptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrCouponCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    appliesToOffers?: SortOrder
+    maxRedemptions?: SortOrder
+    redeemedCount?: SortOrder
+    isActive?: SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrCouponAvgOrderByAggregateInput = {
+    value?: SortOrder
+    maxRedemptions?: SortOrder
+    redeemedCount?: SortOrder
+  }
+
+  export type QrCouponMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    maxRedemptions?: SortOrder
+    redeemedCount?: SortOrder
+    isActive?: SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrCouponMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    type?: SortOrder
+    value?: SortOrder
+    maxRedemptions?: SortOrder
+    redeemedCount?: SortOrder
+    isActive?: SortOrder
+    startsAt?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrCouponSumOrderByAggregateInput = {
+    value?: SortOrder
+    maxRedemptions?: SortOrder
+    redeemedCount?: SortOrder
+  }
+
+  export type EnumQrCouponTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCouponType | EnumQrCouponTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCouponTypeWithAggregatesFilter<$PrismaModel> | $Enums.QrCouponType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrCouponTypeFilter<$PrismaModel>
+    _max?: NestedEnumQrCouponTypeFilter<$PrismaModel>
+  }
+
+  export type QrCouponScalarRelationFilter = {
+    is?: QrCouponWhereInput
+    isNot?: QrCouponWhereInput
+  }
+
+  export type QrCouponRedemptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    couponId?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrder
+    offerCode?: SortOrder
+    discount?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrCouponRedemptionAvgOrderByAggregateInput = {
+    discount?: SortOrder
+  }
+
+  export type QrCouponRedemptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    couponId?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrder
+    offerCode?: SortOrder
+    discount?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrCouponRedemptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    couponId?: SortOrder
+    userId?: SortOrder
+    paymentId?: SortOrder
+    offerCode?: SortOrder
+    discount?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type QrCouponRedemptionSumOrderByAggregateInput = {
+    discount?: SortOrder
   }
 
   export type UserProfileCreateNestedOneWithoutUserInput = {
@@ -125246,6 +128426,75 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketsInput, UserUpdateWithoutTicketsInput>, UserUncheckedUpdateWithoutTicketsInput>
   }
 
+  export type QrCouponCreateappliesToOffersInput = {
+    set: $Enums.QrOfferCode[]
+  }
+
+  export type QrCouponRedemptionCreateNestedManyWithoutCouponInput = {
+    create?: XOR<QrCouponRedemptionCreateWithoutCouponInput, QrCouponRedemptionUncheckedCreateWithoutCouponInput> | QrCouponRedemptionCreateWithoutCouponInput[] | QrCouponRedemptionUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: QrCouponRedemptionCreateOrConnectWithoutCouponInput | QrCouponRedemptionCreateOrConnectWithoutCouponInput[]
+    createMany?: QrCouponRedemptionCreateManyCouponInputEnvelope
+    connect?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+  }
+
+  export type QrCouponRedemptionUncheckedCreateNestedManyWithoutCouponInput = {
+    create?: XOR<QrCouponRedemptionCreateWithoutCouponInput, QrCouponRedemptionUncheckedCreateWithoutCouponInput> | QrCouponRedemptionCreateWithoutCouponInput[] | QrCouponRedemptionUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: QrCouponRedemptionCreateOrConnectWithoutCouponInput | QrCouponRedemptionCreateOrConnectWithoutCouponInput[]
+    createMany?: QrCouponRedemptionCreateManyCouponInputEnvelope
+    connect?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+  }
+
+  export type EnumQrCouponTypeFieldUpdateOperationsInput = {
+    set?: $Enums.QrCouponType
+  }
+
+  export type QrCouponUpdateappliesToOffersInput = {
+    set?: $Enums.QrOfferCode[]
+    push?: $Enums.QrOfferCode | $Enums.QrOfferCode[]
+  }
+
+  export type QrCouponRedemptionUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<QrCouponRedemptionCreateWithoutCouponInput, QrCouponRedemptionUncheckedCreateWithoutCouponInput> | QrCouponRedemptionCreateWithoutCouponInput[] | QrCouponRedemptionUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: QrCouponRedemptionCreateOrConnectWithoutCouponInput | QrCouponRedemptionCreateOrConnectWithoutCouponInput[]
+    upsert?: QrCouponRedemptionUpsertWithWhereUniqueWithoutCouponInput | QrCouponRedemptionUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: QrCouponRedemptionCreateManyCouponInputEnvelope
+    set?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    disconnect?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    delete?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    connect?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    update?: QrCouponRedemptionUpdateWithWhereUniqueWithoutCouponInput | QrCouponRedemptionUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: QrCouponRedemptionUpdateManyWithWhereWithoutCouponInput | QrCouponRedemptionUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: QrCouponRedemptionScalarWhereInput | QrCouponRedemptionScalarWhereInput[]
+  }
+
+  export type QrCouponRedemptionUncheckedUpdateManyWithoutCouponNestedInput = {
+    create?: XOR<QrCouponRedemptionCreateWithoutCouponInput, QrCouponRedemptionUncheckedCreateWithoutCouponInput> | QrCouponRedemptionCreateWithoutCouponInput[] | QrCouponRedemptionUncheckedCreateWithoutCouponInput[]
+    connectOrCreate?: QrCouponRedemptionCreateOrConnectWithoutCouponInput | QrCouponRedemptionCreateOrConnectWithoutCouponInput[]
+    upsert?: QrCouponRedemptionUpsertWithWhereUniqueWithoutCouponInput | QrCouponRedemptionUpsertWithWhereUniqueWithoutCouponInput[]
+    createMany?: QrCouponRedemptionCreateManyCouponInputEnvelope
+    set?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    disconnect?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    delete?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    connect?: QrCouponRedemptionWhereUniqueInput | QrCouponRedemptionWhereUniqueInput[]
+    update?: QrCouponRedemptionUpdateWithWhereUniqueWithoutCouponInput | QrCouponRedemptionUpdateWithWhereUniqueWithoutCouponInput[]
+    updateMany?: QrCouponRedemptionUpdateManyWithWhereWithoutCouponInput | QrCouponRedemptionUpdateManyWithWhereWithoutCouponInput[]
+    deleteMany?: QrCouponRedemptionScalarWhereInput | QrCouponRedemptionScalarWhereInput[]
+  }
+
+  export type QrCouponCreateNestedOneWithoutRedemptionsInput = {
+    create?: XOR<QrCouponCreateWithoutRedemptionsInput, QrCouponUncheckedCreateWithoutRedemptionsInput>
+    connectOrCreate?: QrCouponCreateOrConnectWithoutRedemptionsInput
+    connect?: QrCouponWhereUniqueInput
+  }
+
+  export type QrCouponUpdateOneRequiredWithoutRedemptionsNestedInput = {
+    create?: XOR<QrCouponCreateWithoutRedemptionsInput, QrCouponUncheckedCreateWithoutRedemptionsInput>
+    connectOrCreate?: QrCouponCreateOrConnectWithoutRedemptionsInput
+    upsert?: QrCouponUpsertWithoutRedemptionsInput
+    connect?: QrCouponWhereUniqueInput
+    update?: XOR<XOR<QrCouponUpdateToOneWithWhereWithoutRedemptionsInput, QrCouponUpdateWithoutRedemptionsInput>, QrCouponUncheckedUpdateWithoutRedemptionsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -126355,6 +129604,23 @@ export namespace Prisma {
     _max?: NestedEnumEventTicketStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumQrCouponTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCouponType | EnumQrCouponTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCouponTypeFilter<$PrismaModel> | $Enums.QrCouponType
+  }
+
+  export type NestedEnumQrCouponTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QrCouponType | EnumQrCouponTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QrCouponType[] | ListEnumQrCouponTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumQrCouponTypeWithAggregatesFilter<$PrismaModel> | $Enums.QrCouponType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQrCouponTypeFilter<$PrismaModel>
+    _max?: NestedEnumQrCouponTypeFilter<$PrismaModel>
+  }
+
   export type UserProfileCreateWithoutUserInput = {
     id?: string
     bio?: string | null
@@ -127268,6 +130534,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     entitlements?: QrEntitlementCreateNestedManyWithoutPaymentInput
@@ -127289,6 +130558,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     entitlements?: QrEntitlementUncheckedCreateNestedManyWithoutPaymentInput
@@ -128310,6 +131582,9 @@ export namespace Prisma {
     providerReference?: StringFilter<"QrPayment"> | string
     providerResponse?: JsonNullableFilter<"QrPayment">
     fulfilledAt?: DateTimeNullableFilter<"QrPayment"> | Date | string | null
+    couponCode?: StringNullableFilter<"QrPayment"> | string | null
+    couponId?: UuidNullableFilter<"QrPayment"> | string | null
+    discountAmount?: DecimalNullableFilter<"QrPayment"> | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFilter<"QrPayment"> | Date | string
     updatedAt?: DateTimeFilter<"QrPayment"> | Date | string
   }
@@ -144011,6 +147286,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutQrPaymentsInput
@@ -144033,6 +147311,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -144230,6 +147511,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutQrPaymentsNestedInput
@@ -144252,6 +147536,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -146664,6 +149951,143 @@ export namespace Prisma {
     qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
   }
 
+  export type QrCouponRedemptionCreateWithoutCouponInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type QrCouponRedemptionUncheckedCreateWithoutCouponInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type QrCouponRedemptionCreateOrConnectWithoutCouponInput = {
+    where: QrCouponRedemptionWhereUniqueInput
+    create: XOR<QrCouponRedemptionCreateWithoutCouponInput, QrCouponRedemptionUncheckedCreateWithoutCouponInput>
+  }
+
+  export type QrCouponRedemptionCreateManyCouponInputEnvelope = {
+    data: QrCouponRedemptionCreateManyCouponInput | QrCouponRedemptionCreateManyCouponInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrCouponRedemptionUpsertWithWhereUniqueWithoutCouponInput = {
+    where: QrCouponRedemptionWhereUniqueInput
+    update: XOR<QrCouponRedemptionUpdateWithoutCouponInput, QrCouponRedemptionUncheckedUpdateWithoutCouponInput>
+    create: XOR<QrCouponRedemptionCreateWithoutCouponInput, QrCouponRedemptionUncheckedCreateWithoutCouponInput>
+  }
+
+  export type QrCouponRedemptionUpdateWithWhereUniqueWithoutCouponInput = {
+    where: QrCouponRedemptionWhereUniqueInput
+    data: XOR<QrCouponRedemptionUpdateWithoutCouponInput, QrCouponRedemptionUncheckedUpdateWithoutCouponInput>
+  }
+
+  export type QrCouponRedemptionUpdateManyWithWhereWithoutCouponInput = {
+    where: QrCouponRedemptionScalarWhereInput
+    data: XOR<QrCouponRedemptionUpdateManyMutationInput, QrCouponRedemptionUncheckedUpdateManyWithoutCouponInput>
+  }
+
+  export type QrCouponRedemptionScalarWhereInput = {
+    AND?: QrCouponRedemptionScalarWhereInput | QrCouponRedemptionScalarWhereInput[]
+    OR?: QrCouponRedemptionScalarWhereInput[]
+    NOT?: QrCouponRedemptionScalarWhereInput | QrCouponRedemptionScalarWhereInput[]
+    id?: UuidFilter<"QrCouponRedemption"> | string
+    couponId?: UuidFilter<"QrCouponRedemption"> | string
+    userId?: UuidFilter<"QrCouponRedemption"> | string
+    paymentId?: UuidNullableFilter<"QrCouponRedemption"> | string | null
+    offerCode?: EnumQrOfferCodeFilter<"QrCouponRedemption"> | $Enums.QrOfferCode
+    discount?: DecimalFilter<"QrCouponRedemption"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"QrCouponRedemption"> | Date | string
+  }
+
+  export type QrCouponCreateWithoutRedemptionsInput = {
+    id?: string
+    code: string
+    type: $Enums.QrCouponType
+    value: Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponCreateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: number | null
+    redeemedCount?: number
+    isActive?: boolean
+    startsAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrCouponUncheckedCreateWithoutRedemptionsInput = {
+    id?: string
+    code: string
+    type: $Enums.QrCouponType
+    value: Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponCreateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: number | null
+    redeemedCount?: number
+    isActive?: boolean
+    startsAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrCouponCreateOrConnectWithoutRedemptionsInput = {
+    where: QrCouponWhereUniqueInput
+    create: XOR<QrCouponCreateWithoutRedemptionsInput, QrCouponUncheckedCreateWithoutRedemptionsInput>
+  }
+
+  export type QrCouponUpsertWithoutRedemptionsInput = {
+    update: XOR<QrCouponUpdateWithoutRedemptionsInput, QrCouponUncheckedUpdateWithoutRedemptionsInput>
+    create: XOR<QrCouponCreateWithoutRedemptionsInput, QrCouponUncheckedCreateWithoutRedemptionsInput>
+    where?: QrCouponWhereInput
+  }
+
+  export type QrCouponUpdateToOneWithWhereWithoutRedemptionsInput = {
+    where?: QrCouponWhereInput
+    data: XOR<QrCouponUpdateWithoutRedemptionsInput, QrCouponUncheckedUpdateWithoutRedemptionsInput>
+  }
+
+  export type QrCouponUpdateWithoutRedemptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumQrCouponTypeFieldUpdateOperationsInput | $Enums.QrCouponType
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponUpdateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: NullableIntFieldUpdateOperationsInput | number | null
+    redeemedCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponUncheckedUpdateWithoutRedemptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    type?: EnumQrCouponTypeFieldUpdateOperationsInput | $Enums.QrCouponType
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    appliesToOffers?: QrCouponUpdateappliesToOffersInput | $Enums.QrOfferCode[]
+    maxRedemptions?: NullableIntFieldUpdateOperationsInput | number | null
+    redeemedCount?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type OrderCreateManyBuyerInput = {
     id?: string
     status?: $Enums.OrderStatus
@@ -146889,6 +150313,9 @@ export namespace Prisma {
     providerReference: string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: Date | string | null
+    couponCode?: string | null
+    couponId?: string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -147598,6 +151025,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     entitlements?: QrEntitlementUpdateManyWithoutPaymentNestedInput
@@ -147619,6 +151049,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     entitlements?: QrEntitlementUncheckedUpdateManyWithoutPaymentNestedInput
@@ -147640,6 +151073,9 @@ export namespace Prisma {
     providerReference?: StringFieldUpdateOperationsInput | string
     providerResponse?: NullableJsonNullValueInput | InputJsonValue
     fulfilledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    couponCode?: NullableStringFieldUpdateOperationsInput | string | null
+    couponId?: NullableStringFieldUpdateOperationsInput | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -151179,6 +154615,42 @@ export namespace Prisma {
     checkedInBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponRedemptionCreateManyCouponInput = {
+    id?: string
+    userId: string
+    paymentId?: string | null
+    offerCode: $Enums.QrOfferCode
+    discount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type QrCouponRedemptionUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponRedemptionUncheckedUpdateWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrCouponRedemptionUncheckedUpdateManyWithoutCouponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    offerCode?: EnumQrOfferCodeFieldUpdateOperationsInput | $Enums.QrOfferCode
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

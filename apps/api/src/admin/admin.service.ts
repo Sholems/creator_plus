@@ -8,6 +8,8 @@ import { SettingsService } from '../settings/settings.service';
 import { ContactService } from '../contact/contact.service';
 import { SupportTicketsService } from '../support-tickets/support-tickets.service';
 import { FeatureFlagsService } from '../feature-flags/feature-flags.service';
+import { QrCouponsService } from '../qr-studio/qr-coupons.service';
+import { CreateQrCouponDto, UpdateQrCouponDto } from '../qr-studio/dto/qr-coupon.dto';
 import { BroadcastDto } from './dto/broadcast.dto';
 import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
 
@@ -26,7 +28,22 @@ export class AdminService {
     private readonly contactService: ContactService,
     private readonly supportTicketsService: SupportTicketsService,
     private readonly featureFlagsService: FeatureFlagsService,
+    private readonly qrCoupons: QrCouponsService,
   ) {}
+
+  // ─── QR Studio discount coupons ───────────────────────────────────────────
+  createQrCoupon(adminId: string, dto: CreateQrCouponDto) {
+    return this.qrCoupons.create(adminId, dto);
+  }
+  listQrCoupons() {
+    return this.qrCoupons.list();
+  }
+  updateQrCoupon(id: string, dto: UpdateQrCouponDto) {
+    return this.qrCoupons.update(id, dto);
+  }
+  deactivateQrCoupon(id: string) {
+    return this.qrCoupons.deactivate(id);
+  }
   async getStats() {
     const days = 30;
     const since = new Date();

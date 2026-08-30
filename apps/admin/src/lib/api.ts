@@ -130,6 +130,13 @@ export const api = {
       body,
       token,
     }),
+  listQrCoupons: (token: string) => request<any[]>(`/admin/qr-studio/coupons`, { token }),
+  createQrCoupon: (token: string, body: any) =>
+    request<any>(`/admin/qr-studio/coupons`, { method: 'POST', body, token }),
+  updateQrCoupon: (token: string, id: string, body: any) =>
+    request<any>(`/admin/qr-studio/coupons/${id}`, { method: 'PATCH', body, token }),
+  deactivateQrCoupon: (token: string, id: string) =>
+    request<any>(`/admin/qr-studio/coupons/${id}`, { method: 'DELETE', token }),
   approveProduct: (token: string, id: string) =>
     request<any>(`/admin/products/${id}/approve`, { method: 'POST', token }),
   rejectProduct: (token: string, id: string, reason?: string) =>

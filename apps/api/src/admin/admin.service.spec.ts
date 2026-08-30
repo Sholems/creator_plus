@@ -16,7 +16,7 @@ const p = prisma as any;
 
 function makeService() {
   return new AdminService(
-    {} as any, {} as any, {} as any, {} as any, {} as any, {} as any, {} as any, {} as any,
+    {} as any, {} as any, {} as any, {} as any, {} as any, {} as any, {} as any, {} as any, {} as any,
   );
 }
 

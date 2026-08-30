@@ -32,7 +32,7 @@ export class QrBillingController {
   @ApiOperation({ summary: 'Start Paystack checkout for a QR Studio offer' })
   @ApiResponse({ status: 201, description: 'Checkout session created' })
   checkout(@Request() req, @Body() dto: CreateQrCheckoutDto) {
-    return this.billing.createCheckout(req.user.sub, req.user.email, dto.offerCode);
+    return this.billing.createCheckout(req.user.sub, req.user.email, dto.offerCode, dto.couponCode);
   }
 
   @Get('payments/:id')

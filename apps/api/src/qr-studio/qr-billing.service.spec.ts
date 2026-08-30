@@ -13,9 +13,13 @@ const p = prisma as unknown as {
   qrPayment: { create: jest.Mock; update: jest.Mock; findFirst: jest.Mock };
 };
 
-function makeService(provider: any) {
+function makeService(provider: any, coupons?: any, entitlements?: any) {
   const factory = { get: jest.fn().mockReturnValue(provider) } as any;
-  return new QrBillingService(factory);
+  return new QrBillingService(
+    factory,
+    coupons ?? ({ validateForOffer: jest.fn(), redeem: jest.fn() } as any),
+    entitlements ?? ({ grantFromPayment: jest.fn() } as any),
+  );
 }
 
 describe('QrBillingService.createCheckout', () => {

@@ -73,6 +73,9 @@ export default function AdminQrStudioPage() {
           <p className="mt-2 max-w-2xl text-sm text-ink-600">
             Inspect QR campaigns, entitlement state, and safety status. Private R2 file keys and signed URLs are not shown here.
           </p>
+          <Link href={'/qr-studio/coupons' as Route} className="mt-2 inline-block text-sm font-semibold text-emerald-700 hover:underline">
+            Manage discount coupons →
+          </Link>
         </div>
         <div className="rounded-2xl border border-ink-100 bg-white px-4 py-3 text-sm text-ink-600">
           {campaigns.length} campaigns

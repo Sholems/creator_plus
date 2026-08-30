@@ -60,6 +60,7 @@ export default function QrStudioPage() {
   const [access, setAccess] = useState<any>(null);
   const [presetId, setPresetId] = useState('forest');
   const [paymentNote, setPaymentNote] = useState('');
+  const [couponCode, setCouponCode] = useState('');
 
   const hasPro = !!access?.hasPro;
   const [loading, setLoading] = useState(true);
@@ -188,7 +189,7 @@ export default function QrStudioPage() {
     setBusy(true);
     setError('');
     try {
-      const checkout = await api.createQrCheckout(token, offerCode);
+      const checkout = await api.createQrCheckout(token, offerCode, couponCode.trim() || undefined);
       window.location.href = checkout.url;
     } catch (err: any) {
       setError(err.message || 'Could not start Paystack checkout');
@@ -333,7 +334,18 @@ export default function QrStudioPage() {
         </div>
       )}
 
-      <section className="mt-8 grid gap-4 lg:grid-cols-4">
+      <div className="mt-8 flex flex-wrap items-center gap-2 rounded-2xl border border-ink-100 bg-cream-50 px-4 py-3">
+        <span className="text-sm font-medium text-ink-700">Have a discount code?</span>
+        <input
+          value={couponCode}
+          onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+          placeholder="Enter code"
+          className="w-40 rounded-full border border-ink-200 bg-white px-3 py-1.5 font-mono text-sm uppercase text-ink-900 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/20"
+        />
+        <span className="text-xs text-ink-400">Applied automatically when you pick a plan below.</span>
+      </div>
+
+      <section className="mt-4 grid gap-4 lg:grid-cols-4">
         {offers.map((offer) => (
           <article key={offer.code} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
             <p className="text-sm font-semibold text-ink-900">{offer.name}</p>

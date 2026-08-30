@@ -12,6 +12,7 @@ import { QrEntitlementsService } from './qr-entitlements.service';
 import { QrFileSafetyService } from './qr-file-safety.service';
 import { QrPublicService } from './qr-public.service';
 import { QrAnalyticsService } from './qr-analytics.service';
+import { QrCouponsService } from './qr-coupons.service';
 
 @Module({
   imports: [StorageModule, PaymentsModule],
@@ -29,7 +30,8 @@ import { QrAnalyticsService } from './qr-analytics.service';
     QrFileSafetyService,
     QrPublicService,
     QrAnalyticsService,
+    QrCouponsService,
   ],
-  exports: [QrEntitlementsService],
+  exports: [QrEntitlementsService, QrCouponsService],
 })
 export class QrStudioModule {}

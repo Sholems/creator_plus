@@ -299,6 +299,23 @@ export class PaymentsService {
           expiresAt: payment.accessEndsAt ?? addDays(startsAt, offer.durationDays),
         },
       });
+
+      // Record the QR discount-coupon redemption now that the payment cleared.
+      if (payment.couponId) {
+        await tx.qrCouponRedemption.create({
+          data: {
+            couponId: payment.couponId,
+            userId: payment.userId,
+            paymentId: payment.id,
+            offerCode: payment.offerCode,
+            discount: payment.discountAmount ?? new Prisma.Decimal(0),
+          },
+        });
+        await tx.qrCoupon.update({
+          where: { id: payment.couponId },
+          data: { redeemedCount: { increment: 1 } },
+        });
+      }
     });
   }
 

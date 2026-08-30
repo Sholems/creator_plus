@@ -977,6 +977,9 @@ exports.Prisma.QrPaymentScalarFieldEnum = {
   providerReference: 'providerReference',
   providerResponse: 'providerResponse',
   fulfilledAt: 'fulfilledAt',
+  couponCode: 'couponCode',
+  couponId: 'couponId',
+  discountAmount: 'discountAmount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1119,6 +1122,32 @@ exports.Prisma.TicketScalarFieldEnum = {
   checkedInBy: 'checkedInBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrCouponScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  type: 'type',
+  value: 'value',
+  appliesToOffers: 'appliesToOffers',
+  maxRedemptions: 'maxRedemptions',
+  redeemedCount: 'redeemedCount',
+  isActive: 'isActive',
+  startsAt: 'startsAt',
+  expiresAt: 'expiresAt',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrCouponRedemptionScalarFieldEnum = {
+  id: 'id',
+  couponId: 'couponId',
+  userId: 'userId',
+  paymentId: 'paymentId',
+  offerCode: 'offerCode',
+  discount: 'discount',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -1475,6 +1504,11 @@ exports.EventTicketStatus = exports.$Enums.EventTicketStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.QrCouponType = exports.$Enums.QrCouponType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED: 'FIXED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -1550,7 +1584,9 @@ exports.Prisma.ModelName = {
   LicenseKey: 'LicenseKey',
   LicenseActivation: 'LicenseActivation',
   Event: 'Event',
-  Ticket: 'Ticket'
+  Ticket: 'Ticket',
+  QrCoupon: 'QrCoupon',
+  QrCouponRedemption: 'QrCouponRedemption'
 };
 
 /**

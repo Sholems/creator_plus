@@ -11,6 +11,7 @@ import { PaymentsModule } from '../payments/payments.module';
 import { ContactModule } from '../contact/contact.module';
 import { SupportTicketsModule } from '../support-tickets/support-tickets.module';
 import { FeatureFlagsModule } from '../feature-flags/feature-flags.module';
+import { QrStudioModule } from '../qr-studio/qr-studio.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { FeatureFlagsModule } from '../feature-flags/feature-flags.module';
     ContactModule,
     SupportTicketsModule,
     FeatureFlagsModule,
+    QrStudioModule,
   ],
   controllers: [AdminController],
   providers: [AdminService, RolesGuard],

@@ -15,6 +15,7 @@ import { CreateRoleDto, SetUserRolesDto } from './dto/role.dto';
 import { CreateFeatureFlagDto, UpdateFeatureFlagDto } from '../feature-flags/dto/feature-flag.dto';
 import { UpdateContactStatusDto } from '../contact/dto/contact.dto';
 import { QrAdminActionDto, QrAssetSafetyDto } from '../qr-studio/dto/qr-campaign.dto';
+import { CreateQrCouponDto, UpdateQrCouponDto } from '../qr-studio/dto/qr-coupon.dto';
 import {
   AssignTicketDto,
   ReplyTicketDto,
@@ -115,6 +116,30 @@ export class AdminController {
     @Body() dto: QrAssetSafetyDto,
   ) {
     return this.adminService.setQrAssetSafety(req.user.sub, id, assetId, dto);
+  }
+
+  @Get('qr-studio/coupons')
+  @ApiOperation({ summary: 'List QR Studio discount coupons' })
+  listQrCoupons() {
+    return this.adminService.listQrCoupons();
+  }
+
+  @Post('qr-studio/coupons')
+  @ApiOperation({ summary: 'Create a QR Studio discount coupon' })
+  createQrCoupon(@Request() req, @Body() dto: CreateQrCouponDto) {
+    return this.adminService.createQrCoupon(req.user.sub, dto);
+  }
+
+  @Patch('qr-studio/coupons/:id')
+  @ApiOperation({ summary: 'Update a QR Studio discount coupon' })
+  updateQrCoupon(@Param('id') id: string, @Body() dto: UpdateQrCouponDto) {
+    return this.adminService.updateQrCoupon(id, dto);
+  }
+
+  @Delete('qr-studio/coupons/:id')
+  @ApiOperation({ summary: 'Deactivate a QR Studio discount coupon' })
+  deactivateQrCoupon(@Param('id') id: string) {
+    return this.adminService.deactivateQrCoupon(id);
   }
 
   @Get('orders')

@@ -400,10 +400,10 @@ class ApiClient {
     return this.fetch<any>(`/qr-studio/billing/payments/${id}`, { token });
   }
 
-  async createQrCheckout(token: string, offerCode: string) {
+  async createQrCheckout(token: string, offerCode: string, couponCode?: string) {
     return this.fetch<any>('/qr-studio/billing/checkout', {
       method: 'POST',
-      body: { offerCode },
+      body: couponCode ? { offerCode, couponCode } : { offerCode },
       token,
     });
   }
