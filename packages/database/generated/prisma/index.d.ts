@@ -807,7 +807,8 @@ export const QrContentType: {
   VIDEO: 'VIDEO',
   AUDIO: 'AUDIO',
   EVENT: 'EVENT',
-  WIFI: 'WIFI'
+  WIFI: 'WIFI',
+  MENU: 'MENU'
 };
 
 export type QrContentType = (typeof QrContentType)[keyof typeof QrContentType]

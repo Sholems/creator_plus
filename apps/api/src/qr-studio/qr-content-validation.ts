@@ -229,6 +229,38 @@ export function validateCampaignDestination(
         },
       };
     }
+    case 'MENU': {
+      const rawSections = Array.isArray(destinationData?.sections) ? destinationData.sections : [];
+      const sections = rawSections
+        .slice(0, 20)
+        .map((s: any) => {
+          const rawItems = Array.isArray(s?.items) ? s.items : [];
+          const items = rawItems
+            .slice(0, 50)
+            .map((it: any) => {
+              const name = String(it?.name ?? '').trim().slice(0, 120);
+              if (!name) return null;
+              const priceNum = it?.price === '' || it?.price == null ? NaN : Number(it.price);
+              const price = Number.isFinite(priceNum) && priceNum >= 0 ? Math.round(priceNum * 100) / 100 : undefined;
+              const tags = (Array.isArray(it?.tags) ? it.tags : [])
+                .slice(0, 3)
+                .map((t: any) => String(t).trim().slice(0, 24))
+                .filter(Boolean);
+              return {
+                name,
+                description: String(it?.description ?? '').trim().slice(0, 300) || undefined,
+                price,
+                tags: tags.length ? tags : undefined,
+              };
+            })
+            .filter(Boolean);
+          return { title: String(s?.title ?? '').trim().slice(0, 80) || undefined, items };
+        })
+        .filter((s: any) => s.items.length > 0);
+      if (sections.length === 0) throw new BadRequestException('Add at least one menu item');
+      const currency = (String(destinationData?.currency ?? 'NGN').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3)) || 'NGN';
+      return { destinationUrl: null, destinationData: { currency, sections } };
+    }
     default:
       throw new BadRequestException('Unsupported QR content type');
   }

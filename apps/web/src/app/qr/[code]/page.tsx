@@ -6,6 +6,7 @@ import { api } from '@/lib/api';
 import { PlatformIcon, detectPlatform } from '@/components/qr-studio/brand-icons';
 
 const FOREST = '#143c2b';
+const CURRENCY_SYMBOL: Record<string, string> = { NGN: '₦', USD: '$', GHS: '₵', KES: 'KSh ', GBP: '£', EUR: '€' };
 
 function monogram(name?: string): string {
   const parts = String(name ?? '').trim().split(/\s+/).filter(Boolean);
@@ -43,7 +44,7 @@ const TYPE_LABELS: Record<string, string> = {
   FILE: 'File', IMAGE_GALLERY: 'Gallery', WEBSITE: 'Website', PRODUCT_PAGE: 'Product',
   CREATOR_PROFILE: 'Profile', WHATSAPP: 'WhatsApp', SOCIAL_LINK_HUB: 'Links', TEXT_NOTE: 'Note',
   VCARD: 'Contact card', COUPON: 'Coupon', LOCATION: 'Location', EMAIL: 'Email', SMS: 'Message',
-  APP_LINK: 'Get the app', VIDEO: 'Video', AUDIO: 'Audio', EVENT: 'Event', WIFI: 'Wi-Fi',
+  APP_LINK: 'Get the app', VIDEO: 'Video', AUDIO: 'Audio', EVENT: 'Event', WIFI: 'Wi-Fi', MENU: 'Menu',
 };
 
 function TypeIcon({ type }: { type: string }) {
@@ -65,6 +66,7 @@ function TypeIcon({ type }: { type: string }) {
     EVENT: <><rect {...p} x="3" y="5" width="18" height="16" rx="2" /><path {...p} d="M3 9h18M8 3v4M16 3v4" /></>,
     SOCIAL_LINK_HUB: <><circle {...p} cx="18" cy="5" r="3" /><circle {...p} cx="6" cy="12" r="3" /><circle {...p} cx="18" cy="19" r="3" /><path {...p} d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4" /></>,
     TEXT_NOTE: <><path {...p} d="M5 3h9l5 5v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" /><path {...p} d="M8 12h8M8 16h6" /></>,
+    MENU: <><path {...p} d="M6 3v8a2 2 0 0 0 4 0V3M8 11v10M18 3c-1.5 0-2.5 2-2.5 5s1 4 2.5 4v9" /></>,
   };
   paths.PRODUCT_PAGE = paths.WEBSITE;
   paths.CREATOR_PROFILE = paths.VCARD;
@@ -373,6 +375,42 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
           {d.androidUrl && <a href={d.androidUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">Google Play</a>}
           {d.webUrl && <a href={d.webUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">Open on web</a>}
         </div>
+      </div>
+    );
+  }
+
+  if (contentType === 'MENU') {
+    const sections: any[] = Array.isArray(d.sections) ? d.sections : [];
+    const sym = CURRENCY_SYMBOL[d.currency] ?? `${d.currency} `;
+    return (
+      <div className="mt-6 space-y-6">
+        {sections.map((sec, si) => (
+          <div key={si}>
+            {sec.title && (
+              <h3 className="border-b pb-2 text-[0.7rem] font-bold uppercase tracking-[0.18em]" style={{ color: accent, borderColor: tint(accent, 0.3) }}>{sec.title}</h3>
+            )}
+            <div className="divide-y divide-ink-100">
+              {(sec.items ?? []).map((it: any, ii: number) => (
+                <div key={ii} className="flex items-start justify-between gap-4 py-3">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-ink-900">{it.name}</p>
+                    {it.description && <p className="mt-0.5 text-sm leading-5 text-ink-500">{it.description}</p>}
+                    {Array.isArray(it.tags) && it.tags.length > 0 && (
+                      <div className="mt-1.5 flex flex-wrap gap-1">
+                        {it.tags.map((t: string, ti: number) => (
+                          <span key={ti} className="rounded-full px-2 py-0.5 text-[0.65rem] font-semibold" style={{ background: tint(accent, 0.1), color: accent }}>{t}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {typeof it.price === 'number' && (
+                    <p className="shrink-0 font-semibold text-ink-900">{sym}{it.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }

@@ -129,6 +129,22 @@ describe('QR content validation', () => {
     });
   });
 
+  it('validates a menu and drops empty sections/items', () => {
+    const res = validateCampaignDestination('MENU', null, {
+      currency: 'ngn',
+      sections: [
+        { title: 'Mains', items: [{ name: 'Jollof Rice', price: '2500', tags: ['Popular', 'Spicy'], description: 'Party jollof' }, { name: '' }] },
+        { title: 'Empty', items: [{ name: '' }] },
+      ],
+    });
+    expect(res.destinationData).toMatchObject({
+      currency: 'NGN',
+      sections: [{ title: 'Mains', items: [{ name: 'Jollof Rice', price: 2500, tags: ['Popular', 'Spicy'] }] }],
+    });
+    expect(res.destinationData!.sections).toHaveLength(1);
+    expect(() => validateCampaignDestination('MENU', null, { sections: [] })).toThrow('at least one menu item');
+  });
+
   it('validates Wi-Fi content and drops the password for open networks', () => {
     expect(validateCampaignDestination('WIFI', null, { ssid: 'CafeNet', password: 'secret', encryption: 'WPA' })).toMatchObject({
       destinationData: { ssid: 'CafeNet', password: 'secret', encryption: 'WPA', hidden: false },

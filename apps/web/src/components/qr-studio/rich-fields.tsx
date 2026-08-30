@@ -58,6 +58,63 @@ export function AvatarUploader({ token, value, onChange }: { token: string; valu
   );
 }
 
+export interface MenuItem { name: string; price?: string; description?: string; tags?: string[] }
+export interface MenuSection { title: string; items: MenuItem[] }
+export interface MenuData { currency: string; sections: MenuSection[] }
+
+export const EMPTY_MENU: MenuData = { currency: 'NGN', sections: [{ title: '', items: [{ name: '' }] }] };
+
+export function MenuEditor({ value, onChange }: { value: MenuData; onChange: (v: MenuData) => void }) {
+  const data = value?.sections?.length ? value : EMPTY_MENU;
+  const field = 'w-full rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm';
+
+  const setSection = (si: number, patch: Partial<MenuSection>) =>
+    onChange({ ...data, sections: data.sections.map((s, i) => (i === si ? { ...s, ...patch } : s)) });
+  const setItem = (si: number, ii: number, patch: Partial<MenuItem>) =>
+    setSection(si, { items: data.sections[si].items.map((it, i) => (i === ii ? { ...it, ...patch } : it)) });
+  const addSection = () => onChange({ ...data, sections: [...data.sections, { title: '', items: [{ name: '' }] }] });
+  const removeSection = (si: number) => onChange({ ...data, sections: data.sections.filter((_, i) => i !== si) });
+  const addItem = (si: number) => setSection(si, { items: [...data.sections[si].items, { name: '' }] });
+  const removeItem = (si: number, ii: number) => setSection(si, { items: data.sections[si].items.filter((_, i) => i !== ii) });
+
+  return (
+    <div className="space-y-4">
+      <label className="flex items-center gap-2 text-sm text-ink-600">Currency
+        <select className="rounded-lg border border-ink-200 bg-white px-2 py-1.5 text-sm" value={data.currency} onChange={(e) => onChange({ ...data, currency: e.target.value })}>
+          <option value="NGN">₦ NGN</option>
+          <option value="USD">$ USD</option>
+          <option value="GHS">₵ GHS</option>
+          <option value="KES">KSh KES</option>
+        </select>
+      </label>
+
+      {data.sections.map((section, si) => (
+        <div key={si} className="rounded-xl border border-ink-100 bg-cream-50 p-3">
+          <div className="flex items-center gap-2">
+            <input className={`${field} font-semibold`} value={section.title} onChange={(e) => setSection(si, { title: e.target.value })} placeholder={`Section ${si + 1} (e.g. Mains)`} />
+            {data.sections.length > 1 && <button type="button" onClick={() => removeSection(si)} className="shrink-0 text-clay-600 hover:underline" aria-label="Remove section">✕</button>}
+          </div>
+          <div className="mt-2 space-y-2">
+            {section.items.map((item, ii) => (
+              <div key={ii} className="rounded-lg border border-ink-100 bg-white p-2">
+                <div className="flex items-center gap-2">
+                  <input className={field} value={item.name} onChange={(e) => setItem(si, ii, { name: e.target.value })} placeholder="Item name" />
+                  <input className="w-28 shrink-0 rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm" value={item.price ?? ''} onChange={(e) => setItem(si, ii, { price: e.target.value })} placeholder="Price" inputMode="decimal" />
+                  {section.items.length > 1 && <button type="button" onClick={() => removeItem(si, ii)} className="shrink-0 text-clay-600 hover:underline" aria-label="Remove item">✕</button>}
+                </div>
+                <input className={`${field} mt-2`} value={item.description ?? ''} onChange={(e) => setItem(si, ii, { description: e.target.value })} placeholder="Description (optional)" />
+                <input className={`${field} mt-2`} value={(item.tags ?? []).join(', ')} onChange={(e) => setItem(si, ii, { tags: e.target.value.split(',').map((t) => t.trim()).filter(Boolean) })} placeholder="Tags, comma-separated (e.g. Popular, Vegan)" />
+              </div>
+            ))}
+            <button type="button" onClick={() => addItem(si)} className="text-xs font-semibold text-forest-700 hover:underline">+ Add item</button>
+          </div>
+        </div>
+      ))}
+      <button type="button" onClick={addSection} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">+ Add section</button>
+    </div>
+  );
+}
+
 export function SocialLinksEditor({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {
   const links = value.length ? value : [''];
   const update = (i: number, v: string) => onChange(links.map((l, idx) => (idx === i ? v : l)));

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { QrDesigner, DEFAULT_QR_DESIGN, type QrDesign } from '@/components/qr-studio/qr-designer';
-import { AvatarUploader, SocialLinksEditor } from '@/components/qr-studio/rich-fields';
+import { AvatarUploader, SocialLinksEditor, MenuEditor, EMPTY_MENU } from '@/components/qr-studio/rich-fields';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { cn } from '@creatorplus/ui';
@@ -269,6 +269,7 @@ export default function QrStudioPage() {
         },
       };
     if (t === 'EMAIL') return { destinationData: { email: contentData.email, subject: contentData.subject, body: contentData.body } };
+    if (t === 'MENU') return { destinationData: contentData.menu ?? EMPTY_MENU };
     return {};
   }
 
@@ -484,6 +485,7 @@ export default function QrStudioPage() {
                 <option value="AUDIO">Audio (Spotify / SoundCloud) — Pro</option>
                 <option value="APP_LINK">App download — Pro</option>
                 <option value="WIFI">Wi-Fi network — Pro</option>
+                <option value="MENU">Menu (₦ priced) — Pro</option>
               </select>
             </div>
 
@@ -564,6 +566,9 @@ export default function QrStudioPage() {
                   <textarea className={inputClass} rows={3} value={contentData.linksText ?? ''} onChange={(e) => cd('linksText', e.target.value)} placeholder={'My shop | https://shop.example.com'} />
                 </div>
               </div>
+            )}
+            {form.contentType === 'MENU' && (
+              <MenuEditor value={contentData.menu ?? EMPTY_MENU} onChange={(v) => cd('menu', v)} />
             )}
             {form.contentType === 'VCARD' && (
               <div className="space-y-4">
