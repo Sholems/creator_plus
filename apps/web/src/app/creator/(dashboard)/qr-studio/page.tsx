@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import QRCode from 'qrcode';
+import { QrDesigner, DEFAULT_QR_DESIGN, type QrDesign } from '@/components/qr-studio/qr-designer';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { cn } from '@creatorplus/ui';
@@ -9,7 +9,6 @@ import { cn } from '@creatorplus/ui';
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
 
-const SAFE_QR_DARK = '#143c2b';
 const BRAND_KIT_KEY = 'cp_qr_brand_kit';
 
 // Design presets — the default is available to everyone; the rest are Pro (R6).
@@ -54,9 +53,8 @@ export default function QrStudioPage() {
   const [offers, setOffers] = useState<any[]>([]);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
-  const [qrPreview, setQrPreview] = useState('');
-  const [qrSvg, setQrSvg] = useState('');
-  const [scanWarning, setScanWarning] = useState('');
+  const [design, setDesign] = useState<QrDesign>(DEFAULT_QR_DESIGN);
+  const [savingDesign, setSavingDesign] = useState(false);
   const [access, setAccess] = useState<any>(null);
   const [presetId, setPresetId] = useState('forest');
   const [paymentNote, setPaymentNote] = useState('');
@@ -129,35 +127,55 @@ export default function QrStudioPage() {
     };
   }, [token]);
 
+  // Load the selected campaign's saved QR design (falling back to its brand
+  // colours, then defaults) so the designer opens on what was last saved.
   useEffect(() => {
     if (!selectedCampaign) {
-      setQrPreview('');
-      setQrSvg('');
-      setScanWarning('');
+      setDesign(DEFAULT_QR_DESIGN);
       return;
     }
-    const base = typeof window === 'undefined' ? '' : window.location.origin;
-    const url = `${base}/qr/${selectedCampaign.publicCode}`;
-
-    // Brand color is used for the modules only when it stays dark enough to
-    // scan; otherwise fall back to a safe dark and warn (R19, R21).
-    const brand = selectedCampaign.brandPrimaryColor;
-    const brandOk = contrastWithWhite(brand) >= 7;
-    const dark = brandOk && brand ? brand : SAFE_QR_DARK;
-    setScanWarning(
-      brand && !brandOk
-        ? 'Your brand colour is too light to scan reliably, so a darker shade was used for the code. Pick a darker brand colour to use it directly.'
-        : '',
-    );
-
-    // High error correction + a generous quiet zone keep logo-branded codes
-    // reliable (R19). Export both a digital PNG and a print-ready vector SVG (R20).
-    const opts = { errorCorrectionLevel: 'H' as const, margin: 4, color: { dark, light: '#ffffff' } };
-    QRCode.toDataURL(url, { ...opts, width: 720 }).then(setQrPreview).catch(() => setQrPreview(''));
-    QRCode.toString(url, { ...opts, type: 'svg', width: 1024 })
-      .then((svg) => setQrSvg(`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`))
-      .catch(() => setQrSvg(''));
+    const saved = (selectedCampaign as any).designSettings?.qrDesign;
+    if (saved) {
+      setDesign({ ...DEFAULT_QR_DESIGN, ...saved });
+    } else {
+      const brand = selectedCampaign.brandPrimaryColor;
+      const dark = brand && contrastWithWhite(brand) >= 5 ? brand : DEFAULT_QR_DESIGN.dotsColor;
+      setDesign({ ...DEFAULT_QR_DESIGN, dotsColor: dark, cornersColor: dark });
+    }
   }, [selectedCampaign]);
+
+  async function saveDesign() {
+    if (!token || !selectedCampaign) return;
+    setSavingDesign(true);
+    setError('');
+    try {
+      await api.updateQrCampaign(token, selectedCampaign.id, { designSettings: { qrDesign: design } });
+      setMessage('QR design saved.');
+    } catch (err: any) {
+      setError(err.message || 'Could not save design');
+    } finally {
+      setSavingDesign(false);
+    }
+  }
+
+  function saveDesignTemplate() {
+    try {
+      localStorage.setItem('cp_qr_design_template', JSON.stringify(design));
+      setMessage('Design template saved. Apply it on any campaign.');
+    } catch {
+      setError('Could not save the design template in this browser.');
+    }
+  }
+  function applyDesignTemplate() {
+    try {
+      const raw = localStorage.getItem('cp_qr_design_template');
+      if (!raw) return setError('No saved design template yet.');
+      setDesign({ ...DEFAULT_QR_DESIGN, ...JSON.parse(raw) });
+      setError('');
+    } catch {
+      setError('Could not read the saved design template.');
+    }
+  }
 
   const hasCampaigns = campaigns.length > 0;
   const activeCount = useMemo(
@@ -638,47 +656,34 @@ export default function QrStudioPage() {
         </section>
 
         <section className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
-          <h2 className="font-display text-xl font-semibold text-ink-900">Design preview</h2>
-          {selectedCampaign && qrPreview ? (
-            <div className="mt-4">
-              <img src={qrPreview} alt={`QR code for ${selectedCampaign.title}`} className="mx-auto h-64 w-64 rounded-2xl border border-ink-100 bg-white p-3" />
-              <p className="mt-3 text-center text-sm font-semibold text-ink-900">{selectedCampaign.title}</p>
-              <p className="mt-1 text-center text-xs text-ink-500">
-                Encodes /qr/{selectedCampaign.publicCode}, not an R2 file URL.
-              </p>
-              {scanWarning && (
-                <p className="mt-3 rounded-xl border border-gold-200 bg-gold-50 px-3 py-2 text-xs text-gold-800">
-                  {scanWarning}
-                </p>
-              )}
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                <a
-                  href={qrPreview}
-                  download={`${selectedCampaign.title || 'creatorplus-qr'}.png`}
-                  className="rounded-full bg-gold-500 px-4 py-2 text-center text-sm font-semibold text-ink-900 hover:bg-gold-400"
-                >
-                  Download PNG
-                </a>
-                <a
-                  href={qrSvg || undefined}
-                  download={`${selectedCampaign.title || 'creatorplus-qr'}.svg`}
-                  aria-disabled={!qrSvg}
-                  className={cn(
-                    'rounded-full border border-forest-300 px-4 py-2 text-center text-sm font-semibold text-forest-800 hover:bg-cream-100',
-                    !qrSvg && 'pointer-events-none opacity-50',
-                  )}
-                >
-                  Print-ready SVG
-                </a>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="font-display text-xl font-semibold text-ink-900">QR designer</h2>
+            {selectedCampaign && (
+              <div className="flex flex-wrap gap-2">
+                {hasPro && (
+                  <>
+                    <button onClick={saveDesignTemplate} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Save template</button>
+                    <button onClick={applyDesignTemplate} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Apply template</button>
+                  </>
+                )}
+                <button onClick={saveDesign} disabled={savingDesign} className="rounded-full bg-forest-800 px-4 py-1.5 text-xs font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50">
+                  {savingDesign ? 'Saving…' : 'Save design'}
+                </button>
               </div>
-              <p className="mt-2 text-center text-xs text-ink-400">
-                Use the SVG for print — it stays sharp at any size.
-              </p>
+            )}
+          </div>
+          {selectedCampaign ? (
+            <div className="mt-4">
+              <QrDesigner
+                url={`${typeof window !== 'undefined' ? window.location.origin : 'https://mycreatorplus.com'}/qr/${selectedCampaign.publicCode}`}
+                value={design}
+                onChange={setDesign}
+                fileName={selectedCampaign.title || 'creatorplus-qr'}
+              />
+              <p className="mt-3 text-xs text-ink-400">Encodes /qr/{selectedCampaign.publicCode} — edit content anytime without reprinting. SVG export stays sharp at any print size.</p>
             </div>
           ) : (
-            <p className="mt-4 text-sm text-ink-500">
-              {loading ? 'Loading…' : 'Create or select a campaign to preview its QR code.'}
-            </p>
+            <p className="mt-4 text-sm text-ink-500">{loading ? 'Loading…' : 'Create or select a campaign to design its QR code.'}</p>
           )}
         </section>
       </div>
