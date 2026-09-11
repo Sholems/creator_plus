@@ -18,6 +18,18 @@ export class CommunityFeedController {
     return this.feed.listCategories();
   }
 
+  @Get('leaderboard')
+  @UseGuards(JwtAuthGuard)
+  leaderboard(@Request() req: any) {
+    return this.feed.leaderboard(req.user.sub);
+  }
+
+  @Get('me/stats')
+  @UseGuards(JwtAuthGuard)
+  myStats(@Request() req: any) {
+    return this.feed.myStats(req.user.sub);
+  }
+
   @Get('posts')
   @UseGuards(JwtAuthGuard)
   listPosts(@Request() req: any, @Query('categoryId') categoryId?: string, @Query('page') page?: string) {

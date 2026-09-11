@@ -1,6 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { prisma } from '@creatorplus/database';
 import { MembershipService } from '../membership/membership.service';
+import { CommunityPointsService } from './community-points.service';
 import { CreatePostDto, UpdatePostDto, CreateCommentDto, CategoryDto } from './dto/feed.dto';
 
 const PAGE_SIZE = 20;
@@ -13,7 +14,10 @@ const authorSelect = { id: true, displayName: true } as const;
 
 @Injectable()
 export class CommunityFeedService {
-  constructor(private readonly membership: MembershipService) {}
+  constructor(
+    private readonly membership: MembershipService,
+    private readonly points: CommunityPointsService,
+  ) {}
 
   private async assertMember(userId: string) {
     if (!(await this.membership.hasActiveMembership(userId))) {
@@ -130,6 +134,7 @@ export class CommunityFeedService {
     const post = await prisma.communityPost.create({
       data: { authorId: userId, title: dto.title.trim().slice(0, 200), body: dto.body.trim().slice(0, 10000), categoryId: dto.categoryId || null },
     });
+    await this.points.award(userId, 'POST', post.id);
     return { id: post.id };
   }
 
@@ -167,6 +172,7 @@ export class CommunityFeedService {
       prisma.communityComment.create({ data: { postId, authorId: userId, body: dto.body.trim().slice(0, 5000) }, include: { author: { select: authorSelect } } }),
       prisma.communityPost.update({ where: { id: postId }, data: { lastActivityAt: new Date() } }),
     ]);
+    await this.points.award(userId, 'COMMENT', comment.id);
     return { id: comment.id, body: comment.body, author: comment.author, createdAt: comment.createdAt };
   }
 
@@ -178,15 +184,33 @@ export class CommunityFeedService {
     return { deleted: true };
   }
 
+  // --- Gamification -------------------------------------------------------
+
+  async leaderboard(userId: string) {
+    await this.assertMember(userId);
+    return this.points.getLeaderboard(20);
+  }
+
+  async myStats(userId: string) {
+    await this.assertMember(userId);
+    return this.points.getMyStats(userId);
+  }
+
   // --- Likes --------------------------------------------------------------
 
   async toggleLike(userId: string, postId: string) {
     await this.assertMember(userId);
+    const post = await prisma.communityPost.findUnique({ where: { id: postId }, select: { authorId: true } });
+    if (!post) throw new NotFoundException('Post not found');
     const existing = await prisma.communityPostLike.findUnique({ where: { postId_userId: { postId, userId } } });
+    const source = `${postId}:${userId}`;
     if (existing) {
       await prisma.communityPostLike.delete({ where: { id: existing.id } });
+      if (post.authorId !== userId) await this.points.revoke(post.authorId, 'LIKE_RECEIVED', source);
     } else {
-      await prisma.communityPostLike.create({ data: { postId, userId } }).catch(() => { throw new NotFoundException('Post not found'); });
+      await prisma.communityPostLike.create({ data: { postId, userId } });
+      // Reward the author for engagement, not self-likes.
+      if (post.authorId !== userId) await this.points.award(post.authorId, 'LIKE_RECEIVED', source);
     }
     const likeCount = await prisma.communityPostLike.count({ where: { postId } });
     return { likedByMe: !existing, likeCount };

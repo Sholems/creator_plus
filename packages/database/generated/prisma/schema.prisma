@@ -49,6 +49,8 @@ model User {
   communityPosts          CommunityPost[]
   communityComments       CommunityComment[]
   communityPostLikes      CommunityPostLike[]
+  communityProfile        CommunityProfile?
+  communityPointEvents    CommunityPointEvent[]
   creditBalance           CreditBalance?
   creditPurchases         CreditPurchase[]
   usageRecords            UsageRecord[]
@@ -2283,4 +2285,38 @@ model CommunityPostLike {
   @@unique([postId, userId])
   @@index([userId])
   @@map("community_post_likes")
+}
+
+// ---------------------------------------------------------------------------
+// Community gamification — a cached points total per member plus an append-only
+// ledger (unique per user+reason+source, so each action awards once). Level is
+// derived from points in code.
+// ---------------------------------------------------------------------------
+
+model CommunityProfile {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @unique @map("user_id") @db.Uuid
+  points    Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([points])
+  @@map("community_profiles")
+}
+
+model CommunityPointEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  points    Int
+  reason    String
+  sourceId  String?  @map("source_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, reason, sourceId])
+  @@index([userId])
+  @@map("community_point_events")
 }

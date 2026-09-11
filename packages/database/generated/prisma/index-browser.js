@@ -1271,6 +1271,23 @@ exports.Prisma.CommunityPostLikeScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.CommunityProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  points: 'points',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityPointEventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  points: 'points',
+  reason: 'reason',
+  sourceId: 'sourceId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1748,7 +1765,9 @@ exports.Prisma.ModelName = {
   CommunityCategory: 'CommunityCategory',
   CommunityPost: 'CommunityPost',
   CommunityComment: 'CommunityComment',
-  CommunityPostLike: 'CommunityPostLike'
+  CommunityPostLike: 'CommunityPostLike',
+  CommunityProfile: 'CommunityProfile',
+  CommunityPointEvent: 'CommunityPointEvent'
 };
 
 /**

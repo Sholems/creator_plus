@@ -14,7 +14,8 @@ const p = prisma as any;
 
 function makeService(isMember: boolean) {
   const membership = { hasActiveMembership: jest.fn().mockResolvedValue(isMember) } as any;
-  return new CommunityFeedService(membership);
+  const points = { award: jest.fn(), revoke: jest.fn() } as any;
+  return new CommunityFeedService(membership, points);
 }
 
 describe('CommunityFeedService', () => {
@@ -27,6 +28,7 @@ describe('CommunityFeedService', () => {
 
   it('adds a like when none exists and reports the new count', async () => {
     const svc = makeService(true);
+    p.communityPost.findUnique.mockResolvedValue({ authorId: 'author1' });
     p.communityPostLike.findUnique.mockResolvedValue(null);
     p.communityPostLike.create.mockResolvedValue({ id: 'like1' });
     p.communityPostLike.count.mockResolvedValue(1);

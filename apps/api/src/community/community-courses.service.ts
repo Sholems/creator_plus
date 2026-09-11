@@ -1,6 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { prisma, Prisma } from '@creatorplus/database';
 import { MembershipService } from '../membership/membership.service';
+import { CommunityPointsService } from './community-points.service';
 import { assertHostAllowed, assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import {
   CreateCourseDto,
@@ -19,7 +20,10 @@ function slugify(input: string): string {
 
 @Injectable()
 export class CommunityCoursesService {
-  constructor(private readonly membership: MembershipService) {}
+  constructor(
+    private readonly membership: MembershipService,
+    private readonly points: CommunityPointsService,
+  ) {}
 
   private async assertMember(userId: string) {
     if (!(await this.membership.hasActiveMembership(userId))) {
@@ -130,8 +134,10 @@ export class CommunityCoursesService {
         create: { lessonId, userId },
         update: {},
       });
+      await this.points.award(userId, 'LESSON', lessonId);
     } else {
       await prisma.lessonProgress.deleteMany({ where: { lessonId, userId } });
+      await this.points.revoke(userId, 'LESSON', lessonId);
     }
     return { lessonId, completed };
   }
