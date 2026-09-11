@@ -475,6 +475,48 @@ class ApiClient {
     return this.fetch<any>(`/community/admin/lessons/${id}`, { method: 'DELETE', token });
   }
 
+  // --- Community discussion ---
+  async getCommunityCategories(token: string) {
+    return this.fetch<any[]>('/community/categories', { token });
+  }
+  async getPosts(token: string, opts: { categoryId?: string; page?: number } = {}) {
+    const q = new URLSearchParams();
+    if (opts.categoryId) q.set('categoryId', opts.categoryId);
+    if (opts.page) q.set('page', String(opts.page));
+    const qs = q.toString();
+    return this.fetch<any[]>(`/community/posts${qs ? `?${qs}` : ''}`, { token });
+  }
+  async getPost(token: string, id: string) {
+    return this.fetch<any>(`/community/posts/${id}`, { token });
+  }
+  async createPost(token: string, dto: { title: string; body: string; categoryId?: string }) {
+    return this.fetch<any>('/community/posts', { method: 'POST', body: dto, token });
+  }
+  async updatePost(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/posts/${id}`, { method: 'PATCH', body: dto, token });
+  }
+  async deletePost(token: string, id: string) {
+    return this.fetch<any>(`/community/posts/${id}`, { method: 'DELETE', token });
+  }
+  async likePost(token: string, id: string) {
+    return this.fetch<any>(`/community/posts/${id}/like`, { method: 'POST', token });
+  }
+  async addComment(token: string, postId: string, body: string) {
+    return this.fetch<any>(`/community/posts/${postId}/comments`, { method: 'POST', body: { body }, token });
+  }
+  async deleteComment(token: string, id: string) {
+    return this.fetch<any>(`/community/comments/${id}`, { method: 'DELETE', token });
+  }
+  async pinPost(token: string, id: string, pinned: boolean) {
+    return this.fetch<any>(`/community/admin/posts/${id}/pin`, { method: 'POST', body: { pinned }, token });
+  }
+  async createCommunityCategory(token: string, dto: { name: string; description?: string }) {
+    return this.fetch<any>('/community/admin/categories', { method: 'POST', body: dto, token });
+  }
+  async deleteCommunityCategory(token: string, id: string) {
+    return this.fetch<any>(`/community/admin/categories/${id}`, { method: 'DELETE', token });
+  }
+
   async getQrCampaigns(token: string) {
     return this.fetch<any[]>('/qr-studio/campaigns', { token });
   }

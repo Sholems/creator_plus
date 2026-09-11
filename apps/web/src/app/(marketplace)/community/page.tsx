@@ -137,12 +137,11 @@ export default function CommunityHomePage() {
           </div>
         )}
 
-        {/* Discussion (next phase) */}
-        <div className="mt-6 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+        {/* Discussion */}
+        <Link href={'/community/discussion' as Route} className="mt-6 block rounded-2xl border border-ink-100 bg-white p-6 shadow-sm transition hover:border-forest-200">
           <h2 className="font-display text-lg font-semibold text-ink-900">Discussion</h2>
-          <p className="mt-1 text-sm text-ink-500">Community posts and comments will appear here.</p>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-gold-600">Coming soon</p>
-        </div>
+          <p className="mt-1 text-sm text-ink-500">Ask questions, share wins, and talk with other members →</p>
+        </Link>
 
         {/* Membership management */}
         <div className="mt-8 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
