@@ -13,6 +13,9 @@ export default function CommunityHomePage() {
   const [welcome, setWelcome] = useState(false);
   const [canceling, setCanceling] = useState(false);
   const [note, setNote] = useState('');
+  const [courses, setCourses] = useState<any[]>([]);
+
+  const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
 
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('welcome')) {
@@ -23,7 +26,12 @@ export default function CommunityHomePage() {
   useEffect(() => {
     if (!token) { setLoading(false); return; }
     api.getMyMembership(token)
-      .then(setMembership)
+      .then(async (m) => {
+        setMembership(m);
+        if (m.active) {
+          try { setCourses(await api.getCourses(token)); } catch { /* ignore */ }
+        }
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [token]);
@@ -95,18 +103,45 @@ export default function CommunityHomePage() {
           </span>
         </div>
 
-        {/* Content placeholder — the classroom + discussion feed land in the next phase. */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {[
-            { title: 'Classroom', body: 'Your courses and lessons will appear here.' },
-            { title: 'Discussion', body: 'Community posts and comments will appear here.' },
-          ].map((c) => (
-            <div key={c.title} className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
-              <h2 className="font-display text-lg font-semibold text-ink-900">{c.title}</h2>
-              <p className="mt-1 text-sm text-ink-500">{c.body}</p>
-              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-gold-600">Coming soon</p>
-            </div>
-          ))}
+        {/* Classroom */}
+        <div className="mt-8 flex items-center justify-between">
+          <h2 className="font-display text-xl font-semibold text-ink-900">Classroom</h2>
+          {isAdmin && (
+            <Link href={'/community/manage' as Route} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">
+              Manage
+            </Link>
+          )}
+        </div>
+        {courses.length === 0 ? (
+          <p className="mt-3 rounded-2xl border border-ink-100 bg-white p-6 text-sm text-ink-500 shadow-sm">
+            {isAdmin ? 'No courses yet — use Manage to add your first course.' : 'No courses published yet. Check back soon.'}
+          </p>
+        ) : (
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {courses.map((c) => {
+              const pct = c.lessonCount ? Math.round((c.completedCount / c.lessonCount) * 100) : 0;
+              return (
+                <Link key={c.id} href={`/community/course/${c.slug}` as Route} className="group rounded-2xl border border-ink-100 bg-white p-5 shadow-sm transition hover:border-forest-200">
+                  {c.coverImage && <img src={c.coverImage} alt="" className="mb-3 h-32 w-full rounded-xl object-cover" />}
+                  <h3 className="font-display text-lg font-semibold text-ink-900 group-hover:text-forest-800">{c.title}</h3>
+                  {c.description && <p className="mt-1 line-clamp-2 text-sm text-ink-500">{c.description}</p>}
+                  <div className="mt-3">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-cream-100">
+                      <div className="h-full bg-forest-600 transition-all" style={{ width: `${pct}%` }} />
+                    </div>
+                    <p className="mt-1 text-xs text-ink-500">{c.completedCount}/{c.lessonCount} lessons · {pct}%</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Discussion (next phase) */}
+        <div className="mt-6 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+          <h2 className="font-display text-lg font-semibold text-ink-900">Discussion</h2>
+          <p className="mt-1 text-sm text-ink-500">Community posts and comments will appear here.</p>
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-gold-600">Coming soon</p>
         </div>
 
         {/* Membership management */}

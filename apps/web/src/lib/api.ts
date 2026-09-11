@@ -429,6 +429,52 @@ class ApiClient {
     return this.fetch<any>('/membership/cancel', { method: 'POST', token });
   }
 
+  // --- Community classroom (member) ---
+  async getCourses(token: string) {
+    return this.fetch<any[]>('/community/courses', { token });
+  }
+  async getCourse(token: string, slug: string) {
+    return this.fetch<any>(`/community/courses/${slug}`, { token });
+  }
+  async completeLesson(token: string, lessonId: string, completed = true) {
+    return this.fetch<any>(`/community/lessons/${lessonId}/complete`, { method: 'POST', body: { completed }, token });
+  }
+
+  // --- Community classroom (admin authoring) ---
+  async adminListCourses(token: string) {
+    return this.fetch<any[]>('/community/admin/courses', { token });
+  }
+  async adminGetCourse(token: string, id: string) {
+    return this.fetch<any>(`/community/admin/courses/${id}`, { token });
+  }
+  async createCourse(token: string, dto: any) {
+    return this.fetch<any>('/community/admin/courses', { method: 'POST', body: dto, token });
+  }
+  async updateCourse(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/admin/courses/${id}`, { method: 'PATCH', body: dto, token });
+  }
+  async deleteCourse(token: string, id: string) {
+    return this.fetch<any>(`/community/admin/courses/${id}`, { method: 'DELETE', token });
+  }
+  async addCourseModule(token: string, courseId: string, dto: any) {
+    return this.fetch<any>(`/community/admin/courses/${courseId}/modules`, { method: 'POST', body: dto, token });
+  }
+  async updateCourseModule(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/admin/modules/${id}`, { method: 'PATCH', body: dto, token });
+  }
+  async deleteCourseModule(token: string, id: string) {
+    return this.fetch<any>(`/community/admin/modules/${id}`, { method: 'DELETE', token });
+  }
+  async addLesson(token: string, moduleId: string, dto: any) {
+    return this.fetch<any>(`/community/admin/modules/${moduleId}/lessons`, { method: 'POST', body: dto, token });
+  }
+  async updateLesson(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/admin/lessons/${id}`, { method: 'PATCH', body: dto, token });
+  }
+  async deleteLesson(token: string, id: string) {
+    return this.fetch<any>(`/community/admin/lessons/${id}`, { method: 'DELETE', token });
+  }
+
   async getQrCampaigns(token: string) {
     return this.fetch<any[]>('/qr-studio/campaigns', { token });
   }
