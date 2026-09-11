@@ -8,9 +8,10 @@ import { SettingsModule } from '../settings/settings.module';
 import { AffiliatesModule } from '../affiliates/affiliates.module';
 import { LicensesModule } from '../licenses/licenses.module';
 import { EventsModule } from '../events/events.module';
+import { MembershipModule } from '../membership/membership.module';
 
 @Module({
-  imports: [EmailModule, NotificationsModule, SettingsModule, AffiliatesModule, LicensesModule, EventsModule],
+  imports: [EmailModule, NotificationsModule, SettingsModule, AffiliatesModule, LicensesModule, EventsModule, MembershipModule],
   controllers: [PaymentsController],
   providers: [PaymentsService, PaymentProviderFactory],
   exports: [PaymentsService, PaymentProviderFactory],

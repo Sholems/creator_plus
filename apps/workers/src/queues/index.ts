@@ -14,6 +14,7 @@ export const QUEUE_NAMES = {
   ANALYTICS: 'analytics',
   RECOVERY: 'recovery',
   EVENTS: 'events',
+  MEMBERSHIP: 'membership',
 } as const;
 
 // Create queues
@@ -24,6 +25,7 @@ export const notificationQueue = new Queue(QUEUE_NAMES.NOTIFICATION, { connectio
 export const analyticsQueue = new Queue(QUEUE_NAMES.ANALYTICS, { connection });
 export const recoveryQueue = new Queue(QUEUE_NAMES.RECOVERY, { connection });
 export const eventsQueue = new Queue(QUEUE_NAMES.EVENTS, { connection });
+export const membershipQueue = new Queue(QUEUE_NAMES.MEMBERSHIP, { connection });
 
 // Create workers
 export function createWorker(name: string, processor: (job: any) => Promise<any>) {

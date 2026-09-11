@@ -8,6 +8,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { CommissionService } from '../affiliates/commission.service';
 import { EventsService } from '../events/events.service';
 import { LicensesService } from '../licenses/licenses.service';
+import { MembershipService } from '../membership/membership.service';
 import { clawBackCreatorCredits } from '../common/money-reversal';
 import { groupBy } from '../common/group-by';
 import { webBaseUrl } from '../common/urls';
@@ -33,6 +34,7 @@ export class PaymentsService {
     private readonly commissionService: CommissionService,
     private readonly licensesService: LicensesService,
     private readonly eventsService: EventsService,
+    private readonly membershipService: MembershipService,
   ) {}
 
   private readonly logger = new Logger(PaymentsService.name);
@@ -171,6 +173,13 @@ export class PaymentsService {
       throw new BadRequestException('Invalid webhook payload');
     }
 
+    // Community membership subscriptions ride the same verified webhook. Many of
+    // their events (renewals, cancellations, invoices) don't map to a one-time
+    // payment event, so route them before the one-time parse can drop them.
+    if (await this.handleMembershipIfOwned(providerName, payload)) {
+      return { received: true, membership: true };
+    }
+
     const event: WebhookEvent | null = provider.parseWebhookEvent(payload);
     if (!event) {
       return { received: true, ignored: true };
@@ -193,6 +202,29 @@ export class PaymentsService {
     }
 
     return { received: true };
+  }
+
+  /** Detect and route membership subscription events to the MembershipService. */
+  private async handleMembershipIfOwned(providerName: string, payload: any): Promise<boolean> {
+    const data = payload?.data;
+    const obj = data?.object; // Stripe nests the resource under data.object
+    const purpose = data?.metadata?.purpose ?? obj?.metadata?.purpose;
+    const eventName = String(payload?.event ?? payload?.type ?? '');
+    const looksSubscription =
+      purpose === 'membership' ||
+      (typeof data?.reference === 'string' && data.reference.startsWith('MBR_')) ||
+      Boolean(data?.plan) || // Paystack subscription charge
+      obj?.object === 'subscription' ||
+      /subscription|invoice/i.test(eventName) ||
+      obj?.mode === 'subscription';
+
+    if (!looksSubscription) return false;
+    try {
+      await this.membershipService.handleVerifiedWebhook(providerName, payload);
+    } catch (err) {
+      this.logger.error(`[membership-webhook:${providerName}] ${(err as Error).message}`);
+    }
+    return true;
   }
 
   private async handleQrWebhookIfOwned(event: WebhookEvent): Promise<{

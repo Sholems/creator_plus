@@ -27,6 +27,7 @@ function build(event: any) {
     {} as any, // commission
     {} as any, // licenses
     {} as any, // events
+    { handleVerifiedWebhook: jest.fn() } as any, // membership
   );
   return { service, provider };
 }

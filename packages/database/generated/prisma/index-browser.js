@@ -1150,6 +1150,45 @@ exports.Prisma.QrCouponRedemptionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MembershipPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MembershipPlanPriceScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  provider: 'provider',
+  currency: 'currency',
+  interval: 'interval',
+  amount: 'amount',
+  providerPlanCode: 'providerPlanCode',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MembershipSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  priceId: 'priceId',
+  provider: 'provider',
+  status: 'status',
+  providerCustomerId: 'providerCustomerId',
+  providerSubscriptionId: 'providerSubscriptionId',
+  providerReference: 'providerReference',
+  currentPeriodEnd: 'currentPeriodEnd',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  canceledAt: 'canceledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1520,6 +1559,19 @@ exports.QrCouponType = exports.$Enums.QrCouponType = {
   FIXED: 'FIXED'
 };
 
+exports.BillingInterval = exports.$Enums.BillingInterval = {
+  MONTHLY: 'MONTHLY',
+  ANNUAL: 'ANNUAL'
+};
+
+exports.MembershipStatus = exports.$Enums.MembershipStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  PAST_DUE: 'PAST_DUE',
+  CANCELED: 'CANCELED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -1597,7 +1649,10 @@ exports.Prisma.ModelName = {
   Event: 'Event',
   Ticket: 'Ticket',
   QrCoupon: 'QrCoupon',
-  QrCouponRedemption: 'QrCouponRedemption'
+  QrCouponRedemption: 'QrCouponRedemption',
+  MembershipPlan: 'MembershipPlan',
+  MembershipPlanPrice: 'MembershipPlanPrice',
+  MembershipSubscription: 'MembershipSubscription'
 };
 
 /**

@@ -29,6 +29,7 @@ import { HealthModule } from './health/health.module';
 import { EventsModule } from './events/events.module';
 import { LicensesModule } from './licenses/licenses.module';
 import { QrStudioModule } from './qr-studio/qr-studio.module';
+import { MembershipModule } from './membership/membership.module';
 import { buildThrottlerStorage } from './common/throttler-redis.storage';
 import { StorageController } from './storage/storage.controller';
 import { PaymentsController } from './payments/payments.controller';
@@ -73,6 +74,7 @@ import { PaymentsController } from './payments/payments.controller';
     LicensesModule,
     EventsModule,
     QrStudioModule,
+    MembershipModule,
   ],
   controllers: [StorageController, PaymentsController],
   providers: [

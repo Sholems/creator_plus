@@ -3,6 +3,7 @@ import { searchIndexWorker } from './jobs/search-index';
 import { notificationWorker } from './jobs/notification';
 import { recoveryWorker, scheduleRecovery } from './jobs/recovery';
 import { eventsWorker, scheduleEventsSweep } from './jobs/events';
+import { membershipWorker, scheduleMembershipSweep } from './jobs/membership';
 
 console.log('Starting workers...');
 
@@ -16,8 +17,13 @@ void scheduleEventsSweep().catch((err) => {
   console.error('Failed to schedule events sweep:', err.message);
 });
 
+// Register the daily membership hygiene sweep (expire lapsed subscriptions).
+void scheduleMembershipSweep().catch((err) => {
+  console.error('Failed to schedule membership sweep:', err.message);
+});
+
 // Handle worker events
-const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker, eventsWorker];
+const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker, eventsWorker, membershipWorker];
 
 workers.forEach((worker) => {
   worker.on('completed', (job) => {
