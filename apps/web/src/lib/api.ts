@@ -517,6 +517,14 @@ class ApiClient {
     return this.fetch<any>(`/community/admin/categories/${id}`, { method: 'DELETE', token });
   }
 
+  // --- Community gamification ---
+  async getLeaderboard(token: string) {
+    return this.fetch<any[]>('/community/leaderboard', { token });
+  }
+  async getCommunityStats(token: string) {
+    return this.fetch<any>('/community/me/stats', { token });
+  }
+
   async getQrCampaigns(token: string) {
     return this.fetch<any[]>('/qr-studio/campaigns', { token });
   }

@@ -14,6 +14,8 @@ export default function CommunityHomePage() {
   const [canceling, setCanceling] = useState(false);
   const [note, setNote] = useState('');
   const [courses, setCourses] = useState<any[]>([]);
+  const [stats, setStats] = useState<any>(null);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
 
   const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
 
@@ -30,6 +32,8 @@ export default function CommunityHomePage() {
         setMembership(m);
         if (m.active) {
           try { setCourses(await api.getCourses(token)); } catch { /* ignore */ }
+          try { setStats(await api.getCommunityStats(token)); } catch { /* ignore */ }
+          try { setLeaderboard(await api.getLeaderboard(token)); } catch { /* ignore */ }
         }
       })
       .catch(() => {})
@@ -103,6 +107,19 @@ export default function CommunityHomePage() {
           </span>
         </div>
 
+        {stats && (
+          <div className="mt-4 flex flex-wrap items-center gap-3 rounded-2xl border border-ink-100 bg-white px-5 py-3 shadow-sm">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold-400 text-sm font-bold text-forest-900">{stats.level}</span>
+            <div>
+              <p className="text-sm font-semibold text-ink-900">Level {stats.level}</p>
+              <p className="text-xs text-ink-500">{stats.points} points{stats.rank ? ` · rank #${stats.rank}` : ''}</p>
+            </div>
+            {stats.pointsToNextLevel != null && (
+              <p className="ml-auto text-xs text-ink-500">{stats.pointsToNextLevel} pts to level {stats.level + 1}</p>
+            )}
+          </div>
+        )}
+
         {/* Classroom */}
         <div className="mt-8 flex items-center justify-between">
           <h2 className="font-display text-xl font-semibold text-ink-900">Classroom</h2>
@@ -142,6 +159,24 @@ export default function CommunityHomePage() {
           <h2 className="font-display text-lg font-semibold text-ink-900">Discussion</h2>
           <p className="mt-1 text-sm text-ink-500">Ask questions, share wins, and talk with other members →</p>
         </Link>
+
+        {/* Leaderboard */}
+        {leaderboard.length > 0 && (
+          <div className="mt-6 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+            <h2 className="font-display text-lg font-semibold text-ink-900">Leaderboard</h2>
+            <ol className="mt-3 space-y-1">
+              {leaderboard.slice(0, 10).map((m) => (
+                <li key={m.userId} className={`flex items-center gap-3 rounded-lg px-2 py-1.5 text-sm ${m.userId === user?.id ? 'bg-forest-50' : ''}`}>
+                  <span className="w-6 text-center text-xs font-bold text-ink-400">{m.rank}</span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-forest-100 text-[11px] font-bold text-forest-800">{(m.displayName || '?').slice(0, 1).toUpperCase()}</span>
+                  <span className="flex-1 truncate text-ink-800">{m.displayName || 'Member'}</span>
+                  <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[10px] font-semibold text-gold-800">Lv {m.level}</span>
+                  <span className="w-10 text-right text-xs font-semibold text-ink-600">{m.points}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
 
         {/* Membership management */}
         <div className="mt-8 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
