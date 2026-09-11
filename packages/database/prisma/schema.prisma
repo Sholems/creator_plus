@@ -45,6 +45,7 @@ model User {
   sessions      Session[]
   subscription  Subscription?
   membershipSubscriptions MembershipSubscription[]
+  lessonProgress LessonProgress[]
   creditBalance CreditBalance?
   creditPurchases CreditPurchase[]
   usageRecords  UsageRecord[]
@@ -2131,4 +2132,83 @@ model MembershipSubscription {
   @@index([providerReference])
   @@index([status, currentPeriodEnd])
   @@map("membership_subscriptions")
+}
+
+// ---------------------------------------------------------------------------
+// Community classroom — courses → modules → lessons, gated by an active
+// membership. Single-tenant (owner-run): all courses belong to the one
+// community. Progress is per-user; drip is relative to the member's join date.
+// ---------------------------------------------------------------------------
+
+enum LessonContentType {
+  VIDEO
+  TEXT
+  FILE
+}
+
+model Course {
+  id          String   @id @default(uuid()) @db.Uuid
+  title       String
+  slug        String   @unique
+  description String?
+  coverImage  String?  @map("cover_image")
+  published   Boolean  @default(false)
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  modules CourseModule[]
+
+  @@map("courses")
+}
+
+model CourseModule {
+  id        String   @id @default(uuid()) @db.Uuid
+  courseId  String   @map("course_id") @db.Uuid
+  title     String
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+
+  @@index([courseId])
+  @@map("course_modules")
+}
+
+model Lesson {
+  id              String            @id @default(uuid()) @db.Uuid
+  moduleId        String            @map("module_id") @db.Uuid
+  title           String
+  contentType     LessonContentType @default(TEXT) @map("content_type")
+  videoUrl        String?           @map("video_url")
+  body            String?
+  fileUrl         String?           @map("file_url")
+  durationMinutes Int?              @map("duration_minutes")
+  isPreview       Boolean           @default(false) @map("is_preview")
+  dripDelayDays   Int               @default(0) @map("drip_delay_days")
+  sortOrder       Int               @default(0) @map("sort_order")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  module   CourseModule     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  progress LessonProgress[]
+
+  @@index([moduleId])
+  @@map("lessons")
+}
+
+model LessonProgress {
+  id          String   @id @default(uuid()) @db.Uuid
+  lessonId    String   @map("lesson_id") @db.Uuid
+  userId      String   @map("user_id") @db.Uuid
+  completedAt DateTime @default(now()) @map("completed_at")
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([lessonId, userId])
+  @@index([userId])
+  @@map("lesson_progress")
 }

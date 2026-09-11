@@ -1189,6 +1189,50 @@ exports.Prisma.MembershipSubscriptionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  coverImage: 'coverImage',
+  published: 'published',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CourseModuleScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  title: 'title',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LessonScalarFieldEnum = {
+  id: 'id',
+  moduleId: 'moduleId',
+  title: 'title',
+  contentType: 'contentType',
+  videoUrl: 'videoUrl',
+  body: 'body',
+  fileUrl: 'fileUrl',
+  durationMinutes: 'durationMinutes',
+  isPreview: 'isPreview',
+  dripDelayDays: 'dripDelayDays',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LessonProgressScalarFieldEnum = {
+  id: 'id',
+  lessonId: 'lessonId',
+  userId: 'userId',
+  completedAt: 'completedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1572,6 +1616,12 @@ exports.MembershipStatus = exports.$Enums.MembershipStatus = {
   EXPIRED: 'EXPIRED'
 };
 
+exports.LessonContentType = exports.$Enums.LessonContentType = {
+  VIDEO: 'VIDEO',
+  TEXT: 'TEXT',
+  FILE: 'FILE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -1652,7 +1702,11 @@ exports.Prisma.ModelName = {
   QrCouponRedemption: 'QrCouponRedemption',
   MembershipPlan: 'MembershipPlan',
   MembershipPlanPrice: 'MembershipPlanPrice',
-  MembershipSubscription: 'MembershipSubscription'
+  MembershipSubscription: 'MembershipSubscription',
+  Course: 'Course',
+  CourseModule: 'CourseModule',
+  Lesson: 'Lesson',
+  LessonProgress: 'LessonProgress'
 };
 
 /**

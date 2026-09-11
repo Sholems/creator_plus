@@ -30,6 +30,7 @@ import { EventsModule } from './events/events.module';
 import { LicensesModule } from './licenses/licenses.module';
 import { QrStudioModule } from './qr-studio/qr-studio.module';
 import { MembershipModule } from './membership/membership.module';
+import { CommunityModule } from './community/community.module';
 import { buildThrottlerStorage } from './common/throttler-redis.storage';
 import { StorageController } from './storage/storage.controller';
 import { PaymentsController } from './payments/payments.controller';
@@ -75,6 +76,7 @@ import { PaymentsController } from './payments/payments.controller';
     EventsModule,
     QrStudioModule,
     MembershipModule,
+    CommunityModule,
   ],
   controllers: [StorageController, PaymentsController],
   providers: [
