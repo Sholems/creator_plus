@@ -19,7 +19,10 @@ function makeService(isMember: boolean) {
 }
 
 describe('CommunityFeedService', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    jest.clearAllMocks();
+    p.userRole.findMany.mockResolvedValue([]); // default: not an admin
+  });
 
   it('blocks non-members from the feed', async () => {
     const svc = makeService(false);

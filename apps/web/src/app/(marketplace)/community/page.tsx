@@ -30,7 +30,7 @@ export default function CommunityHomePage() {
     api.getMyMembership(token)
       .then(async (m) => {
         setMembership(m);
-        if (m.active) {
+        if (m.active || isAdmin) {
           try { setCourses(await api.getCourses(token)); } catch { /* ignore */ }
           try { setStats(await api.getCommunityStats(token)); } catch { /* ignore */ }
           try { setLeaderboard(await api.getLeaderboard(token)); } catch { /* ignore */ }
@@ -55,7 +55,7 @@ export default function CommunityHomePage() {
     }
   }
 
-  const active = membership?.active;
+  const active = membership?.active || isAdmin;
 
   if (loading) {
     return <main className="flex min-h-screen items-center justify-center bg-cream-50"><p className="text-sm text-ink-500">Loading…</p></main>;

@@ -25,10 +25,15 @@ export class CommunityCoursesService {
     private readonly points: CommunityPointsService,
   ) {}
 
+  private async isAdmin(userId: string): Promise<boolean> {
+    const roles = await prisma.userRole.findMany({ where: { userId }, select: { role: { select: { name: true } } } });
+    return roles.some((r) => r.role.name === 'admin' || r.role.name === 'super_admin');
+  }
+
   private async assertMember(userId: string) {
-    if (!(await this.membership.hasActiveMembership(userId))) {
-      throw new ForbiddenException('An active membership is required');
-    }
+    if (await this.membership.hasActiveMembership(userId)) return;
+    if (await this.isAdmin(userId)) return; // owner/admins get full access without a subscription
+    throw new ForbiddenException('An active membership is required');
   }
 
   /** A member's join date — drip windows are measured from here. */

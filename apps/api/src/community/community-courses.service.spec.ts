@@ -8,6 +8,7 @@ jest.mock('@creatorplus/database', () => ({
     course: { findFirst: jest.fn(), findMany: jest.fn(), count: jest.fn() },
     lessonProgress: { findMany: jest.fn(), upsert: jest.fn(), deleteMany: jest.fn() },
     lesson: { findUnique: jest.fn() },
+    userRole: { findMany: jest.fn() },
   },
   Prisma: {},
 }));
@@ -21,7 +22,10 @@ function makeService(isMember: boolean) {
 }
 
 describe('CommunityCoursesService', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    jest.clearAllMocks();
+    p.userRole.findMany.mockResolvedValue([]); // default: not an admin
+  });
 
   it('blocks non-members', async () => {
     const svc = makeService(false);
