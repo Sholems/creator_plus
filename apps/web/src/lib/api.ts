@@ -408,6 +408,27 @@ class ApiClient {
     });
   }
 
+  // --- Community membership ---
+  async getMembershipPlans() {
+    return this.fetch<any>('/membership/plans', {});
+  }
+
+  async getMyMembership(token: string) {
+    return this.fetch<any>('/membership/me', { token });
+  }
+
+  async startMembershipCheckout(token: string, priceId: string, successUrl?: string, cancelUrl?: string) {
+    return this.fetch<any>('/membership/checkout', {
+      method: 'POST',
+      body: { priceId, successUrl, cancelUrl },
+      token,
+    });
+  }
+
+  async cancelMembership(token: string) {
+    return this.fetch<any>('/membership/cancel', { method: 'POST', token });
+  }
+
   async getQrCampaigns(token: string) {
     return this.fetch<any[]>('/qr-studio/campaigns', { token });
   }

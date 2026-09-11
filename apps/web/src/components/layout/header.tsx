@@ -16,6 +16,7 @@ const NAV_LINKS: { href: Route; label: string }[] = [
   { href: '/marketplace', label: 'Marketplace' },
   { href: '/categories', label: 'Categories' },
   { href: '/creators', label: 'Creators' },
+  { href: '/community', label: 'Community' },
   { href: '/sell', label: 'Sell' },
   { href: '/earn', label: 'Earn' },
 ];

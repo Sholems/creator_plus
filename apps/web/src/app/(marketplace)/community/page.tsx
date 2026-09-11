@@ -1,79 +1,131 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import type { Route } from 'next';
+import { api } from '@/lib/api';
+import { useAuth } from '@/lib/auth';
 
-export default function CommunityPage() {
+export default function CommunityHomePage() {
+  const { token, isAuthenticated, user } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [membership, setMembership] = useState<any>(null);
+  const [welcome, setWelcome] = useState(false);
+  const [canceling, setCanceling] = useState(false);
+  const [note, setNote] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('welcome')) {
+      setWelcome(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) { setLoading(false); return; }
+    api.getMyMembership(token)
+      .then(setMembership)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [token]);
+
+  async function cancel() {
+    if (!token) return;
+    setCanceling(true);
+    try {
+      await api.cancelMembership(token);
+      setNote('Your membership will not renew. You keep access until the end of your current period.');
+      const m = await api.getMyMembership(token);
+      setMembership(m);
+    } catch (e: any) {
+      setNote(e.message || 'Could not cancel');
+    } finally {
+      setCanceling(false);
+    }
+  }
+
+  const active = membership?.active;
+
+  if (loading) {
+    return <main className="flex min-h-screen items-center justify-center bg-cream-50"><p className="text-sm text-ink-500">Loading…</p></main>;
+  }
+
+  // Not a member (or signed out) → sell the membership.
+  if (!active) {
+    return (
+      <main className="min-h-screen bg-cream-50 px-4 py-16">
+        <section className="mx-auto max-w-xl text-center">
+          <p className="eyebrow text-gold-600">Community</p>
+          <h1 className="mt-2 font-display text-4xl font-bold text-ink-900">Members-only community</h1>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-ink-600">
+            Get every course, lesson, and discussion in one place. One membership, all access.
+          </p>
+          <div className="mt-8 flex justify-center gap-3">
+            <Link href={'/community/join' as Route} className="rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-cream-50 hover:bg-forest-700">
+              View membership
+            </Link>
+            {!isAuthenticated && (
+              <Link href="/auth/login?redirect=/community" className="rounded-full border border-ink-200 px-6 py-3 text-sm font-semibold text-ink-700 hover:bg-cream-100">
+                Sign in
+              </Link>
+            )}
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  // Active member → the community home (content lands in the next phase).
+  const sub = membership.subscription;
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900">Community</h1>
-        <p className="mt-4 text-xl text-gray-600">
-          Connect with creators and buyers from around the world
-        </p>
-      </div>
+    <main className="min-h-screen bg-cream-50 px-4 py-10">
+      <section className="mx-auto w-full max-w-3xl">
+        {welcome && (
+          <div className="mb-6 rounded-2xl border border-forest-200 bg-forest-50 px-5 py-4 text-sm text-forest-800">
+            🎉 Welcome in, {user?.displayName || 'member'}! Your membership is active.
+          </div>
+        )}
 
-      <div className="grid gap-6 sm:grid-cols-2 mb-12">
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
-          <div className="text-3xl mb-3">💬</div>
-          <h3 className="text-lg font-semibold text-gray-900">Discord</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            Join our Discord server to chat with creators, share feedback, and get help in real-time.
-          </p>
-          <a
-            href="#"
-            className="mt-4 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700"
-          >
-            Join Discord →
-          </a>
-        </div>
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
-          <div className="text-3xl mb-3">🐦</div>
-          <h3 className="text-lg font-semibold text-gray-900">Twitter</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            Follow us for product launches, creator spotlights, and marketplace updates.
-          </p>
-          <a
-            href="#"
-            className="mt-4 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700"
-          >
-            Follow @CreatorPlus →
-          </a>
-        </div>
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
-          <div className="text-3xl mb-3">📝</div>
-          <h3 className="text-lg font-semibold text-gray-900">Blog</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            Read articles about digital product trends, creator stories, and platform updates.
-          </p>
-          <Link
-            href="/blog"
-            className="mt-4 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700"
-          >
-            Read the Blog →
-          </Link>
-        </div>
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
-          <div className="text-3xl mb-3">🎉</div>
-          <h3 className="text-lg font-semibold text-gray-900">Events</h3>
-          <p className="mt-2 text-sm text-gray-600">
-            Join creator workshops, AMAs, and virtual meetups to learn and network.
-          </p>
-          <span className="mt-4 inline-flex items-center text-sm font-medium text-gray-400">
-            Coming Soon
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="eyebrow text-gold-600">Community</p>
+            <h1 className="font-display text-3xl font-bold text-ink-900">Members area</h1>
+          </div>
+          <span className="rounded-full bg-forest-100 px-3 py-1 text-xs font-semibold text-forest-800">
+            {sub?.status === 'PAST_DUE' ? 'Payment retrying' : 'Active member'}
           </span>
         </div>
-      </div>
 
-      <div className="rounded-2xl bg-gray-900 p-8 text-center text-white">
-        <h2 className="text-xl font-bold">Join the Conversation</h2>
-        <p className="mt-2 text-gray-400">
-          Share your work, get feedback, and connect with fellow creators.
-        </p>
-        <a
-          href="#"
-          className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-100"
-        >
-          Join Our Discord
-        </a>
-      </div>
-    </div>
+        {/* Content placeholder — the classroom + discussion feed land in the next phase. */}
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {[
+            { title: 'Classroom', body: 'Your courses and lessons will appear here.' },
+            { title: 'Discussion', body: 'Community posts and comments will appear here.' },
+          ].map((c) => (
+            <div key={c.title} className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+              <h2 className="font-display text-lg font-semibold text-ink-900">{c.title}</h2>
+              <p className="mt-1 text-sm text-ink-500">{c.body}</p>
+              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-gold-600">Coming soon</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Membership management */}
+        <div className="mt-8 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+          <h2 className="font-display text-lg font-semibold text-ink-900">Your membership</h2>
+          {sub && (
+            <p className="mt-1 text-sm text-ink-600">
+              {sub.amount != null && `${sub.currency} ${Number(sub.amount).toLocaleString()} / ${sub.interval === 'MONTHLY' ? 'month' : 'year'}`}
+              {sub.currentPeriodEnd && ` · ${sub.cancelAtPeriodEnd ? 'ends' : 'renews'} ${new Date(sub.currentPeriodEnd).toLocaleDateString()}`}
+            </p>
+          )}
+          {note && <p className="mt-3 rounded-lg bg-cream-100 px-3 py-2 text-xs text-ink-600">{note}</p>}
+          {sub && !sub.cancelAtPeriodEnd && (
+            <button onClick={cancel} disabled={canceling} className="mt-4 rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100 disabled:opacity-50">
+              {canceling ? 'Cancelling…' : 'Cancel membership'}
+            </button>
+          )}
+        </div>
+      </section>
+    </main>
   );
 }
