@@ -1233,6 +1233,44 @@ exports.Prisma.LessonProgressScalarFieldEnum = {
   completedAt: 'completedAt'
 };
 
+exports.Prisma.CommunityCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityPostScalarFieldEnum = {
+  id: 'id',
+  categoryId: 'categoryId',
+  authorId: 'authorId',
+  title: 'title',
+  body: 'body',
+  pinned: 'pinned',
+  lastActivityAt: 'lastActivityAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityCommentScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  authorId: 'authorId',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityPostLikeScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1706,7 +1744,11 @@ exports.Prisma.ModelName = {
   Course: 'Course',
   CourseModule: 'CourseModule',
   Lesson: 'Lesson',
-  LessonProgress: 'LessonProgress'
+  LessonProgress: 'LessonProgress',
+  CommunityCategory: 'CommunityCategory',
+  CommunityPost: 'CommunityPost',
+  CommunityComment: 'CommunityComment',
+  CommunityPostLike: 'CommunityPostLike'
 };
 
 /**
