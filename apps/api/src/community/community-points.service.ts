@@ -54,12 +54,13 @@ export class CommunityPointsService {
       where: { points: { gt: 0 } },
       orderBy: { points: 'desc' },
       take: Math.min(100, Math.max(1, limit)),
-      include: { user: { select: { id: true, displayName: true } } },
+      include: { user: { select: { id: true, displayName: true, avatar: true } } },
     });
     return profiles.map((p, i) => ({
       rank: i + 1,
       userId: p.userId,
       displayName: p.user.displayName,
+      avatar: p.user.avatar,
       points: p.points,
       level: levelFor(p.points),
     }));

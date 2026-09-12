@@ -4,6 +4,7 @@ import { notificationWorker } from './jobs/notification';
 import { recoveryWorker, scheduleRecovery } from './jobs/recovery';
 import { eventsWorker, scheduleEventsSweep } from './jobs/events';
 import { membershipWorker, scheduleMembershipSweep } from './jobs/membership';
+import { communityDigestWorker, scheduleCommunityDigest } from './jobs/community-digest';
 
 console.log('Starting workers...');
 
@@ -22,8 +23,13 @@ void scheduleMembershipSweep().catch((err) => {
   console.error('Failed to schedule membership sweep:', err.message);
 });
 
+// Register the daily community digest email.
+void scheduleCommunityDigest().catch((err) => {
+  console.error('Failed to schedule community digest:', err.message);
+});
+
 // Handle worker events
-const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker, eventsWorker, membershipWorker];
+const workers = [emailWorker, searchIndexWorker, notificationWorker, recoveryWorker, eventsWorker, membershipWorker, communityDigestWorker];
 
 workers.forEach((worker) => {
   worker.on('completed', (job) => {

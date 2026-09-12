@@ -15,7 +15,9 @@ const p = prisma as any;
 function makeService(isMember: boolean) {
   const membership = { hasActiveMembership: jest.fn().mockResolvedValue(isMember) } as any;
   const points = { award: jest.fn(), revoke: jest.fn() } as any;
-  return new CommunityFeedService(membership, points);
+  const notifications = { create: jest.fn() } as any;
+  const email = { sendCommunityReply: jest.fn() } as any;
+  return new CommunityFeedService(membership, points, notifications, email);
 }
 
 describe('CommunityFeedService', () => {

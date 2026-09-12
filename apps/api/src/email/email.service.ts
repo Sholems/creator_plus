@@ -38,6 +38,22 @@ export class EmailService {
     return this.send(to, `Welcome to ${SITE_NAME}!`, html);
   }
 
+  async sendCommunityReply(
+    to: string,
+    name: string,
+    data: { postTitle: string; replier: string; snippet: string; postId: string },
+  ) {
+    const url = `${webBaseUrl()}/community/post/${data.postId}`;
+    const html = renderEmailLayout({
+      preview: `${data.replier} replied to "${data.postTitle}"`,
+      eyebrow: 'New reply',
+      title: `${data.replier} replied to your post`,
+      body: `<p>Hi ${name},</p><p><strong>${data.replier}</strong> replied to your post <strong>"${data.postTitle}"</strong>:</p><blockquote style="border-left:3px solid #d8d2c4;margin:12px 0;padding:4px 12px;color:#555">${data.snippet}</blockquote>`,
+      cta: { label: 'View the discussion', url },
+    });
+    return this.send(to, `${data.replier} replied to your post`, html);
+  }
+
   async sendEmailVerification(to: string, name: string, token: string) {
     const verificationUrl = `${webBaseUrl()}/auth/verify?token=${token}`;
     const html = renderEmailLayout({

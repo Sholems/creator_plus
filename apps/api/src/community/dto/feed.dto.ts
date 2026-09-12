@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsUUID, MaxLength } from 'class-validator';
+import { IsArray, IsOptional, IsString, IsUUID, MaxLength } from 'class-validator';
 
 export class CreatePostDto {
   @IsString() @MaxLength(200)
@@ -9,6 +9,9 @@ export class CreatePostDto {
 
   @IsOptional() @IsUUID()
   categoryId?: string;
+
+  @IsOptional() @IsArray()
+  attachments?: any[];
 }
 
 export class UpdatePostDto {
@@ -20,6 +23,9 @@ export class UpdatePostDto {
 
   @IsOptional() @IsUUID()
   categoryId?: string;
+
+  @IsOptional() @IsArray()
+  attachments?: any[];
 }
 
 export class CreateCommentDto {

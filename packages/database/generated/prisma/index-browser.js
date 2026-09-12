@@ -1249,6 +1249,7 @@ exports.Prisma.CommunityPostScalarFieldEnum = {
   authorId: 'authorId',
   title: 'title',
   body: 'body',
+  attachments: 'attachments',
   pinned: 'pinned',
   lastActivityAt: 'lastActivityAt',
   createdAt: 'createdAt',

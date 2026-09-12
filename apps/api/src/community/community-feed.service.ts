@@ -1,7 +1,10 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { prisma } from '@creatorplus/database';
 import { MembershipService } from '../membership/membership.service';
 import { CommunityPointsService } from './community-points.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { EmailService } from '../email/email.service';
+import { assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import { CreatePostDto, UpdatePostDto, CreateCommentDto, CategoryDto } from './dto/feed.dto';
 
 const PAGE_SIZE = 20;
@@ -10,14 +13,45 @@ function slugify(input: string): string {
   return String(input).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'channel';
 }
 
-const authorSelect = { id: true, displayName: true } as const;
+const authorSelect = { id: true, displayName: true, avatar: true } as const;
 
 @Injectable()
 export class CommunityFeedService {
+  private readonly logger = new Logger(CommunityFeedService.name);
+
   constructor(
     private readonly membership: MembershipService,
     private readonly points: CommunityPointsService,
+    private readonly notifications: NotificationsService,
+    private readonly email: EmailService,
   ) {}
+
+  /** Keep only attachments uploaded to our own R2 bucket; cap the count. */
+  private sanitizeAttachments(input: any): any[] | undefined {
+    const arr = Array.isArray(input) ? input : [];
+    const out: any[] = [];
+    for (const a of arr.slice(0, 6)) {
+      let url: string;
+      try {
+        url = assertOwnStorageUrl(String(a?.url ?? ''));
+      } catch {
+        continue;
+      }
+      out.push({
+        url,
+        name: String(a?.name ?? '').slice(0, 200) || 'file',
+        type: String(a?.type ?? '').slice(0, 100),
+        size: Number(a?.size) || undefined,
+      });
+    }
+    return out.length ? out : undefined;
+  }
+
+  async updateMyAvatar(userId: string, avatarUrl?: string | null) {
+    const url = avatarUrl ? assertOwnStorageUrl(avatarUrl) : null;
+    await prisma.user.update({ where: { id: userId }, data: { avatar: url } });
+    return { avatar: url };
+  }
 
   private async assertMember(userId: string) {
     if (await this.membership.hasActiveMembership(userId)) return;
@@ -113,6 +147,7 @@ export class CommunityFeedService {
       id: p.id,
       title: p.title,
       body: p.body,
+      attachments: p.attachments ?? [],
       pinned: p.pinned,
       author: p.author,
       category: p.category,
@@ -132,7 +167,13 @@ export class CommunityFeedService {
       if (!cat) throw new BadRequestException('Unknown category');
     }
     const post = await prisma.communityPost.create({
-      data: { authorId: userId, title: dto.title.trim().slice(0, 200), body: dto.body.trim().slice(0, 10000), categoryId: dto.categoryId || null },
+      data: {
+        authorId: userId,
+        title: dto.title.trim().slice(0, 200),
+        body: dto.body.trim().slice(0, 10000),
+        categoryId: dto.categoryId || null,
+        attachments: this.sanitizeAttachments(dto.attachments) ?? undefined,
+      },
     });
     await this.points.award(userId, 'POST', post.id);
     return { id: post.id };
@@ -146,6 +187,7 @@ export class CommunityFeedService {
     if (dto.title !== undefined) data.title = dto.title.trim().slice(0, 200);
     if (dto.body !== undefined) data.body = dto.body.trim().slice(0, 10000);
     if (dto.categoryId !== undefined) data.categoryId = dto.categoryId || null;
+    if (dto.attachments !== undefined) data.attachments = this.sanitizeAttachments(dto.attachments) ?? null;
     return prisma.communityPost.update({ where: { id }, data });
   }
 
@@ -166,13 +208,20 @@ export class CommunityFeedService {
   async addComment(userId: string, postId: string, dto: CreateCommentDto) {
     await this.assertMember(userId);
     if (!dto.body?.trim()) throw new BadRequestException('A comment is required');
-    const post = await prisma.communityPost.findUnique({ where: { id: postId } });
+    const post = await prisma.communityPost.findUnique({
+      where: { id: postId },
+      include: { author: { select: { id: true, displayName: true, email: true } } },
+    });
     if (!post) throw new NotFoundException('Post not found');
     const [comment] = await prisma.$transaction([
       prisma.communityComment.create({ data: { postId, authorId: userId, body: dto.body.trim().slice(0, 5000) }, include: { author: { select: authorSelect } } }),
       prisma.communityPost.update({ where: { id: postId }, data: { lastActivityAt: new Date() } }),
     ]);
     await this.points.award(userId, 'COMMENT', comment.id);
+    // Notify the post author of the reply (never self-notify).
+    if (post.authorId !== userId) {
+      void this.notifyReply(post.author, post.id, post.title, comment.author.displayName, comment.body);
+    }
     return { id: comment.id, body: comment.body, author: comment.author, createdAt: comment.createdAt };
   }
 
@@ -194,6 +243,34 @@ export class CommunityFeedService {
   async myStats(userId: string) {
     await this.assertMember(userId);
     return this.points.getMyStats(userId);
+  }
+
+  private async notifyReply(
+    author: { id: string; displayName: string | null; email: string | null },
+    postId: string,
+    postTitle: string,
+    replier: string | null,
+    body: string,
+  ) {
+    try {
+      await this.notifications.create(
+        author.id,
+        'SYSTEM',
+        `${replier || 'Someone'} replied to your post`,
+        `"${postTitle}" — ${body.slice(0, 120)}`,
+        { kind: 'community_reply', communityPostId: postId },
+      );
+      if (author.email) {
+        await this.email.sendCommunityReply(author.email, author.displayName || 'there', {
+          postTitle,
+          replier: replier || 'A member',
+          snippet: body.slice(0, 200),
+          postId,
+        });
+      }
+    } catch (err) {
+      this.logger.warn(`[community-reply-notify] ${(err as Error).message}`);
+    }
   }
 
   // --- Likes --------------------------------------------------------------

@@ -30,6 +30,12 @@ export class CommunityFeedController {
     return this.feed.myStats(req.user.sub);
   }
 
+  @Post('me/avatar')
+  @UseGuards(JwtAuthGuard)
+  setAvatar(@Request() req: any, @Body() body: { avatarUrl?: string | null }) {
+    return this.feed.updateMyAvatar(req.user.sub, body?.avatarUrl ?? null);
+  }
+
   @Get('posts')
   @UseGuards(JwtAuthGuard)
   listPosts(@Request() req: any, @Query('categoryId') categoryId?: string, @Query('page') page?: string) {

@@ -112001,6 +112001,7 @@ export namespace Prisma {
     authorId: number
     title: number
     body: number
+    attachments: number
     pinned: number
     lastActivityAt: number
     createdAt: number
@@ -112039,6 +112040,7 @@ export namespace Prisma {
     authorId?: true
     title?: true
     body?: true
+    attachments?: true
     pinned?: true
     lastActivityAt?: true
     createdAt?: true
@@ -112124,6 +112126,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments: JsonValue | null
     pinned: boolean
     lastActivityAt: Date
     createdAt: Date
@@ -112153,6 +112156,7 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
     createdAt?: boolean
@@ -112170,6 +112174,7 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
     createdAt?: boolean
@@ -112184,6 +112189,7 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
     createdAt?: boolean
@@ -112198,13 +112204,14 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "authorId" | "title" | "body" | "pinned" | "lastActivityAt" | "createdAt" | "updatedAt", ExtArgs["result"]["communityPost"]>
+  export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "authorId" | "title" | "body" | "attachments" | "pinned" | "lastActivityAt" | "createdAt" | "updatedAt", ExtArgs["result"]["communityPost"]>
   export type CommunityPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CommunityPost$categoryArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -112235,6 +112242,7 @@ export namespace Prisma {
       authorId: string
       title: string
       body: string
+      attachments: Prisma.JsonValue | null
       pinned: boolean
       lastActivityAt: Date
       createdAt: Date
@@ -112671,6 +112679,7 @@ export namespace Prisma {
     readonly authorId: FieldRef<"CommunityPost", 'String'>
     readonly title: FieldRef<"CommunityPost", 'String'>
     readonly body: FieldRef<"CommunityPost", 'String'>
+    readonly attachments: FieldRef<"CommunityPost", 'Json'>
     readonly pinned: FieldRef<"CommunityPost", 'Boolean'>
     readonly lastActivityAt: FieldRef<"CommunityPost", 'DateTime'>
     readonly createdAt: FieldRef<"CommunityPost", 'DateTime'>
@@ -118882,6 +118891,7 @@ export namespace Prisma {
     authorId: 'authorId',
     title: 'title',
     body: 'body',
+    attachments: 'attachments',
     pinned: 'pinned',
     lastActivityAt: 'lastActivityAt',
     createdAt: 'createdAt',
@@ -127148,6 +127158,7 @@ export namespace Prisma {
     authorId?: UuidFilter<"CommunityPost"> | string
     title?: StringFilter<"CommunityPost"> | string
     body?: StringFilter<"CommunityPost"> | string
+    attachments?: JsonNullableFilter<"CommunityPost">
     pinned?: BoolFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeFilter<"CommunityPost"> | Date | string
     createdAt?: DateTimeFilter<"CommunityPost"> | Date | string
@@ -127164,6 +127175,7 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    attachments?: SortOrderInput | SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
     createdAt?: SortOrder
@@ -127183,6 +127195,7 @@ export namespace Prisma {
     authorId?: UuidFilter<"CommunityPost"> | string
     title?: StringFilter<"CommunityPost"> | string
     body?: StringFilter<"CommunityPost"> | string
+    attachments?: JsonNullableFilter<"CommunityPost">
     pinned?: BoolFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeFilter<"CommunityPost"> | Date | string
     createdAt?: DateTimeFilter<"CommunityPost"> | Date | string
@@ -127199,6 +127212,7 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    attachments?: SortOrderInput | SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
     createdAt?: SortOrder
@@ -127217,6 +127231,7 @@ export namespace Prisma {
     authorId?: UuidWithAggregatesFilter<"CommunityPost"> | string
     title?: StringWithAggregatesFilter<"CommunityPost"> | string
     body?: StringWithAggregatesFilter<"CommunityPost"> | string
+    attachments?: JsonNullableWithAggregatesFilter<"CommunityPost">
     pinned?: BoolWithAggregatesFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeWithAggregatesFilter<"CommunityPost"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"CommunityPost"> | Date | string
@@ -135662,6 +135677,7 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -135678,6 +135694,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -135690,6 +135707,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135706,6 +135724,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135720,6 +135739,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -135730,6 +135750,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135742,6 +135763,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -142013,6 +142035,7 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    attachments?: SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
     createdAt?: SortOrder
@@ -150418,6 +150441,7 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -150432,6 +150456,7 @@ export namespace Prisma {
     categoryId?: string | null
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -151692,6 +151717,7 @@ export namespace Prisma {
     authorId?: UuidFilter<"CommunityPost"> | string
     title?: StringFilter<"CommunityPost"> | string
     body?: StringFilter<"CommunityPost"> | string
+    attachments?: JsonNullableFilter<"CommunityPost">
     pinned?: BoolFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeFilter<"CommunityPost"> | Date | string
     createdAt?: DateTimeFilter<"CommunityPost"> | Date | string
@@ -172725,6 +172751,7 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -172739,6 +172766,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -173133,6 +173161,7 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -173148,6 +173177,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -173282,6 +173312,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -173297,6 +173328,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -173421,6 +173453,7 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -173436,6 +173469,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -173570,6 +173604,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -173585,6 +173620,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -174245,6 +174281,7 @@ export namespace Prisma {
     categoryId?: string | null
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -174775,6 +174812,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -174789,6 +174827,7 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -174802,6 +174841,7 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -179237,6 +179277,7 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
     createdAt?: Date | string
@@ -179247,6 +179288,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -179261,6 +179303,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -179274,6 +179317,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

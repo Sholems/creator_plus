@@ -2242,6 +2242,7 @@ model CommunityPost {
   authorId       String   @map("author_id") @db.Uuid
   title          String
   body           String
+  attachments    Json?
   pinned         Boolean  @default(false)
   lastActivityAt DateTime @default(now()) @map("last_activity_at")
   createdAt      DateTime @default(now()) @map("created_at")
