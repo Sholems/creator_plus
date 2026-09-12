@@ -7,7 +7,7 @@ jest.mock('@creatorplus/database', () => ({
     membershipSubscription: { findFirst: jest.fn() },
     course: { findFirst: jest.fn(), findMany: jest.fn(), count: jest.fn() },
     lessonProgress: { findMany: jest.fn(), upsert: jest.fn(), deleteMany: jest.fn() },
-    lesson: { findUnique: jest.fn() },
+    lesson: { findUnique: jest.fn(), update: jest.fn() },
     userRole: { findMany: jest.fn() },
   },
   Prisma: {},
@@ -25,6 +25,7 @@ describe('CommunityCoursesService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     p.userRole.findMany.mockResolvedValue([]); // default: not an admin
+    process.env.R2_PUBLIC_URL = 'https://cdn.mycreatorplus.com';
   });
 
   it('blocks non-members', async () => {
@@ -63,5 +64,27 @@ describe('CommunityCoursesService', () => {
     expect(p.lessonProgress.upsert).toHaveBeenCalledWith(
       expect.objectContaining({ where: { lessonId_userId: { lessonId: 'L1', userId: 'u1' } } }),
     );
+  });
+
+  it('allows lessons to combine Bunny video, markdown text, and an uploaded file', async () => {
+    const svc = makeService(true);
+    p.lesson.update.mockResolvedValue({ id: 'L1' });
+
+    await svc.updateLesson('L1', {
+      contentType: 'VIDEO',
+      videoUrl: 'https://player.mediadelivery.net/embed/12345/01234567-89ab-cdef-0123-456789abcdef',
+      body: '## Watch first\nThen download the workbook.',
+      fileUrl: 'https://cdn.mycreatorplus.com/community/workbook.pdf',
+    } as any);
+
+    expect(p.lesson.update).toHaveBeenCalledWith({
+      where: { id: 'L1' },
+      data: expect.objectContaining({
+        contentType: 'VIDEO',
+        videoUrl: 'https://player.mediadelivery.net/embed/12345/01234567-89ab-cdef-0123-456789abcdef',
+        body: '## Watch first\nThen download the workbook.',
+        fileUrl: 'https://cdn.mycreatorplus.com/community/workbook.pdf',
+      }),
+    });
   });
 });

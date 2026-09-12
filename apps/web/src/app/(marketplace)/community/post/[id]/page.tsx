@@ -6,6 +6,9 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
+import { AttachmentList } from '@/components/community/attachments';
+import { Markdown } from '@/components/community/markdown';
+import { MemberAvatar } from '@/components/community/member-avatar';
 
 function timeAgo(iso: string): string {
   const s = Math.max(1, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
@@ -14,10 +17,6 @@ function timeAgo(iso: string): string {
   const h = Math.floor(m / 60); if (h < 24) return `${h}h`;
   const d = Math.floor(h / 24); if (d < 30) return `${d}d`;
   return new Date(iso).toLocaleDateString();
-}
-
-function Avatar({ name }: { name?: string }) {
-  return <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-100 text-xs font-bold text-forest-800">{(name || '?').slice(0, 1).toUpperCase()}</span>;
 }
 
 export default function PostThreadPage() {
@@ -86,14 +85,17 @@ export default function PostThreadPage() {
 
         <article className="mt-3 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
           <div className="flex items-center gap-2 text-xs text-ink-500">
-            <Avatar name={post.author?.displayName} />
+            <MemberAvatar name={post.author?.displayName} src={post.author?.avatar} size={32} />
             <span className="font-medium text-ink-700">{post.author?.displayName || 'Member'}</span>
             <span>· {timeAgo(post.createdAt)}</span>
             {post.category && <span className="rounded-full bg-cream-200 px-2 py-0.5 font-semibold text-ink-600">{post.category.name}</span>}
             {post.pinned && <span className="rounded-full bg-gold-100 px-2 py-0.5 font-semibold text-gold-800">📌</span>}
           </div>
           <h1 className="mt-3 font-display text-2xl font-bold text-ink-900">{post.title}</h1>
-          <div className="mt-3 whitespace-pre-wrap text-sm leading-6 text-ink-800">{post.body}</div>
+          <div className="mt-3">
+            <Markdown>{post.body}</Markdown>
+          </div>
+          <AttachmentList attachments={post.attachments} />
 
           <div className="mt-5 flex items-center gap-3 border-t border-ink-100 pt-4 text-sm">
             <button onClick={like} className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-semibold transition ${post.likedByMe ? 'bg-clay-50 text-clay-700' : 'border border-ink-200 text-ink-600 hover:bg-cream-100'}`}>
@@ -120,14 +122,16 @@ export default function PostThreadPage() {
             {post.comments.map((c: any) => (
               <li key={c.id} className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm">
                 <div className="flex items-center gap-2 text-xs text-ink-500">
-                  <Avatar name={c.author?.displayName} />
+                  <MemberAvatar name={c.author?.displayName} src={c.author?.avatar} size={32} />
                   <span className="font-medium text-ink-700">{c.author?.displayName || 'Member'}</span>
                   <span>· {timeAgo(c.createdAt)}</span>
                   {(isAdmin || c.author?.id === user?.id) && (
                     <button onClick={() => removeComment(c.id)} className="ml-auto text-clay-500 hover:underline">Delete</button>
                   )}
                 </div>
-                <p className="mt-2 whitespace-pre-wrap text-sm text-ink-800">{c.body}</p>
+                <div className="mt-2">
+                  <Markdown>{c.body}</Markdown>
+                </div>
               </li>
             ))}
           </ul>

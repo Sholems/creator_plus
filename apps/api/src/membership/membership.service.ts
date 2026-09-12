@@ -28,13 +28,26 @@ export class MembershipService implements OnModuleInit {
    * env; provider plan codes are created lazily at first checkout.
    */
   private async ensureDefaultPlan() {
+    const defaultPlanName = process.env.MEMBERSHIP_PLAN_NAME || 'Bold Ideas Growth Club';
+    const defaultPlanDescription = 'A paid CreatorPlus growth club with exclusive courses, practical content, member discussions, and Q&A support.';
     const existing = await prisma.membershipPlan.findFirst();
-    if (existing) return;
+    if (existing) {
+      const data: Prisma.MembershipPlanUpdateInput = {};
+      if (!process.env.MEMBERSHIP_PLAN_NAME && existing.name === 'Community Membership') data.name = defaultPlanName;
+      if (existing.description === 'All-access pass to the community — every course, lesson, and discussion.') {
+        data.description = defaultPlanDescription;
+      }
+      if (Object.keys(data).length > 0) {
+        await prisma.membershipPlan.update({ where: { id: existing.id }, data });
+        this.logger.log('[membership] reconciled default membership plan branding');
+      }
+      return;
+    }
     const num = (key: string, fallback: number) => Number(process.env[key]) || fallback;
     await prisma.membershipPlan.create({
       data: {
-        name: process.env.MEMBERSHIP_PLAN_NAME || 'Community Membership',
-        description: 'All-access pass to the community — every course, lesson, and discussion.',
+        name: defaultPlanName,
+        description: defaultPlanDescription,
         prices: {
           create: [
             { provider: 'paystack', currency: 'NGN', interval: 'MONTHLY', amount: num('MEMBERSHIP_NGN_MONTHLY', 5000) },
@@ -120,7 +133,7 @@ export class MembershipService implements OnModuleInit {
 
   async startCheckout(userId: string, dto: { priceId: string; successUrl?: string; cancelUrl?: string }) {
     const price = await prisma.membershipPlanPrice.findUnique({ where: { id: dto.priceId }, include: { plan: true } });
-    if (!price || !price.isActive || !price.plan.isActive) throw new NotFoundException('Membership plan not available');
+    if (!price || !price.isActive || !price.plan.isActive) throw new NotFoundException('Growth Club plan not available');
 
     const provider = this.getProvider(price.provider);
     if (!provider.isConfigured()) throw new BadRequestException(`${price.provider} is not configured on this server`);
@@ -129,7 +142,7 @@ export class MembershipService implements OnModuleInit {
     if (!user) throw new NotFoundException('User not found');
 
     if (await this.hasActiveMembership(userId)) {
-      throw new BadRequestException('You already have an active membership');
+      throw new BadRequestException('You already have an active Growth Club membership');
     }
 
     // Lazily create the provider plan/price the first time it's needed.
@@ -169,7 +182,7 @@ export class MembershipService implements OnModuleInit {
       where: { userId, status: { in: ACTIVE_STATUSES } },
       orderBy: { createdAt: 'desc' },
     });
-    if (!sub) throw new NotFoundException('No active membership to cancel');
+    if (!sub) throw new NotFoundException('No active Growth Club membership to cancel');
     if (sub.providerSubscriptionId) {
       try {
         await this.getProvider(sub.provider).cancelSubscription(sub.providerSubscriptionId);

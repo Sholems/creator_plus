@@ -3,8 +3,8 @@ import { renderEmailLayout } from '@creatorplus/email';
 import { QUEUE_NAMES, createWorker, emailQueue, communityDigestQueue } from '../queues';
 
 /**
- * Daily community digest: if anything was posted in the last 24h, email active
- * members a short summary with links. Skips quietly when there's no new
+ * Daily Bold Ideas Growth Club digest: if anything was posted in the last 24h,
+ * email active members a short summary with links. Skips quietly when there's no new
  * activity so members never get an empty email.
  */
 const REPEAT_PATTERN = '0 8 * * *'; // 08:00 daily
@@ -37,11 +37,11 @@ async function sweep() {
     )
     .join('');
   const html = renderEmailLayout({
-    preview: `${posts.length} new post${posts.length > 1 ? 's' : ''} in the community`,
-    eyebrow: 'Community digest',
-    title: "What's new in the community",
-    body: `<p>Here's what members shared in the last day:</p><ul style="padding-left:18px">${items}</ul>`,
-    cta: { label: 'Open the community', url: `${WEB}/community/discussion` },
+    preview: `${posts.length} new post${posts.length > 1 ? 's' : ''} in Bold Ideas Growth Club`,
+    eyebrow: 'Bold Ideas Growth Club',
+    title: "What's new in the Growth Club",
+    body: `<p>Here's what Growth Club members shared in the last day:</p><ul style="padding-left:18px">${items}</ul>`,
+    cta: { label: 'Open the Growth Club', url: `${WEB}/community/discussion` },
   });
 
   let queued = 0;
@@ -49,7 +49,7 @@ async function sweep() {
     if (!u.email) continue;
     await emailQueue.add(
       'send',
-      { to: u.email, subject: "What's new in the community", html },
+      { to: u.email, subject: "What's new in Bold Ideas Growth Club", html },
       { attempts: 3, backoff: { type: 'exponential', delay: 5_000 } },
     );
     queued++;

@@ -38,7 +38,7 @@ export default function CommunityJoinPage() {
     setCurrency(guessCurrency());
     api.getMembershipPlans()
       .then((res) => { setPlan(res.plan); setPrices(res.prices ?? []); })
-      .catch(() => setError('Could not load membership plans.'));
+      .catch(() => setError('Could not load Growth Club plans.'));
   }, []);
 
   useEffect(() => {
@@ -82,10 +82,10 @@ export default function CommunityJoinPage() {
     <main className="min-h-screen bg-cream-50 px-4 py-12">
       <section className="mx-auto w-full max-w-lg">
         <div className="text-center">
-          <p className="eyebrow text-gold-600">Membership</p>
-          <h1 className="mt-2 font-display text-4xl font-bold text-ink-900">{plan?.name || 'Join the community'}</h1>
+          <p className="eyebrow text-gold-600">Bold Ideas Growth Club</p>
+          <h1 className="mt-2 font-display text-4xl font-bold text-ink-900">{plan?.name || 'Join the Growth Club'}</h1>
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-ink-600">
-            {plan?.description || 'One membership unlocks every course, lesson, and discussion.'}
+            {plan?.description || 'One paid membership unlocks CreatorPlus courses, practical growth content, member discussions, and Q&A support.'}
           </p>
         </div>
 
@@ -93,7 +93,7 @@ export default function CommunityJoinPage() {
           <div className="mt-8 rounded-3xl border border-forest-200 bg-white p-8 text-center shadow-sm">
             <p className="text-lg font-semibold text-ink-900">You're already a member 🎉</p>
             <Link href="/community" className="mt-4 inline-block rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-cream-50 hover:bg-forest-700">
-              Enter the community
+              Enter the Growth Club
             </Link>
           </div>
         ) : (
@@ -137,7 +137,7 @@ export default function CommunityJoinPage() {
             </div>
 
             <ul className="mx-auto mt-6 max-w-xs space-y-2 text-sm text-ink-700">
-              {['Every course and lesson', 'Community discussion', 'Live sessions & events', 'Cancel anytime'].map((f) => (
+              {['CreatorPlus courses and lessons', 'Member discussion and Q&A', 'Exclusive resources and sessions', 'Cancel anytime'].map((f) => (
                 <li key={f} className="flex items-center gap-2">
                   <span className="text-forest-600">✓</span> {f}
                 </li>
@@ -149,7 +149,7 @@ export default function CommunityJoinPage() {
               disabled={busy || !price}
               className="mt-6 w-full rounded-full bg-forest-800 px-6 py-3.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 disabled:opacity-50"
             >
-              {busy ? 'Starting checkout…' : isAuthenticated ? 'Subscribe' : 'Sign in to subscribe'}
+              {busy ? 'Starting checkout…' : isAuthenticated ? 'Subscribe to Growth Club' : 'Sign in to subscribe'}
             </button>
             {error && <p className="mt-3 text-center text-sm text-clay-600">{error}</p>}
             <p className="mt-3 text-center text-xs text-ink-400">

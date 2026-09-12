@@ -12,7 +12,17 @@ import {
   UpdateLessonDto,
 } from './dto/course.dto';
 
-const VIDEO_HOSTS = ['youtube.com', 'youtu.be', 'vimeo.com', 'player.vimeo.com', 'loom.com', 'wistia.com'];
+const VIDEO_HOSTS = [
+  'youtube.com',
+  'youtu.be',
+  'vimeo.com',
+  'player.vimeo.com',
+  'loom.com',
+  'wistia.com',
+  'bunny.net',
+  'iframe.mediadelivery.net',
+  'player.mediadelivery.net',
+];
 
 function slugify(input: string): string {
   return String(input).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'course';
@@ -33,7 +43,7 @@ export class CommunityCoursesService {
   private async assertMember(userId: string) {
     if (await this.membership.hasActiveMembership(userId)) return;
     if (await this.isAdmin(userId)) return; // owner/admins get full access without a subscription
-    throw new ForbiddenException('An active membership is required');
+    throw new ForbiddenException('An active Bold Ideas Growth Club membership is required');
   }
 
   /** A member's join date — drip windows are measured from here. */

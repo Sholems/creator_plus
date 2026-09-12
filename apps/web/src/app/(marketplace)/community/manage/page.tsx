@@ -19,6 +19,11 @@ type LessonDraft = {
   dripDelayDays?: number;
 };
 
+function videoUrlFromInput(value?: string): string {
+  const raw = String(value ?? '').trim();
+  return raw.match(/src=["']([^"']+)["']/i)?.[1] ?? raw;
+}
+
 export default function CommunityManagePage() {
   const { token, user } = useAuth();
   const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
@@ -47,7 +52,7 @@ export default function CommunityManagePage() {
   if (!isAdmin) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-cream-50 px-4">
-        <p className="text-sm text-ink-600">You don't have access to manage the community.</p>
+        <p className="text-sm text-ink-600">You don't have access to manage Bold Ideas Growth Club.</p>
       </main>
     );
   }
@@ -90,9 +95,9 @@ export default function CommunityManagePage() {
       const payload: any = {
         title: draft.title.trim(),
         contentType: draft.contentType,
-        body: draft.contentType === 'TEXT' ? draft.body ?? '' : undefined,
-        videoUrl: draft.contentType === 'VIDEO' ? draft.videoUrl ?? '' : undefined,
-        fileUrl: draft.contentType === 'FILE' ? draft.fileUrl ?? '' : undefined,
+        body: draft.body ?? '',
+        videoUrl: videoUrlFromInput(draft.videoUrl),
+        fileUrl: draft.fileUrl ?? '',
         dripDelayDays: Number(draft.dripDelayDays) || 0,
       };
       if (draft.id) await api.updateLesson(token!, draft.id, payload);
@@ -115,9 +120,9 @@ export default function CommunityManagePage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="eyebrow text-gold-600">Manage</p>
-            <h1 className="font-display text-3xl font-bold text-ink-900">Community classroom</h1>
+            <h1 className="font-display text-3xl font-bold text-ink-900">Growth Club classroom</h1>
           </div>
-          <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">← Community</Link>
+          <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">← Growth Club</Link>
         </div>
         {error && <p className="mt-3 rounded-lg bg-clay-50 px-3 py-2 text-sm text-clay-700">{error}</p>}
 
@@ -152,7 +157,7 @@ export default function CommunityManagePage() {
                     <label className="flex items-center gap-2 text-sm text-ink-700">
                       <input type="checkbox" checked={selected.published} onChange={(e) => saveCourseField({ published: e.target.checked })} /> Published (visible to members)
                     </label>
-                    <textarea className={`${input} sm:col-span-2`} rows={2} defaultValue={selected.description ?? ''} onBlur={(e) => e.target.value !== (selected.description ?? '') && saveCourseField({ description: e.target.value })} placeholder="Short description" />
+                    <textarea className={`${input} sm:col-span-2`} rows={4} defaultValue={selected.description ?? ''} onBlur={(e) => e.target.value !== (selected.description ?? '') && saveCourseField({ description: e.target.value })} placeholder="Course description — markdown is supported" />
                   </div>
                   <div className="mt-3 flex items-center gap-3">
                     {selected.coverImage && <img src={selected.coverImage} alt="" className="h-14 w-24 rounded-lg object-cover" />}
@@ -210,21 +215,16 @@ export default function CommunityManagePage() {
                 </select>
                 <input type="number" min={0} className="w-40 rounded-lg border border-ink-200 px-3 py-2 text-sm" value={draft.dripDelayDays ?? 0} onChange={(e) => setDraft({ ...draft, dripDelayDays: Number(e.target.value) })} placeholder="Drip days" />
               </div>
-              {draft.contentType === 'TEXT' && (
-                <textarea className={input} rows={6} value={draft.body ?? ''} onChange={(e) => setDraft({ ...draft, body: e.target.value })} placeholder="Lesson text" />
-              )}
-              {draft.contentType === 'VIDEO' && (
-                <input className={input} value={draft.videoUrl ?? ''} onChange={(e) => setDraft({ ...draft, videoUrl: e.target.value })} placeholder="YouTube / Vimeo / Loom URL" />
-              )}
-              {draft.contentType === 'FILE' && (
-                <div className="flex items-center gap-3">
-                  <label className="cursor-pointer rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">
-                    {draft.fileUrl ? 'Change file' : 'Upload file'}
-                    <input type="file" className="hidden" onChange={(e) => e.target.files?.[0] && uploadLessonFile(e.target.files[0])} />
-                  </label>
-                  {draft.fileUrl && <span className="truncate text-xs text-ink-500">{draft.fileUrl.split('/').pop()}</span>}
-                </div>
-              )}
+              <textarea className={input} rows={8} value={draft.body ?? ''} onChange={(e) => setDraft({ ...draft, body: e.target.value })} placeholder="Lesson text — markdown is supported" />
+              <input className={input} value={draft.videoUrl ?? ''} onChange={(e) => setDraft({ ...draft, videoUrl: e.target.value })} placeholder="Video URL or iframe embed code: YouTube, Vimeo, Loom, Wistia, or Bunny Stream" />
+              <div className="flex items-center gap-3">
+                <label className="cursor-pointer rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">
+                  {draft.fileUrl ? 'Change file' : 'Upload file'}
+                  <input type="file" className="hidden" onChange={(e) => e.target.files?.[0] && uploadLessonFile(e.target.files[0])} />
+                </label>
+                {draft.fileUrl && <span className="truncate text-xs text-ink-500">{draft.fileUrl.split('/').pop()}</span>}
+              </div>
+              <p className="text-xs text-ink-400">A lesson can include text, a video, and a downloadable file together. The type is only used as the primary lesson label.</p>
               <p className="text-xs text-ink-400">Drip days: hidden until this many days after a member joins (0 = available immediately).</p>
             </div>
             <div className="mt-5 flex justify-end gap-2">

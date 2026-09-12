@@ -56,7 +56,7 @@ export class CommunityFeedService {
   private async assertMember(userId: string) {
     if (await this.membership.hasActiveMembership(userId)) return;
     if (await this.isAdmin(userId)) return; // owner/admins get full access without a subscription
-    throw new ForbiddenException('An active membership is required');
+    throw new ForbiddenException('An active Bold Ideas Growth Club membership is required');
   }
 
   private async isAdmin(userId: string): Promise<boolean> {

@@ -6,16 +6,29 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
+import { Markdown } from '@/components/community/markdown';
 
 function videoEmbed(url?: string | null): string | null {
   if (!url) return null;
   try {
-    const u = new URL(url);
+    const iframeSrc = url.match(/src=["']([^"']+)["']/i)?.[1];
+    const u = new URL(iframeSrc || url);
     if (u.hostname.includes('youtu.be')) return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
     if (u.hostname.includes('youtube.com')) { const v = u.searchParams.get('v'); return v ? `https://www.youtube.com/embed/${v}` : null; }
     if (u.hostname.includes('vimeo.com')) { const id = u.pathname.split('/').filter(Boolean)[0]; return id ? `https://player.vimeo.com/video/${id}` : null; }
     if (u.hostname.includes('loom.com')) return url.replace('/share/', '/embed/');
     if (u.hostname.includes('wistia.com')) return url;
+    if (u.hostname === 'iframe.mediadelivery.net' || u.hostname === 'player.mediadelivery.net') return url;
+    if (u.hostname.includes('bunny.net')) {
+      const parts = u.pathname.split('/').filter(Boolean);
+      const embedIndex = parts.indexOf('embed');
+      if (embedIndex >= 0 && parts[embedIndex + 1] && parts[embedIndex + 2]) {
+        return `https://player.mediadelivery.net/embed/${parts[embedIndex + 1]}/${parts[embedIndex + 2]}`;
+      }
+      const libraryId = u.searchParams.get('libraryId') || u.searchParams.get('library') || parts.find((p) => /^\d+$/.test(p));
+      const videoId = u.searchParams.get('videoId') || u.searchParams.get('video') || parts.find((p) => /^[0-9a-f-]{24,}$/i.test(p));
+      if (libraryId && videoId) return `https://player.mediadelivery.net/embed/${libraryId}/${videoId}`;
+    }
   } catch { /* ignore */ }
   return null;
 }
@@ -71,14 +84,21 @@ export default function CoursePlayerPage() {
   if (error) return <main className="flex min-h-screen items-center justify-center bg-cream-50 px-4"><p className="text-sm text-clay-600">{error}</p></main>;
   if (!course) return null;
 
-  const embed = selected?.contentType === 'VIDEO' ? videoEmbed(selected.videoUrl) : null;
+  const embed = videoEmbed(selected?.videoUrl);
 
   return (
     <main className="min-h-screen bg-cream-50 px-4 py-8">
       <div className="mx-auto w-full max-w-6xl">
-        <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">← Back to community</Link>
+        <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">← Back to Growth Club</Link>
         <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
-          <h1 className="font-display text-3xl font-bold text-ink-900">{course.title}</h1>
+          <div>
+            <h1 className="font-display text-3xl font-bold text-ink-900">{course.title}</h1>
+            {course.description && (
+              <div className="mt-2 max-w-3xl">
+                <Markdown>{course.description}</Markdown>
+              </div>
+            )}
+          </div>
           <p className="text-sm text-ink-500">{completedCount}/{lessons.length} lessons · {pct}%</p>
         </div>
 
@@ -122,7 +142,7 @@ export default function CoursePlayerPage() {
               <div>
                 <h2 className="font-display text-2xl font-semibold text-ink-900">{selected.title}</h2>
 
-                {selected.contentType === 'VIDEO' && (
+                {selected.videoUrl && (
                   embed ? (
                     <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-ink-100">
                       <iframe src={embed} title={selected.title} className="h-full w-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
@@ -132,14 +152,16 @@ export default function CoursePlayerPage() {
                   )
                 )}
 
-                {selected.contentType === 'FILE' && selected.fileUrl && (
+                {selected.fileUrl && (
                   <a href={selected.fileUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 hover:bg-forest-700">
                     Open / download resource
                   </a>
                 )}
 
                 {selected.body && (
-                  <div className="prose prose-sm mt-4 max-w-none whitespace-pre-wrap text-ink-800">{selected.body}</div>
+                  <div className="mt-4">
+                    <Markdown>{selected.body}</Markdown>
+                  </div>
                 )}
 
                 <button

@@ -19,7 +19,7 @@ const COLUMNS: { heading: string; links: { href: Route; label: string }[] }[] = 
     links: [
       { href: '/sell', label: 'Start selling' },
       { href: '/earn', label: 'Earn as an affiliate' },
-      { href: '/community', label: 'Community' },
+      { href: '/community', label: 'Growth Club' },
       { href: '/help', label: 'Help Center' },
     ],
   },

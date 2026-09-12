@@ -489,8 +489,11 @@ class ApiClient {
   async getPost(token: string, id: string) {
     return this.fetch<any>(`/community/posts/${id}`, { token });
   }
-  async createPost(token: string, dto: { title: string; body: string; categoryId?: string }) {
+  async createPost(token: string, dto: { title: string; body: string; categoryId?: string; attachments?: any[] }) {
     return this.fetch<any>('/community/posts', { method: 'POST', body: dto, token });
+  }
+  async setMyAvatar(token: string, avatarUrl: string | null) {
+    return this.fetch<any>('/community/me/avatar', { method: 'POST', body: { avatarUrl }, token });
   }
   async updatePost(token: string, id: string, dto: any) {
     return this.fetch<any>(`/community/posts/${id}`, { method: 'PATCH', body: dto, token });
