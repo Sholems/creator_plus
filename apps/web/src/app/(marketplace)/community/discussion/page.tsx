@@ -8,6 +8,7 @@ import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { AttachmentList, AttachmentSummary } from '@/components/community/attachments';
 import { MemberAvatar } from '@/components/community/member-avatar';
+import { CommunityRichEditor } from '@/components/community/community-rich-editor';
 
 const input = 'w-full rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm';
 
@@ -106,6 +107,8 @@ export default function DiscussionPage() {
         body: composer.body.trim(),
         categoryId: composer.categoryId || undefined,
         attachments: composer.attachments,
+        contentFormat: 'RICH_HTML',
+        postType: 'QUESTION',
       });
       setComposer({ title: '', body: '', categoryId: '', attachments: [] });
       setShowComposer(false);
@@ -241,13 +244,13 @@ export default function DiscussionPage() {
                 onChange={(e) => setComposer({ ...composer, title: e.target.value })}
                 placeholder="Post title"
               />
-              <textarea
-                className={`${input} mt-2`}
-                rows={4}
-                value={composer.body}
-                onChange={(e) => setComposer({ ...composer, body: e.target.value })}
-                placeholder="Ask a question, share progress, or start a Growth Club conversation…"
-              />
+              <div className="mt-2">
+                <CommunityRichEditor
+                  value={composer.body}
+                  onChange={(body) => setComposer({ ...composer, body })}
+                  placeholder="Ask a question, share progress, or start a Growth Club conversation…"
+                />
+              </div>
               {composer.attachments.length > 0 && (
                 <div className="mt-3 space-y-2 rounded-xl border border-ink-100 bg-cream-50 p-3">
                   {composer.attachments.map((a) => (
@@ -311,7 +314,7 @@ export default function DiscussionPage() {
                 </div>
               </div>
               <p className="mt-2 text-xs text-ink-400">
-                Markdown is supported. Attach up to 6 files from CreatorPlus storage.
+                Rich formatting is supported. Attach up to 6 files from CreatorPlus storage.
               </p>
             </div>
           ) : (

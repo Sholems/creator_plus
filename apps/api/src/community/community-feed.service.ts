@@ -11,6 +11,8 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { EmailService } from '../email/email.service';
 import { assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import { CreatePostDto, UpdatePostDto, CreateCommentDto, CategoryDto } from './dto/feed.dto';
+import { CommunityAccessService } from './community-access.service';
+import { sanitizeCommunityHtml } from './community-rich-content';
 
 const PAGE_SIZE = 20;
 type FeedSort = 'latest' | 'popular' | 'unanswered';
@@ -33,6 +35,7 @@ export class CommunityFeedService {
   private readonly logger = new Logger(CommunityFeedService.name);
 
   constructor(
+    private readonly access: CommunityAccessService,
     private readonly points: CommunityPointsService,
     private readonly notifications: NotificationsService,
     private readonly email: EmailService,
@@ -130,11 +133,13 @@ export class CommunityFeedService {
     userId: string,
     opts: { categoryId?: string; page?: number; search?: string; sort?: FeedSort },
   ) {
+    await this.access.assertAccess(userId);
     const page = Math.max(0, Number(opts.page) || 0);
     const search = String(opts.search ?? '')
       .trim()
       .slice(0, 100);
     const where: Prisma.CommunityPostWhereInput = {
+      status: 'PUBLISHED',
       ...(opts.categoryId ? { categoryId: opts.categoryId } : {}),
       ...(search
         ? {
@@ -160,12 +165,15 @@ export class CommunityFeedService {
         category: { select: { id: true, name: true, slug: true } },
         _count: { select: { comments: true, likes: true } },
         likes: { where: { userId }, select: { id: true } },
+        bookmarks: { where: { userId }, select: { id: true } },
+        subscriptions: { where: { userId }, select: { id: true } },
       },
     });
     return posts.map((p) => this.serializePost(p));
   }
 
   async getPost(userId: string, id: string) {
+    await this.access.assertAccess(userId);
     const post = await prisma.communityPost.findUnique({
       where: { id },
       include: {
@@ -173,15 +181,25 @@ export class CommunityFeedService {
         category: { select: { id: true, name: true, slug: true } },
         _count: { select: { comments: true, likes: true } },
         likes: { where: { userId }, select: { id: true } },
-        comments: { orderBy: { createdAt: 'asc' }, include: { author: { select: authorSelect } } },
+        bookmarks: { where: { userId }, select: { id: true } },
+        subscriptions: { where: { userId }, select: { id: true } },
+        comments: {
+          where: { status: 'PUBLISHED' },
+          orderBy: { createdAt: 'asc' },
+          include: { author: { select: authorSelect } },
+        },
       },
     });
     if (!post) throw new NotFoundException('Post not found');
+    if (post.status !== 'PUBLISHED') throw new NotFoundException('Post not found');
+    await this.access.assertAccess(userId, { accessLevel: post.accessLevel });
     return {
       ...this.serializePost(post),
       comments: post.comments.map((c) => ({
         id: c.id,
         body: c.body,
+        contentFormat: c.contentFormat,
+        parentId: c.parentId,
         author: c.author,
         createdAt: c.createdAt,
       })),
@@ -193,6 +211,9 @@ export class CommunityFeedService {
       id: p.id,
       title: p.title,
       body: p.body,
+      contentFormat: p.contentFormat,
+      postType: p.postType,
+      acceptedCommentId: p.acceptedCommentId,
       attachments: p.attachments ?? [],
       pinned: p.pinned,
       author: p.author,
@@ -200,12 +221,15 @@ export class CommunityFeedService {
       commentCount: p._count.comments,
       likeCount: p._count.likes,
       likedByMe: (p.likes?.length ?? 0) > 0,
+      savedByMe: (p.bookmarks?.length ?? 0) > 0,
+      subscribedByMe: (p.subscriptions?.length ?? 0) > 0,
       createdAt: p.createdAt,
       lastActivityAt: p.lastActivityAt,
     };
   }
 
   async createPost(userId: string, dto: CreatePostDto) {
+    await this.access.assertAccess(userId, { accessLevel: dto.accessLevel ?? 'FREE' });
     if (!dto.title?.trim() || !dto.body?.trim())
       throw new BadRequestException('A title and body are required');
     if (dto.categoryId) {
@@ -216,7 +240,15 @@ export class CommunityFeedService {
       data: {
         authorId: userId,
         title: dto.title.trim().slice(0, 200),
-        body: dto.body.trim().slice(0, 10000),
+        body:
+          dto.contentFormat === 'RICH_HTML'
+            ? sanitizeCommunityHtml(dto.body).slice(0, 30000)
+            : dto.body.trim().slice(0, 10000),
+        contentFormat: dto.contentFormat ?? 'MARKDOWN',
+        postType: dto.postType ?? 'DISCUSSION',
+        accessLevel: dto.accessLevel ?? 'FREE',
+        contextType: dto.contextType || null,
+        contextId: dto.contextId || null,
         categoryId: dto.categoryId || null,
         attachments: this.sanitizeAttachments(dto.attachments) ?? undefined,
       },
@@ -226,13 +258,19 @@ export class CommunityFeedService {
   }
 
   async updatePost(userId: string, id: string, dto: UpdatePostDto) {
+    await this.access.assertAccess(userId);
     const post = await prisma.communityPost.findUnique({ where: { id } });
     if (!post) throw new NotFoundException('Post not found');
     if (post.authorId !== userId && !(await this.isAdmin(userId)))
       throw new ForbiddenException('Not your post');
     const data: any = {};
     if (dto.title !== undefined) data.title = dto.title.trim().slice(0, 200);
-    if (dto.body !== undefined) data.body = dto.body.trim().slice(0, 10000);
+    if (dto.body !== undefined)
+      data.body =
+        dto.contentFormat === 'RICH_HTML' || post.contentFormat === 'RICH_HTML'
+          ? sanitizeCommunityHtml(dto.body).slice(0, 30000)
+          : dto.body.trim().slice(0, 10000);
+    if (dto.contentFormat !== undefined) data.contentFormat = dto.contentFormat;
     if (dto.categoryId !== undefined) data.categoryId = dto.categoryId || null;
     if (dto.attachments !== undefined)
       data.attachments = this.sanitizeAttachments(dto.attachments) ?? null;
@@ -240,11 +278,19 @@ export class CommunityFeedService {
   }
 
   async deletePost(userId: string, id: string) {
+    await this.access.assertAccess(userId);
     const post = await prisma.communityPost.findUnique({ where: { id } });
     if (!post) throw new NotFoundException('Post not found');
     if (post.authorId !== userId && !(await this.isAdmin(userId)))
       throw new ForbiddenException('Not your post');
-    await prisma.communityPost.delete({ where: { id } });
+    await prisma.$transaction([
+      prisma.communityPost.update({
+        where: { id },
+        data: { status: 'DELETED', acceptedCommentId: null },
+      }),
+      prisma.communityComment.updateMany({ where: { postId: id }, data: { status: 'DELETED' } }),
+    ]);
+    await this.points.revoke(userId, 'POST', id);
     return { deleted: true };
   }
 
@@ -257,15 +303,33 @@ export class CommunityFeedService {
   // --- Comments -----------------------------------------------------------
 
   async addComment(userId: string, postId: string, dto: CreateCommentDto) {
+    await this.access.assertAccess(userId);
     if (!dto.body?.trim()) throw new BadRequestException('A comment is required');
     const post = await prisma.communityPost.findUnique({
       where: { id: postId },
       include: { author: { select: { id: true, displayName: true, email: true } } },
     });
     if (!post) throw new NotFoundException('Post not found');
+    await this.access.assertAccess(userId, { accessLevel: post.accessLevel });
+    let parentId = dto.parentId || null;
+    if (parentId) {
+      const parent = await prisma.communityComment.findUnique({ where: { id: parentId } });
+      if (!parent || parent.postId !== postId || parent.status !== 'PUBLISHED')
+        throw new BadRequestException('Invalid reply target');
+      parentId = parent.parentId || parent.id;
+    }
     const [comment] = await prisma.$transaction([
       prisma.communityComment.create({
-        data: { postId, authorId: userId, body: dto.body.trim().slice(0, 5000) },
+        data: {
+          postId,
+          authorId: userId,
+          body:
+            dto.contentFormat === 'RICH_HTML'
+              ? sanitizeCommunityHtml(dto.body).slice(0, 15000)
+              : dto.body.trim().slice(0, 5000),
+          contentFormat: dto.contentFormat ?? 'MARKDOWN',
+          parentId,
+        },
         include: { author: { select: authorSelect } },
       }),
       prisma.communityPost.update({ where: { id: postId }, data: { lastActivityAt: new Date() } }),
@@ -284,27 +348,39 @@ export class CommunityFeedService {
     return {
       id: comment.id,
       body: comment.body,
+      contentFormat: comment.contentFormat,
+      parentId: comment.parentId,
       author: comment.author,
       createdAt: comment.createdAt,
     };
   }
 
   async deleteComment(userId: string, id: string) {
+    await this.access.assertAccess(userId);
     const comment = await prisma.communityComment.findUnique({ where: { id } });
     if (!comment) throw new NotFoundException('Comment not found');
     if (comment.authorId !== userId && !(await this.isAdmin(userId)))
       throw new ForbiddenException('Not your comment');
-    await prisma.communityComment.delete({ where: { id } });
+    await prisma.$transaction([
+      prisma.communityPost.updateMany({
+        where: { acceptedCommentId: id },
+        data: { acceptedCommentId: null },
+      }),
+      prisma.communityComment.update({ where: { id }, data: { status: 'DELETED' } }),
+    ]);
+    await this.points.revoke(userId, 'COMMENT', id);
     return { deleted: true };
   }
 
   // --- Gamification -------------------------------------------------------
 
   async leaderboard(userId: string) {
+    await this.access.assertAccess(userId);
     return this.points.getLeaderboard(20);
   }
 
   async myStats(userId: string) {
+    await this.access.assertAccess(userId);
     return this.points.getMyStats(userId);
   }
 
@@ -339,6 +415,7 @@ export class CommunityFeedService {
   // --- Likes --------------------------------------------------------------
 
   async toggleLike(userId: string, postId: string) {
+    await this.access.assertAccess(userId);
     const post = await prisma.communityPost.findUnique({
       where: { id: postId },
       select: { authorId: true },
@@ -359,5 +436,97 @@ export class CommunityFeedService {
     }
     const likeCount = await prisma.communityPostLike.count({ where: { postId } });
     return { likedByMe: !existing, likeCount };
+  }
+
+  async acceptAnswer(userId: string, postId: string, commentId: string | null) {
+    await this.access.assertAccess(userId);
+    const post = await prisma.communityPost.findUnique({ where: { id: postId } });
+    if (!post) throw new NotFoundException('Post not found');
+    if (post.authorId !== userId && !(await this.isAdmin(userId)))
+      throw new ForbiddenException('Only the post author or an administrator can accept an answer');
+    if (commentId) {
+      const comment = await prisma.communityComment.findUnique({ where: { id: commentId } });
+      if (!comment || comment.postId !== postId || comment.status !== 'PUBLISHED')
+        throw new BadRequestException('Eligible answer not found');
+    }
+    return prisma.communityPost.update({
+      where: { id: postId },
+      data: { acceptedCommentId: commentId },
+    });
+  }
+
+  async report(
+    userId: string,
+    dto: { targetType: string; targetId: string; reason: string; details?: string },
+  ) {
+    await this.access.assertAccess(userId);
+    const targetType = dto.targetType.toUpperCase();
+    const targetExists =
+      targetType === 'POST'
+        ? await prisma.communityPost.findFirst({
+            where: { id: dto.targetId, status: { not: 'DELETED' } },
+            select: { id: true },
+          })
+        : targetType === 'COMMENT'
+          ? await prisma.communityComment.findFirst({
+              where: { id: dto.targetId, status: { not: 'DELETED' } },
+              select: { id: true },
+            })
+          : targetType === 'PROFILE'
+            ? await prisma.communityProfile.findUnique({
+                where: { userId: dto.targetId },
+                select: { userId: true },
+              })
+            : null;
+    if (!targetExists) throw new NotFoundException('Report target not found');
+    return prisma.communityReport.upsert({
+      where: {
+        reporterId_targetType_targetId_reason: {
+          reporterId: userId,
+          targetType,
+          targetId: dto.targetId,
+          reason: dto.reason.trim(),
+        },
+      },
+      create: {
+        reporterId: userId,
+        targetType,
+        targetId: dto.targetId,
+        reason: dto.reason.trim(),
+        details: dto.details?.trim() || null,
+      },
+      update: { details: dto.details?.trim() || null, status: 'OPEN' },
+    });
+  }
+
+  async moderate(
+    actorId: string,
+    targetType: 'POST' | 'COMMENT',
+    targetId: string,
+    action: 'HIDE' | 'RESTORE',
+    reason?: string,
+  ) {
+    await this.access.assertAccess(actorId);
+    const status = action === 'HIDE' ? 'HIDDEN' : 'PUBLISHED';
+    await prisma.$transaction(async (tx) => {
+      if (targetType === 'POST')
+        await tx.communityPost.update({
+          where: { id: targetId },
+          data: { status, ...(status !== 'PUBLISHED' ? { acceptedCommentId: null } : {}) },
+        });
+      else {
+        if (status !== 'PUBLISHED') {
+          await tx.communityPost.updateMany({
+            where: { acceptedCommentId: targetId },
+            data: { acceptedCommentId: null },
+          });
+        }
+        await tx.communityComment.update({ where: { id: targetId }, data: { status } });
+      }
+      await tx.communityModerationAction.create({
+        data: { actorId, targetType, targetId, action, reason: reason?.trim() || null },
+      });
+    });
+    return { targetType, targetId, status };
   }
 }

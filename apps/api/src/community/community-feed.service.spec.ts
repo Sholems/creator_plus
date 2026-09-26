@@ -18,10 +18,11 @@ jest.mock('@creatorplus/database', () => ({
 const p = prisma as any;
 
 function makeService() {
+  const access = { assertAccess: jest.fn().mockResolvedValue({ isAdmin: false }) } as any;
   const points = { award: jest.fn(), revoke: jest.fn() } as any;
   const notifications = { create: jest.fn() } as any;
   const email = { sendCommunityReply: jest.fn() } as any;
-  return new CommunityFeedService(points, notifications, email);
+  return new CommunityFeedService(access, points, notifications, email);
 }
 
 describe('CommunityFeedService', () => {

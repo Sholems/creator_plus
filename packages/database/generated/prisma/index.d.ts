@@ -473,6 +473,16 @@ export type CommunityPost = $Result.DefaultSelection<Prisma.$CommunityPostPayloa
  */
 export type CommunityComment = $Result.DefaultSelection<Prisma.$CommunityCommentPayload>
 /**
+ * Model CommunityReport
+ * 
+ */
+export type CommunityReport = $Result.DefaultSelection<Prisma.$CommunityReportPayload>
+/**
+ * Model CommunityModerationAction
+ * 
+ */
+export type CommunityModerationAction = $Result.DefaultSelection<Prisma.$CommunityModerationActionPayload>
+/**
  * Model CommunityPostLike
  * 
  */
@@ -1026,6 +1036,42 @@ export const CourseAccessLevel: {
 export type CourseAccessLevel = (typeof CourseAccessLevel)[keyof typeof CourseAccessLevel]
 
 
+export const CommunityContentFormat: {
+  MARKDOWN: 'MARKDOWN',
+  RICH_HTML: 'RICH_HTML'
+};
+
+export type CommunityContentFormat = (typeof CommunityContentFormat)[keyof typeof CommunityContentFormat]
+
+
+export const CommunityPostType: {
+  DISCUSSION: 'DISCUSSION',
+  QUESTION: 'QUESTION',
+  ANNOUNCEMENT: 'ANNOUNCEMENT'
+};
+
+export type CommunityPostType = (typeof CommunityPostType)[keyof typeof CommunityPostType]
+
+
+export const CommunityContentStatus: {
+  PUBLISHED: 'PUBLISHED',
+  HIDDEN: 'HIDDEN',
+  DELETED: 'DELETED',
+  REMOVED: 'REMOVED'
+};
+
+export type CommunityContentStatus = (typeof CommunityContentStatus)[keyof typeof CommunityContentStatus]
+
+
+export const CommunityReportStatus: {
+  OPEN: 'OPEN',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+};
+
+export type CommunityReportStatus = (typeof CommunityReportStatus)[keyof typeof CommunityReportStatus]
+
+
 export const CommunityProfileVisibility: {
   PUBLIC: 'PUBLIC',
   MEMBERS_ONLY: 'MEMBERS_ONLY',
@@ -1243,6 +1289,22 @@ export const LessonContentType: typeof $Enums.LessonContentType
 export type CourseAccessLevel = $Enums.CourseAccessLevel
 
 export const CourseAccessLevel: typeof $Enums.CourseAccessLevel
+
+export type CommunityContentFormat = $Enums.CommunityContentFormat
+
+export const CommunityContentFormat: typeof $Enums.CommunityContentFormat
+
+export type CommunityPostType = $Enums.CommunityPostType
+
+export const CommunityPostType: typeof $Enums.CommunityPostType
+
+export type CommunityContentStatus = $Enums.CommunityContentStatus
+
+export const CommunityContentStatus: typeof $Enums.CommunityContentStatus
+
+export type CommunityReportStatus = $Enums.CommunityReportStatus
+
+export const CommunityReportStatus: typeof $Enums.CommunityReportStatus
 
 export type CommunityProfileVisibility = $Enums.CommunityProfileVisibility
 
@@ -2245,6 +2307,26 @@ export class PrismaClient<
   get communityComment(): Prisma.CommunityCommentDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.communityReport`: Exposes CRUD operations for the **CommunityReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityReports
+    * const communityReports = await prisma.communityReport.findMany()
+    * ```
+    */
+  get communityReport(): Prisma.CommunityReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityModerationAction`: Exposes CRUD operations for the **CommunityModerationAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityModerationActions
+    * const communityModerationActions = await prisma.communityModerationAction.findMany()
+    * ```
+    */
+  get communityModerationAction(): Prisma.CommunityModerationActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.communityPostLike`: Exposes CRUD operations for the **CommunityPostLike** model.
     * Example usage:
     * ```ts
@@ -2851,6 +2933,8 @@ export namespace Prisma {
     CommunityCategory: 'CommunityCategory',
     CommunityPost: 'CommunityPost',
     CommunityComment: 'CommunityComment',
+    CommunityReport: 'CommunityReport',
+    CommunityModerationAction: 'CommunityModerationAction',
     CommunityPostLike: 'CommunityPostLike',
     CommunityProfile: 'CommunityProfile',
     CommunityFollow: 'CommunityFollow',
@@ -2877,7 +2961,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "communityCategory" | "communityPost" | "communityComment" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -9319,6 +9403,154 @@ export namespace Prisma {
           }
         }
       }
+      CommunityReport: {
+        payload: Prisma.$CommunityReportPayload<ExtArgs>
+        fields: Prisma.CommunityReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>
+          }
+          update: {
+            args: Prisma.CommunityReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityReportPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityReport>
+          }
+          groupBy: {
+            args: Prisma.CommunityReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityReportCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityReportCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityModerationAction: {
+        payload: Prisma.$CommunityModerationActionPayload<ExtArgs>
+        fields: Prisma.CommunityModerationActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityModerationActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityModerationActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityModerationActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityModerationActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityModerationActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityModerationActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityModerationActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityModerationActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityModerationActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>
+          }
+          update: {
+            args: Prisma.CommunityModerationActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityModerationActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityModerationActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityModerationActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityModerationActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityModerationActionPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityModerationActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityModerationAction>
+          }
+          groupBy: {
+            args: Prisma.CommunityModerationActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityModerationActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityModerationActionCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityModerationActionCountAggregateOutputType> | number
+          }
+        }
+      }
       CommunityPostLike: {
         payload: Prisma.$CommunityPostLikePayload<ExtArgs>
         fields: Prisma.CommunityPostLikeFieldRefs
@@ -10094,6 +10326,8 @@ export namespace Prisma {
     communityCategory?: CommunityCategoryOmit
     communityPost?: CommunityPostOmit
     communityComment?: CommunityCommentOmit
+    communityReport?: CommunityReportOmit
+    communityModerationAction?: CommunityModerationActionOmit
     communityPostLike?: CommunityPostLikeOmit
     communityProfile?: CommunityProfileOmit
     communityFollow?: CommunityFollowOmit
@@ -10200,6 +10434,8 @@ export namespace Prisma {
     communityFollowers: number
     communityBookmarks: number
     communitySubscriptions: number
+    communityReports: number
+    communityModerationActions: number
     creditPurchases: number
     usageRecords: number
     notifications: number
@@ -10236,6 +10472,8 @@ export namespace Prisma {
     communityFollowers?: boolean | UserCountOutputTypeCountCommunityFollowersArgs
     communityBookmarks?: boolean | UserCountOutputTypeCountCommunityBookmarksArgs
     communitySubscriptions?: boolean | UserCountOutputTypeCountCommunitySubscriptionsArgs
+    communityReports?: boolean | UserCountOutputTypeCountCommunityReportsArgs
+    communityModerationActions?: boolean | UserCountOutputTypeCountCommunityModerationActionsArgs
     creditPurchases?: boolean | UserCountOutputTypeCountCreditPurchasesArgs
     usageRecords?: boolean | UserCountOutputTypeCountUsageRecordsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
@@ -10388,6 +10626,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCommunitySubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommunitySubscriptionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommunityReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityReportWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommunityModerationActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityModerationActionWhereInput
   }
 
   /**
@@ -12039,6 +12291,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CommunityCommentCountOutputType
+   */
+
+  export type CommunityCommentCountOutputType = {
+    replies: number
+  }
+
+  export type CommunityCommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | CommunityCommentCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityCommentCountOutputType without action
+   */
+  export type CommunityCommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityCommentCountOutputType
+     */
+    select?: CommunityCommentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityCommentCountOutputType without action
+   */
+  export type CommunityCommentCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityCommentWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -12296,6 +12579,8 @@ export namespace Prisma {
     communityFollowers?: boolean | User$communityFollowersArgs<ExtArgs>
     communityBookmarks?: boolean | User$communityBookmarksArgs<ExtArgs>
     communitySubscriptions?: boolean | User$communitySubscriptionsArgs<ExtArgs>
+    communityReports?: boolean | User$communityReportsArgs<ExtArgs>
+    communityModerationActions?: boolean | User$communityModerationActionsArgs<ExtArgs>
     creditBalance?: boolean | User$creditBalanceArgs<ExtArgs>
     creditPurchases?: boolean | User$creditPurchasesArgs<ExtArgs>
     usageRecords?: boolean | User$usageRecordsArgs<ExtArgs>
@@ -12391,6 +12676,8 @@ export namespace Prisma {
     communityFollowers?: boolean | User$communityFollowersArgs<ExtArgs>
     communityBookmarks?: boolean | User$communityBookmarksArgs<ExtArgs>
     communitySubscriptions?: boolean | User$communitySubscriptionsArgs<ExtArgs>
+    communityReports?: boolean | User$communityReportsArgs<ExtArgs>
+    communityModerationActions?: boolean | User$communityModerationActionsArgs<ExtArgs>
     creditBalance?: boolean | User$creditBalanceArgs<ExtArgs>
     creditPurchases?: boolean | User$creditPurchasesArgs<ExtArgs>
     usageRecords?: boolean | User$usageRecordsArgs<ExtArgs>
@@ -12441,6 +12728,8 @@ export namespace Prisma {
       communityFollowers: Prisma.$CommunityFollowPayload<ExtArgs>[]
       communityBookmarks: Prisma.$CommunityBookmarkPayload<ExtArgs>[]
       communitySubscriptions: Prisma.$CommunitySubscriptionPayload<ExtArgs>[]
+      communityReports: Prisma.$CommunityReportPayload<ExtArgs>[]
+      communityModerationActions: Prisma.$CommunityModerationActionPayload<ExtArgs>[]
       creditBalance: Prisma.$CreditBalancePayload<ExtArgs> | null
       creditPurchases: Prisma.$CreditPurchasePayload<ExtArgs>[]
       usageRecords: Prisma.$UsageRecordPayload<ExtArgs>[]
@@ -12892,6 +13181,8 @@ export namespace Prisma {
     communityFollowers<T extends User$communityFollowersArgs<ExtArgs> = {}>(args?: Subset<T, User$communityFollowersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityFollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityBookmarks<T extends User$communityBookmarksArgs<ExtArgs> = {}>(args?: Subset<T, User$communityBookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communitySubscriptions<T extends User$communitySubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$communitySubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    communityReports<T extends User$communityReportsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    communityModerationActions<T extends User$communityModerationActionsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityModerationActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     creditBalance<T extends User$creditBalanceArgs<ExtArgs> = {}>(args?: Subset<T, User$creditBalanceArgs<ExtArgs>>): Prisma__CreditBalanceClient<$Result.GetResult<Prisma.$CreditBalancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     creditPurchases<T extends User$creditPurchasesArgs<ExtArgs> = {}>(args?: Subset<T, User$creditPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usageRecords<T extends User$usageRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$usageRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsageRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -13919,6 +14210,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommunitySubscriptionScalarFieldEnum | CommunitySubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * User.communityReports
+   */
+  export type User$communityReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    where?: CommunityReportWhereInput
+    orderBy?: CommunityReportOrderByWithRelationInput | CommunityReportOrderByWithRelationInput[]
+    cursor?: CommunityReportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityReportScalarFieldEnum | CommunityReportScalarFieldEnum[]
+  }
+
+  /**
+   * User.communityModerationActions
+   */
+  export type User$communityModerationActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    where?: CommunityModerationActionWhereInput
+    orderBy?: CommunityModerationActionOrderByWithRelationInput | CommunityModerationActionOrderByWithRelationInput[]
+    cursor?: CommunityModerationActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityModerationActionScalarFieldEnum | CommunityModerationActionScalarFieldEnum[]
   }
 
   /**
@@ -112720,6 +113059,13 @@ export namespace Prisma {
     authorId: string | null
     title: string | null
     body: string | null
+    contentFormat: $Enums.CommunityContentFormat | null
+    postType: $Enums.CommunityPostType | null
+    status: $Enums.CommunityContentStatus | null
+    accessLevel: $Enums.CommunityAccessLevel | null
+    contextType: string | null
+    contextId: string | null
+    acceptedCommentId: string | null
     pinned: boolean | null
     lastActivityAt: Date | null
     createdAt: Date | null
@@ -112732,6 +113078,13 @@ export namespace Prisma {
     authorId: string | null
     title: string | null
     body: string | null
+    contentFormat: $Enums.CommunityContentFormat | null
+    postType: $Enums.CommunityPostType | null
+    status: $Enums.CommunityContentStatus | null
+    accessLevel: $Enums.CommunityAccessLevel | null
+    contextType: string | null
+    contextId: string | null
+    acceptedCommentId: string | null
     pinned: boolean | null
     lastActivityAt: Date | null
     createdAt: Date | null
@@ -112744,6 +113097,13 @@ export namespace Prisma {
     authorId: number
     title: number
     body: number
+    contentFormat: number
+    postType: number
+    status: number
+    accessLevel: number
+    contextType: number
+    contextId: number
+    acceptedCommentId: number
     attachments: number
     pinned: number
     lastActivityAt: number
@@ -112759,6 +113119,13 @@ export namespace Prisma {
     authorId?: true
     title?: true
     body?: true
+    contentFormat?: true
+    postType?: true
+    status?: true
+    accessLevel?: true
+    contextType?: true
+    contextId?: true
+    acceptedCommentId?: true
     pinned?: true
     lastActivityAt?: true
     createdAt?: true
@@ -112771,6 +113138,13 @@ export namespace Prisma {
     authorId?: true
     title?: true
     body?: true
+    contentFormat?: true
+    postType?: true
+    status?: true
+    accessLevel?: true
+    contextType?: true
+    contextId?: true
+    acceptedCommentId?: true
     pinned?: true
     lastActivityAt?: true
     createdAt?: true
@@ -112783,6 +113157,13 @@ export namespace Prisma {
     authorId?: true
     title?: true
     body?: true
+    contentFormat?: true
+    postType?: true
+    status?: true
+    accessLevel?: true
+    contextType?: true
+    contextId?: true
+    acceptedCommentId?: true
     attachments?: true
     pinned?: true
     lastActivityAt?: true
@@ -112869,6 +113250,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat: $Enums.CommunityContentFormat
+    postType: $Enums.CommunityPostType
+    status: $Enums.CommunityContentStatus
+    accessLevel: $Enums.CommunityAccessLevel
+    contextType: string | null
+    contextId: string | null
+    acceptedCommentId: string | null
     attachments: JsonValue | null
     pinned: boolean
     lastActivityAt: Date
@@ -112899,6 +113287,13 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    contentFormat?: boolean
+    postType?: boolean
+    status?: boolean
+    accessLevel?: boolean
+    contextType?: boolean
+    contextId?: boolean
+    acceptedCommentId?: boolean
     attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
@@ -112910,6 +113305,7 @@ export namespace Prisma {
     likes?: boolean | CommunityPost$likesArgs<ExtArgs>
     bookmarks?: boolean | CommunityPost$bookmarksArgs<ExtArgs>
     subscriptions?: boolean | CommunityPost$subscriptionsArgs<ExtArgs>
+    acceptedComment?: boolean | CommunityPost$acceptedCommentArgs<ExtArgs>
     _count?: boolean | CommunityPostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["communityPost"]>
 
@@ -112919,6 +113315,13 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    contentFormat?: boolean
+    postType?: boolean
+    status?: boolean
+    accessLevel?: boolean
+    contextType?: boolean
+    contextId?: boolean
+    acceptedCommentId?: boolean
     attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
@@ -112926,6 +113329,7 @@ export namespace Prisma {
     updatedAt?: boolean
     category?: boolean | CommunityPost$categoryArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    acceptedComment?: boolean | CommunityPost$acceptedCommentArgs<ExtArgs>
   }, ExtArgs["result"]["communityPost"]>
 
   export type CommunityPostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -112934,6 +113338,13 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    contentFormat?: boolean
+    postType?: boolean
+    status?: boolean
+    accessLevel?: boolean
+    contextType?: boolean
+    contextId?: boolean
+    acceptedCommentId?: boolean
     attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
@@ -112941,6 +113352,7 @@ export namespace Prisma {
     updatedAt?: boolean
     category?: boolean | CommunityPost$categoryArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    acceptedComment?: boolean | CommunityPost$acceptedCommentArgs<ExtArgs>
   }, ExtArgs["result"]["communityPost"]>
 
   export type CommunityPostSelectScalar = {
@@ -112949,6 +113361,13 @@ export namespace Prisma {
     authorId?: boolean
     title?: boolean
     body?: boolean
+    contentFormat?: boolean
+    postType?: boolean
+    status?: boolean
+    accessLevel?: boolean
+    contextType?: boolean
+    contextId?: boolean
+    acceptedCommentId?: boolean
     attachments?: boolean
     pinned?: boolean
     lastActivityAt?: boolean
@@ -112956,7 +113375,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "authorId" | "title" | "body" | "attachments" | "pinned" | "lastActivityAt" | "createdAt" | "updatedAt", ExtArgs["result"]["communityPost"]>
+  export type CommunityPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "authorId" | "title" | "body" | "contentFormat" | "postType" | "status" | "accessLevel" | "contextType" | "contextId" | "acceptedCommentId" | "attachments" | "pinned" | "lastActivityAt" | "createdAt" | "updatedAt", ExtArgs["result"]["communityPost"]>
   export type CommunityPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CommunityPost$categoryArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -112964,15 +113383,18 @@ export namespace Prisma {
     likes?: boolean | CommunityPost$likesArgs<ExtArgs>
     bookmarks?: boolean | CommunityPost$bookmarksArgs<ExtArgs>
     subscriptions?: boolean | CommunityPost$subscriptionsArgs<ExtArgs>
+    acceptedComment?: boolean | CommunityPost$acceptedCommentArgs<ExtArgs>
     _count?: boolean | CommunityPostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CommunityPostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CommunityPost$categoryArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    acceptedComment?: boolean | CommunityPost$acceptedCommentArgs<ExtArgs>
   }
   export type CommunityPostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CommunityPost$categoryArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    acceptedComment?: boolean | CommunityPost$acceptedCommentArgs<ExtArgs>
   }
 
   export type $CommunityPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -112984,6 +113406,7 @@ export namespace Prisma {
       likes: Prisma.$CommunityPostLikePayload<ExtArgs>[]
       bookmarks: Prisma.$CommunityBookmarkPayload<ExtArgs>[]
       subscriptions: Prisma.$CommunitySubscriptionPayload<ExtArgs>[]
+      acceptedComment: Prisma.$CommunityCommentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -112991,6 +113414,13 @@ export namespace Prisma {
       authorId: string
       title: string
       body: string
+      contentFormat: $Enums.CommunityContentFormat
+      postType: $Enums.CommunityPostType
+      status: $Enums.CommunityContentStatus
+      accessLevel: $Enums.CommunityAccessLevel
+      contextType: string | null
+      contextId: string | null
+      acceptedCommentId: string | null
       attachments: Prisma.JsonValue | null
       pinned: boolean
       lastActivityAt: Date
@@ -113396,6 +113826,7 @@ export namespace Prisma {
     likes<T extends CommunityPost$likesArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPost$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookmarks<T extends CommunityPost$bookmarksArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPost$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends CommunityPost$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPost$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunitySubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    acceptedComment<T extends CommunityPost$acceptedCommentArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPost$acceptedCommentArgs<ExtArgs>>): Prisma__CommunityCommentClient<$Result.GetResult<Prisma.$CommunityCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -113430,6 +113861,13 @@ export namespace Prisma {
     readonly authorId: FieldRef<"CommunityPost", 'String'>
     readonly title: FieldRef<"CommunityPost", 'String'>
     readonly body: FieldRef<"CommunityPost", 'String'>
+    readonly contentFormat: FieldRef<"CommunityPost", 'CommunityContentFormat'>
+    readonly postType: FieldRef<"CommunityPost", 'CommunityPostType'>
+    readonly status: FieldRef<"CommunityPost", 'CommunityContentStatus'>
+    readonly accessLevel: FieldRef<"CommunityPost", 'CommunityAccessLevel'>
+    readonly contextType: FieldRef<"CommunityPost", 'String'>
+    readonly contextId: FieldRef<"CommunityPost", 'String'>
+    readonly acceptedCommentId: FieldRef<"CommunityPost", 'String'>
     readonly attachments: FieldRef<"CommunityPost", 'Json'>
     readonly pinned: FieldRef<"CommunityPost", 'Boolean'>
     readonly lastActivityAt: FieldRef<"CommunityPost", 'DateTime'>
@@ -113946,6 +114384,25 @@ export namespace Prisma {
   }
 
   /**
+   * CommunityPost.acceptedComment
+   */
+  export type CommunityPost$acceptedCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityComment
+     */
+    select?: CommunityCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityComment
+     */
+    omit?: CommunityCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityCommentInclude<ExtArgs> | null
+    where?: CommunityCommentWhereInput
+  }
+
+  /**
    * CommunityPost without action
    */
   export type CommunityPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -113979,6 +114436,9 @@ export namespace Prisma {
     postId: string | null
     authorId: string | null
     body: string | null
+    contentFormat: $Enums.CommunityContentFormat | null
+    status: $Enums.CommunityContentStatus | null
+    parentId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -113988,6 +114448,9 @@ export namespace Prisma {
     postId: string | null
     authorId: string | null
     body: string | null
+    contentFormat: $Enums.CommunityContentFormat | null
+    status: $Enums.CommunityContentStatus | null
+    parentId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -113997,6 +114460,9 @@ export namespace Prisma {
     postId: number
     authorId: number
     body: number
+    contentFormat: number
+    status: number
+    parentId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -114008,6 +114474,9 @@ export namespace Prisma {
     postId?: true
     authorId?: true
     body?: true
+    contentFormat?: true
+    status?: true
+    parentId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -114017,6 +114486,9 @@ export namespace Prisma {
     postId?: true
     authorId?: true
     body?: true
+    contentFormat?: true
+    status?: true
+    parentId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -114026,6 +114498,9 @@ export namespace Prisma {
     postId?: true
     authorId?: true
     body?: true
+    contentFormat?: true
+    status?: true
+    parentId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -114108,6 +114583,9 @@ export namespace Prisma {
     postId: string
     authorId: string
     body: string
+    contentFormat: $Enums.CommunityContentFormat
+    status: $Enums.CommunityContentStatus
+    parentId: string | null
     createdAt: Date
     updatedAt: Date
     _count: CommunityCommentCountAggregateOutputType | null
@@ -114134,10 +114612,17 @@ export namespace Prisma {
     postId?: boolean
     authorId?: boolean
     body?: boolean
+    contentFormat?: boolean
+    status?: boolean
+    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     post?: boolean | CommunityPostDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | CommunityComment$parentArgs<ExtArgs>
+    replies?: boolean | CommunityComment$repliesArgs<ExtArgs>
+    acceptedForPost?: boolean | CommunityComment$acceptedForPostArgs<ExtArgs>
+    _count?: boolean | CommunityCommentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["communityComment"]>
 
   export type CommunityCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -114145,10 +114630,14 @@ export namespace Prisma {
     postId?: boolean
     authorId?: boolean
     body?: boolean
+    contentFormat?: boolean
+    status?: boolean
+    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     post?: boolean | CommunityPostDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | CommunityComment$parentArgs<ExtArgs>
   }, ExtArgs["result"]["communityComment"]>
 
   export type CommunityCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -114156,10 +114645,14 @@ export namespace Prisma {
     postId?: boolean
     authorId?: boolean
     body?: boolean
+    contentFormat?: boolean
+    status?: boolean
+    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     post?: boolean | CommunityPostDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | CommunityComment$parentArgs<ExtArgs>
   }, ExtArgs["result"]["communityComment"]>
 
   export type CommunityCommentSelectScalar = {
@@ -114167,22 +114660,31 @@ export namespace Prisma {
     postId?: boolean
     authorId?: boolean
     body?: boolean
+    contentFormat?: boolean
+    status?: boolean
+    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CommunityCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "authorId" | "body" | "createdAt" | "updatedAt", ExtArgs["result"]["communityComment"]>
+  export type CommunityCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "authorId" | "body" | "contentFormat" | "status" | "parentId" | "createdAt" | "updatedAt", ExtArgs["result"]["communityComment"]>
   export type CommunityCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | CommunityPostDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | CommunityComment$parentArgs<ExtArgs>
+    replies?: boolean | CommunityComment$repliesArgs<ExtArgs>
+    acceptedForPost?: boolean | CommunityComment$acceptedForPostArgs<ExtArgs>
+    _count?: boolean | CommunityCommentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CommunityCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | CommunityPostDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | CommunityComment$parentArgs<ExtArgs>
   }
   export type CommunityCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | CommunityPostDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | CommunityComment$parentArgs<ExtArgs>
   }
 
   export type $CommunityCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -114190,12 +114692,18 @@ export namespace Prisma {
     objects: {
       post: Prisma.$CommunityPostPayload<ExtArgs>
       author: Prisma.$UserPayload<ExtArgs>
+      parent: Prisma.$CommunityCommentPayload<ExtArgs> | null
+      replies: Prisma.$CommunityCommentPayload<ExtArgs>[]
+      acceptedForPost: Prisma.$CommunityPostPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       postId: string
       authorId: string
       body: string
+      contentFormat: $Enums.CommunityContentFormat
+      status: $Enums.CommunityContentStatus
+      parentId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["communityComment"]>
@@ -114594,6 +115102,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     post<T extends CommunityPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityPostDefaultArgs<ExtArgs>>): Prisma__CommunityPostClient<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent<T extends CommunityComment$parentArgs<ExtArgs> = {}>(args?: Subset<T, CommunityComment$parentArgs<ExtArgs>>): Prisma__CommunityCommentClient<$Result.GetResult<Prisma.$CommunityCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends CommunityComment$repliesArgs<ExtArgs> = {}>(args?: Subset<T, CommunityComment$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    acceptedForPost<T extends CommunityComment$acceptedForPostArgs<ExtArgs> = {}>(args?: Subset<T, CommunityComment$acceptedForPostArgs<ExtArgs>>): Prisma__CommunityPostClient<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -114627,6 +115138,9 @@ export namespace Prisma {
     readonly postId: FieldRef<"CommunityComment", 'String'>
     readonly authorId: FieldRef<"CommunityComment", 'String'>
     readonly body: FieldRef<"CommunityComment", 'String'>
+    readonly contentFormat: FieldRef<"CommunityComment", 'CommunityContentFormat'>
+    readonly status: FieldRef<"CommunityComment", 'CommunityContentStatus'>
+    readonly parentId: FieldRef<"CommunityComment", 'String'>
     readonly createdAt: FieldRef<"CommunityComment", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityComment", 'DateTime'>
   }
@@ -115025,6 +115539,68 @@ export namespace Prisma {
   }
 
   /**
+   * CommunityComment.parent
+   */
+  export type CommunityComment$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityComment
+     */
+    select?: CommunityCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityComment
+     */
+    omit?: CommunityCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityCommentInclude<ExtArgs> | null
+    where?: CommunityCommentWhereInput
+  }
+
+  /**
+   * CommunityComment.replies
+   */
+  export type CommunityComment$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityComment
+     */
+    select?: CommunityCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityComment
+     */
+    omit?: CommunityCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityCommentInclude<ExtArgs> | null
+    where?: CommunityCommentWhereInput
+    orderBy?: CommunityCommentOrderByWithRelationInput | CommunityCommentOrderByWithRelationInput[]
+    cursor?: CommunityCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityCommentScalarFieldEnum | CommunityCommentScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityComment.acceptedForPost
+   */
+  export type CommunityComment$acceptedForPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityPost
+     */
+    select?: CommunityPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityPost
+     */
+    omit?: CommunityPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityPostInclude<ExtArgs> | null
+    where?: CommunityPostWhereInput
+  }
+
+  /**
    * CommunityComment without action
    */
   export type CommunityCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -115040,6 +115616,2209 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CommunityCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityReport
+   */
+
+  export type AggregateCommunityReport = {
+    _count: CommunityReportCountAggregateOutputType | null
+    _min: CommunityReportMinAggregateOutputType | null
+    _max: CommunityReportMaxAggregateOutputType | null
+  }
+
+  export type CommunityReportMinAggregateOutputType = {
+    id: string | null
+    reporterId: string | null
+    targetType: string | null
+    targetId: string | null
+    reason: string | null
+    details: string | null
+    status: $Enums.CommunityReportStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityReportMaxAggregateOutputType = {
+    id: string | null
+    reporterId: string | null
+    targetType: string | null
+    targetId: string | null
+    reason: string | null
+    details: string | null
+    status: $Enums.CommunityReportStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityReportCountAggregateOutputType = {
+    id: number
+    reporterId: number
+    targetType: number
+    targetId: number
+    reason: number
+    details: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CommunityReportMinAggregateInputType = {
+    id?: true
+    reporterId?: true
+    targetType?: true
+    targetId?: true
+    reason?: true
+    details?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityReportMaxAggregateInputType = {
+    id?: true
+    reporterId?: true
+    targetType?: true
+    targetId?: true
+    reason?: true
+    details?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityReportCountAggregateInputType = {
+    id?: true
+    reporterId?: true
+    targetType?: true
+    targetId?: true
+    reason?: true
+    details?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CommunityReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityReport to aggregate.
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityReports to fetch.
+     */
+    orderBy?: CommunityReportOrderByWithRelationInput | CommunityReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityReports
+    **/
+    _count?: true | CommunityReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityReportMaxAggregateInputType
+  }
+
+  export type GetCommunityReportAggregateType<T extends CommunityReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityReport[P]>
+      : GetScalarType<T[P], AggregateCommunityReport[P]>
+  }
+
+
+
+
+  export type CommunityReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityReportWhereInput
+    orderBy?: CommunityReportOrderByWithAggregationInput | CommunityReportOrderByWithAggregationInput[]
+    by: CommunityReportScalarFieldEnum[] | CommunityReportScalarFieldEnum
+    having?: CommunityReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityReportCountAggregateInputType | true
+    _min?: CommunityReportMinAggregateInputType
+    _max?: CommunityReportMaxAggregateInputType
+  }
+
+  export type CommunityReportGroupByOutputType = {
+    id: string
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+    details: string | null
+    status: $Enums.CommunityReportStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: CommunityReportCountAggregateOutputType | null
+    _min: CommunityReportMinAggregateOutputType | null
+    _max: CommunityReportMaxAggregateOutputType | null
+  }
+
+  type GetCommunityReportGroupByPayload<T extends CommunityReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityReportGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reporterId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    reason?: boolean
+    details?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityReport"]>
+
+  export type CommunityReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reporterId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    reason?: boolean
+    details?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityReport"]>
+
+  export type CommunityReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reporterId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    reason?: boolean
+    details?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityReport"]>
+
+  export type CommunityReportSelectScalar = {
+    id?: boolean
+    reporterId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    reason?: boolean
+    details?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CommunityReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporterId" | "targetType" | "targetId" | "reason" | "details" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["communityReport"]>
+  export type CommunityReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityReportIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reporter?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CommunityReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityReport"
+    objects: {
+      reporter: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      reporterId: string
+      targetType: string
+      targetId: string
+      reason: string
+      details: string | null
+      status: $Enums.CommunityReportStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["communityReport"]>
+    composites: {}
+  }
+
+  type CommunityReportGetPayload<S extends boolean | null | undefined | CommunityReportDefaultArgs> = $Result.GetResult<Prisma.$CommunityReportPayload, S>
+
+  type CommunityReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityReportCountAggregateInputType | true
+    }
+
+  export interface CommunityReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityReport'], meta: { name: 'CommunityReport' } }
+    /**
+     * Find zero or one CommunityReport that matches the filter.
+     * @param {CommunityReportFindUniqueArgs} args - Arguments to find a CommunityReport
+     * @example
+     * // Get one CommunityReport
+     * const communityReport = await prisma.communityReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityReportFindUniqueArgs>(args: SelectSubset<T, CommunityReportFindUniqueArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityReportFindUniqueOrThrowArgs} args - Arguments to find a CommunityReport
+     * @example
+     * // Get one CommunityReport
+     * const communityReport = await prisma.communityReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityReportFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportFindFirstArgs} args - Arguments to find a CommunityReport
+     * @example
+     * // Get one CommunityReport
+     * const communityReport = await prisma.communityReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityReportFindFirstArgs>(args?: SelectSubset<T, CommunityReportFindFirstArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportFindFirstOrThrowArgs} args - Arguments to find a CommunityReport
+     * @example
+     * // Get one CommunityReport
+     * const communityReport = await prisma.communityReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityReportFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityReports
+     * const communityReports = await prisma.communityReport.findMany()
+     * 
+     * // Get first 10 CommunityReports
+     * const communityReports = await prisma.communityReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityReportWithIdOnly = await prisma.communityReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityReportFindManyArgs>(args?: SelectSubset<T, CommunityReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityReport.
+     * @param {CommunityReportCreateArgs} args - Arguments to create a CommunityReport.
+     * @example
+     * // Create one CommunityReport
+     * const CommunityReport = await prisma.communityReport.create({
+     *   data: {
+     *     // ... data to create a CommunityReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityReportCreateArgs>(args: SelectSubset<T, CommunityReportCreateArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityReports.
+     * @param {CommunityReportCreateManyArgs} args - Arguments to create many CommunityReports.
+     * @example
+     * // Create many CommunityReports
+     * const communityReport = await prisma.communityReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityReportCreateManyArgs>(args?: SelectSubset<T, CommunityReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityReports and returns the data saved in the database.
+     * @param {CommunityReportCreateManyAndReturnArgs} args - Arguments to create many CommunityReports.
+     * @example
+     * // Create many CommunityReports
+     * const communityReport = await prisma.communityReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityReports and only return the `id`
+     * const communityReportWithIdOnly = await prisma.communityReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityReportCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityReport.
+     * @param {CommunityReportDeleteArgs} args - Arguments to delete one CommunityReport.
+     * @example
+     * // Delete one CommunityReport
+     * const CommunityReport = await prisma.communityReport.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityReportDeleteArgs>(args: SelectSubset<T, CommunityReportDeleteArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityReport.
+     * @param {CommunityReportUpdateArgs} args - Arguments to update one CommunityReport.
+     * @example
+     * // Update one CommunityReport
+     * const communityReport = await prisma.communityReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityReportUpdateArgs>(args: SelectSubset<T, CommunityReportUpdateArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityReports.
+     * @param {CommunityReportDeleteManyArgs} args - Arguments to filter CommunityReports to delete.
+     * @example
+     * // Delete a few CommunityReports
+     * const { count } = await prisma.communityReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityReportDeleteManyArgs>(args?: SelectSubset<T, CommunityReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityReports
+     * const communityReport = await prisma.communityReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityReportUpdateManyArgs>(args: SelectSubset<T, CommunityReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityReports and returns the data updated in the database.
+     * @param {CommunityReportUpdateManyAndReturnArgs} args - Arguments to update many CommunityReports.
+     * @example
+     * // Update many CommunityReports
+     * const communityReport = await prisma.communityReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityReports and only return the `id`
+     * const communityReportWithIdOnly = await prisma.communityReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityReportUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityReport.
+     * @param {CommunityReportUpsertArgs} args - Arguments to update or create a CommunityReport.
+     * @example
+     * // Update or create a CommunityReport
+     * const communityReport = await prisma.communityReport.upsert({
+     *   create: {
+     *     // ... data to create a CommunityReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityReportUpsertArgs>(args: SelectSubset<T, CommunityReportUpsertArgs<ExtArgs>>): Prisma__CommunityReportClient<$Result.GetResult<Prisma.$CommunityReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportCountArgs} args - Arguments to filter CommunityReports to count.
+     * @example
+     * // Count the number of CommunityReports
+     * const count = await prisma.communityReport.count({
+     *   where: {
+     *     // ... the filter for the CommunityReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityReportCountArgs>(
+      args?: Subset<T, CommunityReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityReportAggregateArgs>(args: Subset<T, CommunityReportAggregateArgs>): Prisma.PrismaPromise<GetCommunityReportAggregateType<T>>
+
+    /**
+     * Group by CommunityReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityReportGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityReport model
+   */
+  readonly fields: CommunityReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reporter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityReport model
+   */
+  interface CommunityReportFieldRefs {
+    readonly id: FieldRef<"CommunityReport", 'String'>
+    readonly reporterId: FieldRef<"CommunityReport", 'String'>
+    readonly targetType: FieldRef<"CommunityReport", 'String'>
+    readonly targetId: FieldRef<"CommunityReport", 'String'>
+    readonly reason: FieldRef<"CommunityReport", 'String'>
+    readonly details: FieldRef<"CommunityReport", 'String'>
+    readonly status: FieldRef<"CommunityReport", 'CommunityReportStatus'>
+    readonly createdAt: FieldRef<"CommunityReport", 'DateTime'>
+    readonly updatedAt: FieldRef<"CommunityReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityReport findUnique
+   */
+  export type CommunityReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityReport to fetch.
+     */
+    where: CommunityReportWhereUniqueInput
+  }
+
+  /**
+   * CommunityReport findUniqueOrThrow
+   */
+  export type CommunityReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityReport to fetch.
+     */
+    where: CommunityReportWhereUniqueInput
+  }
+
+  /**
+   * CommunityReport findFirst
+   */
+  export type CommunityReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityReport to fetch.
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityReports to fetch.
+     */
+    orderBy?: CommunityReportOrderByWithRelationInput | CommunityReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityReports.
+     */
+    cursor?: CommunityReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityReports.
+     */
+    distinct?: CommunityReportScalarFieldEnum | CommunityReportScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityReport findFirstOrThrow
+   */
+  export type CommunityReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityReport to fetch.
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityReports to fetch.
+     */
+    orderBy?: CommunityReportOrderByWithRelationInput | CommunityReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityReports.
+     */
+    cursor?: CommunityReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityReports.
+     */
+    distinct?: CommunityReportScalarFieldEnum | CommunityReportScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityReport findMany
+   */
+  export type CommunityReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityReports to fetch.
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityReports to fetch.
+     */
+    orderBy?: CommunityReportOrderByWithRelationInput | CommunityReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityReports.
+     */
+    cursor?: CommunityReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityReports.
+     */
+    skip?: number
+    distinct?: CommunityReportScalarFieldEnum | CommunityReportScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityReport create
+   */
+  export type CommunityReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityReport.
+     */
+    data: XOR<CommunityReportCreateInput, CommunityReportUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityReport createMany
+   */
+  export type CommunityReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityReports.
+     */
+    data: CommunityReportCreateManyInput | CommunityReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityReport createManyAndReturn
+   */
+  export type CommunityReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityReports.
+     */
+    data: CommunityReportCreateManyInput | CommunityReportCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityReport update
+   */
+  export type CommunityReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityReport.
+     */
+    data: XOR<CommunityReportUpdateInput, CommunityReportUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityReport to update.
+     */
+    where: CommunityReportWhereUniqueInput
+  }
+
+  /**
+   * CommunityReport updateMany
+   */
+  export type CommunityReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityReports.
+     */
+    data: XOR<CommunityReportUpdateManyMutationInput, CommunityReportUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityReports to update
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * Limit how many CommunityReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityReport updateManyAndReturn
+   */
+  export type CommunityReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityReports.
+     */
+    data: XOR<CommunityReportUpdateManyMutationInput, CommunityReportUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityReports to update
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * Limit how many CommunityReports to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityReport upsert
+   */
+  export type CommunityReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityReport to update in case it exists.
+     */
+    where: CommunityReportWhereUniqueInput
+    /**
+     * In case the CommunityReport found by the `where` argument doesn't exist, create a new CommunityReport with this data.
+     */
+    create: XOR<CommunityReportCreateInput, CommunityReportUncheckedCreateInput>
+    /**
+     * In case the CommunityReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityReportUpdateInput, CommunityReportUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityReport delete
+   */
+  export type CommunityReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityReport to delete.
+     */
+    where: CommunityReportWhereUniqueInput
+  }
+
+  /**
+   * CommunityReport deleteMany
+   */
+  export type CommunityReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityReports to delete
+     */
+    where?: CommunityReportWhereInput
+    /**
+     * Limit how many CommunityReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityReport without action
+   */
+  export type CommunityReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityReport
+     */
+    select?: CommunityReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityReport
+     */
+    omit?: CommunityReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityReportInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityModerationAction
+   */
+
+  export type AggregateCommunityModerationAction = {
+    _count: CommunityModerationActionCountAggregateOutputType | null
+    _min: CommunityModerationActionMinAggregateOutputType | null
+    _max: CommunityModerationActionMaxAggregateOutputType | null
+  }
+
+  export type CommunityModerationActionMinAggregateOutputType = {
+    id: string | null
+    actorId: string | null
+    targetType: string | null
+    targetId: string | null
+    action: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type CommunityModerationActionMaxAggregateOutputType = {
+    id: string | null
+    actorId: string | null
+    targetType: string | null
+    targetId: string | null
+    action: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type CommunityModerationActionCountAggregateOutputType = {
+    id: number
+    actorId: number
+    targetType: number
+    targetId: number
+    action: number
+    reason: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommunityModerationActionMinAggregateInputType = {
+    id?: true
+    actorId?: true
+    targetType?: true
+    targetId?: true
+    action?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type CommunityModerationActionMaxAggregateInputType = {
+    id?: true
+    actorId?: true
+    targetType?: true
+    targetId?: true
+    action?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type CommunityModerationActionCountAggregateInputType = {
+    id?: true
+    actorId?: true
+    targetType?: true
+    targetId?: true
+    action?: true
+    reason?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommunityModerationActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityModerationAction to aggregate.
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityModerationActions to fetch.
+     */
+    orderBy?: CommunityModerationActionOrderByWithRelationInput | CommunityModerationActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityModerationActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityModerationActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityModerationActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityModerationActions
+    **/
+    _count?: true | CommunityModerationActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityModerationActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityModerationActionMaxAggregateInputType
+  }
+
+  export type GetCommunityModerationActionAggregateType<T extends CommunityModerationActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityModerationAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityModerationAction[P]>
+      : GetScalarType<T[P], AggregateCommunityModerationAction[P]>
+  }
+
+
+
+
+  export type CommunityModerationActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityModerationActionWhereInput
+    orderBy?: CommunityModerationActionOrderByWithAggregationInput | CommunityModerationActionOrderByWithAggregationInput[]
+    by: CommunityModerationActionScalarFieldEnum[] | CommunityModerationActionScalarFieldEnum
+    having?: CommunityModerationActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityModerationActionCountAggregateInputType | true
+    _min?: CommunityModerationActionMinAggregateInputType
+    _max?: CommunityModerationActionMaxAggregateInputType
+  }
+
+  export type CommunityModerationActionGroupByOutputType = {
+    id: string
+    actorId: string
+    targetType: string
+    targetId: string
+    action: string
+    reason: string | null
+    metadata: JsonValue | null
+    createdAt: Date
+    _count: CommunityModerationActionCountAggregateOutputType | null
+    _min: CommunityModerationActionMinAggregateOutputType | null
+    _max: CommunityModerationActionMaxAggregateOutputType | null
+  }
+
+  type GetCommunityModerationActionGroupByPayload<T extends CommunityModerationActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityModerationActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityModerationActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityModerationActionGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityModerationActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityModerationActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    actorId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    action?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    actor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityModerationAction"]>
+
+  export type CommunityModerationActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    actorId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    action?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    actor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityModerationAction"]>
+
+  export type CommunityModerationActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    actorId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    action?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    actor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityModerationAction"]>
+
+  export type CommunityModerationActionSelectScalar = {
+    id?: boolean
+    actorId?: boolean
+    targetType?: boolean
+    targetId?: boolean
+    action?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommunityModerationActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "actorId" | "targetType" | "targetId" | "action" | "reason" | "metadata" | "createdAt", ExtArgs["result"]["communityModerationAction"]>
+  export type CommunityModerationActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    actor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityModerationActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    actor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityModerationActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    actor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CommunityModerationActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityModerationAction"
+    objects: {
+      actor: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      actorId: string
+      targetType: string
+      targetId: string
+      action: string
+      reason: string | null
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["communityModerationAction"]>
+    composites: {}
+  }
+
+  type CommunityModerationActionGetPayload<S extends boolean | null | undefined | CommunityModerationActionDefaultArgs> = $Result.GetResult<Prisma.$CommunityModerationActionPayload, S>
+
+  type CommunityModerationActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityModerationActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityModerationActionCountAggregateInputType | true
+    }
+
+  export interface CommunityModerationActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityModerationAction'], meta: { name: 'CommunityModerationAction' } }
+    /**
+     * Find zero or one CommunityModerationAction that matches the filter.
+     * @param {CommunityModerationActionFindUniqueArgs} args - Arguments to find a CommunityModerationAction
+     * @example
+     * // Get one CommunityModerationAction
+     * const communityModerationAction = await prisma.communityModerationAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityModerationActionFindUniqueArgs>(args: SelectSubset<T, CommunityModerationActionFindUniqueArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityModerationAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityModerationActionFindUniqueOrThrowArgs} args - Arguments to find a CommunityModerationAction
+     * @example
+     * // Get one CommunityModerationAction
+     * const communityModerationAction = await prisma.communityModerationAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityModerationActionFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityModerationActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityModerationAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionFindFirstArgs} args - Arguments to find a CommunityModerationAction
+     * @example
+     * // Get one CommunityModerationAction
+     * const communityModerationAction = await prisma.communityModerationAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityModerationActionFindFirstArgs>(args?: SelectSubset<T, CommunityModerationActionFindFirstArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityModerationAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionFindFirstOrThrowArgs} args - Arguments to find a CommunityModerationAction
+     * @example
+     * // Get one CommunityModerationAction
+     * const communityModerationAction = await prisma.communityModerationAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityModerationActionFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityModerationActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityModerationActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityModerationActions
+     * const communityModerationActions = await prisma.communityModerationAction.findMany()
+     * 
+     * // Get first 10 CommunityModerationActions
+     * const communityModerationActions = await prisma.communityModerationAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityModerationActionWithIdOnly = await prisma.communityModerationAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityModerationActionFindManyArgs>(args?: SelectSubset<T, CommunityModerationActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityModerationAction.
+     * @param {CommunityModerationActionCreateArgs} args - Arguments to create a CommunityModerationAction.
+     * @example
+     * // Create one CommunityModerationAction
+     * const CommunityModerationAction = await prisma.communityModerationAction.create({
+     *   data: {
+     *     // ... data to create a CommunityModerationAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityModerationActionCreateArgs>(args: SelectSubset<T, CommunityModerationActionCreateArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityModerationActions.
+     * @param {CommunityModerationActionCreateManyArgs} args - Arguments to create many CommunityModerationActions.
+     * @example
+     * // Create many CommunityModerationActions
+     * const communityModerationAction = await prisma.communityModerationAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityModerationActionCreateManyArgs>(args?: SelectSubset<T, CommunityModerationActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityModerationActions and returns the data saved in the database.
+     * @param {CommunityModerationActionCreateManyAndReturnArgs} args - Arguments to create many CommunityModerationActions.
+     * @example
+     * // Create many CommunityModerationActions
+     * const communityModerationAction = await prisma.communityModerationAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityModerationActions and only return the `id`
+     * const communityModerationActionWithIdOnly = await prisma.communityModerationAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityModerationActionCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityModerationActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityModerationAction.
+     * @param {CommunityModerationActionDeleteArgs} args - Arguments to delete one CommunityModerationAction.
+     * @example
+     * // Delete one CommunityModerationAction
+     * const CommunityModerationAction = await prisma.communityModerationAction.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityModerationAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityModerationActionDeleteArgs>(args: SelectSubset<T, CommunityModerationActionDeleteArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityModerationAction.
+     * @param {CommunityModerationActionUpdateArgs} args - Arguments to update one CommunityModerationAction.
+     * @example
+     * // Update one CommunityModerationAction
+     * const communityModerationAction = await prisma.communityModerationAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityModerationActionUpdateArgs>(args: SelectSubset<T, CommunityModerationActionUpdateArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityModerationActions.
+     * @param {CommunityModerationActionDeleteManyArgs} args - Arguments to filter CommunityModerationActions to delete.
+     * @example
+     * // Delete a few CommunityModerationActions
+     * const { count } = await prisma.communityModerationAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityModerationActionDeleteManyArgs>(args?: SelectSubset<T, CommunityModerationActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityModerationActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityModerationActions
+     * const communityModerationAction = await prisma.communityModerationAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityModerationActionUpdateManyArgs>(args: SelectSubset<T, CommunityModerationActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityModerationActions and returns the data updated in the database.
+     * @param {CommunityModerationActionUpdateManyAndReturnArgs} args - Arguments to update many CommunityModerationActions.
+     * @example
+     * // Update many CommunityModerationActions
+     * const communityModerationAction = await prisma.communityModerationAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityModerationActions and only return the `id`
+     * const communityModerationActionWithIdOnly = await prisma.communityModerationAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityModerationActionUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityModerationActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityModerationAction.
+     * @param {CommunityModerationActionUpsertArgs} args - Arguments to update or create a CommunityModerationAction.
+     * @example
+     * // Update or create a CommunityModerationAction
+     * const communityModerationAction = await prisma.communityModerationAction.upsert({
+     *   create: {
+     *     // ... data to create a CommunityModerationAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityModerationAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityModerationActionUpsertArgs>(args: SelectSubset<T, CommunityModerationActionUpsertArgs<ExtArgs>>): Prisma__CommunityModerationActionClient<$Result.GetResult<Prisma.$CommunityModerationActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityModerationActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionCountArgs} args - Arguments to filter CommunityModerationActions to count.
+     * @example
+     * // Count the number of CommunityModerationActions
+     * const count = await prisma.communityModerationAction.count({
+     *   where: {
+     *     // ... the filter for the CommunityModerationActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityModerationActionCountArgs>(
+      args?: Subset<T, CommunityModerationActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityModerationActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityModerationAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityModerationActionAggregateArgs>(args: Subset<T, CommunityModerationActionAggregateArgs>): Prisma.PrismaPromise<GetCommunityModerationActionAggregateType<T>>
+
+    /**
+     * Group by CommunityModerationAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityModerationActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityModerationActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityModerationActionGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityModerationActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityModerationActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityModerationActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityModerationAction model
+   */
+  readonly fields: CommunityModerationActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityModerationAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityModerationActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    actor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityModerationAction model
+   */
+  interface CommunityModerationActionFieldRefs {
+    readonly id: FieldRef<"CommunityModerationAction", 'String'>
+    readonly actorId: FieldRef<"CommunityModerationAction", 'String'>
+    readonly targetType: FieldRef<"CommunityModerationAction", 'String'>
+    readonly targetId: FieldRef<"CommunityModerationAction", 'String'>
+    readonly action: FieldRef<"CommunityModerationAction", 'String'>
+    readonly reason: FieldRef<"CommunityModerationAction", 'String'>
+    readonly metadata: FieldRef<"CommunityModerationAction", 'Json'>
+    readonly createdAt: FieldRef<"CommunityModerationAction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityModerationAction findUnique
+   */
+  export type CommunityModerationActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityModerationAction to fetch.
+     */
+    where: CommunityModerationActionWhereUniqueInput
+  }
+
+  /**
+   * CommunityModerationAction findUniqueOrThrow
+   */
+  export type CommunityModerationActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityModerationAction to fetch.
+     */
+    where: CommunityModerationActionWhereUniqueInput
+  }
+
+  /**
+   * CommunityModerationAction findFirst
+   */
+  export type CommunityModerationActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityModerationAction to fetch.
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityModerationActions to fetch.
+     */
+    orderBy?: CommunityModerationActionOrderByWithRelationInput | CommunityModerationActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityModerationActions.
+     */
+    cursor?: CommunityModerationActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityModerationActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityModerationActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityModerationActions.
+     */
+    distinct?: CommunityModerationActionScalarFieldEnum | CommunityModerationActionScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityModerationAction findFirstOrThrow
+   */
+  export type CommunityModerationActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityModerationAction to fetch.
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityModerationActions to fetch.
+     */
+    orderBy?: CommunityModerationActionOrderByWithRelationInput | CommunityModerationActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityModerationActions.
+     */
+    cursor?: CommunityModerationActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityModerationActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityModerationActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityModerationActions.
+     */
+    distinct?: CommunityModerationActionScalarFieldEnum | CommunityModerationActionScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityModerationAction findMany
+   */
+  export type CommunityModerationActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityModerationActions to fetch.
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityModerationActions to fetch.
+     */
+    orderBy?: CommunityModerationActionOrderByWithRelationInput | CommunityModerationActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityModerationActions.
+     */
+    cursor?: CommunityModerationActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityModerationActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityModerationActions.
+     */
+    skip?: number
+    distinct?: CommunityModerationActionScalarFieldEnum | CommunityModerationActionScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityModerationAction create
+   */
+  export type CommunityModerationActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityModerationAction.
+     */
+    data: XOR<CommunityModerationActionCreateInput, CommunityModerationActionUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityModerationAction createMany
+   */
+  export type CommunityModerationActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityModerationActions.
+     */
+    data: CommunityModerationActionCreateManyInput | CommunityModerationActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityModerationAction createManyAndReturn
+   */
+  export type CommunityModerationActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityModerationActions.
+     */
+    data: CommunityModerationActionCreateManyInput | CommunityModerationActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityModerationAction update
+   */
+  export type CommunityModerationActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityModerationAction.
+     */
+    data: XOR<CommunityModerationActionUpdateInput, CommunityModerationActionUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityModerationAction to update.
+     */
+    where: CommunityModerationActionWhereUniqueInput
+  }
+
+  /**
+   * CommunityModerationAction updateMany
+   */
+  export type CommunityModerationActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityModerationActions.
+     */
+    data: XOR<CommunityModerationActionUpdateManyMutationInput, CommunityModerationActionUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityModerationActions to update
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * Limit how many CommunityModerationActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityModerationAction updateManyAndReturn
+   */
+  export type CommunityModerationActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityModerationActions.
+     */
+    data: XOR<CommunityModerationActionUpdateManyMutationInput, CommunityModerationActionUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityModerationActions to update
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * Limit how many CommunityModerationActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityModerationAction upsert
+   */
+  export type CommunityModerationActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityModerationAction to update in case it exists.
+     */
+    where: CommunityModerationActionWhereUniqueInput
+    /**
+     * In case the CommunityModerationAction found by the `where` argument doesn't exist, create a new CommunityModerationAction with this data.
+     */
+    create: XOR<CommunityModerationActionCreateInput, CommunityModerationActionUncheckedCreateInput>
+    /**
+     * In case the CommunityModerationAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityModerationActionUpdateInput, CommunityModerationActionUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityModerationAction delete
+   */
+  export type CommunityModerationActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityModerationAction to delete.
+     */
+    where: CommunityModerationActionWhereUniqueInput
+  }
+
+  /**
+   * CommunityModerationAction deleteMany
+   */
+  export type CommunityModerationActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityModerationActions to delete
+     */
+    where?: CommunityModerationActionWhereInput
+    /**
+     * Limit how many CommunityModerationActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityModerationAction without action
+   */
+  export type CommunityModerationActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityModerationAction
+     */
+    select?: CommunityModerationActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityModerationAction
+     */
+    omit?: CommunityModerationActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityModerationActionInclude<ExtArgs> | null
   }
 
 
@@ -125197,6 +127976,13 @@ export namespace Prisma {
     authorId: 'authorId',
     title: 'title',
     body: 'body',
+    contentFormat: 'contentFormat',
+    postType: 'postType',
+    status: 'status',
+    accessLevel: 'accessLevel',
+    contextType: 'contextType',
+    contextId: 'contextId',
+    acceptedCommentId: 'acceptedCommentId',
     attachments: 'attachments',
     pinned: 'pinned',
     lastActivityAt: 'lastActivityAt',
@@ -125212,11 +127998,43 @@ export namespace Prisma {
     postId: 'postId',
     authorId: 'authorId',
     body: 'body',
+    contentFormat: 'contentFormat',
+    status: 'status',
+    parentId: 'parentId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type CommunityCommentScalarFieldEnum = (typeof CommunityCommentScalarFieldEnum)[keyof typeof CommunityCommentScalarFieldEnum]
+
+
+  export const CommunityReportScalarFieldEnum: {
+    id: 'id',
+    reporterId: 'reporterId',
+    targetType: 'targetType',
+    targetId: 'targetId',
+    reason: 'reason',
+    details: 'details',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CommunityReportScalarFieldEnum = (typeof CommunityReportScalarFieldEnum)[keyof typeof CommunityReportScalarFieldEnum]
+
+
+  export const CommunityModerationActionScalarFieldEnum: {
+    id: 'id',
+    actorId: 'actorId',
+    targetType: 'targetType',
+    targetId: 'targetId',
+    action: 'action',
+    reason: 'reason',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type CommunityModerationActionScalarFieldEnum = (typeof CommunityModerationActionScalarFieldEnum)[keyof typeof CommunityModerationActionScalarFieldEnum]
 
 
   export const CommunityPostLikeScalarFieldEnum: {
@@ -126140,6 +128958,76 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CommunityContentFormat'
+   */
+  export type EnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityContentFormat[]'
+   */
+  export type ListEnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityPostType'
+   */
+  export type EnumCommunityPostTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityPostType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityPostType[]'
+   */
+  export type ListEnumCommunityPostTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityPostType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityContentStatus'
+   */
+  export type EnumCommunityContentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityContentStatus[]'
+   */
+  export type ListEnumCommunityContentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityAccessLevel'
+   */
+  export type EnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityAccessLevel[]'
+   */
+  export type ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityReportStatus'
+   */
+  export type EnumCommunityReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityReportStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityReportStatus[]'
+   */
+  export type ListEnumCommunityReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityReportStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CommunityProfileVisibility'
    */
   export type EnumCommunityProfileVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityProfileVisibility'>
@@ -126227,6 +129115,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowListRelationFilter
     communityBookmarks?: CommunityBookmarkListRelationFilter
     communitySubscriptions?: CommunitySubscriptionListRelationFilter
+    communityReports?: CommunityReportListRelationFilter
+    communityModerationActions?: CommunityModerationActionListRelationFilter
     creditBalance?: XOR<CreditBalanceNullableScalarRelationFilter, CreditBalanceWhereInput> | null
     creditPurchases?: CreditPurchaseListRelationFilter
     usageRecords?: UsageRecordListRelationFilter
@@ -126285,6 +129175,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowOrderByRelationAggregateInput
     communityBookmarks?: CommunityBookmarkOrderByRelationAggregateInput
     communitySubscriptions?: CommunitySubscriptionOrderByRelationAggregateInput
+    communityReports?: CommunityReportOrderByRelationAggregateInput
+    communityModerationActions?: CommunityModerationActionOrderByRelationAggregateInput
     creditBalance?: CreditBalanceOrderByWithRelationInput
     creditPurchases?: CreditPurchaseOrderByRelationAggregateInput
     usageRecords?: UsageRecordOrderByRelationAggregateInput
@@ -126346,6 +129238,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowListRelationFilter
     communityBookmarks?: CommunityBookmarkListRelationFilter
     communitySubscriptions?: CommunitySubscriptionListRelationFilter
+    communityReports?: CommunityReportListRelationFilter
+    communityModerationActions?: CommunityModerationActionListRelationFilter
     creditBalance?: XOR<CreditBalanceNullableScalarRelationFilter, CreditBalanceWhereInput> | null
     creditPurchases?: CreditPurchaseListRelationFilter
     usageRecords?: UsageRecordListRelationFilter
@@ -133600,6 +136494,13 @@ export namespace Prisma {
     authorId?: UuidFilter<"CommunityPost"> | string
     title?: StringFilter<"CommunityPost"> | string
     body?: StringFilter<"CommunityPost"> | string
+    contentFormat?: EnumCommunityContentFormatFilter<"CommunityPost"> | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFilter<"CommunityPost"> | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFilter<"CommunityPost"> | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityPost"> | $Enums.CommunityAccessLevel
+    contextType?: StringNullableFilter<"CommunityPost"> | string | null
+    contextId?: UuidNullableFilter<"CommunityPost"> | string | null
+    acceptedCommentId?: UuidNullableFilter<"CommunityPost"> | string | null
     attachments?: JsonNullableFilter<"CommunityPost">
     pinned?: BoolFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeFilter<"CommunityPost"> | Date | string
@@ -133611,6 +136512,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeListRelationFilter
     bookmarks?: CommunityBookmarkListRelationFilter
     subscriptions?: CommunitySubscriptionListRelationFilter
+    acceptedComment?: XOR<CommunityCommentNullableScalarRelationFilter, CommunityCommentWhereInput> | null
   }
 
   export type CommunityPostOrderByWithRelationInput = {
@@ -133619,6 +136521,13 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    postType?: SortOrder
+    status?: SortOrder
+    accessLevel?: SortOrder
+    contextType?: SortOrderInput | SortOrder
+    contextId?: SortOrderInput | SortOrder
+    acceptedCommentId?: SortOrderInput | SortOrder
     attachments?: SortOrderInput | SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
@@ -133630,10 +136539,12 @@ export namespace Prisma {
     likes?: CommunityPostLikeOrderByRelationAggregateInput
     bookmarks?: CommunityBookmarkOrderByRelationAggregateInput
     subscriptions?: CommunitySubscriptionOrderByRelationAggregateInput
+    acceptedComment?: CommunityCommentOrderByWithRelationInput
   }
 
   export type CommunityPostWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    acceptedCommentId?: string
     AND?: CommunityPostWhereInput | CommunityPostWhereInput[]
     OR?: CommunityPostWhereInput[]
     NOT?: CommunityPostWhereInput | CommunityPostWhereInput[]
@@ -133641,6 +136552,12 @@ export namespace Prisma {
     authorId?: UuidFilter<"CommunityPost"> | string
     title?: StringFilter<"CommunityPost"> | string
     body?: StringFilter<"CommunityPost"> | string
+    contentFormat?: EnumCommunityContentFormatFilter<"CommunityPost"> | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFilter<"CommunityPost"> | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFilter<"CommunityPost"> | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityPost"> | $Enums.CommunityAccessLevel
+    contextType?: StringNullableFilter<"CommunityPost"> | string | null
+    contextId?: UuidNullableFilter<"CommunityPost"> | string | null
     attachments?: JsonNullableFilter<"CommunityPost">
     pinned?: BoolFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeFilter<"CommunityPost"> | Date | string
@@ -133652,7 +136569,8 @@ export namespace Prisma {
     likes?: CommunityPostLikeListRelationFilter
     bookmarks?: CommunityBookmarkListRelationFilter
     subscriptions?: CommunitySubscriptionListRelationFilter
-  }, "id">
+    acceptedComment?: XOR<CommunityCommentNullableScalarRelationFilter, CommunityCommentWhereInput> | null
+  }, "id" | "acceptedCommentId">
 
   export type CommunityPostOrderByWithAggregationInput = {
     id?: SortOrder
@@ -133660,6 +136578,13 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    postType?: SortOrder
+    status?: SortOrder
+    accessLevel?: SortOrder
+    contextType?: SortOrderInput | SortOrder
+    contextId?: SortOrderInput | SortOrder
+    acceptedCommentId?: SortOrderInput | SortOrder
     attachments?: SortOrderInput | SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
@@ -133679,6 +136604,13 @@ export namespace Prisma {
     authorId?: UuidWithAggregatesFilter<"CommunityPost"> | string
     title?: StringWithAggregatesFilter<"CommunityPost"> | string
     body?: StringWithAggregatesFilter<"CommunityPost"> | string
+    contentFormat?: EnumCommunityContentFormatWithAggregatesFilter<"CommunityPost"> | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeWithAggregatesFilter<"CommunityPost"> | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusWithAggregatesFilter<"CommunityPost"> | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelWithAggregatesFilter<"CommunityPost"> | $Enums.CommunityAccessLevel
+    contextType?: StringNullableWithAggregatesFilter<"CommunityPost"> | string | null
+    contextId?: UuidNullableWithAggregatesFilter<"CommunityPost"> | string | null
+    acceptedCommentId?: UuidNullableWithAggregatesFilter<"CommunityPost"> | string | null
     attachments?: JsonNullableWithAggregatesFilter<"CommunityPost">
     pinned?: BoolWithAggregatesFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeWithAggregatesFilter<"CommunityPost"> | Date | string
@@ -133694,10 +136626,16 @@ export namespace Prisma {
     postId?: UuidFilter<"CommunityComment"> | string
     authorId?: UuidFilter<"CommunityComment"> | string
     body?: StringFilter<"CommunityComment"> | string
+    contentFormat?: EnumCommunityContentFormatFilter<"CommunityComment"> | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFilter<"CommunityComment"> | $Enums.CommunityContentStatus
+    parentId?: UuidNullableFilter<"CommunityComment"> | string | null
     createdAt?: DateTimeFilter<"CommunityComment"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityComment"> | Date | string
     post?: XOR<CommunityPostScalarRelationFilter, CommunityPostWhereInput>
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<CommunityCommentNullableScalarRelationFilter, CommunityCommentWhereInput> | null
+    replies?: CommunityCommentListRelationFilter
+    acceptedForPost?: XOR<CommunityPostNullableScalarRelationFilter, CommunityPostWhereInput> | null
   }
 
   export type CommunityCommentOrderByWithRelationInput = {
@@ -133705,10 +136643,16 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    status?: SortOrder
+    parentId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     post?: CommunityPostOrderByWithRelationInput
     author?: UserOrderByWithRelationInput
+    parent?: CommunityCommentOrderByWithRelationInput
+    replies?: CommunityCommentOrderByRelationAggregateInput
+    acceptedForPost?: CommunityPostOrderByWithRelationInput
   }
 
   export type CommunityCommentWhereUniqueInput = Prisma.AtLeast<{
@@ -133719,10 +136663,16 @@ export namespace Prisma {
     postId?: UuidFilter<"CommunityComment"> | string
     authorId?: UuidFilter<"CommunityComment"> | string
     body?: StringFilter<"CommunityComment"> | string
+    contentFormat?: EnumCommunityContentFormatFilter<"CommunityComment"> | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFilter<"CommunityComment"> | $Enums.CommunityContentStatus
+    parentId?: UuidNullableFilter<"CommunityComment"> | string | null
     createdAt?: DateTimeFilter<"CommunityComment"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityComment"> | Date | string
     post?: XOR<CommunityPostScalarRelationFilter, CommunityPostWhereInput>
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<CommunityCommentNullableScalarRelationFilter, CommunityCommentWhereInput> | null
+    replies?: CommunityCommentListRelationFilter
+    acceptedForPost?: XOR<CommunityPostNullableScalarRelationFilter, CommunityPostWhereInput> | null
   }, "id">
 
   export type CommunityCommentOrderByWithAggregationInput = {
@@ -133730,6 +136680,9 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    status?: SortOrder
+    parentId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CommunityCommentCountOrderByAggregateInput
@@ -133745,8 +136698,157 @@ export namespace Prisma {
     postId?: UuidWithAggregatesFilter<"CommunityComment"> | string
     authorId?: UuidWithAggregatesFilter<"CommunityComment"> | string
     body?: StringWithAggregatesFilter<"CommunityComment"> | string
+    contentFormat?: EnumCommunityContentFormatWithAggregatesFilter<"CommunityComment"> | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusWithAggregatesFilter<"CommunityComment"> | $Enums.CommunityContentStatus
+    parentId?: UuidNullableWithAggregatesFilter<"CommunityComment"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"CommunityComment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CommunityComment"> | Date | string
+  }
+
+  export type CommunityReportWhereInput = {
+    AND?: CommunityReportWhereInput | CommunityReportWhereInput[]
+    OR?: CommunityReportWhereInput[]
+    NOT?: CommunityReportWhereInput | CommunityReportWhereInput[]
+    id?: UuidFilter<"CommunityReport"> | string
+    reporterId?: UuidFilter<"CommunityReport"> | string
+    targetType?: StringFilter<"CommunityReport"> | string
+    targetId?: UuidFilter<"CommunityReport"> | string
+    reason?: StringFilter<"CommunityReport"> | string
+    details?: StringNullableFilter<"CommunityReport"> | string | null
+    status?: EnumCommunityReportStatusFilter<"CommunityReport"> | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFilter<"CommunityReport"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityReport"> | Date | string
+    reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CommunityReportOrderByWithRelationInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    details?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reporter?: UserOrderByWithRelationInput
+  }
+
+  export type CommunityReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    reporterId_targetType_targetId_reason?: CommunityReportReporterIdTargetTypeTargetIdReasonCompoundUniqueInput
+    AND?: CommunityReportWhereInput | CommunityReportWhereInput[]
+    OR?: CommunityReportWhereInput[]
+    NOT?: CommunityReportWhereInput | CommunityReportWhereInput[]
+    reporterId?: UuidFilter<"CommunityReport"> | string
+    targetType?: StringFilter<"CommunityReport"> | string
+    targetId?: UuidFilter<"CommunityReport"> | string
+    reason?: StringFilter<"CommunityReport"> | string
+    details?: StringNullableFilter<"CommunityReport"> | string | null
+    status?: EnumCommunityReportStatusFilter<"CommunityReport"> | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFilter<"CommunityReport"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityReport"> | Date | string
+    reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "reporterId_targetType_targetId_reason">
+
+  export type CommunityReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    details?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommunityReportCountOrderByAggregateInput
+    _max?: CommunityReportMaxOrderByAggregateInput
+    _min?: CommunityReportMinOrderByAggregateInput
+  }
+
+  export type CommunityReportScalarWhereWithAggregatesInput = {
+    AND?: CommunityReportScalarWhereWithAggregatesInput | CommunityReportScalarWhereWithAggregatesInput[]
+    OR?: CommunityReportScalarWhereWithAggregatesInput[]
+    NOT?: CommunityReportScalarWhereWithAggregatesInput | CommunityReportScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityReport"> | string
+    reporterId?: UuidWithAggregatesFilter<"CommunityReport"> | string
+    targetType?: StringWithAggregatesFilter<"CommunityReport"> | string
+    targetId?: UuidWithAggregatesFilter<"CommunityReport"> | string
+    reason?: StringWithAggregatesFilter<"CommunityReport"> | string
+    details?: StringNullableWithAggregatesFilter<"CommunityReport"> | string | null
+    status?: EnumCommunityReportStatusWithAggregatesFilter<"CommunityReport"> | $Enums.CommunityReportStatus
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityReport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CommunityReport"> | Date | string
+  }
+
+  export type CommunityModerationActionWhereInput = {
+    AND?: CommunityModerationActionWhereInput | CommunityModerationActionWhereInput[]
+    OR?: CommunityModerationActionWhereInput[]
+    NOT?: CommunityModerationActionWhereInput | CommunityModerationActionWhereInput[]
+    id?: UuidFilter<"CommunityModerationAction"> | string
+    actorId?: UuidFilter<"CommunityModerationAction"> | string
+    targetType?: StringFilter<"CommunityModerationAction"> | string
+    targetId?: UuidFilter<"CommunityModerationAction"> | string
+    action?: StringFilter<"CommunityModerationAction"> | string
+    reason?: StringNullableFilter<"CommunityModerationAction"> | string | null
+    metadata?: JsonNullableFilter<"CommunityModerationAction">
+    createdAt?: DateTimeFilter<"CommunityModerationAction"> | Date | string
+    actor?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CommunityModerationActionOrderByWithRelationInput = {
+    id?: SortOrder
+    actorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    action?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    actor?: UserOrderByWithRelationInput
+  }
+
+  export type CommunityModerationActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommunityModerationActionWhereInput | CommunityModerationActionWhereInput[]
+    OR?: CommunityModerationActionWhereInput[]
+    NOT?: CommunityModerationActionWhereInput | CommunityModerationActionWhereInput[]
+    actorId?: UuidFilter<"CommunityModerationAction"> | string
+    targetType?: StringFilter<"CommunityModerationAction"> | string
+    targetId?: UuidFilter<"CommunityModerationAction"> | string
+    action?: StringFilter<"CommunityModerationAction"> | string
+    reason?: StringNullableFilter<"CommunityModerationAction"> | string | null
+    metadata?: JsonNullableFilter<"CommunityModerationAction">
+    createdAt?: DateTimeFilter<"CommunityModerationAction"> | Date | string
+    actor?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CommunityModerationActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    actorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    action?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CommunityModerationActionCountOrderByAggregateInput
+    _max?: CommunityModerationActionMaxOrderByAggregateInput
+    _min?: CommunityModerationActionMinOrderByAggregateInput
+  }
+
+  export type CommunityModerationActionScalarWhereWithAggregatesInput = {
+    AND?: CommunityModerationActionScalarWhereWithAggregatesInput | CommunityModerationActionScalarWhereWithAggregatesInput[]
+    OR?: CommunityModerationActionScalarWhereWithAggregatesInput[]
+    NOT?: CommunityModerationActionScalarWhereWithAggregatesInput | CommunityModerationActionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityModerationAction"> | string
+    actorId?: UuidWithAggregatesFilter<"CommunityModerationAction"> | string
+    targetType?: StringWithAggregatesFilter<"CommunityModerationAction"> | string
+    targetId?: UuidWithAggregatesFilter<"CommunityModerationAction"> | string
+    action?: StringWithAggregatesFilter<"CommunityModerationAction"> | string
+    reason?: StringNullableWithAggregatesFilter<"CommunityModerationAction"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"CommunityModerationAction">
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityModerationAction"> | Date | string
   }
 
   export type CommunityPostLikeWhereInput = {
@@ -134330,6 +137432,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -134388,6 +137492,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -134446,6 +137552,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -134504,6 +137612,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -142523,6 +145633,12 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -142534,6 +145650,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
     bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
     subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateInput = {
@@ -142542,6 +145659,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -142557,6 +145681,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -142568,6 +145698,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
     bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
     subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateInput = {
@@ -142576,6 +145707,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -142593,6 +145731,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -142604,6 +145749,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -142617,6 +145768,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -142627,10 +145785,15 @@ export namespace Prisma {
   export type CommunityCommentCreateInput = {
     id?: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     post: CommunityPostCreateNestedOneWithoutCommentsInput
     author: UserCreateNestedOneWithoutCommunityCommentsInput
+    parent?: CommunityCommentCreateNestedOneWithoutRepliesInput
+    replies?: CommunityCommentCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostCreateNestedOneWithoutAcceptedCommentInput
   }
 
   export type CommunityCommentUncheckedCreateInput = {
@@ -142638,17 +145801,27 @@ export namespace Prisma {
     postId: string
     authorId: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    replies?: CommunityCommentUncheckedCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostUncheckedCreateNestedOneWithoutAcceptedCommentInput
   }
 
   export type CommunityCommentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
     author?: UserUpdateOneRequiredWithoutCommunityCommentsNestedInput
+    parent?: CommunityCommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommunityCommentUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUpdateOneWithoutAcceptedCommentNestedInput
   }
 
   export type CommunityCommentUncheckedUpdateInput = {
@@ -142656,8 +145829,13 @@ export namespace Prisma {
     postId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommunityCommentUncheckedUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUncheckedUpdateOneWithoutAcceptedCommentNestedInput
   }
 
   export type CommunityCommentCreateManyInput = {
@@ -142665,6 +145843,9 @@ export namespace Prisma {
     postId: string
     authorId: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -142672,6 +145853,8 @@ export namespace Prisma {
   export type CommunityCommentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -142681,8 +145864,170 @@ export namespace Prisma {
     postId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityReportCreateInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    details?: string | null
+    status?: $Enums.CommunityReportStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reporter: UserCreateNestedOneWithoutCommunityReportsInput
+  }
+
+  export type CommunityReportUncheckedCreateInput = {
+    id?: string
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+    details?: string | null
+    status?: $Enums.CommunityReportStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reporter?: UserUpdateOneRequiredWithoutCommunityReportsNestedInput
+  }
+
+  export type CommunityReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reporterId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityReportCreateManyInput = {
+    id?: string
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+    details?: string | null
+    status?: $Enums.CommunityReportStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reporterId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityModerationActionCreateInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    action: string
+    reason?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    actor: UserCreateNestedOneWithoutCommunityModerationActionsInput
+  }
+
+  export type CommunityModerationActionUncheckedCreateInput = {
+    id?: string
+    actorId: string
+    targetType: string
+    targetId: string
+    action: string
+    reason?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type CommunityModerationActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    actor?: UserUpdateOneRequiredWithoutCommunityModerationActionsNestedInput
+  }
+
+  export type CommunityModerationActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityModerationActionCreateManyInput = {
+    id?: string
+    actorId: string
+    targetType: string
+    targetId: string
+    action: string
+    reason?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type CommunityModerationActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityModerationActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityPostLikeCreateInput = {
@@ -143451,6 +146796,18 @@ export namespace Prisma {
     none?: CommunitySubscriptionWhereInput
   }
 
+  export type CommunityReportListRelationFilter = {
+    every?: CommunityReportWhereInput
+    some?: CommunityReportWhereInput
+    none?: CommunityReportWhereInput
+  }
+
+  export type CommunityModerationActionListRelationFilter = {
+    every?: CommunityModerationActionWhereInput
+    some?: CommunityModerationActionWhereInput
+    none?: CommunityModerationActionWhereInput
+  }
+
   export type CreditBalanceNullableScalarRelationFilter = {
     is?: CreditBalanceWhereInput | null
     isNot?: CreditBalanceWhereInput | null
@@ -143610,6 +146967,14 @@ export namespace Prisma {
   }
 
   export type CommunitySubscriptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityModerationActionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -149327,9 +152692,42 @@ export namespace Prisma {
     sortOrder?: SortOrder
   }
 
+  export type EnumCommunityContentFormatFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatFilter<$PrismaModel> | $Enums.CommunityContentFormat
+  }
+
+  export type EnumCommunityPostTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityPostTypeFilter<$PrismaModel> | $Enums.CommunityPostType
+  }
+
+  export type EnumCommunityContentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentStatus | EnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentStatusFilter<$PrismaModel> | $Enums.CommunityContentStatus
+  }
+
+  export type EnumCommunityAccessLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+  }
+
   export type CommunityCategoryNullableScalarRelationFilter = {
     is?: CommunityCategoryWhereInput | null
     isNot?: CommunityCategoryWhereInput | null
+  }
+
+  export type CommunityCommentNullableScalarRelationFilter = {
+    is?: CommunityCommentWhereInput | null
+    isNot?: CommunityCommentWhereInput | null
   }
 
   export type CommunityPostCountOrderByAggregateInput = {
@@ -149338,6 +152736,13 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    postType?: SortOrder
+    status?: SortOrder
+    accessLevel?: SortOrder
+    contextType?: SortOrder
+    contextId?: SortOrder
+    acceptedCommentId?: SortOrder
     attachments?: SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
@@ -149351,6 +152756,13 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    postType?: SortOrder
+    status?: SortOrder
+    accessLevel?: SortOrder
+    contextType?: SortOrder
+    contextId?: SortOrder
+    acceptedCommentId?: SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
     createdAt?: SortOrder
@@ -149363,10 +152775,57 @@ export namespace Prisma {
     authorId?: SortOrder
     title?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    postType?: SortOrder
+    status?: SortOrder
+    accessLevel?: SortOrder
+    contextType?: SortOrder
+    contextId?: SortOrder
+    acceptedCommentId?: SortOrder
     pinned?: SortOrder
     lastActivityAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumCommunityContentFormatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentFormat
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
+    _max?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
+  }
+
+  export type EnumCommunityPostTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityPostTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommunityPostType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityPostTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommunityPostTypeFilter<$PrismaModel>
+  }
+
+  export type EnumCommunityContentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentStatus | EnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
+  }
+
+  export type EnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+    _max?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
   }
 
   export type CommunityPostScalarRelationFilter = {
@@ -149374,11 +152833,19 @@ export namespace Prisma {
     isNot?: CommunityPostWhereInput
   }
 
+  export type CommunityPostNullableScalarRelationFilter = {
+    is?: CommunityPostWhereInput | null
+    isNot?: CommunityPostWhereInput | null
+  }
+
   export type CommunityCommentCountOrderByAggregateInput = {
     id?: SortOrder
     postId?: SortOrder
     authorId?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    status?: SortOrder
+    parentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -149388,6 +152855,9 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    status?: SortOrder
+    parentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -149397,8 +152867,102 @@ export namespace Prisma {
     postId?: SortOrder
     authorId?: SortOrder
     body?: SortOrder
+    contentFormat?: SortOrder
+    status?: SortOrder
+    parentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumCommunityReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityReportStatus | EnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityReportStatusFilter<$PrismaModel> | $Enums.CommunityReportStatus
+  }
+
+  export type CommunityReportReporterIdTargetTypeTargetIdReasonCompoundUniqueInput = {
+    reporterId: string
+    targetType: string
+    targetId: string
+    reason: string
+  }
+
+  export type CommunityReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    details?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    details?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    reporterId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    reason?: SortOrder
+    details?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumCommunityReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityReportStatus | EnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityReportStatusFilter<$PrismaModel>
+  }
+
+  export type CommunityModerationActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    actorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    action?: SortOrder
+    reason?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityModerationActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    actorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    action?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityModerationActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    actorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    action?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type CommunityPostLikePostIdUserIdCompoundUniqueInput = {
@@ -149883,6 +153447,20 @@ export namespace Prisma {
     connect?: CommunitySubscriptionWhereUniqueInput | CommunitySubscriptionWhereUniqueInput[]
   }
 
+  export type CommunityReportCreateNestedManyWithoutReporterInput = {
+    create?: XOR<CommunityReportCreateWithoutReporterInput, CommunityReportUncheckedCreateWithoutReporterInput> | CommunityReportCreateWithoutReporterInput[] | CommunityReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: CommunityReportCreateOrConnectWithoutReporterInput | CommunityReportCreateOrConnectWithoutReporterInput[]
+    createMany?: CommunityReportCreateManyReporterInputEnvelope
+    connect?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+  }
+
+  export type CommunityModerationActionCreateNestedManyWithoutActorInput = {
+    create?: XOR<CommunityModerationActionCreateWithoutActorInput, CommunityModerationActionUncheckedCreateWithoutActorInput> | CommunityModerationActionCreateWithoutActorInput[] | CommunityModerationActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: CommunityModerationActionCreateOrConnectWithoutActorInput | CommunityModerationActionCreateOrConnectWithoutActorInput[]
+    createMany?: CommunityModerationActionCreateManyActorInputEnvelope
+    connect?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+  }
+
   export type CreditBalanceCreateNestedOneWithoutUserInput = {
     create?: XOR<CreditBalanceCreateWithoutUserInput, CreditBalanceUncheckedCreateWithoutUserInput>
     connectOrCreate?: CreditBalanceCreateOrConnectWithoutUserInput
@@ -150166,6 +153744,20 @@ export namespace Prisma {
     connectOrCreate?: CommunitySubscriptionCreateOrConnectWithoutUserInput | CommunitySubscriptionCreateOrConnectWithoutUserInput[]
     createMany?: CommunitySubscriptionCreateManyUserInputEnvelope
     connect?: CommunitySubscriptionWhereUniqueInput | CommunitySubscriptionWhereUniqueInput[]
+  }
+
+  export type CommunityReportUncheckedCreateNestedManyWithoutReporterInput = {
+    create?: XOR<CommunityReportCreateWithoutReporterInput, CommunityReportUncheckedCreateWithoutReporterInput> | CommunityReportCreateWithoutReporterInput[] | CommunityReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: CommunityReportCreateOrConnectWithoutReporterInput | CommunityReportCreateOrConnectWithoutReporterInput[]
+    createMany?: CommunityReportCreateManyReporterInputEnvelope
+    connect?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+  }
+
+  export type CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput = {
+    create?: XOR<CommunityModerationActionCreateWithoutActorInput, CommunityModerationActionUncheckedCreateWithoutActorInput> | CommunityModerationActionCreateWithoutActorInput[] | CommunityModerationActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: CommunityModerationActionCreateOrConnectWithoutActorInput | CommunityModerationActionCreateOrConnectWithoutActorInput[]
+    createMany?: CommunityModerationActionCreateManyActorInputEnvelope
+    connect?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
   }
 
   export type CreditBalanceUncheckedCreateNestedOneWithoutUserInput = {
@@ -150633,6 +154225,34 @@ export namespace Prisma {
     update?: CommunitySubscriptionUpdateWithWhereUniqueWithoutUserInput | CommunitySubscriptionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommunitySubscriptionUpdateManyWithWhereWithoutUserInput | CommunitySubscriptionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommunitySubscriptionScalarWhereInput | CommunitySubscriptionScalarWhereInput[]
+  }
+
+  export type CommunityReportUpdateManyWithoutReporterNestedInput = {
+    create?: XOR<CommunityReportCreateWithoutReporterInput, CommunityReportUncheckedCreateWithoutReporterInput> | CommunityReportCreateWithoutReporterInput[] | CommunityReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: CommunityReportCreateOrConnectWithoutReporterInput | CommunityReportCreateOrConnectWithoutReporterInput[]
+    upsert?: CommunityReportUpsertWithWhereUniqueWithoutReporterInput | CommunityReportUpsertWithWhereUniqueWithoutReporterInput[]
+    createMany?: CommunityReportCreateManyReporterInputEnvelope
+    set?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    disconnect?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    delete?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    connect?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    update?: CommunityReportUpdateWithWhereUniqueWithoutReporterInput | CommunityReportUpdateWithWhereUniqueWithoutReporterInput[]
+    updateMany?: CommunityReportUpdateManyWithWhereWithoutReporterInput | CommunityReportUpdateManyWithWhereWithoutReporterInput[]
+    deleteMany?: CommunityReportScalarWhereInput | CommunityReportScalarWhereInput[]
+  }
+
+  export type CommunityModerationActionUpdateManyWithoutActorNestedInput = {
+    create?: XOR<CommunityModerationActionCreateWithoutActorInput, CommunityModerationActionUncheckedCreateWithoutActorInput> | CommunityModerationActionCreateWithoutActorInput[] | CommunityModerationActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: CommunityModerationActionCreateOrConnectWithoutActorInput | CommunityModerationActionCreateOrConnectWithoutActorInput[]
+    upsert?: CommunityModerationActionUpsertWithWhereUniqueWithoutActorInput | CommunityModerationActionUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: CommunityModerationActionCreateManyActorInputEnvelope
+    set?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    disconnect?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    delete?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    connect?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    update?: CommunityModerationActionUpdateWithWhereUniqueWithoutActorInput | CommunityModerationActionUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: CommunityModerationActionUpdateManyWithWhereWithoutActorInput | CommunityModerationActionUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: CommunityModerationActionScalarWhereInput | CommunityModerationActionScalarWhereInput[]
   }
 
   export type CreditBalanceUpdateOneWithoutUserNestedInput = {
@@ -151185,6 +154805,34 @@ export namespace Prisma {
     update?: CommunitySubscriptionUpdateWithWhereUniqueWithoutUserInput | CommunitySubscriptionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommunitySubscriptionUpdateManyWithWhereWithoutUserInput | CommunitySubscriptionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommunitySubscriptionScalarWhereInput | CommunitySubscriptionScalarWhereInput[]
+  }
+
+  export type CommunityReportUncheckedUpdateManyWithoutReporterNestedInput = {
+    create?: XOR<CommunityReportCreateWithoutReporterInput, CommunityReportUncheckedCreateWithoutReporterInput> | CommunityReportCreateWithoutReporterInput[] | CommunityReportUncheckedCreateWithoutReporterInput[]
+    connectOrCreate?: CommunityReportCreateOrConnectWithoutReporterInput | CommunityReportCreateOrConnectWithoutReporterInput[]
+    upsert?: CommunityReportUpsertWithWhereUniqueWithoutReporterInput | CommunityReportUpsertWithWhereUniqueWithoutReporterInput[]
+    createMany?: CommunityReportCreateManyReporterInputEnvelope
+    set?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    disconnect?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    delete?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    connect?: CommunityReportWhereUniqueInput | CommunityReportWhereUniqueInput[]
+    update?: CommunityReportUpdateWithWhereUniqueWithoutReporterInput | CommunityReportUpdateWithWhereUniqueWithoutReporterInput[]
+    updateMany?: CommunityReportUpdateManyWithWhereWithoutReporterInput | CommunityReportUpdateManyWithWhereWithoutReporterInput[]
+    deleteMany?: CommunityReportScalarWhereInput | CommunityReportScalarWhereInput[]
+  }
+
+  export type CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput = {
+    create?: XOR<CommunityModerationActionCreateWithoutActorInput, CommunityModerationActionUncheckedCreateWithoutActorInput> | CommunityModerationActionCreateWithoutActorInput[] | CommunityModerationActionUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: CommunityModerationActionCreateOrConnectWithoutActorInput | CommunityModerationActionCreateOrConnectWithoutActorInput[]
+    upsert?: CommunityModerationActionUpsertWithWhereUniqueWithoutActorInput | CommunityModerationActionUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: CommunityModerationActionCreateManyActorInputEnvelope
+    set?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    disconnect?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    delete?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    connect?: CommunityModerationActionWhereUniqueInput | CommunityModerationActionWhereUniqueInput[]
+    update?: CommunityModerationActionUpdateWithWhereUniqueWithoutActorInput | CommunityModerationActionUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: CommunityModerationActionUpdateManyWithWhereWithoutActorInput | CommunityModerationActionUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: CommunityModerationActionScalarWhereInput | CommunityModerationActionScalarWhereInput[]
   }
 
   export type CreditBalanceUncheckedUpdateOneWithoutUserNestedInput = {
@@ -156324,6 +159972,12 @@ export namespace Prisma {
     connect?: CommunitySubscriptionWhereUniqueInput | CommunitySubscriptionWhereUniqueInput[]
   }
 
+  export type CommunityCommentCreateNestedOneWithoutAcceptedForPostInput = {
+    create?: XOR<CommunityCommentCreateWithoutAcceptedForPostInput, CommunityCommentUncheckedCreateWithoutAcceptedForPostInput>
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutAcceptedForPostInput
+    connect?: CommunityCommentWhereUniqueInput
+  }
+
   export type CommunityCommentUncheckedCreateNestedManyWithoutPostInput = {
     create?: XOR<CommunityCommentCreateWithoutPostInput, CommunityCommentUncheckedCreateWithoutPostInput> | CommunityCommentCreateWithoutPostInput[] | CommunityCommentUncheckedCreateWithoutPostInput[]
     connectOrCreate?: CommunityCommentCreateOrConnectWithoutPostInput | CommunityCommentCreateOrConnectWithoutPostInput[]
@@ -156350,6 +160004,22 @@ export namespace Prisma {
     connectOrCreate?: CommunitySubscriptionCreateOrConnectWithoutPostInput | CommunitySubscriptionCreateOrConnectWithoutPostInput[]
     createMany?: CommunitySubscriptionCreateManyPostInputEnvelope
     connect?: CommunitySubscriptionWhereUniqueInput | CommunitySubscriptionWhereUniqueInput[]
+  }
+
+  export type EnumCommunityContentFormatFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityContentFormat
+  }
+
+  export type EnumCommunityPostTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityPostType
+  }
+
+  export type EnumCommunityContentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityContentStatus
+  }
+
+  export type EnumCommunityAccessLevelFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityAccessLevel
   }
 
   export type CommunityCategoryUpdateOneWithoutPostsNestedInput = {
@@ -156426,6 +160096,16 @@ export namespace Prisma {
     deleteMany?: CommunitySubscriptionScalarWhereInput | CommunitySubscriptionScalarWhereInput[]
   }
 
+  export type CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput = {
+    create?: XOR<CommunityCommentCreateWithoutAcceptedForPostInput, CommunityCommentUncheckedCreateWithoutAcceptedForPostInput>
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutAcceptedForPostInput
+    upsert?: CommunityCommentUpsertWithoutAcceptedForPostInput
+    disconnect?: CommunityCommentWhereInput | boolean
+    delete?: CommunityCommentWhereInput | boolean
+    connect?: CommunityCommentWhereUniqueInput
+    update?: XOR<XOR<CommunityCommentUpdateToOneWithWhereWithoutAcceptedForPostInput, CommunityCommentUpdateWithoutAcceptedForPostInput>, CommunityCommentUncheckedUpdateWithoutAcceptedForPostInput>
+  }
+
   export type CommunityCommentUncheckedUpdateManyWithoutPostNestedInput = {
     create?: XOR<CommunityCommentCreateWithoutPostInput, CommunityCommentUncheckedCreateWithoutPostInput> | CommunityCommentCreateWithoutPostInput[] | CommunityCommentUncheckedCreateWithoutPostInput[]
     connectOrCreate?: CommunityCommentCreateOrConnectWithoutPostInput | CommunityCommentCreateOrConnectWithoutPostInput[]
@@ -156494,6 +160174,38 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type CommunityCommentCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<CommunityCommentCreateWithoutRepliesInput, CommunityCommentUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutRepliesInput
+    connect?: CommunityCommentWhereUniqueInput
+  }
+
+  export type CommunityCommentCreateNestedManyWithoutParentInput = {
+    create?: XOR<CommunityCommentCreateWithoutParentInput, CommunityCommentUncheckedCreateWithoutParentInput> | CommunityCommentCreateWithoutParentInput[] | CommunityCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutParentInput | CommunityCommentCreateOrConnectWithoutParentInput[]
+    createMany?: CommunityCommentCreateManyParentInputEnvelope
+    connect?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+  }
+
+  export type CommunityPostCreateNestedOneWithoutAcceptedCommentInput = {
+    create?: XOR<CommunityPostCreateWithoutAcceptedCommentInput, CommunityPostUncheckedCreateWithoutAcceptedCommentInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutAcceptedCommentInput
+    connect?: CommunityPostWhereUniqueInput
+  }
+
+  export type CommunityCommentUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<CommunityCommentCreateWithoutParentInput, CommunityCommentUncheckedCreateWithoutParentInput> | CommunityCommentCreateWithoutParentInput[] | CommunityCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutParentInput | CommunityCommentCreateOrConnectWithoutParentInput[]
+    createMany?: CommunityCommentCreateManyParentInputEnvelope
+    connect?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+  }
+
+  export type CommunityPostUncheckedCreateNestedOneWithoutAcceptedCommentInput = {
+    create?: XOR<CommunityPostCreateWithoutAcceptedCommentInput, CommunityPostUncheckedCreateWithoutAcceptedCommentInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutAcceptedCommentInput
+    connect?: CommunityPostWhereUniqueInput
+  }
+
   export type CommunityPostUpdateOneRequiredWithoutCommentsNestedInput = {
     create?: XOR<CommunityPostCreateWithoutCommentsInput, CommunityPostUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: CommunityPostCreateOrConnectWithoutCommentsInput
@@ -156508,6 +160220,96 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutCommunityCommentsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityCommentsInput, UserUpdateWithoutCommunityCommentsInput>, UserUncheckedUpdateWithoutCommunityCommentsInput>
+  }
+
+  export type CommunityCommentUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<CommunityCommentCreateWithoutRepliesInput, CommunityCommentUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutRepliesInput
+    upsert?: CommunityCommentUpsertWithoutRepliesInput
+    disconnect?: CommunityCommentWhereInput | boolean
+    delete?: CommunityCommentWhereInput | boolean
+    connect?: CommunityCommentWhereUniqueInput
+    update?: XOR<XOR<CommunityCommentUpdateToOneWithWhereWithoutRepliesInput, CommunityCommentUpdateWithoutRepliesInput>, CommunityCommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type CommunityCommentUpdateManyWithoutParentNestedInput = {
+    create?: XOR<CommunityCommentCreateWithoutParentInput, CommunityCommentUncheckedCreateWithoutParentInput> | CommunityCommentCreateWithoutParentInput[] | CommunityCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutParentInput | CommunityCommentCreateOrConnectWithoutParentInput[]
+    upsert?: CommunityCommentUpsertWithWhereUniqueWithoutParentInput | CommunityCommentUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: CommunityCommentCreateManyParentInputEnvelope
+    set?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    disconnect?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    delete?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    connect?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    update?: CommunityCommentUpdateWithWhereUniqueWithoutParentInput | CommunityCommentUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: CommunityCommentUpdateManyWithWhereWithoutParentInput | CommunityCommentUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: CommunityCommentScalarWhereInput | CommunityCommentScalarWhereInput[]
+  }
+
+  export type CommunityPostUpdateOneWithoutAcceptedCommentNestedInput = {
+    create?: XOR<CommunityPostCreateWithoutAcceptedCommentInput, CommunityPostUncheckedCreateWithoutAcceptedCommentInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutAcceptedCommentInput
+    upsert?: CommunityPostUpsertWithoutAcceptedCommentInput
+    disconnect?: CommunityPostWhereInput | boolean
+    delete?: CommunityPostWhereInput | boolean
+    connect?: CommunityPostWhereUniqueInput
+    update?: XOR<XOR<CommunityPostUpdateToOneWithWhereWithoutAcceptedCommentInput, CommunityPostUpdateWithoutAcceptedCommentInput>, CommunityPostUncheckedUpdateWithoutAcceptedCommentInput>
+  }
+
+  export type CommunityCommentUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<CommunityCommentCreateWithoutParentInput, CommunityCommentUncheckedCreateWithoutParentInput> | CommunityCommentCreateWithoutParentInput[] | CommunityCommentUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: CommunityCommentCreateOrConnectWithoutParentInput | CommunityCommentCreateOrConnectWithoutParentInput[]
+    upsert?: CommunityCommentUpsertWithWhereUniqueWithoutParentInput | CommunityCommentUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: CommunityCommentCreateManyParentInputEnvelope
+    set?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    disconnect?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    delete?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    connect?: CommunityCommentWhereUniqueInput | CommunityCommentWhereUniqueInput[]
+    update?: CommunityCommentUpdateWithWhereUniqueWithoutParentInput | CommunityCommentUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: CommunityCommentUpdateManyWithWhereWithoutParentInput | CommunityCommentUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: CommunityCommentScalarWhereInput | CommunityCommentScalarWhereInput[]
+  }
+
+  export type CommunityPostUncheckedUpdateOneWithoutAcceptedCommentNestedInput = {
+    create?: XOR<CommunityPostCreateWithoutAcceptedCommentInput, CommunityPostUncheckedCreateWithoutAcceptedCommentInput>
+    connectOrCreate?: CommunityPostCreateOrConnectWithoutAcceptedCommentInput
+    upsert?: CommunityPostUpsertWithoutAcceptedCommentInput
+    disconnect?: CommunityPostWhereInput | boolean
+    delete?: CommunityPostWhereInput | boolean
+    connect?: CommunityPostWhereUniqueInput
+    update?: XOR<XOR<CommunityPostUpdateToOneWithWhereWithoutAcceptedCommentInput, CommunityPostUpdateWithoutAcceptedCommentInput>, CommunityPostUncheckedUpdateWithoutAcceptedCommentInput>
+  }
+
+  export type UserCreateNestedOneWithoutCommunityReportsInput = {
+    create?: XOR<UserCreateWithoutCommunityReportsInput, UserUncheckedCreateWithoutCommunityReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityReportsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumCommunityReportStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityReportStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutCommunityReportsNestedInput = {
+    create?: XOR<UserCreateWithoutCommunityReportsInput, UserUncheckedCreateWithoutCommunityReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityReportsInput
+    upsert?: UserUpsertWithoutCommunityReportsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityReportsInput, UserUpdateWithoutCommunityReportsInput>, UserUncheckedUpdateWithoutCommunityReportsInput>
+  }
+
+  export type UserCreateNestedOneWithoutCommunityModerationActionsInput = {
+    create?: XOR<UserCreateWithoutCommunityModerationActionsInput, UserUncheckedCreateWithoutCommunityModerationActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityModerationActionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCommunityModerationActionsNestedInput = {
+    create?: XOR<UserCreateWithoutCommunityModerationActionsInput, UserUncheckedCreateWithoutCommunityModerationActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityModerationActionsInput
+    upsert?: UserUpsertWithoutCommunityModerationActionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityModerationActionsInput, UserUpdateWithoutCommunityModerationActionsInput>, UserUncheckedUpdateWithoutCommunityModerationActionsInput>
   }
 
   export type CommunityPostCreateNestedOneWithoutLikesInput = {
@@ -157898,6 +161700,91 @@ export namespace Prisma {
     _max?: NestedEnumLessonContentTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommunityContentFormatFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatFilter<$PrismaModel> | $Enums.CommunityContentFormat
+  }
+
+  export type NestedEnumCommunityPostTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityPostTypeFilter<$PrismaModel> | $Enums.CommunityPostType
+  }
+
+  export type NestedEnumCommunityContentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentStatus | EnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentStatusFilter<$PrismaModel> | $Enums.CommunityContentStatus
+  }
+
+  export type NestedEnumCommunityAccessLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+  }
+
+  export type NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentFormat
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
+    _max?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommunityPostTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityPostTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommunityPostType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityPostTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommunityPostTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommunityContentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentStatus | EnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+    _max?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommunityReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityReportStatus | EnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityReportStatusFilter<$PrismaModel> | $Enums.CommunityReportStatus
+  }
+
+  export type NestedEnumCommunityReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityReportStatus | EnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityReportStatus[] | ListEnumCommunityReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityReportStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumCommunityProfileVisibilityFilter<$PrismaModel = never> = {
     equals?: $Enums.CommunityProfileVisibility | EnumCommunityProfileVisibilityFieldRefInput<$PrismaModel>
     in?: $Enums.CommunityProfileVisibility[] | ListEnumCommunityProfileVisibilityFieldRefInput<$PrismaModel>
@@ -158472,6 +162359,12 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -158482,6 +162375,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
     bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
     subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutAuthorInput = {
@@ -158489,6 +162383,13 @@ export namespace Prisma {
     categoryId?: string | null
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -158513,17 +162414,27 @@ export namespace Prisma {
   export type CommunityCommentCreateWithoutAuthorInput = {
     id?: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     post: CommunityPostCreateNestedOneWithoutCommentsInput
+    parent?: CommunityCommentCreateNestedOneWithoutRepliesInput
+    replies?: CommunityCommentCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostCreateNestedOneWithoutAcceptedCommentInput
   }
 
   export type CommunityCommentUncheckedCreateWithoutAuthorInput = {
     id?: string
     postId: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    replies?: CommunityCommentUncheckedCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostUncheckedCreateNestedOneWithoutAcceptedCommentInput
   }
 
   export type CommunityCommentCreateOrConnectWithoutAuthorInput = {
@@ -158769,6 +162680,68 @@ export namespace Prisma {
 
   export type CommunitySubscriptionCreateManyUserInputEnvelope = {
     data: CommunitySubscriptionCreateManyUserInput | CommunitySubscriptionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityReportCreateWithoutReporterInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    details?: string | null
+    status?: $Enums.CommunityReportStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityReportUncheckedCreateWithoutReporterInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    details?: string | null
+    status?: $Enums.CommunityReportStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityReportCreateOrConnectWithoutReporterInput = {
+    where: CommunityReportWhereUniqueInput
+    create: XOR<CommunityReportCreateWithoutReporterInput, CommunityReportUncheckedCreateWithoutReporterInput>
+  }
+
+  export type CommunityReportCreateManyReporterInputEnvelope = {
+    data: CommunityReportCreateManyReporterInput | CommunityReportCreateManyReporterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityModerationActionCreateWithoutActorInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    action: string
+    reason?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type CommunityModerationActionUncheckedCreateWithoutActorInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    action: string
+    reason?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type CommunityModerationActionCreateOrConnectWithoutActorInput = {
+    where: CommunityModerationActionWhereUniqueInput
+    create: XOR<CommunityModerationActionCreateWithoutActorInput, CommunityModerationActionUncheckedCreateWithoutActorInput>
+  }
+
+  export type CommunityModerationActionCreateManyActorInputEnvelope = {
+    data: CommunityModerationActionCreateManyActorInput | CommunityModerationActionCreateManyActorInput[]
     skipDuplicates?: boolean
   }
 
@@ -159921,6 +163894,13 @@ export namespace Prisma {
     authorId?: UuidFilter<"CommunityPost"> | string
     title?: StringFilter<"CommunityPost"> | string
     body?: StringFilter<"CommunityPost"> | string
+    contentFormat?: EnumCommunityContentFormatFilter<"CommunityPost"> | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFilter<"CommunityPost"> | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFilter<"CommunityPost"> | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityPost"> | $Enums.CommunityAccessLevel
+    contextType?: StringNullableFilter<"CommunityPost"> | string | null
+    contextId?: UuidNullableFilter<"CommunityPost"> | string | null
+    acceptedCommentId?: UuidNullableFilter<"CommunityPost"> | string | null
     attachments?: JsonNullableFilter<"CommunityPost">
     pinned?: BoolFilter<"CommunityPost"> | boolean
     lastActivityAt?: DateTimeFilter<"CommunityPost"> | Date | string
@@ -159952,6 +163932,9 @@ export namespace Prisma {
     postId?: UuidFilter<"CommunityComment"> | string
     authorId?: UuidFilter<"CommunityComment"> | string
     body?: StringFilter<"CommunityComment"> | string
+    contentFormat?: EnumCommunityContentFormatFilter<"CommunityComment"> | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFilter<"CommunityComment"> | $Enums.CommunityContentStatus
+    parentId?: UuidNullableFilter<"CommunityComment"> | string | null
     createdAt?: DateTimeFilter<"CommunityComment"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityComment"> | Date | string
   }
@@ -160209,6 +164192,67 @@ export namespace Prisma {
     userId?: UuidFilter<"CommunitySubscription"> | string
     postId?: UuidFilter<"CommunitySubscription"> | string
     createdAt?: DateTimeFilter<"CommunitySubscription"> | Date | string
+  }
+
+  export type CommunityReportUpsertWithWhereUniqueWithoutReporterInput = {
+    where: CommunityReportWhereUniqueInput
+    update: XOR<CommunityReportUpdateWithoutReporterInput, CommunityReportUncheckedUpdateWithoutReporterInput>
+    create: XOR<CommunityReportCreateWithoutReporterInput, CommunityReportUncheckedCreateWithoutReporterInput>
+  }
+
+  export type CommunityReportUpdateWithWhereUniqueWithoutReporterInput = {
+    where: CommunityReportWhereUniqueInput
+    data: XOR<CommunityReportUpdateWithoutReporterInput, CommunityReportUncheckedUpdateWithoutReporterInput>
+  }
+
+  export type CommunityReportUpdateManyWithWhereWithoutReporterInput = {
+    where: CommunityReportScalarWhereInput
+    data: XOR<CommunityReportUpdateManyMutationInput, CommunityReportUncheckedUpdateManyWithoutReporterInput>
+  }
+
+  export type CommunityReportScalarWhereInput = {
+    AND?: CommunityReportScalarWhereInput | CommunityReportScalarWhereInput[]
+    OR?: CommunityReportScalarWhereInput[]
+    NOT?: CommunityReportScalarWhereInput | CommunityReportScalarWhereInput[]
+    id?: UuidFilter<"CommunityReport"> | string
+    reporterId?: UuidFilter<"CommunityReport"> | string
+    targetType?: StringFilter<"CommunityReport"> | string
+    targetId?: UuidFilter<"CommunityReport"> | string
+    reason?: StringFilter<"CommunityReport"> | string
+    details?: StringNullableFilter<"CommunityReport"> | string | null
+    status?: EnumCommunityReportStatusFilter<"CommunityReport"> | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFilter<"CommunityReport"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityReport"> | Date | string
+  }
+
+  export type CommunityModerationActionUpsertWithWhereUniqueWithoutActorInput = {
+    where: CommunityModerationActionWhereUniqueInput
+    update: XOR<CommunityModerationActionUpdateWithoutActorInput, CommunityModerationActionUncheckedUpdateWithoutActorInput>
+    create: XOR<CommunityModerationActionCreateWithoutActorInput, CommunityModerationActionUncheckedCreateWithoutActorInput>
+  }
+
+  export type CommunityModerationActionUpdateWithWhereUniqueWithoutActorInput = {
+    where: CommunityModerationActionWhereUniqueInput
+    data: XOR<CommunityModerationActionUpdateWithoutActorInput, CommunityModerationActionUncheckedUpdateWithoutActorInput>
+  }
+
+  export type CommunityModerationActionUpdateManyWithWhereWithoutActorInput = {
+    where: CommunityModerationActionScalarWhereInput
+    data: XOR<CommunityModerationActionUpdateManyMutationInput, CommunityModerationActionUncheckedUpdateManyWithoutActorInput>
+  }
+
+  export type CommunityModerationActionScalarWhereInput = {
+    AND?: CommunityModerationActionScalarWhereInput | CommunityModerationActionScalarWhereInput[]
+    OR?: CommunityModerationActionScalarWhereInput[]
+    NOT?: CommunityModerationActionScalarWhereInput | CommunityModerationActionScalarWhereInput[]
+    id?: UuidFilter<"CommunityModerationAction"> | string
+    actorId?: UuidFilter<"CommunityModerationAction"> | string
+    targetType?: StringFilter<"CommunityModerationAction"> | string
+    targetId?: UuidFilter<"CommunityModerationAction"> | string
+    action?: StringFilter<"CommunityModerationAction"> | string
+    reason?: StringNullableFilter<"CommunityModerationAction"> | string | null
+    metadata?: JsonNullableFilter<"CommunityModerationAction">
+    createdAt?: DateTimeFilter<"CommunityModerationAction"> | Date | string
   }
 
   export type CreditBalanceUpsertWithoutUserInput = {
@@ -160759,6 +164803,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -160816,6 +164862,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -160889,6 +164937,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -160946,6 +164996,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -161002,6 +165054,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -161059,6 +165113,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -161132,6 +165188,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -161189,6 +165247,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -161385,6 +165445,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -161442,6 +165504,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -161538,6 +165602,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -161595,6 +165661,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -161681,6 +165749,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -161738,6 +165808,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -161811,6 +165883,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -161868,6 +165942,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -161926,6 +166002,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -161983,6 +166061,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -162056,6 +166136,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -162113,6 +166195,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -162169,6 +166253,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -162226,6 +166312,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -162552,6 +166640,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -162609,6 +166699,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -163072,6 +167164,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -163129,6 +167223,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -163255,6 +167351,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -163312,6 +167410,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -166261,6 +170361,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -166318,6 +170420,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -166419,6 +170523,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -166476,6 +170582,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -166849,6 +170957,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -166906,6 +171016,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -167280,6 +171392,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -167337,6 +171451,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -168524,6 +172640,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -168581,6 +172699,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -168850,6 +172970,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -168907,6 +173029,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -169181,6 +173305,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -169238,6 +173364,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -169462,6 +173590,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -169519,6 +173649,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -169686,6 +173818,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -169743,6 +173877,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -169896,6 +174032,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -169953,6 +174091,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -170433,6 +174573,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -170490,6 +174632,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -170823,6 +174967,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -170880,6 +175026,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -173976,6 +178124,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -174033,6 +178183,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -174128,6 +178280,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -174185,6 +178339,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -174559,6 +178715,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -174616,6 +178774,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -174689,6 +178849,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -174746,6 +178908,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -174829,6 +178993,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -174886,6 +179052,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -174948,6 +179116,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -175005,6 +179175,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -175094,6 +179266,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -175151,6 +179325,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -175219,6 +179395,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -175276,6 +179454,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -175364,6 +179544,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -175421,6 +179603,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -175531,6 +179715,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -175588,6 +179774,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -175645,6 +179833,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -175702,6 +179892,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -175775,6 +179967,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -175832,6 +180026,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -175888,6 +180084,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -175945,6 +180143,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -176050,6 +180250,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -176107,6 +180309,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -176229,6 +180433,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -176286,6 +180492,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -176423,6 +180631,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -176480,6 +180690,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -176613,6 +180825,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -176670,6 +180884,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -176773,6 +180989,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -176830,6 +181048,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -176973,6 +181193,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -177030,6 +181252,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -177103,6 +181327,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -177160,6 +181386,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -177217,6 +181445,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -177274,6 +181504,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -177391,6 +181623,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -177448,6 +181682,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -177521,6 +181757,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -177578,6 +181816,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -177766,6 +182006,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -177823,6 +182065,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -177955,6 +182199,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -178012,6 +182258,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -178230,6 +182478,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -178287,6 +182537,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -178769,6 +183021,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -178826,6 +183080,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -178962,6 +183218,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -179019,6 +183277,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -179250,6 +183510,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -179307,6 +183569,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -179594,6 +183858,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -179651,6 +183917,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -180209,6 +184477,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -180266,6 +184536,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -180441,6 +184713,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -180498,6 +184772,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -180931,6 +185207,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -180988,6 +185266,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -181117,6 +185397,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -181174,6 +185456,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -181627,6 +185911,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -181684,6 +185970,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -181800,6 +186088,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -181857,6 +186147,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -181879,6 +186171,12 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -181889,6 +186187,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
     bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
     subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutCategoryInput = {
@@ -181896,6 +186195,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -181997,6 +186303,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -182054,6 +186362,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -182080,17 +186390,27 @@ export namespace Prisma {
   export type CommunityCommentCreateWithoutPostInput = {
     id?: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutCommunityCommentsInput
+    parent?: CommunityCommentCreateNestedOneWithoutRepliesInput
+    replies?: CommunityCommentCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostCreateNestedOneWithoutAcceptedCommentInput
   }
 
   export type CommunityCommentUncheckedCreateWithoutPostInput = {
     id?: string
     authorId: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    replies?: CommunityCommentUncheckedCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostUncheckedCreateNestedOneWithoutAcceptedCommentInput
   }
 
   export type CommunityCommentCreateOrConnectWithoutPostInput = {
@@ -182167,6 +186487,37 @@ export namespace Prisma {
   export type CommunitySubscriptionCreateManyPostInputEnvelope = {
     data: CommunitySubscriptionCreateManyPostInput | CommunitySubscriptionCreateManyPostInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CommunityCommentCreateWithoutAcceptedForPostInput = {
+    id?: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: CommunityPostCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutCommunityCommentsInput
+    parent?: CommunityCommentCreateNestedOneWithoutRepliesInput
+    replies?: CommunityCommentCreateNestedManyWithoutParentInput
+  }
+
+  export type CommunityCommentUncheckedCreateWithoutAcceptedForPostInput = {
+    id?: string
+    postId: string
+    authorId: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: CommunityCommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type CommunityCommentCreateOrConnectWithoutAcceptedForPostInput = {
+    where: CommunityCommentWhereUniqueInput
+    create: XOR<CommunityCommentCreateWithoutAcceptedForPostInput, CommunityCommentUncheckedCreateWithoutAcceptedForPostInput>
   }
 
   export type CommunityCategoryUpsertWithoutPostsInput = {
@@ -182250,6 +186601,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -182307,6 +186660,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -182389,10 +186744,53 @@ export namespace Prisma {
     data: XOR<CommunitySubscriptionUpdateManyMutationInput, CommunitySubscriptionUncheckedUpdateManyWithoutPostInput>
   }
 
+  export type CommunityCommentUpsertWithoutAcceptedForPostInput = {
+    update: XOR<CommunityCommentUpdateWithoutAcceptedForPostInput, CommunityCommentUncheckedUpdateWithoutAcceptedForPostInput>
+    create: XOR<CommunityCommentCreateWithoutAcceptedForPostInput, CommunityCommentUncheckedCreateWithoutAcceptedForPostInput>
+    where?: CommunityCommentWhereInput
+  }
+
+  export type CommunityCommentUpdateToOneWithWhereWithoutAcceptedForPostInput = {
+    where?: CommunityCommentWhereInput
+    data: XOR<CommunityCommentUpdateWithoutAcceptedForPostInput, CommunityCommentUncheckedUpdateWithoutAcceptedForPostInput>
+  }
+
+  export type CommunityCommentUpdateWithoutAcceptedForPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommunityCommentsNestedInput
+    parent?: CommunityCommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommunityCommentUpdateManyWithoutParentNestedInput
+  }
+
+  export type CommunityCommentUncheckedUpdateWithoutAcceptedForPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommunityCommentUncheckedUpdateManyWithoutParentNestedInput
+  }
+
   export type CommunityPostCreateWithoutCommentsInput = {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -182403,6 +186801,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
     bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
     subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutCommentsInput = {
@@ -182411,6 +186810,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -182465,6 +186871,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -182522,6 +186930,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -182545,6 +186955,124 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCommunityCommentsInput, UserUncheckedCreateWithoutCommunityCommentsInput>
   }
 
+  export type CommunityCommentCreateWithoutRepliesInput = {
+    id?: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: CommunityPostCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutCommunityCommentsInput
+    parent?: CommunityCommentCreateNestedOneWithoutRepliesInput
+    acceptedForPost?: CommunityPostCreateNestedOneWithoutAcceptedCommentInput
+  }
+
+  export type CommunityCommentUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    postId: string
+    authorId: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    acceptedForPost?: CommunityPostUncheckedCreateNestedOneWithoutAcceptedCommentInput
+  }
+
+  export type CommunityCommentCreateOrConnectWithoutRepliesInput = {
+    where: CommunityCommentWhereUniqueInput
+    create: XOR<CommunityCommentCreateWithoutRepliesInput, CommunityCommentUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type CommunityCommentCreateWithoutParentInput = {
+    id?: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: CommunityPostCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutCommunityCommentsInput
+    replies?: CommunityCommentCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostCreateNestedOneWithoutAcceptedCommentInput
+  }
+
+  export type CommunityCommentUncheckedCreateWithoutParentInput = {
+    id?: string
+    postId: string
+    authorId: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    replies?: CommunityCommentUncheckedCreateNestedManyWithoutParentInput
+    acceptedForPost?: CommunityPostUncheckedCreateNestedOneWithoutAcceptedCommentInput
+  }
+
+  export type CommunityCommentCreateOrConnectWithoutParentInput = {
+    where: CommunityCommentWhereUniqueInput
+    create: XOR<CommunityCommentCreateWithoutParentInput, CommunityCommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type CommunityCommentCreateManyParentInputEnvelope = {
+    data: CommunityCommentCreateManyParentInput | CommunityCommentCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityPostCreateWithoutAcceptedCommentInput = {
+    id?: string
+    title: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    attachments?: NullableJsonNullValueInput | InputJsonValue
+    pinned?: boolean
+    lastActivityAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category?: CommunityCategoryCreateNestedOneWithoutPostsInput
+    author: UserCreateNestedOneWithoutCommunityPostsInput
+    comments?: CommunityCommentCreateNestedManyWithoutPostInput
+    likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
+    bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
+    subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+  }
+
+  export type CommunityPostUncheckedCreateWithoutAcceptedCommentInput = {
+    id?: string
+    categoryId?: string | null
+    authorId: string
+    title: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    attachments?: NullableJsonNullValueInput | InputJsonValue
+    pinned?: boolean
+    lastActivityAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comments?: CommunityCommentUncheckedCreateNestedManyWithoutPostInput
+    likes?: CommunityPostLikeUncheckedCreateNestedManyWithoutPostInput
+    bookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutPostInput
+    subscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type CommunityPostCreateOrConnectWithoutAcceptedCommentInput = {
+    where: CommunityPostWhereUniqueInput
+    create: XOR<CommunityPostCreateWithoutAcceptedCommentInput, CommunityPostUncheckedCreateWithoutAcceptedCommentInput>
+  }
+
   export type CommunityPostUpsertWithoutCommentsInput = {
     update: XOR<CommunityPostUpdateWithoutCommentsInput, CommunityPostUncheckedUpdateWithoutCommentsInput>
     create: XOR<CommunityPostCreateWithoutCommentsInput, CommunityPostUncheckedCreateWithoutCommentsInput>
@@ -182560,6 +187088,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -182570,6 +187104,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
     bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
     subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutCommentsInput = {
@@ -182578,6 +187113,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -182638,6 +187180,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -182695,6 +187239,622 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type CommunityCommentUpsertWithoutRepliesInput = {
+    update: XOR<CommunityCommentUpdateWithoutRepliesInput, CommunityCommentUncheckedUpdateWithoutRepliesInput>
+    create: XOR<CommunityCommentCreateWithoutRepliesInput, CommunityCommentUncheckedCreateWithoutRepliesInput>
+    where?: CommunityCommentWhereInput
+  }
+
+  export type CommunityCommentUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: CommunityCommentWhereInput
+    data: XOR<CommunityCommentUpdateWithoutRepliesInput, CommunityCommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type CommunityCommentUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommunityCommentsNestedInput
+    parent?: CommunityCommentUpdateOneWithoutRepliesNestedInput
+    acceptedForPost?: CommunityPostUpdateOneWithoutAcceptedCommentNestedInput
+  }
+
+  export type CommunityCommentUncheckedUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedForPost?: CommunityPostUncheckedUpdateOneWithoutAcceptedCommentNestedInput
+  }
+
+  export type CommunityCommentUpsertWithWhereUniqueWithoutParentInput = {
+    where: CommunityCommentWhereUniqueInput
+    update: XOR<CommunityCommentUpdateWithoutParentInput, CommunityCommentUncheckedUpdateWithoutParentInput>
+    create: XOR<CommunityCommentCreateWithoutParentInput, CommunityCommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type CommunityCommentUpdateWithWhereUniqueWithoutParentInput = {
+    where: CommunityCommentWhereUniqueInput
+    data: XOR<CommunityCommentUpdateWithoutParentInput, CommunityCommentUncheckedUpdateWithoutParentInput>
+  }
+
+  export type CommunityCommentUpdateManyWithWhereWithoutParentInput = {
+    where: CommunityCommentScalarWhereInput
+    data: XOR<CommunityCommentUpdateManyMutationInput, CommunityCommentUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type CommunityPostUpsertWithoutAcceptedCommentInput = {
+    update: XOR<CommunityPostUpdateWithoutAcceptedCommentInput, CommunityPostUncheckedUpdateWithoutAcceptedCommentInput>
+    create: XOR<CommunityPostCreateWithoutAcceptedCommentInput, CommunityPostUncheckedCreateWithoutAcceptedCommentInput>
+    where?: CommunityPostWhereInput
+  }
+
+  export type CommunityPostUpdateToOneWithWhereWithoutAcceptedCommentInput = {
+    where?: CommunityPostWhereInput
+    data: XOR<CommunityPostUpdateWithoutAcceptedCommentInput, CommunityPostUncheckedUpdateWithoutAcceptedCommentInput>
+  }
+
+  export type CommunityPostUpdateWithoutAcceptedCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    attachments?: NullableJsonNullValueInput | InputJsonValue
+    pinned?: BoolFieldUpdateOperationsInput | boolean
+    lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CommunityCategoryUpdateOneWithoutPostsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommunityPostsNestedInput
+    comments?: CommunityCommentUpdateManyWithoutPostNestedInput
+    likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
+    bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
+    subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+  }
+
+  export type CommunityPostUncheckedUpdateWithoutAcceptedCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    attachments?: NullableJsonNullValueInput | InputJsonValue
+    pinned?: BoolFieldUpdateOperationsInput | boolean
+    lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: CommunityCommentUncheckedUpdateManyWithoutPostNestedInput
+    likes?: CommunityPostLikeUncheckedUpdateManyWithoutPostNestedInput
+    bookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutPostNestedInput
+    subscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserCreateWithoutCommunityReportsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutCommunityReportsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventUncheckedCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryUncheckedCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutCommunityReportsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommunityReportsInput, UserUncheckedCreateWithoutCommunityReportsInput>
+  }
+
+  export type UserUpsertWithoutCommunityReportsInput = {
+    update: XOR<UserUpdateWithoutCommunityReportsInput, UserUncheckedUpdateWithoutCommunityReportsInput>
+    create: XOR<UserCreateWithoutCommunityReportsInput, UserUncheckedCreateWithoutCommunityReportsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommunityReportsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommunityReportsInput, UserUncheckedUpdateWithoutCommunityReportsInput>
+  }
+
+  export type UserUpdateWithoutCommunityReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommunityReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUncheckedUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserCreateWithoutCommunityModerationActionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutCommunityModerationActionsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventUncheckedCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryUncheckedCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutCommunityModerationActionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommunityModerationActionsInput, UserUncheckedCreateWithoutCommunityModerationActionsInput>
+  }
+
+  export type UserUpsertWithoutCommunityModerationActionsInput = {
+    update: XOR<UserUpdateWithoutCommunityModerationActionsInput, UserUncheckedUpdateWithoutCommunityModerationActionsInput>
+    create: XOR<UserCreateWithoutCommunityModerationActionsInput, UserUncheckedCreateWithoutCommunityModerationActionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommunityModerationActionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommunityModerationActionsInput, UserUncheckedUpdateWithoutCommunityModerationActionsInput>
+  }
+
+  export type UserUpdateWithoutCommunityModerationActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommunityModerationActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUncheckedUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -182717,6 +187877,12 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -182727,6 +187893,7 @@ export namespace Prisma {
     comments?: CommunityCommentCreateNestedManyWithoutPostInput
     bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
     subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutLikesInput = {
@@ -182735,6 +187902,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -182789,6 +187963,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -182846,6 +188022,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -182884,6 +188062,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -182894,6 +188078,7 @@ export namespace Prisma {
     comments?: CommunityCommentUpdateManyWithoutPostNestedInput
     bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
     subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutLikesInput = {
@@ -182902,6 +188087,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -182962,6 +188154,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -183019,6 +188213,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -183076,6 +188272,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -183133,6 +188331,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -183206,6 +188406,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -183263,6 +188465,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -183320,6 +188524,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -183377,6 +188583,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -183439,6 +188647,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -183496,6 +188706,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -183569,6 +188781,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -183626,6 +188840,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -183694,6 +188910,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -183751,6 +188969,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -183808,6 +189028,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -183865,6 +189087,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -183892,6 +189116,12 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -183902,6 +189132,7 @@ export namespace Prisma {
     comments?: CommunityCommentCreateNestedManyWithoutPostInput
     likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
     subscriptions?: CommunitySubscriptionCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutBookmarksInput = {
@@ -183910,6 +189141,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -183975,6 +189213,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -184032,6 +189272,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -184065,6 +189307,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -184075,6 +189323,7 @@ export namespace Prisma {
     comments?: CommunityCommentUpdateManyWithoutPostNestedInput
     likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
     subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutBookmarksInput = {
@@ -184083,6 +189332,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -184132,6 +189388,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -184189,6 +189447,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -184216,6 +189476,12 @@ export namespace Prisma {
     id?: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -184226,6 +189492,7 @@ export namespace Prisma {
     comments?: CommunityCommentCreateNestedManyWithoutPostInput
     likes?: CommunityPostLikeCreateNestedManyWithoutPostInput
     bookmarks?: CommunityBookmarkCreateNestedManyWithoutPostInput
+    acceptedComment?: CommunityCommentCreateNestedOneWithoutAcceptedForPostInput
   }
 
   export type CommunityPostUncheckedCreateWithoutSubscriptionsInput = {
@@ -184234,6 +189501,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -184299,6 +189573,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -184356,6 +189632,8 @@ export namespace Prisma {
     communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -184389,6 +189667,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -184399,6 +189683,7 @@ export namespace Prisma {
     comments?: CommunityCommentUpdateManyWithoutPostNestedInput
     likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
     bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutSubscriptionsInput = {
@@ -184407,6 +189692,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -184456,6 +189748,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -184513,6 +189807,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -184586,6 +189882,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -184643,6 +189941,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -184700,6 +190000,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -184757,6 +190059,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -184830,6 +190134,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -184887,6 +190193,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -184944,6 +190252,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
@@ -185001,6 +190311,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
     communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
     communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
     creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
     creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
     usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
@@ -185074,6 +190386,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
@@ -185131,6 +190445,8 @@ export namespace Prisma {
     communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
     communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
     communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
     creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
     creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
     usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
@@ -185249,6 +190565,13 @@ export namespace Prisma {
     categoryId?: string | null
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -185260,6 +190583,9 @@ export namespace Prisma {
     id?: string
     postId: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -185314,6 +190640,27 @@ export namespace Prisma {
   export type CommunitySubscriptionCreateManyUserInput = {
     id?: string
     postId: string
+    createdAt?: Date | string
+  }
+
+  export type CommunityReportCreateManyReporterInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    reason: string
+    details?: string | null
+    status?: $Enums.CommunityReportStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityModerationActionCreateManyActorInput = {
+    id?: string
+    targetType: string
+    targetId: string
+    action: string
+    reason?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
@@ -185819,6 +191166,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -185829,6 +191182,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
     bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
     subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutAuthorInput = {
@@ -185836,6 +191190,13 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -185852,6 +191213,13 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -185862,23 +191230,36 @@ export namespace Prisma {
   export type CommunityCommentUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
+    parent?: CommunityCommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommunityCommentUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUpdateOneWithoutAcceptedCommentNestedInput
   }
 
   export type CommunityCommentUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommunityCommentUncheckedUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUncheckedUpdateOneWithoutAcceptedCommentNestedInput
   }
 
   export type CommunityCommentUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -186039,6 +191420,69 @@ export namespace Prisma {
   export type CommunitySubscriptionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityReportUpdateWithoutReporterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityReportUncheckedUpdateWithoutReporterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityReportUncheckedUpdateManyWithoutReporterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityReportStatusFieldUpdateOperationsInput | $Enums.CommunityReportStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityModerationActionUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityModerationActionUncheckedUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityModerationActionUncheckedUpdateManyWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetType?: StringFieldUpdateOperationsInput | string
+    targetId?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -190405,6 +195849,13 @@ export namespace Prisma {
     authorId: string
     title: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    postType?: $Enums.CommunityPostType
+    status?: $Enums.CommunityContentStatus
+    accessLevel?: $Enums.CommunityAccessLevel
+    contextType?: string | null
+    contextId?: string | null
+    acceptedCommentId?: string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: boolean
     lastActivityAt?: Date | string
@@ -190416,6 +195867,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -190426,6 +195883,7 @@ export namespace Prisma {
     likes?: CommunityPostLikeUpdateManyWithoutPostNestedInput
     bookmarks?: CommunityBookmarkUpdateManyWithoutPostNestedInput
     subscriptions?: CommunitySubscriptionUpdateManyWithoutPostNestedInput
+    acceptedComment?: CommunityCommentUpdateOneWithoutAcceptedForPostNestedInput
   }
 
   export type CommunityPostUncheckedUpdateWithoutCategoryInput = {
@@ -190433,6 +195891,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -190449,6 +195914,13 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    postType?: EnumCommunityPostTypeFieldUpdateOperationsInput | $Enums.CommunityPostType
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    contextType?: NullableStringFieldUpdateOperationsInput | string | null
+    contextId?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptedCommentId?: NullableStringFieldUpdateOperationsInput | string | null
     attachments?: NullableJsonNullValueInput | InputJsonValue
     pinned?: BoolFieldUpdateOperationsInput | boolean
     lastActivityAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -190460,6 +195932,9 @@ export namespace Prisma {
     id?: string
     authorId: string
     body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -190485,23 +195960,36 @@ export namespace Prisma {
   export type CommunityCommentUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutCommunityCommentsNestedInput
+    parent?: CommunityCommentUpdateOneWithoutRepliesNestedInput
+    replies?: CommunityCommentUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUpdateOneWithoutAcceptedCommentNestedInput
   }
 
   export type CommunityCommentUncheckedUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommunityCommentUncheckedUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUncheckedUpdateOneWithoutAcceptedCommentNestedInput
   }
 
   export type CommunityCommentUncheckedUpdateManyWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -190558,6 +196046,54 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityCommentCreateManyParentInput = {
+    id?: string
+    postId: string
+    authorId: string
+    body: string
+    contentFormat?: $Enums.CommunityContentFormat
+    status?: $Enums.CommunityContentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityCommentUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: CommunityPostUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutCommunityCommentsNestedInput
+    replies?: CommunityCommentUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUpdateOneWithoutAcceptedCommentNestedInput
+  }
+
+  export type CommunityCommentUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: CommunityCommentUncheckedUpdateManyWithoutParentNestedInput
+    acceptedForPost?: CommunityPostUncheckedUpdateOneWithoutAcceptedCommentNestedInput
+  }
+
+  export type CommunityCommentUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    contentFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    status?: EnumCommunityContentStatusFieldUpdateOperationsInput | $Enums.CommunityContentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

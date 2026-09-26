@@ -15,7 +15,13 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { CommunityFeedService } from './community-feed.service';
-import { CreatePostDto, UpdatePostDto, CreateCommentDto, CategoryDto } from './dto/feed.dto';
+import {
+  CreatePostDto,
+  UpdatePostDto,
+  CreateCommentDto,
+  CategoryDto,
+  CreateCommunityReportDto,
+} from './dto/feed.dto';
 
 @ApiTags('community-feed')
 @Controller('community')
@@ -107,6 +113,22 @@ export class CommunityFeedController {
     return this.feed.deleteComment(req.user.sub, id);
   }
 
+  @Post('posts/:id/accepted-answer')
+  @UseGuards(JwtAuthGuard)
+  acceptAnswer(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Body() body: { commentId?: string | null },
+  ) {
+    return this.feed.acceptAnswer(req.user.sub, id, body.commentId ?? null);
+  }
+
+  @Post('reports')
+  @UseGuards(JwtAuthGuard)
+  report(@Request() req: any, @Body() dto: CreateCommunityReportDto) {
+    return this.feed.report(req.user.sub, dto);
+  }
+
   // --- Admin moderation ---
   @Post('admin/posts/:id/pin')
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -134,5 +156,17 @@ export class CommunityFeedController {
   @Roles('super_admin', 'admin')
   deleteCategory(@Param('id') id: string) {
     return this.feed.deleteCategory(id);
+  }
+
+  @Post('admin/moderation/:targetType/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('super_admin', 'admin')
+  moderate(
+    @Request() req: any,
+    @Param('targetType') targetType: 'POST' | 'COMMENT',
+    @Param('id') id: string,
+    @Body() body: { action: 'HIDE' | 'RESTORE'; reason?: string },
+  ) {
+    return this.feed.moderate(req.user.sub, targetType, id, body.action, body.reason);
   }
 }

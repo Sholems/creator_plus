@@ -589,7 +589,14 @@ class ApiClient {
   }
   async createPost(
     token: string,
-    dto: { title: string; body: string; categoryId?: string; attachments?: any[] },
+    dto: {
+      title: string;
+      body: string;
+      categoryId?: string;
+      attachments?: any[];
+      contentFormat?: 'MARKDOWN' | 'RICH_HTML';
+      postType?: 'DISCUSSION' | 'QUESTION';
+    },
   ) {
     return this.fetch<any>('/community/posts', { method: 'POST', body: dto, token });
   }
@@ -605,12 +612,47 @@ class ApiClient {
   async likePost(token: string, id: string) {
     return this.fetch<any>(`/community/posts/${id}/like`, { method: 'POST', token });
   }
-  async addComment(token: string, postId: string, body: string) {
-    return this.fetch<any>(`/community/posts/${postId}/comments`, {
+  async saveCommunityPost(token: string, id: string) {
+    return this.fetch<{ active: boolean }>(`/community/posts/${id}/save`, {
       method: 'POST',
-      body: { body },
       token,
     });
+  }
+  async subscribeCommunityPost(token: string, id: string) {
+    return this.fetch<{ active: boolean }>(`/community/posts/${id}/subscribe`, {
+      method: 'POST',
+      token,
+    });
+  }
+  async addComment(
+    token: string,
+    postId: string,
+    body: string,
+    options?: { contentFormat?: 'MARKDOWN' | 'RICH_HTML'; parentId?: string },
+  ) {
+    return this.fetch<any>(`/community/posts/${postId}/comments`, {
+      method: 'POST',
+      body: { body, ...options },
+      token,
+    });
+  }
+  async acceptCommunityAnswer(token: string, postId: string, commentId: string | null) {
+    return this.fetch<any>(`/community/posts/${postId}/accepted-answer`, {
+      method: 'POST',
+      body: { commentId },
+      token,
+    });
+  }
+  async reportCommunityContent(
+    token: string,
+    data: {
+      targetType: 'POST' | 'COMMENT' | 'PROFILE';
+      targetId: string;
+      reason: string;
+      details?: string;
+    },
+  ) {
+    return this.fetch<any>('/community/reports', { method: 'POST', body: data, token });
   }
   async deleteComment(token: string, id: string) {
     return this.fetch<any>(`/community/comments/${id}`, { method: 'DELETE', token });

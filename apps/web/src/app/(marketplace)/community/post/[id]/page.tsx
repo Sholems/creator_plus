@@ -7,7 +7,8 @@ import type { Route } from 'next';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import { AttachmentList } from '@/components/community/attachments';
-import { Markdown } from '@/components/community/markdown';
+import { CommunityRichContent } from '@/components/community/rich-content';
+import { CommunityRichEditor } from '@/components/community/community-rich-editor';
 import { MemberAvatar } from '@/components/community/member-avatar';
 
 function timeAgo(iso: string): string {
@@ -30,6 +31,7 @@ export default function PostThreadPage() {
 
   const [post, setPost] = useState<any>(null);
   const [comment, setComment] = useState('');
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -61,8 +63,12 @@ export default function PostThreadPage() {
     if (!token || !comment.trim()) return;
     setBusy(true);
     try {
-      const c = await api.addComment(token, id, comment.trim());
+      const c = await api.addComment(token, id, comment.trim(), {
+        contentFormat: 'RICH_HTML',
+        parentId: replyingTo || undefined,
+      });
       setComment('');
+      setReplyingTo(null);
       setPost((p: any) => ({
         ...p,
         comments: [...p.comments, c],
@@ -88,6 +94,29 @@ export default function PostThreadPage() {
     if (!token) return;
     await api.pinPost(token, id, !post.pinned).catch(() => {});
     setPost((p: any) => ({ ...p, pinned: !p.pinned }));
+  }
+  async function toggleSave() {
+    if (!token) return;
+    const result = await api.saveCommunityPost(token, id);
+    setPost((current: any) => ({ ...current, savedByMe: result.active }));
+  }
+  async function toggleSubscription() {
+    if (!token) return;
+    const result = await api.subscribeCommunityPost(token, id);
+    setPost((current: any) => ({ ...current, subscribedByMe: result.active }));
+  }
+  async function acceptAnswer(commentId: string) {
+    if (!token) return;
+    const next = post.acceptedCommentId === commentId ? null : commentId;
+    await api.acceptCommunityAnswer(token, id, next);
+    setPost((current: any) => ({ ...current, acceptedCommentId: next }));
+  }
+  async function report(targetType: 'POST' | 'COMMENT', targetId: string) {
+    if (!token) return;
+    const reason = window.prompt('Why are you reporting this content?');
+    if (!reason?.trim()) return;
+    await api.reportCommunityContent(token, { targetType, targetId, reason: reason.trim() });
+    window.alert('Thanks. The moderation team will review your report.');
   }
 
   if (loading)
@@ -134,7 +163,7 @@ export default function PostThreadPage() {
           </div>
           <h1 className="mt-3 font-display text-2xl font-bold text-ink-900">{post.title}</h1>
           <div className="mt-3">
-            <Markdown>{post.body}</Markdown>
+            <CommunityRichContent body={post.body} format={post.contentFormat} />
           </div>
           <AttachmentList attachments={post.attachments} />
 
@@ -146,7 +175,24 @@ export default function PostThreadPage() {
               {post.likedByMe ? '♥' : '♡'} {post.likeCount}
             </button>
             <span className="text-ink-500">💬 {post.commentCount}</span>
+            <button onClick={toggleSave} className="font-semibold text-ink-600 hover:text-ink-900">
+              {post.savedByMe ? 'Saved' : 'Save'}
+            </button>
+            <button
+              onClick={toggleSubscription}
+              className="font-semibold text-ink-600 hover:text-ink-900"
+            >
+              {post.subscribedByMe ? 'Following' : 'Follow'}
+            </button>
             <div className="ml-auto flex gap-3 text-xs">
+              {!canDeletePost && (
+                <button
+                  onClick={() => report('POST', post.id)}
+                  className="font-semibold text-ink-500 hover:underline"
+                >
+                  Report
+                </button>
+              )}
               {isAdmin && (
                 <button onClick={pin} className="font-semibold text-ink-500 hover:underline">
                   {post.pinned ? 'Unpin' : 'Pin'}
@@ -167,12 +213,18 @@ export default function PostThreadPage() {
         {/* Comments */}
         <div className="mt-6">
           <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm">
-            <textarea
-              className="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm"
-              rows={2}
+            {replyingTo && (
+              <div className="mb-2 flex items-center justify-between rounded-lg bg-cream-100 px-3 py-2 text-xs text-ink-600">
+                <span>Replying to a member</span>
+                <button onClick={() => setReplyingTo(null)} className="font-semibold">
+                  Cancel
+                </button>
+              </div>
+            )}
+            <CommunityRichEditor
               value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Write a comment…"
+              onChange={setComment}
+              placeholder="Share a useful answer or perspective…"
             />
             <div className="mt-2 flex justify-end">
               <button
@@ -186,28 +238,61 @@ export default function PostThreadPage() {
           </div>
 
           <ul className="mt-4 space-y-3">
-            {post.comments.map((c: any) => (
-              <li key={c.id} className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm">
-                <div className="flex items-center gap-2 text-xs text-ink-500">
-                  <MemberAvatar name={c.author?.displayName} src={c.author?.avatar} size={32} />
-                  <span className="font-medium text-ink-700">
-                    {c.author?.displayName || 'Member'}
-                  </span>
-                  <span>· {timeAgo(c.createdAt)}</span>
-                  {(isAdmin || c.author?.id === user?.id) && (
+            {post.comments.map((c: any) => {
+              const accepted = post.acceptedCommentId === c.id;
+              return (
+                <li
+                  key={c.id}
+                  className={`rounded-2xl border bg-white p-4 shadow-sm ${accepted ? 'border-forest-400 ring-1 ring-forest-200' : 'border-ink-100'} ${c.parentId ? 'ml-8' : ''}`}
+                >
+                  <div className="flex items-center gap-2 text-xs text-ink-500">
+                    <MemberAvatar name={c.author?.displayName} src={c.author?.avatar} size={32} />
+                    <span className="font-medium text-ink-700">
+                      {c.author?.displayName || 'Member'}
+                    </span>
+                    <span>· {timeAgo(c.createdAt)}</span>
+                    {accepted && (
+                      <span className="rounded-full bg-forest-100 px-2 py-0.5 font-semibold text-forest-800">
+                        Accepted answer
+                      </span>
+                    )}
                     <button
-                      onClick={() => removeComment(c.id)}
-                      className="ml-auto text-clay-500 hover:underline"
+                      onClick={() => setReplyingTo(c.id)}
+                      className="ml-auto font-semibold text-ink-500 hover:underline"
                     >
-                      Delete
+                      Reply
+                    </button>
+                    {(post.author?.id === user?.id || isAdmin) && post.postType === 'QUESTION' && (
+                      <button
+                        onClick={() => acceptAnswer(c.id)}
+                        className="font-semibold text-forest-700 hover:underline"
+                      >
+                        {accepted ? 'Unaccept' : 'Accept answer'}
+                      </button>
+                    )}
+                    {(isAdmin || c.author?.id === user?.id) && (
+                      <button
+                        onClick={() => removeComment(c.id)}
+                        className="ml-auto text-clay-500 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
+                  <div className="mt-2">
+                    <CommunityRichContent body={c.body} format={c.contentFormat} />
+                  </div>
+                  {!isAdmin && c.author?.id !== user?.id && (
+                    <button
+                      onClick={() => report('COMMENT', c.id)}
+                      className="mt-2 text-xs font-semibold text-ink-400 hover:text-clay-600"
+                    >
+                      Report
                     </button>
                   )}
-                </div>
-                <div className="mt-2">
-                  <Markdown>{c.body}</Markdown>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

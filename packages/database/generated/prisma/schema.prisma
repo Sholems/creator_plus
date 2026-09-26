@@ -57,6 +57,8 @@ model User {
   communityFollowers              CommunityFollow[]                @relation("CommunityFollowing")
   communityBookmarks              CommunityBookmark[]
   communitySubscriptions          CommunitySubscription[]
+  communityReports                CommunityReport[]
+  communityModerationActions      CommunityModerationAction[]      @relation("CommunityModerator")
   creditBalance                   CreditBalance?
   creditPurchases                 CreditPurchase[]
   usageRecords                    UsageRecord[]
@@ -2249,43 +2251,119 @@ model CommunityCategory {
 }
 
 model CommunityPost {
-  id             String   @id @default(uuid()) @db.Uuid
-  categoryId     String?  @map("category_id") @db.Uuid
-  authorId       String   @map("author_id") @db.Uuid
-  title          String
-  body           String
-  attachments    Json?
-  pinned         Boolean  @default(false)
-  lastActivityAt DateTime @default(now()) @map("last_activity_at")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
+  id                String                 @id @default(uuid()) @db.Uuid
+  categoryId        String?                @map("category_id") @db.Uuid
+  authorId          String                 @map("author_id") @db.Uuid
+  title             String
+  body              String
+  contentFormat     CommunityContentFormat @default(MARKDOWN) @map("content_format")
+  postType          CommunityPostType      @default(DISCUSSION) @map("post_type")
+  status            CommunityContentStatus @default(PUBLISHED)
+  accessLevel       CommunityAccessLevel   @default(FREE) @map("access_level")
+  contextType       String?                @map("context_type")
+  contextId         String?                @map("context_id") @db.Uuid
+  acceptedCommentId String?                @unique @map("accepted_comment_id") @db.Uuid
+  attachments       Json?
+  pinned            Boolean                @default(false)
+  lastActivityAt    DateTime               @default(now()) @map("last_activity_at")
+  createdAt         DateTime               @default(now()) @map("created_at")
+  updatedAt         DateTime               @updatedAt @map("updated_at")
 
-  category      CommunityCategory?      @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  author        User                    @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  comments      CommunityComment[]
-  likes         CommunityPostLike[]
-  bookmarks     CommunityBookmark[]
-  subscriptions CommunitySubscription[]
+  category        CommunityCategory?      @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  author          User                    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments        CommunityComment[]
+  likes           CommunityPostLike[]
+  bookmarks       CommunityBookmark[]
+  subscriptions   CommunitySubscription[]
+  acceptedComment CommunityComment?       @relation("AcceptedComment", fields: [acceptedCommentId], references: [id], onDelete: SetNull)
 
   @@index([categoryId])
   @@index([authorId])
   @@index([pinned, lastActivityAt])
+  @@index([status, lastActivityAt])
+  @@index([contextType, contextId])
   @@map("community_posts")
 }
 
 model CommunityComment {
-  id        String   @id @default(uuid()) @db.Uuid
-  postId    String   @map("post_id") @db.Uuid
-  authorId  String   @map("author_id") @db.Uuid
-  body      String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id            String                 @id @default(uuid()) @db.Uuid
+  postId        String                 @map("post_id") @db.Uuid
+  authorId      String                 @map("author_id") @db.Uuid
+  body          String
+  contentFormat CommunityContentFormat @default(MARKDOWN) @map("content_format")
+  status        CommunityContentStatus @default(PUBLISHED)
+  parentId      String?                @map("parent_id") @db.Uuid
+  createdAt     DateTime               @default(now()) @map("created_at")
+  updatedAt     DateTime               @updatedAt @map("updated_at")
 
-  post   CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post            CommunityPost      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author          User               @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent          CommunityComment?  @relation("CommunityCommentReplies", fields: [parentId], references: [id], onDelete: SetNull)
+  replies         CommunityComment[] @relation("CommunityCommentReplies")
+  acceptedForPost CommunityPost?     @relation("AcceptedComment")
 
   @@index([postId])
+  @@index([parentId])
   @@map("community_comments")
+}
+
+enum CommunityContentFormat {
+  MARKDOWN
+  RICH_HTML
+}
+
+enum CommunityPostType {
+  DISCUSSION
+  QUESTION
+  ANNOUNCEMENT
+}
+
+enum CommunityContentStatus {
+  PUBLISHED
+  HIDDEN
+  DELETED
+  REMOVED
+}
+
+enum CommunityReportStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+model CommunityReport {
+  id         String                @id @default(uuid()) @db.Uuid
+  reporterId String                @map("reporter_id") @db.Uuid
+  targetType String                @map("target_type")
+  targetId   String                @map("target_id") @db.Uuid
+  reason     String
+  details    String?
+  status     CommunityReportStatus @default(OPEN)
+  createdAt  DateTime              @default(now()) @map("created_at")
+  updatedAt  DateTime              @updatedAt @map("updated_at")
+
+  reporter User @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@unique([reporterId, targetType, targetId, reason])
+  @@index([status, createdAt])
+  @@map("community_reports")
+}
+
+model CommunityModerationAction {
+  id         String   @id @default(uuid()) @db.Uuid
+  actorId    String   @map("actor_id") @db.Uuid
+  targetType String   @map("target_type")
+  targetId   String   @map("target_id") @db.Uuid
+  action     String
+  reason     String?
+  metadata   Json?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  actor User @relation("CommunityModerator", fields: [actorId], references: [id], onDelete: Restrict)
+
+  @@index([targetType, targetId])
+  @@index([actorId, createdAt])
+  @@map("community_moderation_actions")
 }
 
 model CommunityPostLike {

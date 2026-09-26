@@ -1250,6 +1250,13 @@ exports.Prisma.CommunityPostScalarFieldEnum = {
   authorId: 'authorId',
   title: 'title',
   body: 'body',
+  contentFormat: 'contentFormat',
+  postType: 'postType',
+  status: 'status',
+  accessLevel: 'accessLevel',
+  contextType: 'contextType',
+  contextId: 'contextId',
+  acceptedCommentId: 'acceptedCommentId',
   attachments: 'attachments',
   pinned: 'pinned',
   lastActivityAt: 'lastActivityAt',
@@ -1262,8 +1269,34 @@ exports.Prisma.CommunityCommentScalarFieldEnum = {
   postId: 'postId',
   authorId: 'authorId',
   body: 'body',
+  contentFormat: 'contentFormat',
+  status: 'status',
+  parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityModerationActionScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  action: 'action',
+  reason: 'reason',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.CommunityPostLikeScalarFieldEnum = {
@@ -1740,6 +1773,35 @@ exports.LessonContentType = exports.$Enums.LessonContentType = {
   FILE: 'FILE'
 };
 
+exports.CommunityContentFormat = exports.$Enums.CommunityContentFormat = {
+  MARKDOWN: 'MARKDOWN',
+  RICH_HTML: 'RICH_HTML'
+};
+
+exports.CommunityPostType = exports.$Enums.CommunityPostType = {
+  DISCUSSION: 'DISCUSSION',
+  QUESTION: 'QUESTION',
+  ANNOUNCEMENT: 'ANNOUNCEMENT'
+};
+
+exports.CommunityContentStatus = exports.$Enums.CommunityContentStatus = {
+  PUBLISHED: 'PUBLISHED',
+  HIDDEN: 'HIDDEN',
+  DELETED: 'DELETED',
+  REMOVED: 'REMOVED'
+};
+
+exports.CommunityAccessLevel = exports.$Enums.CommunityAccessLevel = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+};
+
+exports.CommunityReportStatus = exports.$Enums.CommunityReportStatus = {
+  OPEN: 'OPEN',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+};
+
 exports.CommunityProfileVisibility = exports.$Enums.CommunityProfileVisibility = {
   PUBLIC: 'PUBLIC',
   MEMBERS_ONLY: 'MEMBERS_ONLY',
@@ -1839,6 +1901,8 @@ exports.Prisma.ModelName = {
   CommunityCategory: 'CommunityCategory',
   CommunityPost: 'CommunityPost',
   CommunityComment: 'CommunityComment',
+  CommunityReport: 'CommunityReport',
+  CommunityModerationAction: 'CommunityModerationAction',
   CommunityPostLike: 'CommunityPostLike',
   CommunityProfile: 'CommunityProfile',
   CommunityFollow: 'CommunityFollow',
