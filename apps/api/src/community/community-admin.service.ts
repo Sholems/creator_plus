@@ -5,6 +5,8 @@ import { prisma } from '@creatorplus/database';
 export class CommunityAdminService {
   async overview() {
     const now = new Date();
+    const dayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const [
       activeMembers,
       suspendedMembers,
@@ -13,14 +15,20 @@ export class CommunityAdminService {
       activeChallenges,
       deliveryFailures,
       pendingDeliveries,
+      upcomingRsvps,
+      checkInsLast7d,
+      deliveredLast24h,
     ] = await Promise.all([
       prisma.communityProfile.count({ where: { participationStatus: 'ACTIVE' } }),
       prisma.communityProfile.count({ where: { participationStatus: 'SUSPENDED' } }),
       prisma.communityReport.count({ where: { status: 'OPEN' } }),
-      prisma.communityEvent.count({ where: { published: true, startsAt: { gte: now } } }),
+      prisma.communityEvent.count({ where: { published: true, canceledAt: null, startsAt: { gte: now } } }),
       prisma.communityChallenge.count({ where: { published: true, endsAt: { gte: now } } }),
       prisma.communityDelivery.count({ where: { status: 'FAILED' } }),
       prisma.communityDelivery.count({ where: { status: 'PENDING', scheduledAt: { lt: now } } }),
+      prisma.communityEventRsvp.count({ where: { status: 'GOING', event: { published: true, canceledAt: null, startsAt: { gte: now } } } }),
+      prisma.communityChallengeCheckIn.count({ where: { createdAt: { gte: weekAgo } } }),
+      prisma.communityDelivery.count({ where: { status: 'DELIVERED', deliveredAt: { gte: dayAgo } } }),
     ]);
     return {
       activeMembers,
@@ -29,7 +37,11 @@ export class CommunityAdminService {
       upcomingEvents,
       activeChallenges,
       deliveryFailures,
+      // Reminder lag: durable deliveries whose scheduled time has passed but are unsent.
       pendingDeliveries,
+      upcomingRsvps,
+      checkInsLast7d,
+      deliveredLast24h,
     };
   }
 
