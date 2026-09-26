@@ -554,6 +554,48 @@ class ApiClient {
     });
   }
 
+  // --- Growth Club challenges ---
+  async getCommunityChallenges(token: string) {
+    return this.fetch<any[]>('/community/challenges', { token });
+  }
+  async getCommunityChallenge(token: string, slug: string) {
+    return this.fetch<any>(`/community/challenges/${encodeURIComponent(slug)}`, { token });
+  }
+  async joinCommunityChallenge(token: string, id: string) {
+    return this.fetch<any>(`/community/challenges/${id}/join`, { method: 'POST', token });
+  }
+  async checkInCommunityChallenge(
+    token: string,
+    id: string,
+    dto: { milestoneId?: string; note?: string; progress: number },
+  ) {
+    return this.fetch<any>(`/community/challenges/${id}/check-ins`, {
+      method: 'POST',
+      body: dto,
+      token,
+    });
+  }
+  async adminGetCommunityChallenges(token: string) {
+    return this.fetch<any[]>('/community/admin/challenges', { token });
+  }
+  async adminCreateCommunityChallenge(token: string, dto: any) {
+    return this.fetch<any>('/community/admin/challenges', { method: 'POST', body: dto, token });
+  }
+  async adminUpdateCommunityChallenge(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/admin/challenges/${id}`, {
+      method: 'PATCH',
+      body: dto,
+      token,
+    });
+  }
+  async adminAddChallengeMilestone(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/admin/challenges/${id}/milestones`, {
+      method: 'POST',
+      body: dto,
+      token,
+    });
+  }
+
   // --- Community classroom (admin authoring) ---
   async adminListCourses(token: string) {
     return this.fetch<any[]>('/community/admin/courses', { token });

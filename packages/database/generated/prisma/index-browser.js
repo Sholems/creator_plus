@@ -1274,6 +1274,58 @@ exports.Prisma.CommunityEventRsvpScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CommunityChallengeScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  descriptionFormat: 'descriptionFormat',
+  accessLevel: 'accessLevel',
+  coverImage: 'coverImage',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  published: 'published',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityChallengeMilestoneScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  title: 'title',
+  description: 'description',
+  dueAt: 'dueAt',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CommunityAccountabilityGroupScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  name: 'name',
+  capacity: 'capacity',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CommunityChallengeEnrollmentScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  userId: 'userId',
+  groupId: 'groupId',
+  status: 'status',
+  joinedAt: 'joinedAt',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.CommunityChallengeCheckInScalarFieldEnum = {
+  id: 'id',
+  enrollmentId: 'enrollmentId',
+  milestoneId: 'milestoneId',
+  note: 'note',
+  progress: 'progress',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.CommunityCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1834,6 +1886,12 @@ exports.CommunityEventRsvpStatus = exports.$Enums.CommunityEventRsvpStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.CommunityChallengeEnrollmentStatus = exports.$Enums.CommunityChallengeEnrollmentStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  WITHDRAWN: 'WITHDRAWN'
+};
+
 exports.CommunityPostType = exports.$Enums.CommunityPostType = {
   DISCUSSION: 'DISCUSSION',
   QUESTION: 'QUESTION',
@@ -1952,6 +2010,11 @@ exports.Prisma.ModelName = {
   CourseCertificate: 'CourseCertificate',
   CommunityEvent: 'CommunityEvent',
   CommunityEventRsvp: 'CommunityEventRsvp',
+  CommunityChallenge: 'CommunityChallenge',
+  CommunityChallengeMilestone: 'CommunityChallengeMilestone',
+  CommunityAccountabilityGroup: 'CommunityAccountabilityGroup',
+  CommunityChallengeEnrollment: 'CommunityChallengeEnrollment',
+  CommunityChallengeCheckIn: 'CommunityChallengeCheckIn',
   CommunityCategory: 'CommunityCategory',
   CommunityPost: 'CommunityPost',
   CommunityComment: 'CommunityComment',

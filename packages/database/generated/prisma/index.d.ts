@@ -473,6 +473,31 @@ export type CommunityEvent = $Result.DefaultSelection<Prisma.$CommunityEventPayl
  */
 export type CommunityEventRsvp = $Result.DefaultSelection<Prisma.$CommunityEventRsvpPayload>
 /**
+ * Model CommunityChallenge
+ * 
+ */
+export type CommunityChallenge = $Result.DefaultSelection<Prisma.$CommunityChallengePayload>
+/**
+ * Model CommunityChallengeMilestone
+ * 
+ */
+export type CommunityChallengeMilestone = $Result.DefaultSelection<Prisma.$CommunityChallengeMilestonePayload>
+/**
+ * Model CommunityAccountabilityGroup
+ * 
+ */
+export type CommunityAccountabilityGroup = $Result.DefaultSelection<Prisma.$CommunityAccountabilityGroupPayload>
+/**
+ * Model CommunityChallengeEnrollment
+ * 
+ */
+export type CommunityChallengeEnrollment = $Result.DefaultSelection<Prisma.$CommunityChallengeEnrollmentPayload>
+/**
+ * Model CommunityChallengeCheckIn
+ * 
+ */
+export type CommunityChallengeCheckIn = $Result.DefaultSelection<Prisma.$CommunityChallengeCheckInPayload>
+/**
  * Model CommunityCategory
  * 
  */
@@ -1068,6 +1093,15 @@ export const CommunityEventRsvpStatus: {
 export type CommunityEventRsvpStatus = (typeof CommunityEventRsvpStatus)[keyof typeof CommunityEventRsvpStatus]
 
 
+export const CommunityChallengeEnrollmentStatus: {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  WITHDRAWN: 'WITHDRAWN'
+};
+
+export type CommunityChallengeEnrollmentStatus = (typeof CommunityChallengeEnrollmentStatus)[keyof typeof CommunityChallengeEnrollmentStatus]
+
+
 export const CommunityContentFormat: {
   MARKDOWN: 'MARKDOWN',
   RICH_HTML: 'RICH_HTML'
@@ -1329,6 +1363,10 @@ export const CommunityEventType: typeof $Enums.CommunityEventType
 export type CommunityEventRsvpStatus = $Enums.CommunityEventRsvpStatus
 
 export const CommunityEventRsvpStatus: typeof $Enums.CommunityEventRsvpStatus
+
+export type CommunityChallengeEnrollmentStatus = $Enums.CommunityChallengeEnrollmentStatus
+
+export const CommunityChallengeEnrollmentStatus: typeof $Enums.CommunityChallengeEnrollmentStatus
 
 export type CommunityContentFormat = $Enums.CommunityContentFormat
 
@@ -2347,6 +2385,56 @@ export class PrismaClient<
   get communityEventRsvp(): Prisma.CommunityEventRsvpDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.communityChallenge`: Exposes CRUD operations for the **CommunityChallenge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityChallenges
+    * const communityChallenges = await prisma.communityChallenge.findMany()
+    * ```
+    */
+  get communityChallenge(): Prisma.CommunityChallengeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityChallengeMilestone`: Exposes CRUD operations for the **CommunityChallengeMilestone** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityChallengeMilestones
+    * const communityChallengeMilestones = await prisma.communityChallengeMilestone.findMany()
+    * ```
+    */
+  get communityChallengeMilestone(): Prisma.CommunityChallengeMilestoneDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityAccountabilityGroup`: Exposes CRUD operations for the **CommunityAccountabilityGroup** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityAccountabilityGroups
+    * const communityAccountabilityGroups = await prisma.communityAccountabilityGroup.findMany()
+    * ```
+    */
+  get communityAccountabilityGroup(): Prisma.CommunityAccountabilityGroupDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityChallengeEnrollment`: Exposes CRUD operations for the **CommunityChallengeEnrollment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityChallengeEnrollments
+    * const communityChallengeEnrollments = await prisma.communityChallengeEnrollment.findMany()
+    * ```
+    */
+  get communityChallengeEnrollment(): Prisma.CommunityChallengeEnrollmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityChallengeCheckIn`: Exposes CRUD operations for the **CommunityChallengeCheckIn** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityChallengeCheckIns
+    * const communityChallengeCheckIns = await prisma.communityChallengeCheckIn.findMany()
+    * ```
+    */
+  get communityChallengeCheckIn(): Prisma.CommunityChallengeCheckInDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.communityCategory`: Exposes CRUD operations for the **CommunityCategory** model.
     * Example usage:
     * ```ts
@@ -3003,6 +3091,11 @@ export namespace Prisma {
     CourseCertificate: 'CourseCertificate',
     CommunityEvent: 'CommunityEvent',
     CommunityEventRsvp: 'CommunityEventRsvp',
+    CommunityChallenge: 'CommunityChallenge',
+    CommunityChallengeMilestone: 'CommunityChallengeMilestone',
+    CommunityAccountabilityGroup: 'CommunityAccountabilityGroup',
+    CommunityChallengeEnrollment: 'CommunityChallengeEnrollment',
+    CommunityChallengeCheckIn: 'CommunityChallengeCheckIn',
     CommunityCategory: 'CommunityCategory',
     CommunityPost: 'CommunityPost',
     CommunityComment: 'CommunityComment',
@@ -3034,7 +3127,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityEvent" | "communityEventRsvp" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityEvent" | "communityEventRsvp" | "communityChallenge" | "communityChallengeMilestone" | "communityAccountabilityGroup" | "communityChallengeEnrollment" | "communityChallengeCheckIn" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -9476,6 +9569,376 @@ export namespace Prisma {
           }
         }
       }
+      CommunityChallenge: {
+        payload: Prisma.$CommunityChallengePayload<ExtArgs>
+        fields: Prisma.CommunityChallengeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityChallengeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityChallengeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityChallengeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityChallengeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>
+          }
+          findMany: {
+            args: Prisma.CommunityChallengeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>[]
+          }
+          create: {
+            args: Prisma.CommunityChallengeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>
+          }
+          createMany: {
+            args: Prisma.CommunityChallengeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityChallengeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityChallengeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>
+          }
+          update: {
+            args: Prisma.CommunityChallengeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityChallengeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityChallengeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityChallengeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityChallengeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengePayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityChallengeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityChallenge>
+          }
+          groupBy: {
+            args: Prisma.CommunityChallengeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityChallengeCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityChallengeMilestone: {
+        payload: Prisma.$CommunityChallengeMilestonePayload<ExtArgs>
+        fields: Prisma.CommunityChallengeMilestoneFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityChallengeMilestoneFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityChallengeMilestoneFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityChallengeMilestoneFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityChallengeMilestoneFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>
+          }
+          findMany: {
+            args: Prisma.CommunityChallengeMilestoneFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>[]
+          }
+          create: {
+            args: Prisma.CommunityChallengeMilestoneCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>
+          }
+          createMany: {
+            args: Prisma.CommunityChallengeMilestoneCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityChallengeMilestoneCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityChallengeMilestoneDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>
+          }
+          update: {
+            args: Prisma.CommunityChallengeMilestoneUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityChallengeMilestoneDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityChallengeMilestoneUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityChallengeMilestoneUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityChallengeMilestoneUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeMilestonePayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityChallengeMilestoneAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityChallengeMilestone>
+          }
+          groupBy: {
+            args: Prisma.CommunityChallengeMilestoneGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeMilestoneGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityChallengeMilestoneCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeMilestoneCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityAccountabilityGroup: {
+        payload: Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>
+        fields: Prisma.CommunityAccountabilityGroupFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityAccountabilityGroupFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityAccountabilityGroupFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityAccountabilityGroupFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityAccountabilityGroupFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityAccountabilityGroupFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityAccountabilityGroupCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityAccountabilityGroupCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityAccountabilityGroupCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityAccountabilityGroupDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>
+          }
+          update: {
+            args: Prisma.CommunityAccountabilityGroupUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityAccountabilityGroupDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityAccountabilityGroupUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityAccountabilityGroupUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityAccountabilityGroupUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityAccountabilityGroupPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityAccountabilityGroupAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityAccountabilityGroup>
+          }
+          groupBy: {
+            args: Prisma.CommunityAccountabilityGroupGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityAccountabilityGroupGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityAccountabilityGroupCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityAccountabilityGroupCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityChallengeEnrollment: {
+        payload: Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>
+        fields: Prisma.CommunityChallengeEnrollmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityChallengeEnrollmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityChallengeEnrollmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityChallengeEnrollmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityChallengeEnrollmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityChallengeEnrollmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityChallengeEnrollmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityChallengeEnrollmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityChallengeEnrollmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityChallengeEnrollmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>
+          }
+          update: {
+            args: Prisma.CommunityChallengeEnrollmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityChallengeEnrollmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityChallengeEnrollmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityChallengeEnrollmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityChallengeEnrollmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeEnrollmentPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityChallengeEnrollmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityChallengeEnrollment>
+          }
+          groupBy: {
+            args: Prisma.CommunityChallengeEnrollmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeEnrollmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityChallengeEnrollmentCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeEnrollmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityChallengeCheckIn: {
+        payload: Prisma.$CommunityChallengeCheckInPayload<ExtArgs>
+        fields: Prisma.CommunityChallengeCheckInFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityChallengeCheckInFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityChallengeCheckInFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityChallengeCheckInFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityChallengeCheckInFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityChallengeCheckInFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityChallengeCheckInCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityChallengeCheckInCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityChallengeCheckInCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityChallengeCheckInDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>
+          }
+          update: {
+            args: Prisma.CommunityChallengeCheckInUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityChallengeCheckInDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityChallengeCheckInUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityChallengeCheckInUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityChallengeCheckInUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityChallengeCheckInPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityChallengeCheckInAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityChallengeCheckIn>
+          }
+          groupBy: {
+            args: Prisma.CommunityChallengeCheckInGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeCheckInGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityChallengeCheckInCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityChallengeCheckInCountAggregateOutputType> | number
+          }
+        }
+      }
       CommunityCategory: {
         payload: Prisma.$CommunityCategoryPayload<ExtArgs>
         fields: Prisma.CommunityCategoryFieldRefs
@@ -10621,6 +11084,11 @@ export namespace Prisma {
     courseCertificate?: CourseCertificateOmit
     communityEvent?: CommunityEventOmit
     communityEventRsvp?: CommunityEventRsvpOmit
+    communityChallenge?: CommunityChallengeOmit
+    communityChallengeMilestone?: CommunityChallengeMilestoneOmit
+    communityAccountabilityGroup?: CommunityAccountabilityGroupOmit
+    communityChallengeEnrollment?: CommunityChallengeEnrollmentOmit
+    communityChallengeCheckIn?: CommunityChallengeCheckInOmit
     communityCategory?: CommunityCategoryOmit
     communityPost?: CommunityPostOmit
     communityComment?: CommunityCommentOmit
@@ -10725,6 +11193,7 @@ export namespace Prisma {
     lessonProgress: number
     courseCertificates: number
     communityEventRsvps: number
+    communityChallengeEnrollments: number
     communityPosts: number
     communityComments: number
     communityPostLikes: number
@@ -10765,6 +11234,7 @@ export namespace Prisma {
     lessonProgress?: boolean | UserCountOutputTypeCountLessonProgressArgs
     courseCertificates?: boolean | UserCountOutputTypeCountCourseCertificatesArgs
     communityEventRsvps?: boolean | UserCountOutputTypeCountCommunityEventRsvpsArgs
+    communityChallengeEnrollments?: boolean | UserCountOutputTypeCountCommunityChallengeEnrollmentsArgs
     communityPosts?: boolean | UserCountOutputTypeCountCommunityPostsArgs
     communityComments?: boolean | UserCountOutputTypeCountCommunityCommentsArgs
     communityPostLikes?: boolean | UserCountOutputTypeCountCommunityPostLikesArgs
@@ -10879,6 +11349,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCommunityEventRsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommunityEventRsvpWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommunityChallengeEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeEnrollmentWhereInput
   }
 
   /**
@@ -12558,6 +13035,148 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CommunityChallengeCountOutputType
+   */
+
+  export type CommunityChallengeCountOutputType = {
+    milestones: number
+    enrollments: number
+    groups: number
+  }
+
+  export type CommunityChallengeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    milestones?: boolean | CommunityChallengeCountOutputTypeCountMilestonesArgs
+    enrollments?: boolean | CommunityChallengeCountOutputTypeCountEnrollmentsArgs
+    groups?: boolean | CommunityChallengeCountOutputTypeCountGroupsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityChallengeCountOutputType without action
+   */
+  export type CommunityChallengeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCountOutputType
+     */
+    select?: CommunityChallengeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeCountOutputType without action
+   */
+  export type CommunityChallengeCountOutputTypeCountMilestonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeMilestoneWhereInput
+  }
+
+  /**
+   * CommunityChallengeCountOutputType without action
+   */
+  export type CommunityChallengeCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeEnrollmentWhereInput
+  }
+
+  /**
+   * CommunityChallengeCountOutputType without action
+   */
+  export type CommunityChallengeCountOutputTypeCountGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityAccountabilityGroupWhereInput
+  }
+
+
+  /**
+   * Count Type CommunityChallengeMilestoneCountOutputType
+   */
+
+  export type CommunityChallengeMilestoneCountOutputType = {
+    checkIns: number
+  }
+
+  export type CommunityChallengeMilestoneCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    checkIns?: boolean | CommunityChallengeMilestoneCountOutputTypeCountCheckInsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityChallengeMilestoneCountOutputType without action
+   */
+  export type CommunityChallengeMilestoneCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestoneCountOutputType
+     */
+    select?: CommunityChallengeMilestoneCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeMilestoneCountOutputType without action
+   */
+  export type CommunityChallengeMilestoneCountOutputTypeCountCheckInsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeCheckInWhereInput
+  }
+
+
+  /**
+   * Count Type CommunityAccountabilityGroupCountOutputType
+   */
+
+  export type CommunityAccountabilityGroupCountOutputType = {
+    enrollments: number
+  }
+
+  export type CommunityAccountabilityGroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enrollments?: boolean | CommunityAccountabilityGroupCountOutputTypeCountEnrollmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityAccountabilityGroupCountOutputType without action
+   */
+  export type CommunityAccountabilityGroupCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroupCountOutputType
+     */
+    select?: CommunityAccountabilityGroupCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityAccountabilityGroupCountOutputType without action
+   */
+  export type CommunityAccountabilityGroupCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeEnrollmentWhereInput
+  }
+
+
+  /**
+   * Count Type CommunityChallengeEnrollmentCountOutputType
+   */
+
+  export type CommunityChallengeEnrollmentCountOutputType = {
+    checkIns: number
+  }
+
+  export type CommunityChallengeEnrollmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    checkIns?: boolean | CommunityChallengeEnrollmentCountOutputTypeCountCheckInsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityChallengeEnrollmentCountOutputType without action
+   */
+  export type CommunityChallengeEnrollmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollmentCountOutputType
+     */
+    select?: CommunityChallengeEnrollmentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeEnrollmentCountOutputType without action
+   */
+  export type CommunityChallengeEnrollmentCountOutputTypeCountCheckInsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeCheckInWhereInput
+  }
+
+
+  /**
    * Count Type CommunityCategoryCountOutputType
    */
 
@@ -12926,6 +13545,7 @@ export namespace Prisma {
     lessonProgress?: boolean | User$lessonProgressArgs<ExtArgs>
     courseCertificates?: boolean | User$courseCertificatesArgs<ExtArgs>
     communityEventRsvps?: boolean | User$communityEventRsvpsArgs<ExtArgs>
+    communityChallengeEnrollments?: boolean | User$communityChallengeEnrollmentsArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
     communityComments?: boolean | User$communityCommentsArgs<ExtArgs>
     communityPostLikes?: boolean | User$communityPostLikesArgs<ExtArgs>
@@ -13025,6 +13645,7 @@ export namespace Prisma {
     lessonProgress?: boolean | User$lessonProgressArgs<ExtArgs>
     courseCertificates?: boolean | User$courseCertificatesArgs<ExtArgs>
     communityEventRsvps?: boolean | User$communityEventRsvpsArgs<ExtArgs>
+    communityChallengeEnrollments?: boolean | User$communityChallengeEnrollmentsArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
     communityComments?: boolean | User$communityCommentsArgs<ExtArgs>
     communityPostLikes?: boolean | User$communityPostLikesArgs<ExtArgs>
@@ -13079,6 +13700,7 @@ export namespace Prisma {
       lessonProgress: Prisma.$LessonProgressPayload<ExtArgs>[]
       courseCertificates: Prisma.$CourseCertificatePayload<ExtArgs>[]
       communityEventRsvps: Prisma.$CommunityEventRsvpPayload<ExtArgs>[]
+      communityChallengeEnrollments: Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>[]
       communityPosts: Prisma.$CommunityPostPayload<ExtArgs>[]
       communityComments: Prisma.$CommunityCommentPayload<ExtArgs>[]
       communityPostLikes: Prisma.$CommunityPostLikePayload<ExtArgs>[]
@@ -13534,6 +14156,7 @@ export namespace Prisma {
     lessonProgress<T extends User$lessonProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$lessonProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     courseCertificates<T extends User$courseCertificatesArgs<ExtArgs> = {}>(args?: Subset<T, User$courseCertificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityEventRsvps<T extends User$communityEventRsvpsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityEventRsvpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    communityChallengeEnrollments<T extends User$communityChallengeEnrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityChallengeEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPosts<T extends User$communityPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityComments<T extends User$communityCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPostLikes<T extends User$communityPostLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14368,6 +14991,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommunityEventRsvpScalarFieldEnum | CommunityEventRsvpScalarFieldEnum[]
+  }
+
+  /**
+   * User.communityChallengeEnrollments
+   */
+  export type User$communityChallengeEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    where?: CommunityChallengeEnrollmentWhereInput
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityChallengeEnrollmentScalarFieldEnum | CommunityChallengeEnrollmentScalarFieldEnum[]
   }
 
   /**
@@ -115798,6 +116445,5774 @@ export namespace Prisma {
 
 
   /**
+   * Model CommunityChallenge
+   */
+
+  export type AggregateCommunityChallenge = {
+    _count: CommunityChallengeCountAggregateOutputType | null
+    _min: CommunityChallengeMinAggregateOutputType | null
+    _max: CommunityChallengeMaxAggregateOutputType | null
+  }
+
+  export type CommunityChallengeMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat | null
+    accessLevel: $Enums.CommunityAccessLevel | null
+    coverImage: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    published: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityChallengeMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat | null
+    accessLevel: $Enums.CommunityAccessLevel | null
+    coverImage: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    published: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityChallengeCountAggregateOutputType = {
+    id: number
+    title: number
+    slug: number
+    description: number
+    descriptionFormat: number
+    accessLevel: number
+    coverImage: number
+    startsAt: number
+    endsAt: number
+    published: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CommunityChallengeMinAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    descriptionFormat?: true
+    accessLevel?: true
+    coverImage?: true
+    startsAt?: true
+    endsAt?: true
+    published?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityChallengeMaxAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    descriptionFormat?: true
+    accessLevel?: true
+    coverImage?: true
+    startsAt?: true
+    endsAt?: true
+    published?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityChallengeCountAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    descriptionFormat?: true
+    accessLevel?: true
+    coverImage?: true
+    startsAt?: true
+    endsAt?: true
+    published?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CommunityChallengeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallenge to aggregate.
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallenges to fetch.
+     */
+    orderBy?: CommunityChallengeOrderByWithRelationInput | CommunityChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallenges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityChallenges
+    **/
+    _count?: true | CommunityChallengeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityChallengeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityChallengeMaxAggregateInputType
+  }
+
+  export type GetCommunityChallengeAggregateType<T extends CommunityChallengeAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityChallenge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityChallenge[P]>
+      : GetScalarType<T[P], AggregateCommunityChallenge[P]>
+  }
+
+
+
+
+  export type CommunityChallengeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeWhereInput
+    orderBy?: CommunityChallengeOrderByWithAggregationInput | CommunityChallengeOrderByWithAggregationInput[]
+    by: CommunityChallengeScalarFieldEnum[] | CommunityChallengeScalarFieldEnum
+    having?: CommunityChallengeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityChallengeCountAggregateInputType | true
+    _min?: CommunityChallengeMinAggregateInputType
+    _max?: CommunityChallengeMaxAggregateInputType
+  }
+
+  export type CommunityChallengeGroupByOutputType = {
+    id: string
+    title: string
+    slug: string
+    description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat
+    accessLevel: $Enums.CommunityAccessLevel
+    coverImage: string | null
+    startsAt: Date
+    endsAt: Date
+    published: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: CommunityChallengeCountAggregateOutputType | null
+    _min: CommunityChallengeMinAggregateOutputType | null
+    _max: CommunityChallengeMaxAggregateOutputType | null
+  }
+
+  type GetCommunityChallengeGroupByPayload<T extends CommunityChallengeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityChallengeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityChallengeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityChallengeGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityChallengeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityChallengeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    accessLevel?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    milestones?: boolean | CommunityChallenge$milestonesArgs<ExtArgs>
+    enrollments?: boolean | CommunityChallenge$enrollmentsArgs<ExtArgs>
+    groups?: boolean | CommunityChallenge$groupsArgs<ExtArgs>
+    _count?: boolean | CommunityChallengeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallenge"]>
+
+  export type CommunityChallengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    accessLevel?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["communityChallenge"]>
+
+  export type CommunityChallengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    accessLevel?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["communityChallenge"]>
+
+  export type CommunityChallengeSelectScalar = {
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    accessLevel?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CommunityChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "descriptionFormat" | "accessLevel" | "coverImage" | "startsAt" | "endsAt" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["communityChallenge"]>
+  export type CommunityChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    milestones?: boolean | CommunityChallenge$milestonesArgs<ExtArgs>
+    enrollments?: boolean | CommunityChallenge$enrollmentsArgs<ExtArgs>
+    groups?: boolean | CommunityChallenge$groupsArgs<ExtArgs>
+    _count?: boolean | CommunityChallengeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommunityChallengeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CommunityChallengeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CommunityChallengePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityChallenge"
+    objects: {
+      milestones: Prisma.$CommunityChallengeMilestonePayload<ExtArgs>[]
+      enrollments: Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>[]
+      groups: Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      slug: string
+      description: string | null
+      descriptionFormat: $Enums.CommunityContentFormat
+      accessLevel: $Enums.CommunityAccessLevel
+      coverImage: string | null
+      startsAt: Date
+      endsAt: Date
+      published: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["communityChallenge"]>
+    composites: {}
+  }
+
+  type CommunityChallengeGetPayload<S extends boolean | null | undefined | CommunityChallengeDefaultArgs> = $Result.GetResult<Prisma.$CommunityChallengePayload, S>
+
+  type CommunityChallengeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityChallengeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityChallengeCountAggregateInputType | true
+    }
+
+  export interface CommunityChallengeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityChallenge'], meta: { name: 'CommunityChallenge' } }
+    /**
+     * Find zero or one CommunityChallenge that matches the filter.
+     * @param {CommunityChallengeFindUniqueArgs} args - Arguments to find a CommunityChallenge
+     * @example
+     * // Get one CommunityChallenge
+     * const communityChallenge = await prisma.communityChallenge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityChallengeFindUniqueArgs>(args: SelectSubset<T, CommunityChallengeFindUniqueArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityChallenge that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityChallengeFindUniqueOrThrowArgs} args - Arguments to find a CommunityChallenge
+     * @example
+     * // Get one CommunityChallenge
+     * const communityChallenge = await prisma.communityChallenge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityChallengeFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityChallengeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallenge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeFindFirstArgs} args - Arguments to find a CommunityChallenge
+     * @example
+     * // Get one CommunityChallenge
+     * const communityChallenge = await prisma.communityChallenge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityChallengeFindFirstArgs>(args?: SelectSubset<T, CommunityChallengeFindFirstArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallenge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeFindFirstOrThrowArgs} args - Arguments to find a CommunityChallenge
+     * @example
+     * // Get one CommunityChallenge
+     * const communityChallenge = await prisma.communityChallenge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityChallengeFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityChallengeFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityChallenges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityChallenges
+     * const communityChallenges = await prisma.communityChallenge.findMany()
+     * 
+     * // Get first 10 CommunityChallenges
+     * const communityChallenges = await prisma.communityChallenge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityChallengeWithIdOnly = await prisma.communityChallenge.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityChallengeFindManyArgs>(args?: SelectSubset<T, CommunityChallengeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityChallenge.
+     * @param {CommunityChallengeCreateArgs} args - Arguments to create a CommunityChallenge.
+     * @example
+     * // Create one CommunityChallenge
+     * const CommunityChallenge = await prisma.communityChallenge.create({
+     *   data: {
+     *     // ... data to create a CommunityChallenge
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityChallengeCreateArgs>(args: SelectSubset<T, CommunityChallengeCreateArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityChallenges.
+     * @param {CommunityChallengeCreateManyArgs} args - Arguments to create many CommunityChallenges.
+     * @example
+     * // Create many CommunityChallenges
+     * const communityChallenge = await prisma.communityChallenge.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityChallengeCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityChallenges and returns the data saved in the database.
+     * @param {CommunityChallengeCreateManyAndReturnArgs} args - Arguments to create many CommunityChallenges.
+     * @example
+     * // Create many CommunityChallenges
+     * const communityChallenge = await prisma.communityChallenge.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityChallenges and only return the `id`
+     * const communityChallengeWithIdOnly = await prisma.communityChallenge.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityChallengeCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityChallengeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityChallenge.
+     * @param {CommunityChallengeDeleteArgs} args - Arguments to delete one CommunityChallenge.
+     * @example
+     * // Delete one CommunityChallenge
+     * const CommunityChallenge = await prisma.communityChallenge.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityChallenge
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityChallengeDeleteArgs>(args: SelectSubset<T, CommunityChallengeDeleteArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityChallenge.
+     * @param {CommunityChallengeUpdateArgs} args - Arguments to update one CommunityChallenge.
+     * @example
+     * // Update one CommunityChallenge
+     * const communityChallenge = await prisma.communityChallenge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityChallengeUpdateArgs>(args: SelectSubset<T, CommunityChallengeUpdateArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityChallenges.
+     * @param {CommunityChallengeDeleteManyArgs} args - Arguments to filter CommunityChallenges to delete.
+     * @example
+     * // Delete a few CommunityChallenges
+     * const { count } = await prisma.communityChallenge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityChallengeDeleteManyArgs>(args?: SelectSubset<T, CommunityChallengeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallenges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityChallenges
+     * const communityChallenge = await prisma.communityChallenge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityChallengeUpdateManyArgs>(args: SelectSubset<T, CommunityChallengeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallenges and returns the data updated in the database.
+     * @param {CommunityChallengeUpdateManyAndReturnArgs} args - Arguments to update many CommunityChallenges.
+     * @example
+     * // Update many CommunityChallenges
+     * const communityChallenge = await prisma.communityChallenge.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityChallenges and only return the `id`
+     * const communityChallengeWithIdOnly = await prisma.communityChallenge.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityChallengeUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityChallengeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityChallenge.
+     * @param {CommunityChallengeUpsertArgs} args - Arguments to update or create a CommunityChallenge.
+     * @example
+     * // Update or create a CommunityChallenge
+     * const communityChallenge = await prisma.communityChallenge.upsert({
+     *   create: {
+     *     // ... data to create a CommunityChallenge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityChallenge we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityChallengeUpsertArgs>(args: SelectSubset<T, CommunityChallengeUpsertArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityChallenges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCountArgs} args - Arguments to filter CommunityChallenges to count.
+     * @example
+     * // Count the number of CommunityChallenges
+     * const count = await prisma.communityChallenge.count({
+     *   where: {
+     *     // ... the filter for the CommunityChallenges we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityChallengeCountArgs>(
+      args?: Subset<T, CommunityChallengeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityChallengeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityChallenge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityChallengeAggregateArgs>(args: Subset<T, CommunityChallengeAggregateArgs>): Prisma.PrismaPromise<GetCommunityChallengeAggregateType<T>>
+
+    /**
+     * Group by CommunityChallenge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityChallengeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityChallengeGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityChallengeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityChallengeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityChallengeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityChallenge model
+   */
+  readonly fields: CommunityChallengeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityChallenge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityChallengeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    milestones<T extends CommunityChallenge$milestonesArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallenge$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    enrollments<T extends CommunityChallenge$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallenge$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    groups<T extends CommunityChallenge$groupsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallenge$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityChallenge model
+   */
+  interface CommunityChallengeFieldRefs {
+    readonly id: FieldRef<"CommunityChallenge", 'String'>
+    readonly title: FieldRef<"CommunityChallenge", 'String'>
+    readonly slug: FieldRef<"CommunityChallenge", 'String'>
+    readonly description: FieldRef<"CommunityChallenge", 'String'>
+    readonly descriptionFormat: FieldRef<"CommunityChallenge", 'CommunityContentFormat'>
+    readonly accessLevel: FieldRef<"CommunityChallenge", 'CommunityAccessLevel'>
+    readonly coverImage: FieldRef<"CommunityChallenge", 'String'>
+    readonly startsAt: FieldRef<"CommunityChallenge", 'DateTime'>
+    readonly endsAt: FieldRef<"CommunityChallenge", 'DateTime'>
+    readonly published: FieldRef<"CommunityChallenge", 'Boolean'>
+    readonly createdAt: FieldRef<"CommunityChallenge", 'DateTime'>
+    readonly updatedAt: FieldRef<"CommunityChallenge", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityChallenge findUnique
+   */
+  export type CommunityChallengeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallenge to fetch.
+     */
+    where: CommunityChallengeWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallenge findUniqueOrThrow
+   */
+  export type CommunityChallengeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallenge to fetch.
+     */
+    where: CommunityChallengeWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallenge findFirst
+   */
+  export type CommunityChallengeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallenge to fetch.
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallenges to fetch.
+     */
+    orderBy?: CommunityChallengeOrderByWithRelationInput | CommunityChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallenges.
+     */
+    cursor?: CommunityChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallenges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallenges.
+     */
+    distinct?: CommunityChallengeScalarFieldEnum | CommunityChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallenge findFirstOrThrow
+   */
+  export type CommunityChallengeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallenge to fetch.
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallenges to fetch.
+     */
+    orderBy?: CommunityChallengeOrderByWithRelationInput | CommunityChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallenges.
+     */
+    cursor?: CommunityChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallenges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallenges.
+     */
+    distinct?: CommunityChallengeScalarFieldEnum | CommunityChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallenge findMany
+   */
+  export type CommunityChallengeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallenges to fetch.
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallenges to fetch.
+     */
+    orderBy?: CommunityChallengeOrderByWithRelationInput | CommunityChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityChallenges.
+     */
+    cursor?: CommunityChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallenges.
+     */
+    skip?: number
+    distinct?: CommunityChallengeScalarFieldEnum | CommunityChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallenge create
+   */
+  export type CommunityChallengeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityChallenge.
+     */
+    data: XOR<CommunityChallengeCreateInput, CommunityChallengeUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityChallenge createMany
+   */
+  export type CommunityChallengeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityChallenges.
+     */
+    data: CommunityChallengeCreateManyInput | CommunityChallengeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityChallenge createManyAndReturn
+   */
+  export type CommunityChallengeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityChallenges.
+     */
+    data: CommunityChallengeCreateManyInput | CommunityChallengeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityChallenge update
+   */
+  export type CommunityChallengeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityChallenge.
+     */
+    data: XOR<CommunityChallengeUpdateInput, CommunityChallengeUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityChallenge to update.
+     */
+    where: CommunityChallengeWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallenge updateMany
+   */
+  export type CommunityChallengeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityChallenges.
+     */
+    data: XOR<CommunityChallengeUpdateManyMutationInput, CommunityChallengeUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallenges to update
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * Limit how many CommunityChallenges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallenge updateManyAndReturn
+   */
+  export type CommunityChallengeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityChallenges.
+     */
+    data: XOR<CommunityChallengeUpdateManyMutationInput, CommunityChallengeUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallenges to update
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * Limit how many CommunityChallenges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallenge upsert
+   */
+  export type CommunityChallengeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityChallenge to update in case it exists.
+     */
+    where: CommunityChallengeWhereUniqueInput
+    /**
+     * In case the CommunityChallenge found by the `where` argument doesn't exist, create a new CommunityChallenge with this data.
+     */
+    create: XOR<CommunityChallengeCreateInput, CommunityChallengeUncheckedCreateInput>
+    /**
+     * In case the CommunityChallenge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityChallengeUpdateInput, CommunityChallengeUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityChallenge delete
+   */
+  export type CommunityChallengeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityChallenge to delete.
+     */
+    where: CommunityChallengeWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallenge deleteMany
+   */
+  export type CommunityChallengeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallenges to delete
+     */
+    where?: CommunityChallengeWhereInput
+    /**
+     * Limit how many CommunityChallenges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallenge.milestones
+   */
+  export type CommunityChallenge$milestonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    where?: CommunityChallengeMilestoneWhereInput
+    orderBy?: CommunityChallengeMilestoneOrderByWithRelationInput | CommunityChallengeMilestoneOrderByWithRelationInput[]
+    cursor?: CommunityChallengeMilestoneWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityChallengeMilestoneScalarFieldEnum | CommunityChallengeMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallenge.enrollments
+   */
+  export type CommunityChallenge$enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    where?: CommunityChallengeEnrollmentWhereInput
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityChallengeEnrollmentScalarFieldEnum | CommunityChallengeEnrollmentScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallenge.groups
+   */
+  export type CommunityChallenge$groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    where?: CommunityAccountabilityGroupWhereInput
+    orderBy?: CommunityAccountabilityGroupOrderByWithRelationInput | CommunityAccountabilityGroupOrderByWithRelationInput[]
+    cursor?: CommunityAccountabilityGroupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityAccountabilityGroupScalarFieldEnum | CommunityAccountabilityGroupScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallenge without action
+   */
+  export type CommunityChallengeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallenge
+     */
+    select?: CommunityChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallenge
+     */
+    omit?: CommunityChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityChallengeMilestone
+   */
+
+  export type AggregateCommunityChallengeMilestone = {
+    _count: CommunityChallengeMilestoneCountAggregateOutputType | null
+    _avg: CommunityChallengeMilestoneAvgAggregateOutputType | null
+    _sum: CommunityChallengeMilestoneSumAggregateOutputType | null
+    _min: CommunityChallengeMilestoneMinAggregateOutputType | null
+    _max: CommunityChallengeMilestoneMaxAggregateOutputType | null
+  }
+
+  export type CommunityChallengeMilestoneAvgAggregateOutputType = {
+    sortOrder: number | null
+  }
+
+  export type CommunityChallengeMilestoneSumAggregateOutputType = {
+    sortOrder: number | null
+  }
+
+  export type CommunityChallengeMilestoneMinAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    title: string | null
+    description: string | null
+    dueAt: Date | null
+    sortOrder: number | null
+    createdAt: Date | null
+  }
+
+  export type CommunityChallengeMilestoneMaxAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    title: string | null
+    description: string | null
+    dueAt: Date | null
+    sortOrder: number | null
+    createdAt: Date | null
+  }
+
+  export type CommunityChallengeMilestoneCountAggregateOutputType = {
+    id: number
+    challengeId: number
+    title: number
+    description: number
+    dueAt: number
+    sortOrder: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommunityChallengeMilestoneAvgAggregateInputType = {
+    sortOrder?: true
+  }
+
+  export type CommunityChallengeMilestoneSumAggregateInputType = {
+    sortOrder?: true
+  }
+
+  export type CommunityChallengeMilestoneMinAggregateInputType = {
+    id?: true
+    challengeId?: true
+    title?: true
+    description?: true
+    dueAt?: true
+    sortOrder?: true
+    createdAt?: true
+  }
+
+  export type CommunityChallengeMilestoneMaxAggregateInputType = {
+    id?: true
+    challengeId?: true
+    title?: true
+    description?: true
+    dueAt?: true
+    sortOrder?: true
+    createdAt?: true
+  }
+
+  export type CommunityChallengeMilestoneCountAggregateInputType = {
+    id?: true
+    challengeId?: true
+    title?: true
+    description?: true
+    dueAt?: true
+    sortOrder?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommunityChallengeMilestoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallengeMilestone to aggregate.
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeMilestones to fetch.
+     */
+    orderBy?: CommunityChallengeMilestoneOrderByWithRelationInput | CommunityChallengeMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityChallengeMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeMilestones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityChallengeMilestones
+    **/
+    _count?: true | CommunityChallengeMilestoneCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommunityChallengeMilestoneAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommunityChallengeMilestoneSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityChallengeMilestoneMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityChallengeMilestoneMaxAggregateInputType
+  }
+
+  export type GetCommunityChallengeMilestoneAggregateType<T extends CommunityChallengeMilestoneAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityChallengeMilestone]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityChallengeMilestone[P]>
+      : GetScalarType<T[P], AggregateCommunityChallengeMilestone[P]>
+  }
+
+
+
+
+  export type CommunityChallengeMilestoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeMilestoneWhereInput
+    orderBy?: CommunityChallengeMilestoneOrderByWithAggregationInput | CommunityChallengeMilestoneOrderByWithAggregationInput[]
+    by: CommunityChallengeMilestoneScalarFieldEnum[] | CommunityChallengeMilestoneScalarFieldEnum
+    having?: CommunityChallengeMilestoneScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityChallengeMilestoneCountAggregateInputType | true
+    _avg?: CommunityChallengeMilestoneAvgAggregateInputType
+    _sum?: CommunityChallengeMilestoneSumAggregateInputType
+    _min?: CommunityChallengeMilestoneMinAggregateInputType
+    _max?: CommunityChallengeMilestoneMaxAggregateInputType
+  }
+
+  export type CommunityChallengeMilestoneGroupByOutputType = {
+    id: string
+    challengeId: string
+    title: string
+    description: string | null
+    dueAt: Date | null
+    sortOrder: number
+    createdAt: Date
+    _count: CommunityChallengeMilestoneCountAggregateOutputType | null
+    _avg: CommunityChallengeMilestoneAvgAggregateOutputType | null
+    _sum: CommunityChallengeMilestoneSumAggregateOutputType | null
+    _min: CommunityChallengeMilestoneMinAggregateOutputType | null
+    _max: CommunityChallengeMilestoneMaxAggregateOutputType | null
+  }
+
+  type GetCommunityChallengeMilestoneGroupByPayload<T extends CommunityChallengeMilestoneGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityChallengeMilestoneGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityChallengeMilestoneGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityChallengeMilestoneGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityChallengeMilestoneGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityChallengeMilestoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    title?: boolean
+    description?: boolean
+    dueAt?: boolean
+    sortOrder?: boolean
+    createdAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    checkIns?: boolean | CommunityChallengeMilestone$checkInsArgs<ExtArgs>
+    _count?: boolean | CommunityChallengeMilestoneCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeMilestone"]>
+
+  export type CommunityChallengeMilestoneSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    title?: boolean
+    description?: boolean
+    dueAt?: boolean
+    sortOrder?: boolean
+    createdAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeMilestone"]>
+
+  export type CommunityChallengeMilestoneSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    title?: boolean
+    description?: boolean
+    dueAt?: boolean
+    sortOrder?: boolean
+    createdAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeMilestone"]>
+
+  export type CommunityChallengeMilestoneSelectScalar = {
+    id?: boolean
+    challengeId?: boolean
+    title?: boolean
+    description?: boolean
+    dueAt?: boolean
+    sortOrder?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommunityChallengeMilestoneOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "challengeId" | "title" | "description" | "dueAt" | "sortOrder" | "createdAt", ExtArgs["result"]["communityChallengeMilestone"]>
+  export type CommunityChallengeMilestoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    checkIns?: boolean | CommunityChallengeMilestone$checkInsArgs<ExtArgs>
+    _count?: boolean | CommunityChallengeMilestoneCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommunityChallengeMilestoneIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }
+  export type CommunityChallengeMilestoneIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }
+
+  export type $CommunityChallengeMilestonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityChallengeMilestone"
+    objects: {
+      challenge: Prisma.$CommunityChallengePayload<ExtArgs>
+      checkIns: Prisma.$CommunityChallengeCheckInPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      challengeId: string
+      title: string
+      description: string | null
+      dueAt: Date | null
+      sortOrder: number
+      createdAt: Date
+    }, ExtArgs["result"]["communityChallengeMilestone"]>
+    composites: {}
+  }
+
+  type CommunityChallengeMilestoneGetPayload<S extends boolean | null | undefined | CommunityChallengeMilestoneDefaultArgs> = $Result.GetResult<Prisma.$CommunityChallengeMilestonePayload, S>
+
+  type CommunityChallengeMilestoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityChallengeMilestoneFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityChallengeMilestoneCountAggregateInputType | true
+    }
+
+  export interface CommunityChallengeMilestoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityChallengeMilestone'], meta: { name: 'CommunityChallengeMilestone' } }
+    /**
+     * Find zero or one CommunityChallengeMilestone that matches the filter.
+     * @param {CommunityChallengeMilestoneFindUniqueArgs} args - Arguments to find a CommunityChallengeMilestone
+     * @example
+     * // Get one CommunityChallengeMilestone
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityChallengeMilestoneFindUniqueArgs>(args: SelectSubset<T, CommunityChallengeMilestoneFindUniqueArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityChallengeMilestone that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityChallengeMilestoneFindUniqueOrThrowArgs} args - Arguments to find a CommunityChallengeMilestone
+     * @example
+     * // Get one CommunityChallengeMilestone
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityChallengeMilestoneFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityChallengeMilestoneFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallengeMilestone that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneFindFirstArgs} args - Arguments to find a CommunityChallengeMilestone
+     * @example
+     * // Get one CommunityChallengeMilestone
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityChallengeMilestoneFindFirstArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneFindFirstArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallengeMilestone that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneFindFirstOrThrowArgs} args - Arguments to find a CommunityChallengeMilestone
+     * @example
+     * // Get one CommunityChallengeMilestone
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityChallengeMilestoneFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityChallengeMilestones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityChallengeMilestones
+     * const communityChallengeMilestones = await prisma.communityChallengeMilestone.findMany()
+     * 
+     * // Get first 10 CommunityChallengeMilestones
+     * const communityChallengeMilestones = await prisma.communityChallengeMilestone.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityChallengeMilestoneWithIdOnly = await prisma.communityChallengeMilestone.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityChallengeMilestoneFindManyArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityChallengeMilestone.
+     * @param {CommunityChallengeMilestoneCreateArgs} args - Arguments to create a CommunityChallengeMilestone.
+     * @example
+     * // Create one CommunityChallengeMilestone
+     * const CommunityChallengeMilestone = await prisma.communityChallengeMilestone.create({
+     *   data: {
+     *     // ... data to create a CommunityChallengeMilestone
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityChallengeMilestoneCreateArgs>(args: SelectSubset<T, CommunityChallengeMilestoneCreateArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityChallengeMilestones.
+     * @param {CommunityChallengeMilestoneCreateManyArgs} args - Arguments to create many CommunityChallengeMilestones.
+     * @example
+     * // Create many CommunityChallengeMilestones
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityChallengeMilestoneCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityChallengeMilestones and returns the data saved in the database.
+     * @param {CommunityChallengeMilestoneCreateManyAndReturnArgs} args - Arguments to create many CommunityChallengeMilestones.
+     * @example
+     * // Create many CommunityChallengeMilestones
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityChallengeMilestones and only return the `id`
+     * const communityChallengeMilestoneWithIdOnly = await prisma.communityChallengeMilestone.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityChallengeMilestoneCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityChallengeMilestone.
+     * @param {CommunityChallengeMilestoneDeleteArgs} args - Arguments to delete one CommunityChallengeMilestone.
+     * @example
+     * // Delete one CommunityChallengeMilestone
+     * const CommunityChallengeMilestone = await prisma.communityChallengeMilestone.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityChallengeMilestone
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityChallengeMilestoneDeleteArgs>(args: SelectSubset<T, CommunityChallengeMilestoneDeleteArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityChallengeMilestone.
+     * @param {CommunityChallengeMilestoneUpdateArgs} args - Arguments to update one CommunityChallengeMilestone.
+     * @example
+     * // Update one CommunityChallengeMilestone
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityChallengeMilestoneUpdateArgs>(args: SelectSubset<T, CommunityChallengeMilestoneUpdateArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityChallengeMilestones.
+     * @param {CommunityChallengeMilestoneDeleteManyArgs} args - Arguments to filter CommunityChallengeMilestones to delete.
+     * @example
+     * // Delete a few CommunityChallengeMilestones
+     * const { count } = await prisma.communityChallengeMilestone.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityChallengeMilestoneDeleteManyArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallengeMilestones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityChallengeMilestones
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityChallengeMilestoneUpdateManyArgs>(args: SelectSubset<T, CommunityChallengeMilestoneUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallengeMilestones and returns the data updated in the database.
+     * @param {CommunityChallengeMilestoneUpdateManyAndReturnArgs} args - Arguments to update many CommunityChallengeMilestones.
+     * @example
+     * // Update many CommunityChallengeMilestones
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityChallengeMilestones and only return the `id`
+     * const communityChallengeMilestoneWithIdOnly = await prisma.communityChallengeMilestone.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityChallengeMilestoneUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityChallengeMilestoneUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityChallengeMilestone.
+     * @param {CommunityChallengeMilestoneUpsertArgs} args - Arguments to update or create a CommunityChallengeMilestone.
+     * @example
+     * // Update or create a CommunityChallengeMilestone
+     * const communityChallengeMilestone = await prisma.communityChallengeMilestone.upsert({
+     *   create: {
+     *     // ... data to create a CommunityChallengeMilestone
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityChallengeMilestone we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityChallengeMilestoneUpsertArgs>(args: SelectSubset<T, CommunityChallengeMilestoneUpsertArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityChallengeMilestones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneCountArgs} args - Arguments to filter CommunityChallengeMilestones to count.
+     * @example
+     * // Count the number of CommunityChallengeMilestones
+     * const count = await prisma.communityChallengeMilestone.count({
+     *   where: {
+     *     // ... the filter for the CommunityChallengeMilestones we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityChallengeMilestoneCountArgs>(
+      args?: Subset<T, CommunityChallengeMilestoneCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityChallengeMilestoneCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityChallengeMilestone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityChallengeMilestoneAggregateArgs>(args: Subset<T, CommunityChallengeMilestoneAggregateArgs>): Prisma.PrismaPromise<GetCommunityChallengeMilestoneAggregateType<T>>
+
+    /**
+     * Group by CommunityChallengeMilestone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeMilestoneGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityChallengeMilestoneGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityChallengeMilestoneGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityChallengeMilestoneGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityChallengeMilestoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityChallengeMilestoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityChallengeMilestone model
+   */
+  readonly fields: CommunityChallengeMilestoneFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityChallengeMilestone.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityChallengeMilestoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    challenge<T extends CommunityChallengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeDefaultArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    checkIns<T extends CommunityChallengeMilestone$checkInsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeMilestone$checkInsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityChallengeMilestone model
+   */
+  interface CommunityChallengeMilestoneFieldRefs {
+    readonly id: FieldRef<"CommunityChallengeMilestone", 'String'>
+    readonly challengeId: FieldRef<"CommunityChallengeMilestone", 'String'>
+    readonly title: FieldRef<"CommunityChallengeMilestone", 'String'>
+    readonly description: FieldRef<"CommunityChallengeMilestone", 'String'>
+    readonly dueAt: FieldRef<"CommunityChallengeMilestone", 'DateTime'>
+    readonly sortOrder: FieldRef<"CommunityChallengeMilestone", 'Int'>
+    readonly createdAt: FieldRef<"CommunityChallengeMilestone", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityChallengeMilestone findUnique
+   */
+  export type CommunityChallengeMilestoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeMilestone to fetch.
+     */
+    where: CommunityChallengeMilestoneWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeMilestone findUniqueOrThrow
+   */
+  export type CommunityChallengeMilestoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeMilestone to fetch.
+     */
+    where: CommunityChallengeMilestoneWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeMilestone findFirst
+   */
+  export type CommunityChallengeMilestoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeMilestone to fetch.
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeMilestones to fetch.
+     */
+    orderBy?: CommunityChallengeMilestoneOrderByWithRelationInput | CommunityChallengeMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallengeMilestones.
+     */
+    cursor?: CommunityChallengeMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeMilestones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallengeMilestones.
+     */
+    distinct?: CommunityChallengeMilestoneScalarFieldEnum | CommunityChallengeMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeMilestone findFirstOrThrow
+   */
+  export type CommunityChallengeMilestoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeMilestone to fetch.
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeMilestones to fetch.
+     */
+    orderBy?: CommunityChallengeMilestoneOrderByWithRelationInput | CommunityChallengeMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallengeMilestones.
+     */
+    cursor?: CommunityChallengeMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeMilestones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallengeMilestones.
+     */
+    distinct?: CommunityChallengeMilestoneScalarFieldEnum | CommunityChallengeMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeMilestone findMany
+   */
+  export type CommunityChallengeMilestoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeMilestones to fetch.
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeMilestones to fetch.
+     */
+    orderBy?: CommunityChallengeMilestoneOrderByWithRelationInput | CommunityChallengeMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityChallengeMilestones.
+     */
+    cursor?: CommunityChallengeMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeMilestones.
+     */
+    skip?: number
+    distinct?: CommunityChallengeMilestoneScalarFieldEnum | CommunityChallengeMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeMilestone create
+   */
+  export type CommunityChallengeMilestoneCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityChallengeMilestone.
+     */
+    data: XOR<CommunityChallengeMilestoneCreateInput, CommunityChallengeMilestoneUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityChallengeMilestone createMany
+   */
+  export type CommunityChallengeMilestoneCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityChallengeMilestones.
+     */
+    data: CommunityChallengeMilestoneCreateManyInput | CommunityChallengeMilestoneCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityChallengeMilestone createManyAndReturn
+   */
+  export type CommunityChallengeMilestoneCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityChallengeMilestones.
+     */
+    data: CommunityChallengeMilestoneCreateManyInput | CommunityChallengeMilestoneCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeMilestone update
+   */
+  export type CommunityChallengeMilestoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityChallengeMilestone.
+     */
+    data: XOR<CommunityChallengeMilestoneUpdateInput, CommunityChallengeMilestoneUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityChallengeMilestone to update.
+     */
+    where: CommunityChallengeMilestoneWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeMilestone updateMany
+   */
+  export type CommunityChallengeMilestoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityChallengeMilestones.
+     */
+    data: XOR<CommunityChallengeMilestoneUpdateManyMutationInput, CommunityChallengeMilestoneUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallengeMilestones to update
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * Limit how many CommunityChallengeMilestones to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallengeMilestone updateManyAndReturn
+   */
+  export type CommunityChallengeMilestoneUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityChallengeMilestones.
+     */
+    data: XOR<CommunityChallengeMilestoneUpdateManyMutationInput, CommunityChallengeMilestoneUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallengeMilestones to update
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * Limit how many CommunityChallengeMilestones to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeMilestone upsert
+   */
+  export type CommunityChallengeMilestoneUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityChallengeMilestone to update in case it exists.
+     */
+    where: CommunityChallengeMilestoneWhereUniqueInput
+    /**
+     * In case the CommunityChallengeMilestone found by the `where` argument doesn't exist, create a new CommunityChallengeMilestone with this data.
+     */
+    create: XOR<CommunityChallengeMilestoneCreateInput, CommunityChallengeMilestoneUncheckedCreateInput>
+    /**
+     * In case the CommunityChallengeMilestone was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityChallengeMilestoneUpdateInput, CommunityChallengeMilestoneUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityChallengeMilestone delete
+   */
+  export type CommunityChallengeMilestoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityChallengeMilestone to delete.
+     */
+    where: CommunityChallengeMilestoneWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeMilestone deleteMany
+   */
+  export type CommunityChallengeMilestoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallengeMilestones to delete
+     */
+    where?: CommunityChallengeMilestoneWhereInput
+    /**
+     * Limit how many CommunityChallengeMilestones to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallengeMilestone.checkIns
+   */
+  export type CommunityChallengeMilestone$checkInsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    where?: CommunityChallengeCheckInWhereInput
+    orderBy?: CommunityChallengeCheckInOrderByWithRelationInput | CommunityChallengeCheckInOrderByWithRelationInput[]
+    cursor?: CommunityChallengeCheckInWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityChallengeCheckInScalarFieldEnum | CommunityChallengeCheckInScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeMilestone without action
+   */
+  export type CommunityChallengeMilestoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityAccountabilityGroup
+   */
+
+  export type AggregateCommunityAccountabilityGroup = {
+    _count: CommunityAccountabilityGroupCountAggregateOutputType | null
+    _avg: CommunityAccountabilityGroupAvgAggregateOutputType | null
+    _sum: CommunityAccountabilityGroupSumAggregateOutputType | null
+    _min: CommunityAccountabilityGroupMinAggregateOutputType | null
+    _max: CommunityAccountabilityGroupMaxAggregateOutputType | null
+  }
+
+  export type CommunityAccountabilityGroupAvgAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type CommunityAccountabilityGroupSumAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type CommunityAccountabilityGroupMinAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    name: string | null
+    capacity: number | null
+    createdAt: Date | null
+  }
+
+  export type CommunityAccountabilityGroupMaxAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    name: string | null
+    capacity: number | null
+    createdAt: Date | null
+  }
+
+  export type CommunityAccountabilityGroupCountAggregateOutputType = {
+    id: number
+    challengeId: number
+    name: number
+    capacity: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommunityAccountabilityGroupAvgAggregateInputType = {
+    capacity?: true
+  }
+
+  export type CommunityAccountabilityGroupSumAggregateInputType = {
+    capacity?: true
+  }
+
+  export type CommunityAccountabilityGroupMinAggregateInputType = {
+    id?: true
+    challengeId?: true
+    name?: true
+    capacity?: true
+    createdAt?: true
+  }
+
+  export type CommunityAccountabilityGroupMaxAggregateInputType = {
+    id?: true
+    challengeId?: true
+    name?: true
+    capacity?: true
+    createdAt?: true
+  }
+
+  export type CommunityAccountabilityGroupCountAggregateInputType = {
+    id?: true
+    challengeId?: true
+    name?: true
+    capacity?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommunityAccountabilityGroupAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityAccountabilityGroup to aggregate.
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityAccountabilityGroups to fetch.
+     */
+    orderBy?: CommunityAccountabilityGroupOrderByWithRelationInput | CommunityAccountabilityGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityAccountabilityGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityAccountabilityGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityAccountabilityGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityAccountabilityGroups
+    **/
+    _count?: true | CommunityAccountabilityGroupCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommunityAccountabilityGroupAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommunityAccountabilityGroupSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityAccountabilityGroupMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityAccountabilityGroupMaxAggregateInputType
+  }
+
+  export type GetCommunityAccountabilityGroupAggregateType<T extends CommunityAccountabilityGroupAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityAccountabilityGroup]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityAccountabilityGroup[P]>
+      : GetScalarType<T[P], AggregateCommunityAccountabilityGroup[P]>
+  }
+
+
+
+
+  export type CommunityAccountabilityGroupGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityAccountabilityGroupWhereInput
+    orderBy?: CommunityAccountabilityGroupOrderByWithAggregationInput | CommunityAccountabilityGroupOrderByWithAggregationInput[]
+    by: CommunityAccountabilityGroupScalarFieldEnum[] | CommunityAccountabilityGroupScalarFieldEnum
+    having?: CommunityAccountabilityGroupScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityAccountabilityGroupCountAggregateInputType | true
+    _avg?: CommunityAccountabilityGroupAvgAggregateInputType
+    _sum?: CommunityAccountabilityGroupSumAggregateInputType
+    _min?: CommunityAccountabilityGroupMinAggregateInputType
+    _max?: CommunityAccountabilityGroupMaxAggregateInputType
+  }
+
+  export type CommunityAccountabilityGroupGroupByOutputType = {
+    id: string
+    challengeId: string
+    name: string
+    capacity: number
+    createdAt: Date
+    _count: CommunityAccountabilityGroupCountAggregateOutputType | null
+    _avg: CommunityAccountabilityGroupAvgAggregateOutputType | null
+    _sum: CommunityAccountabilityGroupSumAggregateOutputType | null
+    _min: CommunityAccountabilityGroupMinAggregateOutputType | null
+    _max: CommunityAccountabilityGroupMaxAggregateOutputType | null
+  }
+
+  type GetCommunityAccountabilityGroupGroupByPayload<T extends CommunityAccountabilityGroupGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityAccountabilityGroupGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityAccountabilityGroupGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityAccountabilityGroupGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityAccountabilityGroupGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityAccountabilityGroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    capacity?: boolean
+    createdAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    enrollments?: boolean | CommunityAccountabilityGroup$enrollmentsArgs<ExtArgs>
+    _count?: boolean | CommunityAccountabilityGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityAccountabilityGroup"]>
+
+  export type CommunityAccountabilityGroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    capacity?: boolean
+    createdAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityAccountabilityGroup"]>
+
+  export type CommunityAccountabilityGroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    capacity?: boolean
+    createdAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityAccountabilityGroup"]>
+
+  export type CommunityAccountabilityGroupSelectScalar = {
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    capacity?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommunityAccountabilityGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "challengeId" | "name" | "capacity" | "createdAt", ExtArgs["result"]["communityAccountabilityGroup"]>
+  export type CommunityAccountabilityGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    enrollments?: boolean | CommunityAccountabilityGroup$enrollmentsArgs<ExtArgs>
+    _count?: boolean | CommunityAccountabilityGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommunityAccountabilityGroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }
+  export type CommunityAccountabilityGroupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+  }
+
+  export type $CommunityAccountabilityGroupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityAccountabilityGroup"
+    objects: {
+      challenge: Prisma.$CommunityChallengePayload<ExtArgs>
+      enrollments: Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      challengeId: string
+      name: string
+      capacity: number
+      createdAt: Date
+    }, ExtArgs["result"]["communityAccountabilityGroup"]>
+    composites: {}
+  }
+
+  type CommunityAccountabilityGroupGetPayload<S extends boolean | null | undefined | CommunityAccountabilityGroupDefaultArgs> = $Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload, S>
+
+  type CommunityAccountabilityGroupCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityAccountabilityGroupFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityAccountabilityGroupCountAggregateInputType | true
+    }
+
+  export interface CommunityAccountabilityGroupDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityAccountabilityGroup'], meta: { name: 'CommunityAccountabilityGroup' } }
+    /**
+     * Find zero or one CommunityAccountabilityGroup that matches the filter.
+     * @param {CommunityAccountabilityGroupFindUniqueArgs} args - Arguments to find a CommunityAccountabilityGroup
+     * @example
+     * // Get one CommunityAccountabilityGroup
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityAccountabilityGroupFindUniqueArgs>(args: SelectSubset<T, CommunityAccountabilityGroupFindUniqueArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityAccountabilityGroup that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityAccountabilityGroupFindUniqueOrThrowArgs} args - Arguments to find a CommunityAccountabilityGroup
+     * @example
+     * // Get one CommunityAccountabilityGroup
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityAccountabilityGroupFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityAccountabilityGroupFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityAccountabilityGroup that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupFindFirstArgs} args - Arguments to find a CommunityAccountabilityGroup
+     * @example
+     * // Get one CommunityAccountabilityGroup
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityAccountabilityGroupFindFirstArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupFindFirstArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityAccountabilityGroup that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupFindFirstOrThrowArgs} args - Arguments to find a CommunityAccountabilityGroup
+     * @example
+     * // Get one CommunityAccountabilityGroup
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityAccountabilityGroupFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityAccountabilityGroups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityAccountabilityGroups
+     * const communityAccountabilityGroups = await prisma.communityAccountabilityGroup.findMany()
+     * 
+     * // Get first 10 CommunityAccountabilityGroups
+     * const communityAccountabilityGroups = await prisma.communityAccountabilityGroup.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityAccountabilityGroupWithIdOnly = await prisma.communityAccountabilityGroup.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityAccountabilityGroupFindManyArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityAccountabilityGroup.
+     * @param {CommunityAccountabilityGroupCreateArgs} args - Arguments to create a CommunityAccountabilityGroup.
+     * @example
+     * // Create one CommunityAccountabilityGroup
+     * const CommunityAccountabilityGroup = await prisma.communityAccountabilityGroup.create({
+     *   data: {
+     *     // ... data to create a CommunityAccountabilityGroup
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityAccountabilityGroupCreateArgs>(args: SelectSubset<T, CommunityAccountabilityGroupCreateArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityAccountabilityGroups.
+     * @param {CommunityAccountabilityGroupCreateManyArgs} args - Arguments to create many CommunityAccountabilityGroups.
+     * @example
+     * // Create many CommunityAccountabilityGroups
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityAccountabilityGroupCreateManyArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityAccountabilityGroups and returns the data saved in the database.
+     * @param {CommunityAccountabilityGroupCreateManyAndReturnArgs} args - Arguments to create many CommunityAccountabilityGroups.
+     * @example
+     * // Create many CommunityAccountabilityGroups
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityAccountabilityGroups and only return the `id`
+     * const communityAccountabilityGroupWithIdOnly = await prisma.communityAccountabilityGroup.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityAccountabilityGroupCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityAccountabilityGroup.
+     * @param {CommunityAccountabilityGroupDeleteArgs} args - Arguments to delete one CommunityAccountabilityGroup.
+     * @example
+     * // Delete one CommunityAccountabilityGroup
+     * const CommunityAccountabilityGroup = await prisma.communityAccountabilityGroup.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityAccountabilityGroup
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityAccountabilityGroupDeleteArgs>(args: SelectSubset<T, CommunityAccountabilityGroupDeleteArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityAccountabilityGroup.
+     * @param {CommunityAccountabilityGroupUpdateArgs} args - Arguments to update one CommunityAccountabilityGroup.
+     * @example
+     * // Update one CommunityAccountabilityGroup
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityAccountabilityGroupUpdateArgs>(args: SelectSubset<T, CommunityAccountabilityGroupUpdateArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityAccountabilityGroups.
+     * @param {CommunityAccountabilityGroupDeleteManyArgs} args - Arguments to filter CommunityAccountabilityGroups to delete.
+     * @example
+     * // Delete a few CommunityAccountabilityGroups
+     * const { count } = await prisma.communityAccountabilityGroup.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityAccountabilityGroupDeleteManyArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityAccountabilityGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityAccountabilityGroups
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityAccountabilityGroupUpdateManyArgs>(args: SelectSubset<T, CommunityAccountabilityGroupUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityAccountabilityGroups and returns the data updated in the database.
+     * @param {CommunityAccountabilityGroupUpdateManyAndReturnArgs} args - Arguments to update many CommunityAccountabilityGroups.
+     * @example
+     * // Update many CommunityAccountabilityGroups
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityAccountabilityGroups and only return the `id`
+     * const communityAccountabilityGroupWithIdOnly = await prisma.communityAccountabilityGroup.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityAccountabilityGroupUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityAccountabilityGroupUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityAccountabilityGroup.
+     * @param {CommunityAccountabilityGroupUpsertArgs} args - Arguments to update or create a CommunityAccountabilityGroup.
+     * @example
+     * // Update or create a CommunityAccountabilityGroup
+     * const communityAccountabilityGroup = await prisma.communityAccountabilityGroup.upsert({
+     *   create: {
+     *     // ... data to create a CommunityAccountabilityGroup
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityAccountabilityGroup we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityAccountabilityGroupUpsertArgs>(args: SelectSubset<T, CommunityAccountabilityGroupUpsertArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityAccountabilityGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupCountArgs} args - Arguments to filter CommunityAccountabilityGroups to count.
+     * @example
+     * // Count the number of CommunityAccountabilityGroups
+     * const count = await prisma.communityAccountabilityGroup.count({
+     *   where: {
+     *     // ... the filter for the CommunityAccountabilityGroups we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityAccountabilityGroupCountArgs>(
+      args?: Subset<T, CommunityAccountabilityGroupCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityAccountabilityGroupCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityAccountabilityGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityAccountabilityGroupAggregateArgs>(args: Subset<T, CommunityAccountabilityGroupAggregateArgs>): Prisma.PrismaPromise<GetCommunityAccountabilityGroupAggregateType<T>>
+
+    /**
+     * Group by CommunityAccountabilityGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityAccountabilityGroupGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityAccountabilityGroupGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityAccountabilityGroupGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityAccountabilityGroupGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityAccountabilityGroupGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityAccountabilityGroupGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityAccountabilityGroup model
+   */
+  readonly fields: CommunityAccountabilityGroupFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityAccountabilityGroup.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityAccountabilityGroupClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    challenge<T extends CommunityChallengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeDefaultArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enrollments<T extends CommunityAccountabilityGroup$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityAccountabilityGroup$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityAccountabilityGroup model
+   */
+  interface CommunityAccountabilityGroupFieldRefs {
+    readonly id: FieldRef<"CommunityAccountabilityGroup", 'String'>
+    readonly challengeId: FieldRef<"CommunityAccountabilityGroup", 'String'>
+    readonly name: FieldRef<"CommunityAccountabilityGroup", 'String'>
+    readonly capacity: FieldRef<"CommunityAccountabilityGroup", 'Int'>
+    readonly createdAt: FieldRef<"CommunityAccountabilityGroup", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityAccountabilityGroup findUnique
+   */
+  export type CommunityAccountabilityGroupFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityAccountabilityGroup to fetch.
+     */
+    where: CommunityAccountabilityGroupWhereUniqueInput
+  }
+
+  /**
+   * CommunityAccountabilityGroup findUniqueOrThrow
+   */
+  export type CommunityAccountabilityGroupFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityAccountabilityGroup to fetch.
+     */
+    where: CommunityAccountabilityGroupWhereUniqueInput
+  }
+
+  /**
+   * CommunityAccountabilityGroup findFirst
+   */
+  export type CommunityAccountabilityGroupFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityAccountabilityGroup to fetch.
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityAccountabilityGroups to fetch.
+     */
+    orderBy?: CommunityAccountabilityGroupOrderByWithRelationInput | CommunityAccountabilityGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityAccountabilityGroups.
+     */
+    cursor?: CommunityAccountabilityGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityAccountabilityGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityAccountabilityGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityAccountabilityGroups.
+     */
+    distinct?: CommunityAccountabilityGroupScalarFieldEnum | CommunityAccountabilityGroupScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityAccountabilityGroup findFirstOrThrow
+   */
+  export type CommunityAccountabilityGroupFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityAccountabilityGroup to fetch.
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityAccountabilityGroups to fetch.
+     */
+    orderBy?: CommunityAccountabilityGroupOrderByWithRelationInput | CommunityAccountabilityGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityAccountabilityGroups.
+     */
+    cursor?: CommunityAccountabilityGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityAccountabilityGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityAccountabilityGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityAccountabilityGroups.
+     */
+    distinct?: CommunityAccountabilityGroupScalarFieldEnum | CommunityAccountabilityGroupScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityAccountabilityGroup findMany
+   */
+  export type CommunityAccountabilityGroupFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityAccountabilityGroups to fetch.
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityAccountabilityGroups to fetch.
+     */
+    orderBy?: CommunityAccountabilityGroupOrderByWithRelationInput | CommunityAccountabilityGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityAccountabilityGroups.
+     */
+    cursor?: CommunityAccountabilityGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityAccountabilityGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityAccountabilityGroups.
+     */
+    skip?: number
+    distinct?: CommunityAccountabilityGroupScalarFieldEnum | CommunityAccountabilityGroupScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityAccountabilityGroup create
+   */
+  export type CommunityAccountabilityGroupCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityAccountabilityGroup.
+     */
+    data: XOR<CommunityAccountabilityGroupCreateInput, CommunityAccountabilityGroupUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityAccountabilityGroup createMany
+   */
+  export type CommunityAccountabilityGroupCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityAccountabilityGroups.
+     */
+    data: CommunityAccountabilityGroupCreateManyInput | CommunityAccountabilityGroupCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityAccountabilityGroup createManyAndReturn
+   */
+  export type CommunityAccountabilityGroupCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityAccountabilityGroups.
+     */
+    data: CommunityAccountabilityGroupCreateManyInput | CommunityAccountabilityGroupCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityAccountabilityGroup update
+   */
+  export type CommunityAccountabilityGroupUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityAccountabilityGroup.
+     */
+    data: XOR<CommunityAccountabilityGroupUpdateInput, CommunityAccountabilityGroupUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityAccountabilityGroup to update.
+     */
+    where: CommunityAccountabilityGroupWhereUniqueInput
+  }
+
+  /**
+   * CommunityAccountabilityGroup updateMany
+   */
+  export type CommunityAccountabilityGroupUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityAccountabilityGroups.
+     */
+    data: XOR<CommunityAccountabilityGroupUpdateManyMutationInput, CommunityAccountabilityGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityAccountabilityGroups to update
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * Limit how many CommunityAccountabilityGroups to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityAccountabilityGroup updateManyAndReturn
+   */
+  export type CommunityAccountabilityGroupUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityAccountabilityGroups.
+     */
+    data: XOR<CommunityAccountabilityGroupUpdateManyMutationInput, CommunityAccountabilityGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityAccountabilityGroups to update
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * Limit how many CommunityAccountabilityGroups to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityAccountabilityGroup upsert
+   */
+  export type CommunityAccountabilityGroupUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityAccountabilityGroup to update in case it exists.
+     */
+    where: CommunityAccountabilityGroupWhereUniqueInput
+    /**
+     * In case the CommunityAccountabilityGroup found by the `where` argument doesn't exist, create a new CommunityAccountabilityGroup with this data.
+     */
+    create: XOR<CommunityAccountabilityGroupCreateInput, CommunityAccountabilityGroupUncheckedCreateInput>
+    /**
+     * In case the CommunityAccountabilityGroup was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityAccountabilityGroupUpdateInput, CommunityAccountabilityGroupUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityAccountabilityGroup delete
+   */
+  export type CommunityAccountabilityGroupDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityAccountabilityGroup to delete.
+     */
+    where: CommunityAccountabilityGroupWhereUniqueInput
+  }
+
+  /**
+   * CommunityAccountabilityGroup deleteMany
+   */
+  export type CommunityAccountabilityGroupDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityAccountabilityGroups to delete
+     */
+    where?: CommunityAccountabilityGroupWhereInput
+    /**
+     * Limit how many CommunityAccountabilityGroups to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityAccountabilityGroup.enrollments
+   */
+  export type CommunityAccountabilityGroup$enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    where?: CommunityChallengeEnrollmentWhereInput
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityChallengeEnrollmentScalarFieldEnum | CommunityChallengeEnrollmentScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityAccountabilityGroup without action
+   */
+  export type CommunityAccountabilityGroupDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityChallengeEnrollment
+   */
+
+  export type AggregateCommunityChallengeEnrollment = {
+    _count: CommunityChallengeEnrollmentCountAggregateOutputType | null
+    _min: CommunityChallengeEnrollmentMinAggregateOutputType | null
+    _max: CommunityChallengeEnrollmentMaxAggregateOutputType | null
+  }
+
+  export type CommunityChallengeEnrollmentMinAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    userId: string | null
+    groupId: string | null
+    status: $Enums.CommunityChallengeEnrollmentStatus | null
+    joinedAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type CommunityChallengeEnrollmentMaxAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    userId: string | null
+    groupId: string | null
+    status: $Enums.CommunityChallengeEnrollmentStatus | null
+    joinedAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type CommunityChallengeEnrollmentCountAggregateOutputType = {
+    id: number
+    challengeId: number
+    userId: number
+    groupId: number
+    status: number
+    joinedAt: number
+    completedAt: number
+    _all: number
+  }
+
+
+  export type CommunityChallengeEnrollmentMinAggregateInputType = {
+    id?: true
+    challengeId?: true
+    userId?: true
+    groupId?: true
+    status?: true
+    joinedAt?: true
+    completedAt?: true
+  }
+
+  export type CommunityChallengeEnrollmentMaxAggregateInputType = {
+    id?: true
+    challengeId?: true
+    userId?: true
+    groupId?: true
+    status?: true
+    joinedAt?: true
+    completedAt?: true
+  }
+
+  export type CommunityChallengeEnrollmentCountAggregateInputType = {
+    id?: true
+    challengeId?: true
+    userId?: true
+    groupId?: true
+    status?: true
+    joinedAt?: true
+    completedAt?: true
+    _all?: true
+  }
+
+  export type CommunityChallengeEnrollmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallengeEnrollment to aggregate.
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeEnrollments to fetch.
+     */
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeEnrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeEnrollments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityChallengeEnrollments
+    **/
+    _count?: true | CommunityChallengeEnrollmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityChallengeEnrollmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityChallengeEnrollmentMaxAggregateInputType
+  }
+
+  export type GetCommunityChallengeEnrollmentAggregateType<T extends CommunityChallengeEnrollmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityChallengeEnrollment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityChallengeEnrollment[P]>
+      : GetScalarType<T[P], AggregateCommunityChallengeEnrollment[P]>
+  }
+
+
+
+
+  export type CommunityChallengeEnrollmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeEnrollmentWhereInput
+    orderBy?: CommunityChallengeEnrollmentOrderByWithAggregationInput | CommunityChallengeEnrollmentOrderByWithAggregationInput[]
+    by: CommunityChallengeEnrollmentScalarFieldEnum[] | CommunityChallengeEnrollmentScalarFieldEnum
+    having?: CommunityChallengeEnrollmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityChallengeEnrollmentCountAggregateInputType | true
+    _min?: CommunityChallengeEnrollmentMinAggregateInputType
+    _max?: CommunityChallengeEnrollmentMaxAggregateInputType
+  }
+
+  export type CommunityChallengeEnrollmentGroupByOutputType = {
+    id: string
+    challengeId: string
+    userId: string
+    groupId: string | null
+    status: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt: Date
+    completedAt: Date | null
+    _count: CommunityChallengeEnrollmentCountAggregateOutputType | null
+    _min: CommunityChallengeEnrollmentMinAggregateOutputType | null
+    _max: CommunityChallengeEnrollmentMaxAggregateOutputType | null
+  }
+
+  type GetCommunityChallengeEnrollmentGroupByPayload<T extends CommunityChallengeEnrollmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityChallengeEnrollmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityChallengeEnrollmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityChallengeEnrollmentGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityChallengeEnrollmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityChallengeEnrollmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    userId?: boolean
+    groupId?: boolean
+    status?: boolean
+    joinedAt?: boolean
+    completedAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    group?: boolean | CommunityChallengeEnrollment$groupArgs<ExtArgs>
+    checkIns?: boolean | CommunityChallengeEnrollment$checkInsArgs<ExtArgs>
+    _count?: boolean | CommunityChallengeEnrollmentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeEnrollment"]>
+
+  export type CommunityChallengeEnrollmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    userId?: boolean
+    groupId?: boolean
+    status?: boolean
+    joinedAt?: boolean
+    completedAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    group?: boolean | CommunityChallengeEnrollment$groupArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeEnrollment"]>
+
+  export type CommunityChallengeEnrollmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    userId?: boolean
+    groupId?: boolean
+    status?: boolean
+    joinedAt?: boolean
+    completedAt?: boolean
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    group?: boolean | CommunityChallengeEnrollment$groupArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeEnrollment"]>
+
+  export type CommunityChallengeEnrollmentSelectScalar = {
+    id?: boolean
+    challengeId?: boolean
+    userId?: boolean
+    groupId?: boolean
+    status?: boolean
+    joinedAt?: boolean
+    completedAt?: boolean
+  }
+
+  export type CommunityChallengeEnrollmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "challengeId" | "userId" | "groupId" | "status" | "joinedAt" | "completedAt", ExtArgs["result"]["communityChallengeEnrollment"]>
+  export type CommunityChallengeEnrollmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    group?: boolean | CommunityChallengeEnrollment$groupArgs<ExtArgs>
+    checkIns?: boolean | CommunityChallengeEnrollment$checkInsArgs<ExtArgs>
+    _count?: boolean | CommunityChallengeEnrollmentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommunityChallengeEnrollmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    group?: boolean | CommunityChallengeEnrollment$groupArgs<ExtArgs>
+  }
+  export type CommunityChallengeEnrollmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | CommunityChallengeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    group?: boolean | CommunityChallengeEnrollment$groupArgs<ExtArgs>
+  }
+
+  export type $CommunityChallengeEnrollmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityChallengeEnrollment"
+    objects: {
+      challenge: Prisma.$CommunityChallengePayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+      group: Prisma.$CommunityAccountabilityGroupPayload<ExtArgs> | null
+      checkIns: Prisma.$CommunityChallengeCheckInPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      challengeId: string
+      userId: string
+      groupId: string | null
+      status: $Enums.CommunityChallengeEnrollmentStatus
+      joinedAt: Date
+      completedAt: Date | null
+    }, ExtArgs["result"]["communityChallengeEnrollment"]>
+    composites: {}
+  }
+
+  type CommunityChallengeEnrollmentGetPayload<S extends boolean | null | undefined | CommunityChallengeEnrollmentDefaultArgs> = $Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload, S>
+
+  type CommunityChallengeEnrollmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityChallengeEnrollmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityChallengeEnrollmentCountAggregateInputType | true
+    }
+
+  export interface CommunityChallengeEnrollmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityChallengeEnrollment'], meta: { name: 'CommunityChallengeEnrollment' } }
+    /**
+     * Find zero or one CommunityChallengeEnrollment that matches the filter.
+     * @param {CommunityChallengeEnrollmentFindUniqueArgs} args - Arguments to find a CommunityChallengeEnrollment
+     * @example
+     * // Get one CommunityChallengeEnrollment
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityChallengeEnrollmentFindUniqueArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentFindUniqueArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityChallengeEnrollment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityChallengeEnrollmentFindUniqueOrThrowArgs} args - Arguments to find a CommunityChallengeEnrollment
+     * @example
+     * // Get one CommunityChallengeEnrollment
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityChallengeEnrollmentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallengeEnrollment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentFindFirstArgs} args - Arguments to find a CommunityChallengeEnrollment
+     * @example
+     * // Get one CommunityChallengeEnrollment
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityChallengeEnrollmentFindFirstArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentFindFirstArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallengeEnrollment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentFindFirstOrThrowArgs} args - Arguments to find a CommunityChallengeEnrollment
+     * @example
+     * // Get one CommunityChallengeEnrollment
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityChallengeEnrollmentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityChallengeEnrollments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityChallengeEnrollments
+     * const communityChallengeEnrollments = await prisma.communityChallengeEnrollment.findMany()
+     * 
+     * // Get first 10 CommunityChallengeEnrollments
+     * const communityChallengeEnrollments = await prisma.communityChallengeEnrollment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityChallengeEnrollmentWithIdOnly = await prisma.communityChallengeEnrollment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityChallengeEnrollmentFindManyArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityChallengeEnrollment.
+     * @param {CommunityChallengeEnrollmentCreateArgs} args - Arguments to create a CommunityChallengeEnrollment.
+     * @example
+     * // Create one CommunityChallengeEnrollment
+     * const CommunityChallengeEnrollment = await prisma.communityChallengeEnrollment.create({
+     *   data: {
+     *     // ... data to create a CommunityChallengeEnrollment
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityChallengeEnrollmentCreateArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentCreateArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityChallengeEnrollments.
+     * @param {CommunityChallengeEnrollmentCreateManyArgs} args - Arguments to create many CommunityChallengeEnrollments.
+     * @example
+     * // Create many CommunityChallengeEnrollments
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityChallengeEnrollmentCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityChallengeEnrollments and returns the data saved in the database.
+     * @param {CommunityChallengeEnrollmentCreateManyAndReturnArgs} args - Arguments to create many CommunityChallengeEnrollments.
+     * @example
+     * // Create many CommunityChallengeEnrollments
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityChallengeEnrollments and only return the `id`
+     * const communityChallengeEnrollmentWithIdOnly = await prisma.communityChallengeEnrollment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityChallengeEnrollmentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityChallengeEnrollment.
+     * @param {CommunityChallengeEnrollmentDeleteArgs} args - Arguments to delete one CommunityChallengeEnrollment.
+     * @example
+     * // Delete one CommunityChallengeEnrollment
+     * const CommunityChallengeEnrollment = await prisma.communityChallengeEnrollment.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityChallengeEnrollment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityChallengeEnrollmentDeleteArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentDeleteArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityChallengeEnrollment.
+     * @param {CommunityChallengeEnrollmentUpdateArgs} args - Arguments to update one CommunityChallengeEnrollment.
+     * @example
+     * // Update one CommunityChallengeEnrollment
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityChallengeEnrollmentUpdateArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentUpdateArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityChallengeEnrollments.
+     * @param {CommunityChallengeEnrollmentDeleteManyArgs} args - Arguments to filter CommunityChallengeEnrollments to delete.
+     * @example
+     * // Delete a few CommunityChallengeEnrollments
+     * const { count } = await prisma.communityChallengeEnrollment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityChallengeEnrollmentDeleteManyArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallengeEnrollments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityChallengeEnrollments
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityChallengeEnrollmentUpdateManyArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallengeEnrollments and returns the data updated in the database.
+     * @param {CommunityChallengeEnrollmentUpdateManyAndReturnArgs} args - Arguments to update many CommunityChallengeEnrollments.
+     * @example
+     * // Update many CommunityChallengeEnrollments
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityChallengeEnrollments and only return the `id`
+     * const communityChallengeEnrollmentWithIdOnly = await prisma.communityChallengeEnrollment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityChallengeEnrollmentUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityChallengeEnrollment.
+     * @param {CommunityChallengeEnrollmentUpsertArgs} args - Arguments to update or create a CommunityChallengeEnrollment.
+     * @example
+     * // Update or create a CommunityChallengeEnrollment
+     * const communityChallengeEnrollment = await prisma.communityChallengeEnrollment.upsert({
+     *   create: {
+     *     // ... data to create a CommunityChallengeEnrollment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityChallengeEnrollment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityChallengeEnrollmentUpsertArgs>(args: SelectSubset<T, CommunityChallengeEnrollmentUpsertArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityChallengeEnrollments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentCountArgs} args - Arguments to filter CommunityChallengeEnrollments to count.
+     * @example
+     * // Count the number of CommunityChallengeEnrollments
+     * const count = await prisma.communityChallengeEnrollment.count({
+     *   where: {
+     *     // ... the filter for the CommunityChallengeEnrollments we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityChallengeEnrollmentCountArgs>(
+      args?: Subset<T, CommunityChallengeEnrollmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityChallengeEnrollmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityChallengeEnrollment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityChallengeEnrollmentAggregateArgs>(args: Subset<T, CommunityChallengeEnrollmentAggregateArgs>): Prisma.PrismaPromise<GetCommunityChallengeEnrollmentAggregateType<T>>
+
+    /**
+     * Group by CommunityChallengeEnrollment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeEnrollmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityChallengeEnrollmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityChallengeEnrollmentGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityChallengeEnrollmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityChallengeEnrollmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityChallengeEnrollmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityChallengeEnrollment model
+   */
+  readonly fields: CommunityChallengeEnrollmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityChallengeEnrollment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityChallengeEnrollmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    challenge<T extends CommunityChallengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeDefaultArgs<ExtArgs>>): Prisma__CommunityChallengeClient<$Result.GetResult<Prisma.$CommunityChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    group<T extends CommunityChallengeEnrollment$groupArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeEnrollment$groupArgs<ExtArgs>>): Prisma__CommunityAccountabilityGroupClient<$Result.GetResult<Prisma.$CommunityAccountabilityGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    checkIns<T extends CommunityChallengeEnrollment$checkInsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeEnrollment$checkInsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityChallengeEnrollment model
+   */
+  interface CommunityChallengeEnrollmentFieldRefs {
+    readonly id: FieldRef<"CommunityChallengeEnrollment", 'String'>
+    readonly challengeId: FieldRef<"CommunityChallengeEnrollment", 'String'>
+    readonly userId: FieldRef<"CommunityChallengeEnrollment", 'String'>
+    readonly groupId: FieldRef<"CommunityChallengeEnrollment", 'String'>
+    readonly status: FieldRef<"CommunityChallengeEnrollment", 'CommunityChallengeEnrollmentStatus'>
+    readonly joinedAt: FieldRef<"CommunityChallengeEnrollment", 'DateTime'>
+    readonly completedAt: FieldRef<"CommunityChallengeEnrollment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityChallengeEnrollment findUnique
+   */
+  export type CommunityChallengeEnrollmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeEnrollment to fetch.
+     */
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeEnrollment findUniqueOrThrow
+   */
+  export type CommunityChallengeEnrollmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeEnrollment to fetch.
+     */
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeEnrollment findFirst
+   */
+  export type CommunityChallengeEnrollmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeEnrollment to fetch.
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeEnrollments to fetch.
+     */
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallengeEnrollments.
+     */
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeEnrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeEnrollments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallengeEnrollments.
+     */
+    distinct?: CommunityChallengeEnrollmentScalarFieldEnum | CommunityChallengeEnrollmentScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeEnrollment findFirstOrThrow
+   */
+  export type CommunityChallengeEnrollmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeEnrollment to fetch.
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeEnrollments to fetch.
+     */
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallengeEnrollments.
+     */
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeEnrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeEnrollments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallengeEnrollments.
+     */
+    distinct?: CommunityChallengeEnrollmentScalarFieldEnum | CommunityChallengeEnrollmentScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeEnrollment findMany
+   */
+  export type CommunityChallengeEnrollmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeEnrollments to fetch.
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeEnrollments to fetch.
+     */
+    orderBy?: CommunityChallengeEnrollmentOrderByWithRelationInput | CommunityChallengeEnrollmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityChallengeEnrollments.
+     */
+    cursor?: CommunityChallengeEnrollmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeEnrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeEnrollments.
+     */
+    skip?: number
+    distinct?: CommunityChallengeEnrollmentScalarFieldEnum | CommunityChallengeEnrollmentScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeEnrollment create
+   */
+  export type CommunityChallengeEnrollmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityChallengeEnrollment.
+     */
+    data: XOR<CommunityChallengeEnrollmentCreateInput, CommunityChallengeEnrollmentUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityChallengeEnrollment createMany
+   */
+  export type CommunityChallengeEnrollmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityChallengeEnrollments.
+     */
+    data: CommunityChallengeEnrollmentCreateManyInput | CommunityChallengeEnrollmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityChallengeEnrollment createManyAndReturn
+   */
+  export type CommunityChallengeEnrollmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityChallengeEnrollments.
+     */
+    data: CommunityChallengeEnrollmentCreateManyInput | CommunityChallengeEnrollmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeEnrollment update
+   */
+  export type CommunityChallengeEnrollmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityChallengeEnrollment.
+     */
+    data: XOR<CommunityChallengeEnrollmentUpdateInput, CommunityChallengeEnrollmentUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityChallengeEnrollment to update.
+     */
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeEnrollment updateMany
+   */
+  export type CommunityChallengeEnrollmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityChallengeEnrollments.
+     */
+    data: XOR<CommunityChallengeEnrollmentUpdateManyMutationInput, CommunityChallengeEnrollmentUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallengeEnrollments to update
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * Limit how many CommunityChallengeEnrollments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallengeEnrollment updateManyAndReturn
+   */
+  export type CommunityChallengeEnrollmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityChallengeEnrollments.
+     */
+    data: XOR<CommunityChallengeEnrollmentUpdateManyMutationInput, CommunityChallengeEnrollmentUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallengeEnrollments to update
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * Limit how many CommunityChallengeEnrollments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeEnrollment upsert
+   */
+  export type CommunityChallengeEnrollmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityChallengeEnrollment to update in case it exists.
+     */
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    /**
+     * In case the CommunityChallengeEnrollment found by the `where` argument doesn't exist, create a new CommunityChallengeEnrollment with this data.
+     */
+    create: XOR<CommunityChallengeEnrollmentCreateInput, CommunityChallengeEnrollmentUncheckedCreateInput>
+    /**
+     * In case the CommunityChallengeEnrollment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityChallengeEnrollmentUpdateInput, CommunityChallengeEnrollmentUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityChallengeEnrollment delete
+   */
+  export type CommunityChallengeEnrollmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityChallengeEnrollment to delete.
+     */
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeEnrollment deleteMany
+   */
+  export type CommunityChallengeEnrollmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallengeEnrollments to delete
+     */
+    where?: CommunityChallengeEnrollmentWhereInput
+    /**
+     * Limit how many CommunityChallengeEnrollments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallengeEnrollment.group
+   */
+  export type CommunityChallengeEnrollment$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityAccountabilityGroup
+     */
+    select?: CommunityAccountabilityGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityAccountabilityGroup
+     */
+    omit?: CommunityAccountabilityGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityAccountabilityGroupInclude<ExtArgs> | null
+    where?: CommunityAccountabilityGroupWhereInput
+  }
+
+  /**
+   * CommunityChallengeEnrollment.checkIns
+   */
+  export type CommunityChallengeEnrollment$checkInsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    where?: CommunityChallengeCheckInWhereInput
+    orderBy?: CommunityChallengeCheckInOrderByWithRelationInput | CommunityChallengeCheckInOrderByWithRelationInput[]
+    cursor?: CommunityChallengeCheckInWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityChallengeCheckInScalarFieldEnum | CommunityChallengeCheckInScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeEnrollment without action
+   */
+  export type CommunityChallengeEnrollmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeEnrollment
+     */
+    select?: CommunityChallengeEnrollmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeEnrollment
+     */
+    omit?: CommunityChallengeEnrollmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeEnrollmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityChallengeCheckIn
+   */
+
+  export type AggregateCommunityChallengeCheckIn = {
+    _count: CommunityChallengeCheckInCountAggregateOutputType | null
+    _avg: CommunityChallengeCheckInAvgAggregateOutputType | null
+    _sum: CommunityChallengeCheckInSumAggregateOutputType | null
+    _min: CommunityChallengeCheckInMinAggregateOutputType | null
+    _max: CommunityChallengeCheckInMaxAggregateOutputType | null
+  }
+
+  export type CommunityChallengeCheckInAvgAggregateOutputType = {
+    progress: number | null
+  }
+
+  export type CommunityChallengeCheckInSumAggregateOutputType = {
+    progress: number | null
+  }
+
+  export type CommunityChallengeCheckInMinAggregateOutputType = {
+    id: string | null
+    enrollmentId: string | null
+    milestoneId: string | null
+    note: string | null
+    progress: number | null
+    createdAt: Date | null
+  }
+
+  export type CommunityChallengeCheckInMaxAggregateOutputType = {
+    id: string | null
+    enrollmentId: string | null
+    milestoneId: string | null
+    note: string | null
+    progress: number | null
+    createdAt: Date | null
+  }
+
+  export type CommunityChallengeCheckInCountAggregateOutputType = {
+    id: number
+    enrollmentId: number
+    milestoneId: number
+    note: number
+    progress: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommunityChallengeCheckInAvgAggregateInputType = {
+    progress?: true
+  }
+
+  export type CommunityChallengeCheckInSumAggregateInputType = {
+    progress?: true
+  }
+
+  export type CommunityChallengeCheckInMinAggregateInputType = {
+    id?: true
+    enrollmentId?: true
+    milestoneId?: true
+    note?: true
+    progress?: true
+    createdAt?: true
+  }
+
+  export type CommunityChallengeCheckInMaxAggregateInputType = {
+    id?: true
+    enrollmentId?: true
+    milestoneId?: true
+    note?: true
+    progress?: true
+    createdAt?: true
+  }
+
+  export type CommunityChallengeCheckInCountAggregateInputType = {
+    id?: true
+    enrollmentId?: true
+    milestoneId?: true
+    note?: true
+    progress?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommunityChallengeCheckInAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallengeCheckIn to aggregate.
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeCheckIns to fetch.
+     */
+    orderBy?: CommunityChallengeCheckInOrderByWithRelationInput | CommunityChallengeCheckInOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityChallengeCheckInWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeCheckIns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeCheckIns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityChallengeCheckIns
+    **/
+    _count?: true | CommunityChallengeCheckInCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommunityChallengeCheckInAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommunityChallengeCheckInSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityChallengeCheckInMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityChallengeCheckInMaxAggregateInputType
+  }
+
+  export type GetCommunityChallengeCheckInAggregateType<T extends CommunityChallengeCheckInAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityChallengeCheckIn]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityChallengeCheckIn[P]>
+      : GetScalarType<T[P], AggregateCommunityChallengeCheckIn[P]>
+  }
+
+
+
+
+  export type CommunityChallengeCheckInGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityChallengeCheckInWhereInput
+    orderBy?: CommunityChallengeCheckInOrderByWithAggregationInput | CommunityChallengeCheckInOrderByWithAggregationInput[]
+    by: CommunityChallengeCheckInScalarFieldEnum[] | CommunityChallengeCheckInScalarFieldEnum
+    having?: CommunityChallengeCheckInScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityChallengeCheckInCountAggregateInputType | true
+    _avg?: CommunityChallengeCheckInAvgAggregateInputType
+    _sum?: CommunityChallengeCheckInSumAggregateInputType
+    _min?: CommunityChallengeCheckInMinAggregateInputType
+    _max?: CommunityChallengeCheckInMaxAggregateInputType
+  }
+
+  export type CommunityChallengeCheckInGroupByOutputType = {
+    id: string
+    enrollmentId: string
+    milestoneId: string | null
+    note: string | null
+    progress: number
+    createdAt: Date
+    _count: CommunityChallengeCheckInCountAggregateOutputType | null
+    _avg: CommunityChallengeCheckInAvgAggregateOutputType | null
+    _sum: CommunityChallengeCheckInSumAggregateOutputType | null
+    _min: CommunityChallengeCheckInMinAggregateOutputType | null
+    _max: CommunityChallengeCheckInMaxAggregateOutputType | null
+  }
+
+  type GetCommunityChallengeCheckInGroupByPayload<T extends CommunityChallengeCheckInGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityChallengeCheckInGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityChallengeCheckInGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityChallengeCheckInGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityChallengeCheckInGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityChallengeCheckInSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    enrollmentId?: boolean
+    milestoneId?: boolean
+    note?: boolean
+    progress?: boolean
+    createdAt?: boolean
+    enrollment?: boolean | CommunityChallengeEnrollmentDefaultArgs<ExtArgs>
+    milestone?: boolean | CommunityChallengeCheckIn$milestoneArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeCheckIn"]>
+
+  export type CommunityChallengeCheckInSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    enrollmentId?: boolean
+    milestoneId?: boolean
+    note?: boolean
+    progress?: boolean
+    createdAt?: boolean
+    enrollment?: boolean | CommunityChallengeEnrollmentDefaultArgs<ExtArgs>
+    milestone?: boolean | CommunityChallengeCheckIn$milestoneArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeCheckIn"]>
+
+  export type CommunityChallengeCheckInSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    enrollmentId?: boolean
+    milestoneId?: boolean
+    note?: boolean
+    progress?: boolean
+    createdAt?: boolean
+    enrollment?: boolean | CommunityChallengeEnrollmentDefaultArgs<ExtArgs>
+    milestone?: boolean | CommunityChallengeCheckIn$milestoneArgs<ExtArgs>
+  }, ExtArgs["result"]["communityChallengeCheckIn"]>
+
+  export type CommunityChallengeCheckInSelectScalar = {
+    id?: boolean
+    enrollmentId?: boolean
+    milestoneId?: boolean
+    note?: boolean
+    progress?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommunityChallengeCheckInOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "enrollmentId" | "milestoneId" | "note" | "progress" | "createdAt", ExtArgs["result"]["communityChallengeCheckIn"]>
+  export type CommunityChallengeCheckInInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enrollment?: boolean | CommunityChallengeEnrollmentDefaultArgs<ExtArgs>
+    milestone?: boolean | CommunityChallengeCheckIn$milestoneArgs<ExtArgs>
+  }
+  export type CommunityChallengeCheckInIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enrollment?: boolean | CommunityChallengeEnrollmentDefaultArgs<ExtArgs>
+    milestone?: boolean | CommunityChallengeCheckIn$milestoneArgs<ExtArgs>
+  }
+  export type CommunityChallengeCheckInIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enrollment?: boolean | CommunityChallengeEnrollmentDefaultArgs<ExtArgs>
+    milestone?: boolean | CommunityChallengeCheckIn$milestoneArgs<ExtArgs>
+  }
+
+  export type $CommunityChallengeCheckInPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityChallengeCheckIn"
+    objects: {
+      enrollment: Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>
+      milestone: Prisma.$CommunityChallengeMilestonePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      enrollmentId: string
+      milestoneId: string | null
+      note: string | null
+      progress: number
+      createdAt: Date
+    }, ExtArgs["result"]["communityChallengeCheckIn"]>
+    composites: {}
+  }
+
+  type CommunityChallengeCheckInGetPayload<S extends boolean | null | undefined | CommunityChallengeCheckInDefaultArgs> = $Result.GetResult<Prisma.$CommunityChallengeCheckInPayload, S>
+
+  type CommunityChallengeCheckInCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityChallengeCheckInFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityChallengeCheckInCountAggregateInputType | true
+    }
+
+  export interface CommunityChallengeCheckInDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityChallengeCheckIn'], meta: { name: 'CommunityChallengeCheckIn' } }
+    /**
+     * Find zero or one CommunityChallengeCheckIn that matches the filter.
+     * @param {CommunityChallengeCheckInFindUniqueArgs} args - Arguments to find a CommunityChallengeCheckIn
+     * @example
+     * // Get one CommunityChallengeCheckIn
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityChallengeCheckInFindUniqueArgs>(args: SelectSubset<T, CommunityChallengeCheckInFindUniqueArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityChallengeCheckIn that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityChallengeCheckInFindUniqueOrThrowArgs} args - Arguments to find a CommunityChallengeCheckIn
+     * @example
+     * // Get one CommunityChallengeCheckIn
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityChallengeCheckInFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityChallengeCheckInFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallengeCheckIn that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInFindFirstArgs} args - Arguments to find a CommunityChallengeCheckIn
+     * @example
+     * // Get one CommunityChallengeCheckIn
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityChallengeCheckInFindFirstArgs>(args?: SelectSubset<T, CommunityChallengeCheckInFindFirstArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityChallengeCheckIn that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInFindFirstOrThrowArgs} args - Arguments to find a CommunityChallengeCheckIn
+     * @example
+     * // Get one CommunityChallengeCheckIn
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityChallengeCheckInFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityChallengeCheckInFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityChallengeCheckIns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityChallengeCheckIns
+     * const communityChallengeCheckIns = await prisma.communityChallengeCheckIn.findMany()
+     * 
+     * // Get first 10 CommunityChallengeCheckIns
+     * const communityChallengeCheckIns = await prisma.communityChallengeCheckIn.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityChallengeCheckInWithIdOnly = await prisma.communityChallengeCheckIn.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityChallengeCheckInFindManyArgs>(args?: SelectSubset<T, CommunityChallengeCheckInFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityChallengeCheckIn.
+     * @param {CommunityChallengeCheckInCreateArgs} args - Arguments to create a CommunityChallengeCheckIn.
+     * @example
+     * // Create one CommunityChallengeCheckIn
+     * const CommunityChallengeCheckIn = await prisma.communityChallengeCheckIn.create({
+     *   data: {
+     *     // ... data to create a CommunityChallengeCheckIn
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityChallengeCheckInCreateArgs>(args: SelectSubset<T, CommunityChallengeCheckInCreateArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityChallengeCheckIns.
+     * @param {CommunityChallengeCheckInCreateManyArgs} args - Arguments to create many CommunityChallengeCheckIns.
+     * @example
+     * // Create many CommunityChallengeCheckIns
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityChallengeCheckInCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeCheckInCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityChallengeCheckIns and returns the data saved in the database.
+     * @param {CommunityChallengeCheckInCreateManyAndReturnArgs} args - Arguments to create many CommunityChallengeCheckIns.
+     * @example
+     * // Create many CommunityChallengeCheckIns
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityChallengeCheckIns and only return the `id`
+     * const communityChallengeCheckInWithIdOnly = await prisma.communityChallengeCheckIn.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityChallengeCheckInCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityChallengeCheckInCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityChallengeCheckIn.
+     * @param {CommunityChallengeCheckInDeleteArgs} args - Arguments to delete one CommunityChallengeCheckIn.
+     * @example
+     * // Delete one CommunityChallengeCheckIn
+     * const CommunityChallengeCheckIn = await prisma.communityChallengeCheckIn.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityChallengeCheckIn
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityChallengeCheckInDeleteArgs>(args: SelectSubset<T, CommunityChallengeCheckInDeleteArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityChallengeCheckIn.
+     * @param {CommunityChallengeCheckInUpdateArgs} args - Arguments to update one CommunityChallengeCheckIn.
+     * @example
+     * // Update one CommunityChallengeCheckIn
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityChallengeCheckInUpdateArgs>(args: SelectSubset<T, CommunityChallengeCheckInUpdateArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityChallengeCheckIns.
+     * @param {CommunityChallengeCheckInDeleteManyArgs} args - Arguments to filter CommunityChallengeCheckIns to delete.
+     * @example
+     * // Delete a few CommunityChallengeCheckIns
+     * const { count } = await prisma.communityChallengeCheckIn.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityChallengeCheckInDeleteManyArgs>(args?: SelectSubset<T, CommunityChallengeCheckInDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallengeCheckIns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityChallengeCheckIns
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityChallengeCheckInUpdateManyArgs>(args: SelectSubset<T, CommunityChallengeCheckInUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityChallengeCheckIns and returns the data updated in the database.
+     * @param {CommunityChallengeCheckInUpdateManyAndReturnArgs} args - Arguments to update many CommunityChallengeCheckIns.
+     * @example
+     * // Update many CommunityChallengeCheckIns
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityChallengeCheckIns and only return the `id`
+     * const communityChallengeCheckInWithIdOnly = await prisma.communityChallengeCheckIn.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityChallengeCheckInUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityChallengeCheckInUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityChallengeCheckIn.
+     * @param {CommunityChallengeCheckInUpsertArgs} args - Arguments to update or create a CommunityChallengeCheckIn.
+     * @example
+     * // Update or create a CommunityChallengeCheckIn
+     * const communityChallengeCheckIn = await prisma.communityChallengeCheckIn.upsert({
+     *   create: {
+     *     // ... data to create a CommunityChallengeCheckIn
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityChallengeCheckIn we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityChallengeCheckInUpsertArgs>(args: SelectSubset<T, CommunityChallengeCheckInUpsertArgs<ExtArgs>>): Prisma__CommunityChallengeCheckInClient<$Result.GetResult<Prisma.$CommunityChallengeCheckInPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityChallengeCheckIns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInCountArgs} args - Arguments to filter CommunityChallengeCheckIns to count.
+     * @example
+     * // Count the number of CommunityChallengeCheckIns
+     * const count = await prisma.communityChallengeCheckIn.count({
+     *   where: {
+     *     // ... the filter for the CommunityChallengeCheckIns we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityChallengeCheckInCountArgs>(
+      args?: Subset<T, CommunityChallengeCheckInCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityChallengeCheckInCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityChallengeCheckIn.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityChallengeCheckInAggregateArgs>(args: Subset<T, CommunityChallengeCheckInAggregateArgs>): Prisma.PrismaPromise<GetCommunityChallengeCheckInAggregateType<T>>
+
+    /**
+     * Group by CommunityChallengeCheckIn.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityChallengeCheckInGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityChallengeCheckInGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityChallengeCheckInGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityChallengeCheckInGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityChallengeCheckInGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityChallengeCheckInGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityChallengeCheckIn model
+   */
+  readonly fields: CommunityChallengeCheckInFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityChallengeCheckIn.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityChallengeCheckInClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    enrollment<T extends CommunityChallengeEnrollmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeEnrollmentDefaultArgs<ExtArgs>>): Prisma__CommunityChallengeEnrollmentClient<$Result.GetResult<Prisma.$CommunityChallengeEnrollmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    milestone<T extends CommunityChallengeCheckIn$milestoneArgs<ExtArgs> = {}>(args?: Subset<T, CommunityChallengeCheckIn$milestoneArgs<ExtArgs>>): Prisma__CommunityChallengeMilestoneClient<$Result.GetResult<Prisma.$CommunityChallengeMilestonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityChallengeCheckIn model
+   */
+  interface CommunityChallengeCheckInFieldRefs {
+    readonly id: FieldRef<"CommunityChallengeCheckIn", 'String'>
+    readonly enrollmentId: FieldRef<"CommunityChallengeCheckIn", 'String'>
+    readonly milestoneId: FieldRef<"CommunityChallengeCheckIn", 'String'>
+    readonly note: FieldRef<"CommunityChallengeCheckIn", 'String'>
+    readonly progress: FieldRef<"CommunityChallengeCheckIn", 'Int'>
+    readonly createdAt: FieldRef<"CommunityChallengeCheckIn", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityChallengeCheckIn findUnique
+   */
+  export type CommunityChallengeCheckInFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeCheckIn to fetch.
+     */
+    where: CommunityChallengeCheckInWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeCheckIn findUniqueOrThrow
+   */
+  export type CommunityChallengeCheckInFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeCheckIn to fetch.
+     */
+    where: CommunityChallengeCheckInWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeCheckIn findFirst
+   */
+  export type CommunityChallengeCheckInFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeCheckIn to fetch.
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeCheckIns to fetch.
+     */
+    orderBy?: CommunityChallengeCheckInOrderByWithRelationInput | CommunityChallengeCheckInOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallengeCheckIns.
+     */
+    cursor?: CommunityChallengeCheckInWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeCheckIns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeCheckIns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallengeCheckIns.
+     */
+    distinct?: CommunityChallengeCheckInScalarFieldEnum | CommunityChallengeCheckInScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeCheckIn findFirstOrThrow
+   */
+  export type CommunityChallengeCheckInFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeCheckIn to fetch.
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeCheckIns to fetch.
+     */
+    orderBy?: CommunityChallengeCheckInOrderByWithRelationInput | CommunityChallengeCheckInOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityChallengeCheckIns.
+     */
+    cursor?: CommunityChallengeCheckInWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeCheckIns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeCheckIns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityChallengeCheckIns.
+     */
+    distinct?: CommunityChallengeCheckInScalarFieldEnum | CommunityChallengeCheckInScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeCheckIn findMany
+   */
+  export type CommunityChallengeCheckInFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityChallengeCheckIns to fetch.
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityChallengeCheckIns to fetch.
+     */
+    orderBy?: CommunityChallengeCheckInOrderByWithRelationInput | CommunityChallengeCheckInOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityChallengeCheckIns.
+     */
+    cursor?: CommunityChallengeCheckInWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityChallengeCheckIns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityChallengeCheckIns.
+     */
+    skip?: number
+    distinct?: CommunityChallengeCheckInScalarFieldEnum | CommunityChallengeCheckInScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityChallengeCheckIn create
+   */
+  export type CommunityChallengeCheckInCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityChallengeCheckIn.
+     */
+    data: XOR<CommunityChallengeCheckInCreateInput, CommunityChallengeCheckInUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityChallengeCheckIn createMany
+   */
+  export type CommunityChallengeCheckInCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityChallengeCheckIns.
+     */
+    data: CommunityChallengeCheckInCreateManyInput | CommunityChallengeCheckInCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityChallengeCheckIn createManyAndReturn
+   */
+  export type CommunityChallengeCheckInCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityChallengeCheckIns.
+     */
+    data: CommunityChallengeCheckInCreateManyInput | CommunityChallengeCheckInCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeCheckIn update
+   */
+  export type CommunityChallengeCheckInUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityChallengeCheckIn.
+     */
+    data: XOR<CommunityChallengeCheckInUpdateInput, CommunityChallengeCheckInUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityChallengeCheckIn to update.
+     */
+    where: CommunityChallengeCheckInWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeCheckIn updateMany
+   */
+  export type CommunityChallengeCheckInUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityChallengeCheckIns.
+     */
+    data: XOR<CommunityChallengeCheckInUpdateManyMutationInput, CommunityChallengeCheckInUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallengeCheckIns to update
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * Limit how many CommunityChallengeCheckIns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallengeCheckIn updateManyAndReturn
+   */
+  export type CommunityChallengeCheckInUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityChallengeCheckIns.
+     */
+    data: XOR<CommunityChallengeCheckInUpdateManyMutationInput, CommunityChallengeCheckInUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityChallengeCheckIns to update
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * Limit how many CommunityChallengeCheckIns to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityChallengeCheckIn upsert
+   */
+  export type CommunityChallengeCheckInUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityChallengeCheckIn to update in case it exists.
+     */
+    where: CommunityChallengeCheckInWhereUniqueInput
+    /**
+     * In case the CommunityChallengeCheckIn found by the `where` argument doesn't exist, create a new CommunityChallengeCheckIn with this data.
+     */
+    create: XOR<CommunityChallengeCheckInCreateInput, CommunityChallengeCheckInUncheckedCreateInput>
+    /**
+     * In case the CommunityChallengeCheckIn was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityChallengeCheckInUpdateInput, CommunityChallengeCheckInUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityChallengeCheckIn delete
+   */
+  export type CommunityChallengeCheckInDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityChallengeCheckIn to delete.
+     */
+    where: CommunityChallengeCheckInWhereUniqueInput
+  }
+
+  /**
+   * CommunityChallengeCheckIn deleteMany
+   */
+  export type CommunityChallengeCheckInDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityChallengeCheckIns to delete
+     */
+    where?: CommunityChallengeCheckInWhereInput
+    /**
+     * Limit how many CommunityChallengeCheckIns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityChallengeCheckIn.milestone
+   */
+  export type CommunityChallengeCheckIn$milestoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeMilestone
+     */
+    select?: CommunityChallengeMilestoneSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeMilestone
+     */
+    omit?: CommunityChallengeMilestoneOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeMilestoneInclude<ExtArgs> | null
+    where?: CommunityChallengeMilestoneWhereInput
+  }
+
+  /**
+   * CommunityChallengeCheckIn without action
+   */
+  export type CommunityChallengeCheckInDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityChallengeCheckIn
+     */
+    select?: CommunityChallengeCheckInSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityChallengeCheckIn
+     */
+    omit?: CommunityChallengeCheckInOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityChallengeCheckInInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model CommunityCategory
    */
 
@@ -131890,6 +138305,73 @@ export namespace Prisma {
   export type CommunityEventRsvpScalarFieldEnum = (typeof CommunityEventRsvpScalarFieldEnum)[keyof typeof CommunityEventRsvpScalarFieldEnum]
 
 
+  export const CommunityChallengeScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    slug: 'slug',
+    description: 'description',
+    descriptionFormat: 'descriptionFormat',
+    accessLevel: 'accessLevel',
+    coverImage: 'coverImage',
+    startsAt: 'startsAt',
+    endsAt: 'endsAt',
+    published: 'published',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CommunityChallengeScalarFieldEnum = (typeof CommunityChallengeScalarFieldEnum)[keyof typeof CommunityChallengeScalarFieldEnum]
+
+
+  export const CommunityChallengeMilestoneScalarFieldEnum: {
+    id: 'id',
+    challengeId: 'challengeId',
+    title: 'title',
+    description: 'description',
+    dueAt: 'dueAt',
+    sortOrder: 'sortOrder',
+    createdAt: 'createdAt'
+  };
+
+  export type CommunityChallengeMilestoneScalarFieldEnum = (typeof CommunityChallengeMilestoneScalarFieldEnum)[keyof typeof CommunityChallengeMilestoneScalarFieldEnum]
+
+
+  export const CommunityAccountabilityGroupScalarFieldEnum: {
+    id: 'id',
+    challengeId: 'challengeId',
+    name: 'name',
+    capacity: 'capacity',
+    createdAt: 'createdAt'
+  };
+
+  export type CommunityAccountabilityGroupScalarFieldEnum = (typeof CommunityAccountabilityGroupScalarFieldEnum)[keyof typeof CommunityAccountabilityGroupScalarFieldEnum]
+
+
+  export const CommunityChallengeEnrollmentScalarFieldEnum: {
+    id: 'id',
+    challengeId: 'challengeId',
+    userId: 'userId',
+    groupId: 'groupId',
+    status: 'status',
+    joinedAt: 'joinedAt',
+    completedAt: 'completedAt'
+  };
+
+  export type CommunityChallengeEnrollmentScalarFieldEnum = (typeof CommunityChallengeEnrollmentScalarFieldEnum)[keyof typeof CommunityChallengeEnrollmentScalarFieldEnum]
+
+
+  export const CommunityChallengeCheckInScalarFieldEnum: {
+    id: 'id',
+    enrollmentId: 'enrollmentId',
+    milestoneId: 'milestoneId',
+    note: 'note',
+    progress: 'progress',
+    createdAt: 'createdAt'
+  };
+
+  export type CommunityChallengeCheckInScalarFieldEnum = (typeof CommunityChallengeCheckInScalarFieldEnum)[keyof typeof CommunityChallengeCheckInScalarFieldEnum]
+
+
   export const CommunityCategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -132947,6 +139429,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CommunityChallengeEnrollmentStatus'
+   */
+  export type EnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityChallengeEnrollmentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityChallengeEnrollmentStatus[]'
+   */
+  export type ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityChallengeEnrollmentStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CommunityPostType'
    */
   export type EnumCommunityPostTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityPostType'>
@@ -133067,6 +139563,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressListRelationFilter
     courseCertificates?: CourseCertificateListRelationFilter
     communityEventRsvps?: CommunityEventRsvpListRelationFilter
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
     communityComments?: CommunityCommentListRelationFilter
     communityPostLikes?: CommunityPostLikeListRelationFilter
@@ -133129,6 +139626,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressOrderByRelationAggregateInput
     courseCertificates?: CourseCertificateOrderByRelationAggregateInput
     communityEventRsvps?: CommunityEventRsvpOrderByRelationAggregateInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentOrderByRelationAggregateInput
     communityPosts?: CommunityPostOrderByRelationAggregateInput
     communityComments?: CommunityCommentOrderByRelationAggregateInput
     communityPostLikes?: CommunityPostLikeOrderByRelationAggregateInput
@@ -133194,6 +139692,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressListRelationFilter
     courseCertificates?: CourseCertificateListRelationFilter
     communityEventRsvps?: CommunityEventRsvpListRelationFilter
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
     communityComments?: CommunityCommentListRelationFilter
     communityPostLikes?: CommunityPostLikeListRelationFilter
@@ -140643,6 +147142,372 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"CommunityEventRsvp"> | Date | string
   }
 
+  export type CommunityChallengeWhereInput = {
+    AND?: CommunityChallengeWhereInput | CommunityChallengeWhereInput[]
+    OR?: CommunityChallengeWhereInput[]
+    NOT?: CommunityChallengeWhereInput | CommunityChallengeWhereInput[]
+    id?: UuidFilter<"CommunityChallenge"> | string
+    title?: StringFilter<"CommunityChallenge"> | string
+    slug?: StringFilter<"CommunityChallenge"> | string
+    description?: StringNullableFilter<"CommunityChallenge"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatFilter<"CommunityChallenge"> | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityChallenge"> | $Enums.CommunityAccessLevel
+    coverImage?: StringNullableFilter<"CommunityChallenge"> | string | null
+    startsAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    endsAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    published?: BoolFilter<"CommunityChallenge"> | boolean
+    createdAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    milestones?: CommunityChallengeMilestoneListRelationFilter
+    enrollments?: CommunityChallengeEnrollmentListRelationFilter
+    groups?: CommunityAccountabilityGroupListRelationFilter
+  }
+
+  export type CommunityChallengeOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    descriptionFormat?: SortOrder
+    accessLevel?: SortOrder
+    coverImage?: SortOrderInput | SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    milestones?: CommunityChallengeMilestoneOrderByRelationAggregateInput
+    enrollments?: CommunityChallengeEnrollmentOrderByRelationAggregateInput
+    groups?: CommunityAccountabilityGroupOrderByRelationAggregateInput
+  }
+
+  export type CommunityChallengeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: CommunityChallengeWhereInput | CommunityChallengeWhereInput[]
+    OR?: CommunityChallengeWhereInput[]
+    NOT?: CommunityChallengeWhereInput | CommunityChallengeWhereInput[]
+    title?: StringFilter<"CommunityChallenge"> | string
+    description?: StringNullableFilter<"CommunityChallenge"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatFilter<"CommunityChallenge"> | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityChallenge"> | $Enums.CommunityAccessLevel
+    coverImage?: StringNullableFilter<"CommunityChallenge"> | string | null
+    startsAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    endsAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    published?: BoolFilter<"CommunityChallenge"> | boolean
+    createdAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityChallenge"> | Date | string
+    milestones?: CommunityChallengeMilestoneListRelationFilter
+    enrollments?: CommunityChallengeEnrollmentListRelationFilter
+    groups?: CommunityAccountabilityGroupListRelationFilter
+  }, "id" | "slug">
+
+  export type CommunityChallengeOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    descriptionFormat?: SortOrder
+    accessLevel?: SortOrder
+    coverImage?: SortOrderInput | SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommunityChallengeCountOrderByAggregateInput
+    _max?: CommunityChallengeMaxOrderByAggregateInput
+    _min?: CommunityChallengeMinOrderByAggregateInput
+  }
+
+  export type CommunityChallengeScalarWhereWithAggregatesInput = {
+    AND?: CommunityChallengeScalarWhereWithAggregatesInput | CommunityChallengeScalarWhereWithAggregatesInput[]
+    OR?: CommunityChallengeScalarWhereWithAggregatesInput[]
+    NOT?: CommunityChallengeScalarWhereWithAggregatesInput | CommunityChallengeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityChallenge"> | string
+    title?: StringWithAggregatesFilter<"CommunityChallenge"> | string
+    slug?: StringWithAggregatesFilter<"CommunityChallenge"> | string
+    description?: StringNullableWithAggregatesFilter<"CommunityChallenge"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatWithAggregatesFilter<"CommunityChallenge"> | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelWithAggregatesFilter<"CommunityChallenge"> | $Enums.CommunityAccessLevel
+    coverImage?: StringNullableWithAggregatesFilter<"CommunityChallenge"> | string | null
+    startsAt?: DateTimeWithAggregatesFilter<"CommunityChallenge"> | Date | string
+    endsAt?: DateTimeWithAggregatesFilter<"CommunityChallenge"> | Date | string
+    published?: BoolWithAggregatesFilter<"CommunityChallenge"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityChallenge"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CommunityChallenge"> | Date | string
+  }
+
+  export type CommunityChallengeMilestoneWhereInput = {
+    AND?: CommunityChallengeMilestoneWhereInput | CommunityChallengeMilestoneWhereInput[]
+    OR?: CommunityChallengeMilestoneWhereInput[]
+    NOT?: CommunityChallengeMilestoneWhereInput | CommunityChallengeMilestoneWhereInput[]
+    id?: UuidFilter<"CommunityChallengeMilestone"> | string
+    challengeId?: UuidFilter<"CommunityChallengeMilestone"> | string
+    title?: StringFilter<"CommunityChallengeMilestone"> | string
+    description?: StringNullableFilter<"CommunityChallengeMilestone"> | string | null
+    dueAt?: DateTimeNullableFilter<"CommunityChallengeMilestone"> | Date | string | null
+    sortOrder?: IntFilter<"CommunityChallengeMilestone"> | number
+    createdAt?: DateTimeFilter<"CommunityChallengeMilestone"> | Date | string
+    challenge?: XOR<CommunityChallengeScalarRelationFilter, CommunityChallengeWhereInput>
+    checkIns?: CommunityChallengeCheckInListRelationFilter
+  }
+
+  export type CommunityChallengeMilestoneOrderByWithRelationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    dueAt?: SortOrderInput | SortOrder
+    sortOrder?: SortOrder
+    createdAt?: SortOrder
+    challenge?: CommunityChallengeOrderByWithRelationInput
+    checkIns?: CommunityChallengeCheckInOrderByRelationAggregateInput
+  }
+
+  export type CommunityChallengeMilestoneWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommunityChallengeMilestoneWhereInput | CommunityChallengeMilestoneWhereInput[]
+    OR?: CommunityChallengeMilestoneWhereInput[]
+    NOT?: CommunityChallengeMilestoneWhereInput | CommunityChallengeMilestoneWhereInput[]
+    challengeId?: UuidFilter<"CommunityChallengeMilestone"> | string
+    title?: StringFilter<"CommunityChallengeMilestone"> | string
+    description?: StringNullableFilter<"CommunityChallengeMilestone"> | string | null
+    dueAt?: DateTimeNullableFilter<"CommunityChallengeMilestone"> | Date | string | null
+    sortOrder?: IntFilter<"CommunityChallengeMilestone"> | number
+    createdAt?: DateTimeFilter<"CommunityChallengeMilestone"> | Date | string
+    challenge?: XOR<CommunityChallengeScalarRelationFilter, CommunityChallengeWhereInput>
+    checkIns?: CommunityChallengeCheckInListRelationFilter
+  }, "id">
+
+  export type CommunityChallengeMilestoneOrderByWithAggregationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    dueAt?: SortOrderInput | SortOrder
+    sortOrder?: SortOrder
+    createdAt?: SortOrder
+    _count?: CommunityChallengeMilestoneCountOrderByAggregateInput
+    _avg?: CommunityChallengeMilestoneAvgOrderByAggregateInput
+    _max?: CommunityChallengeMilestoneMaxOrderByAggregateInput
+    _min?: CommunityChallengeMilestoneMinOrderByAggregateInput
+    _sum?: CommunityChallengeMilestoneSumOrderByAggregateInput
+  }
+
+  export type CommunityChallengeMilestoneScalarWhereWithAggregatesInput = {
+    AND?: CommunityChallengeMilestoneScalarWhereWithAggregatesInput | CommunityChallengeMilestoneScalarWhereWithAggregatesInput[]
+    OR?: CommunityChallengeMilestoneScalarWhereWithAggregatesInput[]
+    NOT?: CommunityChallengeMilestoneScalarWhereWithAggregatesInput | CommunityChallengeMilestoneScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityChallengeMilestone"> | string
+    challengeId?: UuidWithAggregatesFilter<"CommunityChallengeMilestone"> | string
+    title?: StringWithAggregatesFilter<"CommunityChallengeMilestone"> | string
+    description?: StringNullableWithAggregatesFilter<"CommunityChallengeMilestone"> | string | null
+    dueAt?: DateTimeNullableWithAggregatesFilter<"CommunityChallengeMilestone"> | Date | string | null
+    sortOrder?: IntWithAggregatesFilter<"CommunityChallengeMilestone"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityChallengeMilestone"> | Date | string
+  }
+
+  export type CommunityAccountabilityGroupWhereInput = {
+    AND?: CommunityAccountabilityGroupWhereInput | CommunityAccountabilityGroupWhereInput[]
+    OR?: CommunityAccountabilityGroupWhereInput[]
+    NOT?: CommunityAccountabilityGroupWhereInput | CommunityAccountabilityGroupWhereInput[]
+    id?: UuidFilter<"CommunityAccountabilityGroup"> | string
+    challengeId?: UuidFilter<"CommunityAccountabilityGroup"> | string
+    name?: StringFilter<"CommunityAccountabilityGroup"> | string
+    capacity?: IntFilter<"CommunityAccountabilityGroup"> | number
+    createdAt?: DateTimeFilter<"CommunityAccountabilityGroup"> | Date | string
+    challenge?: XOR<CommunityChallengeScalarRelationFilter, CommunityChallengeWhereInput>
+    enrollments?: CommunityChallengeEnrollmentListRelationFilter
+  }
+
+  export type CommunityAccountabilityGroupOrderByWithRelationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    capacity?: SortOrder
+    createdAt?: SortOrder
+    challenge?: CommunityChallengeOrderByWithRelationInput
+    enrollments?: CommunityChallengeEnrollmentOrderByRelationAggregateInput
+  }
+
+  export type CommunityAccountabilityGroupWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommunityAccountabilityGroupWhereInput | CommunityAccountabilityGroupWhereInput[]
+    OR?: CommunityAccountabilityGroupWhereInput[]
+    NOT?: CommunityAccountabilityGroupWhereInput | CommunityAccountabilityGroupWhereInput[]
+    challengeId?: UuidFilter<"CommunityAccountabilityGroup"> | string
+    name?: StringFilter<"CommunityAccountabilityGroup"> | string
+    capacity?: IntFilter<"CommunityAccountabilityGroup"> | number
+    createdAt?: DateTimeFilter<"CommunityAccountabilityGroup"> | Date | string
+    challenge?: XOR<CommunityChallengeScalarRelationFilter, CommunityChallengeWhereInput>
+    enrollments?: CommunityChallengeEnrollmentListRelationFilter
+  }, "id">
+
+  export type CommunityAccountabilityGroupOrderByWithAggregationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    capacity?: SortOrder
+    createdAt?: SortOrder
+    _count?: CommunityAccountabilityGroupCountOrderByAggregateInput
+    _avg?: CommunityAccountabilityGroupAvgOrderByAggregateInput
+    _max?: CommunityAccountabilityGroupMaxOrderByAggregateInput
+    _min?: CommunityAccountabilityGroupMinOrderByAggregateInput
+    _sum?: CommunityAccountabilityGroupSumOrderByAggregateInput
+  }
+
+  export type CommunityAccountabilityGroupScalarWhereWithAggregatesInput = {
+    AND?: CommunityAccountabilityGroupScalarWhereWithAggregatesInput | CommunityAccountabilityGroupScalarWhereWithAggregatesInput[]
+    OR?: CommunityAccountabilityGroupScalarWhereWithAggregatesInput[]
+    NOT?: CommunityAccountabilityGroupScalarWhereWithAggregatesInput | CommunityAccountabilityGroupScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityAccountabilityGroup"> | string
+    challengeId?: UuidWithAggregatesFilter<"CommunityAccountabilityGroup"> | string
+    name?: StringWithAggregatesFilter<"CommunityAccountabilityGroup"> | string
+    capacity?: IntWithAggregatesFilter<"CommunityAccountabilityGroup"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityAccountabilityGroup"> | Date | string
+  }
+
+  export type CommunityChallengeEnrollmentWhereInput = {
+    AND?: CommunityChallengeEnrollmentWhereInput | CommunityChallengeEnrollmentWhereInput[]
+    OR?: CommunityChallengeEnrollmentWhereInput[]
+    NOT?: CommunityChallengeEnrollmentWhereInput | CommunityChallengeEnrollmentWhereInput[]
+    id?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    challengeId?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    userId?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    groupId?: UuidNullableFilter<"CommunityChallengeEnrollment"> | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFilter<"CommunityChallengeEnrollment"> | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFilter<"CommunityChallengeEnrollment"> | Date | string
+    completedAt?: DateTimeNullableFilter<"CommunityChallengeEnrollment"> | Date | string | null
+    challenge?: XOR<CommunityChallengeScalarRelationFilter, CommunityChallengeWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    group?: XOR<CommunityAccountabilityGroupNullableScalarRelationFilter, CommunityAccountabilityGroupWhereInput> | null
+    checkIns?: CommunityChallengeCheckInListRelationFilter
+  }
+
+  export type CommunityChallengeEnrollmentOrderByWithRelationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    userId?: SortOrder
+    groupId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    joinedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    challenge?: CommunityChallengeOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    group?: CommunityAccountabilityGroupOrderByWithRelationInput
+    checkIns?: CommunityChallengeCheckInOrderByRelationAggregateInput
+  }
+
+  export type CommunityChallengeEnrollmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    challengeId_userId?: CommunityChallengeEnrollmentChallengeIdUserIdCompoundUniqueInput
+    AND?: CommunityChallengeEnrollmentWhereInput | CommunityChallengeEnrollmentWhereInput[]
+    OR?: CommunityChallengeEnrollmentWhereInput[]
+    NOT?: CommunityChallengeEnrollmentWhereInput | CommunityChallengeEnrollmentWhereInput[]
+    challengeId?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    userId?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    groupId?: UuidNullableFilter<"CommunityChallengeEnrollment"> | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFilter<"CommunityChallengeEnrollment"> | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFilter<"CommunityChallengeEnrollment"> | Date | string
+    completedAt?: DateTimeNullableFilter<"CommunityChallengeEnrollment"> | Date | string | null
+    challenge?: XOR<CommunityChallengeScalarRelationFilter, CommunityChallengeWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    group?: XOR<CommunityAccountabilityGroupNullableScalarRelationFilter, CommunityAccountabilityGroupWhereInput> | null
+    checkIns?: CommunityChallengeCheckInListRelationFilter
+  }, "id" | "challengeId_userId">
+
+  export type CommunityChallengeEnrollmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    userId?: SortOrder
+    groupId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    joinedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    _count?: CommunityChallengeEnrollmentCountOrderByAggregateInput
+    _max?: CommunityChallengeEnrollmentMaxOrderByAggregateInput
+    _min?: CommunityChallengeEnrollmentMinOrderByAggregateInput
+  }
+
+  export type CommunityChallengeEnrollmentScalarWhereWithAggregatesInput = {
+    AND?: CommunityChallengeEnrollmentScalarWhereWithAggregatesInput | CommunityChallengeEnrollmentScalarWhereWithAggregatesInput[]
+    OR?: CommunityChallengeEnrollmentScalarWhereWithAggregatesInput[]
+    NOT?: CommunityChallengeEnrollmentScalarWhereWithAggregatesInput | CommunityChallengeEnrollmentScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityChallengeEnrollment"> | string
+    challengeId?: UuidWithAggregatesFilter<"CommunityChallengeEnrollment"> | string
+    userId?: UuidWithAggregatesFilter<"CommunityChallengeEnrollment"> | string
+    groupId?: UuidNullableWithAggregatesFilter<"CommunityChallengeEnrollment"> | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusWithAggregatesFilter<"CommunityChallengeEnrollment"> | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeWithAggregatesFilter<"CommunityChallengeEnrollment"> | Date | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"CommunityChallengeEnrollment"> | Date | string | null
+  }
+
+  export type CommunityChallengeCheckInWhereInput = {
+    AND?: CommunityChallengeCheckInWhereInput | CommunityChallengeCheckInWhereInput[]
+    OR?: CommunityChallengeCheckInWhereInput[]
+    NOT?: CommunityChallengeCheckInWhereInput | CommunityChallengeCheckInWhereInput[]
+    id?: UuidFilter<"CommunityChallengeCheckIn"> | string
+    enrollmentId?: UuidFilter<"CommunityChallengeCheckIn"> | string
+    milestoneId?: UuidNullableFilter<"CommunityChallengeCheckIn"> | string | null
+    note?: StringNullableFilter<"CommunityChallengeCheckIn"> | string | null
+    progress?: IntFilter<"CommunityChallengeCheckIn"> | number
+    createdAt?: DateTimeFilter<"CommunityChallengeCheckIn"> | Date | string
+    enrollment?: XOR<CommunityChallengeEnrollmentScalarRelationFilter, CommunityChallengeEnrollmentWhereInput>
+    milestone?: XOR<CommunityChallengeMilestoneNullableScalarRelationFilter, CommunityChallengeMilestoneWhereInput> | null
+  }
+
+  export type CommunityChallengeCheckInOrderByWithRelationInput = {
+    id?: SortOrder
+    enrollmentId?: SortOrder
+    milestoneId?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
+    progress?: SortOrder
+    createdAt?: SortOrder
+    enrollment?: CommunityChallengeEnrollmentOrderByWithRelationInput
+    milestone?: CommunityChallengeMilestoneOrderByWithRelationInput
+  }
+
+  export type CommunityChallengeCheckInWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommunityChallengeCheckInWhereInput | CommunityChallengeCheckInWhereInput[]
+    OR?: CommunityChallengeCheckInWhereInput[]
+    NOT?: CommunityChallengeCheckInWhereInput | CommunityChallengeCheckInWhereInput[]
+    enrollmentId?: UuidFilter<"CommunityChallengeCheckIn"> | string
+    milestoneId?: UuidNullableFilter<"CommunityChallengeCheckIn"> | string | null
+    note?: StringNullableFilter<"CommunityChallengeCheckIn"> | string | null
+    progress?: IntFilter<"CommunityChallengeCheckIn"> | number
+    createdAt?: DateTimeFilter<"CommunityChallengeCheckIn"> | Date | string
+    enrollment?: XOR<CommunityChallengeEnrollmentScalarRelationFilter, CommunityChallengeEnrollmentWhereInput>
+    milestone?: XOR<CommunityChallengeMilestoneNullableScalarRelationFilter, CommunityChallengeMilestoneWhereInput> | null
+  }, "id">
+
+  export type CommunityChallengeCheckInOrderByWithAggregationInput = {
+    id?: SortOrder
+    enrollmentId?: SortOrder
+    milestoneId?: SortOrderInput | SortOrder
+    note?: SortOrderInput | SortOrder
+    progress?: SortOrder
+    createdAt?: SortOrder
+    _count?: CommunityChallengeCheckInCountOrderByAggregateInput
+    _avg?: CommunityChallengeCheckInAvgOrderByAggregateInput
+    _max?: CommunityChallengeCheckInMaxOrderByAggregateInput
+    _min?: CommunityChallengeCheckInMinOrderByAggregateInput
+    _sum?: CommunityChallengeCheckInSumOrderByAggregateInput
+  }
+
+  export type CommunityChallengeCheckInScalarWhereWithAggregatesInput = {
+    AND?: CommunityChallengeCheckInScalarWhereWithAggregatesInput | CommunityChallengeCheckInScalarWhereWithAggregatesInput[]
+    OR?: CommunityChallengeCheckInScalarWhereWithAggregatesInput[]
+    NOT?: CommunityChallengeCheckInScalarWhereWithAggregatesInput | CommunityChallengeCheckInScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityChallengeCheckIn"> | string
+    enrollmentId?: UuidWithAggregatesFilter<"CommunityChallengeCheckIn"> | string
+    milestoneId?: UuidNullableWithAggregatesFilter<"CommunityChallengeCheckIn"> | string | null
+    note?: StringNullableWithAggregatesFilter<"CommunityChallengeCheckIn"> | string | null
+    progress?: IntWithAggregatesFilter<"CommunityChallengeCheckIn"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityChallengeCheckIn"> | Date | string
+  }
+
   export type CommunityCategoryWhereInput = {
     AND?: CommunityCategoryWhereInput | CommunityCategoryWhereInput[]
     OR?: CommunityCategoryWhereInput[]
@@ -141648,6 +148513,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -141710,6 +148576,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -141772,6 +148639,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -141834,6 +148702,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -150072,6 +156941,387 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommunityChallengeCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: CommunityChallengeMilestoneCreateNestedManyWithoutChallengeInput
+    enrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutChallengeInput
+    groups?: CommunityAccountabilityGroupCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeUncheckedCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: CommunityChallengeMilestoneUncheckedCreateNestedManyWithoutChallengeInput
+    enrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutChallengeInput
+    groups?: CommunityAccountabilityGroupUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: CommunityChallengeMilestoneUpdateManyWithoutChallengeNestedInput
+    enrollments?: CommunityChallengeEnrollmentUpdateManyWithoutChallengeNestedInput
+    groups?: CommunityAccountabilityGroupUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: CommunityChallengeMilestoneUncheckedUpdateManyWithoutChallengeNestedInput
+    enrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutChallengeNestedInput
+    groups?: CommunityAccountabilityGroupUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeCreateManyInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityChallengeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeMilestoneCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+    challenge: CommunityChallengeCreateNestedOneWithoutMilestonesInput
+    checkIns?: CommunityChallengeCheckInCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedCreateInput = {
+    id?: string
+    challengeId: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+    checkIns?: CommunityChallengeCheckInUncheckedCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type CommunityChallengeMilestoneUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutMilestonesNestedInput
+    checkIns?: CommunityChallengeCheckInUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkIns?: CommunityChallengeCheckInUncheckedUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type CommunityChallengeMilestoneCreateManyInput = {
+    id?: string
+    challengeId: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeMilestoneUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeMilestoneUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityAccountabilityGroupCreateInput = {
+    id?: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+    challenge: CommunityChallengeCreateNestedOneWithoutGroupsInput
+    enrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutGroupInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedCreateInput = {
+    id?: string
+    challengeId: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+    enrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type CommunityAccountabilityGroupUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutGroupsNestedInput
+    enrollments?: CommunityChallengeEnrollmentUpdateManyWithoutGroupNestedInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type CommunityAccountabilityGroupCreateManyInput = {
+    id?: string
+    challengeId: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityAccountabilityGroupUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityAccountabilityGroupUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeEnrollmentCreateInput = {
+    id?: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    challenge: CommunityChallengeCreateNestedOneWithoutEnrollmentsInput
+    user: UserCreateNestedOneWithoutCommunityChallengeEnrollmentsInput
+    group?: CommunityAccountabilityGroupCreateNestedOneWithoutEnrollmentsInput
+    checkIns?: CommunityChallengeCheckInCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateInput = {
+    id?: string
+    challengeId: string
+    userId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutEnrollmentsNestedInput
+    user?: UserUpdateOneRequiredWithoutCommunityChallengeEnrollmentsNestedInput
+    group?: CommunityAccountabilityGroupUpdateOneWithoutEnrollmentsNestedInput
+    checkIns?: CommunityChallengeCheckInUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyInput = {
+    id?: string
+    challengeId: string
+    userId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CommunityChallengeCheckInCreateInput = {
+    id?: string
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+    enrollment: CommunityChallengeEnrollmentCreateNestedOneWithoutCheckInsInput
+    milestone?: CommunityChallengeMilestoneCreateNestedOneWithoutCheckInsInput
+  }
+
+  export type CommunityChallengeCheckInUncheckedCreateInput = {
+    id?: string
+    enrollmentId: string
+    milestoneId?: string | null
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeCheckInUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollment?: CommunityChallengeEnrollmentUpdateOneRequiredWithoutCheckInsNestedInput
+    milestone?: CommunityChallengeMilestoneUpdateOneWithoutCheckInsNestedInput
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enrollmentId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeCheckInCreateManyInput = {
+    id?: string
+    enrollmentId: string
+    milestoneId?: string | null
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeCheckInUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enrollmentId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommunityCategoryCreateInput = {
     id?: string
     name: string
@@ -151267,6 +158517,12 @@ export namespace Prisma {
     none?: CommunityEventRsvpWhereInput
   }
 
+  export type CommunityChallengeEnrollmentListRelationFilter = {
+    every?: CommunityChallengeEnrollmentWhereInput
+    some?: CommunityChallengeEnrollmentWhereInput
+    none?: CommunityChallengeEnrollmentWhereInput
+  }
+
   export type CommunityPostListRelationFilter = {
     every?: CommunityPostWhereInput
     some?: CommunityPostWhereInput
@@ -151472,6 +158728,10 @@ export namespace Prisma {
   }
 
   export type CommunityEventRsvpOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityChallengeEnrollmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -157402,6 +164662,258 @@ export namespace Prisma {
     _max?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel>
   }
 
+  export type CommunityChallengeMilestoneListRelationFilter = {
+    every?: CommunityChallengeMilestoneWhereInput
+    some?: CommunityChallengeMilestoneWhereInput
+    none?: CommunityChallengeMilestoneWhereInput
+  }
+
+  export type CommunityAccountabilityGroupListRelationFilter = {
+    every?: CommunityAccountabilityGroupWhereInput
+    some?: CommunityAccountabilityGroupWhereInput
+    none?: CommunityAccountabilityGroupWhereInput
+  }
+
+  export type CommunityChallengeMilestoneOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityAccountabilityGroupOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityChallengeCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    descriptionFormat?: SortOrder
+    accessLevel?: SortOrder
+    coverImage?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityChallengeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    descriptionFormat?: SortOrder
+    accessLevel?: SortOrder
+    coverImage?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityChallengeMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    descriptionFormat?: SortOrder
+    accessLevel?: SortOrder
+    coverImage?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityChallengeScalarRelationFilter = {
+    is?: CommunityChallengeWhereInput
+    isNot?: CommunityChallengeWhereInput
+  }
+
+  export type CommunityChallengeCheckInListRelationFilter = {
+    every?: CommunityChallengeCheckInWhereInput
+    some?: CommunityChallengeCheckInWhereInput
+    none?: CommunityChallengeCheckInWhereInput
+  }
+
+  export type CommunityChallengeCheckInOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityChallengeMilestoneCountOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    dueAt?: SortOrder
+    sortOrder?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityChallengeMilestoneAvgOrderByAggregateInput = {
+    sortOrder?: SortOrder
+  }
+
+  export type CommunityChallengeMilestoneMaxOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    dueAt?: SortOrder
+    sortOrder?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityChallengeMilestoneMinOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    dueAt?: SortOrder
+    sortOrder?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityChallengeMilestoneSumOrderByAggregateInput = {
+    sortOrder?: SortOrder
+  }
+
+  export type CommunityAccountabilityGroupCountOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    capacity?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityAccountabilityGroupAvgOrderByAggregateInput = {
+    capacity?: SortOrder
+  }
+
+  export type CommunityAccountabilityGroupMaxOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    capacity?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityAccountabilityGroupMinOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    capacity?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityAccountabilityGroupSumOrderByAggregateInput = {
+    capacity?: SortOrder
+  }
+
+  export type EnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityChallengeEnrollmentStatus | EnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel> | $Enums.CommunityChallengeEnrollmentStatus
+  }
+
+  export type CommunityAccountabilityGroupNullableScalarRelationFilter = {
+    is?: CommunityAccountabilityGroupWhereInput | null
+    isNot?: CommunityAccountabilityGroupWhereInput | null
+  }
+
+  export type CommunityChallengeEnrollmentChallengeIdUserIdCompoundUniqueInput = {
+    challengeId: string
+    userId: string
+  }
+
+  export type CommunityChallengeEnrollmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    userId?: SortOrder
+    groupId?: SortOrder
+    status?: SortOrder
+    joinedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type CommunityChallengeEnrollmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    userId?: SortOrder
+    groupId?: SortOrder
+    status?: SortOrder
+    joinedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type CommunityChallengeEnrollmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    userId?: SortOrder
+    groupId?: SortOrder
+    status?: SortOrder
+    joinedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type EnumCommunityChallengeEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityChallengeEnrollmentStatus | EnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityChallengeEnrollmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityChallengeEnrollmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel>
+  }
+
+  export type CommunityChallengeEnrollmentScalarRelationFilter = {
+    is?: CommunityChallengeEnrollmentWhereInput
+    isNot?: CommunityChallengeEnrollmentWhereInput
+  }
+
+  export type CommunityChallengeMilestoneNullableScalarRelationFilter = {
+    is?: CommunityChallengeMilestoneWhereInput | null
+    isNot?: CommunityChallengeMilestoneWhereInput | null
+  }
+
+  export type CommunityChallengeCheckInCountOrderByAggregateInput = {
+    id?: SortOrder
+    enrollmentId?: SortOrder
+    milestoneId?: SortOrder
+    note?: SortOrder
+    progress?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityChallengeCheckInAvgOrderByAggregateInput = {
+    progress?: SortOrder
+  }
+
+  export type CommunityChallengeCheckInMaxOrderByAggregateInput = {
+    id?: SortOrder
+    enrollmentId?: SortOrder
+    milestoneId?: SortOrder
+    note?: SortOrder
+    progress?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityChallengeCheckInMinOrderByAggregateInput = {
+    id?: SortOrder
+    enrollmentId?: SortOrder
+    milestoneId?: SortOrder
+    note?: SortOrder
+    progress?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommunityChallengeCheckInSumOrderByAggregateInput = {
+    progress?: SortOrder
+  }
+
   export type CommunityCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -158100,6 +165612,13 @@ export namespace Prisma {
     connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
   }
 
+  export type CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutUserInput, CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput> | CommunityChallengeEnrollmentCreateWithoutUserInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput | CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyUserInputEnvelope
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+  }
+
   export type CommunityPostCreateNestedManyWithoutAuthorInput = {
     create?: XOR<CommunityPostCreateWithoutAuthorInput, CommunityPostUncheckedCreateWithoutAuthorInput> | CommunityPostCreateWithoutAuthorInput[] | CommunityPostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CommunityPostCreateOrConnectWithoutAuthorInput | CommunityPostCreateOrConnectWithoutAuthorInput[]
@@ -158411,6 +165930,13 @@ export namespace Prisma {
     connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutUserInput | CommunityEventRsvpCreateOrConnectWithoutUserInput[]
     createMany?: CommunityEventRsvpCreateManyUserInputEnvelope
     connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutUserInput, CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput> | CommunityChallengeEnrollmentCreateWithoutUserInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput | CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyUserInputEnvelope
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
   }
 
   export type CommunityPostUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -158849,6 +166375,20 @@ export namespace Prisma {
     update?: CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput | CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommunityEventRsvpUpdateManyWithWhereWithoutUserInput | CommunityEventRsvpUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutUserInput, CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput> | CommunityChallengeEnrollmentCreateWithoutUserInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput | CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput[]
+    upsert?: CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutUserInput | CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyUserInputEnvelope
+    set?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    disconnect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    delete?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    update?: CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutUserInput | CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommunityChallengeEnrollmentUpdateManyWithWhereWithoutUserInput | CommunityChallengeEnrollmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
   }
 
   export type CommunityPostUpdateManyWithoutAuthorNestedInput = {
@@ -159457,6 +166997,20 @@ export namespace Prisma {
     update?: CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput | CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommunityEventRsvpUpdateManyWithWhereWithoutUserInput | CommunityEventRsvpUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutUserInput, CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput> | CommunityChallengeEnrollmentCreateWithoutUserInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput | CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput[]
+    upsert?: CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutUserInput | CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyUserInputEnvelope
+    set?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    disconnect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    delete?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    update?: CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutUserInput | CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommunityChallengeEnrollmentUpdateManyWithWhereWithoutUserInput | CommunityChallengeEnrollmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
   }
 
   export type CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -164844,6 +172398,364 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityEventRsvpsInput, UserUpdateWithoutCommunityEventRsvpsInput>, UserUncheckedUpdateWithoutCommunityEventRsvpsInput>
   }
 
+  export type CommunityChallengeMilestoneCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<CommunityChallengeMilestoneCreateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput> | CommunityChallengeMilestoneCreateWithoutChallengeInput[] | CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput | CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput[]
+    createMany?: CommunityChallengeMilestoneCreateManyChallengeInputEnvelope
+    connect?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeEnrollmentCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput> | CommunityChallengeEnrollmentCreateWithoutChallengeInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput | CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyChallengeInputEnvelope
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+  }
+
+  export type CommunityAccountabilityGroupCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<CommunityAccountabilityGroupCreateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput> | CommunityAccountabilityGroupCreateWithoutChallengeInput[] | CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput | CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput[]
+    createMany?: CommunityAccountabilityGroupCreateManyChallengeInputEnvelope
+    connect?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeMilestoneUncheckedCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<CommunityChallengeMilestoneCreateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput> | CommunityChallengeMilestoneCreateWithoutChallengeInput[] | CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput | CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput[]
+    createMany?: CommunityChallengeMilestoneCreateManyChallengeInputEnvelope
+    connect?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput> | CommunityChallengeEnrollmentCreateWithoutChallengeInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput | CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyChallengeInputEnvelope
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+  }
+
+  export type CommunityAccountabilityGroupUncheckedCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<CommunityAccountabilityGroupCreateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput> | CommunityAccountabilityGroupCreateWithoutChallengeInput[] | CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput | CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput[]
+    createMany?: CommunityAccountabilityGroupCreateManyChallengeInputEnvelope
+    connect?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeMilestoneUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<CommunityChallengeMilestoneCreateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput> | CommunityChallengeMilestoneCreateWithoutChallengeInput[] | CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput | CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput[]
+    upsert?: CommunityChallengeMilestoneUpsertWithWhereUniqueWithoutChallengeInput | CommunityChallengeMilestoneUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: CommunityChallengeMilestoneCreateManyChallengeInputEnvelope
+    set?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    disconnect?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    delete?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    connect?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    update?: CommunityChallengeMilestoneUpdateWithWhereUniqueWithoutChallengeInput | CommunityChallengeMilestoneUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: CommunityChallengeMilestoneUpdateManyWithWhereWithoutChallengeInput | CommunityChallengeMilestoneUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: CommunityChallengeMilestoneScalarWhereInput | CommunityChallengeMilestoneScalarWhereInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput> | CommunityChallengeEnrollmentCreateWithoutChallengeInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput | CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput[]
+    upsert?: CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutChallengeInput | CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyChallengeInputEnvelope
+    set?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    disconnect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    delete?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    update?: CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutChallengeInput | CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: CommunityChallengeEnrollmentUpdateManyWithWhereWithoutChallengeInput | CommunityChallengeEnrollmentUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
+  }
+
+  export type CommunityAccountabilityGroupUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<CommunityAccountabilityGroupCreateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput> | CommunityAccountabilityGroupCreateWithoutChallengeInput[] | CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput | CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput[]
+    upsert?: CommunityAccountabilityGroupUpsertWithWhereUniqueWithoutChallengeInput | CommunityAccountabilityGroupUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: CommunityAccountabilityGroupCreateManyChallengeInputEnvelope
+    set?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    disconnect?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    delete?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    connect?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    update?: CommunityAccountabilityGroupUpdateWithWhereUniqueWithoutChallengeInput | CommunityAccountabilityGroupUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: CommunityAccountabilityGroupUpdateManyWithWhereWithoutChallengeInput | CommunityAccountabilityGroupUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: CommunityAccountabilityGroupScalarWhereInput | CommunityAccountabilityGroupScalarWhereInput[]
+  }
+
+  export type CommunityChallengeMilestoneUncheckedUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<CommunityChallengeMilestoneCreateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput> | CommunityChallengeMilestoneCreateWithoutChallengeInput[] | CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput | CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput[]
+    upsert?: CommunityChallengeMilestoneUpsertWithWhereUniqueWithoutChallengeInput | CommunityChallengeMilestoneUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: CommunityChallengeMilestoneCreateManyChallengeInputEnvelope
+    set?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    disconnect?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    delete?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    connect?: CommunityChallengeMilestoneWhereUniqueInput | CommunityChallengeMilestoneWhereUniqueInput[]
+    update?: CommunityChallengeMilestoneUpdateWithWhereUniqueWithoutChallengeInput | CommunityChallengeMilestoneUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: CommunityChallengeMilestoneUpdateManyWithWhereWithoutChallengeInput | CommunityChallengeMilestoneUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: CommunityChallengeMilestoneScalarWhereInput | CommunityChallengeMilestoneScalarWhereInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput> | CommunityChallengeEnrollmentCreateWithoutChallengeInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput | CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput[]
+    upsert?: CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutChallengeInput | CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyChallengeInputEnvelope
+    set?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    disconnect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    delete?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    update?: CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutChallengeInput | CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: CommunityChallengeEnrollmentUpdateManyWithWhereWithoutChallengeInput | CommunityChallengeEnrollmentUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
+  }
+
+  export type CommunityAccountabilityGroupUncheckedUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<CommunityAccountabilityGroupCreateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput> | CommunityAccountabilityGroupCreateWithoutChallengeInput[] | CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput | CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput[]
+    upsert?: CommunityAccountabilityGroupUpsertWithWhereUniqueWithoutChallengeInput | CommunityAccountabilityGroupUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: CommunityAccountabilityGroupCreateManyChallengeInputEnvelope
+    set?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    disconnect?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    delete?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    connect?: CommunityAccountabilityGroupWhereUniqueInput | CommunityAccountabilityGroupWhereUniqueInput[]
+    update?: CommunityAccountabilityGroupUpdateWithWhereUniqueWithoutChallengeInput | CommunityAccountabilityGroupUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: CommunityAccountabilityGroupUpdateManyWithWhereWithoutChallengeInput | CommunityAccountabilityGroupUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: CommunityAccountabilityGroupScalarWhereInput | CommunityAccountabilityGroupScalarWhereInput[]
+  }
+
+  export type CommunityChallengeCreateNestedOneWithoutMilestonesInput = {
+    create?: XOR<CommunityChallengeCreateWithoutMilestonesInput, CommunityChallengeUncheckedCreateWithoutMilestonesInput>
+    connectOrCreate?: CommunityChallengeCreateOrConnectWithoutMilestonesInput
+    connect?: CommunityChallengeWhereUniqueInput
+  }
+
+  export type CommunityChallengeCheckInCreateNestedManyWithoutMilestoneInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput> | CommunityChallengeCheckInCreateWithoutMilestoneInput[] | CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput | CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput[]
+    createMany?: CommunityChallengeCheckInCreateManyMilestoneInputEnvelope
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeCheckInUncheckedCreateNestedManyWithoutMilestoneInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput> | CommunityChallengeCheckInCreateWithoutMilestoneInput[] | CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput | CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput[]
+    createMany?: CommunityChallengeCheckInCreateManyMilestoneInputEnvelope
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeUpdateOneRequiredWithoutMilestonesNestedInput = {
+    create?: XOR<CommunityChallengeCreateWithoutMilestonesInput, CommunityChallengeUncheckedCreateWithoutMilestonesInput>
+    connectOrCreate?: CommunityChallengeCreateOrConnectWithoutMilestonesInput
+    upsert?: CommunityChallengeUpsertWithoutMilestonesInput
+    connect?: CommunityChallengeWhereUniqueInput
+    update?: XOR<XOR<CommunityChallengeUpdateToOneWithWhereWithoutMilestonesInput, CommunityChallengeUpdateWithoutMilestonesInput>, CommunityChallengeUncheckedUpdateWithoutMilestonesInput>
+  }
+
+  export type CommunityChallengeCheckInUpdateManyWithoutMilestoneNestedInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput> | CommunityChallengeCheckInCreateWithoutMilestoneInput[] | CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput | CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput[]
+    upsert?: CommunityChallengeCheckInUpsertWithWhereUniqueWithoutMilestoneInput | CommunityChallengeCheckInUpsertWithWhereUniqueWithoutMilestoneInput[]
+    createMany?: CommunityChallengeCheckInCreateManyMilestoneInputEnvelope
+    set?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    disconnect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    delete?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    update?: CommunityChallengeCheckInUpdateWithWhereUniqueWithoutMilestoneInput | CommunityChallengeCheckInUpdateWithWhereUniqueWithoutMilestoneInput[]
+    updateMany?: CommunityChallengeCheckInUpdateManyWithWhereWithoutMilestoneInput | CommunityChallengeCheckInUpdateManyWithWhereWithoutMilestoneInput[]
+    deleteMany?: CommunityChallengeCheckInScalarWhereInput | CommunityChallengeCheckInScalarWhereInput[]
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateManyWithoutMilestoneNestedInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput> | CommunityChallengeCheckInCreateWithoutMilestoneInput[] | CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput | CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput[]
+    upsert?: CommunityChallengeCheckInUpsertWithWhereUniqueWithoutMilestoneInput | CommunityChallengeCheckInUpsertWithWhereUniqueWithoutMilestoneInput[]
+    createMany?: CommunityChallengeCheckInCreateManyMilestoneInputEnvelope
+    set?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    disconnect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    delete?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    update?: CommunityChallengeCheckInUpdateWithWhereUniqueWithoutMilestoneInput | CommunityChallengeCheckInUpdateWithWhereUniqueWithoutMilestoneInput[]
+    updateMany?: CommunityChallengeCheckInUpdateManyWithWhereWithoutMilestoneInput | CommunityChallengeCheckInUpdateManyWithWhereWithoutMilestoneInput[]
+    deleteMany?: CommunityChallengeCheckInScalarWhereInput | CommunityChallengeCheckInScalarWhereInput[]
+  }
+
+  export type CommunityChallengeCreateNestedOneWithoutGroupsInput = {
+    create?: XOR<CommunityChallengeCreateWithoutGroupsInput, CommunityChallengeUncheckedCreateWithoutGroupsInput>
+    connectOrCreate?: CommunityChallengeCreateOrConnectWithoutGroupsInput
+    connect?: CommunityChallengeWhereUniqueInput
+  }
+
+  export type CommunityChallengeEnrollmentCreateNestedManyWithoutGroupInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput> | CommunityChallengeEnrollmentCreateWithoutGroupInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput | CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyGroupInputEnvelope
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput> | CommunityChallengeEnrollmentCreateWithoutGroupInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput | CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyGroupInputEnvelope
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeUpdateOneRequiredWithoutGroupsNestedInput = {
+    create?: XOR<CommunityChallengeCreateWithoutGroupsInput, CommunityChallengeUncheckedCreateWithoutGroupsInput>
+    connectOrCreate?: CommunityChallengeCreateOrConnectWithoutGroupsInput
+    upsert?: CommunityChallengeUpsertWithoutGroupsInput
+    connect?: CommunityChallengeWhereUniqueInput
+    update?: XOR<XOR<CommunityChallengeUpdateToOneWithWhereWithoutGroupsInput, CommunityChallengeUpdateWithoutGroupsInput>, CommunityChallengeUncheckedUpdateWithoutGroupsInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput> | CommunityChallengeEnrollmentCreateWithoutGroupInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput | CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput[]
+    upsert?: CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutGroupInput | CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyGroupInputEnvelope
+    set?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    disconnect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    delete?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    update?: CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutGroupInput | CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: CommunityChallengeEnrollmentUpdateManyWithWhereWithoutGroupInput | CommunityChallengeEnrollmentUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput> | CommunityChallengeEnrollmentCreateWithoutGroupInput[] | CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput | CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput[]
+    upsert?: CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutGroupInput | CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: CommunityChallengeEnrollmentCreateManyGroupInputEnvelope
+    set?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    disconnect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    delete?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput | CommunityChallengeEnrollmentWhereUniqueInput[]
+    update?: CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutGroupInput | CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: CommunityChallengeEnrollmentUpdateManyWithWhereWithoutGroupInput | CommunityChallengeEnrollmentUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
+  }
+
+  export type CommunityChallengeCreateNestedOneWithoutEnrollmentsInput = {
+    create?: XOR<CommunityChallengeCreateWithoutEnrollmentsInput, CommunityChallengeUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: CommunityChallengeCreateOrConnectWithoutEnrollmentsInput
+    connect?: CommunityChallengeWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCommunityChallengeEnrollmentsInput = {
+    create?: XOR<UserCreateWithoutCommunityChallengeEnrollmentsInput, UserUncheckedCreateWithoutCommunityChallengeEnrollmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityChallengeEnrollmentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommunityAccountabilityGroupCreateNestedOneWithoutEnrollmentsInput = {
+    create?: XOR<CommunityAccountabilityGroupCreateWithoutEnrollmentsInput, CommunityAccountabilityGroupUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: CommunityAccountabilityGroupCreateOrConnectWithoutEnrollmentsInput
+    connect?: CommunityAccountabilityGroupWhereUniqueInput
+  }
+
+  export type CommunityChallengeCheckInCreateNestedManyWithoutEnrollmentInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput> | CommunityChallengeCheckInCreateWithoutEnrollmentInput[] | CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput | CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput[]
+    createMany?: CommunityChallengeCheckInCreateManyEnrollmentInputEnvelope
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+  }
+
+  export type CommunityChallengeCheckInUncheckedCreateNestedManyWithoutEnrollmentInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput> | CommunityChallengeCheckInCreateWithoutEnrollmentInput[] | CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput | CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput[]
+    createMany?: CommunityChallengeCheckInCreateManyEnrollmentInputEnvelope
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+  }
+
+  export type EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityChallengeEnrollmentStatus
+  }
+
+  export type CommunityChallengeUpdateOneRequiredWithoutEnrollmentsNestedInput = {
+    create?: XOR<CommunityChallengeCreateWithoutEnrollmentsInput, CommunityChallengeUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: CommunityChallengeCreateOrConnectWithoutEnrollmentsInput
+    upsert?: CommunityChallengeUpsertWithoutEnrollmentsInput
+    connect?: CommunityChallengeWhereUniqueInput
+    update?: XOR<XOR<CommunityChallengeUpdateToOneWithWhereWithoutEnrollmentsInput, CommunityChallengeUpdateWithoutEnrollmentsInput>, CommunityChallengeUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCommunityChallengeEnrollmentsNestedInput = {
+    create?: XOR<UserCreateWithoutCommunityChallengeEnrollmentsInput, UserUncheckedCreateWithoutCommunityChallengeEnrollmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityChallengeEnrollmentsInput
+    upsert?: UserUpsertWithoutCommunityChallengeEnrollmentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityChallengeEnrollmentsInput, UserUpdateWithoutCommunityChallengeEnrollmentsInput>, UserUncheckedUpdateWithoutCommunityChallengeEnrollmentsInput>
+  }
+
+  export type CommunityAccountabilityGroupUpdateOneWithoutEnrollmentsNestedInput = {
+    create?: XOR<CommunityAccountabilityGroupCreateWithoutEnrollmentsInput, CommunityAccountabilityGroupUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: CommunityAccountabilityGroupCreateOrConnectWithoutEnrollmentsInput
+    upsert?: CommunityAccountabilityGroupUpsertWithoutEnrollmentsInput
+    disconnect?: CommunityAccountabilityGroupWhereInput | boolean
+    delete?: CommunityAccountabilityGroupWhereInput | boolean
+    connect?: CommunityAccountabilityGroupWhereUniqueInput
+    update?: XOR<XOR<CommunityAccountabilityGroupUpdateToOneWithWhereWithoutEnrollmentsInput, CommunityAccountabilityGroupUpdateWithoutEnrollmentsInput>, CommunityAccountabilityGroupUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type CommunityChallengeCheckInUpdateManyWithoutEnrollmentNestedInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput> | CommunityChallengeCheckInCreateWithoutEnrollmentInput[] | CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput | CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput[]
+    upsert?: CommunityChallengeCheckInUpsertWithWhereUniqueWithoutEnrollmentInput | CommunityChallengeCheckInUpsertWithWhereUniqueWithoutEnrollmentInput[]
+    createMany?: CommunityChallengeCheckInCreateManyEnrollmentInputEnvelope
+    set?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    disconnect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    delete?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    update?: CommunityChallengeCheckInUpdateWithWhereUniqueWithoutEnrollmentInput | CommunityChallengeCheckInUpdateWithWhereUniqueWithoutEnrollmentInput[]
+    updateMany?: CommunityChallengeCheckInUpdateManyWithWhereWithoutEnrollmentInput | CommunityChallengeCheckInUpdateManyWithWhereWithoutEnrollmentInput[]
+    deleteMany?: CommunityChallengeCheckInScalarWhereInput | CommunityChallengeCheckInScalarWhereInput[]
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentNestedInput = {
+    create?: XOR<CommunityChallengeCheckInCreateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput> | CommunityChallengeCheckInCreateWithoutEnrollmentInput[] | CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput[]
+    connectOrCreate?: CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput | CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput[]
+    upsert?: CommunityChallengeCheckInUpsertWithWhereUniqueWithoutEnrollmentInput | CommunityChallengeCheckInUpsertWithWhereUniqueWithoutEnrollmentInput[]
+    createMany?: CommunityChallengeCheckInCreateManyEnrollmentInputEnvelope
+    set?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    disconnect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    delete?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    connect?: CommunityChallengeCheckInWhereUniqueInput | CommunityChallengeCheckInWhereUniqueInput[]
+    update?: CommunityChallengeCheckInUpdateWithWhereUniqueWithoutEnrollmentInput | CommunityChallengeCheckInUpdateWithWhereUniqueWithoutEnrollmentInput[]
+    updateMany?: CommunityChallengeCheckInUpdateManyWithWhereWithoutEnrollmentInput | CommunityChallengeCheckInUpdateManyWithWhereWithoutEnrollmentInput[]
+    deleteMany?: CommunityChallengeCheckInScalarWhereInput | CommunityChallengeCheckInScalarWhereInput[]
+  }
+
+  export type CommunityChallengeEnrollmentCreateNestedOneWithoutCheckInsInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutCheckInsInput, CommunityChallengeEnrollmentUncheckedCreateWithoutCheckInsInput>
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutCheckInsInput
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput
+  }
+
+  export type CommunityChallengeMilestoneCreateNestedOneWithoutCheckInsInput = {
+    create?: XOR<CommunityChallengeMilestoneCreateWithoutCheckInsInput, CommunityChallengeMilestoneUncheckedCreateWithoutCheckInsInput>
+    connectOrCreate?: CommunityChallengeMilestoneCreateOrConnectWithoutCheckInsInput
+    connect?: CommunityChallengeMilestoneWhereUniqueInput
+  }
+
+  export type CommunityChallengeEnrollmentUpdateOneRequiredWithoutCheckInsNestedInput = {
+    create?: XOR<CommunityChallengeEnrollmentCreateWithoutCheckInsInput, CommunityChallengeEnrollmentUncheckedCreateWithoutCheckInsInput>
+    connectOrCreate?: CommunityChallengeEnrollmentCreateOrConnectWithoutCheckInsInput
+    upsert?: CommunityChallengeEnrollmentUpsertWithoutCheckInsInput
+    connect?: CommunityChallengeEnrollmentWhereUniqueInput
+    update?: XOR<XOR<CommunityChallengeEnrollmentUpdateToOneWithWhereWithoutCheckInsInput, CommunityChallengeEnrollmentUpdateWithoutCheckInsInput>, CommunityChallengeEnrollmentUncheckedUpdateWithoutCheckInsInput>
+  }
+
+  export type CommunityChallengeMilestoneUpdateOneWithoutCheckInsNestedInput = {
+    create?: XOR<CommunityChallengeMilestoneCreateWithoutCheckInsInput, CommunityChallengeMilestoneUncheckedCreateWithoutCheckInsInput>
+    connectOrCreate?: CommunityChallengeMilestoneCreateOrConnectWithoutCheckInsInput
+    upsert?: CommunityChallengeMilestoneUpsertWithoutCheckInsInput
+    disconnect?: CommunityChallengeMilestoneWhereInput | boolean
+    delete?: CommunityChallengeMilestoneWhereInput | boolean
+    connect?: CommunityChallengeMilestoneWhereUniqueInput
+    update?: XOR<XOR<CommunityChallengeMilestoneUpdateToOneWithWhereWithoutCheckInsInput, CommunityChallengeMilestoneUpdateWithoutCheckInsInput>, CommunityChallengeMilestoneUncheckedUpdateWithoutCheckInsInput>
+  }
+
   export type CommunityPostCreateNestedManyWithoutCategoryInput = {
     create?: XOR<CommunityPostCreateWithoutCategoryInput, CommunityPostUncheckedCreateWithoutCategoryInput> | CommunityPostCreateWithoutCategoryInput[] | CommunityPostUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: CommunityPostCreateOrConnectWithoutCategoryInput | CommunityPostCreateOrConnectWithoutCategoryInput[]
@@ -166714,6 +174626,23 @@ export namespace Prisma {
     _max?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityChallengeEnrollmentStatus | EnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel> | $Enums.CommunityChallengeEnrollmentStatus
+  }
+
+  export type NestedEnumCommunityChallengeEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityChallengeEnrollmentStatus | EnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityChallengeEnrollmentStatus[] | ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityChallengeEnrollmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityChallengeEnrollmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityChallengeEnrollmentStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumCommunityPostTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
     in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
@@ -167382,6 +175311,36 @@ export namespace Prisma {
 
   export type CommunityEventRsvpCreateManyUserInputEnvelope = {
     data: CommunityEventRsvpCreateManyUserInput | CommunityEventRsvpCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityChallengeEnrollmentCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    challenge: CommunityChallengeCreateNestedOneWithoutEnrollmentsInput
+    group?: CommunityAccountabilityGroupCreateNestedOneWithoutEnrollmentsInput
+    checkIns?: CommunityChallengeCheckInCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput = {
+    id?: string
+    challengeId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentCreateOrConnectWithoutUserInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutUserInput, CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyUserInputEnvelope = {
+    data: CommunityChallengeEnrollmentCreateManyUserInput | CommunityChallengeEnrollmentCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -168954,6 +176913,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
   }
 
+  export type CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    update: XOR<CommunityChallengeEnrollmentUpdateWithoutUserInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutUserInput>
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutUserInput, CommunityChallengeEnrollmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    data: XOR<CommunityChallengeEnrollmentUpdateWithoutUserInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyWithWhereWithoutUserInput = {
+    where: CommunityChallengeEnrollmentScalarWhereInput
+    data: XOR<CommunityChallengeEnrollmentUpdateManyMutationInput, CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommunityChallengeEnrollmentScalarWhereInput = {
+    AND?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
+    OR?: CommunityChallengeEnrollmentScalarWhereInput[]
+    NOT?: CommunityChallengeEnrollmentScalarWhereInput | CommunityChallengeEnrollmentScalarWhereInput[]
+    id?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    challengeId?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    userId?: UuidFilter<"CommunityChallengeEnrollment"> | string
+    groupId?: UuidNullableFilter<"CommunityChallengeEnrollment"> | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFilter<"CommunityChallengeEnrollment"> | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFilter<"CommunityChallengeEnrollment"> | Date | string
+    completedAt?: DateTimeNullableFilter<"CommunityChallengeEnrollment"> | Date | string | null
+  }
+
   export type CommunityPostUpsertWithWhereUniqueWithoutAuthorInput = {
     where: CommunityPostWhereUniqueInput
     update: XOR<CommunityPostUpdateWithoutAuthorInput, CommunityPostUncheckedUpdateWithoutAuthorInput>
@@ -169879,6 +177867,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -169940,6 +177929,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -170017,6 +178007,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -170078,6 +178069,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -170138,6 +178130,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -170199,6 +178192,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -170276,6 +178270,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -170337,6 +178332,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -170537,6 +178533,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -170598,6 +178595,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -170698,6 +178696,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -170759,6 +178758,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -170849,6 +178849,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -170910,6 +178911,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -170987,6 +178989,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -171048,6 +179051,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -171110,6 +179114,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -171171,6 +179176,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -171248,6 +179254,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -171309,6 +179316,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -171369,6 +179377,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -171430,6 +179439,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -171760,6 +179770,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -171821,6 +179832,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -172288,6 +180300,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -172349,6 +180362,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -172479,6 +180493,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -172540,6 +180555,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -175493,6 +183509,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -175554,6 +183571,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -175659,6 +183677,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -175720,6 +183739,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -176097,6 +184117,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -176158,6 +184179,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -176536,6 +184558,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -176597,6 +184620,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -177788,6 +185812,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -177849,6 +185874,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -178122,6 +186148,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -178183,6 +186210,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -178461,6 +186489,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -178522,6 +186551,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -178750,6 +186780,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -178811,6 +186842,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -178982,6 +187014,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179043,6 +187076,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -179200,6 +187234,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -179261,6 +187296,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -179745,6 +187781,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179806,6 +187843,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180143,6 +188181,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -180204,6 +188243,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183304,6 +191344,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183365,6 +191406,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -183464,6 +191506,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -183525,6 +191568,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183903,6 +191947,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183964,6 +192009,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184041,6 +192087,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -184102,6 +192149,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -184189,6 +192237,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -184250,6 +192299,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184316,6 +192366,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -184377,6 +192428,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184470,6 +192522,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -184531,6 +192584,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -184603,6 +192657,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -184664,6 +192719,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -184756,6 +192812,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -184817,6 +192874,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184931,6 +192989,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -184992,6 +193051,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -185053,6 +193113,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -185114,6 +193175,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -185191,6 +193253,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -185252,6 +193315,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -185312,6 +193376,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -185373,6 +193438,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -185482,6 +193548,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -185543,6 +193610,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -185669,6 +193737,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -185730,6 +193799,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -185871,6 +193941,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -185932,6 +194003,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -186069,6 +194141,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -186130,6 +194203,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -186237,6 +194311,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -186298,6 +194373,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -186445,6 +194521,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -186506,6 +194583,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -186583,6 +194661,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -186644,6 +194723,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -186705,6 +194785,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -186766,6 +194847,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -186887,6 +194969,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -186948,6 +195031,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -187025,6 +195109,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -187086,6 +195171,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -187278,6 +195364,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -187339,6 +195426,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -187475,6 +195563,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -187536,6 +195625,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -187758,6 +195848,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -187819,6 +195910,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -188305,6 +196397,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -188366,6 +196459,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -188506,6 +196600,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -188567,6 +196662,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -188802,6 +196898,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -188863,6 +196960,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -189154,6 +197252,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -189215,6 +197314,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -189777,6 +197877,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -189838,6 +197939,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190017,6 +198119,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -190078,6 +198181,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -190515,6 +198619,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -190576,6 +198681,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190709,6 +198815,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -190770,6 +198877,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -191280,6 +199388,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -191341,6 +199450,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -191463,6 +199573,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -191524,6 +199635,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -191620,6 +199732,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -191681,6 +199794,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -191799,6 +199913,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -191860,6 +199975,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -192010,6 +200126,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -192071,6 +200188,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -192201,6 +200319,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -192262,6 +200381,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -192291,6 +200411,982 @@ export namespace Prisma {
     qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
     qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
     qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type CommunityChallengeMilestoneCreateWithoutChallengeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+    checkIns?: CommunityChallengeCheckInCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+    checkIns?: CommunityChallengeCheckInUncheckedCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type CommunityChallengeMilestoneCreateOrConnectWithoutChallengeInput = {
+    where: CommunityChallengeMilestoneWhereUniqueInput
+    create: XOR<CommunityChallengeMilestoneCreateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeMilestoneCreateManyChallengeInputEnvelope = {
+    data: CommunityChallengeMilestoneCreateManyChallengeInput | CommunityChallengeMilestoneCreateManyChallengeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityChallengeEnrollmentCreateWithoutChallengeInput = {
+    id?: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutCommunityChallengeEnrollmentsInput
+    group?: CommunityAccountabilityGroupCreateNestedOneWithoutEnrollmentsInput
+    checkIns?: CommunityChallengeCheckInCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput = {
+    id?: string
+    userId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentCreateOrConnectWithoutChallengeInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyChallengeInputEnvelope = {
+    data: CommunityChallengeEnrollmentCreateManyChallengeInput | CommunityChallengeEnrollmentCreateManyChallengeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityAccountabilityGroupCreateWithoutChallengeInput = {
+    id?: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+    enrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutGroupInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput = {
+    id?: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+    enrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type CommunityAccountabilityGroupCreateOrConnectWithoutChallengeInput = {
+    where: CommunityAccountabilityGroupWhereUniqueInput
+    create: XOR<CommunityAccountabilityGroupCreateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type CommunityAccountabilityGroupCreateManyChallengeInputEnvelope = {
+    data: CommunityAccountabilityGroupCreateManyChallengeInput | CommunityAccountabilityGroupCreateManyChallengeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityChallengeMilestoneUpsertWithWhereUniqueWithoutChallengeInput = {
+    where: CommunityChallengeMilestoneWhereUniqueInput
+    update: XOR<CommunityChallengeMilestoneUpdateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedUpdateWithoutChallengeInput>
+    create: XOR<CommunityChallengeMilestoneCreateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeMilestoneUpdateWithWhereUniqueWithoutChallengeInput = {
+    where: CommunityChallengeMilestoneWhereUniqueInput
+    data: XOR<CommunityChallengeMilestoneUpdateWithoutChallengeInput, CommunityChallengeMilestoneUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeMilestoneUpdateManyWithWhereWithoutChallengeInput = {
+    where: CommunityChallengeMilestoneScalarWhereInput
+    data: XOR<CommunityChallengeMilestoneUpdateManyMutationInput, CommunityChallengeMilestoneUncheckedUpdateManyWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeMilestoneScalarWhereInput = {
+    AND?: CommunityChallengeMilestoneScalarWhereInput | CommunityChallengeMilestoneScalarWhereInput[]
+    OR?: CommunityChallengeMilestoneScalarWhereInput[]
+    NOT?: CommunityChallengeMilestoneScalarWhereInput | CommunityChallengeMilestoneScalarWhereInput[]
+    id?: UuidFilter<"CommunityChallengeMilestone"> | string
+    challengeId?: UuidFilter<"CommunityChallengeMilestone"> | string
+    title?: StringFilter<"CommunityChallengeMilestone"> | string
+    description?: StringNullableFilter<"CommunityChallengeMilestone"> | string | null
+    dueAt?: DateTimeNullableFilter<"CommunityChallengeMilestone"> | Date | string | null
+    sortOrder?: IntFilter<"CommunityChallengeMilestone"> | number
+    createdAt?: DateTimeFilter<"CommunityChallengeMilestone"> | Date | string
+  }
+
+  export type CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutChallengeInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    update: XOR<CommunityChallengeEnrollmentUpdateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutChallengeInput>
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutChallengeInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    data: XOR<CommunityChallengeEnrollmentUpdateWithoutChallengeInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyWithWhereWithoutChallengeInput = {
+    where: CommunityChallengeEnrollmentScalarWhereInput
+    data: XOR<CommunityChallengeEnrollmentUpdateManyMutationInput, CommunityChallengeEnrollmentUncheckedUpdateManyWithoutChallengeInput>
+  }
+
+  export type CommunityAccountabilityGroupUpsertWithWhereUniqueWithoutChallengeInput = {
+    where: CommunityAccountabilityGroupWhereUniqueInput
+    update: XOR<CommunityAccountabilityGroupUpdateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedUpdateWithoutChallengeInput>
+    create: XOR<CommunityAccountabilityGroupCreateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type CommunityAccountabilityGroupUpdateWithWhereUniqueWithoutChallengeInput = {
+    where: CommunityAccountabilityGroupWhereUniqueInput
+    data: XOR<CommunityAccountabilityGroupUpdateWithoutChallengeInput, CommunityAccountabilityGroupUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type CommunityAccountabilityGroupUpdateManyWithWhereWithoutChallengeInput = {
+    where: CommunityAccountabilityGroupScalarWhereInput
+    data: XOR<CommunityAccountabilityGroupUpdateManyMutationInput, CommunityAccountabilityGroupUncheckedUpdateManyWithoutChallengeInput>
+  }
+
+  export type CommunityAccountabilityGroupScalarWhereInput = {
+    AND?: CommunityAccountabilityGroupScalarWhereInput | CommunityAccountabilityGroupScalarWhereInput[]
+    OR?: CommunityAccountabilityGroupScalarWhereInput[]
+    NOT?: CommunityAccountabilityGroupScalarWhereInput | CommunityAccountabilityGroupScalarWhereInput[]
+    id?: UuidFilter<"CommunityAccountabilityGroup"> | string
+    challengeId?: UuidFilter<"CommunityAccountabilityGroup"> | string
+    name?: StringFilter<"CommunityAccountabilityGroup"> | string
+    capacity?: IntFilter<"CommunityAccountabilityGroup"> | number
+    createdAt?: DateTimeFilter<"CommunityAccountabilityGroup"> | Date | string
+  }
+
+  export type CommunityChallengeCreateWithoutMilestonesInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutChallengeInput
+    groups?: CommunityAccountabilityGroupCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeUncheckedCreateWithoutMilestonesInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutChallengeInput
+    groups?: CommunityAccountabilityGroupUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeCreateOrConnectWithoutMilestonesInput = {
+    where: CommunityChallengeWhereUniqueInput
+    create: XOR<CommunityChallengeCreateWithoutMilestonesInput, CommunityChallengeUncheckedCreateWithoutMilestonesInput>
+  }
+
+  export type CommunityChallengeCheckInCreateWithoutMilestoneInput = {
+    id?: string
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+    enrollment: CommunityChallengeEnrollmentCreateNestedOneWithoutCheckInsInput
+  }
+
+  export type CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput = {
+    id?: string
+    enrollmentId: string
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeCheckInCreateOrConnectWithoutMilestoneInput = {
+    where: CommunityChallengeCheckInWhereUniqueInput
+    create: XOR<CommunityChallengeCheckInCreateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput>
+  }
+
+  export type CommunityChallengeCheckInCreateManyMilestoneInputEnvelope = {
+    data: CommunityChallengeCheckInCreateManyMilestoneInput | CommunityChallengeCheckInCreateManyMilestoneInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityChallengeUpsertWithoutMilestonesInput = {
+    update: XOR<CommunityChallengeUpdateWithoutMilestonesInput, CommunityChallengeUncheckedUpdateWithoutMilestonesInput>
+    create: XOR<CommunityChallengeCreateWithoutMilestonesInput, CommunityChallengeUncheckedCreateWithoutMilestonesInput>
+    where?: CommunityChallengeWhereInput
+  }
+
+  export type CommunityChallengeUpdateToOneWithWhereWithoutMilestonesInput = {
+    where?: CommunityChallengeWhereInput
+    data: XOR<CommunityChallengeUpdateWithoutMilestonesInput, CommunityChallengeUncheckedUpdateWithoutMilestonesInput>
+  }
+
+  export type CommunityChallengeUpdateWithoutMilestonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: CommunityChallengeEnrollmentUpdateManyWithoutChallengeNestedInput
+    groups?: CommunityAccountabilityGroupUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeUncheckedUpdateWithoutMilestonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutChallengeNestedInput
+    groups?: CommunityAccountabilityGroupUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeCheckInUpsertWithWhereUniqueWithoutMilestoneInput = {
+    where: CommunityChallengeCheckInWhereUniqueInput
+    update: XOR<CommunityChallengeCheckInUpdateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedUpdateWithoutMilestoneInput>
+    create: XOR<CommunityChallengeCheckInCreateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedCreateWithoutMilestoneInput>
+  }
+
+  export type CommunityChallengeCheckInUpdateWithWhereUniqueWithoutMilestoneInput = {
+    where: CommunityChallengeCheckInWhereUniqueInput
+    data: XOR<CommunityChallengeCheckInUpdateWithoutMilestoneInput, CommunityChallengeCheckInUncheckedUpdateWithoutMilestoneInput>
+  }
+
+  export type CommunityChallengeCheckInUpdateManyWithWhereWithoutMilestoneInput = {
+    where: CommunityChallengeCheckInScalarWhereInput
+    data: XOR<CommunityChallengeCheckInUpdateManyMutationInput, CommunityChallengeCheckInUncheckedUpdateManyWithoutMilestoneInput>
+  }
+
+  export type CommunityChallengeCheckInScalarWhereInput = {
+    AND?: CommunityChallengeCheckInScalarWhereInput | CommunityChallengeCheckInScalarWhereInput[]
+    OR?: CommunityChallengeCheckInScalarWhereInput[]
+    NOT?: CommunityChallengeCheckInScalarWhereInput | CommunityChallengeCheckInScalarWhereInput[]
+    id?: UuidFilter<"CommunityChallengeCheckIn"> | string
+    enrollmentId?: UuidFilter<"CommunityChallengeCheckIn"> | string
+    milestoneId?: UuidNullableFilter<"CommunityChallengeCheckIn"> | string | null
+    note?: StringNullableFilter<"CommunityChallengeCheckIn"> | string | null
+    progress?: IntFilter<"CommunityChallengeCheckIn"> | number
+    createdAt?: DateTimeFilter<"CommunityChallengeCheckIn"> | Date | string
+  }
+
+  export type CommunityChallengeCreateWithoutGroupsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: CommunityChallengeMilestoneCreateNestedManyWithoutChallengeInput
+    enrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeUncheckedCreateWithoutGroupsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: CommunityChallengeMilestoneUncheckedCreateNestedManyWithoutChallengeInput
+    enrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeCreateOrConnectWithoutGroupsInput = {
+    where: CommunityChallengeWhereUniqueInput
+    create: XOR<CommunityChallengeCreateWithoutGroupsInput, CommunityChallengeUncheckedCreateWithoutGroupsInput>
+  }
+
+  export type CommunityChallengeEnrollmentCreateWithoutGroupInput = {
+    id?: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    challenge: CommunityChallengeCreateNestedOneWithoutEnrollmentsInput
+    user: UserCreateNestedOneWithoutCommunityChallengeEnrollmentsInput
+    checkIns?: CommunityChallengeCheckInCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput = {
+    id?: string
+    challengeId: string
+    userId: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedCreateNestedManyWithoutEnrollmentInput
+  }
+
+  export type CommunityChallengeEnrollmentCreateOrConnectWithoutGroupInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput>
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyGroupInputEnvelope = {
+    data: CommunityChallengeEnrollmentCreateManyGroupInput | CommunityChallengeEnrollmentCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityChallengeUpsertWithoutGroupsInput = {
+    update: XOR<CommunityChallengeUpdateWithoutGroupsInput, CommunityChallengeUncheckedUpdateWithoutGroupsInput>
+    create: XOR<CommunityChallengeCreateWithoutGroupsInput, CommunityChallengeUncheckedCreateWithoutGroupsInput>
+    where?: CommunityChallengeWhereInput
+  }
+
+  export type CommunityChallengeUpdateToOneWithWhereWithoutGroupsInput = {
+    where?: CommunityChallengeWhereInput
+    data: XOR<CommunityChallengeUpdateWithoutGroupsInput, CommunityChallengeUncheckedUpdateWithoutGroupsInput>
+  }
+
+  export type CommunityChallengeUpdateWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: CommunityChallengeMilestoneUpdateManyWithoutChallengeNestedInput
+    enrollments?: CommunityChallengeEnrollmentUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeUncheckedUpdateWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: CommunityChallengeMilestoneUncheckedUpdateManyWithoutChallengeNestedInput
+    enrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUpsertWithWhereUniqueWithoutGroupInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    update: XOR<CommunityChallengeEnrollmentUpdateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutGroupInput>
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedCreateWithoutGroupInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithWhereUniqueWithoutGroupInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    data: XOR<CommunityChallengeEnrollmentUpdateWithoutGroupInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateManyWithWhereWithoutGroupInput = {
+    where: CommunityChallengeEnrollmentScalarWhereInput
+    data: XOR<CommunityChallengeEnrollmentUpdateManyMutationInput, CommunityChallengeEnrollmentUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type CommunityChallengeCreateWithoutEnrollmentsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: CommunityChallengeMilestoneCreateNestedManyWithoutChallengeInput
+    groups?: CommunityAccountabilityGroupCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeUncheckedCreateWithoutEnrollmentsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    accessLevel?: $Enums.CommunityAccessLevel
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt: Date | string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: CommunityChallengeMilestoneUncheckedCreateNestedManyWithoutChallengeInput
+    groups?: CommunityAccountabilityGroupUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type CommunityChallengeCreateOrConnectWithoutEnrollmentsInput = {
+    where: CommunityChallengeWhereUniqueInput
+    create: XOR<CommunityChallengeCreateWithoutEnrollmentsInput, CommunityChallengeUncheckedCreateWithoutEnrollmentsInput>
+  }
+
+  export type UserCreateWithoutCommunityChallengeEnrollmentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutCommunityChallengeEnrollmentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventUncheckedCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryUncheckedCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutCommunityChallengeEnrollmentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommunityChallengeEnrollmentsInput, UserUncheckedCreateWithoutCommunityChallengeEnrollmentsInput>
+  }
+
+  export type CommunityAccountabilityGroupCreateWithoutEnrollmentsInput = {
+    id?: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+    challenge: CommunityChallengeCreateNestedOneWithoutGroupsInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedCreateWithoutEnrollmentsInput = {
+    id?: string
+    challengeId: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityAccountabilityGroupCreateOrConnectWithoutEnrollmentsInput = {
+    where: CommunityAccountabilityGroupWhereUniqueInput
+    create: XOR<CommunityAccountabilityGroupCreateWithoutEnrollmentsInput, CommunityAccountabilityGroupUncheckedCreateWithoutEnrollmentsInput>
+  }
+
+  export type CommunityChallengeCheckInCreateWithoutEnrollmentInput = {
+    id?: string
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+    milestone?: CommunityChallengeMilestoneCreateNestedOneWithoutCheckInsInput
+  }
+
+  export type CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput = {
+    id?: string
+    milestoneId?: string | null
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeCheckInCreateOrConnectWithoutEnrollmentInput = {
+    where: CommunityChallengeCheckInWhereUniqueInput
+    create: XOR<CommunityChallengeCheckInCreateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput>
+  }
+
+  export type CommunityChallengeCheckInCreateManyEnrollmentInputEnvelope = {
+    data: CommunityChallengeCheckInCreateManyEnrollmentInput | CommunityChallengeCheckInCreateManyEnrollmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityChallengeUpsertWithoutEnrollmentsInput = {
+    update: XOR<CommunityChallengeUpdateWithoutEnrollmentsInput, CommunityChallengeUncheckedUpdateWithoutEnrollmentsInput>
+    create: XOR<CommunityChallengeCreateWithoutEnrollmentsInput, CommunityChallengeUncheckedCreateWithoutEnrollmentsInput>
+    where?: CommunityChallengeWhereInput
+  }
+
+  export type CommunityChallengeUpdateToOneWithWhereWithoutEnrollmentsInput = {
+    where?: CommunityChallengeWhereInput
+    data: XOR<CommunityChallengeUpdateWithoutEnrollmentsInput, CommunityChallengeUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type CommunityChallengeUpdateWithoutEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: CommunityChallengeMilestoneUpdateManyWithoutChallengeNestedInput
+    groups?: CommunityAccountabilityGroupUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type CommunityChallengeUncheckedUpdateWithoutEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: CommunityChallengeMilestoneUncheckedUpdateManyWithoutChallengeNestedInput
+    groups?: CommunityAccountabilityGroupUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type UserUpsertWithoutCommunityChallengeEnrollmentsInput = {
+    update: XOR<UserUpdateWithoutCommunityChallengeEnrollmentsInput, UserUncheckedUpdateWithoutCommunityChallengeEnrollmentsInput>
+    create: XOR<UserCreateWithoutCommunityChallengeEnrollmentsInput, UserUncheckedCreateWithoutCommunityChallengeEnrollmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommunityChallengeEnrollmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommunityChallengeEnrollmentsInput, UserUncheckedUpdateWithoutCommunityChallengeEnrollmentsInput>
+  }
+
+  export type UserUpdateWithoutCommunityChallengeEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommunityChallengeEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUncheckedUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type CommunityAccountabilityGroupUpsertWithoutEnrollmentsInput = {
+    update: XOR<CommunityAccountabilityGroupUpdateWithoutEnrollmentsInput, CommunityAccountabilityGroupUncheckedUpdateWithoutEnrollmentsInput>
+    create: XOR<CommunityAccountabilityGroupCreateWithoutEnrollmentsInput, CommunityAccountabilityGroupUncheckedCreateWithoutEnrollmentsInput>
+    where?: CommunityAccountabilityGroupWhereInput
+  }
+
+  export type CommunityAccountabilityGroupUpdateToOneWithWhereWithoutEnrollmentsInput = {
+    where?: CommunityAccountabilityGroupWhereInput
+    data: XOR<CommunityAccountabilityGroupUpdateWithoutEnrollmentsInput, CommunityAccountabilityGroupUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type CommunityAccountabilityGroupUpdateWithoutEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutGroupsNestedInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedUpdateWithoutEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeCheckInUpsertWithWhereUniqueWithoutEnrollmentInput = {
+    where: CommunityChallengeCheckInWhereUniqueInput
+    update: XOR<CommunityChallengeCheckInUpdateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedUpdateWithoutEnrollmentInput>
+    create: XOR<CommunityChallengeCheckInCreateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedCreateWithoutEnrollmentInput>
+  }
+
+  export type CommunityChallengeCheckInUpdateWithWhereUniqueWithoutEnrollmentInput = {
+    where: CommunityChallengeCheckInWhereUniqueInput
+    data: XOR<CommunityChallengeCheckInUpdateWithoutEnrollmentInput, CommunityChallengeCheckInUncheckedUpdateWithoutEnrollmentInput>
+  }
+
+  export type CommunityChallengeCheckInUpdateManyWithWhereWithoutEnrollmentInput = {
+    where: CommunityChallengeCheckInScalarWhereInput
+    data: XOR<CommunityChallengeCheckInUpdateManyMutationInput, CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentInput>
+  }
+
+  export type CommunityChallengeEnrollmentCreateWithoutCheckInsInput = {
+    id?: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+    challenge: CommunityChallengeCreateNestedOneWithoutEnrollmentsInput
+    user: UserCreateNestedOneWithoutCommunityChallengeEnrollmentsInput
+    group?: CommunityAccountabilityGroupCreateNestedOneWithoutEnrollmentsInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedCreateWithoutCheckInsInput = {
+    id?: string
+    challengeId: string
+    userId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CommunityChallengeEnrollmentCreateOrConnectWithoutCheckInsInput = {
+    where: CommunityChallengeEnrollmentWhereUniqueInput
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutCheckInsInput, CommunityChallengeEnrollmentUncheckedCreateWithoutCheckInsInput>
+  }
+
+  export type CommunityChallengeMilestoneCreateWithoutCheckInsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+    challenge: CommunityChallengeCreateNestedOneWithoutMilestonesInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedCreateWithoutCheckInsInput = {
+    id?: string
+    challengeId: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeMilestoneCreateOrConnectWithoutCheckInsInput = {
+    where: CommunityChallengeMilestoneWhereUniqueInput
+    create: XOR<CommunityChallengeMilestoneCreateWithoutCheckInsInput, CommunityChallengeMilestoneUncheckedCreateWithoutCheckInsInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpsertWithoutCheckInsInput = {
+    update: XOR<CommunityChallengeEnrollmentUpdateWithoutCheckInsInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutCheckInsInput>
+    create: XOR<CommunityChallengeEnrollmentCreateWithoutCheckInsInput, CommunityChallengeEnrollmentUncheckedCreateWithoutCheckInsInput>
+    where?: CommunityChallengeEnrollmentWhereInput
+  }
+
+  export type CommunityChallengeEnrollmentUpdateToOneWithWhereWithoutCheckInsInput = {
+    where?: CommunityChallengeEnrollmentWhereInput
+    data: XOR<CommunityChallengeEnrollmentUpdateWithoutCheckInsInput, CommunityChallengeEnrollmentUncheckedUpdateWithoutCheckInsInput>
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithoutCheckInsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutEnrollmentsNestedInput
+    user?: UserUpdateOneRequiredWithoutCommunityChallengeEnrollmentsNestedInput
+    group?: CommunityAccountabilityGroupUpdateOneWithoutEnrollmentsNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateWithoutCheckInsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CommunityChallengeMilestoneUpsertWithoutCheckInsInput = {
+    update: XOR<CommunityChallengeMilestoneUpdateWithoutCheckInsInput, CommunityChallengeMilestoneUncheckedUpdateWithoutCheckInsInput>
+    create: XOR<CommunityChallengeMilestoneCreateWithoutCheckInsInput, CommunityChallengeMilestoneUncheckedCreateWithoutCheckInsInput>
+    where?: CommunityChallengeMilestoneWhereInput
+  }
+
+  export type CommunityChallengeMilestoneUpdateToOneWithWhereWithoutCheckInsInput = {
+    where?: CommunityChallengeMilestoneWhereInput
+    data: XOR<CommunityChallengeMilestoneUpdateWithoutCheckInsInput, CommunityChallengeMilestoneUncheckedUpdateWithoutCheckInsInput>
+  }
+
+  export type CommunityChallengeMilestoneUpdateWithoutCheckInsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutMilestonesNestedInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedUpdateWithoutCheckInsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityPostCreateWithoutCategoryInput = {
@@ -192421,6 +201517,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -192482,6 +201579,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -192723,6 +201821,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -192784,6 +201883,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -192997,6 +202097,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -193058,6 +202159,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -193310,6 +202412,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -193371,6 +202474,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -193542,6 +202646,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -193603,6 +202708,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -193680,6 +202786,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -193741,6 +202848,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -193802,6 +202910,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -193863,6 +202972,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -193940,6 +203050,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -194001,6 +203112,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -194113,6 +203225,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -194174,6 +203287,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -194308,6 +203422,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -194369,6 +203484,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -194430,6 +203546,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -194491,6 +203608,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -194568,6 +203686,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -194629,6 +203748,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -194690,6 +203810,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -194751,6 +203872,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -194817,6 +203939,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -194878,6 +204001,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -194955,6 +204079,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -195016,6 +204141,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -195088,6 +204214,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -195149,6 +204276,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -195210,6 +204338,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -195271,6 +204400,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -195399,6 +204529,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -195460,6 +204591,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -195578,6 +204710,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -195639,6 +204772,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -195767,6 +204901,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -195828,6 +204963,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -195946,6 +205082,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -196007,6 +205144,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -196084,6 +205222,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -196145,6 +205284,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -196206,6 +205346,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -196267,6 +205408,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -196344,6 +205486,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -196405,6 +205548,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -196466,6 +205610,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -196527,6 +205672,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -196604,6 +205750,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -196665,6 +205812,7 @@ export namespace Prisma {
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityChallengeEnrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -196803,6 +205951,15 @@ export namespace Prisma {
     status?: $Enums.CommunityEventRsvpStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyUserInput = {
+    id?: string
+    challengeId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
   }
 
   export type CommunityPostCreateManyAuthorInput = {
@@ -197450,6 +206607,35 @@ export namespace Prisma {
     status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutEnrollmentsNestedInput
+    group?: CommunityAccountabilityGroupUpdateOneWithoutEnrollmentsNestedInput
+    checkIns?: CommunityChallengeCheckInUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CommunityPostUpdateWithoutAuthorInput = {
@@ -202196,6 +211382,214 @@ export namespace Prisma {
     status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeMilestoneCreateManyChallengeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    dueAt?: Date | string | null
+    sortOrder?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyChallengeInput = {
+    id?: string
+    userId: string
+    groupId?: string | null
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CommunityAccountabilityGroupCreateManyChallengeInput = {
+    id?: string
+    name: string
+    capacity?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeMilestoneUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkIns?: CommunityChallengeCheckInUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkIns?: CommunityChallengeCheckInUncheckedUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type CommunityChallengeMilestoneUncheckedUpdateManyWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutCommunityChallengeEnrollmentsNestedInput
+    group?: CommunityAccountabilityGroupUpdateOneWithoutEnrollmentsNestedInput
+    checkIns?: CommunityChallengeCheckInUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CommunityAccountabilityGroupUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: CommunityChallengeEnrollmentUpdateManyWithoutGroupNestedInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: CommunityChallengeEnrollmentUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type CommunityAccountabilityGroupUncheckedUpdateManyWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeCheckInCreateManyMilestoneInput = {
+    id?: string
+    enrollmentId: string
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeCheckInUpdateWithoutMilestoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollment?: CommunityChallengeEnrollmentUpdateOneRequiredWithoutCheckInsNestedInput
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateWithoutMilestoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enrollmentId?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateManyWithoutMilestoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enrollmentId?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeEnrollmentCreateManyGroupInput = {
+    id?: string
+    challengeId: string
+    userId: string
+    status?: $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CommunityChallengeEnrollmentUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    challenge?: CommunityChallengeUpdateOneRequiredWithoutEnrollmentsNestedInput
+    user?: UserUpdateOneRequiredWithoutCommunityChallengeEnrollmentsNestedInput
+    checkIns?: CommunityChallengeCheckInUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkIns?: CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentNestedInput
+  }
+
+  export type CommunityChallengeEnrollmentUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityChallengeEnrollmentStatusFieldUpdateOperationsInput | $Enums.CommunityChallengeEnrollmentStatus
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CommunityChallengeCheckInCreateManyEnrollmentInput = {
+    id?: string
+    milestoneId?: string | null
+    note?: string | null
+    progress?: number
+    createdAt?: Date | string
+  }
+
+  export type CommunityChallengeCheckInUpdateWithoutEnrollmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestone?: CommunityChallengeMilestoneUpdateOneWithoutCheckInsNestedInput
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateWithoutEnrollmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityChallengeCheckInUncheckedUpdateManyWithoutEnrollmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    progress?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityPostCreateManyCategoryInput = {

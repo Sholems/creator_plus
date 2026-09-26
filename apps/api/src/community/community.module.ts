@@ -15,6 +15,8 @@ import { CommunityProfilesController } from './community-profiles.controller';
 import { CommunityProfilesService } from './community-profiles.service';
 import { CommunityEventsController } from './community-events.controller';
 import { CommunityEventsService } from './community-events.service';
+import { CommunityChallengesController } from './community-challenges.controller';
+import { CommunityChallengesService } from './community-challenges.service';
 
 @Module({
   imports: [MembershipModule, NotificationsModule, EmailModule, FeatureFlagsModule],
@@ -24,6 +26,7 @@ import { CommunityEventsService } from './community-events.service';
     CommunityHomeController,
     CommunityProfilesController,
     CommunityEventsController,
+    CommunityChallengesController,
   ],
   providers: [
     CommunityAccessService,
@@ -33,6 +36,7 @@ import { CommunityEventsService } from './community-events.service';
     CommunityFeedService,
     CommunityPointsService,
     CommunityEventsService,
+    CommunityChallengesService,
   ],
   exports: [CommunityAccessService, CommunityCoursesService, CommunityFeedService],
 })

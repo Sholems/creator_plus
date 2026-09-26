@@ -48,6 +48,7 @@ model User {
   lessonProgress                  LessonProgress[]
   courseCertificates              CourseCertificate[]
   communityEventRsvps             CommunityEventRsvp[]
+  communityChallengeEnrollments   CommunityChallengeEnrollment[]
   communityPosts                  CommunityPost[]
   communityComments               CommunityComment[]
   communityPostLikes              CommunityPostLike[]
@@ -2302,6 +2303,100 @@ model CommunityEventRsvp {
   @@unique([eventId, userId])
   @@index([userId, status])
   @@map("community_event_rsvps")
+}
+
+enum CommunityChallengeEnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  WITHDRAWN
+}
+
+model CommunityChallenge {
+  id                String                 @id @default(uuid()) @db.Uuid
+  title             String
+  slug              String                 @unique
+  description       String?
+  descriptionFormat CommunityContentFormat @default(MARKDOWN) @map("description_format")
+  accessLevel       CommunityAccessLevel   @default(FREE) @map("access_level")
+  coverImage        String?                @map("cover_image")
+  startsAt          DateTime               @map("starts_at")
+  endsAt            DateTime               @map("ends_at")
+  published         Boolean                @default(false)
+  createdAt         DateTime               @default(now()) @map("created_at")
+  updatedAt         DateTime               @updatedAt @map("updated_at")
+
+  milestones  CommunityChallengeMilestone[]
+  enrollments CommunityChallengeEnrollment[]
+  groups      CommunityAccountabilityGroup[]
+
+  @@index([published, startsAt])
+  @@map("community_challenges")
+}
+
+model CommunityChallengeMilestone {
+  id          String    @id @default(uuid()) @db.Uuid
+  challengeId String    @map("challenge_id") @db.Uuid
+  title       String
+  description String?
+  dueAt       DateTime? @map("due_at")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  challenge CommunityChallenge          @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  checkIns  CommunityChallengeCheckIn[]
+
+  @@index([challengeId, sortOrder])
+  @@map("community_challenge_milestones")
+}
+
+model CommunityAccountabilityGroup {
+  id          String   @id @default(uuid()) @db.Uuid
+  challengeId String   @map("challenge_id") @db.Uuid
+  name        String
+  capacity    Int      @default(8)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  challenge   CommunityChallenge             @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  enrollments CommunityChallengeEnrollment[]
+
+  @@index([challengeId])
+  @@map("community_accountability_groups")
+}
+
+model CommunityChallengeEnrollment {
+  id          String                             @id @default(uuid()) @db.Uuid
+  challengeId String                             @map("challenge_id") @db.Uuid
+  userId      String                             @map("user_id") @db.Uuid
+  groupId     String?                            @map("group_id") @db.Uuid
+  status      CommunityChallengeEnrollmentStatus @default(ACTIVE)
+  joinedAt    DateTime                           @default(now()) @map("joined_at")
+  completedAt DateTime?                          @map("completed_at")
+
+  challenge CommunityChallenge            @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user      User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group     CommunityAccountabilityGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  checkIns  CommunityChallengeCheckIn[]
+
+  @@unique([challengeId, userId])
+  @@index([groupId])
+  @@index([userId, status])
+  @@map("community_challenge_enrollments")
+}
+
+model CommunityChallengeCheckIn {
+  id           String   @id @default(uuid()) @db.Uuid
+  enrollmentId String   @map("enrollment_id") @db.Uuid
+  milestoneId  String?  @map("milestone_id") @db.Uuid
+  note         String?
+  progress     Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  enrollment CommunityChallengeEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  milestone  CommunityChallengeMilestone? @relation(fields: [milestoneId], references: [id], onDelete: SetNull)
+
+  @@index([enrollmentId, createdAt])
+  @@index([milestoneId])
+  @@map("community_challenge_check_ins")
 }
 
 // ---------------------------------------------------------------------------

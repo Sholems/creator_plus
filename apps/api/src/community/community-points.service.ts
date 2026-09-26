@@ -2,7 +2,13 @@ import { Injectable, Logger } from '@nestjs/common';
 import { prisma } from '@creatorplus/database';
 
 /** Points awarded per action. */
-export const POINTS = { POST: 5, COMMENT: 2, LESSON: 3, LIKE_RECEIVED: 1 } as const;
+export const POINTS = {
+  POST: 5,
+  COMMENT: 2,
+  LESSON: 3,
+  LIKE_RECEIVED: 1,
+  CHALLENGE_CHECK_IN: 3,
+} as const;
 export type PointReason = keyof typeof POINTS;
 
 /** Points needed to reach each level (index 0 → level 1). */
@@ -10,7 +16,8 @@ const LEVEL_THRESHOLDS = [0, 5, 20, 50, 100, 250, 500, 1000, 2500];
 
 export function levelFor(points: number): number {
   let level = 1;
-  for (let i = 0; i < LEVEL_THRESHOLDS.length; i++) if (points >= LEVEL_THRESHOLDS[i]) level = i + 1;
+  for (let i = 0; i < LEVEL_THRESHOLDS.length; i++)
+    if (points >= LEVEL_THRESHOLDS[i]) level = i + 1;
   return level;
 }
 export function nextLevelAt(points: number): number | null {
@@ -28,7 +35,11 @@ export class CommunityPointsService {
     try {
       await prisma.$transaction([
         prisma.communityPointEvent.create({ data: { userId, reason, points, sourceId } }),
-        prisma.communityProfile.upsert({ where: { userId }, create: { userId, points }, update: { points: { increment: points } } }),
+        prisma.communityProfile.upsert({
+          where: { userId },
+          create: { userId, points },
+          update: { points: { increment: points } },
+        }),
       ]);
     } catch {
       // Unique violation → already awarded for this source; ignore.
@@ -42,7 +53,10 @@ export class CommunityPointsService {
     try {
       await prisma.$transaction([
         prisma.communityPointEvent.delete({ where: { id: evt.id } }),
-        prisma.communityProfile.update({ where: { userId }, data: { points: { decrement: evt.points } } }),
+        prisma.communityProfile.update({
+          where: { userId },
+          data: { points: { decrement: evt.points } },
+        }),
       ]);
     } catch (err) {
       this.logger.warn(`[points] revoke failed: ${(err as Error).message}`);
@@ -72,7 +86,10 @@ export class CommunityPointsService {
     const level = levelFor(points);
     const next = nextLevelAt(points);
     // Rank = how many members have strictly more points, + 1.
-    const ahead = points > 0 ? await prisma.communityProfile.count({ where: { points: { gt: points } } }) : null;
+    const ahead =
+      points > 0
+        ? await prisma.communityProfile.count({ where: { points: { gt: points } } })
+        : null;
     return {
       points,
       level,
