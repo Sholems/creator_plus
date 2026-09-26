@@ -78,6 +78,37 @@ class ApiClient {
     return this.fetch<any>('/community/home', { token });
   }
 
+  async getCommunityMembers(token: string, params?: { search?: string; cursor?: string }) {
+    const query = new URLSearchParams();
+    if (params?.search) query.set('search', params.search);
+    if (params?.cursor) query.set('cursor', params.cursor);
+    return this.fetch<any>(`/community/members${query.size ? `?${query}` : ''}`, { token });
+  }
+
+  async getCommunityMember(token: string, id: string) {
+    return this.fetch<any>(`/community/members/${id}`, { token });
+  }
+
+  async updateCommunityProfile(token: string, data: any) {
+    return this.fetch<any>('/community/me/profile', { method: 'PATCH', body: data, token });
+  }
+
+  async toggleCommunityFollow(token: string, id: string) {
+    return this.fetch<any>(`/community/members/${id}/follow`, { method: 'POST', token });
+  }
+
+  async getCommunityPreferences(token: string) {
+    return this.fetch<any>('/community/me/community-preferences', { token });
+  }
+
+  async updateCommunityPreferences(token: string, data: any) {
+    return this.fetch<any>('/community/me/community-preferences', {
+      method: 'PATCH',
+      body: data,
+      token,
+    });
+  }
+
   /** Exchange the httpOnly refresh cookie for a fresh access token. */
   async refresh() {
     return this.fetch<{ accessToken: string }>('/auth/refresh', { method: 'POST' });

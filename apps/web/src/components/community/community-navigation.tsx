@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import type { Route } from 'next';
 import { usePathname } from 'next/navigation';
 import {
   CalendarIcon,
@@ -29,7 +30,7 @@ export function CommunityNavigation() {
         return (
           <Link
             key={href}
-            href={href}
+            href={href as Route}
             aria-current={active ? 'page' : undefined}
             className={active ? 'is-active' : ''}
           >

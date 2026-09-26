@@ -11,13 +11,21 @@ import { CommunityPointsService } from './community-points.service';
 import { CommunityAccessService } from './community-access.service';
 import { CommunityHomeController } from './community-home.controller';
 import { CommunityHomeService } from './community-home.service';
+import { CommunityProfilesController } from './community-profiles.controller';
+import { CommunityProfilesService } from './community-profiles.service';
 
 @Module({
   imports: [MembershipModule, NotificationsModule, EmailModule, FeatureFlagsModule],
-  controllers: [CommunityController, CommunityFeedController, CommunityHomeController],
+  controllers: [
+    CommunityController,
+    CommunityFeedController,
+    CommunityHomeController,
+    CommunityProfilesController,
+  ],
   providers: [
     CommunityAccessService,
     CommunityHomeService,
+    CommunityProfilesService,
     CommunityCoursesService,
     CommunityFeedService,
     CommunityPointsService,
