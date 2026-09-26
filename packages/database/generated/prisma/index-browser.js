@@ -1195,6 +1195,7 @@ exports.Prisma.CourseScalarFieldEnum = {
   slug: 'slug',
   description: 'description',
   coverImage: 'coverImage',
+  accessLevel: 'accessLevel',
   published: 'published',
   sortOrder: 'sortOrder',
   createdAt: 'createdAt',
@@ -1670,6 +1671,11 @@ exports.MembershipStatus = exports.$Enums.MembershipStatus = {
   PAST_DUE: 'PAST_DUE',
   CANCELED: 'CANCELED',
   EXPIRED: 'EXPIRED'
+};
+
+exports.CourseAccessLevel = exports.$Enums.CourseAccessLevel = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
 };
 
 exports.LessonContentType = exports.$Enums.LessonContentType = {

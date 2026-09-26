@@ -2060,10 +2060,10 @@ model QrCouponRedemption {
 }
 
 // ---------------------------------------------------------------------------
-// Community membership — a provider-agnostic recurring subscription that
-// unlocks the private community (all courses + discussion). One all-access
-// tier, priced per provider/currency (Paystack ₦, Stripe $). Access is a
-// single check: an ACTIVE/PAST_DUE subscription whose period has not ended.
+// Community premium pass — a provider-agnostic recurring subscription used
+// for premium Growth Club courses. Registration unlocks the community itself;
+// an ACTIVE/PAST_DUE subscription whose period has not ended unlocks courses
+// marked PREMIUM.
 // ---------------------------------------------------------------------------
 
 enum BillingInterval {
@@ -2140,9 +2140,9 @@ model MembershipSubscription {
 }
 
 // ---------------------------------------------------------------------------
-// Community classroom — courses → modules → lessons, gated by an active
-// membership. Single-tenant (owner-run): all courses belong to the one
-// community. Progress is per-user; drip is relative to the member's join date.
+// Community classroom — courses → modules → lessons. Every registered user can
+// access FREE courses; PREMIUM courses require the community premium pass.
+// Progress is per-user; drip is relative to the user's registration date.
 // ---------------------------------------------------------------------------
 
 enum LessonContentType {
@@ -2151,12 +2151,18 @@ enum LessonContentType {
   FILE
 }
 
+enum CourseAccessLevel {
+  FREE
+  PREMIUM
+}
+
 model Course {
   id          String   @id @default(uuid()) @db.Uuid
   title       String
   slug        String   @unique
   description String?
   coverImage  String?  @map("cover_image")
+  accessLevel CourseAccessLevel @default(FREE) @map("access_level")
   published   Boolean  @default(false)
   sortOrder   Int      @default(0) @map("sort_order")
   createdAt   DateTime @default(now()) @map("created_at")
@@ -2220,7 +2226,7 @@ model LessonProgress {
 
 // ---------------------------------------------------------------------------
 // Community discussion — categories (channels), posts, flat comments, and
-// post likes. Member-gated; authors edit/delete their own, admins moderate.
+// post likes. Registration-gated; authors edit/delete their own, admins moderate.
 // ---------------------------------------------------------------------------
 
 model CommunityCategory {

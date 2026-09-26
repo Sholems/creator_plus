@@ -1,111 +1,163 @@
 import { IsBoolean, IsIn, IsInt, IsOptional, IsString, Min, MaxLength } from 'class-validator';
 
 const CONTENT_TYPES = ['VIDEO', 'TEXT', 'FILE'] as const;
+const ACCESS_LEVELS = ['FREE', 'PREMIUM'] as const;
 
 export class CreateCourseDto {
-  @IsString() @MaxLength(160)
+  @IsString()
+  @MaxLength(160)
   title: string;
 
-  @IsOptional() @IsString() @MaxLength(80)
+  @IsOptional()
+  @IsString()
+  @MaxLength(80)
   slug?: string;
 
-  @IsOptional() @IsString() @MaxLength(2000)
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
   description?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   coverImage?: string;
 
-  @IsOptional() @IsBoolean()
+  @IsOptional()
+  @IsBoolean()
   published?: boolean;
+
+  @IsOptional()
+  @IsIn(ACCESS_LEVELS)
+  accessLevel?: (typeof ACCESS_LEVELS)[number];
 }
 
 export class UpdateCourseDto {
-  @IsOptional() @IsString() @MaxLength(160)
+  @IsOptional()
+  @IsString()
+  @MaxLength(160)
   title?: string;
 
-  @IsOptional() @IsString() @MaxLength(80)
+  @IsOptional()
+  @IsString()
+  @MaxLength(80)
   slug?: string;
 
-  @IsOptional() @IsString() @MaxLength(2000)
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
   description?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   coverImage?: string;
 
-  @IsOptional() @IsBoolean()
+  @IsOptional()
+  @IsBoolean()
   published?: boolean;
 
-  @IsOptional() @IsInt()
+  @IsOptional()
+  @IsIn(ACCESS_LEVELS)
+  accessLevel?: (typeof ACCESS_LEVELS)[number];
+
+  @IsOptional()
+  @IsInt()
   sortOrder?: number;
 }
 
 export class CreateModuleDto {
-  @IsString() @MaxLength(160)
+  @IsString()
+  @MaxLength(160)
   title: string;
 }
 
 export class UpdateModuleDto {
-  @IsOptional() @IsString() @MaxLength(160)
+  @IsOptional()
+  @IsString()
+  @MaxLength(160)
   title?: string;
 
-  @IsOptional() @IsInt()
+  @IsOptional()
+  @IsInt()
   sortOrder?: number;
 }
 
 export class CreateLessonDto {
-  @IsString() @MaxLength(200)
+  @IsString()
+  @MaxLength(200)
   title: string;
 
-  @IsOptional() @IsIn(CONTENT_TYPES)
+  @IsOptional()
+  @IsIn(CONTENT_TYPES)
   contentType?: (typeof CONTENT_TYPES)[number];
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   videoUrl?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   body?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   fileUrl?: string;
 
-  @IsOptional() @IsInt() @Min(0)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
   durationMinutes?: number;
 
-  @IsOptional() @IsBoolean()
+  @IsOptional()
+  @IsBoolean()
   isPreview?: boolean;
 
-  @IsOptional() @IsInt() @Min(0)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
   dripDelayDays?: number;
 
-  @IsOptional() @IsInt()
+  @IsOptional()
+  @IsInt()
   sortOrder?: number;
 }
 
 export class UpdateLessonDto {
-  @IsOptional() @IsString() @MaxLength(200)
+  @IsOptional()
+  @IsString()
+  @MaxLength(200)
   title?: string;
 
-  @IsOptional() @IsIn(CONTENT_TYPES)
+  @IsOptional()
+  @IsIn(CONTENT_TYPES)
   contentType?: (typeof CONTENT_TYPES)[number];
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   videoUrl?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   body?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   fileUrl?: string;
 
-  @IsOptional() @IsInt() @Min(0)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
   durationMinutes?: number;
 
-  @IsOptional() @IsBoolean()
+  @IsOptional()
+  @IsBoolean()
   isPreview?: boolean;
 
-  @IsOptional() @IsInt() @Min(0)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
   dripDelayDays?: number;
 
-  @IsOptional() @IsInt()
+  @IsOptional()
+  @IsInt()
   sortOrder?: number;
 }

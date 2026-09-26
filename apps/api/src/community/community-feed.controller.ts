@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -38,8 +49,20 @@ export class CommunityFeedController {
 
   @Get('posts')
   @UseGuards(JwtAuthGuard)
-  listPosts(@Request() req: any, @Query('categoryId') categoryId?: string, @Query('page') page?: string) {
-    return this.feed.listPosts(req.user.sub, { categoryId, page: page ? Number(page) : 0 });
+  listPosts(
+    @Request() req: any,
+    @Query('categoryId') categoryId?: string,
+    @Query('page') page?: string,
+    @Query('search') search?: string,
+    @Query('sort') sort?: string,
+  ) {
+    const feedSort = sort === 'popular' || sort === 'unanswered' ? sort : 'latest';
+    return this.feed.listPosts(req.user.sub, {
+      categoryId,
+      page: page ? Number(page) : 0,
+      search,
+      sort: feedSort,
+    });
   }
 
   @Post('posts')

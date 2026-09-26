@@ -1,4 +1,9 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { prisma, Prisma } from '@creatorplus/database';
 import { MembershipService } from '../membership/membership.service';
 import { CommunityPointsService } from './community-points.service';
@@ -25,7 +30,14 @@ const VIDEO_HOSTS = [
 ];
 
 function slugify(input: string): string {
-  return String(input).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'course';
+  return (
+    String(input)
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 80) || 'course'
+  );
 }
 
 @Injectable()
@@ -36,24 +48,31 @@ export class CommunityCoursesService {
   ) {}
 
   private async isAdmin(userId: string): Promise<boolean> {
-    const roles = await prisma.userRole.findMany({ where: { userId }, select: { role: { select: { name: true } } } });
+    const roles = await prisma.userRole.findMany({
+      where: { userId },
+      select: { role: { select: { name: true } } },
+    });
     return roles.some((r) => r.role.name === 'admin' || r.role.name === 'super_admin');
   }
 
-  private async assertMember(userId: string) {
-    if (await this.membership.hasActiveMembership(userId)) return;
-    if (await this.isAdmin(userId)) return; // owner/admins get full access without a subscription
-    throw new ForbiddenException('An active Bold Ideas Growth Club membership is required');
+  private async hasPremiumAccess(userId: string): Promise<boolean> {
+    if (await this.membership.hasActiveMembership(userId)) return true;
+    return this.isAdmin(userId);
   }
 
-  /** A member's join date — drip windows are measured from here. */
+  private async assertCourseAccess(userId: string, accessLevel?: string) {
+    if (accessLevel !== 'PREMIUM') return;
+    if (await this.hasPremiumAccess(userId)) return;
+    throw new ForbiddenException('A premium Growth Club pass is required for this course');
+  }
+
+  /** Registration is community membership, so drip windows start at account creation. */
   private async memberJoinDate(userId: string): Promise<Date> {
-    const first = await prisma.membershipSubscription.findFirst({
-      where: { userId },
-      orderBy: { createdAt: 'asc' },
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
       select: { createdAt: true },
     });
-    return first?.createdAt ?? new Date();
+    return user?.createdAt ?? new Date();
   }
 
   private isLocked(joinDate: Date, dripDelayDays: number): boolean {
@@ -64,15 +83,24 @@ export class CommunityCoursesService {
   // --- Member views -------------------------------------------------------
 
   async listForMember(userId: string) {
-    await this.assertMember(userId);
     const courses = await prisma.course.findMany({
       where: { published: true },
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
-      include: { modules: { include: { _count: { select: { lessons: true } }, lessons: { select: { id: true } } } } },
+      include: {
+        modules: {
+          include: { _count: { select: { lessons: true } }, lessons: { select: { id: true } } },
+        },
+      },
     });
+    const hasPremiumAccess = courses.some((course) => course.accessLevel === 'PREMIUM')
+      ? await this.hasPremiumAccess(userId)
+      : false;
     const lessonIds = courses.flatMap((c) => c.modules.flatMap((m) => m.lessons.map((l) => l.id)));
     const done = lessonIds.length
-      ? await prisma.lessonProgress.findMany({ where: { userId, lessonId: { in: lessonIds } }, select: { lessonId: true } })
+      ? await prisma.lessonProgress.findMany({
+          where: { userId, lessonId: { in: lessonIds } },
+          select: { lessonId: true },
+        })
       : [];
     const doneSet = new Set(done.map((d) => d.lessonId));
 
@@ -84,6 +112,8 @@ export class CommunityCoursesService {
         slug: c.slug,
         description: c.description,
         coverImage: c.coverImage,
+        accessLevel: c.accessLevel,
+        locked: c.accessLevel === 'PREMIUM' && !hasPremiumAccess,
         lessonCount: ids.length,
         completedCount: ids.filter((id) => doneSet.has(id)).length,
       };
@@ -91,7 +121,6 @@ export class CommunityCoursesService {
   }
 
   async getForMember(userId: string, slug: string) {
-    await this.assertMember(userId);
     const course = await prisma.course.findFirst({
       where: { slug, published: true },
       include: {
@@ -102,11 +131,15 @@ export class CommunityCoursesService {
       },
     });
     if (!course) throw new NotFoundException('Course not found');
+    await this.assertCourseAccess(userId, course.accessLevel);
 
     const joinDate = await this.memberJoinDate(userId);
     const allLessonIds = course.modules.flatMap((m) => m.lessons.map((l) => l.id));
     const done = allLessonIds.length
-      ? await prisma.lessonProgress.findMany({ where: { userId, lessonId: { in: allLessonIds } }, select: { lessonId: true } })
+      ? await prisma.lessonProgress.findMany({
+          where: { userId, lessonId: { in: allLessonIds } },
+          select: { lessonId: true },
+        })
       : [];
     const doneSet = new Set(done.map((d) => d.lessonId));
 
@@ -116,6 +149,7 @@ export class CommunityCoursesService {
       slug: course.slug,
       description: course.description,
       coverImage: course.coverImage,
+      accessLevel: course.accessLevel,
       modules: course.modules.map((m) => ({
         id: m.id,
         title: m.title,
@@ -128,7 +162,11 @@ export class CommunityCoursesService {
             durationMinutes: l.durationMinutes,
             completed: doneSet.has(l.id),
             locked,
-            unlocksInDays: locked ? Math.ceil((joinDate.getTime() + l.dripDelayDays * 86_400_000 - Date.now()) / 86_400_000) : 0,
+            unlocksInDays: locked
+              ? Math.ceil(
+                  (joinDate.getTime() + l.dripDelayDays * 86_400_000 - Date.now()) / 86_400_000,
+                )
+              : 0,
             // Content is only sent for unlocked lessons.
             body: locked ? null : l.body,
             videoUrl: locked ? null : l.videoUrl,
@@ -140,9 +178,12 @@ export class CommunityCoursesService {
   }
 
   async completeLesson(userId: string, lessonId: string, completed = true) {
-    await this.assertMember(userId);
-    const lesson = await prisma.lesson.findUnique({ where: { id: lessonId } });
+    const lesson = await prisma.lesson.findUnique({
+      where: { id: lessonId },
+      include: { module: { select: { course: { select: { accessLevel: true } } } } },
+    });
     if (!lesson) throw new NotFoundException('Lesson not found');
+    await this.assertCourseAccess(userId, lesson.module?.course?.accessLevel);
     if (completed) {
       await prisma.lessonProgress.upsert({
         where: { lessonId_userId: { lessonId, userId } },
@@ -165,7 +206,9 @@ export class CommunityCoursesService {
     let n = 1;
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const clash = await prisma.course.findFirst({ where: { slug: candidate, ...(ignoreId ? { id: { not: ignoreId } } : {}) } });
+      const clash = await prisma.course.findFirst({
+        where: { slug: candidate, ...(ignoreId ? { id: { not: ignoreId } } : {}) },
+      });
       if (!clash) return candidate;
       candidate = `${root}-${++n}`;
     }
@@ -177,7 +220,13 @@ export class CommunityCoursesService {
       include: { _count: { select: { modules: true } } },
     });
     return courses.map((c) => ({
-      id: c.id, title: c.title, slug: c.slug, published: c.published, moduleCount: c._count.modules, coverImage: c.coverImage,
+      id: c.id,
+      title: c.title,
+      slug: c.slug,
+      published: c.published,
+      accessLevel: c.accessLevel,
+      moduleCount: c._count.modules,
+      coverImage: c.coverImage,
     }));
   }
 
@@ -203,6 +252,7 @@ export class CommunityCoursesService {
         slug: await this.uniqueSlug(dto.slug || dto.title),
         description: dto.description?.trim() || null,
         coverImage: dto.coverImage ? assertOwnStorageUrl(dto.coverImage) : null,
+        accessLevel: dto.accessLevel ?? 'FREE',
         published: dto.published ?? false,
         sortOrder: count,
       },
@@ -216,14 +266,18 @@ export class CommunityCoursesService {
     if (dto.title !== undefined) data.title = dto.title.trim();
     if (dto.slug !== undefined) data.slug = await this.uniqueSlug(dto.slug, id);
     if (dto.description !== undefined) data.description = dto.description?.trim() || null;
-    if (dto.coverImage !== undefined) data.coverImage = dto.coverImage ? assertOwnStorageUrl(dto.coverImage) : null;
+    if (dto.coverImage !== undefined)
+      data.coverImage = dto.coverImage ? assertOwnStorageUrl(dto.coverImage) : null;
+    if (dto.accessLevel !== undefined) data.accessLevel = dto.accessLevel;
     if (dto.published !== undefined) data.published = dto.published;
     if (dto.sortOrder !== undefined) data.sortOrder = dto.sortOrder;
     return prisma.course.update({ where: { id }, data });
   }
 
   async deleteCourse(id: string) {
-    await prisma.course.delete({ where: { id } }).catch(() => { throw new NotFoundException('Course not found'); });
+    await prisma.course.delete({ where: { id } }).catch(() => {
+      throw new NotFoundException('Course not found');
+    });
     return { deleted: true };
   }
 
@@ -231,18 +285,24 @@ export class CommunityCoursesService {
     const course = await prisma.course.findUnique({ where: { id: courseId } });
     if (!course) throw new NotFoundException('Course not found');
     const count = await prisma.courseModule.count({ where: { courseId } });
-    return prisma.courseModule.create({ data: { courseId, title: dto.title.trim(), sortOrder: count } });
+    return prisma.courseModule.create({
+      data: { courseId, title: dto.title.trim(), sortOrder: count },
+    });
   }
 
   async updateModule(id: string, dto: UpdateModuleDto) {
     const data: Prisma.CourseModuleUpdateInput = {};
     if (dto.title !== undefined) data.title = dto.title.trim();
     if (dto.sortOrder !== undefined) data.sortOrder = dto.sortOrder;
-    return prisma.courseModule.update({ where: { id }, data }).catch(() => { throw new NotFoundException('Module not found'); });
+    return prisma.courseModule.update({ where: { id }, data }).catch(() => {
+      throw new NotFoundException('Module not found');
+    });
   }
 
   async deleteModule(id: string) {
-    await prisma.courseModule.delete({ where: { id } }).catch(() => { throw new NotFoundException('Module not found'); });
+    await prisma.courseModule.delete({ where: { id } }).catch(() => {
+      throw new NotFoundException('Module not found');
+    });
     return { deleted: true };
   }
 
@@ -255,8 +315,10 @@ export class CommunityCoursesService {
     if (dto.isPreview !== undefined) data.isPreview = dto.isPreview;
     if (dto.dripDelayDays !== undefined) data.dripDelayDays = Math.max(0, dto.dripDelayDays ?? 0);
     if (dto.sortOrder !== undefined) data.sortOrder = dto.sortOrder;
-    if (dto.videoUrl !== undefined) data.videoUrl = dto.videoUrl ? assertHostAllowed(dto.videoUrl, VIDEO_HOSTS, 'video') : null;
-    if (dto.fileUrl !== undefined) data.fileUrl = dto.fileUrl ? assertOwnStorageUrl(dto.fileUrl) : null;
+    if (dto.videoUrl !== undefined)
+      data.videoUrl = dto.videoUrl ? assertHostAllowed(dto.videoUrl, VIDEO_HOSTS, 'video') : null;
+    if (dto.fileUrl !== undefined)
+      data.fileUrl = dto.fileUrl ? assertOwnStorageUrl(dto.fileUrl) : null;
     return data;
   }
 
@@ -266,7 +328,13 @@ export class CommunityCoursesService {
     if (!dto.title?.trim()) throw new BadRequestException('A lesson title is required');
     const count = await prisma.lesson.count({ where: { moduleId } });
     return prisma.lesson.create({
-      data: { moduleId, sortOrder: count, contentType: dto.contentType ?? 'TEXT', ...this.validateLessonContent(dto), title: dto.title.trim() },
+      data: {
+        moduleId,
+        sortOrder: count,
+        contentType: dto.contentType ?? 'TEXT',
+        ...this.validateLessonContent(dto),
+        title: dto.title.trim(),
+      },
     });
   }
 
@@ -280,7 +348,9 @@ export class CommunityCoursesService {
   }
 
   async deleteLesson(id: string) {
-    await prisma.lesson.delete({ where: { id } }).catch(() => { throw new NotFoundException('Lesson not found'); });
+    await prisma.lesson.delete({ where: { id } }).catch(() => {
+      throw new NotFoundException('Lesson not found');
+    });
     return { deleted: true };
   }
 }

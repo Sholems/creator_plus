@@ -992,6 +992,14 @@ export const LessonContentType: {
 
 export type LessonContentType = (typeof LessonContentType)[keyof typeof LessonContentType]
 
+
+export const CourseAccessLevel: {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+};
+
+export type CourseAccessLevel = (typeof CourseAccessLevel)[keyof typeof CourseAccessLevel]
+
 }
 
 export type UserStatus = $Enums.UserStatus
@@ -1181,6 +1189,10 @@ export const MembershipStatus: typeof $Enums.MembershipStatus
 export type LessonContentType = $Enums.LessonContentType
 
 export const LessonContentType: typeof $Enums.LessonContentType
+
+export type CourseAccessLevel = $Enums.CourseAccessLevel
+
+export const CourseAccessLevel: typeof $Enums.CourseAccessLevel
 
 /**
  * ##  Prisma Client ʲˢ
@@ -106279,6 +106291,7 @@ export namespace Prisma {
     slug: string | null
     description: string | null
     coverImage: string | null
+    accessLevel: $Enums.CourseAccessLevel | null
     published: boolean | null
     sortOrder: number | null
     createdAt: Date | null
@@ -106291,6 +106304,7 @@ export namespace Prisma {
     slug: string | null
     description: string | null
     coverImage: string | null
+    accessLevel: $Enums.CourseAccessLevel | null
     published: boolean | null
     sortOrder: number | null
     createdAt: Date | null
@@ -106303,6 +106317,7 @@ export namespace Prisma {
     slug: number
     description: number
     coverImage: number
+    accessLevel: number
     published: number
     sortOrder: number
     createdAt: number
@@ -106325,6 +106340,7 @@ export namespace Prisma {
     slug?: true
     description?: true
     coverImage?: true
+    accessLevel?: true
     published?: true
     sortOrder?: true
     createdAt?: true
@@ -106337,6 +106353,7 @@ export namespace Prisma {
     slug?: true
     description?: true
     coverImage?: true
+    accessLevel?: true
     published?: true
     sortOrder?: true
     createdAt?: true
@@ -106349,6 +106366,7 @@ export namespace Prisma {
     slug?: true
     description?: true
     coverImage?: true
+    accessLevel?: true
     published?: true
     sortOrder?: true
     createdAt?: true
@@ -106448,6 +106466,7 @@ export namespace Prisma {
     slug: string
     description: string | null
     coverImage: string | null
+    accessLevel: $Enums.CourseAccessLevel
     published: boolean
     sortOrder: number
     createdAt: Date
@@ -106479,6 +106498,7 @@ export namespace Prisma {
     slug?: boolean
     description?: boolean
     coverImage?: boolean
+    accessLevel?: boolean
     published?: boolean
     sortOrder?: boolean
     createdAt?: boolean
@@ -106493,6 +106513,7 @@ export namespace Prisma {
     slug?: boolean
     description?: boolean
     coverImage?: boolean
+    accessLevel?: boolean
     published?: boolean
     sortOrder?: boolean
     createdAt?: boolean
@@ -106505,6 +106526,7 @@ export namespace Prisma {
     slug?: boolean
     description?: boolean
     coverImage?: boolean
+    accessLevel?: boolean
     published?: boolean
     sortOrder?: boolean
     createdAt?: boolean
@@ -106517,13 +106539,14 @@ export namespace Prisma {
     slug?: boolean
     description?: boolean
     coverImage?: boolean
+    accessLevel?: boolean
     published?: boolean
     sortOrder?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "coverImage" | "published" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "coverImage" | "accessLevel" | "published" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | Course$modulesArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
@@ -106542,6 +106565,7 @@ export namespace Prisma {
       slug: string
       description: string | null
       coverImage: string | null
+      accessLevel: $Enums.CourseAccessLevel
       published: boolean
       sortOrder: number
       createdAt: Date
@@ -106975,6 +106999,7 @@ export namespace Prisma {
     readonly slug: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
     readonly coverImage: FieldRef<"Course", 'String'>
+    readonly accessLevel: FieldRef<"Course", 'CourseAccessLevel'>
     readonly published: FieldRef<"Course", 'Boolean'>
     readonly sortOrder: FieldRef<"Course", 'Int'>
     readonly createdAt: FieldRef<"Course", 'DateTime'>
@@ -118822,6 +118847,7 @@ export namespace Prisma {
     slug: 'slug',
     description: 'description',
     coverImage: 'coverImage',
+    accessLevel: 'accessLevel',
     published: 'published',
     sortOrder: 'sortOrder',
     createdAt: 'createdAt',
@@ -119732,6 +119758,20 @@ export namespace Prisma {
    */
   export type ListEnumMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembershipStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'CourseAccessLevel'
+   */
+  export type EnumCourseAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAccessLevel'>
+
+
+
+  /**
+   * Reference to a field of type 'CourseAccessLevel[]'
+   */
+  export type ListEnumCourseAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAccessLevel[]'>
+
 
 
   /**
@@ -126795,6 +126835,7 @@ export namespace Prisma {
     slug?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
     coverImage?: StringNullableFilter<"Course"> | string | null
+    accessLevel?: EnumCourseAccessLevelFilter<"Course"> | $Enums.CourseAccessLevel
     published?: BoolFilter<"Course"> | boolean
     sortOrder?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
@@ -126808,6 +126849,7 @@ export namespace Prisma {
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
     coverImage?: SortOrderInput | SortOrder
+    accessLevel?: SortOrder
     published?: SortOrder
     sortOrder?: SortOrder
     createdAt?: SortOrder
@@ -126824,6 +126866,7 @@ export namespace Prisma {
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
     coverImage?: StringNullableFilter<"Course"> | string | null
+    accessLevel?: EnumCourseAccessLevelFilter<"Course"> | $Enums.CourseAccessLevel
     published?: BoolFilter<"Course"> | boolean
     sortOrder?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
@@ -126837,6 +126880,7 @@ export namespace Prisma {
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
     coverImage?: SortOrderInput | SortOrder
+    accessLevel?: SortOrder
     published?: SortOrder
     sortOrder?: SortOrder
     createdAt?: SortOrder
@@ -126857,6 +126901,7 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"Course"> | string
     description?: StringNullableWithAggregatesFilter<"Course"> | string | null
     coverImage?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    accessLevel?: EnumCourseAccessLevelWithAggregatesFilter<"Course"> | $Enums.CourseAccessLevel
     published?: BoolWithAggregatesFilter<"Course"> | boolean
     sortOrder?: IntWithAggregatesFilter<"Course"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
@@ -135289,6 +135334,7 @@ export namespace Prisma {
     slug: string
     description?: string | null
     coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
@@ -135302,6 +135348,7 @@ export namespace Prisma {
     slug: string
     description?: string | null
     coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
@@ -135315,6 +135362,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135328,6 +135376,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135341,6 +135390,7 @@ export namespace Prisma {
     slug: string
     description?: string | null
     coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
@@ -135353,6 +135403,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135365,6 +135416,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -141769,6 +141821,13 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
+  export type EnumCourseAccessLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseAccessLevel | EnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseAccessLevelFilter<$PrismaModel> | $Enums.CourseAccessLevel
+  }
+
   export type CourseModuleListRelationFilter = {
     every?: CourseModuleWhereInput
     some?: CourseModuleWhereInput
@@ -141785,6 +141844,7 @@ export namespace Prisma {
     slug?: SortOrder
     description?: SortOrder
     coverImage?: SortOrder
+    accessLevel?: SortOrder
     published?: SortOrder
     sortOrder?: SortOrder
     createdAt?: SortOrder
@@ -141801,6 +141861,7 @@ export namespace Prisma {
     slug?: SortOrder
     description?: SortOrder
     coverImage?: SortOrder
+    accessLevel?: SortOrder
     published?: SortOrder
     sortOrder?: SortOrder
     createdAt?: SortOrder
@@ -141813,6 +141874,7 @@ export namespace Prisma {
     slug?: SortOrder
     description?: SortOrder
     coverImage?: SortOrder
+    accessLevel?: SortOrder
     published?: SortOrder
     sortOrder?: SortOrder
     createdAt?: SortOrder
@@ -141821,6 +141883,16 @@ export namespace Prisma {
 
   export type CourseSumOrderByAggregateInput = {
     sortOrder?: SortOrder
+  }
+
+  export type EnumCourseAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseAccessLevel | EnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CourseAccessLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCourseAccessLevelFilter<$PrismaModel>
+    _max?: NestedEnumCourseAccessLevelFilter<$PrismaModel>
   }
 
   export type CourseScalarRelationFilter = {
@@ -148312,6 +148384,10 @@ export namespace Prisma {
     connect?: CourseModuleWhereUniqueInput | CourseModuleWhereUniqueInput[]
   }
 
+  export type EnumCourseAccessLevelFieldUpdateOperationsInput = {
+    set?: $Enums.CourseAccessLevel
+  }
+
   export type CourseModuleUpdateManyWithoutCourseNestedInput = {
     create?: XOR<CourseModuleCreateWithoutCourseInput, CourseModuleUncheckedCreateWithoutCourseInput> | CourseModuleCreateWithoutCourseInput[] | CourseModuleUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: CourseModuleCreateOrConnectWithoutCourseInput | CourseModuleCreateOrConnectWithoutCourseInput[]
@@ -149882,6 +149958,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMembershipStatusFilter<$PrismaModel>
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCourseAccessLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseAccessLevel | EnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseAccessLevelFilter<$PrismaModel> | $Enums.CourseAccessLevel
+  }
+
+  export type NestedEnumCourseAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CourseAccessLevel | EnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCourseAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CourseAccessLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCourseAccessLevelFilter<$PrismaModel>
+    _max?: NestedEnumCourseAccessLevelFilter<$PrismaModel>
   }
 
   export type NestedEnumLessonContentTypeFilter<$PrismaModel = never> = {
@@ -172222,6 +172315,7 @@ export namespace Prisma {
     slug: string
     description?: string | null
     coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
@@ -172234,6 +172328,7 @@ export namespace Prisma {
     slug: string
     description?: string | null
     coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
@@ -172304,6 +172399,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -172316,6 +172412,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

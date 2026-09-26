@@ -1,9 +1,18 @@
-import { BadRequestException, Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+  OnModuleInit,
+} from '@nestjs/common';
 import { prisma, MembershipStatus, Prisma } from '@creatorplus/database';
 import { SettingsService } from '../settings/settings.service';
 import { PaystackSubscriptionProvider } from './providers/paystack-subscription.provider';
 import { StripeSubscriptionProvider } from './providers/stripe-subscription.provider';
-import { SubscriptionEvent, SubscriptionProvider } from './providers/subscription-provider.interface';
+import {
+  SubscriptionEvent,
+  SubscriptionProvider,
+} from './providers/subscription-provider.interface';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const ACTIVE_STATUSES: MembershipStatus[] = ['ACTIVE', 'PAST_DUE'];
@@ -23,18 +32,24 @@ export class MembershipService implements OnModuleInit {
   }
 
   /**
-   * Idempotently create the single all-access membership tier the first time
-   * the app boots, priced per provider/currency. Amounts are overridable via
-   * env; provider plan codes are created lazily at first checkout.
+   * Idempotently create the premium-course pass the first time the app boots,
+   * priced per provider/currency. Community participation itself is free.
    */
   private async ensureDefaultPlan() {
     const defaultPlanName = process.env.MEMBERSHIP_PLAN_NAME || 'Bold Ideas Growth Club';
-    const defaultPlanDescription = 'A paid CreatorPlus growth club with exclusive courses, practical content, member discussions, and Q&A support.';
+    const defaultPlanDescription =
+      'Unlock premium Bold Ideas Growth Club courses while community participation and free courses remain free.';
     const existing = await prisma.membershipPlan.findFirst();
     if (existing) {
       const data: Prisma.MembershipPlanUpdateInput = {};
-      if (!process.env.MEMBERSHIP_PLAN_NAME && existing.name === 'Community Membership') data.name = defaultPlanName;
-      if (existing.description === 'All-access pass to the community — every course, lesson, and discussion.') {
+      if (!process.env.MEMBERSHIP_PLAN_NAME && existing.name === 'Community Membership')
+        data.name = defaultPlanName;
+      if (
+        existing.description ===
+          'All-access pass to the community — every course, lesson, and discussion.' ||
+        existing.description ===
+          'A paid CreatorPlus growth club with exclusive courses, practical content, member discussions, and Q&A support.'
+      ) {
         data.description = defaultPlanDescription;
       }
       if (Object.keys(data).length > 0) {
@@ -50,19 +65,41 @@ export class MembershipService implements OnModuleInit {
         description: defaultPlanDescription,
         prices: {
           create: [
-            { provider: 'paystack', currency: 'NGN', interval: 'MONTHLY', amount: num('MEMBERSHIP_NGN_MONTHLY', 5000) },
-            { provider: 'paystack', currency: 'NGN', interval: 'ANNUAL', amount: num('MEMBERSHIP_NGN_ANNUAL', 50000) },
-            { provider: 'stripe', currency: 'USD', interval: 'MONTHLY', amount: num('MEMBERSHIP_USD_MONTHLY', 5) },
-            { provider: 'stripe', currency: 'USD', interval: 'ANNUAL', amount: num('MEMBERSHIP_USD_ANNUAL', 50) },
+            {
+              provider: 'paystack',
+              currency: 'NGN',
+              interval: 'MONTHLY',
+              amount: num('MEMBERSHIP_NGN_MONTHLY', 5000),
+            },
+            {
+              provider: 'paystack',
+              currency: 'NGN',
+              interval: 'ANNUAL',
+              amount: num('MEMBERSHIP_NGN_ANNUAL', 50000),
+            },
+            {
+              provider: 'stripe',
+              currency: 'USD',
+              interval: 'MONTHLY',
+              amount: num('MEMBERSHIP_USD_MONTHLY', 5),
+            },
+            {
+              provider: 'stripe',
+              currency: 'USD',
+              interval: 'ANNUAL',
+              amount: num('MEMBERSHIP_USD_ANNUAL', 50),
+            },
           ],
         },
       },
     });
-    this.logger.log('[membership] created default all-access membership plan');
+    this.logger.log('[membership] created default premium-course pass');
   }
 
   async reloadProviders() {
-    const paystack = await this.settings.getPaystackConfig().catch(() => ({ secretKey: '' }) as any);
+    const paystack = await this.settings
+      .getPaystackConfig()
+      .catch(() => ({ secretKey: '' }) as any);
     this.providers = {
       paystack: new PaystackSubscriptionProvider(paystack.secretKey),
       stripe: new StripeSubscriptionProvider(),
@@ -131,12 +168,20 @@ export class MembershipService implements OnModuleInit {
 
   // --- Checkout -----------------------------------------------------------
 
-  async startCheckout(userId: string, dto: { priceId: string; successUrl?: string; cancelUrl?: string }) {
-    const price = await prisma.membershipPlanPrice.findUnique({ where: { id: dto.priceId }, include: { plan: true } });
-    if (!price || !price.isActive || !price.plan.isActive) throw new NotFoundException('Growth Club plan not available');
+  async startCheckout(
+    userId: string,
+    dto: { priceId: string; successUrl?: string; cancelUrl?: string },
+  ) {
+    const price = await prisma.membershipPlanPrice.findUnique({
+      where: { id: dto.priceId },
+      include: { plan: true },
+    });
+    if (!price || !price.isActive || !price.plan.isActive)
+      throw new NotFoundException('Growth Club plan not available');
 
     const provider = this.getProvider(price.provider);
-    if (!provider.isConfigured()) throw new BadRequestException(`${price.provider} is not configured on this server`);
+    if (!provider.isConfigured())
+      throw new BadRequestException(`${price.provider} is not configured on this server`);
 
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('User not found');
@@ -154,11 +199,20 @@ export class MembershipService implements OnModuleInit {
         currency: price.currency,
         interval: price.interval,
       });
-      await prisma.membershipPlanPrice.update({ where: { id: price.id }, data: { providerPlanCode: planCode } });
+      await prisma.membershipPlanPrice.update({
+        where: { id: price.id },
+        data: { providerPlanCode: planCode },
+      });
     }
 
     const sub = await prisma.membershipSubscription.create({
-      data: { userId, planId: price.planId, priceId: price.id, provider: price.provider, status: 'PENDING' },
+      data: {
+        userId,
+        planId: price.planId,
+        priceId: price.id,
+        provider: price.provider,
+        status: 'PENDING',
+      },
     });
 
     const base = process.env.WEB_APP_URL || process.env.APP_URL || '';
@@ -173,7 +227,10 @@ export class MembershipService implements OnModuleInit {
       cancelUrl: dto.cancelUrl || `${base}/community/join?canceled=1`,
     });
 
-    await prisma.membershipSubscription.update({ where: { id: sub.id }, data: { providerReference: result.providerReference } });
+    await prisma.membershipSubscription.update({
+      where: { id: sub.id },
+      data: { providerReference: result.providerReference },
+    });
     return { redirectUrl: result.redirectUrl, subscriptionId: sub.id };
   }
 
@@ -190,7 +247,10 @@ export class MembershipService implements OnModuleInit {
         this.logger.error(`[cancel] provider cancel failed: ${(err as Error).message}`);
       }
     }
-    await prisma.membershipSubscription.update({ where: { id: sub.id }, data: { cancelAtPeriodEnd: true } });
+    await prisma.membershipSubscription.update({
+      where: { id: sub.id },
+      data: { cancelAtPeriodEnd: true },
+    });
     return { cancelAtPeriodEnd: true, currentPeriodEnd: sub.currentPeriodEnd };
   }
 
@@ -203,7 +263,10 @@ export class MembershipService implements OnModuleInit {
     if (!provider.verifyWebhook(rawBody, signature)) {
       throw new BadRequestException('Invalid webhook signature');
     }
-    const payload = typeof rawBody === 'string' || Buffer.isBuffer(rawBody) ? JSON.parse(rawBody.toString()) : rawBody;
+    const payload =
+      typeof rawBody === 'string' || Buffer.isBuffer(rawBody)
+        ? JSON.parse(rawBody.toString())
+        : rawBody;
     await this.handleVerifiedWebhook(providerName, payload);
   }
 
@@ -215,10 +278,18 @@ export class MembershipService implements OnModuleInit {
     if (!event) return;
     const sub = await this.findByEvent(providerName, event);
     if (!sub) {
-      this.logger.warn(`[webhook:${providerName}] ${event.type} did not match any membership subscription`);
+      this.logger.warn(
+        `[webhook:${providerName}] ${event.type} did not match any membership subscription`,
+      );
       return;
     }
-    await this.applyEvent(sub.id, sub.status, sub.providerSubscriptionId, sub.providerCustomerId, event);
+    await this.applyEvent(
+      sub.id,
+      sub.status,
+      sub.providerSubscriptionId,
+      sub.providerCustomerId,
+      event,
+    );
   }
 
   private async findByEvent(providerName: string, event: SubscriptionEvent) {
@@ -229,9 +300,13 @@ export class MembershipService implements OnModuleInit {
       if (s) return s;
     }
     if (event.providerReference) {
-      const or: Prisma.MembershipSubscriptionWhereInput[] = [{ providerReference: event.providerReference }];
+      const or: Prisma.MembershipSubscriptionWhereInput[] = [
+        { providerReference: event.providerReference },
+      ];
       if (UUID_RE.test(event.providerReference)) or.push({ id: event.providerReference });
-      const s = await prisma.membershipSubscription.findFirst({ where: { provider: providerName, OR: or } });
+      const s = await prisma.membershipSubscription.findFirst({
+        where: { provider: providerName, OR: or },
+      });
       if (s) return s;
     }
     if (event.providerCustomerId) {
@@ -242,7 +317,9 @@ export class MembershipService implements OnModuleInit {
       if (s) return s;
     }
     if (event.customerEmail) {
-      const user = await prisma.user.findUnique({ where: { email: event.customerEmail.toLowerCase() } });
+      const user = await prisma.user.findUnique({
+        where: { email: event.customerEmail.toLowerCase() },
+      });
       if (user) {
         const s = await prisma.membershipSubscription.findFirst({
           where: { userId: user.id, provider: providerName },
@@ -262,10 +339,13 @@ export class MembershipService implements OnModuleInit {
     event: SubscriptionEvent,
   ) {
     const data: Prisma.MembershipSubscriptionUpdateInput = {};
-    if (event.providerSubscriptionId && !existingSubId) data.providerSubscriptionId = event.providerSubscriptionId;
-    if (event.providerCustomerId && !existingCustomerId) data.providerCustomerId = event.providerCustomerId;
+    if (event.providerSubscriptionId && !existingSubId)
+      data.providerSubscriptionId = event.providerSubscriptionId;
+    if (event.providerCustomerId && !existingCustomerId)
+      data.providerCustomerId = event.providerCustomerId;
     if (event.currentPeriodEnd) data.currentPeriodEnd = event.currentPeriodEnd;
-    if (typeof event.cancelAtPeriodEnd === 'boolean') data.cancelAtPeriodEnd = event.cancelAtPeriodEnd;
+    if (typeof event.cancelAtPeriodEnd === 'boolean')
+      data.cancelAtPeriodEnd = event.cancelAtPeriodEnd;
 
     switch (event.type) {
       case 'activated':
@@ -293,7 +373,11 @@ export class MembershipService implements OnModuleInit {
       where: {
         OR: [
           { status: 'PAST_DUE', currentPeriodEnd: { lt: graceCut } },
-          { status: { in: ['ACTIVE', 'CANCELED'] }, cancelAtPeriodEnd: true, currentPeriodEnd: { lt: now } },
+          {
+            status: { in: ['ACTIVE', 'CANCELED'] },
+            cancelAtPeriodEnd: true,
+            currentPeriodEnd: { lt: now },
+          },
         ],
       },
       data: { status: 'EXPIRED' },

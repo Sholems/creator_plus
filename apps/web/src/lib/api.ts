@@ -59,7 +59,12 @@ class ApiClient {
   }
 
   async login(email: string, password: string) {
-    return this.fetch<{ user: any; accessToken: string; requiresTwoFactor?: boolean; tempToken?: string }>('/auth/login', {
+    return this.fetch<{
+      user: any;
+      accessToken: string;
+      requiresTwoFactor?: boolean;
+      tempToken?: string;
+    }>('/auth/login', {
       method: 'POST',
       body: { email, password },
     });
@@ -88,11 +93,19 @@ class ApiClient {
 
   // Platform status
   async getPlatformStatus() {
-    return this.fetch<{ maintenanceMode: boolean; registrationEnabled: boolean }>('/platform/status');
+    return this.fetch<{ maintenanceMode: boolean; registrationEnabled: boolean }>(
+      '/platform/status',
+    );
   }
 
   // Contact
-  async submitContact(data: { name: string; email: string; subject: string; message: string; category?: string }) {
+  async submitContact(data: {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+    category?: string;
+  }) {
     return this.fetch<any>('/contact', {
       method: 'POST',
       body: data,
@@ -100,7 +113,10 @@ class ApiClient {
   }
 
   // Support tickets
-  async createSupportTicket(token: string, data: { subject: string; description: string; category?: string }) {
+  async createSupportTicket(
+    token: string,
+    data: { subject: string; description: string; category?: string },
+  ) {
     return this.fetch<any>('/support-tickets', {
       method: 'POST',
       body: data,
@@ -150,7 +166,10 @@ class ApiClient {
     });
   }
 
-  async updateProfile(token: string, data: { displayName?: string; avatar?: string; bio?: string }) {
+  async updateProfile(
+    token: string,
+    data: { displayName?: string; avatar?: string; bio?: string },
+  ) {
     return this.fetch<any>('/users/me', {
       method: 'PATCH',
       body: data,
@@ -159,13 +178,16 @@ class ApiClient {
   }
 
   // Products
-  async getProducts(params?: {
-    categoryId?: string;
-    creatorId?: string;
-    status?: string;
-    page?: number;
-    perPage?: number;
-  }, token?: string) {
+  async getProducts(
+    params?: {
+      categoryId?: string;
+      creatorId?: string;
+      status?: string;
+      page?: number;
+      perPage?: number;
+    },
+    token?: string,
+  ) {
     const searchParams = new URLSearchParams();
     if (params?.categoryId) searchParams.set('categoryId', params.categoryId);
     if (params?.creatorId) searchParams.set('creatorId', params.creatorId);
@@ -197,7 +219,12 @@ class ApiClient {
     if (params?.perPage) searchParams.set('perPage', params.perPage.toString());
     const query = searchParams.toString();
     return this.fetch<{
-      settings: { platformRate: number; holdingDays: number; cookieDays: number; minPayout: number };
+      settings: {
+        platformRate: number;
+        holdingDays: number;
+        cookieDays: number;
+        minPayout: number;
+      };
       products: any[];
       categories: { id: string; name: string; slug: string }[];
       total: number;
@@ -209,29 +236,35 @@ class ApiClient {
     return this.fetch<any>('/affiliates/me', { token });
   }
 
-  async applyAffiliate(token: string, data: {
-    applicationMessage?: string;
-    promotionChannels?: string[];
-    websiteUrl?: string;
-    socialMediaLinks?: string[];
-    country?: string;
-    paymentMethod?: string;
-    paymentDetails?: string;
-    code?: string;
-  }) {
+  async applyAffiliate(
+    token: string,
+    data: {
+      applicationMessage?: string;
+      promotionChannels?: string[];
+      websiteUrl?: string;
+      socialMediaLinks?: string[];
+      country?: string;
+      paymentMethod?: string;
+      paymentDetails?: string;
+      code?: string;
+    },
+  ) {
     return this.fetch<any>('/affiliates/apply', { method: 'POST', body: data, token });
   }
 
-  async updateAffiliateMe(token: string, data: {
-    applicationMessage?: string;
-    promotionChannels?: string[];
-    websiteUrl?: string;
-    socialMediaLinks?: string[];
-    country?: string;
-    paymentMethod?: string;
-    paymentDetails?: string;
-    code?: string;
-  }) {
+  async updateAffiliateMe(
+    token: string,
+    data: {
+      applicationMessage?: string;
+      promotionChannels?: string[];
+      websiteUrl?: string;
+      socialMediaLinks?: string[];
+      country?: string;
+      paymentMethod?: string;
+      paymentDetails?: string;
+      code?: string;
+    },
+  ) {
     return this.fetch<any>('/affiliates/me', { method: 'PATCH', body: data, token });
   }
 
@@ -259,7 +292,10 @@ class ApiClient {
     return this.fetch<any>(`/affiliates/conversions${query ? `?${query}` : ''}`, { token });
   }
 
-  async requestAffiliatePayout(token: string, data: { amount?: number; method?: string; notes?: string }) {
+  async requestAffiliatePayout(
+    token: string,
+    data: { amount?: number; method?: string; notes?: string },
+  ) {
     return this.fetch<any>('/affiliates/payouts', { method: 'POST', body: data, token });
   }
 
@@ -417,7 +453,12 @@ class ApiClient {
     return this.fetch<any>('/membership/me', { token });
   }
 
-  async startMembershipCheckout(token: string, priceId: string, successUrl?: string, cancelUrl?: string) {
+  async startMembershipCheckout(
+    token: string,
+    priceId: string,
+    successUrl?: string,
+    cancelUrl?: string,
+  ) {
     return this.fetch<any>('/membership/checkout', {
       method: 'POST',
       body: { priceId, successUrl, cancelUrl },
@@ -437,7 +478,11 @@ class ApiClient {
     return this.fetch<any>(`/community/courses/${slug}`, { token });
   }
   async completeLesson(token: string, lessonId: string, completed = true) {
-    return this.fetch<any>(`/community/lessons/${lessonId}/complete`, { method: 'POST', body: { completed }, token });
+    return this.fetch<any>(`/community/lessons/${lessonId}/complete`, {
+      method: 'POST',
+      body: { completed },
+      token,
+    });
   }
 
   // --- Community classroom (admin authoring) ---
@@ -457,7 +502,11 @@ class ApiClient {
     return this.fetch<any>(`/community/admin/courses/${id}`, { method: 'DELETE', token });
   }
   async addCourseModule(token: string, courseId: string, dto: any) {
-    return this.fetch<any>(`/community/admin/courses/${courseId}/modules`, { method: 'POST', body: dto, token });
+    return this.fetch<any>(`/community/admin/courses/${courseId}/modules`, {
+      method: 'POST',
+      body: dto,
+      token,
+    });
   }
   async updateCourseModule(token: string, id: string, dto: any) {
     return this.fetch<any>(`/community/admin/modules/${id}`, { method: 'PATCH', body: dto, token });
@@ -466,7 +515,11 @@ class ApiClient {
     return this.fetch<any>(`/community/admin/modules/${id}`, { method: 'DELETE', token });
   }
   async addLesson(token: string, moduleId: string, dto: any) {
-    return this.fetch<any>(`/community/admin/modules/${moduleId}/lessons`, { method: 'POST', body: dto, token });
+    return this.fetch<any>(`/community/admin/modules/${moduleId}/lessons`, {
+      method: 'POST',
+      body: dto,
+      token,
+    });
   }
   async updateLesson(token: string, id: string, dto: any) {
     return this.fetch<any>(`/community/admin/lessons/${id}`, { method: 'PATCH', body: dto, token });
@@ -479,17 +532,30 @@ class ApiClient {
   async getCommunityCategories(token: string) {
     return this.fetch<any[]>('/community/categories', { token });
   }
-  async getPosts(token: string, opts: { categoryId?: string; page?: number } = {}) {
+  async getPosts(
+    token: string,
+    opts: {
+      categoryId?: string;
+      page?: number;
+      search?: string;
+      sort?: 'latest' | 'popular' | 'unanswered';
+    } = {},
+  ) {
     const q = new URLSearchParams();
     if (opts.categoryId) q.set('categoryId', opts.categoryId);
     if (opts.page) q.set('page', String(opts.page));
+    if (opts.search) q.set('search', opts.search);
+    if (opts.sort && opts.sort !== 'latest') q.set('sort', opts.sort);
     const qs = q.toString();
     return this.fetch<any[]>(`/community/posts${qs ? `?${qs}` : ''}`, { token });
   }
   async getPost(token: string, id: string) {
     return this.fetch<any>(`/community/posts/${id}`, { token });
   }
-  async createPost(token: string, dto: { title: string; body: string; categoryId?: string; attachments?: any[] }) {
+  async createPost(
+    token: string,
+    dto: { title: string; body: string; categoryId?: string; attachments?: any[] },
+  ) {
     return this.fetch<any>('/community/posts', { method: 'POST', body: dto, token });
   }
   async setMyAvatar(token: string, avatarUrl: string | null) {
@@ -505,13 +571,21 @@ class ApiClient {
     return this.fetch<any>(`/community/posts/${id}/like`, { method: 'POST', token });
   }
   async addComment(token: string, postId: string, body: string) {
-    return this.fetch<any>(`/community/posts/${postId}/comments`, { method: 'POST', body: { body }, token });
+    return this.fetch<any>(`/community/posts/${postId}/comments`, {
+      method: 'POST',
+      body: { body },
+      token,
+    });
   }
   async deleteComment(token: string, id: string) {
     return this.fetch<any>(`/community/comments/${id}`, { method: 'DELETE', token });
   }
   async pinPost(token: string, id: string, pinned: boolean) {
-    return this.fetch<any>(`/community/admin/posts/${id}/pin`, { method: 'POST', body: { pinned }, token });
+    return this.fetch<any>(`/community/admin/posts/${id}/pin`, {
+      method: 'POST',
+      body: { pinned },
+      token,
+    });
   }
   async createCommunityCategory(token: string, dto: { name: string; description?: string }) {
     return this.fetch<any>('/community/admin/categories', { method: 'POST', body: dto, token });
@@ -594,7 +668,10 @@ class ApiClient {
     return this.fetch<any>(`/reviews/product/${productId}${query ? `?${query}` : ''}`);
   }
 
-  async createReview(token: string, data: { productId: string; rating: number; title?: string; comment: string }) {
+  async createReview(
+    token: string,
+    data: { productId: string; rating: number; title?: string; comment: string },
+  ) {
     return this.fetch<any>('/reviews', {
       method: 'POST',
       body: data,
@@ -765,7 +842,10 @@ class ApiClient {
     return this.fetch<any>('/billing/subscription', { token });
   }
 
-  async createSubscriptionCheckout(token: string, data: { tier: string; successUrl?: string; cancelUrl?: string }) {
+  async createSubscriptionCheckout(
+    token: string,
+    data: { tier: string; successUrl?: string; cancelUrl?: string },
+  ) {
     return this.fetch<any>('/billing/subscription/checkout', {
       method: 'POST',
       body: data,
@@ -796,7 +876,10 @@ class ApiClient {
     return this.fetch<any[]>('/billing/credit-packs');
   }
 
-  async purchaseCreditPack(token: string, data: { packId: string; successUrl?: string; cancelUrl?: string }) {
+  async purchaseCreditPack(
+    token: string,
+    data: { packId: string; successUrl?: string; cancelUrl?: string },
+  ) {
     return this.fetch<any>('/billing/credit-packs/checkout', {
       method: 'POST',
       body: data,
@@ -809,7 +892,11 @@ class ApiClient {
   }
 
   // Storage / Upload
-  async uploadFile(token: string, file: File, folder: string = 'uploads'): Promise<{ key: string; url: string }> {
+  async uploadFile(
+    token: string,
+    file: File,
+    folder: string = 'uploads',
+  ): Promise<{ key: string; url: string }> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('folder', folder);
@@ -817,7 +904,7 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/storage/upload`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -837,7 +924,7 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/products/${productId}/files`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -854,7 +941,7 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/products/${productId}/files/${fileId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -867,17 +954,20 @@ class ApiClient {
   }
 
   // Search
-  async searchProducts(query: string, params?: {
-    category?: string;
-    creator?: string;
-    tags?: string[];
-    minPrice?: number;
-    maxPrice?: number;
-    rating?: number;
-    sort?: string;
-    page?: number;
-    perPage?: number;
-  }) {
+  async searchProducts(
+    query: string,
+    params?: {
+      category?: string;
+      creator?: string;
+      tags?: string[];
+      minPrice?: number;
+      maxPrice?: number;
+      rating?: number;
+      sort?: string;
+      page?: number;
+      perPage?: number;
+    },
+  ) {
     const searchParams = new URLSearchParams();
     searchParams.set('q', query || '');
     if (params?.category) searchParams.set('category', params.category);
@@ -898,7 +988,10 @@ class ApiClient {
     return this.fetch<any>('/cart', { token });
   }
 
-  async addToCart(token: string, data: { productId: string; licenseType?: string; quantity?: number }) {
+  async addToCart(
+    token: string,
+    data: { productId: string; licenseType?: string; quantity?: number },
+  ) {
     return this.fetch<any>('/cart/items', {
       method: 'POST',
       body: data,
@@ -990,15 +1083,18 @@ class ApiClient {
     return this.fetch<any[]>('/coupons/mine', { token });
   }
 
-  async createCoupon(token: string, data: {
-    code: string;
-    type: 'PERCENTAGE' | 'FIXED';
-    value: number;
-    minPurchase?: number;
-    maxUses?: number;
-    startDate?: string;
-    endDate?: string;
-  }) {
+  async createCoupon(
+    token: string,
+    data: {
+      code: string;
+      type: 'PERCENTAGE' | 'FIXED';
+      value: number;
+      minPurchase?: number;
+      maxUses?: number;
+      startDate?: string;
+      endDate?: string;
+    },
+  ) {
     return this.fetch<any>('/coupons', {
       method: 'POST',
       body: data,
@@ -1021,8 +1117,17 @@ class ApiClient {
     });
   }
 
-  async validateCoupon(token: string, code: string, items: { productId: string; quantity: number }[]) {
-    return this.fetch<{ valid: boolean; coupon: any; eligibleSubtotal: number; discountAmount: number }>('/coupons/validate', {
+  async validateCoupon(
+    token: string,
+    code: string,
+    items: { productId: string; quantity: number }[],
+  ) {
+    return this.fetch<{
+      valid: boolean;
+      coupon: any;
+      eligibleSubtotal: number;
+      discountAmount: number;
+    }>('/coupons/validate', {
       method: 'POST',
       body: { code, items },
       token,
@@ -1042,7 +1147,11 @@ class ApiClient {
   }
 
   // Reviews
-  async updateReview(token: string, reviewId: string, data: { rating?: number; title?: string; comment?: string }) {
+  async updateReview(
+    token: string,
+    reviewId: string,
+    data: { rating?: number; title?: string; comment?: string },
+  ) {
     return this.fetch<any>(`/reviews/${reviewId}`, {
       method: 'PATCH',
       body: data,
@@ -1092,19 +1201,33 @@ class ApiClient {
   }
 
   async setupTwoFactor(token: string) {
-    return this.fetch<{ secret: string; otpauthUri: string }>('/auth/2fa/setup', { method: 'POST', token });
+    return this.fetch<{ secret: string; otpauthUri: string }>('/auth/2fa/setup', {
+      method: 'POST',
+      token,
+    });
   }
 
   async enableTwoFactor(token: string, code: string) {
-    return this.fetch<{ success: boolean; backupCodes: string[] }>('/auth/2fa/enable', { method: 'POST', body: { code }, token });
+    return this.fetch<{ success: boolean; backupCodes: string[] }>('/auth/2fa/enable', {
+      method: 'POST',
+      body: { code },
+      token,
+    });
   }
 
   async disableTwoFactor(token: string, password: string) {
-    return this.fetch<{ success: boolean }>('/auth/2fa/disable', { method: 'POST', body: { password }, token });
+    return this.fetch<{ success: boolean }>('/auth/2fa/disable', {
+      method: 'POST',
+      body: { password },
+      token,
+    });
   }
 
   async verifyTwoFactorLogin(tempToken: string, code: string) {
-    return this.fetch<{ accessToken: string; user: any }>('/auth/2fa/verify', { method: 'POST', body: { tempToken, code } });
+    return this.fetch<{ accessToken: string; user: any }>('/auth/2fa/verify', {
+      method: 'POST',
+      body: { tempToken, code },
+    });
   }
 }
 

@@ -46,20 +46,36 @@ export default function CommunityManagePage() {
     setSelected(await api.adminGetCourse(token, id));
   }
 
-  useEffect(() => { if (token) refreshList().catch(() => {}); }, [token]);
+  useEffect(() => {
+    if (token) refreshList().catch(() => {});
+  }, [token]);
 
-  if (!token) return <main className="flex min-h-screen items-center justify-center bg-cream-50"><p className="text-sm text-ink-500">Sign in…</p></main>;
+  if (!token)
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-cream-50">
+        <p className="text-sm text-ink-500">Sign in…</p>
+      </main>
+    );
   if (!isAdmin) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-cream-50 px-4">
-        <p className="text-sm text-ink-600">You don't have access to manage Bold Ideas Growth Club.</p>
+        <p className="text-sm text-ink-600">
+          You don't have access to manage Bold Ideas Growth Club.
+        </p>
       </main>
     );
   }
 
   async function run(fn: () => Promise<any>) {
-    setBusy(true); setError('');
-    try { await fn(); } catch (e: any) { setError(e.message || 'Something went wrong'); } finally { setBusy(false); }
+    setBusy(true);
+    setError('');
+    try {
+      await fn();
+    } catch (e: any) {
+      setError(e.message || 'Something went wrong');
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function createCourse() {
@@ -73,7 +89,11 @@ export default function CommunityManagePage() {
   }
 
   async function saveCourseField(patch: any) {
-    await run(async () => { await api.updateCourse(token!, selected.id, patch); await openCourse(selected.id); await refreshList(); });
+    await run(async () => {
+      await api.updateCourse(token!, selected.id, patch);
+      await openCourse(selected.id);
+      await refreshList();
+    });
   }
 
   async function uploadCover(file: File) {
@@ -86,7 +106,11 @@ export default function CommunityManagePage() {
 
   async function addModule() {
     if (!moduleTitle.trim()) return;
-    await run(async () => { await api.addCourseModule(token!, selected.id, { title: moduleTitle.trim() }); setModuleTitle(''); await openCourse(selected.id); });
+    await run(async () => {
+      await api.addCourseModule(token!, selected.id, { title: moduleTitle.trim() });
+      setModuleTitle('');
+      await openCourse(selected.id);
+    });
   }
 
   async function saveLesson() {
@@ -122,23 +146,46 @@ export default function CommunityManagePage() {
             <p className="eyebrow text-gold-600">Manage</p>
             <h1 className="font-display text-3xl font-bold text-ink-900">Growth Club classroom</h1>
           </div>
-          <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">← Growth Club</Link>
+          <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">
+            ← Growth Club
+          </Link>
         </div>
-        {error && <p className="mt-3 rounded-lg bg-clay-50 px-3 py-2 text-sm text-clay-700">{error}</p>}
+        {error && (
+          <p className="mt-3 rounded-lg bg-clay-50 px-3 py-2 text-sm text-clay-700">{error}</p>
+        )}
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
           {/* Course list */}
           <aside className="space-y-3">
             <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm">
               <p className="text-sm font-semibold text-ink-800">New course</p>
-              <input className={`${input} mt-2`} value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Course title" />
-              <button onClick={createCourse} disabled={busy} className="mt-2 w-full rounded-full bg-forest-800 px-4 py-2 text-sm font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50">Create</button>
+              <input
+                className={`${input} mt-2`}
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                placeholder="Course title"
+              />
+              <button
+                onClick={createCourse}
+                disabled={busy}
+                className="mt-2 w-full rounded-full bg-forest-800 px-4 py-2 text-sm font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50"
+              >
+                Create
+              </button>
             </div>
             <div className="space-y-1">
               {courses.map((c) => (
-                <button key={c.id} onClick={() => openCourse(c.id)} className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition ${selected?.id === c.id ? 'bg-forest-50 text-forest-900' : 'bg-white hover:bg-cream-100'}`}>
+                <button
+                  key={c.id}
+                  onClick={() => openCourse(c.id)}
+                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition ${selected?.id === c.id ? 'bg-forest-50 text-forest-900' : 'bg-white hover:bg-cream-100'}`}
+                >
                   <span className="truncate">{c.title}</span>
-                  <span className={`ml-2 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${c.published ? 'bg-forest-100 text-forest-800' : 'bg-cream-200 text-ink-500'}`}>{c.published ? 'Live' : 'Draft'}</span>
+                  <span
+                    className={`ml-2 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${c.published ? 'bg-forest-100 text-forest-800' : 'bg-cream-200 text-ink-500'}`}
+                  >
+                    {c.published ? 'Live' : 'Draft'}
+                  </span>
                 </button>
               ))}
             </div>
@@ -147,54 +194,202 @@ export default function CommunityManagePage() {
           {/* Editor */}
           <section className="space-y-5">
             {!selected ? (
-              <p className="rounded-2xl border border-ink-100 bg-white p-6 text-sm text-ink-500 shadow-sm">Select or create a course to edit.</p>
+              <p className="rounded-2xl border border-ink-100 bg-white p-6 text-sm text-ink-500 shadow-sm">
+                Select or create a course to edit.
+              </p>
             ) : (
               <>
                 {/* Course settings */}
                 <div className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <input className={input} defaultValue={selected.title} onBlur={(e) => e.target.value.trim() && e.target.value !== selected.title && saveCourseField({ title: e.target.value.trim() })} placeholder="Title" />
+                    <input
+                      className={input}
+                      defaultValue={selected.title}
+                      onBlur={(e) =>
+                        e.target.value.trim() &&
+                        e.target.value !== selected.title &&
+                        saveCourseField({ title: e.target.value.trim() })
+                      }
+                      placeholder="Title"
+                    />
                     <label className="flex items-center gap-2 text-sm text-ink-700">
-                      <input type="checkbox" checked={selected.published} onChange={(e) => saveCourseField({ published: e.target.checked })} /> Published (visible to members)
+                      <input
+                        type="checkbox"
+                        checked={selected.published}
+                        onChange={(e) => saveCourseField({ published: e.target.checked })}
+                      />{' '}
+                      Published (visible to members)
                     </label>
-                    <textarea className={`${input} sm:col-span-2`} rows={4} defaultValue={selected.description ?? ''} onBlur={(e) => e.target.value !== (selected.description ?? '') && saveCourseField({ description: e.target.value })} placeholder="Course description — markdown is supported" />
+                    <label className="text-sm text-ink-700">
+                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-500">
+                        Course access
+                      </span>
+                      <select
+                        className={input}
+                        value={selected.accessLevel ?? 'FREE'}
+                        onChange={(e) => saveCourseField({ accessLevel: e.target.value })}
+                      >
+                        <option value="FREE">Free for every registered member</option>
+                        <option value="PREMIUM">Premium pass required</option>
+                      </select>
+                    </label>
+                    <textarea
+                      className={`${input} sm:col-span-2`}
+                      rows={4}
+                      defaultValue={selected.description ?? ''}
+                      onBlur={(e) =>
+                        e.target.value !== (selected.description ?? '') &&
+                        saveCourseField({ description: e.target.value })
+                      }
+                      placeholder="Course description — markdown is supported"
+                    />
                   </div>
                   <div className="mt-3 flex items-center gap-3">
-                    {selected.coverImage && <img src={selected.coverImage} alt="" className="h-14 w-24 rounded-lg object-cover" />}
+                    {selected.coverImage && (
+                      <img
+                        src={selected.coverImage}
+                        alt=""
+                        className="h-14 w-24 rounded-lg object-cover"
+                      />
+                    )}
                     <label className="cursor-pointer rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">
                       {selected.coverImage ? 'Change cover' : 'Upload cover'}
-                      <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadCover(e.target.files[0])} />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => e.target.files?.[0] && uploadCover(e.target.files[0])}
+                      />
                     </label>
-                    <button onClick={() => run(async () => { if (confirm('Delete this course?')) { await api.deleteCourse(token!, selected.id); setSelected(null); await refreshList(); } })} className="ml-auto text-xs font-semibold text-clay-600 hover:underline">Delete course</button>
+                    <button
+                      onClick={() =>
+                        run(async () => {
+                          if (confirm('Delete this course?')) {
+                            await api.deleteCourse(token!, selected.id);
+                            setSelected(null);
+                            await refreshList();
+                          }
+                        })
+                      }
+                      className="ml-auto text-xs font-semibold text-clay-600 hover:underline"
+                    >
+                      Delete course
+                    </button>
                   </div>
                 </div>
 
                 {/* Modules + lessons */}
                 {selected.modules.map((m: any) => (
-                  <div key={m.id} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
+                  <div
+                    key={m.id}
+                    className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm"
+                  >
                     <div className="flex items-center justify-between">
-                      <input className="rounded-lg border border-transparent px-1 text-base font-semibold text-ink-900 hover:border-ink-200" defaultValue={m.title} onBlur={(e) => e.target.value.trim() && e.target.value !== m.title && run(async () => { await api.updateCourseModule(token!, m.id, { title: e.target.value.trim() }); await openCourse(selected.id); })} />
-                      <button onClick={() => run(async () => { if (confirm('Delete module and its lessons?')) { await api.deleteCourseModule(token!, m.id); await openCourse(selected.id); } })} className="text-xs font-semibold text-clay-600 hover:underline">Delete</button>
+                      <input
+                        className="rounded-lg border border-transparent px-1 text-base font-semibold text-ink-900 hover:border-ink-200"
+                        defaultValue={m.title}
+                        onBlur={(e) =>
+                          e.target.value.trim() &&
+                          e.target.value !== m.title &&
+                          run(async () => {
+                            await api.updateCourseModule(token!, m.id, {
+                              title: e.target.value.trim(),
+                            });
+                            await openCourse(selected.id);
+                          })
+                        }
+                      />
+                      <button
+                        onClick={() =>
+                          run(async () => {
+                            if (confirm('Delete module and its lessons?')) {
+                              await api.deleteCourseModule(token!, m.id);
+                              await openCourse(selected.id);
+                            }
+                          })
+                        }
+                        className="text-xs font-semibold text-clay-600 hover:underline"
+                      >
+                        Delete
+                      </button>
                     </div>
                     <ul className="mt-3 space-y-1">
                       {m.lessons.map((l: any) => (
-                        <li key={l.id} className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-cream-100">
-                          <span className="rounded bg-cream-200 px-1.5 py-0.5 text-[10px] font-semibold text-ink-500">{l.contentType}</span>
+                        <li
+                          key={l.id}
+                          className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-cream-100"
+                        >
+                          <span className="rounded bg-cream-200 px-1.5 py-0.5 text-[10px] font-semibold text-ink-500">
+                            {l.contentType}
+                          </span>
                           <span className="flex-1 truncate">{l.title}</span>
-                          {l.dripDelayDays > 0 && <span className="text-[10px] text-ink-400">drip {l.dripDelayDays}d</span>}
-                          <button onClick={() => setDraft({ id: l.id, moduleId: m.id, title: l.title, contentType: l.contentType, body: l.body ?? '', videoUrl: l.videoUrl ?? '', fileUrl: l.fileUrl ?? '', dripDelayDays: l.dripDelayDays })} className="text-xs font-semibold text-forest-700 hover:underline">Edit</button>
-                          <button onClick={() => run(async () => { await api.deleteLesson(token!, l.id); await openCourse(selected.id); })} className="text-xs font-semibold text-clay-600 hover:underline">✕</button>
+                          {l.dripDelayDays > 0 && (
+                            <span className="text-[10px] text-ink-400">
+                              drip {l.dripDelayDays}d
+                            </span>
+                          )}
+                          <button
+                            onClick={() =>
+                              setDraft({
+                                id: l.id,
+                                moduleId: m.id,
+                                title: l.title,
+                                contentType: l.contentType,
+                                body: l.body ?? '',
+                                videoUrl: l.videoUrl ?? '',
+                                fileUrl: l.fileUrl ?? '',
+                                dripDelayDays: l.dripDelayDays,
+                              })
+                            }
+                            className="text-xs font-semibold text-forest-700 hover:underline"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() =>
+                              run(async () => {
+                                await api.deleteLesson(token!, l.id);
+                                await openCourse(selected.id);
+                              })
+                            }
+                            className="text-xs font-semibold text-clay-600 hover:underline"
+                          >
+                            ✕
+                          </button>
                         </li>
                       ))}
                     </ul>
-                    <button onClick={() => setDraft({ moduleId: m.id, title: '', contentType: 'TEXT', dripDelayDays: 0 })} className="mt-2 text-xs font-semibold text-forest-700 hover:underline">+ Add lesson</button>
+                    <button
+                      onClick={() =>
+                        setDraft({
+                          moduleId: m.id,
+                          title: '',
+                          contentType: 'TEXT',
+                          dripDelayDays: 0,
+                        })
+                      }
+                      className="mt-2 text-xs font-semibold text-forest-700 hover:underline"
+                    >
+                      + Add lesson
+                    </button>
                   </div>
                 ))}
 
                 {/* Add module */}
                 <div className="flex gap-2">
-                  <input className={input} value={moduleTitle} onChange={(e) => setModuleTitle(e.target.value)} placeholder="New module title (e.g. Week 1)" />
-                  <button onClick={addModule} disabled={busy} className="shrink-0 rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:bg-cream-100 disabled:opacity-50">Add module</button>
+                  <input
+                    className={input}
+                    value={moduleTitle}
+                    onChange={(e) => setModuleTitle(e.target.value)}
+                    placeholder="New module title (e.g. Week 1)"
+                  />
+                  <button
+                    onClick={addModule}
+                    disabled={busy}
+                    className="shrink-0 rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:bg-cream-100 disabled:opacity-50"
+                  >
+                    Add module
+                  </button>
                 </div>
               </>
             )}
@@ -204,32 +399,96 @@ export default function CommunityManagePage() {
 
       {/* Lesson editor panel */}
       {draft && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/40 p-4" onClick={() => setDraft(null)}>
-          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
-            <h3 className="font-display text-lg font-semibold text-ink-900">{draft.id ? 'Edit lesson' : 'New lesson'}</h3>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/40 p-4"
+          onClick={() => setDraft(null)}
+        >
+          <div
+            className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="font-display text-lg font-semibold text-ink-900">
+              {draft.id ? 'Edit lesson' : 'New lesson'}
+            </h3>
             <div className="mt-4 space-y-3">
-              <input className={input} value={draft.title} onChange={(e) => setDraft({ ...draft, title: e.target.value })} placeholder="Lesson title" />
+              <input
+                className={input}
+                value={draft.title}
+                onChange={(e) => setDraft({ ...draft, title: e.target.value })}
+                placeholder="Lesson title"
+              />
               <div className="flex gap-2">
-                <select className={input} value={draft.contentType} onChange={(e) => setDraft({ ...draft, contentType: e.target.value as any })}>
-                  {CONTENT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                <select
+                  className={input}
+                  value={draft.contentType}
+                  onChange={(e) => setDraft({ ...draft, contentType: e.target.value as any })}
+                >
+                  {CONTENT_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
                 </select>
-                <input type="number" min={0} className="w-40 rounded-lg border border-ink-200 px-3 py-2 text-sm" value={draft.dripDelayDays ?? 0} onChange={(e) => setDraft({ ...draft, dripDelayDays: Number(e.target.value) })} placeholder="Drip days" />
+                <input
+                  type="number"
+                  min={0}
+                  className="w-40 rounded-lg border border-ink-200 px-3 py-2 text-sm"
+                  value={draft.dripDelayDays ?? 0}
+                  onChange={(e) => setDraft({ ...draft, dripDelayDays: Number(e.target.value) })}
+                  placeholder="Drip days"
+                />
               </div>
-              <textarea className={input} rows={8} value={draft.body ?? ''} onChange={(e) => setDraft({ ...draft, body: e.target.value })} placeholder="Lesson text — markdown is supported" />
-              <input className={input} value={draft.videoUrl ?? ''} onChange={(e) => setDraft({ ...draft, videoUrl: e.target.value })} placeholder="Video URL or iframe embed code: YouTube, Vimeo, Loom, Wistia, or Bunny Stream" />
+              <textarea
+                className={input}
+                rows={8}
+                value={draft.body ?? ''}
+                onChange={(e) => setDraft({ ...draft, body: e.target.value })}
+                placeholder="Lesson text — markdown is supported"
+              />
+              <input
+                className={input}
+                value={draft.videoUrl ?? ''}
+                onChange={(e) => setDraft({ ...draft, videoUrl: e.target.value })}
+                placeholder="Video URL or iframe embed code: YouTube, Vimeo, Loom, Wistia, or Bunny Stream"
+              />
               <div className="flex items-center gap-3">
                 <label className="cursor-pointer rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">
                   {draft.fileUrl ? 'Change file' : 'Upload file'}
-                  <input type="file" className="hidden" onChange={(e) => e.target.files?.[0] && uploadLessonFile(e.target.files[0])} />
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={(e) => e.target.files?.[0] && uploadLessonFile(e.target.files[0])}
+                  />
                 </label>
-                {draft.fileUrl && <span className="truncate text-xs text-ink-500">{draft.fileUrl.split('/').pop()}</span>}
+                {draft.fileUrl && (
+                  <span className="truncate text-xs text-ink-500">
+                    {draft.fileUrl.split('/').pop()}
+                  </span>
+                )}
               </div>
-              <p className="text-xs text-ink-400">A lesson can include text, a video, and a downloadable file together. The type is only used as the primary lesson label.</p>
-              <p className="text-xs text-ink-400">Drip days: hidden until this many days after a member joins (0 = available immediately).</p>
+              <p className="text-xs text-ink-400">
+                A lesson can include text, a video, and a downloadable file together. The type is
+                only used as the primary lesson label.
+              </p>
+              <p className="text-xs text-ink-400">
+                Drip days: hidden until this many days after a member joins (0 = available
+                immediately).
+              </p>
             </div>
             <div className="mt-5 flex justify-end gap-2">
-              <button onClick={() => setDraft(null)} className="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:bg-cream-100">Cancel</button>
-              <button onClick={saveLesson} disabled={busy} className="rounded-full bg-forest-800 px-5 py-2 text-sm font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50">{draft.id ? 'Save' : 'Add lesson'}</button>
+              <button
+                onClick={() => setDraft(null)}
+                className="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:bg-cream-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveLesson}
+                disabled={busy}
+                className="rounded-full bg-forest-800 px-5 py-2 text-sm font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50"
+              >
+                {draft.id ? 'Save' : 'Add lesson'}
+              </button>
             </div>
           </div>
         </div>

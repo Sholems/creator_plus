@@ -5,19 +5,23 @@ import { CommunityFeedService } from './community-feed.service';
 jest.mock('@creatorplus/database', () => ({
   prisma: {
     communityPost: { findMany: jest.fn(), findUnique: jest.fn(), delete: jest.fn() },
-    communityPostLike: { findUnique: jest.fn(), create: jest.fn(), delete: jest.fn(), count: jest.fn() },
+    communityPostLike: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      delete: jest.fn(),
+      count: jest.fn(),
+    },
     userRole: { findMany: jest.fn() },
   },
 }));
 
 const p = prisma as any;
 
-function makeService(isMember: boolean) {
-  const membership = { hasActiveMembership: jest.fn().mockResolvedValue(isMember) } as any;
+function makeService() {
   const points = { award: jest.fn(), revoke: jest.fn() } as any;
   const notifications = { create: jest.fn() } as any;
   const email = { sendCommunityReply: jest.fn() } as any;
-  return new CommunityFeedService(membership, points, notifications, email);
+  return new CommunityFeedService(points, notifications, email);
 }
 
 describe('CommunityFeedService', () => {
@@ -26,13 +30,34 @@ describe('CommunityFeedService', () => {
     p.userRole.findMany.mockResolvedValue([]); // default: not an admin
   });
 
-  it('blocks non-members from the feed', async () => {
-    const svc = makeService(false);
-    await expect(svc.listPosts('u1', {})).rejects.toBeInstanceOf(ForbiddenException);
+  it('allows every registered user to read the feed without a paid membership', async () => {
+    const svc = makeService();
+    p.communityPost.findMany.mockResolvedValue([]);
+
+    await expect(svc.listPosts('u1', {})).resolves.toEqual([]);
+  });
+
+  it('supports search and unanswered-question discovery', async () => {
+    const svc = makeService();
+    p.communityPost.findMany.mockResolvedValue([]);
+
+    await svc.listPosts('u1', { search: 'pricing help', sort: 'unanswered' });
+
+    expect(p.communityPost.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: expect.objectContaining({
+          comments: { none: {} },
+          OR: [
+            { title: { contains: 'pricing help', mode: 'insensitive' } },
+            { body: { contains: 'pricing help', mode: 'insensitive' } },
+          ],
+        }),
+      }),
+    );
   });
 
   it('adds a like when none exists and reports the new count', async () => {
-    const svc = makeService(true);
+    const svc = makeService();
     p.communityPost.findUnique.mockResolvedValue({ authorId: 'author1' });
     p.communityPostLike.findUnique.mockResolvedValue(null);
     p.communityPostLike.create.mockResolvedValue({ id: 'like1' });
@@ -43,7 +68,7 @@ describe('CommunityFeedService', () => {
   });
 
   it('forbids deleting a post you do not own (and are not admin for)', async () => {
-    const svc = makeService(true);
+    const svc = makeService();
     p.communityPost.findUnique.mockResolvedValue({ id: 'post1', authorId: 'someoneElse' });
     p.userRole.findMany.mockResolvedValue([]); // not an admin
     await expect(svc.deletePost('u1', 'post1')).rejects.toBeInstanceOf(ForbiddenException);
