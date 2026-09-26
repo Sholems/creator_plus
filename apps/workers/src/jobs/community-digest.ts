@@ -11,8 +11,8 @@ const REPEAT_PATTERN = '0 8 * * *'; // 08:00 daily
 const JOB_ID = 'community-digest';
 const WEB = process.env.WEB_URL || 'https://mycreatorplus.com';
 
-async function sweep() {
-  const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+export async function sweepCommunityDigest(now = new Date()) {
+  const since = new Date(now.getTime() - 24 * 60 * 60 * 1000);
   const posts = await prisma.communityPost.findMany({
     where: { createdAt: { gte: since } },
     orderBy: { createdAt: 'desc' },
@@ -21,14 +21,23 @@ async function sweep() {
   });
   if (posts.length === 0) return { newPosts: 0, queued: 0 };
 
-  // Recipients: members with access right now.
-  const subs = await prisma.membershipSubscription.findMany({
-    where: { status: { in: ['ACTIVE', 'PAST_DUE'] }, currentPeriodEnd: { gt: new Date() } },
-    select: { userId: true },
+  // Community access is free. Email only active members who explicitly opted
+  // into the digest and are not suspended from Growth Club.
+  const preferences = await prisma.communityNotificationPreference.findMany({
+    where: {
+      digestEmail: true,
+      user: {
+        status: 'ACTIVE',
+        OR: [
+          { communityProfile: null },
+          { communityProfile: { is: { participationStatus: 'ACTIVE' } } },
+        ],
+      },
+    },
+    select: { user: { select: { id: true, email: true } } },
   });
-  const userIds = [...new Set(subs.map((s) => s.userId))];
-  if (userIds.length === 0) return { newPosts: posts.length, queued: 0 };
-  const users = await prisma.user.findMany({ where: { id: { in: userIds } }, select: { email: true } });
+  const users = preferences.map(({ user }) => user);
+  if (users.length === 0) return { newPosts: posts.length, queued: 0 };
 
   const items = posts
     .map(
@@ -47,17 +56,31 @@ async function sweep() {
   let queued = 0;
   for (const u of users) {
     if (!u.email) continue;
+    const day = now.toISOString().slice(0, 10);
+    const key = `community-digest:${day}:${u.id}`;
+    const delivery = await prisma.communityDelivery.upsert({
+      where: { key },
+      create: { userId: u.id, key, kind: 'DIGEST', status: 'PENDING', scheduledAt: now },
+      update: {},
+    });
+    if (delivery.status === 'QUEUED' || delivery.status === 'DELIVERED') continue;
     await emailQueue.add(
       'send',
       { to: u.email, subject: "What's new in Bold Ideas Growth Club", html },
-      { attempts: 3, backoff: { type: 'exponential', delay: 5_000 } },
+      { jobId: key, attempts: 3, backoff: { type: 'exponential', delay: 5_000 } },
     );
-    queued++;
+    await prisma.communityDelivery.update({
+      where: { id: delivery.id },
+      data: { status: 'QUEUED', claimedAt: now },
+    });
+    queued += 1;
   }
   return { newPosts: posts.length, queued };
 }
 
-export const communityDigestWorker = createWorker(QUEUE_NAMES.COMMUNITY_DIGEST, async () => sweep());
+export const communityDigestWorker = createWorker(QUEUE_NAMES.COMMUNITY_DIGEST, async () =>
+  sweepCommunityDigest(),
+);
 
 /** Register the repeatable community digest (idempotent across restarts). */
 export async function scheduleCommunityDigest() {

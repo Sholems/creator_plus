@@ -17,9 +17,15 @@ jest.mock('@creatorplus/database', () => ({
 const p = prisma as any;
 
 function makeService(isMember: boolean) {
-  const membership = { hasActiveMembership: jest.fn().mockResolvedValue(isMember) } as any;
+  const access = {
+    assertAccess: jest.fn().mockImplementation((_userId: string, options?: any) => {
+      if (options?.accessLevel === 'PREMIUM' && !isMember)
+        return Promise.reject(new ForbiddenException());
+      return Promise.resolve({ isAdmin: false, hasPremiumAccess: isMember });
+    }),
+  } as any;
   const points = { award: jest.fn(), revoke: jest.fn() } as any;
-  return new CommunityCoursesService(membership, points);
+  return new CommunityCoursesService(access, points);
 }
 
 describe('CommunityCoursesService', () => {

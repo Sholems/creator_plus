@@ -1,12 +1,7 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { prisma, Prisma } from '@creatorplus/database';
-import { MembershipService } from '../membership/membership.service';
 import { CommunityPointsService } from './community-points.service';
+import { CommunityAccessService } from './community-access.service';
 import { assertHostAllowed, assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import {
   CreateCourseDto,
@@ -43,27 +38,14 @@ function slugify(input: string): string {
 @Injectable()
 export class CommunityCoursesService {
   constructor(
-    private readonly membership: MembershipService,
+    private readonly access: CommunityAccessService,
     private readonly points: CommunityPointsService,
   ) {}
 
-  private async isAdmin(userId: string): Promise<boolean> {
-    const roles = await prisma.userRole.findMany({
-      where: { userId },
-      select: { role: { select: { name: true } } },
-    });
-    return roles.some((r) => r.role.name === 'admin' || r.role.name === 'super_admin');
-  }
-
-  private async hasPremiumAccess(userId: string): Promise<boolean> {
-    if (await this.membership.hasActiveMembership(userId)) return true;
-    return this.isAdmin(userId);
-  }
-
   private async assertCourseAccess(userId: string, accessLevel?: string) {
-    if (accessLevel !== 'PREMIUM') return;
-    if (await this.hasPremiumAccess(userId)) return;
-    throw new ForbiddenException('A premium Growth Club pass is required for this course');
+    return this.access.assertAccess(userId, {
+      accessLevel: accessLevel === 'PREMIUM' ? 'PREMIUM' : 'FREE',
+    });
   }
 
   /** Registration is community membership, so drip windows start at account creation. */
@@ -83,6 +65,7 @@ export class CommunityCoursesService {
   // --- Member views -------------------------------------------------------
 
   async listForMember(userId: string) {
+    const member = await this.access.assertAccess(userId);
     const courses = await prisma.course.findMany({
       where: { published: true },
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
@@ -92,9 +75,12 @@ export class CommunityCoursesService {
         },
       },
     });
-    const hasPremiumAccess = courses.some((course) => course.accessLevel === 'PREMIUM')
-      ? await this.hasPremiumAccess(userId)
-      : false;
+    const hasPremiumAccess =
+      member.isAdmin ||
+      (courses.some((course) => course.accessLevel === 'PREMIUM')
+        ? (await this.access.assertAccess(userId, { accessLevel: 'PREMIUM' }).catch(() => null)) !==
+          null
+        : false);
     const lessonIds = courses.flatMap((c) => c.modules.flatMap((m) => m.lessons.map((l) => l.id)));
     const done = lessonIds.length
       ? await prisma.lessonProgress.findMany({

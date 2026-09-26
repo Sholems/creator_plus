@@ -32,7 +32,9 @@ export class FeatureFlagsService {
         ...(dto.name !== undefined ? { name: dto.name } : {}),
         ...(dto.description !== undefined ? { description: dto.description } : {}),
         ...(dto.isEnabled !== undefined ? { isEnabled: dto.isEnabled } : {}),
-        ...(dto.rolloutPercentage !== undefined ? { rolloutPercentage: dto.rolloutPercentage } : {}),
+        ...(dto.rolloutPercentage !== undefined
+          ? { rolloutPercentage: dto.rolloutPercentage }
+          : {}),
         ...(dto.environment !== undefined ? { environment: dto.environment } : {}),
       },
     });
@@ -51,11 +53,13 @@ export class FeatureFlagsService {
    * surface). With a userId, the same user is consistently in or out of the
    * rollout.
    */
-  async isEnabled(name: string, userId?: string): Promise<boolean> {
+  async isEnabled(name: string, userId?: string, environment?: string): Promise<boolean> {
     const flag = await prisma.featureFlag.findUnique({ where: { name } });
     if (!flag || !flag.isEnabled) return false;
+    const currentEnvironment = environment ?? process.env.NODE_ENV ?? null;
+    if (flag.environment && flag.environment !== currentEnvironment) return false;
     if (flag.rolloutPercentage >= 100) return true;
-    if (!userId) return true;
+    if (!userId) return false;
 
     const hash = createHash('sha1').update(`${userId}:${flag.name}`).digest();
     const bucket = hash.readUInt32BE(0) % 100;
@@ -65,9 +69,25 @@ export class FeatureFlagsService {
   /** Public (no-auth) view: name + enabled state for client-side surfaces. */
   async publicList() {
     const flags = await prisma.featureFlag.findMany({
-      select: { name: true, isEnabled: true, description: true },
+      select: {
+        name: true,
+        isEnabled: true,
+        description: true,
+        rolloutPercentage: true,
+        environment: true,
+      },
       orderBy: { name: 'asc' },
     });
-    return { flags };
+    const currentEnvironment = process.env.NODE_ENV ?? null;
+    return {
+      flags: flags.map((flag) => ({
+        name: flag.name,
+        description: flag.description,
+        isEnabled:
+          flag.isEnabled &&
+          flag.rolloutPercentage >= 100 &&
+          (!flag.environment || flag.environment === currentEnvironment),
+      })),
+    };
   }
 }

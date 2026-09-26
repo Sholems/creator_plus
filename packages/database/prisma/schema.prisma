@@ -51,6 +51,8 @@ model User {
   communityPostLikes CommunityPostLike[]
   communityProfile CommunityProfile?
   communityPointEvents CommunityPointEvent[]
+  communityNotificationPreference CommunityNotificationPreference?
+  communityDeliveries CommunityDelivery[]
   creditBalance CreditBalance?
   creditPurchases CreditPurchase[]
   usageRecords  UsageRecord[]
@@ -2302,16 +2304,65 @@ model CommunityPostLike {
 // ---------------------------------------------------------------------------
 
 model CommunityProfile {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @unique @map("user_id") @db.Uuid
-  points    Int      @default(0)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id                  String                       @id @default(uuid()) @db.Uuid
+  userId              String                       @unique @map("user_id") @db.Uuid
+  points              Int                          @default(0)
+  participationStatus CommunityParticipationStatus @default(ACTIVE) @map("participation_status")
+  createdAt           DateTime                     @default(now()) @map("created_at")
+  updatedAt           DateTime                     @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([points])
   @@map("community_profiles")
+}
+
+enum CommunityParticipationStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum CommunityAccessLevel {
+  FREE
+  PREMIUM
+}
+
+model CommunityNotificationPreference {
+  id             String   @id @default(uuid()) @db.Uuid
+  userId         String   @unique @map("user_id") @db.Uuid
+  inAppEnabled   Boolean  @default(true) @map("in_app_enabled")
+  replyEnabled   Boolean  @default(true) @map("reply_enabled")
+  mentionEnabled Boolean  @default(true) @map("mention_enabled")
+  reminderEmail  Boolean  @default(true) @map("reminder_email")
+  digestEmail    Boolean  @default(false) @map("digest_email")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("community_notification_preferences")
+}
+
+model CommunityDelivery {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  key          String   @unique
+  kind         String
+  status       String   @default("PENDING")
+  scheduledAt  DateTime @map("scheduled_at")
+  claimedAt    DateTime? @map("claimed_at")
+  deliveredAt  DateTime? @map("delivered_at")
+  suppressedAt DateTime? @map("suppressed_at")
+  reason       String?
+  metadata     Json?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, scheduledAt])
+  @@index([userId, kind])
+  @@map("community_deliveries")
 }
 
 model CommunityPointEvent {

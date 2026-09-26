@@ -1277,6 +1277,35 @@ exports.Prisma.CommunityProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   points: 'points',
+  participationStatus: 'participationStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityNotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  inAppEnabled: 'inAppEnabled',
+  replyEnabled: 'replyEnabled',
+  mentionEnabled: 'mentionEnabled',
+  reminderEmail: 'reminderEmail',
+  digestEmail: 'digestEmail',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityDeliveryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  key: 'key',
+  kind: 'kind',
+  status: 'status',
+  scheduledAt: 'scheduledAt',
+  claimedAt: 'claimedAt',
+  deliveredAt: 'deliveredAt',
+  suppressedAt: 'suppressedAt',
+  reason: 'reason',
+  metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1684,6 +1713,11 @@ exports.LessonContentType = exports.$Enums.LessonContentType = {
   FILE: 'FILE'
 };
 
+exports.CommunityParticipationStatus = exports.$Enums.CommunityParticipationStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -1774,6 +1808,8 @@ exports.Prisma.ModelName = {
   CommunityComment: 'CommunityComment',
   CommunityPostLike: 'CommunityPostLike',
   CommunityProfile: 'CommunityProfile',
+  CommunityNotificationPreference: 'CommunityNotificationPreference',
+  CommunityDelivery: 'CommunityDelivery',
   CommunityPointEvent: 'CommunityPointEvent'
 };
 
