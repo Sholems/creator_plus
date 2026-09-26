@@ -1244,6 +1244,36 @@ exports.Prisma.CourseCertificateScalarFieldEnum = {
   issuedAt: 'issuedAt'
 };
 
+exports.Prisma.CommunityEventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  descriptionFormat: 'descriptionFormat',
+  type: 'type',
+  accessLevel: 'accessLevel',
+  hostName: 'hostName',
+  coverImage: 'coverImage',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  timezone: 'timezone',
+  meetingUrl: 'meetingUrl',
+  replayUrl: 'replayUrl',
+  capacity: 'capacity',
+  published: 'published',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityEventRsvpScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CommunityCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1788,6 +1818,22 @@ exports.LessonContentType = exports.$Enums.LessonContentType = {
   FILE: 'FILE'
 };
 
+exports.CommunityEventType = exports.$Enums.CommunityEventType = {
+  LIVE_SESSION: 'LIVE_SESSION',
+  OFFICE_HOURS: 'OFFICE_HOURS',
+  WORKSHOP: 'WORKSHOP'
+};
+
+exports.CommunityAccessLevel = exports.$Enums.CommunityAccessLevel = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+};
+
+exports.CommunityEventRsvpStatus = exports.$Enums.CommunityEventRsvpStatus = {
+  GOING: 'GOING',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.CommunityPostType = exports.$Enums.CommunityPostType = {
   DISCUSSION: 'DISCUSSION',
   QUESTION: 'QUESTION',
@@ -1799,11 +1845,6 @@ exports.CommunityContentStatus = exports.$Enums.CommunityContentStatus = {
   HIDDEN: 'HIDDEN',
   DELETED: 'DELETED',
   REMOVED: 'REMOVED'
-};
-
-exports.CommunityAccessLevel = exports.$Enums.CommunityAccessLevel = {
-  FREE: 'FREE',
-  PREMIUM: 'PREMIUM'
 };
 
 exports.CommunityReportStatus = exports.$Enums.CommunityReportStatus = {
@@ -1909,6 +1950,8 @@ exports.Prisma.ModelName = {
   Lesson: 'Lesson',
   LessonProgress: 'LessonProgress',
   CourseCertificate: 'CourseCertificate',
+  CommunityEvent: 'CommunityEvent',
+  CommunityEventRsvp: 'CommunityEventRsvp',
   CommunityCategory: 'CommunityCategory',
   CommunityPost: 'CommunityPost',
   CommunityComment: 'CommunityComment',

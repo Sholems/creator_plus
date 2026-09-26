@@ -85,12 +85,92 @@ async function sendReminders(now: number, minutesBefore: number, label: string):
   return queued;
 }
 
+async function sendCommunityEventReminders(
+  now: number,
+  minutesBefore: number,
+  label: string,
+): Promise<number> {
+  const target = now + minutesBefore * 60 * 1000;
+  const events = await prisma.communityEvent.findMany({
+    where: {
+      published: true,
+      startsAt: { gte: new Date(target - WINDOW_MS), lt: new Date(target) },
+    },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      startsAt: true,
+      timezone: true,
+      rsvps: {
+        where: {
+          status: 'GOING',
+          user: {
+            status: 'ACTIVE',
+            OR: [
+              { communityNotificationPreference: { is: null } },
+              { communityNotificationPreference: { is: { reminderEmail: true } } },
+            ],
+          },
+        },
+        select: { user: { select: { id: true, email: true, displayName: true } } },
+      },
+    },
+  });
+
+  let queued = 0;
+  for (const event of events) {
+    const whenText = new Intl.DateTimeFormat('en-NG', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+      timeZone: event.timezone,
+    }).format(event.startsAt);
+    for (const { user } of event.rsvps) {
+      if (!user.email) continue;
+      const key = `community-event:${event.id}:${label}:${user.id}`;
+      const delivery = await prisma.communityDelivery.upsert({
+        where: { key },
+        create: {
+          userId: user.id,
+          key,
+          kind: 'EVENT_REMINDER',
+          status: 'PENDING',
+          scheduledAt: new Date(now),
+          metadata: { eventId: event.id, minutesBefore },
+        },
+        update: {},
+      });
+      if (delivery.status === 'QUEUED' || delivery.status === 'DELIVERED') continue;
+      const html = renderEmailLayout({
+        preview: `${event.title} starts in ${label}`,
+        eyebrow: 'Bold Ideas Growth Club',
+        title: event.title,
+        body: `<p>Hi ${user.displayName || 'there'},</p><p>Your Growth Club session starts in about ${label}.</p><p><strong>When:</strong> ${whenText} (${event.timezone})</p>`,
+        cta: { label: 'Open event', url: `${WEB}/community/event/${event.slug}` },
+      });
+      await emailQueue.add(
+        'send',
+        { to: user.email, subject: `Reminder: ${event.title} starts in ${label}`, html },
+        { jobId: key, attempts: 3, backoff: { type: 'exponential', delay: 5_000 } },
+      );
+      await prisma.communityDelivery.update({
+        where: { id: delivery.id },
+        data: { status: 'QUEUED', claimedAt: new Date(now) },
+      });
+      queued += 1;
+    }
+  }
+  return queued;
+}
+
 async function sweep() {
   const now = Date.now();
   const released = await releaseExpiredHolds();
   const r24 = await sendReminders(now, 24 * 60, '24 hours');
   const r1 = await sendReminders(now, 60, '1 hour');
-  return { released, reminders: r24 + r1 };
+  const community24 = await sendCommunityEventReminders(now, 24 * 60, '24-hours');
+  const community1 = await sendCommunityEventReminders(now, 60, '1-hour');
+  return { released, reminders: r24 + r1 + community24 + community1 };
 }
 
 export const eventsWorker = createWorker(QUEUE_NAMES.EVENTS, async () => sweep());

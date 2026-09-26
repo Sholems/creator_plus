@@ -463,6 +463,16 @@ export type LessonProgress = $Result.DefaultSelection<Prisma.$LessonProgressPayl
  */
 export type CourseCertificate = $Result.DefaultSelection<Prisma.$CourseCertificatePayload>
 /**
+ * Model CommunityEvent
+ * 
+ */
+export type CommunityEvent = $Result.DefaultSelection<Prisma.$CommunityEventPayload>
+/**
+ * Model CommunityEventRsvp
+ * 
+ */
+export type CommunityEventRsvp = $Result.DefaultSelection<Prisma.$CommunityEventRsvpPayload>
+/**
  * Model CommunityCategory
  * 
  */
@@ -1041,6 +1051,23 @@ export const CourseAccessLevel: {
 export type CourseAccessLevel = (typeof CourseAccessLevel)[keyof typeof CourseAccessLevel]
 
 
+export const CommunityEventType: {
+  LIVE_SESSION: 'LIVE_SESSION',
+  OFFICE_HOURS: 'OFFICE_HOURS',
+  WORKSHOP: 'WORKSHOP'
+};
+
+export type CommunityEventType = (typeof CommunityEventType)[keyof typeof CommunityEventType]
+
+
+export const CommunityEventRsvpStatus: {
+  GOING: 'GOING',
+  CANCELLED: 'CANCELLED'
+};
+
+export type CommunityEventRsvpStatus = (typeof CommunityEventRsvpStatus)[keyof typeof CommunityEventRsvpStatus]
+
+
 export const CommunityContentFormat: {
   MARKDOWN: 'MARKDOWN',
   RICH_HTML: 'RICH_HTML'
@@ -1294,6 +1321,14 @@ export const LessonContentType: typeof $Enums.LessonContentType
 export type CourseAccessLevel = $Enums.CourseAccessLevel
 
 export const CourseAccessLevel: typeof $Enums.CourseAccessLevel
+
+export type CommunityEventType = $Enums.CommunityEventType
+
+export const CommunityEventType: typeof $Enums.CommunityEventType
+
+export type CommunityEventRsvpStatus = $Enums.CommunityEventRsvpStatus
+
+export const CommunityEventRsvpStatus: typeof $Enums.CommunityEventRsvpStatus
 
 export type CommunityContentFormat = $Enums.CommunityContentFormat
 
@@ -2292,6 +2327,26 @@ export class PrismaClient<
   get courseCertificate(): Prisma.CourseCertificateDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.communityEvent`: Exposes CRUD operations for the **CommunityEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityEvents
+    * const communityEvents = await prisma.communityEvent.findMany()
+    * ```
+    */
+  get communityEvent(): Prisma.CommunityEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityEventRsvp`: Exposes CRUD operations for the **CommunityEventRsvp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityEventRsvps
+    * const communityEventRsvps = await prisma.communityEventRsvp.findMany()
+    * ```
+    */
+  get communityEventRsvp(): Prisma.CommunityEventRsvpDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.communityCategory`: Exposes CRUD operations for the **CommunityCategory** model.
     * Example usage:
     * ```ts
@@ -2946,6 +3001,8 @@ export namespace Prisma {
     Lesson: 'Lesson',
     LessonProgress: 'LessonProgress',
     CourseCertificate: 'CourseCertificate',
+    CommunityEvent: 'CommunityEvent',
+    CommunityEventRsvp: 'CommunityEventRsvp',
     CommunityCategory: 'CommunityCategory',
     CommunityPost: 'CommunityPost',
     CommunityComment: 'CommunityComment',
@@ -2977,7 +3034,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityEvent" | "communityEventRsvp" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -9271,6 +9328,154 @@ export namespace Prisma {
           }
         }
       }
+      CommunityEvent: {
+        payload: Prisma.$CommunityEventPayload<ExtArgs>
+        fields: Prisma.CommunityEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>
+          }
+          update: {
+            args: Prisma.CommunityEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityEvent>
+          }
+          groupBy: {
+            args: Prisma.CommunityEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityEventCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityEventRsvp: {
+        payload: Prisma.$CommunityEventRsvpPayload<ExtArgs>
+        fields: Prisma.CommunityEventRsvpFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityEventRsvpFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityEventRsvpFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityEventRsvpFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityEventRsvpFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityEventRsvpFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityEventRsvpCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityEventRsvpCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityEventRsvpCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityEventRsvpDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>
+          }
+          update: {
+            args: Prisma.CommunityEventRsvpUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityEventRsvpDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityEventRsvpUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityEventRsvpUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityEventRsvpUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityEventRsvpPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityEventRsvpAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityEventRsvp>
+          }
+          groupBy: {
+            args: Prisma.CommunityEventRsvpGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityEventRsvpGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityEventRsvpCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityEventRsvpCountAggregateOutputType> | number
+          }
+        }
+      }
       CommunityCategory: {
         payload: Prisma.$CommunityCategoryPayload<ExtArgs>
         fields: Prisma.CommunityCategoryFieldRefs
@@ -10414,6 +10619,8 @@ export namespace Prisma {
     lesson?: LessonOmit
     lessonProgress?: LessonProgressOmit
     courseCertificate?: CourseCertificateOmit
+    communityEvent?: CommunityEventOmit
+    communityEventRsvp?: CommunityEventRsvpOmit
     communityCategory?: CommunityCategoryOmit
     communityPost?: CommunityPostOmit
     communityComment?: CommunityCommentOmit
@@ -10517,6 +10724,7 @@ export namespace Prisma {
     membershipSubscriptions: number
     lessonProgress: number
     courseCertificates: number
+    communityEventRsvps: number
     communityPosts: number
     communityComments: number
     communityPostLikes: number
@@ -10556,6 +10764,7 @@ export namespace Prisma {
     membershipSubscriptions?: boolean | UserCountOutputTypeCountMembershipSubscriptionsArgs
     lessonProgress?: boolean | UserCountOutputTypeCountLessonProgressArgs
     courseCertificates?: boolean | UserCountOutputTypeCountCourseCertificatesArgs
+    communityEventRsvps?: boolean | UserCountOutputTypeCountCommunityEventRsvpsArgs
     communityPosts?: boolean | UserCountOutputTypeCountCommunityPostsArgs
     communityComments?: boolean | UserCountOutputTypeCountCommunityCommentsArgs
     communityPostLikes?: boolean | UserCountOutputTypeCountCommunityPostLikesArgs
@@ -10663,6 +10872,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCourseCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CourseCertificateWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommunityEventRsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityEventRsvpWhereInput
   }
 
   /**
@@ -12311,6 +12527,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CommunityEventCountOutputType
+   */
+
+  export type CommunityEventCountOutputType = {
+    rsvps: number
+  }
+
+  export type CommunityEventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rsvps?: boolean | CommunityEventCountOutputTypeCountRsvpsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityEventCountOutputType without action
+   */
+  export type CommunityEventCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventCountOutputType
+     */
+    select?: CommunityEventCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityEventCountOutputType without action
+   */
+  export type CommunityEventCountOutputTypeCountRsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityEventRsvpWhereInput
+  }
+
+
+  /**
    * Count Type CommunityCategoryCountOutputType
    */
 
@@ -12678,6 +12925,7 @@ export namespace Prisma {
     membershipSubscriptions?: boolean | User$membershipSubscriptionsArgs<ExtArgs>
     lessonProgress?: boolean | User$lessonProgressArgs<ExtArgs>
     courseCertificates?: boolean | User$courseCertificatesArgs<ExtArgs>
+    communityEventRsvps?: boolean | User$communityEventRsvpsArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
     communityComments?: boolean | User$communityCommentsArgs<ExtArgs>
     communityPostLikes?: boolean | User$communityPostLikesArgs<ExtArgs>
@@ -12776,6 +13024,7 @@ export namespace Prisma {
     membershipSubscriptions?: boolean | User$membershipSubscriptionsArgs<ExtArgs>
     lessonProgress?: boolean | User$lessonProgressArgs<ExtArgs>
     courseCertificates?: boolean | User$courseCertificatesArgs<ExtArgs>
+    communityEventRsvps?: boolean | User$communityEventRsvpsArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
     communityComments?: boolean | User$communityCommentsArgs<ExtArgs>
     communityPostLikes?: boolean | User$communityPostLikesArgs<ExtArgs>
@@ -12829,6 +13078,7 @@ export namespace Prisma {
       membershipSubscriptions: Prisma.$MembershipSubscriptionPayload<ExtArgs>[]
       lessonProgress: Prisma.$LessonProgressPayload<ExtArgs>[]
       courseCertificates: Prisma.$CourseCertificatePayload<ExtArgs>[]
+      communityEventRsvps: Prisma.$CommunityEventRsvpPayload<ExtArgs>[]
       communityPosts: Prisma.$CommunityPostPayload<ExtArgs>[]
       communityComments: Prisma.$CommunityCommentPayload<ExtArgs>[]
       communityPostLikes: Prisma.$CommunityPostLikePayload<ExtArgs>[]
@@ -13283,6 +13533,7 @@ export namespace Prisma {
     membershipSubscriptions<T extends User$membershipSubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lessonProgress<T extends User$lessonProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$lessonProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     courseCertificates<T extends User$courseCertificatesArgs<ExtArgs> = {}>(args?: Subset<T, User$courseCertificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    communityEventRsvps<T extends User$communityEventRsvpsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityEventRsvpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPosts<T extends User$communityPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityComments<T extends User$communityCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPostLikes<T extends User$communityPostLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14093,6 +14344,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CourseCertificateScalarFieldEnum | CourseCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * User.communityEventRsvps
+   */
+  export type User$communityEventRsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    where?: CommunityEventRsvpWhereInput
+    orderBy?: CommunityEventRsvpOrderByWithRelationInput | CommunityEventRsvpOrderByWithRelationInput[]
+    cursor?: CommunityEventRsvpWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityEventRsvpScalarFieldEnum | CommunityEventRsvpScalarFieldEnum[]
   }
 
   /**
@@ -113171,6 +113446,2358 @@ export namespace Prisma {
 
 
   /**
+   * Model CommunityEvent
+   */
+
+  export type AggregateCommunityEvent = {
+    _count: CommunityEventCountAggregateOutputType | null
+    _avg: CommunityEventAvgAggregateOutputType | null
+    _sum: CommunityEventSumAggregateOutputType | null
+    _min: CommunityEventMinAggregateOutputType | null
+    _max: CommunityEventMaxAggregateOutputType | null
+  }
+
+  export type CommunityEventAvgAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type CommunityEventSumAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type CommunityEventMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat | null
+    type: $Enums.CommunityEventType | null
+    accessLevel: $Enums.CommunityAccessLevel | null
+    hostName: string | null
+    coverImage: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    timezone: string | null
+    meetingUrl: string | null
+    replayUrl: string | null
+    capacity: number | null
+    published: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityEventMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat | null
+    type: $Enums.CommunityEventType | null
+    accessLevel: $Enums.CommunityAccessLevel | null
+    hostName: string | null
+    coverImage: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    timezone: string | null
+    meetingUrl: string | null
+    replayUrl: string | null
+    capacity: number | null
+    published: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityEventCountAggregateOutputType = {
+    id: number
+    title: number
+    slug: number
+    description: number
+    descriptionFormat: number
+    type: number
+    accessLevel: number
+    hostName: number
+    coverImage: number
+    startsAt: number
+    endsAt: number
+    timezone: number
+    meetingUrl: number
+    replayUrl: number
+    capacity: number
+    published: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CommunityEventAvgAggregateInputType = {
+    capacity?: true
+  }
+
+  export type CommunityEventSumAggregateInputType = {
+    capacity?: true
+  }
+
+  export type CommunityEventMinAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    descriptionFormat?: true
+    type?: true
+    accessLevel?: true
+    hostName?: true
+    coverImage?: true
+    startsAt?: true
+    endsAt?: true
+    timezone?: true
+    meetingUrl?: true
+    replayUrl?: true
+    capacity?: true
+    published?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityEventMaxAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    descriptionFormat?: true
+    type?: true
+    accessLevel?: true
+    hostName?: true
+    coverImage?: true
+    startsAt?: true
+    endsAt?: true
+    timezone?: true
+    meetingUrl?: true
+    replayUrl?: true
+    capacity?: true
+    published?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityEventCountAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    description?: true
+    descriptionFormat?: true
+    type?: true
+    accessLevel?: true
+    hostName?: true
+    coverImage?: true
+    startsAt?: true
+    endsAt?: true
+    timezone?: true
+    meetingUrl?: true
+    replayUrl?: true
+    capacity?: true
+    published?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CommunityEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityEvent to aggregate.
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEvents to fetch.
+     */
+    orderBy?: CommunityEventOrderByWithRelationInput | CommunityEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityEvents
+    **/
+    _count?: true | CommunityEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommunityEventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommunityEventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityEventMaxAggregateInputType
+  }
+
+  export type GetCommunityEventAggregateType<T extends CommunityEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityEvent[P]>
+      : GetScalarType<T[P], AggregateCommunityEvent[P]>
+  }
+
+
+
+
+  export type CommunityEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityEventWhereInput
+    orderBy?: CommunityEventOrderByWithAggregationInput | CommunityEventOrderByWithAggregationInput[]
+    by: CommunityEventScalarFieldEnum[] | CommunityEventScalarFieldEnum
+    having?: CommunityEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityEventCountAggregateInputType | true
+    _avg?: CommunityEventAvgAggregateInputType
+    _sum?: CommunityEventSumAggregateInputType
+    _min?: CommunityEventMinAggregateInputType
+    _max?: CommunityEventMaxAggregateInputType
+  }
+
+  export type CommunityEventGroupByOutputType = {
+    id: string
+    title: string
+    slug: string
+    description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat
+    type: $Enums.CommunityEventType
+    accessLevel: $Enums.CommunityAccessLevel
+    hostName: string | null
+    coverImage: string | null
+    startsAt: Date
+    endsAt: Date | null
+    timezone: string
+    meetingUrl: string | null
+    replayUrl: string | null
+    capacity: number | null
+    published: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: CommunityEventCountAggregateOutputType | null
+    _avg: CommunityEventAvgAggregateOutputType | null
+    _sum: CommunityEventSumAggregateOutputType | null
+    _min: CommunityEventMinAggregateOutputType | null
+    _max: CommunityEventMaxAggregateOutputType | null
+  }
+
+  type GetCommunityEventGroupByPayload<T extends CommunityEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityEventGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    type?: boolean
+    accessLevel?: boolean
+    hostName?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    meetingUrl?: boolean
+    replayUrl?: boolean
+    capacity?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    rsvps?: boolean | CommunityEvent$rsvpsArgs<ExtArgs>
+    _count?: boolean | CommunityEventCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityEvent"]>
+
+  export type CommunityEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    type?: boolean
+    accessLevel?: boolean
+    hostName?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    meetingUrl?: boolean
+    replayUrl?: boolean
+    capacity?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["communityEvent"]>
+
+  export type CommunityEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    type?: boolean
+    accessLevel?: boolean
+    hostName?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    meetingUrl?: boolean
+    replayUrl?: boolean
+    capacity?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["communityEvent"]>
+
+  export type CommunityEventSelectScalar = {
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    description?: boolean
+    descriptionFormat?: boolean
+    type?: boolean
+    accessLevel?: boolean
+    hostName?: boolean
+    coverImage?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    timezone?: boolean
+    meetingUrl?: boolean
+    replayUrl?: boolean
+    capacity?: boolean
+    published?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CommunityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "descriptionFormat" | "type" | "accessLevel" | "hostName" | "coverImage" | "startsAt" | "endsAt" | "timezone" | "meetingUrl" | "replayUrl" | "capacity" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["communityEvent"]>
+  export type CommunityEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rsvps?: boolean | CommunityEvent$rsvpsArgs<ExtArgs>
+    _count?: boolean | CommunityEventCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommunityEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CommunityEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CommunityEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityEvent"
+    objects: {
+      rsvps: Prisma.$CommunityEventRsvpPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      slug: string
+      description: string | null
+      descriptionFormat: $Enums.CommunityContentFormat
+      type: $Enums.CommunityEventType
+      accessLevel: $Enums.CommunityAccessLevel
+      hostName: string | null
+      coverImage: string | null
+      startsAt: Date
+      endsAt: Date | null
+      timezone: string
+      meetingUrl: string | null
+      replayUrl: string | null
+      capacity: number | null
+      published: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["communityEvent"]>
+    composites: {}
+  }
+
+  type CommunityEventGetPayload<S extends boolean | null | undefined | CommunityEventDefaultArgs> = $Result.GetResult<Prisma.$CommunityEventPayload, S>
+
+  type CommunityEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityEventCountAggregateInputType | true
+    }
+
+  export interface CommunityEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityEvent'], meta: { name: 'CommunityEvent' } }
+    /**
+     * Find zero or one CommunityEvent that matches the filter.
+     * @param {CommunityEventFindUniqueArgs} args - Arguments to find a CommunityEvent
+     * @example
+     * // Get one CommunityEvent
+     * const communityEvent = await prisma.communityEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityEventFindUniqueArgs>(args: SelectSubset<T, CommunityEventFindUniqueArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityEventFindUniqueOrThrowArgs} args - Arguments to find a CommunityEvent
+     * @example
+     * // Get one CommunityEvent
+     * const communityEvent = await prisma.communityEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityEventFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventFindFirstArgs} args - Arguments to find a CommunityEvent
+     * @example
+     * // Get one CommunityEvent
+     * const communityEvent = await prisma.communityEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityEventFindFirstArgs>(args?: SelectSubset<T, CommunityEventFindFirstArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventFindFirstOrThrowArgs} args - Arguments to find a CommunityEvent
+     * @example
+     * // Get one CommunityEvent
+     * const communityEvent = await prisma.communityEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityEventFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityEvents
+     * const communityEvents = await prisma.communityEvent.findMany()
+     * 
+     * // Get first 10 CommunityEvents
+     * const communityEvents = await prisma.communityEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityEventWithIdOnly = await prisma.communityEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityEventFindManyArgs>(args?: SelectSubset<T, CommunityEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityEvent.
+     * @param {CommunityEventCreateArgs} args - Arguments to create a CommunityEvent.
+     * @example
+     * // Create one CommunityEvent
+     * const CommunityEvent = await prisma.communityEvent.create({
+     *   data: {
+     *     // ... data to create a CommunityEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityEventCreateArgs>(args: SelectSubset<T, CommunityEventCreateArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityEvents.
+     * @param {CommunityEventCreateManyArgs} args - Arguments to create many CommunityEvents.
+     * @example
+     * // Create many CommunityEvents
+     * const communityEvent = await prisma.communityEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityEventCreateManyArgs>(args?: SelectSubset<T, CommunityEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityEvents and returns the data saved in the database.
+     * @param {CommunityEventCreateManyAndReturnArgs} args - Arguments to create many CommunityEvents.
+     * @example
+     * // Create many CommunityEvents
+     * const communityEvent = await prisma.communityEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityEvents and only return the `id`
+     * const communityEventWithIdOnly = await prisma.communityEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityEventCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityEvent.
+     * @param {CommunityEventDeleteArgs} args - Arguments to delete one CommunityEvent.
+     * @example
+     * // Delete one CommunityEvent
+     * const CommunityEvent = await prisma.communityEvent.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityEventDeleteArgs>(args: SelectSubset<T, CommunityEventDeleteArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityEvent.
+     * @param {CommunityEventUpdateArgs} args - Arguments to update one CommunityEvent.
+     * @example
+     * // Update one CommunityEvent
+     * const communityEvent = await prisma.communityEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityEventUpdateArgs>(args: SelectSubset<T, CommunityEventUpdateArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityEvents.
+     * @param {CommunityEventDeleteManyArgs} args - Arguments to filter CommunityEvents to delete.
+     * @example
+     * // Delete a few CommunityEvents
+     * const { count } = await prisma.communityEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityEventDeleteManyArgs>(args?: SelectSubset<T, CommunityEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityEvents
+     * const communityEvent = await prisma.communityEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityEventUpdateManyArgs>(args: SelectSubset<T, CommunityEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityEvents and returns the data updated in the database.
+     * @param {CommunityEventUpdateManyAndReturnArgs} args - Arguments to update many CommunityEvents.
+     * @example
+     * // Update many CommunityEvents
+     * const communityEvent = await prisma.communityEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityEvents and only return the `id`
+     * const communityEventWithIdOnly = await prisma.communityEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityEventUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityEvent.
+     * @param {CommunityEventUpsertArgs} args - Arguments to update or create a CommunityEvent.
+     * @example
+     * // Update or create a CommunityEvent
+     * const communityEvent = await prisma.communityEvent.upsert({
+     *   create: {
+     *     // ... data to create a CommunityEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityEventUpsertArgs>(args: SelectSubset<T, CommunityEventUpsertArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventCountArgs} args - Arguments to filter CommunityEvents to count.
+     * @example
+     * // Count the number of CommunityEvents
+     * const count = await prisma.communityEvent.count({
+     *   where: {
+     *     // ... the filter for the CommunityEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityEventCountArgs>(
+      args?: Subset<T, CommunityEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityEventAggregateArgs>(args: Subset<T, CommunityEventAggregateArgs>): Prisma.PrismaPromise<GetCommunityEventAggregateType<T>>
+
+    /**
+     * Group by CommunityEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityEventGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityEvent model
+   */
+  readonly fields: CommunityEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    rsvps<T extends CommunityEvent$rsvpsArgs<ExtArgs> = {}>(args?: Subset<T, CommunityEvent$rsvpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityEvent model
+   */
+  interface CommunityEventFieldRefs {
+    readonly id: FieldRef<"CommunityEvent", 'String'>
+    readonly title: FieldRef<"CommunityEvent", 'String'>
+    readonly slug: FieldRef<"CommunityEvent", 'String'>
+    readonly description: FieldRef<"CommunityEvent", 'String'>
+    readonly descriptionFormat: FieldRef<"CommunityEvent", 'CommunityContentFormat'>
+    readonly type: FieldRef<"CommunityEvent", 'CommunityEventType'>
+    readonly accessLevel: FieldRef<"CommunityEvent", 'CommunityAccessLevel'>
+    readonly hostName: FieldRef<"CommunityEvent", 'String'>
+    readonly coverImage: FieldRef<"CommunityEvent", 'String'>
+    readonly startsAt: FieldRef<"CommunityEvent", 'DateTime'>
+    readonly endsAt: FieldRef<"CommunityEvent", 'DateTime'>
+    readonly timezone: FieldRef<"CommunityEvent", 'String'>
+    readonly meetingUrl: FieldRef<"CommunityEvent", 'String'>
+    readonly replayUrl: FieldRef<"CommunityEvent", 'String'>
+    readonly capacity: FieldRef<"CommunityEvent", 'Int'>
+    readonly published: FieldRef<"CommunityEvent", 'Boolean'>
+    readonly createdAt: FieldRef<"CommunityEvent", 'DateTime'>
+    readonly updatedAt: FieldRef<"CommunityEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityEvent findUnique
+   */
+  export type CommunityEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEvent to fetch.
+     */
+    where: CommunityEventWhereUniqueInput
+  }
+
+  /**
+   * CommunityEvent findUniqueOrThrow
+   */
+  export type CommunityEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEvent to fetch.
+     */
+    where: CommunityEventWhereUniqueInput
+  }
+
+  /**
+   * CommunityEvent findFirst
+   */
+  export type CommunityEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEvent to fetch.
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEvents to fetch.
+     */
+    orderBy?: CommunityEventOrderByWithRelationInput | CommunityEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityEvents.
+     */
+    cursor?: CommunityEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityEvents.
+     */
+    distinct?: CommunityEventScalarFieldEnum | CommunityEventScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEvent findFirstOrThrow
+   */
+  export type CommunityEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEvent to fetch.
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEvents to fetch.
+     */
+    orderBy?: CommunityEventOrderByWithRelationInput | CommunityEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityEvents.
+     */
+    cursor?: CommunityEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityEvents.
+     */
+    distinct?: CommunityEventScalarFieldEnum | CommunityEventScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEvent findMany
+   */
+  export type CommunityEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEvents to fetch.
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEvents to fetch.
+     */
+    orderBy?: CommunityEventOrderByWithRelationInput | CommunityEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityEvents.
+     */
+    cursor?: CommunityEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEvents.
+     */
+    skip?: number
+    distinct?: CommunityEventScalarFieldEnum | CommunityEventScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEvent create
+   */
+  export type CommunityEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityEvent.
+     */
+    data: XOR<CommunityEventCreateInput, CommunityEventUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityEvent createMany
+   */
+  export type CommunityEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityEvents.
+     */
+    data: CommunityEventCreateManyInput | CommunityEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityEvent createManyAndReturn
+   */
+  export type CommunityEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityEvents.
+     */
+    data: CommunityEventCreateManyInput | CommunityEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityEvent update
+   */
+  export type CommunityEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityEvent.
+     */
+    data: XOR<CommunityEventUpdateInput, CommunityEventUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityEvent to update.
+     */
+    where: CommunityEventWhereUniqueInput
+  }
+
+  /**
+   * CommunityEvent updateMany
+   */
+  export type CommunityEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityEvents.
+     */
+    data: XOR<CommunityEventUpdateManyMutationInput, CommunityEventUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityEvents to update
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * Limit how many CommunityEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityEvent updateManyAndReturn
+   */
+  export type CommunityEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityEvents.
+     */
+    data: XOR<CommunityEventUpdateManyMutationInput, CommunityEventUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityEvents to update
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * Limit how many CommunityEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityEvent upsert
+   */
+  export type CommunityEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityEvent to update in case it exists.
+     */
+    where: CommunityEventWhereUniqueInput
+    /**
+     * In case the CommunityEvent found by the `where` argument doesn't exist, create a new CommunityEvent with this data.
+     */
+    create: XOR<CommunityEventCreateInput, CommunityEventUncheckedCreateInput>
+    /**
+     * In case the CommunityEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityEventUpdateInput, CommunityEventUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityEvent delete
+   */
+  export type CommunityEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityEvent to delete.
+     */
+    where: CommunityEventWhereUniqueInput
+  }
+
+  /**
+   * CommunityEvent deleteMany
+   */
+  export type CommunityEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityEvents to delete
+     */
+    where?: CommunityEventWhereInput
+    /**
+     * Limit how many CommunityEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityEvent.rsvps
+   */
+  export type CommunityEvent$rsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    where?: CommunityEventRsvpWhereInput
+    orderBy?: CommunityEventRsvpOrderByWithRelationInput | CommunityEventRsvpOrderByWithRelationInput[]
+    cursor?: CommunityEventRsvpWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityEventRsvpScalarFieldEnum | CommunityEventRsvpScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEvent without action
+   */
+  export type CommunityEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEvent
+     */
+    select?: CommunityEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEvent
+     */
+    omit?: CommunityEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityEventRsvp
+   */
+
+  export type AggregateCommunityEventRsvp = {
+    _count: CommunityEventRsvpCountAggregateOutputType | null
+    _min: CommunityEventRsvpMinAggregateOutputType | null
+    _max: CommunityEventRsvpMaxAggregateOutputType | null
+  }
+
+  export type CommunityEventRsvpMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    userId: string | null
+    status: $Enums.CommunityEventRsvpStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityEventRsvpMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    userId: string | null
+    status: $Enums.CommunityEventRsvpStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityEventRsvpCountAggregateOutputType = {
+    id: number
+    eventId: number
+    userId: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CommunityEventRsvpMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    userId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityEventRsvpMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    userId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityEventRsvpCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    userId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CommunityEventRsvpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityEventRsvp to aggregate.
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEventRsvps to fetch.
+     */
+    orderBy?: CommunityEventRsvpOrderByWithRelationInput | CommunityEventRsvpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityEventRsvpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEventRsvps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEventRsvps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityEventRsvps
+    **/
+    _count?: true | CommunityEventRsvpCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityEventRsvpMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityEventRsvpMaxAggregateInputType
+  }
+
+  export type GetCommunityEventRsvpAggregateType<T extends CommunityEventRsvpAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityEventRsvp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityEventRsvp[P]>
+      : GetScalarType<T[P], AggregateCommunityEventRsvp[P]>
+  }
+
+
+
+
+  export type CommunityEventRsvpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityEventRsvpWhereInput
+    orderBy?: CommunityEventRsvpOrderByWithAggregationInput | CommunityEventRsvpOrderByWithAggregationInput[]
+    by: CommunityEventRsvpScalarFieldEnum[] | CommunityEventRsvpScalarFieldEnum
+    having?: CommunityEventRsvpScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityEventRsvpCountAggregateInputType | true
+    _min?: CommunityEventRsvpMinAggregateInputType
+    _max?: CommunityEventRsvpMaxAggregateInputType
+  }
+
+  export type CommunityEventRsvpGroupByOutputType = {
+    id: string
+    eventId: string
+    userId: string
+    status: $Enums.CommunityEventRsvpStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: CommunityEventRsvpCountAggregateOutputType | null
+    _min: CommunityEventRsvpMinAggregateOutputType | null
+    _max: CommunityEventRsvpMaxAggregateOutputType | null
+  }
+
+  type GetCommunityEventRsvpGroupByPayload<T extends CommunityEventRsvpGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityEventRsvpGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityEventRsvpGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityEventRsvpGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityEventRsvpGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityEventRsvpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    userId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CommunityEventDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityEventRsvp"]>
+
+  export type CommunityEventRsvpSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    userId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CommunityEventDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityEventRsvp"]>
+
+  export type CommunityEventRsvpSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    userId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CommunityEventDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityEventRsvp"]>
+
+  export type CommunityEventRsvpSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    userId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CommunityEventRsvpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "userId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["communityEventRsvp"]>
+  export type CommunityEventRsvpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CommunityEventDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityEventRsvpIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CommunityEventDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityEventRsvpIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CommunityEventDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CommunityEventRsvpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityEventRsvp"
+    objects: {
+      event: Prisma.$CommunityEventPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      userId: string
+      status: $Enums.CommunityEventRsvpStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["communityEventRsvp"]>
+    composites: {}
+  }
+
+  type CommunityEventRsvpGetPayload<S extends boolean | null | undefined | CommunityEventRsvpDefaultArgs> = $Result.GetResult<Prisma.$CommunityEventRsvpPayload, S>
+
+  type CommunityEventRsvpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityEventRsvpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityEventRsvpCountAggregateInputType | true
+    }
+
+  export interface CommunityEventRsvpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityEventRsvp'], meta: { name: 'CommunityEventRsvp' } }
+    /**
+     * Find zero or one CommunityEventRsvp that matches the filter.
+     * @param {CommunityEventRsvpFindUniqueArgs} args - Arguments to find a CommunityEventRsvp
+     * @example
+     * // Get one CommunityEventRsvp
+     * const communityEventRsvp = await prisma.communityEventRsvp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityEventRsvpFindUniqueArgs>(args: SelectSubset<T, CommunityEventRsvpFindUniqueArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityEventRsvp that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityEventRsvpFindUniqueOrThrowArgs} args - Arguments to find a CommunityEventRsvp
+     * @example
+     * // Get one CommunityEventRsvp
+     * const communityEventRsvp = await prisma.communityEventRsvp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityEventRsvpFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityEventRsvpFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityEventRsvp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpFindFirstArgs} args - Arguments to find a CommunityEventRsvp
+     * @example
+     * // Get one CommunityEventRsvp
+     * const communityEventRsvp = await prisma.communityEventRsvp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityEventRsvpFindFirstArgs>(args?: SelectSubset<T, CommunityEventRsvpFindFirstArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityEventRsvp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpFindFirstOrThrowArgs} args - Arguments to find a CommunityEventRsvp
+     * @example
+     * // Get one CommunityEventRsvp
+     * const communityEventRsvp = await prisma.communityEventRsvp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityEventRsvpFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityEventRsvpFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityEventRsvps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityEventRsvps
+     * const communityEventRsvps = await prisma.communityEventRsvp.findMany()
+     * 
+     * // Get first 10 CommunityEventRsvps
+     * const communityEventRsvps = await prisma.communityEventRsvp.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityEventRsvpWithIdOnly = await prisma.communityEventRsvp.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityEventRsvpFindManyArgs>(args?: SelectSubset<T, CommunityEventRsvpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityEventRsvp.
+     * @param {CommunityEventRsvpCreateArgs} args - Arguments to create a CommunityEventRsvp.
+     * @example
+     * // Create one CommunityEventRsvp
+     * const CommunityEventRsvp = await prisma.communityEventRsvp.create({
+     *   data: {
+     *     // ... data to create a CommunityEventRsvp
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityEventRsvpCreateArgs>(args: SelectSubset<T, CommunityEventRsvpCreateArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityEventRsvps.
+     * @param {CommunityEventRsvpCreateManyArgs} args - Arguments to create many CommunityEventRsvps.
+     * @example
+     * // Create many CommunityEventRsvps
+     * const communityEventRsvp = await prisma.communityEventRsvp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityEventRsvpCreateManyArgs>(args?: SelectSubset<T, CommunityEventRsvpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityEventRsvps and returns the data saved in the database.
+     * @param {CommunityEventRsvpCreateManyAndReturnArgs} args - Arguments to create many CommunityEventRsvps.
+     * @example
+     * // Create many CommunityEventRsvps
+     * const communityEventRsvp = await prisma.communityEventRsvp.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityEventRsvps and only return the `id`
+     * const communityEventRsvpWithIdOnly = await prisma.communityEventRsvp.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityEventRsvpCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityEventRsvpCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityEventRsvp.
+     * @param {CommunityEventRsvpDeleteArgs} args - Arguments to delete one CommunityEventRsvp.
+     * @example
+     * // Delete one CommunityEventRsvp
+     * const CommunityEventRsvp = await prisma.communityEventRsvp.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityEventRsvp
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityEventRsvpDeleteArgs>(args: SelectSubset<T, CommunityEventRsvpDeleteArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityEventRsvp.
+     * @param {CommunityEventRsvpUpdateArgs} args - Arguments to update one CommunityEventRsvp.
+     * @example
+     * // Update one CommunityEventRsvp
+     * const communityEventRsvp = await prisma.communityEventRsvp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityEventRsvpUpdateArgs>(args: SelectSubset<T, CommunityEventRsvpUpdateArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityEventRsvps.
+     * @param {CommunityEventRsvpDeleteManyArgs} args - Arguments to filter CommunityEventRsvps to delete.
+     * @example
+     * // Delete a few CommunityEventRsvps
+     * const { count } = await prisma.communityEventRsvp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityEventRsvpDeleteManyArgs>(args?: SelectSubset<T, CommunityEventRsvpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityEventRsvps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityEventRsvps
+     * const communityEventRsvp = await prisma.communityEventRsvp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityEventRsvpUpdateManyArgs>(args: SelectSubset<T, CommunityEventRsvpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityEventRsvps and returns the data updated in the database.
+     * @param {CommunityEventRsvpUpdateManyAndReturnArgs} args - Arguments to update many CommunityEventRsvps.
+     * @example
+     * // Update many CommunityEventRsvps
+     * const communityEventRsvp = await prisma.communityEventRsvp.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityEventRsvps and only return the `id`
+     * const communityEventRsvpWithIdOnly = await prisma.communityEventRsvp.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityEventRsvpUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityEventRsvpUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityEventRsvp.
+     * @param {CommunityEventRsvpUpsertArgs} args - Arguments to update or create a CommunityEventRsvp.
+     * @example
+     * // Update or create a CommunityEventRsvp
+     * const communityEventRsvp = await prisma.communityEventRsvp.upsert({
+     *   create: {
+     *     // ... data to create a CommunityEventRsvp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityEventRsvp we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityEventRsvpUpsertArgs>(args: SelectSubset<T, CommunityEventRsvpUpsertArgs<ExtArgs>>): Prisma__CommunityEventRsvpClient<$Result.GetResult<Prisma.$CommunityEventRsvpPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityEventRsvps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpCountArgs} args - Arguments to filter CommunityEventRsvps to count.
+     * @example
+     * // Count the number of CommunityEventRsvps
+     * const count = await prisma.communityEventRsvp.count({
+     *   where: {
+     *     // ... the filter for the CommunityEventRsvps we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityEventRsvpCountArgs>(
+      args?: Subset<T, CommunityEventRsvpCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityEventRsvpCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityEventRsvp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityEventRsvpAggregateArgs>(args: Subset<T, CommunityEventRsvpAggregateArgs>): Prisma.PrismaPromise<GetCommunityEventRsvpAggregateType<T>>
+
+    /**
+     * Group by CommunityEventRsvp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityEventRsvpGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityEventRsvpGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityEventRsvpGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityEventRsvpGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityEventRsvpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityEventRsvpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityEventRsvp model
+   */
+  readonly fields: CommunityEventRsvpFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityEventRsvp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityEventRsvpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends CommunityEventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityEventDefaultArgs<ExtArgs>>): Prisma__CommunityEventClient<$Result.GetResult<Prisma.$CommunityEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityEventRsvp model
+   */
+  interface CommunityEventRsvpFieldRefs {
+    readonly id: FieldRef<"CommunityEventRsvp", 'String'>
+    readonly eventId: FieldRef<"CommunityEventRsvp", 'String'>
+    readonly userId: FieldRef<"CommunityEventRsvp", 'String'>
+    readonly status: FieldRef<"CommunityEventRsvp", 'CommunityEventRsvpStatus'>
+    readonly createdAt: FieldRef<"CommunityEventRsvp", 'DateTime'>
+    readonly updatedAt: FieldRef<"CommunityEventRsvp", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityEventRsvp findUnique
+   */
+  export type CommunityEventRsvpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEventRsvp to fetch.
+     */
+    where: CommunityEventRsvpWhereUniqueInput
+  }
+
+  /**
+   * CommunityEventRsvp findUniqueOrThrow
+   */
+  export type CommunityEventRsvpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEventRsvp to fetch.
+     */
+    where: CommunityEventRsvpWhereUniqueInput
+  }
+
+  /**
+   * CommunityEventRsvp findFirst
+   */
+  export type CommunityEventRsvpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEventRsvp to fetch.
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEventRsvps to fetch.
+     */
+    orderBy?: CommunityEventRsvpOrderByWithRelationInput | CommunityEventRsvpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityEventRsvps.
+     */
+    cursor?: CommunityEventRsvpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEventRsvps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEventRsvps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityEventRsvps.
+     */
+    distinct?: CommunityEventRsvpScalarFieldEnum | CommunityEventRsvpScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEventRsvp findFirstOrThrow
+   */
+  export type CommunityEventRsvpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEventRsvp to fetch.
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEventRsvps to fetch.
+     */
+    orderBy?: CommunityEventRsvpOrderByWithRelationInput | CommunityEventRsvpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityEventRsvps.
+     */
+    cursor?: CommunityEventRsvpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEventRsvps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEventRsvps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityEventRsvps.
+     */
+    distinct?: CommunityEventRsvpScalarFieldEnum | CommunityEventRsvpScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEventRsvp findMany
+   */
+  export type CommunityEventRsvpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityEventRsvps to fetch.
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityEventRsvps to fetch.
+     */
+    orderBy?: CommunityEventRsvpOrderByWithRelationInput | CommunityEventRsvpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityEventRsvps.
+     */
+    cursor?: CommunityEventRsvpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityEventRsvps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityEventRsvps.
+     */
+    skip?: number
+    distinct?: CommunityEventRsvpScalarFieldEnum | CommunityEventRsvpScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityEventRsvp create
+   */
+  export type CommunityEventRsvpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityEventRsvp.
+     */
+    data: XOR<CommunityEventRsvpCreateInput, CommunityEventRsvpUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityEventRsvp createMany
+   */
+  export type CommunityEventRsvpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityEventRsvps.
+     */
+    data: CommunityEventRsvpCreateManyInput | CommunityEventRsvpCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityEventRsvp createManyAndReturn
+   */
+  export type CommunityEventRsvpCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityEventRsvps.
+     */
+    data: CommunityEventRsvpCreateManyInput | CommunityEventRsvpCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityEventRsvp update
+   */
+  export type CommunityEventRsvpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityEventRsvp.
+     */
+    data: XOR<CommunityEventRsvpUpdateInput, CommunityEventRsvpUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityEventRsvp to update.
+     */
+    where: CommunityEventRsvpWhereUniqueInput
+  }
+
+  /**
+   * CommunityEventRsvp updateMany
+   */
+  export type CommunityEventRsvpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityEventRsvps.
+     */
+    data: XOR<CommunityEventRsvpUpdateManyMutationInput, CommunityEventRsvpUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityEventRsvps to update
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * Limit how many CommunityEventRsvps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityEventRsvp updateManyAndReturn
+   */
+  export type CommunityEventRsvpUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityEventRsvps.
+     */
+    data: XOR<CommunityEventRsvpUpdateManyMutationInput, CommunityEventRsvpUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityEventRsvps to update
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * Limit how many CommunityEventRsvps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityEventRsvp upsert
+   */
+  export type CommunityEventRsvpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityEventRsvp to update in case it exists.
+     */
+    where: CommunityEventRsvpWhereUniqueInput
+    /**
+     * In case the CommunityEventRsvp found by the `where` argument doesn't exist, create a new CommunityEventRsvp with this data.
+     */
+    create: XOR<CommunityEventRsvpCreateInput, CommunityEventRsvpUncheckedCreateInput>
+    /**
+     * In case the CommunityEventRsvp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityEventRsvpUpdateInput, CommunityEventRsvpUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityEventRsvp delete
+   */
+  export type CommunityEventRsvpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityEventRsvp to delete.
+     */
+    where: CommunityEventRsvpWhereUniqueInput
+  }
+
+  /**
+   * CommunityEventRsvp deleteMany
+   */
+  export type CommunityEventRsvpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityEventRsvps to delete
+     */
+    where?: CommunityEventRsvpWhereInput
+    /**
+     * Limit how many CommunityEventRsvps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityEventRsvp without action
+   */
+  export type CommunityEventRsvpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityEventRsvp
+     */
+    select?: CommunityEventRsvpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityEventRsvp
+     */
+    omit?: CommunityEventRsvpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityEventRsvpInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model CommunityCategory
    */
 
@@ -129227,6 +131854,42 @@ export namespace Prisma {
   export type CourseCertificateScalarFieldEnum = (typeof CourseCertificateScalarFieldEnum)[keyof typeof CourseCertificateScalarFieldEnum]
 
 
+  export const CommunityEventScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    slug: 'slug',
+    description: 'description',
+    descriptionFormat: 'descriptionFormat',
+    type: 'type',
+    accessLevel: 'accessLevel',
+    hostName: 'hostName',
+    coverImage: 'coverImage',
+    startsAt: 'startsAt',
+    endsAt: 'endsAt',
+    timezone: 'timezone',
+    meetingUrl: 'meetingUrl',
+    replayUrl: 'replayUrl',
+    capacity: 'capacity',
+    published: 'published',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CommunityEventScalarFieldEnum = (typeof CommunityEventScalarFieldEnum)[keyof typeof CommunityEventScalarFieldEnum]
+
+
+  export const CommunityEventRsvpScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    userId: 'userId',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CommunityEventRsvpScalarFieldEnum = (typeof CommunityEventRsvpScalarFieldEnum)[keyof typeof CommunityEventRsvpScalarFieldEnum]
+
+
   export const CommunityCategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -130242,6 +132905,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CommunityEventType'
+   */
+  export type EnumCommunityEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityEventType[]'
+   */
+  export type ListEnumCommunityEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityAccessLevel'
+   */
+  export type EnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityAccessLevel[]'
+   */
+  export type ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityEventRsvpStatus'
+   */
+  export type EnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventRsvpStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityEventRsvpStatus[]'
+   */
+  export type ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventRsvpStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CommunityPostType'
    */
   export type EnumCommunityPostTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityPostType'>
@@ -130266,20 +132971,6 @@ export namespace Prisma {
    * Reference to a field of type 'CommunityContentStatus[]'
    */
   export type ListEnumCommunityContentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'CommunityAccessLevel'
-   */
-  export type EnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel'>
-    
-
-
-  /**
-   * Reference to a field of type 'CommunityAccessLevel[]'
-   */
-  export type ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel[]'>
     
 
 
@@ -130375,6 +133066,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionListRelationFilter
     lessonProgress?: LessonProgressListRelationFilter
     courseCertificates?: CourseCertificateListRelationFilter
+    communityEventRsvps?: CommunityEventRsvpListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
     communityComments?: CommunityCommentListRelationFilter
     communityPostLikes?: CommunityPostLikeListRelationFilter
@@ -130436,6 +133128,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionOrderByRelationAggregateInput
     lessonProgress?: LessonProgressOrderByRelationAggregateInput
     courseCertificates?: CourseCertificateOrderByRelationAggregateInput
+    communityEventRsvps?: CommunityEventRsvpOrderByRelationAggregateInput
     communityPosts?: CommunityPostOrderByRelationAggregateInput
     communityComments?: CommunityCommentOrderByRelationAggregateInput
     communityPostLikes?: CommunityPostLikeOrderByRelationAggregateInput
@@ -130500,6 +133193,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionListRelationFilter
     lessonProgress?: LessonProgressListRelationFilter
     courseCertificates?: CourseCertificateListRelationFilter
+    communityEventRsvps?: CommunityEventRsvpListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
     communityComments?: CommunityCommentListRelationFilter
     communityPostLikes?: CommunityPostLikeListRelationFilter
@@ -137763,6 +140457,192 @@ export namespace Prisma {
     issuedAt?: DateTimeWithAggregatesFilter<"CourseCertificate"> | Date | string
   }
 
+  export type CommunityEventWhereInput = {
+    AND?: CommunityEventWhereInput | CommunityEventWhereInput[]
+    OR?: CommunityEventWhereInput[]
+    NOT?: CommunityEventWhereInput | CommunityEventWhereInput[]
+    id?: UuidFilter<"CommunityEvent"> | string
+    title?: StringFilter<"CommunityEvent"> | string
+    slug?: StringFilter<"CommunityEvent"> | string
+    description?: StringNullableFilter<"CommunityEvent"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatFilter<"CommunityEvent"> | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFilter<"CommunityEvent"> | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityEvent"> | $Enums.CommunityAccessLevel
+    hostName?: StringNullableFilter<"CommunityEvent"> | string | null
+    coverImage?: StringNullableFilter<"CommunityEvent"> | string | null
+    startsAt?: DateTimeFilter<"CommunityEvent"> | Date | string
+    endsAt?: DateTimeNullableFilter<"CommunityEvent"> | Date | string | null
+    timezone?: StringFilter<"CommunityEvent"> | string
+    meetingUrl?: StringNullableFilter<"CommunityEvent"> | string | null
+    replayUrl?: StringNullableFilter<"CommunityEvent"> | string | null
+    capacity?: IntNullableFilter<"CommunityEvent"> | number | null
+    published?: BoolFilter<"CommunityEvent"> | boolean
+    createdAt?: DateTimeFilter<"CommunityEvent"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityEvent"> | Date | string
+    rsvps?: CommunityEventRsvpListRelationFilter
+  }
+
+  export type CommunityEventOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    descriptionFormat?: SortOrder
+    type?: SortOrder
+    accessLevel?: SortOrder
+    hostName?: SortOrderInput | SortOrder
+    coverImage?: SortOrderInput | SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrderInput | SortOrder
+    timezone?: SortOrder
+    meetingUrl?: SortOrderInput | SortOrder
+    replayUrl?: SortOrderInput | SortOrder
+    capacity?: SortOrderInput | SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    rsvps?: CommunityEventRsvpOrderByRelationAggregateInput
+  }
+
+  export type CommunityEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: CommunityEventWhereInput | CommunityEventWhereInput[]
+    OR?: CommunityEventWhereInput[]
+    NOT?: CommunityEventWhereInput | CommunityEventWhereInput[]
+    title?: StringFilter<"CommunityEvent"> | string
+    description?: StringNullableFilter<"CommunityEvent"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatFilter<"CommunityEvent"> | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFilter<"CommunityEvent"> | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFilter<"CommunityEvent"> | $Enums.CommunityAccessLevel
+    hostName?: StringNullableFilter<"CommunityEvent"> | string | null
+    coverImage?: StringNullableFilter<"CommunityEvent"> | string | null
+    startsAt?: DateTimeFilter<"CommunityEvent"> | Date | string
+    endsAt?: DateTimeNullableFilter<"CommunityEvent"> | Date | string | null
+    timezone?: StringFilter<"CommunityEvent"> | string
+    meetingUrl?: StringNullableFilter<"CommunityEvent"> | string | null
+    replayUrl?: StringNullableFilter<"CommunityEvent"> | string | null
+    capacity?: IntNullableFilter<"CommunityEvent"> | number | null
+    published?: BoolFilter<"CommunityEvent"> | boolean
+    createdAt?: DateTimeFilter<"CommunityEvent"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityEvent"> | Date | string
+    rsvps?: CommunityEventRsvpListRelationFilter
+  }, "id" | "slug">
+
+  export type CommunityEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrderInput | SortOrder
+    descriptionFormat?: SortOrder
+    type?: SortOrder
+    accessLevel?: SortOrder
+    hostName?: SortOrderInput | SortOrder
+    coverImage?: SortOrderInput | SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrderInput | SortOrder
+    timezone?: SortOrder
+    meetingUrl?: SortOrderInput | SortOrder
+    replayUrl?: SortOrderInput | SortOrder
+    capacity?: SortOrderInput | SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommunityEventCountOrderByAggregateInput
+    _avg?: CommunityEventAvgOrderByAggregateInput
+    _max?: CommunityEventMaxOrderByAggregateInput
+    _min?: CommunityEventMinOrderByAggregateInput
+    _sum?: CommunityEventSumOrderByAggregateInput
+  }
+
+  export type CommunityEventScalarWhereWithAggregatesInput = {
+    AND?: CommunityEventScalarWhereWithAggregatesInput | CommunityEventScalarWhereWithAggregatesInput[]
+    OR?: CommunityEventScalarWhereWithAggregatesInput[]
+    NOT?: CommunityEventScalarWhereWithAggregatesInput | CommunityEventScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityEvent"> | string
+    title?: StringWithAggregatesFilter<"CommunityEvent"> | string
+    slug?: StringWithAggregatesFilter<"CommunityEvent"> | string
+    description?: StringNullableWithAggregatesFilter<"CommunityEvent"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatWithAggregatesFilter<"CommunityEvent"> | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeWithAggregatesFilter<"CommunityEvent"> | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelWithAggregatesFilter<"CommunityEvent"> | $Enums.CommunityAccessLevel
+    hostName?: StringNullableWithAggregatesFilter<"CommunityEvent"> | string | null
+    coverImage?: StringNullableWithAggregatesFilter<"CommunityEvent"> | string | null
+    startsAt?: DateTimeWithAggregatesFilter<"CommunityEvent"> | Date | string
+    endsAt?: DateTimeNullableWithAggregatesFilter<"CommunityEvent"> | Date | string | null
+    timezone?: StringWithAggregatesFilter<"CommunityEvent"> | string
+    meetingUrl?: StringNullableWithAggregatesFilter<"CommunityEvent"> | string | null
+    replayUrl?: StringNullableWithAggregatesFilter<"CommunityEvent"> | string | null
+    capacity?: IntNullableWithAggregatesFilter<"CommunityEvent"> | number | null
+    published?: BoolWithAggregatesFilter<"CommunityEvent"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityEvent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CommunityEvent"> | Date | string
+  }
+
+  export type CommunityEventRsvpWhereInput = {
+    AND?: CommunityEventRsvpWhereInput | CommunityEventRsvpWhereInput[]
+    OR?: CommunityEventRsvpWhereInput[]
+    NOT?: CommunityEventRsvpWhereInput | CommunityEventRsvpWhereInput[]
+    id?: UuidFilter<"CommunityEventRsvp"> | string
+    eventId?: UuidFilter<"CommunityEventRsvp"> | string
+    userId?: UuidFilter<"CommunityEventRsvp"> | string
+    status?: EnumCommunityEventRsvpStatusFilter<"CommunityEventRsvp"> | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
+    event?: XOR<CommunityEventScalarRelationFilter, CommunityEventWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CommunityEventRsvpOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    event?: CommunityEventOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CommunityEventRsvpWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    eventId_userId?: CommunityEventRsvpEventIdUserIdCompoundUniqueInput
+    AND?: CommunityEventRsvpWhereInput | CommunityEventRsvpWhereInput[]
+    OR?: CommunityEventRsvpWhereInput[]
+    NOT?: CommunityEventRsvpWhereInput | CommunityEventRsvpWhereInput[]
+    eventId?: UuidFilter<"CommunityEventRsvp"> | string
+    userId?: UuidFilter<"CommunityEventRsvp"> | string
+    status?: EnumCommunityEventRsvpStatusFilter<"CommunityEventRsvp"> | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
+    event?: XOR<CommunityEventScalarRelationFilter, CommunityEventWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "eventId_userId">
+
+  export type CommunityEventRsvpOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommunityEventRsvpCountOrderByAggregateInput
+    _max?: CommunityEventRsvpMaxOrderByAggregateInput
+    _min?: CommunityEventRsvpMinOrderByAggregateInput
+  }
+
+  export type CommunityEventRsvpScalarWhereWithAggregatesInput = {
+    AND?: CommunityEventRsvpScalarWhereWithAggregatesInput | CommunityEventRsvpScalarWhereWithAggregatesInput[]
+    OR?: CommunityEventRsvpScalarWhereWithAggregatesInput[]
+    NOT?: CommunityEventRsvpScalarWhereWithAggregatesInput | CommunityEventRsvpScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CommunityEventRsvp"> | string
+    eventId?: UuidWithAggregatesFilter<"CommunityEventRsvp"> | string
+    userId?: UuidWithAggregatesFilter<"CommunityEventRsvp"> | string
+    status?: EnumCommunityEventRsvpStatusWithAggregatesFilter<"CommunityEventRsvp"> | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityEventRsvp"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CommunityEventRsvp"> | Date | string
+  }
+
   export type CommunityCategoryWhereInput = {
     AND?: CommunityCategoryWhereInput | CommunityCategoryWhereInput[]
     OR?: CommunityCategoryWhereInput[]
@@ -138767,6 +141647,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -138828,6 +141709,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -138889,6 +141771,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -138950,6 +141833,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -146976,6 +149860,218 @@ export namespace Prisma {
     issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommunityEventCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    type?: $Enums.CommunityEventType
+    accessLevel?: $Enums.CommunityAccessLevel
+    hostName?: string | null
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    meetingUrl?: string | null
+    replayUrl?: string | null
+    capacity?: number | null
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rsvps?: CommunityEventRsvpCreateNestedManyWithoutEventInput
+  }
+
+  export type CommunityEventUncheckedCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    type?: $Enums.CommunityEventType
+    accessLevel?: $Enums.CommunityAccessLevel
+    hostName?: string | null
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    meetingUrl?: string | null
+    replayUrl?: string | null
+    capacity?: number | null
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type CommunityEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFieldUpdateOperationsInput | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    hostName?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rsvps?: CommunityEventRsvpUpdateManyWithoutEventNestedInput
+  }
+
+  export type CommunityEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFieldUpdateOperationsInput | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    hostName?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type CommunityEventCreateManyInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    type?: $Enums.CommunityEventType
+    accessLevel?: $Enums.CommunityAccessLevel
+    hostName?: string | null
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    meetingUrl?: string | null
+    replayUrl?: string | null
+    capacity?: number | null
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFieldUpdateOperationsInput | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    hostName?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFieldUpdateOperationsInput | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    hostName?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpCreateInput = {
+    id?: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CommunityEventCreateNestedOneWithoutRsvpsInput
+    user: UserCreateNestedOneWithoutCommunityEventRsvpsInput
+  }
+
+  export type CommunityEventRsvpUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    userId: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventRsvpUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CommunityEventUpdateOneRequiredWithoutRsvpsNestedInput
+    user?: UserUpdateOneRequiredWithoutCommunityEventRsvpsNestedInput
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpCreateManyInput = {
+    id?: string
+    eventId: string
+    userId: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventRsvpUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommunityCategoryCreateInput = {
     id?: string
     name: string
@@ -148165,6 +151261,12 @@ export namespace Prisma {
     none?: CourseCertificateWhereInput
   }
 
+  export type CommunityEventRsvpListRelationFilter = {
+    every?: CommunityEventRsvpWhereInput
+    some?: CommunityEventRsvpWhereInput
+    none?: CommunityEventRsvpWhereInput
+  }
+
   export type CommunityPostListRelationFilter = {
     every?: CommunityPostWhereInput
     some?: CommunityPostWhereInput
@@ -148366,6 +151468,10 @@ export namespace Prisma {
   }
 
   export type CourseCertificateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityEventRsvpOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -154137,6 +157243,165 @@ export namespace Prisma {
     issuedAt?: SortOrder
   }
 
+  export type EnumCommunityEventTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventType | EnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventTypeFilter<$PrismaModel> | $Enums.CommunityEventType
+  }
+
+  export type EnumCommunityAccessLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+  }
+
+  export type CommunityEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    descriptionFormat?: SortOrder
+    type?: SortOrder
+    accessLevel?: SortOrder
+    hostName?: SortOrder
+    coverImage?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    timezone?: SortOrder
+    meetingUrl?: SortOrder
+    replayUrl?: SortOrder
+    capacity?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityEventAvgOrderByAggregateInput = {
+    capacity?: SortOrder
+  }
+
+  export type CommunityEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    descriptionFormat?: SortOrder
+    type?: SortOrder
+    accessLevel?: SortOrder
+    hostName?: SortOrder
+    coverImage?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    timezone?: SortOrder
+    meetingUrl?: SortOrder
+    replayUrl?: SortOrder
+    capacity?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    description?: SortOrder
+    descriptionFormat?: SortOrder
+    type?: SortOrder
+    accessLevel?: SortOrder
+    hostName?: SortOrder
+    coverImage?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    timezone?: SortOrder
+    meetingUrl?: SortOrder
+    replayUrl?: SortOrder
+    capacity?: SortOrder
+    published?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityEventSumOrderByAggregateInput = {
+    capacity?: SortOrder
+  }
+
+  export type EnumCommunityEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventType | EnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommunityEventType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityEventTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommunityEventTypeFilter<$PrismaModel>
+  }
+
+  export type EnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+    _max?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+  }
+
+  export type EnumCommunityEventRsvpStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventRsvpStatus | EnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel> | $Enums.CommunityEventRsvpStatus
+  }
+
+  export type CommunityEventScalarRelationFilter = {
+    is?: CommunityEventWhereInput
+    isNot?: CommunityEventWhereInput
+  }
+
+  export type CommunityEventRsvpEventIdUserIdCompoundUniqueInput = {
+    eventId: string
+    userId: string
+  }
+
+  export type CommunityEventRsvpCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityEventRsvpMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityEventRsvpMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumCommunityEventRsvpStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventRsvpStatus | EnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventRsvpStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityEventRsvpStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel>
+  }
+
   export type CommunityCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -154187,13 +157452,6 @@ export namespace Prisma {
     in?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumCommunityContentStatusFilter<$PrismaModel> | $Enums.CommunityContentStatus
-  }
-
-  export type EnumCommunityAccessLevelFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
   }
 
   export type CommunityCategoryNullableScalarRelationFilter = {
@@ -154282,16 +157540,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
     _max?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
-  }
-
-  export type EnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CommunityAccessLevel
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
-    _max?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
   }
 
   export type CommunityPostScalarRelationFilter = {
@@ -154845,6 +158093,13 @@ export namespace Prisma {
     connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
   }
 
+  export type CommunityEventRsvpCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutUserInput, CommunityEventRsvpUncheckedCreateWithoutUserInput> | CommunityEventRsvpCreateWithoutUserInput[] | CommunityEventRsvpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutUserInput | CommunityEventRsvpCreateOrConnectWithoutUserInput[]
+    createMany?: CommunityEventRsvpCreateManyUserInputEnvelope
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+  }
+
   export type CommunityPostCreateNestedManyWithoutAuthorInput = {
     create?: XOR<CommunityPostCreateWithoutAuthorInput, CommunityPostUncheckedCreateWithoutAuthorInput> | CommunityPostCreateWithoutAuthorInput[] | CommunityPostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CommunityPostCreateOrConnectWithoutAuthorInput | CommunityPostCreateOrConnectWithoutAuthorInput[]
@@ -155149,6 +158404,13 @@ export namespace Prisma {
     connectOrCreate?: CourseCertificateCreateOrConnectWithoutUserInput | CourseCertificateCreateOrConnectWithoutUserInput[]
     createMany?: CourseCertificateCreateManyUserInputEnvelope
     connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+  }
+
+  export type CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutUserInput, CommunityEventRsvpUncheckedCreateWithoutUserInput> | CommunityEventRsvpCreateWithoutUserInput[] | CommunityEventRsvpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutUserInput | CommunityEventRsvpCreateOrConnectWithoutUserInput[]
+    createMany?: CommunityEventRsvpCreateManyUserInputEnvelope
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
   }
 
   export type CommunityPostUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -155573,6 +158835,20 @@ export namespace Prisma {
     update?: CourseCertificateUpdateWithWhereUniqueWithoutUserInput | CourseCertificateUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CourseCertificateUpdateManyWithWhereWithoutUserInput | CourseCertificateUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
+  }
+
+  export type CommunityEventRsvpUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutUserInput, CommunityEventRsvpUncheckedCreateWithoutUserInput> | CommunityEventRsvpCreateWithoutUserInput[] | CommunityEventRsvpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutUserInput | CommunityEventRsvpCreateOrConnectWithoutUserInput[]
+    upsert?: CommunityEventRsvpUpsertWithWhereUniqueWithoutUserInput | CommunityEventRsvpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommunityEventRsvpCreateManyUserInputEnvelope
+    set?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    disconnect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    delete?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    update?: CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput | CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommunityEventRsvpUpdateManyWithWhereWithoutUserInput | CommunityEventRsvpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
   }
 
   export type CommunityPostUpdateManyWithoutAuthorNestedInput = {
@@ -156167,6 +159443,20 @@ export namespace Prisma {
     update?: CourseCertificateUpdateWithWhereUniqueWithoutUserInput | CourseCertificateUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CourseCertificateUpdateManyWithWhereWithoutUserInput | CourseCertificateUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutUserInput, CommunityEventRsvpUncheckedCreateWithoutUserInput> | CommunityEventRsvpCreateWithoutUserInput[] | CommunityEventRsvpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutUserInput | CommunityEventRsvpCreateOrConnectWithoutUserInput[]
+    upsert?: CommunityEventRsvpUpsertWithWhereUniqueWithoutUserInput | CommunityEventRsvpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommunityEventRsvpCreateManyUserInputEnvelope
+    set?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    disconnect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    delete?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    update?: CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput | CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommunityEventRsvpUpdateManyWithWhereWithoutUserInput | CommunityEventRsvpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
   }
 
   export type CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -161472,6 +164762,88 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCourseCertificatesInput, UserUpdateWithoutCourseCertificatesInput>, UserUncheckedUpdateWithoutCourseCertificatesInput>
   }
 
+  export type CommunityEventRsvpCreateNestedManyWithoutEventInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutEventInput, CommunityEventRsvpUncheckedCreateWithoutEventInput> | CommunityEventRsvpCreateWithoutEventInput[] | CommunityEventRsvpUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutEventInput | CommunityEventRsvpCreateOrConnectWithoutEventInput[]
+    createMany?: CommunityEventRsvpCreateManyEventInputEnvelope
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+  }
+
+  export type CommunityEventRsvpUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutEventInput, CommunityEventRsvpUncheckedCreateWithoutEventInput> | CommunityEventRsvpCreateWithoutEventInput[] | CommunityEventRsvpUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutEventInput | CommunityEventRsvpCreateOrConnectWithoutEventInput[]
+    createMany?: CommunityEventRsvpCreateManyEventInputEnvelope
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+  }
+
+  export type EnumCommunityEventTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityEventType
+  }
+
+  export type EnumCommunityAccessLevelFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityAccessLevel
+  }
+
+  export type CommunityEventRsvpUpdateManyWithoutEventNestedInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutEventInput, CommunityEventRsvpUncheckedCreateWithoutEventInput> | CommunityEventRsvpCreateWithoutEventInput[] | CommunityEventRsvpUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutEventInput | CommunityEventRsvpCreateOrConnectWithoutEventInput[]
+    upsert?: CommunityEventRsvpUpsertWithWhereUniqueWithoutEventInput | CommunityEventRsvpUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: CommunityEventRsvpCreateManyEventInputEnvelope
+    set?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    disconnect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    delete?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    update?: CommunityEventRsvpUpdateWithWhereUniqueWithoutEventInput | CommunityEventRsvpUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: CommunityEventRsvpUpdateManyWithWhereWithoutEventInput | CommunityEventRsvpUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<CommunityEventRsvpCreateWithoutEventInput, CommunityEventRsvpUncheckedCreateWithoutEventInput> | CommunityEventRsvpCreateWithoutEventInput[] | CommunityEventRsvpUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: CommunityEventRsvpCreateOrConnectWithoutEventInput | CommunityEventRsvpCreateOrConnectWithoutEventInput[]
+    upsert?: CommunityEventRsvpUpsertWithWhereUniqueWithoutEventInput | CommunityEventRsvpUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: CommunityEventRsvpCreateManyEventInputEnvelope
+    set?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    disconnect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    delete?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    connect?: CommunityEventRsvpWhereUniqueInput | CommunityEventRsvpWhereUniqueInput[]
+    update?: CommunityEventRsvpUpdateWithWhereUniqueWithoutEventInput | CommunityEventRsvpUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: CommunityEventRsvpUpdateManyWithWhereWithoutEventInput | CommunityEventRsvpUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
+  }
+
+  export type CommunityEventCreateNestedOneWithoutRsvpsInput = {
+    create?: XOR<CommunityEventCreateWithoutRsvpsInput, CommunityEventUncheckedCreateWithoutRsvpsInput>
+    connectOrCreate?: CommunityEventCreateOrConnectWithoutRsvpsInput
+    connect?: CommunityEventWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCommunityEventRsvpsInput = {
+    create?: XOR<UserCreateWithoutCommunityEventRsvpsInput, UserUncheckedCreateWithoutCommunityEventRsvpsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityEventRsvpsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumCommunityEventRsvpStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityEventRsvpStatus
+  }
+
+  export type CommunityEventUpdateOneRequiredWithoutRsvpsNestedInput = {
+    create?: XOR<CommunityEventCreateWithoutRsvpsInput, CommunityEventUncheckedCreateWithoutRsvpsInput>
+    connectOrCreate?: CommunityEventCreateOrConnectWithoutRsvpsInput
+    upsert?: CommunityEventUpsertWithoutRsvpsInput
+    connect?: CommunityEventWhereUniqueInput
+    update?: XOR<XOR<CommunityEventUpdateToOneWithWhereWithoutRsvpsInput, CommunityEventUpdateWithoutRsvpsInput>, CommunityEventUncheckedUpdateWithoutRsvpsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCommunityEventRsvpsNestedInput = {
+    create?: XOR<UserCreateWithoutCommunityEventRsvpsInput, UserUncheckedCreateWithoutCommunityEventRsvpsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommunityEventRsvpsInput
+    upsert?: UserUpsertWithoutCommunityEventRsvpsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommunityEventRsvpsInput, UserUpdateWithoutCommunityEventRsvpsInput>, UserUncheckedUpdateWithoutCommunityEventRsvpsInput>
+  }
+
   export type CommunityPostCreateNestedManyWithoutCategoryInput = {
     create?: XOR<CommunityPostCreateWithoutCategoryInput, CommunityPostUncheckedCreateWithoutCategoryInput> | CommunityPostCreateWithoutCategoryInput[] | CommunityPostUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: CommunityPostCreateOrConnectWithoutCategoryInput | CommunityPostCreateOrConnectWithoutCategoryInput[]
@@ -161594,10 +164966,6 @@ export namespace Prisma {
 
   export type EnumCommunityContentStatusFieldUpdateOperationsInput = {
     set?: $Enums.CommunityContentStatus
-  }
-
-  export type EnumCommunityAccessLevelFieldUpdateOperationsInput = {
-    set?: $Enums.CommunityAccessLevel
   }
 
   export type CommunityCategoryUpdateOneWithoutPostsNestedInput = {
@@ -163295,6 +166663,57 @@ export namespace Prisma {
     _max?: NestedEnumLessonContentTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommunityEventTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventType | EnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventTypeFilter<$PrismaModel> | $Enums.CommunityEventType
+  }
+
+  export type NestedEnumCommunityAccessLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+  }
+
+  export type NestedEnumCommunityEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventType | EnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventType[] | ListEnumCommunityEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommunityEventType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityEventTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommunityEventTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CommunityAccessLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+    _max?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventRsvpStatus | EnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel> | $Enums.CommunityEventRsvpStatus
+  }
+
+  export type NestedEnumCommunityEventRsvpStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityEventRsvpStatus | EnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityEventRsvpStatus[] | ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityEventRsvpStatusWithAggregatesFilter<$PrismaModel> | $Enums.CommunityEventRsvpStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel>
+    _max?: NestedEnumCommunityEventRsvpStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumCommunityPostTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
     in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
@@ -163307,13 +166726,6 @@ export namespace Prisma {
     in?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.CommunityContentStatus[] | ListEnumCommunityContentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumCommunityContentStatusFilter<$PrismaModel> | $Enums.CommunityContentStatus
-  }
-
-  export type NestedEnumCommunityAccessLevelFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
   }
 
   export type NestedEnumCommunityPostTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -163334,16 +166746,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
     _max?: NestedEnumCommunityContentStatusFilter<$PrismaModel>
-  }
-
-  export type NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityAccessLevel | EnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityAccessLevelWithAggregatesFilter<$PrismaModel> | $Enums.CommunityAccessLevel
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
-    _max?: NestedEnumCommunityAccessLevelFilter<$PrismaModel>
   }
 
   export type NestedEnumCommunityReportStatusFilter<$PrismaModel = never> = {
@@ -163954,6 +167356,32 @@ export namespace Prisma {
 
   export type CourseCertificateCreateManyUserInputEnvelope = {
     data: CourseCertificateCreateManyUserInput | CourseCertificateCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityEventRsvpCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CommunityEventCreateNestedOneWithoutRsvpsInput
+  }
+
+  export type CommunityEventRsvpUncheckedCreateWithoutUserInput = {
+    id?: string
+    eventId: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventRsvpCreateOrConnectWithoutUserInput = {
+    where: CommunityEventRsvpWhereUniqueInput
+    create: XOR<CommunityEventRsvpCreateWithoutUserInput, CommunityEventRsvpUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommunityEventRsvpCreateManyUserInputEnvelope = {
+    data: CommunityEventRsvpCreateManyUserInput | CommunityEventRsvpCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -165498,6 +168926,34 @@ export namespace Prisma {
     issuedAt?: DateTimeFilter<"CourseCertificate"> | Date | string
   }
 
+  export type CommunityEventRsvpUpsertWithWhereUniqueWithoutUserInput = {
+    where: CommunityEventRsvpWhereUniqueInput
+    update: XOR<CommunityEventRsvpUpdateWithoutUserInput, CommunityEventRsvpUncheckedUpdateWithoutUserInput>
+    create: XOR<CommunityEventRsvpCreateWithoutUserInput, CommunityEventRsvpUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommunityEventRsvpUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommunityEventRsvpWhereUniqueInput
+    data: XOR<CommunityEventRsvpUpdateWithoutUserInput, CommunityEventRsvpUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CommunityEventRsvpUpdateManyWithWhereWithoutUserInput = {
+    where: CommunityEventRsvpScalarWhereInput
+    data: XOR<CommunityEventRsvpUpdateManyMutationInput, CommunityEventRsvpUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommunityEventRsvpScalarWhereInput = {
+    AND?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
+    OR?: CommunityEventRsvpScalarWhereInput[]
+    NOT?: CommunityEventRsvpScalarWhereInput | CommunityEventRsvpScalarWhereInput[]
+    id?: UuidFilter<"CommunityEventRsvp"> | string
+    eventId?: UuidFilter<"CommunityEventRsvp"> | string
+    userId?: UuidFilter<"CommunityEventRsvp"> | string
+    status?: EnumCommunityEventRsvpStatusFilter<"CommunityEventRsvp"> | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityEventRsvp"> | Date | string
+  }
+
   export type CommunityPostUpsertWithWhereUniqueWithoutAuthorInput = {
     where: CommunityPostWhereUniqueInput
     update: XOR<CommunityPostUpdateWithoutAuthorInput, CommunityPostUncheckedUpdateWithoutAuthorInput>
@@ -166422,6 +169878,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -166482,6 +169939,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -166558,6 +170016,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -166618,6 +170077,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -166677,6 +170137,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -166737,6 +170198,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -166813,6 +170275,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -166873,6 +170336,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -167072,6 +170536,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -167132,6 +170597,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -167231,6 +170697,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -167291,6 +170758,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -167380,6 +170848,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -167440,6 +170909,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -167516,6 +170986,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -167576,6 +171047,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -167637,6 +171109,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -167697,6 +171170,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -167773,6 +171247,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -167833,6 +171308,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -167892,6 +171368,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -167952,6 +171429,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -168281,6 +171759,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -168341,6 +171820,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -168807,6 +172287,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -168867,6 +172348,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -168996,6 +172478,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -169056,6 +172539,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -172008,6 +175492,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -172068,6 +175553,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -172172,6 +175658,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -172232,6 +175719,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -172608,6 +176096,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -172668,6 +176157,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -173045,6 +176535,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -173105,6 +176596,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -174295,6 +177787,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -174355,6 +177848,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -174627,6 +178121,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -174687,6 +178182,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -174964,6 +178460,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -175024,6 +178521,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -175251,6 +178749,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -175311,6 +178810,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -175481,6 +178981,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -175541,6 +179042,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -175697,6 +179199,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -175757,6 +179260,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -176240,6 +179744,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -176300,6 +179805,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -176636,6 +180142,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -176696,6 +180203,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -179795,6 +183303,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179855,6 +183364,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -179953,6 +183463,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -180013,6 +183524,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -180390,6 +183902,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -180450,6 +183963,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180526,6 +184040,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -180586,6 +184101,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -180672,6 +184188,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -180732,6 +184249,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180797,6 +184315,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -180857,6 +184376,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180949,6 +184469,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181009,6 +184530,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181080,6 +184602,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181140,6 +184663,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181231,6 +184755,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -181291,6 +184816,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -181404,6 +184930,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181464,6 +184991,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181524,6 +185052,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -181584,6 +185113,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -181660,6 +185190,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181720,6 +185251,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181779,6 +185311,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -181839,6 +185372,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -181947,6 +185481,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -182007,6 +185542,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -182132,6 +185668,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -182192,6 +185729,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -182332,6 +185870,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -182392,6 +185931,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -182528,6 +186068,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -182588,6 +186129,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -182694,6 +186236,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -182754,6 +186297,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -182900,6 +186444,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -182960,6 +186505,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -183036,6 +186582,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -183096,6 +186643,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183156,6 +186704,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183216,6 +186765,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -183336,6 +186886,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -183396,6 +186947,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183472,6 +187024,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183532,6 +187085,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -183723,6 +187277,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -183783,6 +187338,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183918,6 +187474,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183978,6 +187535,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184199,6 +187757,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -184259,6 +187818,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -184744,6 +188304,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -184804,6 +188365,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184943,6 +188505,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -185003,6 +188566,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -185237,6 +188801,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -185297,6 +188862,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -185587,6 +189153,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -185647,6 +189214,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -186208,6 +189776,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -186268,6 +189837,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -186446,6 +190016,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -186506,6 +190077,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -186942,6 +190514,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -187002,6 +190575,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -187134,6 +190708,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -187194,6 +190769,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -187703,6 +191279,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -187763,6 +191340,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -187884,6 +191462,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -187944,6 +191523,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -188039,6 +191619,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -188099,6 +191680,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -188216,6 +191798,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -188276,6 +191859,409 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUncheckedUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type CommunityEventRsvpCreateWithoutEventInput = {
+    id?: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCommunityEventRsvpsInput
+  }
+
+  export type CommunityEventRsvpUncheckedCreateWithoutEventInput = {
+    id?: string
+    userId: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventRsvpCreateOrConnectWithoutEventInput = {
+    where: CommunityEventRsvpWhereUniqueInput
+    create: XOR<CommunityEventRsvpCreateWithoutEventInput, CommunityEventRsvpUncheckedCreateWithoutEventInput>
+  }
+
+  export type CommunityEventRsvpCreateManyEventInputEnvelope = {
+    data: CommunityEventRsvpCreateManyEventInput | CommunityEventRsvpCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityEventRsvpUpsertWithWhereUniqueWithoutEventInput = {
+    where: CommunityEventRsvpWhereUniqueInput
+    update: XOR<CommunityEventRsvpUpdateWithoutEventInput, CommunityEventRsvpUncheckedUpdateWithoutEventInput>
+    create: XOR<CommunityEventRsvpCreateWithoutEventInput, CommunityEventRsvpUncheckedCreateWithoutEventInput>
+  }
+
+  export type CommunityEventRsvpUpdateWithWhereUniqueWithoutEventInput = {
+    where: CommunityEventRsvpWhereUniqueInput
+    data: XOR<CommunityEventRsvpUpdateWithoutEventInput, CommunityEventRsvpUncheckedUpdateWithoutEventInput>
+  }
+
+  export type CommunityEventRsvpUpdateManyWithWhereWithoutEventInput = {
+    where: CommunityEventRsvpScalarWhereInput
+    data: XOR<CommunityEventRsvpUpdateManyMutationInput, CommunityEventRsvpUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type CommunityEventCreateWithoutRsvpsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    type?: $Enums.CommunityEventType
+    accessLevel?: $Enums.CommunityAccessLevel
+    hostName?: string | null
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    meetingUrl?: string | null
+    replayUrl?: string | null
+    capacity?: number | null
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventUncheckedCreateWithoutRsvpsInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    type?: $Enums.CommunityEventType
+    accessLevel?: $Enums.CommunityAccessLevel
+    hostName?: string | null
+    coverImage?: string | null
+    startsAt: Date | string
+    endsAt?: Date | string | null
+    timezone?: string
+    meetingUrl?: string | null
+    replayUrl?: string | null
+    capacity?: number | null
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventCreateOrConnectWithoutRsvpsInput = {
+    where: CommunityEventWhereUniqueInput
+    create: XOR<CommunityEventCreateWithoutRsvpsInput, CommunityEventUncheckedCreateWithoutRsvpsInput>
+  }
+
+  export type UserCreateWithoutCommunityEventRsvpsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutCommunityEventRsvpsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventUncheckedCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryUncheckedCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutCommunityEventRsvpsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommunityEventRsvpsInput, UserUncheckedCreateWithoutCommunityEventRsvpsInput>
+  }
+
+  export type CommunityEventUpsertWithoutRsvpsInput = {
+    update: XOR<CommunityEventUpdateWithoutRsvpsInput, CommunityEventUncheckedUpdateWithoutRsvpsInput>
+    create: XOR<CommunityEventCreateWithoutRsvpsInput, CommunityEventUncheckedCreateWithoutRsvpsInput>
+    where?: CommunityEventWhereInput
+  }
+
+  export type CommunityEventUpdateToOneWithWhereWithoutRsvpsInput = {
+    where?: CommunityEventWhereInput
+    data: XOR<CommunityEventUpdateWithoutRsvpsInput, CommunityEventUncheckedUpdateWithoutRsvpsInput>
+  }
+
+  export type CommunityEventUpdateWithoutRsvpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFieldUpdateOperationsInput | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    hostName?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventUncheckedUpdateWithoutRsvpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    type?: EnumCommunityEventTypeFieldUpdateOperationsInput | $Enums.CommunityEventType
+    accessLevel?: EnumCommunityAccessLevelFieldUpdateOperationsInput | $Enums.CommunityAccessLevel
+    hostName?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    timezone?: StringFieldUpdateOperationsInput | string
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutCommunityEventRsvpsInput = {
+    update: XOR<UserUpdateWithoutCommunityEventRsvpsInput, UserUncheckedUpdateWithoutCommunityEventRsvpsInput>
+    create: XOR<UserCreateWithoutCommunityEventRsvpsInput, UserUncheckedCreateWithoutCommunityEventRsvpsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommunityEventRsvpsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommunityEventRsvpsInput, UserUncheckedUpdateWithoutCommunityEventRsvpsInput>
+  }
+
+  export type UserUpdateWithoutCommunityEventRsvpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommunityEventRsvpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -188434,6 +192420,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -188494,6 +192481,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -188734,6 +192722,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -188794,6 +192783,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -189006,6 +192996,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -189066,6 +193057,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -189317,6 +193309,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -189377,6 +193370,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -189547,6 +193541,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -189607,6 +193602,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -189683,6 +193679,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -189743,6 +193740,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -189803,6 +193801,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -189863,6 +193862,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -189939,6 +193939,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -189999,6 +194000,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -190110,6 +194112,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -190170,6 +194173,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -190303,6 +194307,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -190363,6 +194368,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -190423,6 +194429,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -190483,6 +194490,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190559,6 +194567,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -190619,6 +194628,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -190679,6 +194689,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -190739,6 +194750,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190804,6 +194816,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -190864,6 +194877,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190940,6 +194954,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -191000,6 +195015,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -191071,6 +195087,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -191131,6 +195148,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -191191,6 +195209,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -191251,6 +195270,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -191378,6 +195398,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -191438,6 +195459,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -191555,6 +195577,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -191615,6 +195638,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -191742,6 +195766,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -191802,6 +195827,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -191919,6 +195945,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -191979,6 +196006,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -192055,6 +196083,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -192115,6 +196144,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -192175,6 +196205,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -192235,6 +196266,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -192311,6 +196343,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -192371,6 +196404,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -192431,6 +196465,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -192491,6 +196526,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
     courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -192567,6 +196603,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -192627,6 +196664,7 @@ export namespace Prisma {
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityEventRsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -192757,6 +196795,14 @@ export namespace Prisma {
     verificationId: string
     courseId: string
     issuedAt?: Date | string
+  }
+
+  export type CommunityEventRsvpCreateManyUserInput = {
+    id?: string
+    eventId: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CommunityPostCreateManyAuthorInput = {
@@ -193380,6 +197426,30 @@ export namespace Prisma {
     verificationId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
     issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CommunityEventUpdateOneRequiredWithoutRsvpsNestedInput
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityPostUpdateWithoutAuthorInput = {
@@ -198094,6 +202164,38 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpCreateManyEventInput = {
+    id?: string
+    userId: string
+    status?: $Enums.CommunityEventRsvpStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityEventRsvpUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCommunityEventRsvpsNestedInput
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityEventRsvpUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumCommunityEventRsvpStatusFieldUpdateOperationsInput | $Enums.CommunityEventRsvpStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityPostCreateManyCategoryInput = {

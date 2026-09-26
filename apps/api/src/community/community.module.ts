@@ -13,6 +13,8 @@ import { CommunityHomeController } from './community-home.controller';
 import { CommunityHomeService } from './community-home.service';
 import { CommunityProfilesController } from './community-profiles.controller';
 import { CommunityProfilesService } from './community-profiles.service';
+import { CommunityEventsController } from './community-events.controller';
+import { CommunityEventsService } from './community-events.service';
 
 @Module({
   imports: [MembershipModule, NotificationsModule, EmailModule, FeatureFlagsModule],
@@ -21,6 +23,7 @@ import { CommunityProfilesService } from './community-profiles.service';
     CommunityFeedController,
     CommunityHomeController,
     CommunityProfilesController,
+    CommunityEventsController,
   ],
   providers: [
     CommunityAccessService,
@@ -29,6 +32,7 @@ import { CommunityProfilesService } from './community-profiles.service';
     CommunityCoursesService,
     CommunityFeedService,
     CommunityPointsService,
+    CommunityEventsService,
   ],
   exports: [CommunityAccessService, CommunityCoursesService, CommunityFeedService],
 })

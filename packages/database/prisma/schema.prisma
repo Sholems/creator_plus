@@ -47,6 +47,7 @@ model User {
   membershipSubscriptions MembershipSubscription[]
   lessonProgress LessonProgress[]
   courseCertificates CourseCertificate[]
+  communityEventRsvps CommunityEventRsvp[]
   communityPosts CommunityPost[]
   communityComments CommunityComment[]
   communityPostLikes CommunityPostLike[]
@@ -2249,6 +2250,59 @@ model CourseCertificate {
   @@unique([courseId, userId])
   @@index([userId, issuedAt])
   @@map("course_certificates")
+}
+
+enum CommunityEventType {
+  LIVE_SESSION
+  OFFICE_HOURS
+  WORKSHOP
+}
+
+enum CommunityEventRsvpStatus {
+  GOING
+  CANCELLED
+}
+
+model CommunityEvent {
+  id                String                 @id @default(uuid()) @db.Uuid
+  title             String
+  slug              String                 @unique
+  description       String?
+  descriptionFormat CommunityContentFormat @default(MARKDOWN) @map("description_format")
+  type              CommunityEventType     @default(LIVE_SESSION)
+  accessLevel       CommunityAccessLevel   @default(FREE) @map("access_level")
+  hostName          String?                @map("host_name")
+  coverImage        String?                @map("cover_image")
+  startsAt          DateTime               @map("starts_at")
+  endsAt            DateTime?              @map("ends_at")
+  timezone          String                 @default("Africa/Lagos")
+  meetingUrl        String?                @map("meeting_url")
+  replayUrl         String?                @map("replay_url")
+  capacity          Int?
+  published         Boolean                @default(false)
+  createdAt         DateTime               @default(now()) @map("created_at")
+  updatedAt         DateTime               @updatedAt @map("updated_at")
+
+  rsvps CommunityEventRsvp[]
+
+  @@index([published, startsAt])
+  @@map("community_events")
+}
+
+model CommunityEventRsvp {
+  id        String                   @id @default(uuid()) @db.Uuid
+  eventId   String                   @map("event_id") @db.Uuid
+  userId    String                   @map("user_id") @db.Uuid
+  status    CommunityEventRsvpStatus @default(GOING)
+  createdAt DateTime                 @default(now()) @map("created_at")
+  updatedAt DateTime                 @updatedAt @map("updated_at")
+
+  event CommunityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId, status])
+  @@map("community_event_rsvps")
 }
 
 // ---------------------------------------------------------------------------

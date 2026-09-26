@@ -526,6 +526,34 @@ class ApiClient {
     return this.fetch<any>(`/community/certificates/verify/${encodeURIComponent(id)}`);
   }
 
+  // --- Growth Club events ---
+  async getCommunityEvents(token: string) {
+    return this.fetch<any[]>('/community/events', { token });
+  }
+  async getCommunityEvent(token: string, slug: string) {
+    return this.fetch<any>(`/community/events/${encodeURIComponent(slug)}`, { token });
+  }
+  async rsvpCommunityEvent(token: string, id: string, going: boolean) {
+    return this.fetch<any>(`/community/events/${id}/rsvp`, {
+      method: 'POST',
+      body: { going },
+      token,
+    });
+  }
+  async adminGetCommunityEvents(token: string) {
+    return this.fetch<any[]>('/community/admin/events', { token });
+  }
+  async adminCreateCommunityEvent(token: string, dto: any) {
+    return this.fetch<any>('/community/admin/events', { method: 'POST', body: dto, token });
+  }
+  async adminUpdateCommunityEvent(token: string, id: string, dto: any) {
+    return this.fetch<any>(`/community/admin/events/${id}`, {
+      method: 'PATCH',
+      body: dto,
+      token,
+    });
+  }
+
   // --- Community classroom (admin authoring) ---
   async adminListCourses(token: string) {
     return this.fetch<any[]>('/community/admin/courses', { token });
