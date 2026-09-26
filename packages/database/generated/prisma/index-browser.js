@@ -1261,6 +1261,7 @@ exports.Prisma.CommunityEventScalarFieldEnum = {
   replayUrl: 'replayUrl',
   capacity: 'capacity',
   published: 'published',
+  canceledAt: 'canceledAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

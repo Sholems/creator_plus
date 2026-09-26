@@ -200,4 +200,18 @@ export class CommunityEventsService {
     if (dto.slug !== undefined) data.slug = await this.uniqueSlug(dto.slug, id);
     return prisma.communityEvent.update({ where: { id }, data });
   }
+
+  /**
+   * Cancel an event. Unpublishing plus a cancellation timestamp lets the
+   * programming worker suppress pending reminders and send one cancellation
+   * notice per RSVP (idempotently), without deleting the event or its history.
+   */
+  async cancel(id: string) {
+    const event = await prisma.communityEvent.findUnique({ where: { id } });
+    if (!event) throw new NotFoundException('Event not found');
+    return prisma.communityEvent.update({
+      where: { id },
+      data: { published: false, canceledAt: event.canceledAt ?? new Date() },
+    });
+  }
 }

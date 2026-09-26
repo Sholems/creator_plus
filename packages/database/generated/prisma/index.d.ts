@@ -114129,6 +114129,7 @@ export namespace Prisma {
     replayUrl: string | null
     capacity: number | null
     published: boolean | null
+    canceledAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -114150,6 +114151,7 @@ export namespace Prisma {
     replayUrl: string | null
     capacity: number | null
     published: boolean | null
+    canceledAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -114171,6 +114173,7 @@ export namespace Prisma {
     replayUrl: number
     capacity: number
     published: number
+    canceledAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -114202,6 +114205,7 @@ export namespace Prisma {
     replayUrl?: true
     capacity?: true
     published?: true
+    canceledAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -114223,6 +114227,7 @@ export namespace Prisma {
     replayUrl?: true
     capacity?: true
     published?: true
+    canceledAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -114244,6 +114249,7 @@ export namespace Prisma {
     replayUrl?: true
     capacity?: true
     published?: true
+    canceledAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -114352,6 +114358,7 @@ export namespace Prisma {
     replayUrl: string | null
     capacity: number | null
     published: boolean
+    canceledAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: CommunityEventCountAggregateOutputType | null
@@ -114392,6 +114399,7 @@ export namespace Prisma {
     replayUrl?: boolean
     capacity?: boolean
     published?: boolean
+    canceledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     rsvps?: boolean | CommunityEvent$rsvpsArgs<ExtArgs>
@@ -114415,6 +114423,7 @@ export namespace Prisma {
     replayUrl?: boolean
     capacity?: boolean
     published?: boolean
+    canceledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["communityEvent"]>
@@ -114436,6 +114445,7 @@ export namespace Prisma {
     replayUrl?: boolean
     capacity?: boolean
     published?: boolean
+    canceledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["communityEvent"]>
@@ -114457,11 +114467,12 @@ export namespace Prisma {
     replayUrl?: boolean
     capacity?: boolean
     published?: boolean
+    canceledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CommunityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "descriptionFormat" | "type" | "accessLevel" | "hostName" | "coverImage" | "startsAt" | "endsAt" | "timezone" | "meetingUrl" | "replayUrl" | "capacity" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["communityEvent"]>
+  export type CommunityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "descriptionFormat" | "type" | "accessLevel" | "hostName" | "coverImage" | "startsAt" | "endsAt" | "timezone" | "meetingUrl" | "replayUrl" | "capacity" | "published" | "canceledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["communityEvent"]>
   export type CommunityEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rsvps?: boolean | CommunityEvent$rsvpsArgs<ExtArgs>
     _count?: boolean | CommunityEventCountOutputTypeDefaultArgs<ExtArgs>
@@ -114491,6 +114502,7 @@ export namespace Prisma {
       replayUrl: string | null
       capacity: number | null
       published: boolean
+      canceledAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["communityEvent"]>
@@ -114933,6 +114945,7 @@ export namespace Prisma {
     readonly replayUrl: FieldRef<"CommunityEvent", 'String'>
     readonly capacity: FieldRef<"CommunityEvent", 'Int'>
     readonly published: FieldRef<"CommunityEvent", 'Boolean'>
+    readonly canceledAt: FieldRef<"CommunityEvent", 'DateTime'>
     readonly createdAt: FieldRef<"CommunityEvent", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityEvent", 'DateTime'>
   }
@@ -138286,6 +138299,7 @@ export namespace Prisma {
     replayUrl: 'replayUrl',
     capacity: 'capacity',
     published: 'published',
+    canceledAt: 'canceledAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -146976,6 +146990,7 @@ export namespace Prisma {
     replayUrl?: StringNullableFilter<"CommunityEvent"> | string | null
     capacity?: IntNullableFilter<"CommunityEvent"> | number | null
     published?: BoolFilter<"CommunityEvent"> | boolean
+    canceledAt?: DateTimeNullableFilter<"CommunityEvent"> | Date | string | null
     createdAt?: DateTimeFilter<"CommunityEvent"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityEvent"> | Date | string
     rsvps?: CommunityEventRsvpListRelationFilter
@@ -146998,6 +147013,7 @@ export namespace Prisma {
     replayUrl?: SortOrderInput | SortOrder
     capacity?: SortOrderInput | SortOrder
     published?: SortOrder
+    canceledAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     rsvps?: CommunityEventRsvpOrderByRelationAggregateInput
@@ -147023,6 +147039,7 @@ export namespace Prisma {
     replayUrl?: StringNullableFilter<"CommunityEvent"> | string | null
     capacity?: IntNullableFilter<"CommunityEvent"> | number | null
     published?: BoolFilter<"CommunityEvent"> | boolean
+    canceledAt?: DateTimeNullableFilter<"CommunityEvent"> | Date | string | null
     createdAt?: DateTimeFilter<"CommunityEvent"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityEvent"> | Date | string
     rsvps?: CommunityEventRsvpListRelationFilter
@@ -147045,6 +147062,7 @@ export namespace Prisma {
     replayUrl?: SortOrderInput | SortOrder
     capacity?: SortOrderInput | SortOrder
     published?: SortOrder
+    canceledAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CommunityEventCountOrderByAggregateInput
@@ -147074,6 +147092,7 @@ export namespace Prisma {
     replayUrl?: StringNullableWithAggregatesFilter<"CommunityEvent"> | string | null
     capacity?: IntNullableWithAggregatesFilter<"CommunityEvent"> | number | null
     published?: BoolWithAggregatesFilter<"CommunityEvent"> | boolean
+    canceledAt?: DateTimeNullableWithAggregatesFilter<"CommunityEvent"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"CommunityEvent"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CommunityEvent"> | Date | string
   }
@@ -156746,6 +156765,7 @@ export namespace Prisma {
     replayUrl?: string | null
     capacity?: number | null
     published?: boolean
+    canceledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     rsvps?: CommunityEventRsvpCreateNestedManyWithoutEventInput
@@ -156768,6 +156788,7 @@ export namespace Prisma {
     replayUrl?: string | null
     capacity?: number | null
     published?: boolean
+    canceledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     rsvps?: CommunityEventRsvpUncheckedCreateNestedManyWithoutEventInput
@@ -156790,6 +156811,7 @@ export namespace Prisma {
     replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: NullableIntFieldUpdateOperationsInput | number | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    canceledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rsvps?: CommunityEventRsvpUpdateManyWithoutEventNestedInput
@@ -156812,6 +156834,7 @@ export namespace Prisma {
     replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: NullableIntFieldUpdateOperationsInput | number | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    canceledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rsvps?: CommunityEventRsvpUncheckedUpdateManyWithoutEventNestedInput
@@ -156834,6 +156857,7 @@ export namespace Prisma {
     replayUrl?: string | null
     capacity?: number | null
     published?: boolean
+    canceledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -156855,6 +156879,7 @@ export namespace Prisma {
     replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: NullableIntFieldUpdateOperationsInput | number | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    canceledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -156876,6 +156901,7 @@ export namespace Prisma {
     replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: NullableIntFieldUpdateOperationsInput | number | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    canceledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -164534,6 +164560,7 @@ export namespace Prisma {
     replayUrl?: SortOrder
     capacity?: SortOrder
     published?: SortOrder
+    canceledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -164559,6 +164586,7 @@ export namespace Prisma {
     replayUrl?: SortOrder
     capacity?: SortOrder
     published?: SortOrder
+    canceledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -164580,6 +164608,7 @@ export namespace Prisma {
     replayUrl?: SortOrder
     capacity?: SortOrder
     published?: SortOrder
+    canceledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -200066,6 +200095,7 @@ export namespace Prisma {
     replayUrl?: string | null
     capacity?: number | null
     published?: boolean
+    canceledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -200087,6 +200117,7 @@ export namespace Prisma {
     replayUrl?: string | null
     capacity?: number | null
     published?: boolean
+    canceledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -200253,6 +200284,7 @@ export namespace Prisma {
     replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: NullableIntFieldUpdateOperationsInput | number | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    canceledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -200274,6 +200306,7 @@ export namespace Prisma {
     replayUrl?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: NullableIntFieldUpdateOperationsInput | number | null
     published?: BoolFieldUpdateOperationsInput | boolean
+    canceledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

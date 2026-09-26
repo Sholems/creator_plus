@@ -47,4 +47,11 @@ export class CommunityEventsController {
   update(@Param('id') id: string, @Body() dto: UpdateCommunityEventDto) {
     return this.events.update(id, dto);
   }
+
+  @Post('admin/events/:id/cancel')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('super_admin', 'admin')
+  cancel(@Param('id') id: string) {
+    return this.events.cancel(id);
+  }
 }

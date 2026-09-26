@@ -16,6 +16,7 @@ export const QUEUE_NAMES = {
   EVENTS: 'events',
   MEMBERSHIP: 'membership',
   COMMUNITY_DIGEST: 'community-digest',
+  COMMUNITY_PROGRAMMING: 'community-programming',
 } as const;
 
 // Create queues
@@ -28,6 +29,7 @@ export const recoveryQueue = new Queue(QUEUE_NAMES.RECOVERY, { connection });
 export const eventsQueue = new Queue(QUEUE_NAMES.EVENTS, { connection });
 export const membershipQueue = new Queue(QUEUE_NAMES.MEMBERSHIP, { connection });
 export const communityDigestQueue = new Queue(QUEUE_NAMES.COMMUNITY_DIGEST, { connection });
+export const communityProgrammingQueue = new Queue(QUEUE_NAMES.COMMUNITY_PROGRAMMING, { connection });
 
 // Create workers
 export function createWorker(name: string, processor: (job: any) => Promise<any>) {
