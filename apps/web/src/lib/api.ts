@@ -74,6 +74,10 @@ class ApiClient {
     return this.fetch<any>('/auth/me', { token });
   }
 
+  async getCommunityHome(token: string) {
+    return this.fetch<any>('/community/home', { token });
+  }
+
   /** Exchange the httpOnly refresh cookie for a fresh access token. */
   async refresh() {
     return this.fetch<{ accessToken: string }>('/auth/refresh', { method: 'POST' });
