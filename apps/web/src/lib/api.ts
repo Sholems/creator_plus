@@ -553,6 +553,9 @@ class ApiClient {
       token,
     });
   }
+  async adminCancelCommunityEvent(token: string, id: string) {
+    return this.fetch<any>(`/community/admin/events/${id}/cancel`, { method: 'POST', token });
+  }
 
   // --- Growth Club challenges ---
   async getCommunityChallenges(token: string) {
@@ -689,6 +692,9 @@ class ApiClient {
     if (opts.sort && opts.sort !== 'latest') q.set('sort', opts.sort);
     const qs = q.toString();
     return this.fetch<any[]>(`/community/posts${qs ? `?${qs}` : ''}`, { token });
+  }
+  async getSavedPosts(token: string, page = 0) {
+    return this.fetch<any[]>(`/community/saved${page ? `?page=${page}` : ''}`, { token });
   }
   async getPost(token: string, id: string) {
     return this.fetch<any>(`/community/posts/${id}`, { token });

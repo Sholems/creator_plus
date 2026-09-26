@@ -174,9 +174,14 @@ export default function DiscussionPage() {
             <p className="eyebrow text-gold-600">Bold Ideas Growth Club</p>
             <h1 className="font-display text-3xl font-bold text-ink-900">Discussion</h1>
           </div>
-          <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">
-            ← Growth Club
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href={'/community/saved' as Route} className="text-sm font-medium text-forest-700 hover:underline">
+              Saved
+            </Link>
+            <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">
+              ← Growth Club
+            </Link>
+          </div>
         </div>
 
         {/* Channels */}

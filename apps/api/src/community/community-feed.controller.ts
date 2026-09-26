@@ -71,6 +71,12 @@ export class CommunityFeedController {
     });
   }
 
+  @Get('saved')
+  @UseGuards(JwtAuthGuard)
+  listSaved(@Request() req: any, @Query('page') page?: string) {
+    return this.feed.listPosts(req.user.sub, { savedOnly: true, page: page ? Number(page) : 0 });
+  }
+
   @Post('posts')
   @UseGuards(JwtAuthGuard)
   createPost(@Request() req: any, @Body() dto: CreatePostDto) {

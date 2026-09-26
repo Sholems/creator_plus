@@ -131,7 +131,7 @@ export class CommunityFeedService {
 
   async listPosts(
     userId: string,
-    opts: { categoryId?: string; page?: number; search?: string; sort?: FeedSort },
+    opts: { categoryId?: string; page?: number; search?: string; sort?: FeedSort; savedOnly?: boolean },
   ) {
     await this.access.assertAccess(userId);
     const page = Math.max(0, Number(opts.page) || 0);
@@ -140,6 +140,7 @@ export class CommunityFeedService {
       .slice(0, 100);
     const where: Prisma.CommunityPostWhereInput = {
       status: 'PUBLISHED',
+      ...(opts.savedOnly ? { bookmarks: { some: { userId } } } : {}),
       ...(opts.categoryId ? { categoryId: opts.categoryId } : {}),
       ...(search
         ? {

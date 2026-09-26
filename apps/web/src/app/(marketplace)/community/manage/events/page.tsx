@@ -128,17 +128,35 @@ export default function ManageCommunityEventsPage() {
                       {new Date(event.startsAt).toLocaleString()} · {event.timezone}
                     </p>
                   </div>
-                  <button
-                    onClick={async () => {
-                      await api.adminUpdateCommunityEvent(token!, event.id, {
-                        published: !event.published,
-                      });
-                      await refresh();
-                    }}
-                    className="rounded-full border border-ink-200 px-3 py-1 text-xs font-semibold"
-                  >
-                    {event.published ? 'Unpublish' : 'Publish'}
-                  </button>
+                  <div className="flex shrink-0 items-start gap-2">
+                    {!event.canceledAt && (
+                      <button
+                        onClick={async () => {
+                          await api.adminUpdateCommunityEvent(token!, event.id, {
+                            published: !event.published,
+                          });
+                          await refresh();
+                        }}
+                        className="rounded-full border border-ink-200 px-3 py-1 text-xs font-semibold"
+                      >
+                        {event.published ? 'Unpublish' : 'Publish'}
+                      </button>
+                    )}
+                    {event.canceledAt ? (
+                      <span className="rounded-full bg-clay-50 px-3 py-1 text-xs font-semibold text-clay-700">Cancelled</span>
+                    ) : (
+                      <button
+                        onClick={async () => {
+                          if (!confirm('Cancel this event? Attendees will be notified and reminders stopped.')) return;
+                          await api.adminCancelCommunityEvent(token!, event.id);
+                          await refresh();
+                        }}
+                        className="rounded-full border border-clay-200 px-3 py-1 text-xs font-semibold text-clay-700 hover:bg-clay-50"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
