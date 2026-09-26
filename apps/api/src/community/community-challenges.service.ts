@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  Optional,
+} from '@nestjs/common';
 import { prisma } from '@creatorplus/database';
 import { assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import { CommunityAccessService } from './community-access.service';
@@ -10,6 +16,7 @@ import {
   CreateCommunityChallengeDto,
   UpdateCommunityChallengeDto,
 } from './dto/community-challenge.dto';
+import { FeatureFlagsService } from '../feature-flags/feature-flags.service';
 
 function slugify(value: string) {
   return (
@@ -27,7 +34,13 @@ export class CommunityChallengesService {
   constructor(
     private readonly access: CommunityAccessService,
     private readonly points: CommunityPointsService,
+    @Optional() private readonly flags?: FeatureFlagsService,
   ) {}
+
+  private async assertFeature(userId: string, isAdmin = false) {
+    if (!isAdmin && this.flags && !(await this.flags.isEnabled('community-challenges', userId)))
+      throw new ForbiddenException('Community challenges are not enabled for this account');
+  }
 
   private async uniqueSlug(value: string, ignoreId?: string) {
     const root = slugify(value);
@@ -45,6 +58,7 @@ export class CommunityChallengesService {
 
   async list(userId: string) {
     const member = await this.access.assertAccess(userId);
+    await this.assertFeature(userId, member.isAdmin);
     const challenges = await prisma.communityChallenge.findMany({
       where: { published: true },
       orderBy: { startsAt: 'desc' },
@@ -82,7 +96,8 @@ export class CommunityChallengesService {
       },
     });
     if (!challenge) throw new NotFoundException('Challenge not found');
-    await this.access.assertAccess(userId, { accessLevel: challenge.accessLevel });
+    const member = await this.access.assertAccess(userId, { accessLevel: challenge.accessLevel });
+    await this.assertFeature(userId, member.isAdmin);
     const enrollment = challenge.enrollments[0] ?? null;
     return {
       ...challenge,
@@ -98,7 +113,8 @@ export class CommunityChallengesService {
       where: { id: challengeId, published: true },
     });
     if (!challenge) throw new NotFoundException('Challenge not found');
-    await this.access.assertAccess(userId, { accessLevel: challenge.accessLevel });
+    const member = await this.access.assertAccess(userId, { accessLevel: challenge.accessLevel });
+    await this.assertFeature(userId, member.isAdmin);
     return prisma.$transaction(
       async (tx) => {
         const existing = await tx.communityChallengeEnrollment.findUnique({
@@ -133,9 +149,14 @@ export class CommunityChallengesService {
   async checkIn(userId: string, challengeId: string, dto: ChallengeCheckInDto) {
     const enrollment = await prisma.communityChallengeEnrollment.findUnique({
       where: { challengeId_userId: { challengeId, userId } },
+      include: { challenge: { select: { accessLevel: true } } },
     });
     if (!enrollment || enrollment.status !== 'ACTIVE')
       throw new BadRequestException('Join the challenge before checking in');
+    const member = await this.access.assertAccess(userId, {
+      accessLevel: enrollment.challenge.accessLevel,
+    });
+    await this.assertFeature(userId, member.isAdmin);
     if (dto.milestoneId) {
       const milestone = await prisma.communityChallengeMilestone.findFirst({
         where: { id: dto.milestoneId, challengeId },

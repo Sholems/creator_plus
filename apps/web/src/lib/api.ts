@@ -595,6 +595,36 @@ class ApiClient {
       token,
     });
   }
+  async getCommunityAdminOverview(token: string) {
+    return this.fetch<any>('/community/admin/overview', { token });
+  }
+  async getCommunityReports(token: string, status = 'OPEN') {
+    return this.fetch<any[]>(`/community/admin/reports?status=${encodeURIComponent(status)}`, {
+      token,
+    });
+  }
+  async updateCommunityReport(token: string, id: string, status: 'RESOLVED' | 'DISMISSED') {
+    return this.fetch<any>(`/community/admin/reports/${id}`, {
+      method: 'PATCH',
+      body: { status },
+      token,
+    });
+  }
+  async getCommunityModerationHistory(token: string) {
+    return this.fetch<any[]>('/community/admin/moderation-history', { token });
+  }
+  async setCommunityParticipation(
+    token: string,
+    userId: string,
+    status: 'ACTIVE' | 'SUSPENDED',
+    reason?: string,
+  ) {
+    return this.fetch<any>(`/community/admin/members/${userId}/participation`, {
+      method: 'PATCH',
+      body: { status, reason },
+      token,
+    });
+  }
 
   // --- Community classroom (admin authoring) ---
   async adminListCourses(token: string) {
@@ -937,6 +967,19 @@ class ApiClient {
       `/licenses/creator/backfill/${productId}`,
       { method: 'POST', token },
     );
+  }
+  async moderateCommunityContent(
+    token: string,
+    targetType: 'POST' | 'COMMENT',
+    id: string,
+    action: 'HIDE' | 'RESTORE',
+    reason?: string,
+  ) {
+    return this.fetch<any>(`/community/admin/moderation/${targetType}/${id}`, {
+      method: 'POST',
+      body: { action, reason },
+      token,
+    });
   }
 
   async getMyPayouts(token: string, params?: { page?: number; perPage?: number }) {

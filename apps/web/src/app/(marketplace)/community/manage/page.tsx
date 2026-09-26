@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
+import { CommunityAdminNav } from '@/components/community/admin/admin-nav';
+import { CommunityRichEditor } from '@/components/community/community-rich-editor';
 
 const input = 'w-full rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm';
 const CONTENT_TYPES = ['TEXT', 'VIDEO', 'FILE'] as const;
@@ -14,6 +16,7 @@ type LessonDraft = {
   title: string;
   contentType: (typeof CONTENT_TYPES)[number];
   body?: string;
+  bodyFormat?: 'MARKDOWN' | 'RICH_HTML';
   videoUrl?: string;
   fileUrl?: string;
   dripDelayDays?: number;
@@ -120,6 +123,7 @@ export default function CommunityManagePage() {
         title: draft.title.trim(),
         contentType: draft.contentType,
         body: draft.body ?? '',
+        bodyFormat: 'RICH_HTML',
         videoUrl: videoUrlFromInput(draft.videoUrl),
         fileUrl: draft.fileUrl ?? '',
         dripDelayDays: Number(draft.dripDelayDays) || 0,
@@ -150,6 +154,7 @@ export default function CommunityManagePage() {
             ← Growth Club
           </Link>
         </div>
+        <CommunityAdminNav />
         {error && (
           <p className="mt-3 rounded-lg bg-clay-50 px-3 py-2 text-sm text-clay-700">{error}</p>
         )}
@@ -336,6 +341,7 @@ export default function CommunityManagePage() {
                                 title: l.title,
                                 contentType: l.contentType,
                                 body: l.body ?? '',
+                                bodyFormat: l.bodyFormat ?? 'MARKDOWN',
                                 videoUrl: l.videoUrl ?? '',
                                 fileUrl: l.fileUrl ?? '',
                                 dripDelayDays: l.dripDelayDays,
@@ -365,6 +371,7 @@ export default function CommunityManagePage() {
                           moduleId: m.id,
                           title: '',
                           contentType: 'TEXT',
+                          bodyFormat: 'RICH_HTML',
                           dripDelayDays: 0,
                         })
                       }
@@ -438,12 +445,10 @@ export default function CommunityManagePage() {
                   placeholder="Drip days"
                 />
               </div>
-              <textarea
-                className={input}
-                rows={8}
+              <CommunityRichEditor
                 value={draft.body ?? ''}
-                onChange={(e) => setDraft({ ...draft, body: e.target.value })}
-                placeholder="Lesson text — markdown is supported"
+                onChange={(body) => setDraft({ ...draft, body, bodyFormat: 'RICH_HTML' })}
+                placeholder="Add lesson text, headings, lists, links, and callouts…"
               />
               <input
                 className={input}

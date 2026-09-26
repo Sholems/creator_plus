@@ -1,9 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  Optional,
+} from '@nestjs/common';
 import { prisma } from '@creatorplus/database';
 import { assertHostAllowed, assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import { CommunityAccessService } from './community-access.service';
 import { sanitizeCommunityHtml } from './community-rich-content';
 import { CreateCommunityEventDto, UpdateCommunityEventDto } from './dto/community-event.dto';
+import { FeatureFlagsService } from '../feature-flags/feature-flags.service';
 
 const REPLAY_HOSTS = [
   'youtube.com',
@@ -35,7 +42,15 @@ function safeHttpsUrl(value?: string | null) {
 
 @Injectable()
 export class CommunityEventsService {
-  constructor(private readonly access: CommunityAccessService) {}
+  constructor(
+    private readonly access: CommunityAccessService,
+    @Optional() private readonly flags?: FeatureFlagsService,
+  ) {}
+
+  private async assertFeature(userId: string, isAdmin = false) {
+    if (!isAdmin && this.flags && !(await this.flags.isEnabled('community-programming', userId)))
+      throw new ForbiddenException('Community programming is not enabled for this account');
+  }
 
   private async uniqueSlug(value: string, ignoreId?: string) {
     const root = slugify(value);
@@ -53,6 +68,7 @@ export class CommunityEventsService {
 
   async list(userId: string) {
     const member = await this.access.assertAccess(userId);
+    await this.assertFeature(userId, member.isAdmin);
     const events = await prisma.communityEvent.findMany({
       where: { published: true },
       orderBy: { startsAt: 'asc' },
@@ -87,7 +103,8 @@ export class CommunityEventsService {
       },
     });
     if (!event) throw new NotFoundException('Event not found');
-    await this.access.assertAccess(userId, { accessLevel: event.accessLevel });
+    const member = await this.access.assertAccess(userId, { accessLevel: event.accessLevel });
+    await this.assertFeature(userId, member.isAdmin);
     const rsvpStatus = event.rsvps[0]?.status ?? null;
     return {
       ...event,
@@ -105,7 +122,8 @@ export class CommunityEventsService {
       include: { _count: { select: { rsvps: { where: { status: 'GOING' } } } } },
     });
     if (!event) throw new NotFoundException('Event not found');
-    await this.access.assertAccess(userId, { accessLevel: event.accessLevel });
+    const member = await this.access.assertAccess(userId, { accessLevel: event.accessLevel });
+    await this.assertFeature(userId, member.isAdmin);
     const existing = await prisma.communityEventRsvp.findUnique({
       where: { eventId_userId: { eventId, userId } },
     });

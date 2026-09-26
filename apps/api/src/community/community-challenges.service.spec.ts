@@ -14,7 +14,7 @@ const p = prisma as any;
 
 describe('CommunityChallengesService', () => {
   const service = new CommunityChallengesService(
-    { assertAccess: jest.fn() } as any,
+    { assertAccess: jest.fn().mockResolvedValue({ isAdmin: false }) } as any,
     { award: jest.fn() } as any,
   );
 
