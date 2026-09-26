@@ -1,8 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { prisma, Prisma } from '@creatorplus/database';
 import { CommunityPointsService } from './community-points.service';
 import { CommunityAccessService } from './community-access.service';
 import { assertHostAllowed, assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
+import { sanitizeCommunityHtml } from './community-rich-content';
 import {
   CreateCourseDto,
   UpdateCourseDto,
@@ -89,7 +91,6 @@ export class CommunityCoursesService {
         })
       : [];
     const doneSet = new Set(done.map((d) => d.lessonId));
-
     return courses.map((c) => {
       const ids = c.modules.flatMap((m) => m.lessons.map((l) => l.id));
       return {
@@ -97,6 +98,7 @@ export class CommunityCoursesService {
         title: c.title,
         slug: c.slug,
         description: c.description,
+        descriptionFormat: c.descriptionFormat,
         coverImage: c.coverImage,
         accessLevel: c.accessLevel,
         locked: c.accessLevel === 'PREMIUM' && !hasPremiumAccess,
@@ -128,14 +130,20 @@ export class CommunityCoursesService {
         })
       : [];
     const doneSet = new Set(done.map((d) => d.lessonId));
+    const certificate = await prisma.courseCertificate.findUnique({
+      where: { courseId_userId: { courseId: course.id, userId } },
+      select: { verificationId: true, issuedAt: true },
+    });
 
     return {
       id: course.id,
       title: course.title,
       slug: course.slug,
       description: course.description,
+      descriptionFormat: course.descriptionFormat,
       coverImage: course.coverImage,
       accessLevel: course.accessLevel,
+      certificate,
       modules: course.modules.map((m) => ({
         id: m.id,
         title: m.title,
@@ -155,6 +163,7 @@ export class CommunityCoursesService {
               : 0,
             // Content is only sent for unlocked lessons.
             body: locked ? null : l.body,
+            bodyFormat: l.bodyFormat,
             videoUrl: locked ? null : l.videoUrl,
             fileUrl: locked ? null : l.fileUrl,
           };
@@ -166,7 +175,19 @@ export class CommunityCoursesService {
   async completeLesson(userId: string, lessonId: string, completed = true) {
     const lesson = await prisma.lesson.findUnique({
       where: { id: lessonId },
-      include: { module: { select: { course: { select: { accessLevel: true } } } } },
+      include: {
+        module: {
+          select: {
+            course: {
+              select: {
+                id: true,
+                accessLevel: true,
+                modules: { select: { lessons: { select: { id: true } } } },
+              },
+            },
+          },
+        },
+      },
     });
     if (!lesson) throw new NotFoundException('Lesson not found');
     await this.assertCourseAccess(userId, lesson.module?.course?.accessLevel);
@@ -177,11 +198,50 @@ export class CommunityCoursesService {
         update: {},
       });
       await this.points.award(userId, 'LESSON', lessonId);
+      const course = lesson.module?.course;
+      const lessonIds = course?.modules.flatMap((module) => module.lessons.map((item) => item.id));
+      if (course && lessonIds?.length) {
+        const completedLessons = await prisma.lessonProgress.count({
+          where: { userId, lessonId: { in: lessonIds } },
+        });
+        if (completedLessons === lessonIds.length) {
+          await prisma.courseCertificate.upsert({
+            where: { courseId_userId: { courseId: course.id, userId } },
+            create: {
+              courseId: course.id,
+              userId,
+              verificationId: randomUUID().replace(/-/g, '').slice(0, 20).toUpperCase(),
+            },
+            update: {},
+          });
+        }
+      }
     } else {
       await prisma.lessonProgress.deleteMany({ where: { lessonId, userId } });
       await this.points.revoke(userId, 'LESSON', lessonId);
     }
     return { lessonId, completed };
+  }
+
+  async listMyCertificates(userId: string) {
+    await this.access.assertAccess(userId);
+    return prisma.courseCertificate.findMany({
+      where: { userId },
+      orderBy: { issuedAt: 'desc' },
+      include: { course: { select: { title: true, slug: true } } },
+    });
+  }
+
+  async verifyCertificate(verificationId: string) {
+    const certificate = await prisma.courseCertificate.findUnique({
+      where: { verificationId: verificationId.trim().toUpperCase() },
+      include: {
+        course: { select: { title: true } },
+        user: { select: { displayName: true } },
+      },
+    });
+    if (!certificate) throw new NotFoundException('Certificate not found');
+    return certificate;
   }
 
   // --- Admin authoring ----------------------------------------------------
@@ -236,7 +296,12 @@ export class CommunityCoursesService {
       data: {
         title: dto.title.trim(),
         slug: await this.uniqueSlug(dto.slug || dto.title),
-        description: dto.description?.trim() || null,
+        description: dto.description?.trim()
+          ? dto.descriptionFormat === 'RICH_HTML'
+            ? sanitizeCommunityHtml(dto.description)
+            : dto.description.trim()
+          : null,
+        descriptionFormat: dto.descriptionFormat ?? 'MARKDOWN',
         coverImage: dto.coverImage ? assertOwnStorageUrl(dto.coverImage) : null,
         accessLevel: dto.accessLevel ?? 'FREE',
         published: dto.published ?? false,
@@ -251,7 +316,15 @@ export class CommunityCoursesService {
     const data: Prisma.CourseUpdateInput = {};
     if (dto.title !== undefined) data.title = dto.title.trim();
     if (dto.slug !== undefined) data.slug = await this.uniqueSlug(dto.slug, id);
-    if (dto.description !== undefined) data.description = dto.description?.trim() || null;
+    if (dto.description !== undefined) {
+      const description = dto.description.trim();
+      data.description = description
+        ? dto.descriptionFormat === 'RICH_HTML' || existing.descriptionFormat === 'RICH_HTML'
+          ? sanitizeCommunityHtml(description)
+          : description
+        : null;
+    }
+    if (dto.descriptionFormat !== undefined) data.descriptionFormat = dto.descriptionFormat;
     if (dto.coverImage !== undefined)
       data.coverImage = dto.coverImage ? assertOwnStorageUrl(dto.coverImage) : null;
     if (dto.accessLevel !== undefined) data.accessLevel = dto.accessLevel;
@@ -296,7 +369,15 @@ export class CommunityCoursesService {
     const data: any = {};
     if (dto.contentType !== undefined) data.contentType = dto.contentType;
     if (dto.title !== undefined) data.title = dto.title.trim();
-    if (dto.body !== undefined) data.body = dto.body ?? null;
+    if (dto.body !== undefined) {
+      const body = dto.body.trim();
+      data.body = body
+        ? dto.bodyFormat === 'RICH_HTML'
+          ? sanitizeCommunityHtml(body)
+          : body
+        : null;
+    }
+    if (dto.bodyFormat !== undefined) data.bodyFormat = dto.bodyFormat;
     if (dto.durationMinutes !== undefined) data.durationMinutes = dto.durationMinutes ?? null;
     if (dto.isPreview !== undefined) data.isPreview = dto.isPreview;
     if (dto.dripDelayDays !== undefined) data.dripDelayDays = Math.max(0, dto.dripDelayDays ?? 0);

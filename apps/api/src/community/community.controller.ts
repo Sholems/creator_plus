@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -21,9 +31,20 @@ export class CommunityController {
   // --- Member ---
   @Get('courses')
   @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'List published courses with the member\'s progress' })
+  @ApiOperation({ summary: "List published courses with the member's progress" })
   list(@Request() req: any) {
     return this.courses.listForMember(req.user.sub);
+  }
+
+  @Get('certificates/mine')
+  @UseGuards(JwtAuthGuard)
+  certificates(@Request() req: any) {
+    return this.courses.listMyCertificates(req.user.sub);
+  }
+
+  @Get('certificates/verify/:id')
+  verifyCertificate(@Param('id') id: string) {
+    return this.courses.verifyCertificate(id);
   }
 
   @Get('courses/:slug')

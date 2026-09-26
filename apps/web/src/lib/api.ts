@@ -519,6 +519,12 @@ class ApiClient {
       token,
     });
   }
+  async getMyCourseCertificates(token: string) {
+    return this.fetch<any[]>('/community/certificates/mine', { token });
+  }
+  async verifyCourseCertificate(id: string) {
+    return this.fetch<any>(`/community/certificates/verify/${encodeURIComponent(id)}`);
+  }
 
   // --- Community classroom (admin authoring) ---
   async adminListCourses(token: string) {
@@ -596,6 +602,8 @@ class ApiClient {
       attachments?: any[];
       contentFormat?: 'MARKDOWN' | 'RICH_HTML';
       postType?: 'DISCUSSION' | 'QUESTION';
+      contextType?: string;
+      contextId?: string;
     },
   ) {
     return this.fetch<any>('/community/posts', { method: 'POST', body: dto, token });

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { api } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
-import { Markdown } from '@/components/community/markdown';
+import { CommunityRichContent } from '@/components/community/rich-content';
 
 function videoEmbed(url?: string | null): string | null {
   if (!url) return null;
@@ -100,15 +100,7 @@ export default function CoursePlayerPage() {
     const next = !selected.completed;
     try {
       await api.completeLesson(token, selected.id, next);
-      setCourse((c: any) => ({
-        ...c,
-        modules: c.modules.map((m: any) => ({
-          ...m,
-          lessons: m.lessons.map((l: any) =>
-            l.id === selected.id ? { ...l, completed: next } : l,
-          ),
-        })),
-      }));
+      setCourse(await api.getCourse(token, slug));
     } catch {
       /* ignore */
     } finally {
@@ -143,7 +135,7 @@ export default function CoursePlayerPage() {
             <h1 className="font-display text-3xl font-bold text-ink-900">{course.title}</h1>
             {course.description && (
               <div className="mt-2 max-w-3xl">
-                <Markdown>{course.description}</Markdown>
+                <CommunityRichContent body={course.description} format={course.descriptionFormat} />
               </div>
             )}
           </div>
@@ -235,21 +227,40 @@ export default function CoursePlayerPage() {
 
                 {selected.body && (
                   <div className="mt-4">
-                    <Markdown>{selected.body}</Markdown>
+                    <CommunityRichContent body={selected.body} format={selected.bodyFormat} />
                   </div>
                 )}
 
-                <button
-                  onClick={toggleComplete}
-                  disabled={busy}
-                  className={`mt-6 rounded-full px-5 py-2.5 text-sm font-semibold transition disabled:opacity-50 ${selected.completed ? 'border border-ink-200 text-ink-700 hover:bg-cream-100' : 'bg-forest-800 text-cream-50 hover:bg-forest-700'}`}
-                >
-                  {selected.completed ? 'Completed ✓ — mark incomplete' : 'Mark as complete'}
-                </button>
+                <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-ink-100 pt-5">
+                  <Link
+                    href={
+                      `/community/discussion?contextType=LESSON&contextId=${selected.id}&title=${encodeURIComponent(selected.title)}` as Route
+                    }
+                    className="rounded-full border border-ink-200 px-5 py-2.5 text-sm font-semibold text-ink-700 hover:bg-cream-100"
+                  >
+                    Ask about this lesson
+                  </Link>
+
+                  <button
+                    onClick={toggleComplete}
+                    disabled={busy}
+                    className={`mt-6 rounded-full px-5 py-2.5 text-sm font-semibold transition disabled:opacity-50 ${selected.completed ? 'border border-ink-200 text-ink-700 hover:bg-cream-100' : 'bg-forest-800 text-cream-50 hover:bg-forest-700'}`}
+                  >
+                    {selected.completed ? 'Completed ✓ — mark incomplete' : 'Mark as complete'}
+                  </button>
+                </div>
               </div>
             )}
           </section>
         </div>
+        {course.certificate && (
+          <Link
+            href={`/community/certificate/${course.certificate.verificationId}` as Route}
+            className="mt-6 block rounded-2xl border border-gold-200 bg-gold-50 p-5 text-center font-semibold text-ink-900"
+          >
+            Course complete — view your verified certificate
+          </Link>
+        )}
       </div>
     </main>
   );

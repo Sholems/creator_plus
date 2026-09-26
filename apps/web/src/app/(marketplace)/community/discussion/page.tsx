@@ -47,6 +47,7 @@ export default function DiscussionPage() {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState<'latest' | 'popular' | 'unanswered'>('latest');
+  const [context, setContext] = useState<{ type: string; id: string } | null>(null);
 
   const loadPosts = useCallback(
     async (cat: string, query = search, order = sort) => {
@@ -76,6 +77,17 @@ export default function DiscussionPage() {
     const params = new URLSearchParams(window.location.search);
     const initialSearch = params.get('search') ?? '';
     const requestedSort = params.get('sort');
+    const contextType = params.get('contextType');
+    const contextId = params.get('contextId');
+    const lessonTitle = params.get('title');
+    if (contextType && contextId) {
+      setContext({ type: contextType, id: contextId });
+      setComposer((current) => ({
+        ...current,
+        title: lessonTitle ? `Question about ${lessonTitle}` : current.title,
+      }));
+      setShowComposer(true);
+    }
     const initialSort =
       requestedSort === 'popular' || requestedSort === 'unanswered' ? requestedSort : 'latest';
     setSearch(initialSearch);
@@ -109,9 +121,12 @@ export default function DiscussionPage() {
         attachments: composer.attachments,
         contentFormat: 'RICH_HTML',
         postType: 'QUESTION',
+        contextType: context?.type,
+        contextId: context?.id,
       });
       setComposer({ title: '', body: '', categoryId: '', attachments: [] });
       setShowComposer(false);
+      setContext(null);
       await loadPosts(activeCat);
     } catch (e: any) {
       setError(e.message || 'Could not post');
@@ -238,6 +253,11 @@ export default function DiscussionPage() {
         <div className="mt-5">
           {showComposer ? (
             <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-sm">
+              {context && (
+                <p className="mb-3 rounded-lg bg-forest-50 px-3 py-2 text-xs font-semibold text-forest-800">
+                  This question will stay connected to the lesson.
+                </p>
+              )}
               <input
                 className={input}
                 value={composer.title}

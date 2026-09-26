@@ -2,6 +2,7 @@ import { IsBoolean, IsIn, IsInt, IsOptional, IsString, Min, MaxLength } from 'cl
 
 const CONTENT_TYPES = ['VIDEO', 'TEXT', 'FILE'] as const;
 const ACCESS_LEVELS = ['FREE', 'PREMIUM'] as const;
+const CONTENT_FORMATS = ['MARKDOWN', 'RICH_HTML'] as const;
 
 export class CreateCourseDto {
   @IsString()
@@ -17,6 +18,10 @@ export class CreateCourseDto {
   @IsString()
   @MaxLength(2000)
   description?: string;
+
+  @IsOptional()
+  @IsIn(CONTENT_FORMATS)
+  descriptionFormat?: (typeof CONTENT_FORMATS)[number];
 
   @IsOptional()
   @IsString()
@@ -46,6 +51,10 @@ export class UpdateCourseDto {
   @IsString()
   @MaxLength(2000)
   description?: string;
+
+  @IsOptional()
+  @IsIn(CONTENT_FORMATS)
+  descriptionFormat?: (typeof CONTENT_FORMATS)[number];
 
   @IsOptional()
   @IsString()
@@ -99,6 +108,10 @@ export class CreateLessonDto {
   body?: string;
 
   @IsOptional()
+  @IsIn(CONTENT_FORMATS)
+  bodyFormat?: (typeof CONTENT_FORMATS)[number];
+
+  @IsOptional()
   @IsString()
   fileUrl?: string;
 
@@ -138,6 +151,10 @@ export class UpdateLessonDto {
   @IsOptional()
   @IsString()
   body?: string;
+
+  @IsOptional()
+  @IsIn(CONTENT_FORMATS)
+  bodyFormat?: (typeof CONTENT_FORMATS)[number];
 
   @IsOptional()
   @IsString()

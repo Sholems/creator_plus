@@ -458,6 +458,11 @@ export type Lesson = $Result.DefaultSelection<Prisma.$LessonPayload>
  */
 export type LessonProgress = $Result.DefaultSelection<Prisma.$LessonProgressPayload>
 /**
+ * Model CourseCertificate
+ * 
+ */
+export type CourseCertificate = $Result.DefaultSelection<Prisma.$CourseCertificatePayload>
+/**
  * Model CommunityCategory
  * 
  */
@@ -2277,6 +2282,16 @@ export class PrismaClient<
   get lessonProgress(): Prisma.LessonProgressDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.courseCertificate`: Exposes CRUD operations for the **CourseCertificate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CourseCertificates
+    * const courseCertificates = await prisma.courseCertificate.findMany()
+    * ```
+    */
+  get courseCertificate(): Prisma.CourseCertificateDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.communityCategory`: Exposes CRUD operations for the **CommunityCategory** model.
     * Example usage:
     * ```ts
@@ -2930,6 +2945,7 @@ export namespace Prisma {
     CourseModule: 'CourseModule',
     Lesson: 'Lesson',
     LessonProgress: 'LessonProgress',
+    CourseCertificate: 'CourseCertificate',
     CommunityCategory: 'CommunityCategory',
     CommunityPost: 'CommunityPost',
     CommunityComment: 'CommunityComment',
@@ -2961,7 +2977,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -9181,6 +9197,80 @@ export namespace Prisma {
           }
         }
       }
+      CourseCertificate: {
+        payload: Prisma.$CourseCertificatePayload<ExtArgs>
+        fields: Prisma.CourseCertificateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CourseCertificateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CourseCertificateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>
+          }
+          findFirst: {
+            args: Prisma.CourseCertificateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CourseCertificateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>
+          }
+          findMany: {
+            args: Prisma.CourseCertificateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>[]
+          }
+          create: {
+            args: Prisma.CourseCertificateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>
+          }
+          createMany: {
+            args: Prisma.CourseCertificateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CourseCertificateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>[]
+          }
+          delete: {
+            args: Prisma.CourseCertificateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>
+          }
+          update: {
+            args: Prisma.CourseCertificateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>
+          }
+          deleteMany: {
+            args: Prisma.CourseCertificateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CourseCertificateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CourseCertificateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>[]
+          }
+          upsert: {
+            args: Prisma.CourseCertificateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CourseCertificatePayload>
+          }
+          aggregate: {
+            args: Prisma.CourseCertificateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCourseCertificate>
+          }
+          groupBy: {
+            args: Prisma.CourseCertificateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CourseCertificateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CourseCertificateCountArgs<ExtArgs>
+            result: $Utils.Optional<CourseCertificateCountAggregateOutputType> | number
+          }
+        }
+      }
       CommunityCategory: {
         payload: Prisma.$CommunityCategoryPayload<ExtArgs>
         fields: Prisma.CommunityCategoryFieldRefs
@@ -10323,6 +10413,7 @@ export namespace Prisma {
     courseModule?: CourseModuleOmit
     lesson?: LessonOmit
     lessonProgress?: LessonProgressOmit
+    courseCertificate?: CourseCertificateOmit
     communityCategory?: CommunityCategoryOmit
     communityPost?: CommunityPostOmit
     communityComment?: CommunityCommentOmit
@@ -10425,6 +10516,7 @@ export namespace Prisma {
     sessions: number
     membershipSubscriptions: number
     lessonProgress: number
+    courseCertificates: number
     communityPosts: number
     communityComments: number
     communityPostLikes: number
@@ -10463,6 +10555,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     membershipSubscriptions?: boolean | UserCountOutputTypeCountMembershipSubscriptionsArgs
     lessonProgress?: boolean | UserCountOutputTypeCountLessonProgressArgs
+    courseCertificates?: boolean | UserCountOutputTypeCountCourseCertificatesArgs
     communityPosts?: boolean | UserCountOutputTypeCountCommunityPostsArgs
     communityComments?: boolean | UserCountOutputTypeCountCommunityCommentsArgs
     communityPostLikes?: boolean | UserCountOutputTypeCountCommunityPostLikesArgs
@@ -10563,6 +10656,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLessonProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LessonProgressWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCourseCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CourseCertificateWhereInput
   }
 
   /**
@@ -12114,10 +12214,12 @@ export namespace Prisma {
 
   export type CourseCountOutputType = {
     modules: number
+    certificates: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | CourseCountOutputTypeCountModulesArgs
+    certificates?: boolean | CourseCountOutputTypeCountCertificatesArgs
   }
 
   // Custom InputTypes
@@ -12136,6 +12238,13 @@ export namespace Prisma {
    */
   export type CourseCountOutputTypeCountModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CourseModuleWhereInput
+  }
+
+  /**
+   * CourseCountOutputType without action
+   */
+  export type CourseCountOutputTypeCountCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CourseCertificateWhereInput
   }
 
 
@@ -12568,6 +12677,7 @@ export namespace Prisma {
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     membershipSubscriptions?: boolean | User$membershipSubscriptionsArgs<ExtArgs>
     lessonProgress?: boolean | User$lessonProgressArgs<ExtArgs>
+    courseCertificates?: boolean | User$courseCertificatesArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
     communityComments?: boolean | User$communityCommentsArgs<ExtArgs>
     communityPostLikes?: boolean | User$communityPostLikesArgs<ExtArgs>
@@ -12665,6 +12775,7 @@ export namespace Prisma {
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     membershipSubscriptions?: boolean | User$membershipSubscriptionsArgs<ExtArgs>
     lessonProgress?: boolean | User$lessonProgressArgs<ExtArgs>
+    courseCertificates?: boolean | User$courseCertificatesArgs<ExtArgs>
     communityPosts?: boolean | User$communityPostsArgs<ExtArgs>
     communityComments?: boolean | User$communityCommentsArgs<ExtArgs>
     communityPostLikes?: boolean | User$communityPostLikesArgs<ExtArgs>
@@ -12717,6 +12828,7 @@ export namespace Prisma {
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
       membershipSubscriptions: Prisma.$MembershipSubscriptionPayload<ExtArgs>[]
       lessonProgress: Prisma.$LessonProgressPayload<ExtArgs>[]
+      courseCertificates: Prisma.$CourseCertificatePayload<ExtArgs>[]
       communityPosts: Prisma.$CommunityPostPayload<ExtArgs>[]
       communityComments: Prisma.$CommunityCommentPayload<ExtArgs>[]
       communityPostLikes: Prisma.$CommunityPostLikePayload<ExtArgs>[]
@@ -13170,6 +13282,7 @@ export namespace Prisma {
     subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     membershipSubscriptions<T extends User$membershipSubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lessonProgress<T extends User$lessonProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$lessonProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    courseCertificates<T extends User$courseCertificatesArgs<ExtArgs> = {}>(args?: Subset<T, User$courseCertificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPosts<T extends User$communityPostsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityComments<T extends User$communityCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$communityCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     communityPostLikes<T extends User$communityPostLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$communityPostLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityPostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -13956,6 +14069,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LessonProgressScalarFieldEnum | LessonProgressScalarFieldEnum[]
+  }
+
+  /**
+   * User.courseCertificates
+   */
+  export type User$courseCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    where?: CourseCertificateWhereInput
+    orderBy?: CourseCertificateOrderByWithRelationInput | CourseCertificateOrderByWithRelationInput[]
+    cursor?: CourseCertificateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CourseCertificateScalarFieldEnum | CourseCertificateScalarFieldEnum[]
   }
 
   /**
@@ -107347,6 +107484,7 @@ export namespace Prisma {
     title: string | null
     slug: string | null
     description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat | null
     coverImage: string | null
     accessLevel: $Enums.CourseAccessLevel | null
     published: boolean | null
@@ -107360,6 +107498,7 @@ export namespace Prisma {
     title: string | null
     slug: string | null
     description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat | null
     coverImage: string | null
     accessLevel: $Enums.CourseAccessLevel | null
     published: boolean | null
@@ -107373,6 +107512,7 @@ export namespace Prisma {
     title: number
     slug: number
     description: number
+    descriptionFormat: number
     coverImage: number
     accessLevel: number
     published: number
@@ -107396,6 +107536,7 @@ export namespace Prisma {
     title?: true
     slug?: true
     description?: true
+    descriptionFormat?: true
     coverImage?: true
     accessLevel?: true
     published?: true
@@ -107409,6 +107550,7 @@ export namespace Prisma {
     title?: true
     slug?: true
     description?: true
+    descriptionFormat?: true
     coverImage?: true
     accessLevel?: true
     published?: true
@@ -107422,6 +107564,7 @@ export namespace Prisma {
     title?: true
     slug?: true
     description?: true
+    descriptionFormat?: true
     coverImage?: true
     accessLevel?: true
     published?: true
@@ -107522,6 +107665,7 @@ export namespace Prisma {
     title: string
     slug: string
     description: string | null
+    descriptionFormat: $Enums.CommunityContentFormat
     coverImage: string | null
     accessLevel: $Enums.CourseAccessLevel
     published: boolean
@@ -107554,6 +107698,7 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     description?: boolean
+    descriptionFormat?: boolean
     coverImage?: boolean
     accessLevel?: boolean
     published?: boolean
@@ -107561,6 +107706,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     modules?: boolean | Course$modulesArgs<ExtArgs>
+    certificates?: boolean | Course$certificatesArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -107569,6 +107715,7 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     description?: boolean
+    descriptionFormat?: boolean
     coverImage?: boolean
     accessLevel?: boolean
     published?: boolean
@@ -107582,6 +107729,7 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     description?: boolean
+    descriptionFormat?: boolean
     coverImage?: boolean
     accessLevel?: boolean
     published?: boolean
@@ -107595,6 +107743,7 @@ export namespace Prisma {
     title?: boolean
     slug?: boolean
     description?: boolean
+    descriptionFormat?: boolean
     coverImage?: boolean
     accessLevel?: boolean
     published?: boolean
@@ -107603,9 +107752,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "coverImage" | "accessLevel" | "published" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "descriptionFormat" | "coverImage" | "accessLevel" | "published" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | Course$modulesArgs<ExtArgs>
+    certificates?: boolean | Course$certificatesArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -107615,12 +107765,14 @@ export namespace Prisma {
     name: "Course"
     objects: {
       modules: Prisma.$CourseModulePayload<ExtArgs>[]
+      certificates: Prisma.$CourseCertificatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       slug: string
       description: string | null
+      descriptionFormat: $Enums.CommunityContentFormat
       coverImage: string | null
       accessLevel: $Enums.CourseAccessLevel
       published: boolean
@@ -108022,6 +108174,7 @@ export namespace Prisma {
   export interface Prisma__CourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     modules<T extends Course$modulesArgs<ExtArgs> = {}>(args?: Subset<T, Course$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    certificates<T extends Course$certificatesArgs<ExtArgs> = {}>(args?: Subset<T, Course$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -108055,6 +108208,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Course", 'String'>
     readonly slug: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
+    readonly descriptionFormat: FieldRef<"Course", 'CommunityContentFormat'>
     readonly coverImage: FieldRef<"Course", 'String'>
     readonly accessLevel: FieldRef<"Course", 'CourseAccessLevel'>
     readonly published: FieldRef<"Course", 'Boolean'>
@@ -108470,6 +108624,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CourseModuleScalarFieldEnum | CourseModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Course.certificates
+   */
+  export type Course$certificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    where?: CourseCertificateWhereInput
+    orderBy?: CourseCertificateOrderByWithRelationInput | CourseCertificateOrderByWithRelationInput[]
+    cursor?: CourseCertificateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CourseCertificateScalarFieldEnum | CourseCertificateScalarFieldEnum[]
   }
 
   /**
@@ -109657,6 +109835,7 @@ export namespace Prisma {
     contentType: $Enums.LessonContentType | null
     videoUrl: string | null
     body: string | null
+    bodyFormat: $Enums.CommunityContentFormat | null
     fileUrl: string | null
     durationMinutes: number | null
     isPreview: boolean | null
@@ -109673,6 +109852,7 @@ export namespace Prisma {
     contentType: $Enums.LessonContentType | null
     videoUrl: string | null
     body: string | null
+    bodyFormat: $Enums.CommunityContentFormat | null
     fileUrl: string | null
     durationMinutes: number | null
     isPreview: boolean | null
@@ -109689,6 +109869,7 @@ export namespace Prisma {
     contentType: number
     videoUrl: number
     body: number
+    bodyFormat: number
     fileUrl: number
     durationMinutes: number
     isPreview: number
@@ -109719,6 +109900,7 @@ export namespace Prisma {
     contentType?: true
     videoUrl?: true
     body?: true
+    bodyFormat?: true
     fileUrl?: true
     durationMinutes?: true
     isPreview?: true
@@ -109735,6 +109917,7 @@ export namespace Prisma {
     contentType?: true
     videoUrl?: true
     body?: true
+    bodyFormat?: true
     fileUrl?: true
     durationMinutes?: true
     isPreview?: true
@@ -109751,6 +109934,7 @@ export namespace Prisma {
     contentType?: true
     videoUrl?: true
     body?: true
+    bodyFormat?: true
     fileUrl?: true
     durationMinutes?: true
     isPreview?: true
@@ -109854,6 +110038,7 @@ export namespace Prisma {
     contentType: $Enums.LessonContentType
     videoUrl: string | null
     body: string | null
+    bodyFormat: $Enums.CommunityContentFormat
     fileUrl: string | null
     durationMinutes: number | null
     isPreview: boolean
@@ -109889,6 +110074,7 @@ export namespace Prisma {
     contentType?: boolean
     videoUrl?: boolean
     body?: boolean
+    bodyFormat?: boolean
     fileUrl?: boolean
     durationMinutes?: boolean
     isPreview?: boolean
@@ -109908,6 +110094,7 @@ export namespace Prisma {
     contentType?: boolean
     videoUrl?: boolean
     body?: boolean
+    bodyFormat?: boolean
     fileUrl?: boolean
     durationMinutes?: boolean
     isPreview?: boolean
@@ -109925,6 +110112,7 @@ export namespace Prisma {
     contentType?: boolean
     videoUrl?: boolean
     body?: boolean
+    bodyFormat?: boolean
     fileUrl?: boolean
     durationMinutes?: boolean
     isPreview?: boolean
@@ -109942,6 +110130,7 @@ export namespace Prisma {
     contentType?: boolean
     videoUrl?: boolean
     body?: boolean
+    bodyFormat?: boolean
     fileUrl?: boolean
     durationMinutes?: boolean
     isPreview?: boolean
@@ -109951,7 +110140,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "moduleId" | "title" | "contentType" | "videoUrl" | "body" | "fileUrl" | "durationMinutes" | "isPreview" | "dripDelayDays" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
+  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "moduleId" | "title" | "contentType" | "videoUrl" | "body" | "bodyFormat" | "fileUrl" | "durationMinutes" | "isPreview" | "dripDelayDays" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
   export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     module?: boolean | CourseModuleDefaultArgs<ExtArgs>
     progress?: boolean | Lesson$progressArgs<ExtArgs>
@@ -109977,6 +110166,7 @@ export namespace Prisma {
       contentType: $Enums.LessonContentType
       videoUrl: string | null
       body: string | null
+      bodyFormat: $Enums.CommunityContentFormat
       fileUrl: string | null
       durationMinutes: number | null
       isPreview: boolean
@@ -110415,6 +110605,7 @@ export namespace Prisma {
     readonly contentType: FieldRef<"Lesson", 'LessonContentType'>
     readonly videoUrl: FieldRef<"Lesson", 'String'>
     readonly body: FieldRef<"Lesson", 'String'>
+    readonly bodyFormat: FieldRef<"Lesson", 'CommunityContentFormat'>
     readonly fileUrl: FieldRef<"Lesson", 'String'>
     readonly durationMinutes: FieldRef<"Lesson", 'Int'>
     readonly isPreview: FieldRef<"Lesson", 'Boolean'>
@@ -111910,6 +112101,1072 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: LessonProgressInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CourseCertificate
+   */
+
+  export type AggregateCourseCertificate = {
+    _count: CourseCertificateCountAggregateOutputType | null
+    _min: CourseCertificateMinAggregateOutputType | null
+    _max: CourseCertificateMaxAggregateOutputType | null
+  }
+
+  export type CourseCertificateMinAggregateOutputType = {
+    id: string | null
+    verificationId: string | null
+    courseId: string | null
+    userId: string | null
+    issuedAt: Date | null
+  }
+
+  export type CourseCertificateMaxAggregateOutputType = {
+    id: string | null
+    verificationId: string | null
+    courseId: string | null
+    userId: string | null
+    issuedAt: Date | null
+  }
+
+  export type CourseCertificateCountAggregateOutputType = {
+    id: number
+    verificationId: number
+    courseId: number
+    userId: number
+    issuedAt: number
+    _all: number
+  }
+
+
+  export type CourseCertificateMinAggregateInputType = {
+    id?: true
+    verificationId?: true
+    courseId?: true
+    userId?: true
+    issuedAt?: true
+  }
+
+  export type CourseCertificateMaxAggregateInputType = {
+    id?: true
+    verificationId?: true
+    courseId?: true
+    userId?: true
+    issuedAt?: true
+  }
+
+  export type CourseCertificateCountAggregateInputType = {
+    id?: true
+    verificationId?: true
+    courseId?: true
+    userId?: true
+    issuedAt?: true
+    _all?: true
+  }
+
+  export type CourseCertificateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CourseCertificate to aggregate.
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseCertificates to fetch.
+     */
+    orderBy?: CourseCertificateOrderByWithRelationInput | CourseCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CourseCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CourseCertificates
+    **/
+    _count?: true | CourseCertificateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CourseCertificateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CourseCertificateMaxAggregateInputType
+  }
+
+  export type GetCourseCertificateAggregateType<T extends CourseCertificateAggregateArgs> = {
+        [P in keyof T & keyof AggregateCourseCertificate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCourseCertificate[P]>
+      : GetScalarType<T[P], AggregateCourseCertificate[P]>
+  }
+
+
+
+
+  export type CourseCertificateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CourseCertificateWhereInput
+    orderBy?: CourseCertificateOrderByWithAggregationInput | CourseCertificateOrderByWithAggregationInput[]
+    by: CourseCertificateScalarFieldEnum[] | CourseCertificateScalarFieldEnum
+    having?: CourseCertificateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CourseCertificateCountAggregateInputType | true
+    _min?: CourseCertificateMinAggregateInputType
+    _max?: CourseCertificateMaxAggregateInputType
+  }
+
+  export type CourseCertificateGroupByOutputType = {
+    id: string
+    verificationId: string
+    courseId: string
+    userId: string
+    issuedAt: Date
+    _count: CourseCertificateCountAggregateOutputType | null
+    _min: CourseCertificateMinAggregateOutputType | null
+    _max: CourseCertificateMaxAggregateOutputType | null
+  }
+
+  type GetCourseCertificateGroupByPayload<T extends CourseCertificateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CourseCertificateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CourseCertificateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CourseCertificateGroupByOutputType[P]>
+            : GetScalarType<T[P], CourseCertificateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CourseCertificateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    verificationId?: boolean
+    courseId?: boolean
+    userId?: boolean
+    issuedAt?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseCertificate"]>
+
+  export type CourseCertificateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    verificationId?: boolean
+    courseId?: boolean
+    userId?: boolean
+    issuedAt?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseCertificate"]>
+
+  export type CourseCertificateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    verificationId?: boolean
+    courseId?: boolean
+    userId?: boolean
+    issuedAt?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseCertificate"]>
+
+  export type CourseCertificateSelectScalar = {
+    id?: boolean
+    verificationId?: boolean
+    courseId?: boolean
+    userId?: boolean
+    issuedAt?: boolean
+  }
+
+  export type CourseCertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "verificationId" | "courseId" | "userId" | "issuedAt", ExtArgs["result"]["courseCertificate"]>
+  export type CourseCertificateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CourseCertificateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CourseCertificateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CourseCertificatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CourseCertificate"
+    objects: {
+      course: Prisma.$CoursePayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      verificationId: string
+      courseId: string
+      userId: string
+      issuedAt: Date
+    }, ExtArgs["result"]["courseCertificate"]>
+    composites: {}
+  }
+
+  type CourseCertificateGetPayload<S extends boolean | null | undefined | CourseCertificateDefaultArgs> = $Result.GetResult<Prisma.$CourseCertificatePayload, S>
+
+  type CourseCertificateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CourseCertificateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CourseCertificateCountAggregateInputType | true
+    }
+
+  export interface CourseCertificateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CourseCertificate'], meta: { name: 'CourseCertificate' } }
+    /**
+     * Find zero or one CourseCertificate that matches the filter.
+     * @param {CourseCertificateFindUniqueArgs} args - Arguments to find a CourseCertificate
+     * @example
+     * // Get one CourseCertificate
+     * const courseCertificate = await prisma.courseCertificate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CourseCertificateFindUniqueArgs>(args: SelectSubset<T, CourseCertificateFindUniqueArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CourseCertificate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CourseCertificateFindUniqueOrThrowArgs} args - Arguments to find a CourseCertificate
+     * @example
+     * // Get one CourseCertificate
+     * const courseCertificate = await prisma.courseCertificate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CourseCertificateFindUniqueOrThrowArgs>(args: SelectSubset<T, CourseCertificateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CourseCertificate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateFindFirstArgs} args - Arguments to find a CourseCertificate
+     * @example
+     * // Get one CourseCertificate
+     * const courseCertificate = await prisma.courseCertificate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CourseCertificateFindFirstArgs>(args?: SelectSubset<T, CourseCertificateFindFirstArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CourseCertificate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateFindFirstOrThrowArgs} args - Arguments to find a CourseCertificate
+     * @example
+     * // Get one CourseCertificate
+     * const courseCertificate = await prisma.courseCertificate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CourseCertificateFindFirstOrThrowArgs>(args?: SelectSubset<T, CourseCertificateFindFirstOrThrowArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CourseCertificates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CourseCertificates
+     * const courseCertificates = await prisma.courseCertificate.findMany()
+     * 
+     * // Get first 10 CourseCertificates
+     * const courseCertificates = await prisma.courseCertificate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const courseCertificateWithIdOnly = await prisma.courseCertificate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CourseCertificateFindManyArgs>(args?: SelectSubset<T, CourseCertificateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CourseCertificate.
+     * @param {CourseCertificateCreateArgs} args - Arguments to create a CourseCertificate.
+     * @example
+     * // Create one CourseCertificate
+     * const CourseCertificate = await prisma.courseCertificate.create({
+     *   data: {
+     *     // ... data to create a CourseCertificate
+     *   }
+     * })
+     * 
+     */
+    create<T extends CourseCertificateCreateArgs>(args: SelectSubset<T, CourseCertificateCreateArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CourseCertificates.
+     * @param {CourseCertificateCreateManyArgs} args - Arguments to create many CourseCertificates.
+     * @example
+     * // Create many CourseCertificates
+     * const courseCertificate = await prisma.courseCertificate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CourseCertificateCreateManyArgs>(args?: SelectSubset<T, CourseCertificateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CourseCertificates and returns the data saved in the database.
+     * @param {CourseCertificateCreateManyAndReturnArgs} args - Arguments to create many CourseCertificates.
+     * @example
+     * // Create many CourseCertificates
+     * const courseCertificate = await prisma.courseCertificate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CourseCertificates and only return the `id`
+     * const courseCertificateWithIdOnly = await prisma.courseCertificate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CourseCertificateCreateManyAndReturnArgs>(args?: SelectSubset<T, CourseCertificateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CourseCertificate.
+     * @param {CourseCertificateDeleteArgs} args - Arguments to delete one CourseCertificate.
+     * @example
+     * // Delete one CourseCertificate
+     * const CourseCertificate = await prisma.courseCertificate.delete({
+     *   where: {
+     *     // ... filter to delete one CourseCertificate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CourseCertificateDeleteArgs>(args: SelectSubset<T, CourseCertificateDeleteArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CourseCertificate.
+     * @param {CourseCertificateUpdateArgs} args - Arguments to update one CourseCertificate.
+     * @example
+     * // Update one CourseCertificate
+     * const courseCertificate = await prisma.courseCertificate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CourseCertificateUpdateArgs>(args: SelectSubset<T, CourseCertificateUpdateArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CourseCertificates.
+     * @param {CourseCertificateDeleteManyArgs} args - Arguments to filter CourseCertificates to delete.
+     * @example
+     * // Delete a few CourseCertificates
+     * const { count } = await prisma.courseCertificate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CourseCertificateDeleteManyArgs>(args?: SelectSubset<T, CourseCertificateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CourseCertificates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CourseCertificates
+     * const courseCertificate = await prisma.courseCertificate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CourseCertificateUpdateManyArgs>(args: SelectSubset<T, CourseCertificateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CourseCertificates and returns the data updated in the database.
+     * @param {CourseCertificateUpdateManyAndReturnArgs} args - Arguments to update many CourseCertificates.
+     * @example
+     * // Update many CourseCertificates
+     * const courseCertificate = await prisma.courseCertificate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CourseCertificates and only return the `id`
+     * const courseCertificateWithIdOnly = await prisma.courseCertificate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CourseCertificateUpdateManyAndReturnArgs>(args: SelectSubset<T, CourseCertificateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CourseCertificate.
+     * @param {CourseCertificateUpsertArgs} args - Arguments to update or create a CourseCertificate.
+     * @example
+     * // Update or create a CourseCertificate
+     * const courseCertificate = await prisma.courseCertificate.upsert({
+     *   create: {
+     *     // ... data to create a CourseCertificate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CourseCertificate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CourseCertificateUpsertArgs>(args: SelectSubset<T, CourseCertificateUpsertArgs<ExtArgs>>): Prisma__CourseCertificateClient<$Result.GetResult<Prisma.$CourseCertificatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CourseCertificates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateCountArgs} args - Arguments to filter CourseCertificates to count.
+     * @example
+     * // Count the number of CourseCertificates
+     * const count = await prisma.courseCertificate.count({
+     *   where: {
+     *     // ... the filter for the CourseCertificates we want to count
+     *   }
+     * })
+    **/
+    count<T extends CourseCertificateCountArgs>(
+      args?: Subset<T, CourseCertificateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CourseCertificateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CourseCertificate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CourseCertificateAggregateArgs>(args: Subset<T, CourseCertificateAggregateArgs>): Prisma.PrismaPromise<GetCourseCertificateAggregateType<T>>
+
+    /**
+     * Group by CourseCertificate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CourseCertificateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CourseCertificateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CourseCertificateGroupByArgs['orderBy'] }
+        : { orderBy?: CourseCertificateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CourseCertificateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCourseCertificateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CourseCertificate model
+   */
+  readonly fields: CourseCertificateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CourseCertificate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CourseCertificateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CourseCertificate model
+   */
+  interface CourseCertificateFieldRefs {
+    readonly id: FieldRef<"CourseCertificate", 'String'>
+    readonly verificationId: FieldRef<"CourseCertificate", 'String'>
+    readonly courseId: FieldRef<"CourseCertificate", 'String'>
+    readonly userId: FieldRef<"CourseCertificate", 'String'>
+    readonly issuedAt: FieldRef<"CourseCertificate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CourseCertificate findUnique
+   */
+  export type CourseCertificateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseCertificate to fetch.
+     */
+    where: CourseCertificateWhereUniqueInput
+  }
+
+  /**
+   * CourseCertificate findUniqueOrThrow
+   */
+  export type CourseCertificateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseCertificate to fetch.
+     */
+    where: CourseCertificateWhereUniqueInput
+  }
+
+  /**
+   * CourseCertificate findFirst
+   */
+  export type CourseCertificateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseCertificate to fetch.
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseCertificates to fetch.
+     */
+    orderBy?: CourseCertificateOrderByWithRelationInput | CourseCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CourseCertificates.
+     */
+    cursor?: CourseCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CourseCertificates.
+     */
+    distinct?: CourseCertificateScalarFieldEnum | CourseCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * CourseCertificate findFirstOrThrow
+   */
+  export type CourseCertificateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseCertificate to fetch.
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseCertificates to fetch.
+     */
+    orderBy?: CourseCertificateOrderByWithRelationInput | CourseCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CourseCertificates.
+     */
+    cursor?: CourseCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CourseCertificates.
+     */
+    distinct?: CourseCertificateScalarFieldEnum | CourseCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * CourseCertificate findMany
+   */
+  export type CourseCertificateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseCertificates to fetch.
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseCertificates to fetch.
+     */
+    orderBy?: CourseCertificateOrderByWithRelationInput | CourseCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CourseCertificates.
+     */
+    cursor?: CourseCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseCertificates.
+     */
+    skip?: number
+    distinct?: CourseCertificateScalarFieldEnum | CourseCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * CourseCertificate create
+   */
+  export type CourseCertificateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CourseCertificate.
+     */
+    data: XOR<CourseCertificateCreateInput, CourseCertificateUncheckedCreateInput>
+  }
+
+  /**
+   * CourseCertificate createMany
+   */
+  export type CourseCertificateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CourseCertificates.
+     */
+    data: CourseCertificateCreateManyInput | CourseCertificateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CourseCertificate createManyAndReturn
+   */
+  export type CourseCertificateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * The data used to create many CourseCertificates.
+     */
+    data: CourseCertificateCreateManyInput | CourseCertificateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CourseCertificate update
+   */
+  export type CourseCertificateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CourseCertificate.
+     */
+    data: XOR<CourseCertificateUpdateInput, CourseCertificateUncheckedUpdateInput>
+    /**
+     * Choose, which CourseCertificate to update.
+     */
+    where: CourseCertificateWhereUniqueInput
+  }
+
+  /**
+   * CourseCertificate updateMany
+   */
+  export type CourseCertificateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CourseCertificates.
+     */
+    data: XOR<CourseCertificateUpdateManyMutationInput, CourseCertificateUncheckedUpdateManyInput>
+    /**
+     * Filter which CourseCertificates to update
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * Limit how many CourseCertificates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CourseCertificate updateManyAndReturn
+   */
+  export type CourseCertificateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * The data used to update CourseCertificates.
+     */
+    data: XOR<CourseCertificateUpdateManyMutationInput, CourseCertificateUncheckedUpdateManyInput>
+    /**
+     * Filter which CourseCertificates to update
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * Limit how many CourseCertificates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CourseCertificate upsert
+   */
+  export type CourseCertificateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CourseCertificate to update in case it exists.
+     */
+    where: CourseCertificateWhereUniqueInput
+    /**
+     * In case the CourseCertificate found by the `where` argument doesn't exist, create a new CourseCertificate with this data.
+     */
+    create: XOR<CourseCertificateCreateInput, CourseCertificateUncheckedCreateInput>
+    /**
+     * In case the CourseCertificate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CourseCertificateUpdateInput, CourseCertificateUncheckedUpdateInput>
+  }
+
+  /**
+   * CourseCertificate delete
+   */
+  export type CourseCertificateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
+    /**
+     * Filter which CourseCertificate to delete.
+     */
+    where: CourseCertificateWhereUniqueInput
+  }
+
+  /**
+   * CourseCertificate deleteMany
+   */
+  export type CourseCertificateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CourseCertificates to delete
+     */
+    where?: CourseCertificateWhereInput
+    /**
+     * Limit how many CourseCertificates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CourseCertificate without action
+   */
+  export type CourseCertificateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseCertificate
+     */
+    select?: CourseCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseCertificate
+     */
+    omit?: CourseCertificateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CourseCertificateInclude<ExtArgs> | null
   }
 
 
@@ -127905,6 +129162,7 @@ export namespace Prisma {
     title: 'title',
     slug: 'slug',
     description: 'description',
+    descriptionFormat: 'descriptionFormat',
     coverImage: 'coverImage',
     accessLevel: 'accessLevel',
     published: 'published',
@@ -127935,6 +129193,7 @@ export namespace Prisma {
     contentType: 'contentType',
     videoUrl: 'videoUrl',
     body: 'body',
+    bodyFormat: 'bodyFormat',
     fileUrl: 'fileUrl',
     durationMinutes: 'durationMinutes',
     isPreview: 'isPreview',
@@ -127955,6 +129214,17 @@ export namespace Prisma {
   };
 
   export type LessonProgressScalarFieldEnum = (typeof LessonProgressScalarFieldEnum)[keyof typeof LessonProgressScalarFieldEnum]
+
+
+  export const CourseCertificateScalarFieldEnum: {
+    id: 'id',
+    verificationId: 'verificationId',
+    courseId: 'courseId',
+    userId: 'userId',
+    issuedAt: 'issuedAt'
+  };
+
+  export type CourseCertificateScalarFieldEnum = (typeof CourseCertificateScalarFieldEnum)[keyof typeof CourseCertificateScalarFieldEnum]
 
 
   export const CommunityCategoryScalarFieldEnum: {
@@ -128930,6 +130200,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CommunityContentFormat'
+   */
+  export type EnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommunityContentFormat[]'
+   */
+  export type ListEnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CourseAccessLevel'
    */
   export type EnumCourseAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAccessLevel'>
@@ -128954,20 +130238,6 @@ export namespace Prisma {
    * Reference to a field of type 'LessonContentType[]'
    */
   export type ListEnumLessonContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LessonContentType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'CommunityContentFormat'
-   */
-  export type EnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat'>
-    
-
-
-  /**
-   * Reference to a field of type 'CommunityContentFormat[]'
-   */
-  export type ListEnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat[]'>
     
 
 
@@ -129104,6 +130374,7 @@ export namespace Prisma {
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     membershipSubscriptions?: MembershipSubscriptionListRelationFilter
     lessonProgress?: LessonProgressListRelationFilter
+    courseCertificates?: CourseCertificateListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
     communityComments?: CommunityCommentListRelationFilter
     communityPostLikes?: CommunityPostLikeListRelationFilter
@@ -129164,6 +130435,7 @@ export namespace Prisma {
     subscription?: SubscriptionOrderByWithRelationInput
     membershipSubscriptions?: MembershipSubscriptionOrderByRelationAggregateInput
     lessonProgress?: LessonProgressOrderByRelationAggregateInput
+    courseCertificates?: CourseCertificateOrderByRelationAggregateInput
     communityPosts?: CommunityPostOrderByRelationAggregateInput
     communityComments?: CommunityCommentOrderByRelationAggregateInput
     communityPostLikes?: CommunityPostLikeOrderByRelationAggregateInput
@@ -129227,6 +130499,7 @@ export namespace Prisma {
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     membershipSubscriptions?: MembershipSubscriptionListRelationFilter
     lessonProgress?: LessonProgressListRelationFilter
+    courseCertificates?: CourseCertificateListRelationFilter
     communityPosts?: CommunityPostListRelationFilter
     communityComments?: CommunityCommentListRelationFilter
     communityPostLikes?: CommunityPostLikeListRelationFilter
@@ -136125,6 +137398,7 @@ export namespace Prisma {
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatFilter<"Course"> | $Enums.CommunityContentFormat
     coverImage?: StringNullableFilter<"Course"> | string | null
     accessLevel?: EnumCourseAccessLevelFilter<"Course"> | $Enums.CourseAccessLevel
     published?: BoolFilter<"Course"> | boolean
@@ -136132,6 +137406,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     modules?: CourseModuleListRelationFilter
+    certificates?: CourseCertificateListRelationFilter
   }
 
   export type CourseOrderByWithRelationInput = {
@@ -136139,6 +137414,7 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
+    descriptionFormat?: SortOrder
     coverImage?: SortOrderInput | SortOrder
     accessLevel?: SortOrder
     published?: SortOrder
@@ -136146,6 +137422,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     modules?: CourseModuleOrderByRelationAggregateInput
+    certificates?: CourseCertificateOrderByRelationAggregateInput
   }
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -136156,6 +137433,7 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatFilter<"Course"> | $Enums.CommunityContentFormat
     coverImage?: StringNullableFilter<"Course"> | string | null
     accessLevel?: EnumCourseAccessLevelFilter<"Course"> | $Enums.CourseAccessLevel
     published?: BoolFilter<"Course"> | boolean
@@ -136163,6 +137441,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     modules?: CourseModuleListRelationFilter
+    certificates?: CourseCertificateListRelationFilter
   }, "id" | "slug">
 
   export type CourseOrderByWithAggregationInput = {
@@ -136170,6 +137449,7 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrderInput | SortOrder
+    descriptionFormat?: SortOrder
     coverImage?: SortOrderInput | SortOrder
     accessLevel?: SortOrder
     published?: SortOrder
@@ -136191,6 +137471,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Course"> | string
     slug?: StringWithAggregatesFilter<"Course"> | string
     description?: StringNullableWithAggregatesFilter<"Course"> | string | null
+    descriptionFormat?: EnumCommunityContentFormatWithAggregatesFilter<"Course"> | $Enums.CommunityContentFormat
     coverImage?: StringNullableWithAggregatesFilter<"Course"> | string | null
     accessLevel?: EnumCourseAccessLevelWithAggregatesFilter<"Course"> | $Enums.CourseAccessLevel
     published?: BoolWithAggregatesFilter<"Course"> | boolean
@@ -136274,6 +137555,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFilter<"Lesson"> | $Enums.LessonContentType
     videoUrl?: StringNullableFilter<"Lesson"> | string | null
     body?: StringNullableFilter<"Lesson"> | string | null
+    bodyFormat?: EnumCommunityContentFormatFilter<"Lesson"> | $Enums.CommunityContentFormat
     fileUrl?: StringNullableFilter<"Lesson"> | string | null
     durationMinutes?: IntNullableFilter<"Lesson"> | number | null
     isPreview?: BoolFilter<"Lesson"> | boolean
@@ -136292,6 +137574,7 @@ export namespace Prisma {
     contentType?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
     body?: SortOrderInput | SortOrder
+    bodyFormat?: SortOrder
     fileUrl?: SortOrderInput | SortOrder
     durationMinutes?: SortOrderInput | SortOrder
     isPreview?: SortOrder
@@ -136313,6 +137596,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFilter<"Lesson"> | $Enums.LessonContentType
     videoUrl?: StringNullableFilter<"Lesson"> | string | null
     body?: StringNullableFilter<"Lesson"> | string | null
+    bodyFormat?: EnumCommunityContentFormatFilter<"Lesson"> | $Enums.CommunityContentFormat
     fileUrl?: StringNullableFilter<"Lesson"> | string | null
     durationMinutes?: IntNullableFilter<"Lesson"> | number | null
     isPreview?: BoolFilter<"Lesson"> | boolean
@@ -136331,6 +137615,7 @@ export namespace Prisma {
     contentType?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
     body?: SortOrderInput | SortOrder
+    bodyFormat?: SortOrder
     fileUrl?: SortOrderInput | SortOrder
     durationMinutes?: SortOrderInput | SortOrder
     isPreview?: SortOrder
@@ -136355,6 +137640,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeWithAggregatesFilter<"Lesson"> | $Enums.LessonContentType
     videoUrl?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     body?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
+    bodyFormat?: EnumCommunityContentFormatWithAggregatesFilter<"Lesson"> | $Enums.CommunityContentFormat
     fileUrl?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     durationMinutes?: IntNullableWithAggregatesFilter<"Lesson"> | number | null
     isPreview?: BoolWithAggregatesFilter<"Lesson"> | boolean
@@ -136416,6 +137702,65 @@ export namespace Prisma {
     lessonId?: UuidWithAggregatesFilter<"LessonProgress"> | string
     userId?: UuidWithAggregatesFilter<"LessonProgress"> | string
     completedAt?: DateTimeWithAggregatesFilter<"LessonProgress"> | Date | string
+  }
+
+  export type CourseCertificateWhereInput = {
+    AND?: CourseCertificateWhereInput | CourseCertificateWhereInput[]
+    OR?: CourseCertificateWhereInput[]
+    NOT?: CourseCertificateWhereInput | CourseCertificateWhereInput[]
+    id?: UuidFilter<"CourseCertificate"> | string
+    verificationId?: StringFilter<"CourseCertificate"> | string
+    courseId?: UuidFilter<"CourseCertificate"> | string
+    userId?: UuidFilter<"CourseCertificate"> | string
+    issuedAt?: DateTimeFilter<"CourseCertificate"> | Date | string
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CourseCertificateOrderByWithRelationInput = {
+    id?: SortOrder
+    verificationId?: SortOrder
+    courseId?: SortOrder
+    userId?: SortOrder
+    issuedAt?: SortOrder
+    course?: CourseOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CourseCertificateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    verificationId?: string
+    courseId_userId?: CourseCertificateCourseIdUserIdCompoundUniqueInput
+    AND?: CourseCertificateWhereInput | CourseCertificateWhereInput[]
+    OR?: CourseCertificateWhereInput[]
+    NOT?: CourseCertificateWhereInput | CourseCertificateWhereInput[]
+    courseId?: UuidFilter<"CourseCertificate"> | string
+    userId?: UuidFilter<"CourseCertificate"> | string
+    issuedAt?: DateTimeFilter<"CourseCertificate"> | Date | string
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "verificationId" | "courseId_userId">
+
+  export type CourseCertificateOrderByWithAggregationInput = {
+    id?: SortOrder
+    verificationId?: SortOrder
+    courseId?: SortOrder
+    userId?: SortOrder
+    issuedAt?: SortOrder
+    _count?: CourseCertificateCountOrderByAggregateInput
+    _max?: CourseCertificateMaxOrderByAggregateInput
+    _min?: CourseCertificateMinOrderByAggregateInput
+  }
+
+  export type CourseCertificateScalarWhereWithAggregatesInput = {
+    AND?: CourseCertificateScalarWhereWithAggregatesInput | CourseCertificateScalarWhereWithAggregatesInput[]
+    OR?: CourseCertificateScalarWhereWithAggregatesInput[]
+    NOT?: CourseCertificateScalarWhereWithAggregatesInput | CourseCertificateScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CourseCertificate"> | string
+    verificationId?: StringWithAggregatesFilter<"CourseCertificate"> | string
+    courseId?: UuidWithAggregatesFilter<"CourseCertificate"> | string
+    userId?: UuidWithAggregatesFilter<"CourseCertificate"> | string
+    issuedAt?: DateTimeWithAggregatesFilter<"CourseCertificate"> | Date | string
   }
 
   export type CommunityCategoryWhereInput = {
@@ -137421,6 +138766,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -137481,6 +138827,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -137541,6 +138888,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -137601,6 +138949,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -145237,6 +146586,7 @@ export namespace Prisma {
     title: string
     slug: string
     description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
     coverImage?: string | null
     accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
@@ -145244,6 +146594,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: CourseModuleCreateNestedManyWithoutCourseInput
+    certificates?: CourseCertificateCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateInput = {
@@ -145251,6 +146602,7 @@ export namespace Prisma {
     title: string
     slug: string
     description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
     coverImage?: string | null
     accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
@@ -145258,6 +146610,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: CourseModuleUncheckedCreateNestedManyWithoutCourseInput
+    certificates?: CourseCertificateUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
@@ -145265,6 +146618,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -145272,6 +146626,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: CourseModuleUpdateManyWithoutCourseNestedInput
+    certificates?: CourseCertificateUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateInput = {
@@ -145279,6 +146634,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -145286,6 +146642,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: CourseModuleUncheckedUpdateManyWithoutCourseNestedInput
+    certificates?: CourseCertificateUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
@@ -145293,6 +146650,7 @@ export namespace Prisma {
     title: string
     slug: string
     description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
     coverImage?: string | null
     accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
@@ -145306,6 +146664,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -145319,6 +146678,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -145399,6 +146759,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -145417,6 +146778,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -145433,6 +146795,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -145451,6 +146814,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -145468,6 +146832,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -145483,6 +146848,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -145499,6 +146865,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -145553,6 +146920,60 @@ export namespace Prisma {
     lessonId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseCertificateCreateInput = {
+    id?: string
+    verificationId: string
+    issuedAt?: Date | string
+    course: CourseCreateNestedOneWithoutCertificatesInput
+    user: UserCreateNestedOneWithoutCourseCertificatesInput
+  }
+
+  export type CourseCertificateUncheckedCreateInput = {
+    id?: string
+    verificationId: string
+    courseId: string
+    userId: string
+    issuedAt?: Date | string
+  }
+
+  export type CourseCertificateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    course?: CourseUpdateOneRequiredWithoutCertificatesNestedInput
+    user?: UserUpdateOneRequiredWithoutCourseCertificatesNestedInput
+  }
+
+  export type CourseCertificateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseCertificateCreateManyInput = {
+    id?: string
+    verificationId: string
+    courseId: string
+    userId: string
+    issuedAt?: Date | string
+  }
+
+  export type CourseCertificateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseCertificateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityCategoryCreateInput = {
@@ -146738,6 +148159,12 @@ export namespace Prisma {
     none?: LessonProgressWhereInput
   }
 
+  export type CourseCertificateListRelationFilter = {
+    every?: CourseCertificateWhereInput
+    some?: CourseCertificateWhereInput
+    none?: CourseCertificateWhereInput
+  }
+
   export type CommunityPostListRelationFilter = {
     every?: CommunityPostWhereInput
     some?: CommunityPostWhereInput
@@ -146935,6 +148362,10 @@ export namespace Prisma {
   }
 
   export type LessonProgressOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CourseCertificateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -152417,6 +153848,13 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
+  export type EnumCommunityContentFormatFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatFilter<$PrismaModel> | $Enums.CommunityContentFormat
+  }
+
   export type EnumCourseAccessLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.CourseAccessLevel | EnumCourseAccessLevelFieldRefInput<$PrismaModel>
     in?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
@@ -152439,6 +153877,7 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
+    descriptionFormat?: SortOrder
     coverImage?: SortOrder
     accessLevel?: SortOrder
     published?: SortOrder
@@ -152456,6 +153895,7 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
+    descriptionFormat?: SortOrder
     coverImage?: SortOrder
     accessLevel?: SortOrder
     published?: SortOrder
@@ -152469,6 +153909,7 @@ export namespace Prisma {
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
+    descriptionFormat?: SortOrder
     coverImage?: SortOrder
     accessLevel?: SortOrder
     published?: SortOrder
@@ -152479,6 +153920,16 @@ export namespace Prisma {
 
   export type CourseSumOrderByAggregateInput = {
     sortOrder?: SortOrder
+  }
+
+  export type EnumCommunityContentFormatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentFormat
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
+    _max?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
   }
 
   export type EnumCourseAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -152560,6 +154011,7 @@ export namespace Prisma {
     contentType?: SortOrder
     videoUrl?: SortOrder
     body?: SortOrder
+    bodyFormat?: SortOrder
     fileUrl?: SortOrder
     durationMinutes?: SortOrder
     isPreview?: SortOrder
@@ -152582,6 +154034,7 @@ export namespace Prisma {
     contentType?: SortOrder
     videoUrl?: SortOrder
     body?: SortOrder
+    bodyFormat?: SortOrder
     fileUrl?: SortOrder
     durationMinutes?: SortOrder
     isPreview?: SortOrder
@@ -152598,6 +154051,7 @@ export namespace Prisma {
     contentType?: SortOrder
     videoUrl?: SortOrder
     body?: SortOrder
+    bodyFormat?: SortOrder
     fileUrl?: SortOrder
     durationMinutes?: SortOrder
     isPreview?: SortOrder
@@ -152654,6 +154108,35 @@ export namespace Prisma {
     completedAt?: SortOrder
   }
 
+  export type CourseCertificateCourseIdUserIdCompoundUniqueInput = {
+    courseId: string
+    userId: string
+  }
+
+  export type CourseCertificateCountOrderByAggregateInput = {
+    id?: SortOrder
+    verificationId?: SortOrder
+    courseId?: SortOrder
+    userId?: SortOrder
+    issuedAt?: SortOrder
+  }
+
+  export type CourseCertificateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    verificationId?: SortOrder
+    courseId?: SortOrder
+    userId?: SortOrder
+    issuedAt?: SortOrder
+  }
+
+  export type CourseCertificateMinOrderByAggregateInput = {
+    id?: SortOrder
+    verificationId?: SortOrder
+    courseId?: SortOrder
+    userId?: SortOrder
+    issuedAt?: SortOrder
+  }
+
   export type CommunityCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -152690,13 +154173,6 @@ export namespace Prisma {
 
   export type CommunityCategorySumOrderByAggregateInput = {
     sortOrder?: SortOrder
-  }
-
-  export type EnumCommunityContentFormatFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityContentFormatFilter<$PrismaModel> | $Enums.CommunityContentFormat
   }
 
   export type EnumCommunityPostTypeFilter<$PrismaModel = never> = {
@@ -152786,16 +154262,6 @@ export namespace Prisma {
     lastActivityAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type EnumCommunityContentFormatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentFormat
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
-    _max?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
   }
 
   export type EnumCommunityPostTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -153372,6 +154838,13 @@ export namespace Prisma {
     connect?: LessonProgressWhereUniqueInput | LessonProgressWhereUniqueInput[]
   }
 
+  export type CourseCertificateCreateNestedManyWithoutUserInput = {
+    create?: XOR<CourseCertificateCreateWithoutUserInput, CourseCertificateUncheckedCreateWithoutUserInput> | CourseCertificateCreateWithoutUserInput[] | CourseCertificateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutUserInput | CourseCertificateCreateOrConnectWithoutUserInput[]
+    createMany?: CourseCertificateCreateManyUserInputEnvelope
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+  }
+
   export type CommunityPostCreateNestedManyWithoutAuthorInput = {
     create?: XOR<CommunityPostCreateWithoutAuthorInput, CommunityPostUncheckedCreateWithoutAuthorInput> | CommunityPostCreateWithoutAuthorInput[] | CommunityPostUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CommunityPostCreateOrConnectWithoutAuthorInput | CommunityPostCreateOrConnectWithoutAuthorInput[]
@@ -153669,6 +155142,13 @@ export namespace Prisma {
     connectOrCreate?: LessonProgressCreateOrConnectWithoutUserInput | LessonProgressCreateOrConnectWithoutUserInput[]
     createMany?: LessonProgressCreateManyUserInputEnvelope
     connect?: LessonProgressWhereUniqueInput | LessonProgressWhereUniqueInput[]
+  }
+
+  export type CourseCertificateUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CourseCertificateCreateWithoutUserInput, CourseCertificateUncheckedCreateWithoutUserInput> | CourseCertificateCreateWithoutUserInput[] | CourseCertificateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutUserInput | CourseCertificateCreateOrConnectWithoutUserInput[]
+    createMany?: CourseCertificateCreateManyUserInputEnvelope
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
   }
 
   export type CommunityPostUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -154079,6 +155559,20 @@ export namespace Prisma {
     update?: LessonProgressUpdateWithWhereUniqueWithoutUserInput | LessonProgressUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LessonProgressUpdateManyWithWhereWithoutUserInput | LessonProgressUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LessonProgressScalarWhereInput | LessonProgressScalarWhereInput[]
+  }
+
+  export type CourseCertificateUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CourseCertificateCreateWithoutUserInput, CourseCertificateUncheckedCreateWithoutUserInput> | CourseCertificateCreateWithoutUserInput[] | CourseCertificateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutUserInput | CourseCertificateCreateOrConnectWithoutUserInput[]
+    upsert?: CourseCertificateUpsertWithWhereUniqueWithoutUserInput | CourseCertificateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CourseCertificateCreateManyUserInputEnvelope
+    set?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    disconnect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    delete?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    update?: CourseCertificateUpdateWithWhereUniqueWithoutUserInput | CourseCertificateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CourseCertificateUpdateManyWithWhereWithoutUserInput | CourseCertificateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
   }
 
   export type CommunityPostUpdateManyWithoutAuthorNestedInput = {
@@ -154659,6 +156153,20 @@ export namespace Prisma {
     update?: LessonProgressUpdateWithWhereUniqueWithoutUserInput | LessonProgressUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LessonProgressUpdateManyWithWhereWithoutUserInput | LessonProgressUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LessonProgressScalarWhereInput | LessonProgressScalarWhereInput[]
+  }
+
+  export type CourseCertificateUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CourseCertificateCreateWithoutUserInput, CourseCertificateUncheckedCreateWithoutUserInput> | CourseCertificateCreateWithoutUserInput[] | CourseCertificateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutUserInput | CourseCertificateCreateOrConnectWithoutUserInput[]
+    upsert?: CourseCertificateUpsertWithWhereUniqueWithoutUserInput | CourseCertificateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CourseCertificateCreateManyUserInputEnvelope
+    set?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    disconnect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    delete?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    update?: CourseCertificateUpdateWithWhereUniqueWithoutUserInput | CourseCertificateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CourseCertificateUpdateManyWithWhereWithoutUserInput | CourseCertificateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
   }
 
   export type CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -159707,11 +161215,29 @@ export namespace Prisma {
     connect?: CourseModuleWhereUniqueInput | CourseModuleWhereUniqueInput[]
   }
 
+  export type CourseCertificateCreateNestedManyWithoutCourseInput = {
+    create?: XOR<CourseCertificateCreateWithoutCourseInput, CourseCertificateUncheckedCreateWithoutCourseInput> | CourseCertificateCreateWithoutCourseInput[] | CourseCertificateUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutCourseInput | CourseCertificateCreateOrConnectWithoutCourseInput[]
+    createMany?: CourseCertificateCreateManyCourseInputEnvelope
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+  }
+
   export type CourseModuleUncheckedCreateNestedManyWithoutCourseInput = {
     create?: XOR<CourseModuleCreateWithoutCourseInput, CourseModuleUncheckedCreateWithoutCourseInput> | CourseModuleCreateWithoutCourseInput[] | CourseModuleUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: CourseModuleCreateOrConnectWithoutCourseInput | CourseModuleCreateOrConnectWithoutCourseInput[]
     createMany?: CourseModuleCreateManyCourseInputEnvelope
     connect?: CourseModuleWhereUniqueInput | CourseModuleWhereUniqueInput[]
+  }
+
+  export type CourseCertificateUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<CourseCertificateCreateWithoutCourseInput, CourseCertificateUncheckedCreateWithoutCourseInput> | CourseCertificateCreateWithoutCourseInput[] | CourseCertificateUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutCourseInput | CourseCertificateCreateOrConnectWithoutCourseInput[]
+    createMany?: CourseCertificateCreateManyCourseInputEnvelope
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+  }
+
+  export type EnumCommunityContentFormatFieldUpdateOperationsInput = {
+    set?: $Enums.CommunityContentFormat
   }
 
   export type EnumCourseAccessLevelFieldUpdateOperationsInput = {
@@ -159732,6 +161258,20 @@ export namespace Prisma {
     deleteMany?: CourseModuleScalarWhereInput | CourseModuleScalarWhereInput[]
   }
 
+  export type CourseCertificateUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<CourseCertificateCreateWithoutCourseInput, CourseCertificateUncheckedCreateWithoutCourseInput> | CourseCertificateCreateWithoutCourseInput[] | CourseCertificateUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutCourseInput | CourseCertificateCreateOrConnectWithoutCourseInput[]
+    upsert?: CourseCertificateUpsertWithWhereUniqueWithoutCourseInput | CourseCertificateUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: CourseCertificateCreateManyCourseInputEnvelope
+    set?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    disconnect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    delete?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    update?: CourseCertificateUpdateWithWhereUniqueWithoutCourseInput | CourseCertificateUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: CourseCertificateUpdateManyWithWhereWithoutCourseInput | CourseCertificateUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
+  }
+
   export type CourseModuleUncheckedUpdateManyWithoutCourseNestedInput = {
     create?: XOR<CourseModuleCreateWithoutCourseInput, CourseModuleUncheckedCreateWithoutCourseInput> | CourseModuleCreateWithoutCourseInput[] | CourseModuleUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: CourseModuleCreateOrConnectWithoutCourseInput | CourseModuleCreateOrConnectWithoutCourseInput[]
@@ -159744,6 +161284,20 @@ export namespace Prisma {
     update?: CourseModuleUpdateWithWhereUniqueWithoutCourseInput | CourseModuleUpdateWithWhereUniqueWithoutCourseInput[]
     updateMany?: CourseModuleUpdateManyWithWhereWithoutCourseInput | CourseModuleUpdateManyWithWhereWithoutCourseInput[]
     deleteMany?: CourseModuleScalarWhereInput | CourseModuleScalarWhereInput[]
+  }
+
+  export type CourseCertificateUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<CourseCertificateCreateWithoutCourseInput, CourseCertificateUncheckedCreateWithoutCourseInput> | CourseCertificateCreateWithoutCourseInput[] | CourseCertificateUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: CourseCertificateCreateOrConnectWithoutCourseInput | CourseCertificateCreateOrConnectWithoutCourseInput[]
+    upsert?: CourseCertificateUpsertWithWhereUniqueWithoutCourseInput | CourseCertificateUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: CourseCertificateCreateManyCourseInputEnvelope
+    set?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    disconnect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    delete?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    connect?: CourseCertificateWhereUniqueInput | CourseCertificateWhereUniqueInput[]
+    update?: CourseCertificateUpdateWithWhereUniqueWithoutCourseInput | CourseCertificateUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: CourseCertificateUpdateManyWithWhereWithoutCourseInput | CourseCertificateUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
   }
 
   export type CourseCreateNestedOneWithoutModulesInput = {
@@ -159890,6 +161444,34 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLessonProgressInput, UserUpdateWithoutLessonProgressInput>, UserUncheckedUpdateWithoutLessonProgressInput>
   }
 
+  export type CourseCreateNestedOneWithoutCertificatesInput = {
+    create?: XOR<CourseCreateWithoutCertificatesInput, CourseUncheckedCreateWithoutCertificatesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutCertificatesInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCourseCertificatesInput = {
+    create?: XOR<UserCreateWithoutCourseCertificatesInput, UserUncheckedCreateWithoutCourseCertificatesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCourseCertificatesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CourseUpdateOneRequiredWithoutCertificatesNestedInput = {
+    create?: XOR<CourseCreateWithoutCertificatesInput, CourseUncheckedCreateWithoutCertificatesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutCertificatesInput
+    upsert?: CourseUpsertWithoutCertificatesInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutCertificatesInput, CourseUpdateWithoutCertificatesInput>, CourseUncheckedUpdateWithoutCertificatesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCourseCertificatesNestedInput = {
+    create?: XOR<UserCreateWithoutCourseCertificatesInput, UserUncheckedCreateWithoutCourseCertificatesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCourseCertificatesInput
+    upsert?: UserUpsertWithoutCourseCertificatesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCourseCertificatesInput, UserUpdateWithoutCourseCertificatesInput>, UserUncheckedUpdateWithoutCourseCertificatesInput>
+  }
+
   export type CommunityPostCreateNestedManyWithoutCategoryInput = {
     create?: XOR<CommunityPostCreateWithoutCategoryInput, CommunityPostUncheckedCreateWithoutCategoryInput> | CommunityPostCreateWithoutCategoryInput[] | CommunityPostUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: CommunityPostCreateOrConnectWithoutCategoryInput | CommunityPostCreateOrConnectWithoutCategoryInput[]
@@ -160004,10 +161586,6 @@ export namespace Prisma {
     connectOrCreate?: CommunitySubscriptionCreateOrConnectWithoutPostInput | CommunitySubscriptionCreateOrConnectWithoutPostInput[]
     createMany?: CommunitySubscriptionCreateManyPostInputEnvelope
     connect?: CommunitySubscriptionWhereUniqueInput | CommunitySubscriptionWhereUniqueInput[]
-  }
-
-  export type EnumCommunityContentFormatFieldUpdateOperationsInput = {
-    set?: $Enums.CommunityContentFormat
   }
 
   export type EnumCommunityPostTypeFieldUpdateOperationsInput = {
@@ -161666,11 +163244,28 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommunityContentFormatFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatFilter<$PrismaModel> | $Enums.CommunityContentFormat
+  }
+
   export type NestedEnumCourseAccessLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.CourseAccessLevel | EnumCourseAccessLevelFieldRefInput<$PrismaModel>
     in?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
     notIn?: $Enums.CourseAccessLevel[] | ListEnumCourseAccessLevelFieldRefInput<$PrismaModel>
     not?: NestedEnumCourseAccessLevelFilter<$PrismaModel> | $Enums.CourseAccessLevel
+  }
+
+  export type NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentFormat
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
+    _max?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
   }
 
   export type NestedEnumCourseAccessLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -161700,13 +163295,6 @@ export namespace Prisma {
     _max?: NestedEnumLessonContentTypeFilter<$PrismaModel>
   }
 
-  export type NestedEnumCommunityContentFormatFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityContentFormatFilter<$PrismaModel> | $Enums.CommunityContentFormat
-  }
-
   export type NestedEnumCommunityPostTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.CommunityPostType | EnumCommunityPostTypeFieldRefInput<$PrismaModel>
     in?: $Enums.CommunityPostType[] | ListEnumCommunityPostTypeFieldRefInput<$PrismaModel>
@@ -161726,16 +163314,6 @@ export namespace Prisma {
     in?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
     notIn?: $Enums.CommunityAccessLevel[] | ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel>
     not?: NestedEnumCommunityAccessLevelFilter<$PrismaModel> | $Enums.CommunityAccessLevel
-  }
-
-  export type NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CommunityContentFormat | EnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    in?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CommunityContentFormat[] | ListEnumCommunityContentFormatFieldRefInput<$PrismaModel>
-    not?: NestedEnumCommunityContentFormatWithAggregatesFilter<$PrismaModel> | $Enums.CommunityContentFormat
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
-    _max?: NestedEnumCommunityContentFormatFilter<$PrismaModel>
   }
 
   export type NestedEnumCommunityPostTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -162352,6 +163930,30 @@ export namespace Prisma {
 
   export type LessonProgressCreateManyUserInputEnvelope = {
     data: LessonProgressCreateManyUserInput | LessonProgressCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CourseCertificateCreateWithoutUserInput = {
+    id?: string
+    verificationId: string
+    issuedAt?: Date | string
+    course: CourseCreateNestedOneWithoutCertificatesInput
+  }
+
+  export type CourseCertificateUncheckedCreateWithoutUserInput = {
+    id?: string
+    verificationId: string
+    courseId: string
+    issuedAt?: Date | string
+  }
+
+  export type CourseCertificateCreateOrConnectWithoutUserInput = {
+    where: CourseCertificateWhereUniqueInput
+    create: XOR<CourseCertificateCreateWithoutUserInput, CourseCertificateUncheckedCreateWithoutUserInput>
+  }
+
+  export type CourseCertificateCreateManyUserInputEnvelope = {
+    data: CourseCertificateCreateManyUserInput | CourseCertificateCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -163869,6 +165471,33 @@ export namespace Prisma {
     completedAt?: DateTimeFilter<"LessonProgress"> | Date | string
   }
 
+  export type CourseCertificateUpsertWithWhereUniqueWithoutUserInput = {
+    where: CourseCertificateWhereUniqueInput
+    update: XOR<CourseCertificateUpdateWithoutUserInput, CourseCertificateUncheckedUpdateWithoutUserInput>
+    create: XOR<CourseCertificateCreateWithoutUserInput, CourseCertificateUncheckedCreateWithoutUserInput>
+  }
+
+  export type CourseCertificateUpdateWithWhereUniqueWithoutUserInput = {
+    where: CourseCertificateWhereUniqueInput
+    data: XOR<CourseCertificateUpdateWithoutUserInput, CourseCertificateUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CourseCertificateUpdateManyWithWhereWithoutUserInput = {
+    where: CourseCertificateScalarWhereInput
+    data: XOR<CourseCertificateUpdateManyMutationInput, CourseCertificateUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CourseCertificateScalarWhereInput = {
+    AND?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
+    OR?: CourseCertificateScalarWhereInput[]
+    NOT?: CourseCertificateScalarWhereInput | CourseCertificateScalarWhereInput[]
+    id?: UuidFilter<"CourseCertificate"> | string
+    verificationId?: StringFilter<"CourseCertificate"> | string
+    courseId?: UuidFilter<"CourseCertificate"> | string
+    userId?: UuidFilter<"CourseCertificate"> | string
+    issuedAt?: DateTimeFilter<"CourseCertificate"> | Date | string
+  }
+
   export type CommunityPostUpsertWithWhereUniqueWithoutAuthorInput = {
     where: CommunityPostWhereUniqueInput
     update: XOR<CommunityPostUpdateWithoutAuthorInput, CommunityPostUncheckedUpdateWithoutAuthorInput>
@@ -164792,6 +166421,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -164851,6 +166481,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -164926,6 +166557,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -164985,6 +166617,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -165043,6 +166676,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -165102,6 +166736,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -165177,6 +166812,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -165236,6 +166872,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -165434,6 +167071,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -165493,6 +167131,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -165591,6 +167230,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -165650,6 +167290,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -165738,6 +167379,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -165797,6 +167439,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -165872,6 +167515,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -165931,6 +167575,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -165991,6 +167636,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -166050,6 +167696,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -166125,6 +167772,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -166184,6 +167832,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -166242,6 +167891,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -166301,6 +167951,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -166629,6 +168280,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -166688,6 +168340,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -167153,6 +168806,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -167212,6 +168866,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -167340,6 +168995,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -167399,6 +169055,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -170350,6 +172007,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -170409,6 +172067,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -170512,6 +172171,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -170571,6 +172231,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -170946,6 +172607,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -171005,6 +172667,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -171381,6 +173044,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -171440,6 +173104,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -172629,6 +174294,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -172688,6 +174354,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -172959,6 +174626,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -173018,6 +174686,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -173294,6 +174963,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -173353,6 +175023,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -173579,6 +175250,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -173638,6 +175310,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -173807,6 +175480,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -173866,6 +175540,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -174021,6 +175696,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -174080,6 +175756,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -174562,6 +176239,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -174621,6 +176299,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -174956,6 +176635,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -175015,6 +176695,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -178113,6 +179794,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -178172,6 +179854,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -178269,6 +179952,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -178328,6 +180012,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -178704,6 +180389,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -178763,6 +180449,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -178838,6 +180525,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -178897,6 +180585,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -178982,6 +180671,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179041,6 +180731,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -179105,6 +180796,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179164,6 +180856,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -179255,6 +180948,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -179314,6 +181008,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -179384,6 +181079,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -179443,6 +181139,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -179533,6 +181230,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179592,6 +181290,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -179704,6 +181403,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -179763,6 +181463,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -179822,6 +181523,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -179881,6 +181583,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -179956,6 +181659,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -180015,6 +181719,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -180073,6 +181778,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -180132,6 +181838,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180239,6 +181946,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -180298,6 +182006,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -180422,6 +182131,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -180481,6 +182191,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180620,6 +182331,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -180679,6 +182391,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -180814,6 +182527,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -180873,6 +182587,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -180978,6 +182693,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181037,6 +182753,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181182,6 +182899,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -181241,6 +182959,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -181316,6 +183035,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181375,6 +183095,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181434,6 +183155,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -181493,6 +183215,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -181612,6 +183335,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -181671,6 +183395,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -181746,6 +183471,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -181805,6 +183531,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -181995,6 +183722,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -182054,6 +183782,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -182188,6 +183917,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -182247,6 +183977,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -182467,6 +184198,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -182526,6 +184258,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183010,6 +184743,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183069,6 +184803,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -183207,6 +184942,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -183266,6 +185002,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -183499,6 +185236,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -183558,6 +185296,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -183847,6 +185586,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -183906,6 +185646,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -184466,6 +186207,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -184525,6 +186267,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -184702,6 +186445,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -184761,6 +186505,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -185196,6 +186941,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -185255,6 +187001,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -185386,6 +187133,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -185445,6 +187193,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -185572,6 +187321,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CourseCertificateCreateWithoutCourseInput = {
+    id?: string
+    verificationId: string
+    issuedAt?: Date | string
+    user: UserCreateNestedOneWithoutCourseCertificatesInput
+  }
+
+  export type CourseCertificateUncheckedCreateWithoutCourseInput = {
+    id?: string
+    verificationId: string
+    userId: string
+    issuedAt?: Date | string
+  }
+
+  export type CourseCertificateCreateOrConnectWithoutCourseInput = {
+    where: CourseCertificateWhereUniqueInput
+    create: XOR<CourseCertificateCreateWithoutCourseInput, CourseCertificateUncheckedCreateWithoutCourseInput>
+  }
+
+  export type CourseCertificateCreateManyCourseInputEnvelope = {
+    data: CourseCertificateCreateManyCourseInput | CourseCertificateCreateManyCourseInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CourseModuleUpsertWithWhereUniqueWithoutCourseInput = {
     where: CourseModuleWhereUniqueInput
     update: XOR<CourseModuleUpdateWithoutCourseInput, CourseModuleUncheckedUpdateWithoutCourseInput>
@@ -185600,17 +187373,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CourseModule"> | Date | string
   }
 
+  export type CourseCertificateUpsertWithWhereUniqueWithoutCourseInput = {
+    where: CourseCertificateWhereUniqueInput
+    update: XOR<CourseCertificateUpdateWithoutCourseInput, CourseCertificateUncheckedUpdateWithoutCourseInput>
+    create: XOR<CourseCertificateCreateWithoutCourseInput, CourseCertificateUncheckedCreateWithoutCourseInput>
+  }
+
+  export type CourseCertificateUpdateWithWhereUniqueWithoutCourseInput = {
+    where: CourseCertificateWhereUniqueInput
+    data: XOR<CourseCertificateUpdateWithoutCourseInput, CourseCertificateUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type CourseCertificateUpdateManyWithWhereWithoutCourseInput = {
+    where: CourseCertificateScalarWhereInput
+    data: XOR<CourseCertificateUpdateManyMutationInput, CourseCertificateUncheckedUpdateManyWithoutCourseInput>
+  }
+
   export type CourseCreateWithoutModulesInput = {
     id?: string
     title: string
     slug: string
     description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
     coverImage?: string | null
     accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    certificates?: CourseCertificateCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutModulesInput = {
@@ -185618,12 +187409,14 @@ export namespace Prisma {
     title: string
     slug: string
     description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
     coverImage?: string | null
     accessLevel?: $Enums.CourseAccessLevel
     published?: boolean
     sortOrder?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    certificates?: CourseCertificateUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutModulesInput = {
@@ -185637,6 +187430,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -185653,6 +187447,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -185689,12 +187484,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    certificates?: CourseCertificateUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutModulesInput = {
@@ -185702,12 +187499,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
     published?: BoolFieldUpdateOperationsInput | boolean
     sortOrder?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    certificates?: CourseCertificateUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type LessonUpsertWithWhereUniqueWithoutModuleInput = {
@@ -185736,6 +187535,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFilter<"Lesson"> | $Enums.LessonContentType
     videoUrl?: StringNullableFilter<"Lesson"> | string | null
     body?: StringNullableFilter<"Lesson"> | string | null
+    bodyFormat?: EnumCommunityContentFormatFilter<"Lesson"> | $Enums.CommunityContentFormat
     fileUrl?: StringNullableFilter<"Lesson"> | string | null
     durationMinutes?: IntNullableFilter<"Lesson"> | number | null
     isPreview?: BoolFilter<"Lesson"> | boolean
@@ -185841,6 +187641,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -185858,6 +187659,7 @@ export namespace Prisma {
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -185900,6 +187702,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -185959,6 +187762,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -186012,6 +187816,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -186029,6 +187834,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -186077,6 +187883,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -186136,6 +187943,339 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUncheckedUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUncheckedUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUncheckedUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUncheckedUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUncheckedUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUncheckedUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUncheckedUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUncheckedUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUncheckedUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUncheckedUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUncheckedUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUncheckedUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUncheckedUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUncheckedUpdateManyWithoutActorNestedInput
+  }
+
+  export type CourseCreateWithoutCertificatesInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
+    published?: boolean
+    sortOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: CourseModuleCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseUncheckedCreateWithoutCertificatesInput = {
+    id?: string
+    title: string
+    slug: string
+    description?: string | null
+    descriptionFormat?: $Enums.CommunityContentFormat
+    coverImage?: string | null
+    accessLevel?: $Enums.CourseAccessLevel
+    published?: boolean
+    sortOrder?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: CourseModuleUncheckedCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseCreateOrConnectWithoutCertificatesInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutCertificatesInput, CourseUncheckedCreateWithoutCertificatesInput>
+  }
+
+  export type UserCreateWithoutCourseCertificatesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerCreateNestedManyWithoutUserInput
+    cart?: CartCreateNestedOneWithoutUserInput
+    downloads?: DownloadCreateNestedManyWithoutUserInput
+    wishlist?: WishlistCreateNestedManyWithoutUserInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyCreateNestedManyWithoutBuyerInput
+    tickets?: TicketCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutCourseCertificatesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    displayName?: string | null
+    avatar?: string | null
+    emailVerified?: boolean
+    twoFactorEnabled?: boolean
+    twoFactorSecret?: string | null
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    creatorProfile?: CreatorProfileUncheckedCreateNestedOneWithoutUserInput
+    affiliate?: AffiliateUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
+    roles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    followers?: CreatorFollowerUncheckedCreateNestedManyWithoutUserInput
+    cart?: CartUncheckedCreateNestedOneWithoutUserInput
+    downloads?: DownloadUncheckedCreateNestedManyWithoutUserInput
+    wishlist?: WishlistUncheckedCreateNestedManyWithoutUserInput
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
+    lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
+    communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
+    communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
+    communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
+    communityPointEvents?: CommunityPointEventUncheckedCreateNestedManyWithoutUserInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+    communityDeliveries?: CommunityDeliveryUncheckedCreateNestedManyWithoutUserInput
+    communityFollowing?: CommunityFollowUncheckedCreateNestedManyWithoutFollowerInput
+    communityFollowers?: CommunityFollowUncheckedCreateNestedManyWithoutFollowingInput
+    communityBookmarks?: CommunityBookmarkUncheckedCreateNestedManyWithoutUserInput
+    communitySubscriptions?: CommunitySubscriptionUncheckedCreateNestedManyWithoutUserInput
+    communityReports?: CommunityReportUncheckedCreateNestedManyWithoutReporterInput
+    communityModerationActions?: CommunityModerationActionUncheckedCreateNestedManyWithoutActorInput
+    creditBalance?: CreditBalanceUncheckedCreateNestedOneWithoutUserInput
+    creditPurchases?: CreditPurchaseUncheckedCreateNestedManyWithoutUserInput
+    usageRecords?: UsageRecordUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutUserInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    assignedTickets?: SupportTicketUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ticketMessages?: TicketMessageUncheckedCreateNestedManyWithoutSenderInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    licenseKeys?: LicenseKeyUncheckedCreateNestedManyWithoutBuyerInput
+    tickets?: TicketUncheckedCreateNestedManyWithoutBuyerInput
+    qrEntitlements?: QrEntitlementUncheckedCreateNestedManyWithoutUserInput
+    qrPayments?: QrPaymentUncheckedCreateNestedManyWithoutUserInput
+    qrCampaigns?: QrCampaignUncheckedCreateNestedManyWithoutOwnerInput
+    qrAdminActions?: QrAdminActionUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutCourseCertificatesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCourseCertificatesInput, UserUncheckedCreateWithoutCourseCertificatesInput>
+  }
+
+  export type CourseUpsertWithoutCertificatesInput = {
+    update: XOR<CourseUpdateWithoutCertificatesInput, CourseUncheckedUpdateWithoutCertificatesInput>
+    create: XOR<CourseCreateWithoutCertificatesInput, CourseUncheckedCreateWithoutCertificatesInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutCertificatesInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutCertificatesInput, CourseUncheckedUpdateWithoutCertificatesInput>
+  }
+
+  export type CourseUpdateWithoutCertificatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
+    published?: BoolFieldUpdateOperationsInput | boolean
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: CourseModuleUpdateManyWithoutCourseNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutCertificatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    accessLevel?: EnumCourseAccessLevelFieldUpdateOperationsInput | $Enums.CourseAccessLevel
+    published?: BoolFieldUpdateOperationsInput | boolean
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: CourseModuleUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
+  export type UserUpsertWithoutCourseCertificatesInput = {
+    update: XOR<UserUpdateWithoutCourseCertificatesInput, UserUncheckedUpdateWithoutCourseCertificatesInput>
+    create: XOR<UserCreateWithoutCourseCertificatesInput, UserUncheckedCreateWithoutCourseCertificatesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCourseCertificatesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCourseCertificatesInput, UserUncheckedUpdateWithoutCourseCertificatesInput>
+  }
+
+  export type UserUpdateWithoutCourseCertificatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUpdateManyWithoutUserNestedInput
+    cart?: CartUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUpdateManyWithoutUserNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
+    communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
+    communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
+    communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
+    communityPointEvents?: CommunityPointEventUpdateManyWithoutUserNestedInput
+    communityNotificationPreference?: CommunityNotificationPreferenceUpdateOneWithoutUserNestedInput
+    communityDeliveries?: CommunityDeliveryUpdateManyWithoutUserNestedInput
+    communityFollowing?: CommunityFollowUpdateManyWithoutFollowerNestedInput
+    communityFollowers?: CommunityFollowUpdateManyWithoutFollowingNestedInput
+    communityBookmarks?: CommunityBookmarkUpdateManyWithoutUserNestedInput
+    communitySubscriptions?: CommunitySubscriptionUpdateManyWithoutUserNestedInput
+    communityReports?: CommunityReportUpdateManyWithoutReporterNestedInput
+    communityModerationActions?: CommunityModerationActionUpdateManyWithoutActorNestedInput
+    creditBalance?: CreditBalanceUpdateOneWithoutUserNestedInput
+    creditPurchases?: CreditPurchaseUpdateManyWithoutUserNestedInput
+    usageRecords?: UsageRecordUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutUserNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    assignedTickets?: SupportTicketUpdateManyWithoutAssignedToUserNestedInput
+    ticketMessages?: TicketMessageUpdateManyWithoutSenderNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    licenseKeys?: LicenseKeyUpdateManyWithoutBuyerNestedInput
+    tickets?: TicketUpdateManyWithoutBuyerNestedInput
+    qrEntitlements?: QrEntitlementUpdateManyWithoutUserNestedInput
+    qrPayments?: QrPaymentUpdateManyWithoutUserNestedInput
+    qrCampaigns?: QrCampaignUpdateManyWithoutOwnerNestedInput
+    qrAdminActions?: QrAdminActionUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCourseCertificatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorEnabled?: BoolFieldUpdateOperationsInput | boolean
+    twoFactorSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    creatorProfile?: CreatorProfileUncheckedUpdateOneWithoutUserNestedInput
+    affiliate?: AffiliateUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
+    roles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    followers?: CreatorFollowerUncheckedUpdateManyWithoutUserNestedInput
+    cart?: CartUncheckedUpdateOneWithoutUserNestedInput
+    downloads?: DownloadUncheckedUpdateManyWithoutUserNestedInput
+    wishlist?: WishlistUncheckedUpdateManyWithoutUserNestedInput
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -186293,6 +188433,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -186352,6 +188493,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -186591,6 +188733,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -186650,6 +188793,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -186861,6 +189005,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -186920,6 +189065,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -187170,6 +189316,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -187229,6 +189376,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -187398,6 +189546,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -187457,6 +189606,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -187532,6 +189682,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -187591,6 +189742,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -187650,6 +189802,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -187709,6 +189862,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -187784,6 +189938,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -187843,6 +189998,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -187953,6 +190109,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityProfile?: CommunityProfileCreateNestedOneWithoutUserInput
@@ -188012,6 +190169,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityProfile?: CommunityProfileUncheckedCreateNestedOneWithoutUserInput
@@ -188144,6 +190302,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityProfile?: CommunityProfileUpdateOneWithoutUserNestedInput
@@ -188203,6 +190362,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityProfile?: CommunityProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -188262,6 +190422,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -188321,6 +190482,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -188396,6 +190558,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -188455,6 +190618,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -188514,6 +190678,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -188573,6 +190738,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -188637,6 +190803,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -188696,6 +190863,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -188771,6 +190939,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -188830,6 +190999,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -188900,6 +191070,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -188959,6 +191130,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -189018,6 +191190,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -189077,6 +191250,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -189203,6 +191377,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -189262,6 +191437,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -189378,6 +191554,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -189437,6 +191614,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -189563,6 +191741,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -189622,6 +191801,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -189738,6 +191918,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -189797,6 +191978,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -189872,6 +192054,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -189931,6 +192114,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -189990,6 +192174,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -190049,6 +192234,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190124,6 +192310,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -190183,6 +192370,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -190242,6 +192430,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeCreateNestedManyWithoutUserInput
@@ -190301,6 +192490,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedCreateNestedManyWithoutUserInput
     lessonProgress?: LessonProgressUncheckedCreateNestedManyWithoutUserInput
+    courseCertificates?: CourseCertificateUncheckedCreateNestedManyWithoutUserInput
     communityPosts?: CommunityPostUncheckedCreateNestedManyWithoutAuthorInput
     communityComments?: CommunityCommentUncheckedCreateNestedManyWithoutAuthorInput
     communityPostLikes?: CommunityPostLikeUncheckedCreateNestedManyWithoutUserInput
@@ -190376,6 +192566,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUpdateManyWithoutUserNestedInput
@@ -190435,6 +192626,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     membershipSubscriptions?: MembershipSubscriptionUncheckedUpdateManyWithoutUserNestedInput
     lessonProgress?: LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+    courseCertificates?: CourseCertificateUncheckedUpdateManyWithoutUserNestedInput
     communityPosts?: CommunityPostUncheckedUpdateManyWithoutAuthorNestedInput
     communityComments?: CommunityCommentUncheckedUpdateManyWithoutAuthorNestedInput
     communityPostLikes?: CommunityPostLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -190558,6 +192750,13 @@ export namespace Prisma {
     id?: string
     lessonId: string
     completedAt?: Date | string
+  }
+
+  export type CourseCertificateCreateManyUserInput = {
+    id?: string
+    verificationId: string
+    courseId: string
+    issuedAt?: Date | string
   }
 
   export type CommunityPostCreateManyAuthorInput = {
@@ -191160,6 +193359,27 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     lessonId?: StringFieldUpdateOperationsInput | string
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseCertificateUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    course?: CourseUpdateOneRequiredWithoutCertificatesNestedInput
+  }
+
+  export type CourseCertificateUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseCertificateUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityPostUpdateWithoutAuthorInput = {
@@ -195732,6 +197952,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type CourseCertificateCreateManyCourseInput = {
+    id?: string
+    verificationId: string
+    userId: string
+    issuedAt?: Date | string
+  }
+
   export type CourseModuleUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -195758,12 +197985,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CourseCertificateUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCourseCertificatesNestedInput
+  }
+
+  export type CourseCertificateUncheckedUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CourseCertificateUncheckedUpdateManyWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LessonCreateManyModuleInput = {
     id?: string
     title: string
     contentType?: $Enums.LessonContentType
     videoUrl?: string | null
     body?: string | null
+    bodyFormat?: $Enums.CommunityContentFormat
     fileUrl?: string | null
     durationMinutes?: number | null
     isPreview?: boolean
@@ -195779,6 +198028,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -195795,6 +198045,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean
@@ -195811,6 +198062,7 @@ export namespace Prisma {
     contentType?: EnumLessonContentTypeFieldUpdateOperationsInput | $Enums.LessonContentType
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     body?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyFormat?: EnumCommunityContentFormatFieldUpdateOperationsInput | $Enums.CommunityContentFormat
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     isPreview?: BoolFieldUpdateOperationsInput | boolean

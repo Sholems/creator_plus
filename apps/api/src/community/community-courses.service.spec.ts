@@ -7,8 +7,14 @@ jest.mock('@creatorplus/database', () => ({
     membershipSubscription: { findFirst: jest.fn() },
     user: { findUnique: jest.fn() },
     course: { findFirst: jest.fn(), findMany: jest.fn(), count: jest.fn() },
-    lessonProgress: { findMany: jest.fn(), upsert: jest.fn(), deleteMany: jest.fn() },
+    lessonProgress: {
+      findMany: jest.fn(),
+      count: jest.fn(),
+      upsert: jest.fn(),
+      deleteMany: jest.fn(),
+    },
     lesson: { findUnique: jest.fn(), update: jest.fn() },
+    courseCertificate: { findUnique: jest.fn(), findMany: jest.fn(), upsert: jest.fn() },
     userRole: { findMany: jest.fn() },
   },
   Prisma: {},
@@ -32,6 +38,7 @@ describe('CommunityCoursesService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     p.userRole.findMany.mockResolvedValue([]); // default: not an admin
+    p.courseCertificate.findUnique.mockResolvedValue(null);
     process.env.R2_PUBLIC_URL = 'https://cdn.mycreatorplus.com';
   });
 
@@ -132,6 +139,29 @@ describe('CommunityCoursesService', () => {
     await svc.completeLesson('u1', 'L1', true);
     expect(p.lessonProgress.upsert).toHaveBeenCalledWith(
       expect.objectContaining({ where: { lessonId_userId: { lessonId: 'L1', userId: 'u1' } } }),
+    );
+  });
+
+  it('issues one verifiable certificate when the final lesson is completed', async () => {
+    const svc = makeService(true);
+    p.lesson.findUnique.mockResolvedValue({
+      id: 'L1',
+      module: {
+        course: {
+          id: 'c1',
+          accessLevel: 'FREE',
+          modules: [{ lessons: [{ id: 'L1' }] }],
+        },
+      },
+    });
+    p.lessonProgress.count.mockResolvedValue(1);
+
+    await svc.completeLesson('u1', 'L1', true);
+
+    expect(p.courseCertificate.upsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { courseId_userId: { courseId: 'c1', userId: 'u1' } },
+      }),
     );
   });
 

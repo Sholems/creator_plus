@@ -46,6 +46,7 @@ model User {
   subscription                    Subscription?
   membershipSubscriptions         MembershipSubscription[]
   lessonProgress                  LessonProgress[]
+  courseCertificates              CourseCertificate[]
   communityPosts                  CommunityPost[]
   communityComments               CommunityComment[]
   communityPostLikes              CommunityPostLike[]
@@ -2164,18 +2165,20 @@ enum CourseAccessLevel {
 }
 
 model Course {
-  id          String            @id @default(uuid()) @db.Uuid
-  title       String
-  slug        String            @unique
-  description String?
-  coverImage  String?           @map("cover_image")
-  accessLevel CourseAccessLevel @default(FREE) @map("access_level")
-  published   Boolean           @default(false)
-  sortOrder   Int               @default(0) @map("sort_order")
-  createdAt   DateTime          @default(now()) @map("created_at")
-  updatedAt   DateTime          @updatedAt @map("updated_at")
+  id                String                 @id @default(uuid()) @db.Uuid
+  title             String
+  slug              String                 @unique
+  description       String?
+  descriptionFormat CommunityContentFormat @default(MARKDOWN) @map("description_format")
+  coverImage        String?                @map("cover_image")
+  accessLevel       CourseAccessLevel      @default(FREE) @map("access_level")
+  published         Boolean                @default(false)
+  sortOrder         Int                    @default(0) @map("sort_order")
+  createdAt         DateTime               @default(now()) @map("created_at")
+  updatedAt         DateTime               @updatedAt @map("updated_at")
 
-  modules CourseModule[]
+  modules      CourseModule[]
+  certificates CourseCertificate[]
 
   @@map("courses")
 }
@@ -2196,19 +2199,20 @@ model CourseModule {
 }
 
 model Lesson {
-  id              String            @id @default(uuid()) @db.Uuid
-  moduleId        String            @map("module_id") @db.Uuid
+  id              String                 @id @default(uuid()) @db.Uuid
+  moduleId        String                 @map("module_id") @db.Uuid
   title           String
-  contentType     LessonContentType @default(TEXT) @map("content_type")
-  videoUrl        String?           @map("video_url")
+  contentType     LessonContentType      @default(TEXT) @map("content_type")
+  videoUrl        String?                @map("video_url")
   body            String?
-  fileUrl         String?           @map("file_url")
-  durationMinutes Int?              @map("duration_minutes")
-  isPreview       Boolean           @default(false) @map("is_preview")
-  dripDelayDays   Int               @default(0) @map("drip_delay_days")
-  sortOrder       Int               @default(0) @map("sort_order")
-  createdAt       DateTime          @default(now()) @map("created_at")
-  updatedAt       DateTime          @updatedAt @map("updated_at")
+  bodyFormat      CommunityContentFormat @default(MARKDOWN) @map("body_format")
+  fileUrl         String?                @map("file_url")
+  durationMinutes Int?                   @map("duration_minutes")
+  isPreview       Boolean                @default(false) @map("is_preview")
+  dripDelayDays   Int                    @default(0) @map("drip_delay_days")
+  sortOrder       Int                    @default(0) @map("sort_order")
+  createdAt       DateTime               @default(now()) @map("created_at")
+  updatedAt       DateTime               @updatedAt @map("updated_at")
 
   module   CourseModule     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   progress LessonProgress[]
@@ -2229,6 +2233,21 @@ model LessonProgress {
   @@unique([lessonId, userId])
   @@index([userId])
   @@map("lesson_progress")
+}
+
+model CourseCertificate {
+  id             String   @id @default(uuid()) @db.Uuid
+  verificationId String   @unique @map("verification_id")
+  courseId       String   @map("course_id") @db.Uuid
+  userId         String   @map("user_id") @db.Uuid
+  issuedAt       DateTime @default(now()) @map("issued_at")
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, userId])
+  @@index([userId, issuedAt])
+  @@map("course_certificates")
 }
 
 // ---------------------------------------------------------------------------

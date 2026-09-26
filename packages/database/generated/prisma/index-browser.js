@@ -1194,6 +1194,7 @@ exports.Prisma.CourseScalarFieldEnum = {
   title: 'title',
   slug: 'slug',
   description: 'description',
+  descriptionFormat: 'descriptionFormat',
   coverImage: 'coverImage',
   accessLevel: 'accessLevel',
   published: 'published',
@@ -1218,6 +1219,7 @@ exports.Prisma.LessonScalarFieldEnum = {
   contentType: 'contentType',
   videoUrl: 'videoUrl',
   body: 'body',
+  bodyFormat: 'bodyFormat',
   fileUrl: 'fileUrl',
   durationMinutes: 'durationMinutes',
   isPreview: 'isPreview',
@@ -1232,6 +1234,14 @@ exports.Prisma.LessonProgressScalarFieldEnum = {
   lessonId: 'lessonId',
   userId: 'userId',
   completedAt: 'completedAt'
+};
+
+exports.Prisma.CourseCertificateScalarFieldEnum = {
+  id: 'id',
+  verificationId: 'verificationId',
+  courseId: 'courseId',
+  userId: 'userId',
+  issuedAt: 'issuedAt'
 };
 
 exports.Prisma.CommunityCategoryScalarFieldEnum = {
@@ -1762,6 +1772,11 @@ exports.MembershipStatus = exports.$Enums.MembershipStatus = {
   EXPIRED: 'EXPIRED'
 };
 
+exports.CommunityContentFormat = exports.$Enums.CommunityContentFormat = {
+  MARKDOWN: 'MARKDOWN',
+  RICH_HTML: 'RICH_HTML'
+};
+
 exports.CourseAccessLevel = exports.$Enums.CourseAccessLevel = {
   FREE: 'FREE',
   PREMIUM: 'PREMIUM'
@@ -1771,11 +1786,6 @@ exports.LessonContentType = exports.$Enums.LessonContentType = {
   VIDEO: 'VIDEO',
   TEXT: 'TEXT',
   FILE: 'FILE'
-};
-
-exports.CommunityContentFormat = exports.$Enums.CommunityContentFormat = {
-  MARKDOWN: 'MARKDOWN',
-  RICH_HTML: 'RICH_HTML'
 };
 
 exports.CommunityPostType = exports.$Enums.CommunityPostType = {
@@ -1898,6 +1908,7 @@ exports.Prisma.ModelName = {
   CourseModule: 'CourseModule',
   Lesson: 'Lesson',
   LessonProgress: 'LessonProgress',
+  CourseCertificate: 'CourseCertificate',
   CommunityCategory: 'CommunityCategory',
   CommunityPost: 'CommunityPost',
   CommunityComment: 'CommunityComment',
