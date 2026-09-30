@@ -18,6 +18,7 @@ CREATE TABLE "community_events" (
   "replay_url" TEXT,
   "capacity" INTEGER,
   "published" BOOLEAN NOT NULL DEFAULT false,
+  "canceled_at" TIMESTAMP(3),
   "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMP(3) NOT NULL,
   CONSTRAINT "community_events_pkey" PRIMARY KEY ("id")

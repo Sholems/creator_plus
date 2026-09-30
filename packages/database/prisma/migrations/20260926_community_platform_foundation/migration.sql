@@ -1,7 +1,8 @@
 -- Cross-domain Growth Club foundations. Feature-specific tables are introduced
 -- by their owning migrations so old and new application versions can overlap.
 CREATE TYPE "CommunityParticipationStatus" AS ENUM ('ACTIVE', 'SUSPENDED');
-CREATE TYPE "CommunityAccessLevel" AS ENUM ('FREE', 'PREMIUM');
+-- Idempotent: already created by the first 20260926 migration (dependency order).
+DO $$ BEGIN CREATE TYPE "CommunityAccessLevel" AS ENUM ('FREE', 'PREMIUM'); EXCEPTION WHEN duplicate_object THEN null; END $$;
 
 ALTER TABLE "community_profiles"
 ADD COLUMN "participation_status" "CommunityParticipationStatus" NOT NULL DEFAULT 'ACTIVE';

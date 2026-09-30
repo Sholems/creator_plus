@@ -1,3 +1,10 @@
+-- Shared community enums are created idempotently here (the first-applied
+-- 20260926 migration) because later migrations that own them sort after the
+-- migrations that use them. Their original CREATE TYPE statements are guarded
+-- to no-op when the type already exists.
+DO $$ BEGIN CREATE TYPE "CommunityAccessLevel" AS ENUM ('FREE', 'PREMIUM'); EXCEPTION WHEN duplicate_object THEN null; END $$;
+DO $$ BEGIN CREATE TYPE "CommunityContentFormat" AS ENUM ('MARKDOWN', 'RICH_HTML'); EXCEPTION WHEN duplicate_object THEN null; END $$;
+
 CREATE TYPE "CommunityChallengeEnrollmentStatus" AS ENUM ('ACTIVE', 'COMPLETED', 'WITHDRAWN');
 
 CREATE TABLE "community_challenges" (

@@ -1,4 +1,5 @@
-CREATE TYPE "CommunityContentFormat" AS ENUM ('MARKDOWN', 'RICH_HTML');
+-- Idempotent: already created by the first 20260926 migration (dependency order).
+DO $$ BEGIN CREATE TYPE "CommunityContentFormat" AS ENUM ('MARKDOWN', 'RICH_HTML'); EXCEPTION WHEN duplicate_object THEN null; END $$;
 CREATE TYPE "CommunityPostType" AS ENUM ('DISCUSSION', 'QUESTION', 'ANNOUNCEMENT');
 CREATE TYPE "CommunityContentStatus" AS ENUM ('PUBLISHED', 'HIDDEN', 'DELETED', 'REMOVED');
 CREATE TYPE "CommunityReportStatus" AS ENUM ('OPEN', 'RESOLVED', 'DISMISSED');
