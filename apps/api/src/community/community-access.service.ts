@@ -21,7 +21,7 @@ export class CommunityAccessService {
     if (!user) throw new UnauthorizedException('Account not found');
     if (user.status !== 'ACTIVE') throw new ForbiddenException('Account is not active');
     if (user.communityProfile?.participationStatus === 'SUSPENDED') {
-      throw new ForbiddenException('Growth Club participation is suspended');
+      throw new ForbiddenException('CreatorPlus Community participation is suspended');
     }
 
     const roles = await prisma.userRole.findMany({
@@ -33,7 +33,7 @@ export class CommunityAccessService {
     const hasPremiumAccess =
       isAdmin || (needsPremium && (await this.membership.hasActiveMembership(userId)));
     if (needsPremium && !hasPremiumAccess) {
-      throw new ForbiddenException('A premium Growth Club pass is required');
+      throw new ForbiddenException('A premium CreatorPlus Community pass is required');
     }
     return { userId, isAdmin, hasPremiumAccess };
   }

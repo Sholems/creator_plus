@@ -57,7 +57,7 @@ export default function CommunityCoursesPage() {
                       <img src={course.coverImage} alt="" className="h-full w-full object-cover" />
                     ) : (
                       <div className="flex h-full items-end p-5 text-cream-100">
-                        <span className="font-display text-2xl font-semibold">Bold Ideas</span>
+                        <span className="font-display text-2xl font-semibold">CreatorPlus</span>
                       </div>
                     )}
                   </div>

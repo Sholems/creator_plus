@@ -5,22 +5,20 @@ import { SITE_NAME, SITE_TAGLINE } from '@/lib/brand';
 
 const COLUMNS: { heading: string; links: { href: Route; label: string }[] }[] = [
   {
-    heading: 'The Market',
+    heading: 'Community',
     links: [
-      { href: '/marketplace', label: 'Browse products' },
-      { href: '/categories', label: 'Categories' },
-      { href: '/creators', label: 'Creators' },
-      { href: '/creator-center', label: 'Creator Center' },
-      { href: '/guides', label: 'Creator Guides' },
+      { href: '/community', label: 'CreatorPlus Community' },
+      { href: '/community/courses' as Route, label: 'Courses' },
+      { href: '/community/events' as Route, label: 'Events' },
+      { href: '/community/challenges' as Route, label: 'Challenges' },
     ],
   },
   {
-    heading: 'Sell',
+    heading: 'Membership',
     links: [
-      { href: '/sell', label: 'Start selling' },
-      { href: '/earn', label: 'Earn as an affiliate' },
-      { href: '/community', label: 'Growth Club' },
+      { href: '/community/join' as Route, label: 'Membership & pricing' },
       { href: '/help', label: 'Help Center' },
+      { href: '/contact', label: 'Contact' },
     ],
   },
   {

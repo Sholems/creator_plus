@@ -526,7 +526,7 @@ class ApiClient {
     return this.fetch<any>(`/community/certificates/verify/${encodeURIComponent(id)}`);
   }
 
-  // --- Growth Club events ---
+  // --- CreatorPlus Community events ---
   async getCommunityEvents(token: string) {
     return this.fetch<any[]>('/community/events', { token });
   }
@@ -557,7 +557,7 @@ class ApiClient {
     return this.fetch<any>(`/community/admin/events/${id}/cancel`, { method: 'POST', token });
   }
 
-  // --- Growth Club challenges ---
+  // --- CreatorPlus Community challenges ---
   async getCommunityChallenges(token: string) {
     return this.fetch<any[]>('/community/challenges', { token });
   }

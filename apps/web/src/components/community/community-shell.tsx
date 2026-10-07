@@ -10,8 +10,8 @@ export function CommunityShell({ children }: { children: React.ReactNode }) {
     <div className="community-workspace">
       <aside className="community-rail">
         <div className="community-rail-brand">
-          <span>Bold Ideas</span>
-          <strong>Growth Club</strong>
+          <span>CreatorPlus</span>
+          <strong>Community</strong>
         </div>
         <CommunityNavigation />
         <div className="community-member-chip">

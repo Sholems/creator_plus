@@ -128,7 +128,7 @@ export default function CoursePlayerPage() {
     <main className="min-h-screen bg-cream-50 px-4 py-8">
       <div className="mx-auto w-full max-w-6xl">
         <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">
-          ← Back to Growth Club
+          ← Back to CreatorPlus Community
         </Link>
         <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
           <div>

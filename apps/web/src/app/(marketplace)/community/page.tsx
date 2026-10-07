@@ -114,7 +114,7 @@ export default function CommunityHomePage() {
                 Grow with better ideas, clearer execution, and a serious room.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-7 text-ink-600 sm:text-lg">
-                Bold Ideas Growth Club is the free CreatorPlus learning community for creators,
+                CreatorPlus Community is the free CreatorPlus learning community for creators,
                 entrepreneurs, and digital sellers who want practical courses, member Q&A, and
                 guided discussion in one focused space.
               </p>
@@ -204,7 +204,7 @@ export default function CommunityHomePage() {
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-600">
                 Create a free CreatorPlus account to unlock the discussion room, learning tools, and
-                all free Growth Club courses. Premium courses can be added separately later.
+                all free CreatorPlus Community courses. Premium courses can be added separately later.
               </p>
             </div>
             <Link
@@ -219,7 +219,7 @@ export default function CommunityHomePage() {
     );
   }
 
-  // Every registered user is a Growth Club member. A paid subscription, when
+  // Every registered user is a CreatorPlus Community member. A paid subscription, when
   // present, acts only as a premium-course pass.
   const sub = membership?.subscription;
   return (
@@ -227,7 +227,7 @@ export default function CommunityHomePage() {
       <section className="mx-auto w-full max-w-5xl">
         {welcome && (
           <div className="mb-6 rounded-2xl border border-forest-200 bg-forest-50 px-5 py-4 text-sm text-forest-800">
-            🎉 Welcome to Bold Ideas Growth Club, {user?.displayName || 'member'}! You can start
+            🎉 Welcome to CreatorPlus Community, {user?.displayName || 'member'}! You can start
             learning and posting now.
           </div>
         )}
@@ -235,9 +235,9 @@ export default function CommunityHomePage() {
         <div className="rounded-[2rem] border border-ink-100 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="eyebrow text-gold-600">Bold Ideas Growth Club</p>
+              <p className="eyebrow text-gold-600">CreatorPlus Community</p>
               <h1 className="font-display text-4xl font-bold tracking-tight text-ink-900">
-                Your Growth Club dashboard
+                Your CreatorPlus Community dashboard
               </h1>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-600">
                 Continue learning, ask better questions, and keep your progress visible.
@@ -287,8 +287,8 @@ export default function CommunityHomePage() {
         {courses.length === 0 ? (
           <p className="mt-3 rounded-2xl border border-ink-100 bg-white p-6 text-sm text-ink-500 shadow-sm">
             {isAdmin
-              ? 'No courses yet — use Manage to add your first Growth Club course.'
-              : 'No Growth Club courses published yet. Check back soon.'}
+              ? 'No courses yet — use Manage to add your first CreatorPlus Community course.'
+              : 'No CreatorPlus Community courses published yet. Check back soon.'}
           </p>
         ) : (
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -443,7 +443,7 @@ export default function CommunityHomePage() {
         {/* Access management */}
         <div className="mt-8 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
           <h2 className="font-display text-lg font-semibold text-ink-900">
-            Your Growth Club access
+            Your CreatorPlus Community access
           </h2>
           {!sub && (
             <p className="mt-1 text-sm leading-6 text-ink-600">

@@ -50,7 +50,7 @@ export default function SavedPostsPage() {
     <div className="mx-auto w-full max-w-3xl">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-600">Growth Club</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-600">CreatorPlus Community</p>
           <h1 className="font-display text-3xl font-bold text-ink-900">Saved posts</h1>
         </div>
         <Link href={'/community/discussion' as Route} className="text-sm text-ink-500 hover:text-ink-800">

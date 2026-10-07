@@ -47,7 +47,7 @@ export default function ManageCommunityEventsPage() {
     <main className="min-h-screen bg-cream-50 px-4 py-8">
       <div className="mx-auto max-w-6xl">
         <p className="text-xs font-bold uppercase tracking-[.18em] text-clay-600">
-          Growth Club operations
+          CreatorPlus Community operations
         </p>
         <h1 className="mt-2 font-display text-3xl font-bold text-ink-900">
           Events and office hours

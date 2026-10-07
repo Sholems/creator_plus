@@ -36,9 +36,9 @@ export class MembershipService implements OnModuleInit {
    * priced per provider/currency. Community participation itself is free.
    */
   private async ensureDefaultPlan() {
-    const defaultPlanName = process.env.MEMBERSHIP_PLAN_NAME || 'Bold Ideas Growth Club';
+    const defaultPlanName = process.env.MEMBERSHIP_PLAN_NAME || 'CreatorPlus Community';
     const defaultPlanDescription =
-      'Unlock premium Bold Ideas Growth Club courses while community participation and free courses remain free.';
+      'Unlock premium CreatorPlus Community courses while community participation and free courses remain free.';
     const existing = await prisma.membershipPlan.findFirst();
     if (existing) {
       const data: Prisma.MembershipPlanUpdateInput = {};
@@ -177,7 +177,7 @@ export class MembershipService implements OnModuleInit {
       include: { plan: true },
     });
     if (!price || !price.isActive || !price.plan.isActive)
-      throw new NotFoundException('Growth Club plan not available');
+      throw new NotFoundException('CreatorPlus Community plan not available');
 
     const provider = this.getProvider(price.provider);
     if (!provider.isConfigured())
@@ -187,7 +187,7 @@ export class MembershipService implements OnModuleInit {
     if (!user) throw new NotFoundException('User not found');
 
     if (await this.hasActiveMembership(userId)) {
-      throw new BadRequestException('You already have an active Growth Club membership');
+      throw new BadRequestException('You already have an active CreatorPlus Community membership');
     }
 
     // Lazily create the provider plan/price the first time it's needed.
@@ -239,7 +239,7 @@ export class MembershipService implements OnModuleInit {
       where: { userId, status: { in: ACTIVE_STATUSES } },
       orderBy: { createdAt: 'desc' },
     });
-    if (!sub) throw new NotFoundException('No active Growth Club membership to cancel');
+    if (!sub) throw new NotFoundException('No active CreatorPlus Community membership to cancel');
     if (sub.providerSubscriptionId) {
       try {
         await this.getProvider(sub.provider).cancelSubscription(sub.providerSubscriptionId);

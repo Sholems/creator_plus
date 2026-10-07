@@ -13,12 +13,10 @@ function isAdmin(roles?: string[]) {
 }
 
 const NAV_LINKS: { href: Route; label: string }[] = [
-  { href: '/marketplace', label: 'Marketplace' },
-  { href: '/categories', label: 'Categories' },
-  { href: '/creators', label: 'Creators' },
-  { href: '/community', label: 'Growth Club' },
-  { href: '/sell', label: 'Sell' },
-  { href: '/earn', label: 'Earn' },
+  { href: '/community', label: 'Community' },
+  { href: '/community/courses' as Route, label: 'Courses' },
+  { href: '/community/events' as Route, label: 'Events' },
+  { href: '/community/join' as Route, label: 'Membership' },
 ];
 
 export function Header() {

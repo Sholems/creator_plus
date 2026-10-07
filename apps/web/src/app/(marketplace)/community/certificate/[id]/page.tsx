@@ -21,7 +21,7 @@ export default function CertificateVerificationPage() {
     <main className="flex min-h-screen items-center justify-center bg-forest-950 px-4 py-12">
       <section className="w-full max-w-3xl rounded-[2rem] border border-gold-300/40 bg-cream-50 p-8 text-center shadow-2xl md:p-14">
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-clay-600">
-          Bold Ideas Growth Club
+          CreatorPlus Community
         </p>
         {error ? (
           <p className="mt-8 text-clay-700">{error}</p>
@@ -31,7 +31,7 @@ export default function CertificateVerificationPage() {
           <>
             <p className="mt-10 font-display text-xl text-ink-600">Certificate of completion</p>
             <h1 className="mt-3 font-display text-4xl font-bold text-ink-950">
-              {certificate.user.displayName || 'Growth Club member'}
+              {certificate.user.displayName || 'CreatorPlus Community member'}
             </h1>
             <p className="mt-5 text-ink-600">has completed</p>
             <h2 className="mt-2 font-display text-3xl font-semibold text-forest-900">

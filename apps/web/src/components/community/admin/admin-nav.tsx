@@ -14,7 +14,7 @@ const items = [
 export function CommunityAdminNav() {
   const pathname = usePathname();
   return (
-    <nav className="mt-5 flex gap-2 overflow-x-auto pb-1" aria-label="Growth Club management">
+    <nav className="mt-5 flex gap-2 overflow-x-auto pb-1" aria-label="CreatorPlus Community management">
       {items.map(([href, label]) => {
         const active = href === '/community/manage' ? pathname === href : pathname.startsWith(href);
         return (

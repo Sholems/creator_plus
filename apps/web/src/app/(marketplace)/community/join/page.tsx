@@ -13,7 +13,7 @@ const INCLUDED = [
     'Post questions, find unanswered discussions, and get practical help from the community.',
   ],
   ['Connect', 'Share wins and useful ideas in focused channels without marketplace noise.'],
-  ['Progress', 'Track completed lessons, earn points, and move up the Growth Club leaderboard.'],
+  ['Progress', 'Track completed lessons, earn points, and move up the CreatorPlus Community leaderboard.'],
 ];
 
 export default function CommunityJoinPage() {
@@ -31,7 +31,7 @@ export default function CommunityJoinPage() {
               href="/community"
               className="text-sm font-semibold text-gold-300 hover:text-gold-200"
             >
-              ← Bold Ideas Growth Club
+              ← CreatorPlus Community
             </Link>
             <p className="mt-10 inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-gold-300">
               Free community membership
@@ -41,7 +41,7 @@ export default function CommunityJoinPage() {
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-cream-100/80 sm:text-lg">
               Registration is free. Your CreatorPlus account gives you immediate access to the
-              Growth Club discussion room, free courses, learning progress, resources, and member
+              CreatorPlus Community discussion room, free courses, learning progress, resources, and member
               leaderboard.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -50,7 +50,7 @@ export default function CommunityJoinPage() {
                   href="/community"
                   className="inline-flex items-center justify-center rounded-full bg-gold-400 px-7 py-3.5 text-sm font-bold text-forest-950 hover:bg-gold-300"
                 >
-                  Enter the Growth Club
+                  Enter the CreatorPlus Community
                 </Link>
               ) : (
                 <>

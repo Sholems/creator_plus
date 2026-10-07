@@ -24,7 +24,7 @@ const links = [
 export function CommunityNavigation() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Growth Club" className="community-nav">
+    <nav aria-label="CreatorPlus Community" className="community-nav">
       {links.map(({ href, label, icon: Icon }) => {
         const active = href === '/community' ? pathname === href : pathname.startsWith(href);
         return (

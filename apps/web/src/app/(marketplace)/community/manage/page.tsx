@@ -63,7 +63,7 @@ export default function CommunityManagePage() {
     return (
       <main className="flex min-h-screen items-center justify-center bg-cream-50 px-4">
         <p className="text-sm text-ink-600">
-          You don't have access to manage Bold Ideas Growth Club.
+          You don't have access to manage CreatorPlus Community.
         </p>
       </main>
     );
@@ -148,10 +148,10 @@ export default function CommunityManagePage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="eyebrow text-gold-600">Manage</p>
-            <h1 className="font-display text-3xl font-bold text-ink-900">Growth Club classroom</h1>
+            <h1 className="font-display text-3xl font-bold text-ink-900">CreatorPlus Community classroom</h1>
           </div>
           <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">
-            ← Growth Club
+            ← CreatorPlus Community
           </Link>
         </div>
         <CommunityAdminNav />

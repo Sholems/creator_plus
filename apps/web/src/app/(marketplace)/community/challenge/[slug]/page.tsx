@@ -55,7 +55,7 @@ export default function CommunityChallengePage() {
       <div className="mx-auto max-w-5xl">
         <section className="rounded-[2rem] bg-forest-950 p-7 text-cream-50 md:p-10">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-300">
-            Growth Club challenge
+            CreatorPlus Community challenge
           </p>
           <h1 className="mt-3 font-display text-4xl font-bold">{challenge.title}</h1>
           <p className="mt-3 text-cream-200">

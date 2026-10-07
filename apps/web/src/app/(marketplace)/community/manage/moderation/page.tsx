@@ -43,7 +43,7 @@ export default function CommunityModerationPage() {
     <main className="min-h-screen bg-cream-50 px-4 py-8">
       <div className="mx-auto max-w-6xl">
         <p className="text-xs font-bold uppercase tracking-[.18em] text-clay-600">
-          Growth Club operations
+          CreatorPlus Community operations
         </p>
         <h1 className="mt-2 font-display text-3xl font-bold text-ink-900">Moderation and health</h1>
         <CommunityAdminNav />
@@ -138,7 +138,7 @@ export default function CommunityModerationPage() {
         <section className="mt-8 rounded-2xl border border-ink-100 bg-white p-5">
           <h2 className="font-display text-2xl font-bold text-ink-900">Community access control</h2>
           <p className="mt-1 text-sm text-ink-500">
-            This changes Growth Club participation only. Marketplace roles, purchases, and creator
+            This changes CreatorPlus Community participation only. Marketplace roles, purchases, and creator
             data are untouched.
           </p>
           <div className="mt-4 grid gap-2 md:grid-cols-[1fr_1fr_auto_auto]">

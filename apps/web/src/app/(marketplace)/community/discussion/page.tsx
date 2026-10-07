@@ -171,7 +171,7 @@ export default function DiscussionPage() {
       <div className="mx-auto w-full max-w-3xl">
         <div className="flex items-center justify-between">
           <div>
-            <p className="eyebrow text-gold-600">Bold Ideas Growth Club</p>
+            <p className="eyebrow text-gold-600">CreatorPlus Community</p>
             <h1 className="font-display text-3xl font-bold text-ink-900">Discussion</h1>
           </div>
           <div className="flex items-center gap-4">
@@ -179,7 +179,7 @@ export default function DiscussionPage() {
               Saved
             </Link>
             <Link href="/community" className="text-sm text-ink-500 hover:text-ink-800">
-              ← Growth Club
+              ← CreatorPlus Community
             </Link>
           </div>
         </div>
@@ -273,7 +273,7 @@ export default function DiscussionPage() {
                 <CommunityRichEditor
                   value={composer.body}
                   onChange={(body) => setComposer({ ...composer, body })}
-                  placeholder="Ask a question, share progress, or start a Growth Club conversation…"
+                  placeholder="Ask a question, share progress, or start a CreatorPlus Community conversation…"
                 />
               </div>
               {composer.attachments.length > 0 && (
