@@ -36,22 +36,33 @@ function entitlement(overrides: Partial<any> = {}) {
   };
 }
 
+const membership = { hasActiveMembership: jest.fn() } as any;
+
 describe('QrEntitlementsService', () => {
-  const service = new QrEntitlementsService();
+  const service = new QrEntitlementsService(membership);
 
   beforeEach(() => {
     jest.clearAllMocks();
     p.qrEntitlement.updateMany.mockResolvedValue({ count: 0 });
+    membership.hasActiveMembership.mockResolvedValue(false); // default: not a member
   });
 
-  it('rejects campaign creation without any paid entitlement (R1)', async () => {
+  it('gives a Pro member full QR access without any entitlement', async () => {
+    membership.hasActiveMembership.mockResolvedValue(true);
+    await expect(service.assertCanCreateCampaign('user-1', 'FILE')).resolves.toEqual({ hasPro: true });
+  });
+
+  it('free tier blocks file/PDF upload QR codes', async () => {
     p.qrEntitlement.findMany.mockResolvedValue([]);
-    await expect(service.assertCanCreateCampaign('user-1', 'FILE')).rejects.toThrow(
-      'Choose a QR Studio plan',
-    );
+    await expect(service.assertCanCreateCampaign('user-1', 'FILE')).rejects.toBeInstanceOf(ForbiddenException);
   });
 
-  it('allows a FILE campaign on a Single credit with a free slot (R2)', async () => {
+  it('free tier allows a non-upload campaign', async () => {
+    p.qrEntitlement.findMany.mockResolvedValue([]);
+    await expect(service.assertCanCreateCampaign('user-1', 'WHATSAPP')).resolves.toEqual({ hasPro: false });
+  });
+
+  it('allows a FILE campaign on a legacy Single credit with a free slot (R2)', async () => {
     p.qrEntitlement.findMany.mockResolvedValue([entitlement()]);
     p.qrCampaign.count.mockResolvedValue(0);
     await expect(service.assertCanCreateCampaign('user-1', 'FILE')).resolves.toEqual({ hasPro: false });

@@ -9,10 +9,17 @@ import {
   QrOfferCode,
 } from '@creatorplus/database';
 import { addDays, getQrOffer } from './qr-offer-definitions';
-import { assertContentTypeAllowed } from './qr-content-validation';
+import { assertContentTypeAllowed, assertFreeContentTypeAllowed } from './qr-content-validation';
+import { MembershipService } from '../membership/membership.service';
+
+// QR Studio is now a membership perk: active members get full Pro QR access;
+// everyone else (free) gets a single campaign with no file/PDF upload.
+const FREE_MAX_ACTIVE_CAMPAIGNS = 1;
 
 @Injectable()
 export class QrEntitlementsService {
+  constructor(private readonly membership: MembershipService) {}
+
   async listForUser(userId: string) {
     await this.expireOldEntitlements(userId);
     const entitlements = await prisma.qrEntitlement.findMany({
@@ -22,11 +29,17 @@ export class QrEntitlementsService {
     const activeCampaigns = await prisma.qrCampaign.count({
       where: { ownerId: userId, status: 'ACTIVE' },
     });
-    const hasPro = entitlements.some((e) => this.isActivePro(e));
+    const isMember = await this.membership.hasActiveMembership(userId);
+    // Membership is the primary Pro source; legacy QR entitlements are honoured
+    // until grandfathered holders are migrated to membership.
+    const legacyPro = entitlements.some((e) => this.isActivePro(e));
+    const hasPro = isMember || legacyPro;
 
     return {
-      hasPaidAccess: entitlements.some((e) => this.isUsable(e)),
+      isMember,
       hasPro,
+      hasPaidAccess: hasPro || entitlements.some((e) => this.isUsable(e)),
+      maxActiveCampaigns: hasPro ? null : FREE_MAX_ACTIVE_CAMPAIGNS,
       activeCampaigns,
       entitlements,
       offers: Object.values(QrOfferCode).map(getQrOffer),
@@ -34,35 +47,54 @@ export class QrEntitlementsService {
   }
 
   async assertCanCreateCampaign(userId: string, contentType: QrContentType) {
+    // Pro members: full access, unlimited.
+    if (await this.membership.hasActiveMembership(userId)) {
+      assertContentTypeAllowed(contentType, true);
+      return { hasPro: true };
+    }
+    // Legacy QR entitlements (grandfathered) keep their existing behaviour.
     const candidates = await this.getUsableEntitlements(userId);
-    if (candidates.length === 0) {
-      throw new BadRequestException('Choose a QR Studio plan before creating a campaign');
+    if (candidates.length > 0) {
+      const hasPro = candidates.some((e) => this.isActivePro(e));
+      assertContentTypeAllowed(contentType, hasPro);
+      if (!(await this.hasAvailableSlot(userId, candidates))) {
+        throw new BadRequestException('Your QR Studio plan has no available campaign slots');
+      }
+      return { hasPro };
     }
-    const hasPro = candidates.some((e) => this.isActivePro(e));
-    assertContentTypeAllowed(contentType, hasPro);
-    if (!(await this.hasAvailableSlot(userId, candidates))) {
-      throw new BadRequestException('Your QR Studio plan has no available campaign slots');
-    }
-    return { hasPro };
+    // Free tier: any non-upload content type (the active-campaign cap is enforced on activation).
+    assertFreeContentTypeAllowed(contentType);
+    return { hasPro: false };
   }
 
-  async chooseEntitlementForActivation(userId: string, contentType: QrContentType) {
+  /** Returns the entitlement to attach, or null for member/free campaigns. */
+  async chooseEntitlementForActivation(userId: string, contentType: QrContentType): Promise<QrEntitlement | null> {
+    if (await this.membership.hasActiveMembership(userId)) {
+      assertContentTypeAllowed(contentType, true);
+      return null;
+    }
+
     const candidates = await this.getUsableEntitlements(userId);
-    if (candidates.length === 0) {
-      throw new BadRequestException('Choose a QR Studio plan before activating a campaign');
+    if (candidates.length > 0) {
+      const hasPro = candidates.some((e) => this.isActivePro(e));
+      assertContentTypeAllowed(contentType, hasPro);
+
+      const pro = candidates.find((e) => this.isActivePro(e));
+      if (pro && (await this.entitlementHasSlot(userId, pro))) return pro;
+
+      for (const entitlement of candidates.filter((e) => e.kind === 'CAMPAIGN_CREDIT')) {
+        if (await this.entitlementHasSlot(userId, entitlement)) return entitlement;
+      }
+      throw new BadRequestException('Your QR Studio plan has no available campaign slots');
     }
 
-    const hasPro = candidates.some((e) => this.isActivePro(e));
-    assertContentTypeAllowed(contentType, hasPro);
-
-    const pro = candidates.find((e) => this.isActivePro(e));
-    if (pro && (await this.entitlementHasSlot(userId, pro))) return pro;
-
-    for (const entitlement of candidates.filter((e) => e.kind === 'CAMPAIGN_CREDIT')) {
-      if (await this.entitlementHasSlot(userId, entitlement)) return entitlement;
+    // Free tier: one active campaign, no uploads.
+    assertFreeContentTypeAllowed(contentType);
+    const active = await prisma.qrCampaign.count({ where: { ownerId: userId, status: 'ACTIVE' } });
+    if (active >= FREE_MAX_ACTIVE_CAMPAIGNS) {
+      throw new BadRequestException('Your free plan allows 1 active QR code. Upgrade to Pro for unlimited.');
     }
-
-    throw new BadRequestException('Your QR Studio plan has no available campaign slots');
+    return null;
   }
 
   async grantFromPayment(input: {

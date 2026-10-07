@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { StorageModule } from '../storage/storage.module';
 import { PaymentsModule } from '../payments/payments.module';
+import { MembershipModule } from '../membership/membership.module';
 import { QrAssetsController } from './qr-assets.controller';
 import { QrBillingController } from './qr-billing.controller';
 import { QrCampaignsController } from './qr-campaigns.controller';
@@ -15,7 +16,7 @@ import { QrAnalyticsService } from './qr-analytics.service';
 import { QrCouponsService } from './qr-coupons.service';
 
 @Module({
-  imports: [StorageModule, PaymentsModule],
+  imports: [StorageModule, PaymentsModule, MembershipModule],
   controllers: [
     QrBillingController,
     QrCampaignsController,

@@ -158,9 +158,10 @@ export class QrCampaignsService {
       where: { id },
       data: {
         status: 'ACTIVE',
-        entitlementId: entitlement.id,
+        // Member/free campaigns have no entitlement and no fixed expiry.
+        entitlementId: entitlement?.id ?? null,
         activatedAt: campaign.activatedAt ?? new Date(),
-        expiresAt: entitlement.expiresAt,
+        expiresAt: entitlement?.expiresAt ?? null,
       },
     });
     return this.findMineById(userId, id);

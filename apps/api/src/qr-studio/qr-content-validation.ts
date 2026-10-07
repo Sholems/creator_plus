@@ -17,6 +17,19 @@ export function assertContentTypeAllowed(contentType: QrContentType, hasPro: boo
   }
 }
 
+// Content types that upload a file/image to R2 — reserved for Pro members.
+const UPLOAD_QR_CONTENT_TYPES = new Set<QrContentType>(['FILE', 'IMAGE_GALLERY']);
+
+/** Free tier: any content type EXCEPT the file/PDF/image upload ones. */
+export function assertFreeContentTypeAllowed(contentType: QrContentType) {
+  if (!PRO_QR_CONTENT_TYPES.has(contentType)) {
+    throw new BadRequestException('This QR content type is not available yet');
+  }
+  if (UPLOAD_QR_CONTENT_TYPES.has(contentType)) {
+    throw new ForbiddenException('File & PDF upload QR codes are a Pro membership feature');
+  }
+}
+
 export function assertScanModeAllowed(scanMode: QrScanMode, hasPro: boolean) {
   if (scanMode === 'DIRECT_OPEN' && !hasPro) {
     throw new ForbiddenException('Direct-open QR campaigns require Pro QR Studio');
