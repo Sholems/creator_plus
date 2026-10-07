@@ -31,6 +31,7 @@ import { LicensesModule } from './licenses/licenses.module';
 import { QrStudioModule } from './qr-studio/qr-studio.module';
 import { MembershipModule } from './membership/membership.module';
 import { CommunityModule } from './community/community.module';
+import { PushModule } from './push/push.module';
 import { buildThrottlerStorage } from './common/throttler-redis.storage';
 import { StorageController } from './storage/storage.controller';
 import { PaymentsController } from './payments/payments.controller';
@@ -77,6 +78,7 @@ import { PaymentsController } from './payments/payments.controller';
     QrStudioModule,
     MembershipModule,
     CommunityModule,
+    PushModule,
   ],
   controllers: [StorageController, PaymentsController],
   providers: [

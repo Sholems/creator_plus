@@ -9,6 +9,7 @@ import { prisma, Prisma } from '@creatorplus/database';
 import { CommunityPointsService } from './community-points.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { EmailService } from '../email/email.service';
+import { PushService } from '../push/push.service';
 import { assertOwnStorageUrl } from '../qr-studio/qr-content-validation';
 import { CreatePostDto, UpdatePostDto, CreateCommentDto, CategoryDto } from './dto/feed.dto';
 import { CommunityAccessService } from './community-access.service';
@@ -39,6 +40,7 @@ export class CommunityFeedService {
     private readonly points: CommunityPointsService,
     private readonly notifications: NotificationsService,
     private readonly email: EmailService,
+    private readonly push: PushService,
   ) {}
 
   /** Keep only attachments uploaded to our own R2 bucket; cap the count. */
@@ -408,6 +410,11 @@ export class CommunityFeedService {
           postId,
         });
       }
+      void this.push.sendToUser(author.id, {
+        title: `${replier || 'Someone'} replied to your post`,
+        body: `"${postTitle}" — ${body.slice(0, 120)}`,
+        url: `/community/post/${postId}`,
+      });
     } catch (err) {
       this.logger.warn(`[community-reply-notify] ${(err as Error).message}`);
     }

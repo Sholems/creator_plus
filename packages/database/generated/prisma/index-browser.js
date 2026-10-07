@@ -1475,6 +1475,15 @@ exports.Prisma.CommunityPointEventScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2031,7 +2040,8 @@ exports.Prisma.ModelName = {
   CommunitySubscription: 'CommunitySubscription',
   CommunityNotificationPreference: 'CommunityNotificationPreference',
   CommunityDelivery: 'CommunityDelivery',
-  CommunityPointEvent: 'CommunityPointEvent'
+  CommunityPointEvent: 'CommunityPointEvent',
+  PushSubscription: 'PushSubscription'
 };
 
 /**

@@ -82,6 +82,16 @@ class ApiClient {
     return this.fetch<any>('/community/engagement', { token });
   }
 
+  async getPushPublicKey(token: string) {
+    return this.fetch<{ publicKey: string | null }>('/community/push/public-key', { token });
+  }
+  async subscribePush(token: string, subscription: any) {
+    return this.fetch<any>('/community/push/subscribe', { method: 'POST', body: subscription, token });
+  }
+  async unsubscribePush(token: string, endpoint: string) {
+    return this.fetch<any>('/community/push/unsubscribe', { method: 'POST', body: { endpoint }, token });
+  }
+
   async getCommunityMembers(token: string, params?: { search?: string; cursor?: string }) {
     const query = new URLSearchParams();
     if (params?.search) query.set('search', params.search);

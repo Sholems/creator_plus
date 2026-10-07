@@ -55,6 +55,7 @@ model User {
   communityProfile CommunityProfile?
   communityPointEvents CommunityPointEvent[]
   communityNotificationPreference CommunityNotificationPreference?
+  pushSubscriptions PushSubscription[]
   communityDeliveries CommunityDelivery[]
   communityFollowing CommunityFollow[] @relation("CommunityFollower")
   communityFollowers CommunityFollow[] @relation("CommunityFollowing")
@@ -2688,4 +2689,19 @@ model CommunityPointEvent {
   @@unique([userId, reason, sourceId])
   @@index([userId])
   @@map("community_point_events")
+}
+
+// Web Push (VAPID) subscriptions — one row per browser/device endpoint.
+model PushSubscription {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("push_subscriptions")
 }

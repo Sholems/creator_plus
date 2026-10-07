@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MembershipModule } from '../membership/membership.module';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { EmailModule } from '../email/email.module';
+import { PushModule } from '../push/push.module';
 import { FeatureFlagsModule } from '../feature-flags/feature-flags.module';
 import { CommunityController } from './community.controller';
 import { CommunityCoursesService } from './community-courses.service';
@@ -21,7 +22,7 @@ import { CommunityAdminController } from './community-admin.controller';
 import { CommunityAdminService } from './community-admin.service';
 
 @Module({
-  imports: [MembershipModule, NotificationsModule, EmailModule, FeatureFlagsModule],
+  imports: [MembershipModule, NotificationsModule, EmailModule, FeatureFlagsModule, PushModule],
   controllers: [
     CommunityController,
     CommunityFeedController,

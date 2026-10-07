@@ -22,7 +22,8 @@ function makeService() {
   const points = { award: jest.fn(), revoke: jest.fn() } as any;
   const notifications = { create: jest.fn() } as any;
   const email = { sendCommunityReply: jest.fn() } as any;
-  return new CommunityFeedService(access, points, notifications, email);
+  const push = { sendToUser: jest.fn() } as any;
+  return new CommunityFeedService(access, points, notifications, email, push);
 }
 
 describe('CommunityFeedService', () => {

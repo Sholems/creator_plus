@@ -35,9 +35,9 @@
     "bullmq": "^5.30.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "ioredis": "^5.4.2",
     "cookie-parser": "^1.4.7",
     "helmet": "^8.3.0",
+    "ioredis": "^5.4.2",
     "lodash": "^4.18.1",
     "meilisearch": "^0.44.0",
     "nodemailer": "^6.9.0",
@@ -47,7 +47,8 @@
     "rxjs": "^7.8.1",
     "sanitize-html": "2.13.1",
     "stripe": "^17.0.0",
-    "uuid": "^11.0.0"
+    "uuid": "^11.0.0",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -60,9 +61,10 @@
     "@types/jest": "^29.5.0",
     "@types/node": "^22.10.0",
     "@types/nodemailer": "^6.4.0",
-    "@types/sanitize-html": "^2.16.0",
     "@types/passport-jwt": "^4.0.1",
+    "@types/sanitize-html": "^2.16.0",
     "@types/uuid": "^10.0.0",
+    "@types/web-push": "^3.6.4",
     "jest": "^29.7.0",
     "source-map-support": "^0.5.21",
     "ts-jest": "^29.2.0",
