@@ -45,6 +45,7 @@ export default function CommunityHomePage() {
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [recentPosts, setRecentPosts] = useState<any[]>([]);
   const [engagement, setEngagement] = useState<any>(null);
+  const [activity, setActivity] = useState<any[]>([]);
 
   const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
 
@@ -71,6 +72,7 @@ export default function CommunityHomePage() {
       api.getLeaderboard(token).then(setLeaderboard),
       api.getPosts(token, { sort: 'latest' }).then((posts) => setRecentPosts(posts.slice(0, 3))),
       api.getCommunityEngagement(token).then(setEngagement).catch(() => {}),
+      api.getNotifications(token, { perPage: 6 }).then((r) => setActivity(r.data || [])).catch(() => {}),
     ]).finally(() => setLoading(false));
   }, [token, authLoading]);
 
@@ -444,6 +446,35 @@ export default function CommunityHomePage() {
                 </Link>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Activity — what you missed */}
+        {activity.length > 0 && (
+          <div className="mt-6 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+            <h2 className="font-display text-lg font-semibold text-ink-900">Your activity</h2>
+            <ul className="mt-3 divide-y divide-ink-100">
+              {activity.map((n) => {
+                const d = n.data || {};
+                const href = d.communityPostId
+                  ? (`/community/post/${d.communityPostId}` as Route)
+                  : d.communityEventSlug
+                    ? (`/community/event/${d.communityEventSlug}` as Route)
+                    : ('/community' as Route);
+                return (
+                  <li key={n.id}>
+                    <Link href={href} className="flex items-start gap-3 py-3 text-sm transition hover:text-forest-800">
+                      <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${n.readAt ? 'bg-transparent' : 'bg-forest-600'}`} aria-hidden />
+                      <div className={`min-w-0 flex-1 ${n.readAt ? 'opacity-70' : ''}`}>
+                        <p className="font-medium text-ink-800">{n.title}</p>
+                        {n.message && <p className="truncate text-xs text-ink-500">{n.message}</p>}
+                      </div>
+                      <span className="shrink-0 text-xs text-ink-400">{new Date(n.createdAt).toLocaleDateString()}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
 
