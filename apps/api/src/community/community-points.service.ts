@@ -8,6 +8,8 @@ export const POINTS = {
   LESSON: 3,
   LIKE_RECEIVED: 1,
   CHALLENGE_CHECK_IN: 3,
+  DAILY_CHECKIN: 1,
+  ONBOARDING: 10,
 } as const;
 export type PointReason = keyof typeof POINTS;
 

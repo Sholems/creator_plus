@@ -78,6 +78,10 @@ class ApiClient {
     return this.fetch<any>('/community/home', { token });
   }
 
+  async getCommunityEngagement(token: string) {
+    return this.fetch<any>('/community/engagement', { token });
+  }
+
   async getCommunityMembers(token: string, params?: { search?: string; cursor?: string }) {
     const query = new URLSearchParams();
     if (params?.search) query.set('search', params.search);

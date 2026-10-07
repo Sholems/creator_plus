@@ -11,4 +11,10 @@ export class CommunityHomeController {
   getHome(@Request() req: any) {
     return this.home.getHome(req.user.sub);
   }
+
+  @Get('engagement')
+  @UseGuards(JwtAuthGuard)
+  getEngagement(@Request() req: any) {
+    return this.home.getEngagement(req.user.sub);
+  }
 }

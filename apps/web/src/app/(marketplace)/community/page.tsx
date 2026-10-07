@@ -44,6 +44,7 @@ export default function CommunityHomePage() {
   const [stats, setStats] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [engagement, setEngagement] = useState<any>(null);
 
   const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
 
@@ -69,6 +70,7 @@ export default function CommunityHomePage() {
       api.getCommunityStats(token).then(setStats),
       api.getLeaderboard(token).then(setLeaderboard),
       api.getPosts(token, { sort: 'latest' }).then((posts) => setRecentPosts(posts.slice(0, 3))),
+      api.getCommunityEngagement(token).then(setEngagement).catch(() => {}),
     ]).finally(() => setLoading(false));
   }, [token, authLoading]);
 
@@ -269,6 +271,42 @@ export default function CommunityHomePage() {
                 {stats.pointsToNextLevel} pts to level {stats.level + 1}
               </p>
             )}
+            {engagement?.streak && (
+              <span className="ml-auto flex items-center gap-1.5 rounded-full bg-clay-50 px-3 py-1 text-xs font-semibold text-clay-700" title={`Longest streak: ${engagement.streak.longestStreak} days`}>
+                🔥 {engagement.streak.currentStreak}-day streak
+              </span>
+            )}
+          </div>
+        )}
+
+        {engagement?.onboarding && !engagement.onboarding.complete && (
+          <div className="mt-4 rounded-2xl border border-forest-200 bg-white p-5 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="font-display text-lg font-semibold text-ink-900">Get started</h2>
+              <span className="text-xs font-semibold text-ink-500">
+                {engagement.onboarding.completedCount}/{engagement.onboarding.total}
+              </span>
+            </div>
+            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-cream-100">
+              <div
+                className="h-full bg-forest-600 transition-all"
+                style={{ width: `${Math.round((engagement.onboarding.completedCount / engagement.onboarding.total) * 100)}%` }}
+              />
+            </div>
+            <ul className="mt-3 space-y-1">
+              {engagement.onboarding.steps.map((s: any) => (
+                <li key={s.key}>
+                  <Link
+                    href={s.href as Route}
+                    className={`flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition hover:bg-cream-100 ${s.done ? 'text-ink-400' : 'text-ink-800'}`}
+                  >
+                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] ${s.done ? 'bg-forest-600 text-white' : 'border border-ink-300 text-transparent'}`}>✓</span>
+                    <span className={s.done ? 'line-through' : 'font-medium'}>{s.label}</span>
+                    {!s.done && <span className="ml-auto text-xs font-semibold text-forest-700">Start →</span>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

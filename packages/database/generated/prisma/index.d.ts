@@ -129201,16 +129201,23 @@ export namespace Prisma {
 
   export type CommunityProfileAvgAggregateOutputType = {
     points: number | null
+    currentStreak: number | null
+    longestStreak: number | null
   }
 
   export type CommunityProfileSumAggregateOutputType = {
     points: number | null
+    currentStreak: number | null
+    longestStreak: number | null
   }
 
   export type CommunityProfileMinAggregateOutputType = {
     id: string | null
     userId: string | null
     points: number | null
+    lastActiveOn: Date | null
+    currentStreak: number | null
+    longestStreak: number | null
     headline: string | null
     bio: string | null
     visibility: $Enums.CommunityProfileVisibility | null
@@ -129223,6 +129230,9 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     points: number | null
+    lastActiveOn: Date | null
+    currentStreak: number | null
+    longestStreak: number | null
     headline: string | null
     bio: string | null
     visibility: $Enums.CommunityProfileVisibility | null
@@ -129235,6 +129245,9 @@ export namespace Prisma {
     id: number
     userId: number
     points: number
+    lastActiveOn: number
+    currentStreak: number
+    longestStreak: number
     headline: number
     bio: number
     expertise: number
@@ -129250,16 +129263,23 @@ export namespace Prisma {
 
   export type CommunityProfileAvgAggregateInputType = {
     points?: true
+    currentStreak?: true
+    longestStreak?: true
   }
 
   export type CommunityProfileSumAggregateInputType = {
     points?: true
+    currentStreak?: true
+    longestStreak?: true
   }
 
   export type CommunityProfileMinAggregateInputType = {
     id?: true
     userId?: true
     points?: true
+    lastActiveOn?: true
+    currentStreak?: true
+    longestStreak?: true
     headline?: true
     bio?: true
     visibility?: true
@@ -129272,6 +129292,9 @@ export namespace Prisma {
     id?: true
     userId?: true
     points?: true
+    lastActiveOn?: true
+    currentStreak?: true
+    longestStreak?: true
     headline?: true
     bio?: true
     visibility?: true
@@ -129284,6 +129307,9 @@ export namespace Prisma {
     id?: true
     userId?: true
     points?: true
+    lastActiveOn?: true
+    currentStreak?: true
+    longestStreak?: true
     headline?: true
     bio?: true
     expertise?: true
@@ -129386,6 +129412,9 @@ export namespace Prisma {
     id: string
     userId: string
     points: number
+    lastActiveOn: Date | null
+    currentStreak: number
+    longestStreak: number
     headline: string | null
     bio: string | null
     expertise: string[]
@@ -129420,6 +129449,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     points?: boolean
+    lastActiveOn?: boolean
+    currentStreak?: boolean
+    longestStreak?: boolean
     headline?: boolean
     bio?: boolean
     expertise?: boolean
@@ -129436,6 +129468,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     points?: boolean
+    lastActiveOn?: boolean
+    currentStreak?: boolean
+    longestStreak?: boolean
     headline?: boolean
     bio?: boolean
     expertise?: boolean
@@ -129452,6 +129487,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     points?: boolean
+    lastActiveOn?: boolean
+    currentStreak?: boolean
+    longestStreak?: boolean
     headline?: boolean
     bio?: boolean
     expertise?: boolean
@@ -129468,6 +129506,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     points?: boolean
+    lastActiveOn?: boolean
+    currentStreak?: boolean
+    longestStreak?: boolean
     headline?: boolean
     bio?: boolean
     expertise?: boolean
@@ -129479,7 +129520,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CommunityProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "points" | "headline" | "bio" | "expertise" | "goals" | "links" | "visibility" | "participationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["communityProfile"]>
+  export type CommunityProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "points" | "lastActiveOn" | "currentStreak" | "longestStreak" | "headline" | "bio" | "expertise" | "goals" | "links" | "visibility" | "participationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["communityProfile"]>
   export type CommunityProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -129499,6 +129540,9 @@ export namespace Prisma {
       id: string
       userId: string
       points: number
+      lastActiveOn: Date | null
+      currentStreak: number
+      longestStreak: number
       headline: string | null
       bio: string | null
       expertise: string[]
@@ -129935,6 +129979,9 @@ export namespace Prisma {
     readonly id: FieldRef<"CommunityProfile", 'String'>
     readonly userId: FieldRef<"CommunityProfile", 'String'>
     readonly points: FieldRef<"CommunityProfile", 'Int'>
+    readonly lastActiveOn: FieldRef<"CommunityProfile", 'DateTime'>
+    readonly currentStreak: FieldRef<"CommunityProfile", 'Int'>
+    readonly longestStreak: FieldRef<"CommunityProfile", 'Int'>
     readonly headline: FieldRef<"CommunityProfile", 'String'>
     readonly bio: FieldRef<"CommunityProfile", 'String'>
     readonly expertise: FieldRef<"CommunityProfile", 'String[]'>
@@ -138480,6 +138527,9 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     points: 'points',
+    lastActiveOn: 'lastActiveOn',
+    currentStreak: 'currentStreak',
+    longestStreak: 'longestStreak',
     headline: 'headline',
     bio: 'bio',
     expertise: 'expertise',
@@ -148021,6 +148071,9 @@ export namespace Prisma {
     id?: UuidFilter<"CommunityProfile"> | string
     userId?: UuidFilter<"CommunityProfile"> | string
     points?: IntFilter<"CommunityProfile"> | number
+    lastActiveOn?: DateTimeNullableFilter<"CommunityProfile"> | Date | string | null
+    currentStreak?: IntFilter<"CommunityProfile"> | number
+    longestStreak?: IntFilter<"CommunityProfile"> | number
     headline?: StringNullableFilter<"CommunityProfile"> | string | null
     bio?: StringNullableFilter<"CommunityProfile"> | string | null
     expertise?: StringNullableListFilter<"CommunityProfile">
@@ -148037,6 +148090,9 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     points?: SortOrder
+    lastActiveOn?: SortOrderInput | SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
     headline?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     expertise?: SortOrder
@@ -148056,6 +148112,9 @@ export namespace Prisma {
     OR?: CommunityProfileWhereInput[]
     NOT?: CommunityProfileWhereInput | CommunityProfileWhereInput[]
     points?: IntFilter<"CommunityProfile"> | number
+    lastActiveOn?: DateTimeNullableFilter<"CommunityProfile"> | Date | string | null
+    currentStreak?: IntFilter<"CommunityProfile"> | number
+    longestStreak?: IntFilter<"CommunityProfile"> | number
     headline?: StringNullableFilter<"CommunityProfile"> | string | null
     bio?: StringNullableFilter<"CommunityProfile"> | string | null
     expertise?: StringNullableListFilter<"CommunityProfile">
@@ -148072,6 +148131,9 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     points?: SortOrder
+    lastActiveOn?: SortOrderInput | SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
     headline?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     expertise?: SortOrder
@@ -148095,6 +148157,9 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"CommunityProfile"> | string
     userId?: UuidWithAggregatesFilter<"CommunityProfile"> | string
     points?: IntWithAggregatesFilter<"CommunityProfile"> | number
+    lastActiveOn?: DateTimeNullableWithAggregatesFilter<"CommunityProfile"> | Date | string | null
+    currentStreak?: IntWithAggregatesFilter<"CommunityProfile"> | number
+    longestStreak?: IntWithAggregatesFilter<"CommunityProfile"> | number
     headline?: StringNullableWithAggregatesFilter<"CommunityProfile"> | string | null
     bio?: StringNullableWithAggregatesFilter<"CommunityProfile"> | string | null
     expertise?: StringNullableListFilter<"CommunityProfile">
@@ -157873,6 +157938,9 @@ export namespace Prisma {
   export type CommunityProfileCreateInput = {
     id?: string
     points?: number
+    lastActiveOn?: Date | string | null
+    currentStreak?: number
+    longestStreak?: number
     headline?: string | null
     bio?: string | null
     expertise?: CommunityProfileCreateexpertiseInput | string[]
@@ -157889,6 +157957,9 @@ export namespace Prisma {
     id?: string
     userId: string
     points?: number
+    lastActiveOn?: Date | string | null
+    currentStreak?: number
+    longestStreak?: number
     headline?: string | null
     bio?: string | null
     expertise?: CommunityProfileCreateexpertiseInput | string[]
@@ -157903,6 +157974,9 @@ export namespace Prisma {
   export type CommunityProfileUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    lastActiveOn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    longestStreak?: IntFieldUpdateOperationsInput | number
     headline?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     expertise?: CommunityProfileUpdateexpertiseInput | string[]
@@ -157919,6 +157993,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    lastActiveOn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    longestStreak?: IntFieldUpdateOperationsInput | number
     headline?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     expertise?: CommunityProfileUpdateexpertiseInput | string[]
@@ -157934,6 +158011,9 @@ export namespace Prisma {
     id?: string
     userId: string
     points?: number
+    lastActiveOn?: Date | string | null
+    currentStreak?: number
+    longestStreak?: number
     headline?: string | null
     bio?: string | null
     expertise?: CommunityProfileCreateexpertiseInput | string[]
@@ -157948,6 +158028,9 @@ export namespace Prisma {
   export type CommunityProfileUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    lastActiveOn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    longestStreak?: IntFieldUpdateOperationsInput | number
     headline?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     expertise?: CommunityProfileUpdateexpertiseInput | string[]
@@ -157963,6 +158046,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    lastActiveOn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    longestStreak?: IntFieldUpdateOperationsInput | number
     headline?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     expertise?: CommunityProfileUpdateexpertiseInput | string[]
@@ -165264,6 +165350,9 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     points?: SortOrder
+    lastActiveOn?: SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
     headline?: SortOrder
     bio?: SortOrder
     expertise?: SortOrder
@@ -165277,12 +165366,17 @@ export namespace Prisma {
 
   export type CommunityProfileAvgOrderByAggregateInput = {
     points?: SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
   }
 
   export type CommunityProfileMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     points?: SortOrder
+    lastActiveOn?: SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
     headline?: SortOrder
     bio?: SortOrder
     visibility?: SortOrder
@@ -165295,6 +165389,9 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     points?: SortOrder
+    lastActiveOn?: SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
     headline?: SortOrder
     bio?: SortOrder
     visibility?: SortOrder
@@ -165305,6 +165402,8 @@ export namespace Prisma {
 
   export type CommunityProfileSumOrderByAggregateInput = {
     points?: SortOrder
+    currentStreak?: SortOrder
+    longestStreak?: SortOrder
   }
 
   export type EnumCommunityProfileVisibilityWithAggregatesFilter<$PrismaModel = never> = {
@@ -175490,6 +175589,9 @@ export namespace Prisma {
   export type CommunityProfileCreateWithoutUserInput = {
     id?: string
     points?: number
+    lastActiveOn?: Date | string | null
+    currentStreak?: number
+    longestStreak?: number
     headline?: string | null
     bio?: string | null
     expertise?: CommunityProfileCreateexpertiseInput | string[]
@@ -175504,6 +175606,9 @@ export namespace Prisma {
   export type CommunityProfileUncheckedCreateWithoutUserInput = {
     id?: string
     points?: number
+    lastActiveOn?: Date | string | null
+    currentStreak?: number
+    longestStreak?: number
     headline?: string | null
     bio?: string | null
     expertise?: CommunityProfileCreateexpertiseInput | string[]
@@ -177081,6 +177186,9 @@ export namespace Prisma {
   export type CommunityProfileUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    lastActiveOn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    longestStreak?: IntFieldUpdateOperationsInput | number
     headline?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     expertise?: CommunityProfileUpdateexpertiseInput | string[]
@@ -177095,6 +177203,9 @@ export namespace Prisma {
   export type CommunityProfileUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     points?: IntFieldUpdateOperationsInput | number
+    lastActiveOn?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentStreak?: IntFieldUpdateOperationsInput | number
+    longestStreak?: IntFieldUpdateOperationsInput | number
     headline?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     expertise?: CommunityProfileUpdateexpertiseInput | string[]
