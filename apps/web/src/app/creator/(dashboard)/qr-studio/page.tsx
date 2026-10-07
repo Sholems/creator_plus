@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
+import type { Route } from 'next';
 import { QrDesigner, DEFAULT_QR_DESIGN, type QrDesign } from '@/components/qr-studio/qr-designer';
 import { AvatarUploader, SocialLinksEditor, MenuEditor, EMPTY_MENU } from '@/components/qr-studio/rich-fields';
 import { useAuth } from '@/lib/auth';
@@ -387,7 +389,7 @@ export default function QrStudioPage() {
           </div>
           {access && (
             <p className="mt-0.5 text-xs text-forest-600">
-              {access.hasPaidAccess ? 'Paid access active' : 'No paid plan yet — pick one below.'}
+              {hasPro ? 'Pro access · included with membership' : 'Free plan · 1 QR code, no file upload'}
             </p>
           )}
         </div>
@@ -409,40 +411,27 @@ export default function QrStudioPage() {
         </div>
       )}
 
-      <div className="mt-8 flex flex-wrap items-center gap-2 rounded-2xl border border-ink-100 bg-cream-50 px-4 py-3">
-        <span className="text-sm font-medium text-ink-700">Have a discount code?</span>
-        <input
-          value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-          placeholder="Enter code"
-          className="w-40 rounded-full border border-ink-200 bg-white px-3 py-1.5 font-mono text-sm uppercase text-ink-900 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/20"
-        />
-        <span className="text-xs text-ink-400">Applied automatically when you pick a plan below.</span>
-      </div>
-
-      <section className="mt-4 grid gap-4 lg:grid-cols-4">
-        {offers.map((offer) => (
-          <article key={offer.code} className="rounded-2xl border border-ink-100 bg-white p-5 shadow-sm">
-            <p className="text-sm font-semibold text-ink-900">{offer.name}</p>
-            <p className="mt-2 font-display text-3xl font-bold text-ink-900">
-              ₦{Number(offer.amount).toLocaleString()}
-            </p>
-            <p className="mt-2 text-xs leading-5 text-ink-500">
-              {offer.pro
-                ? `Up to ${offer.maxActiveCampaigns} active campaigns for ${offer.durationDays} days.`
-                : `${offer.campaignCredits} active campaign slot${offer.campaignCredits > 1 ? 's' : ''} for 12 months.`}
-            </p>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => startCheckout(offer.code)}
-              className="mt-4 w-full rounded-full bg-forest-800 px-4 py-2 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 disabled:opacity-50"
-            >
-              Pay with Paystack
-            </button>
-          </article>
-        ))}
-      </section>
+      {!hasPro ? (
+        <section className="mt-6 rounded-2xl border border-forest-200 bg-white p-6 shadow-sm">
+          <p className="eyebrow text-gold-600">Free plan</p>
+          <h2 className="mt-1 font-display text-xl font-semibold text-ink-900">You're on the free QR plan</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-600">
+            Create <strong>1 QR code</strong> with links, WhatsApp, vCard, a menu and more. Upgrade to a
+            <strong> CreatorPlus Pro membership</strong> to unlock <strong>unlimited QR codes</strong>,
+            <strong> file &amp; PDF uploads</strong>, the full designer, and every other member benefit.
+          </p>
+          <Link
+            href={'/community/join' as Route}
+            className="mt-4 inline-block rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-cream-50 transition hover:bg-forest-700"
+          >
+            Upgrade to Pro
+          </Link>
+        </section>
+      ) : (
+        <section className="mt-6 rounded-2xl border border-gold-200 bg-gold-50 px-5 py-4 text-sm text-gold-800">
+          ✦ The full QR Studio is included with your CreatorPlus membership — unlimited codes, file &amp; PDF uploads, and the designer.
+        </section>
+      )}
 
       <div className="mt-8 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <section className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
