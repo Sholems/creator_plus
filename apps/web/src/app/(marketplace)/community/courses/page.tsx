@@ -91,10 +91,10 @@ export default function CommunityCoursesPage() {
                     </div>
                     {course.locked ? (
                       <Link
-                        href={'/community/join' as Route}
-                        className="mt-5 block rounded-full border border-ink-200 px-4 py-2 text-center text-sm font-semibold text-ink-700"
+                        href={`/community/course/${course.slug}` as Route}
+                        className="mt-5 block rounded-full border border-gold-300 bg-gold-50 px-4 py-2 text-center text-sm font-semibold text-gold-800 hover:bg-gold-100"
                       >
-                        Unlock premium course
+                        Preview course →
                       </Link>
                     ) : (
                       <Link

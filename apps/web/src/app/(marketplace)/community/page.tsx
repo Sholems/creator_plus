@@ -335,11 +335,7 @@ export default function CommunityHomePage() {
               return (
                 <Link
                   key={c.id}
-                  href={
-                    c.locked
-                      ? ('/community/join' as Route)
-                      : (`/community/course/${c.slug}` as Route)
-                  }
+                  href={`/community/course/${c.slug}` as Route}
                   className={`group rounded-2xl border bg-white p-5 shadow-sm transition ${c.locked ? 'border-gold-200' : 'border-ink-100 hover:border-forest-200'}`}
                 >
                   {c.coverImage && (

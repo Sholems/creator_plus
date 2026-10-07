@@ -119,7 +119,16 @@ export class CommunityCoursesService {
       },
     });
     if (!course) throw new NotFoundException('Course not found');
-    await this.assertCourseAccess(userId, course.accessLevel);
+    // Base community access is required, but a free member may still PREVIEW a
+    // premium course (curriculum + preview lessons). The paywall is soft so the
+    // UI can show an upgrade CTA instead of a dead 403.
+    await this.access.assertAccess(userId);
+    const premiumLocked =
+      course.accessLevel === 'PREMIUM' &&
+      !(await this.access
+        .assertAccess(userId, { accessLevel: 'PREMIUM' })
+        .then(() => true)
+        .catch(() => false));
 
     const joinDate = await this.memberJoinDate(userId);
     const allLessonIds = course.modules.flatMap((m) => m.lessons.map((l) => l.id));
@@ -143,29 +152,35 @@ export class CommunityCoursesService {
       descriptionFormat: course.descriptionFormat,
       coverImage: course.coverImage,
       accessLevel: course.accessLevel,
+      premiumLocked,
       certificate,
       modules: course.modules.map((m) => ({
         id: m.id,
         title: m.title,
         lessons: m.lessons.map((l) => {
-          const locked = this.isLocked(joinDate, l.dripDelayDays);
+          const dripLocked = this.isLocked(joinDate, l.dripDelayDays);
+          // Premium-gated unless it's an explicit free preview lesson.
+          const lessonPremiumLocked = premiumLocked && !l.isPreview;
+          const contentLocked = dripLocked || lessonPremiumLocked;
           return {
             id: l.id,
             title: l.title,
             contentType: l.contentType,
             durationMinutes: l.durationMinutes,
             completed: doneSet.has(l.id),
-            locked,
-            unlocksInDays: locked
+            locked: dripLocked,
+            premiumLocked: lessonPremiumLocked,
+            isPreview: l.isPreview,
+            unlocksInDays: dripLocked
               ? Math.ceil(
                   (joinDate.getTime() + l.dripDelayDays * 86_400_000 - Date.now()) / 86_400_000,
                 )
               : 0,
-            // Content is only sent for unlocked lessons.
-            body: locked ? null : l.body,
+            // Content is only sent for unlocked, entitled lessons.
+            body: contentLocked ? null : l.body,
             bodyFormat: l.bodyFormat,
-            videoUrl: locked ? null : l.videoUrl,
-            fileUrl: locked ? null : l.fileUrl,
+            videoUrl: contentLocked ? null : l.videoUrl,
+            fileUrl: contentLocked ? null : l.fileUrl,
           };
         }),
       })),

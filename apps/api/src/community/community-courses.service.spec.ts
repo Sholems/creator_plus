@@ -68,8 +68,10 @@ describe('CommunityCoursesService', () => {
     ]);
   });
 
-  it('blocks premium course content without a premium pass', async () => {
+  it('soft-paywalls a premium course for a free member: preview plays, rest is gated', async () => {
     const svc = makeService(false);
+    p.user.findUnique.mockResolvedValue({ createdAt: new Date() });
+    p.lessonProgress.findMany.mockResolvedValue([]);
     p.course.findFirst.mockResolvedValue({
       id: 'c1',
       title: 'Premium course',
@@ -77,12 +79,23 @@ describe('CommunityCoursesService', () => {
       description: null,
       coverImage: null,
       accessLevel: 'PREMIUM',
-      modules: [],
+      modules: [
+        {
+          id: 'm1',
+          title: 'Module 1',
+          lessons: [
+            { id: 'L1', title: 'Intro (preview)', contentType: 'VIDEO', durationMinutes: 5, dripDelayDays: 0, isPreview: true, body: null, videoUrl: 'https://youtu.be/x', fileUrl: null },
+            { id: 'L2', title: 'Members only', contentType: 'VIDEO', durationMinutes: 5, dripDelayDays: 0, isPreview: false, body: null, videoUrl: 'https://youtu.be/y', fileUrl: null },
+          ],
+        },
+      ],
     });
 
-    await expect(svc.getForMember('u1', 'premium-course')).rejects.toBeInstanceOf(
-      ForbiddenException,
-    );
+    const res = await svc.getForMember('u1', 'premium-course');
+    expect(res.premiumLocked).toBe(true);
+    const [preview, gated] = res.modules[0].lessons;
+    expect(preview).toMatchObject({ isPreview: true, premiumLocked: false, videoUrl: 'https://youtu.be/x' });
+    expect(gated).toMatchObject({ premiumLocked: true, videoUrl: null });
   });
 
   it('reveals unlocked lessons, hides dripped ones, and reflects completion', async () => {

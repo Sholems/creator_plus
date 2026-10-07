@@ -72,8 +72,8 @@ export default function CoursePlayerPage() {
         setCourse(c);
         const lessons = c.modules.flatMap((m: any) => m.lessons);
         const first =
-          lessons.find((l: any) => !l.locked && !l.completed) ||
-          lessons.find((l: any) => !l.locked) ||
+          lessons.find((l: any) => !l.locked && !l.premiumLocked && !l.completed) ||
+          lessons.find((l: any) => !l.locked && !l.premiumLocked) ||
           lessons[0];
         setSelectedId(first?.id ?? null);
       })
@@ -144,6 +144,23 @@ export default function CoursePlayerPage() {
           </p>
         </div>
 
+        {course.premiumLocked && (
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-gold-300 bg-gold-50 p-5">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Premium course</p>
+              <p className="mt-0.5 text-sm text-ink-700">
+                Preview it free. Unlock every lesson, the certificate, and the full QR Studio with CreatorPlus Pro.
+              </p>
+            </div>
+            <Link
+              href={'/community/join' as Route}
+              className="shrink-0 rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-cream-50 hover:bg-forest-700"
+            >
+              Upgrade to Pro
+            </Link>
+          </div>
+        )}
+
         <div className="mt-6 grid gap-6 lg:grid-cols-[320px_1fr]">
           {/* Curriculum */}
           <aside className="space-y-4">
@@ -153,22 +170,27 @@ export default function CoursePlayerPage() {
                 <ul className="mt-2 space-y-1">
                   {m.lessons.map((l: any) => {
                     const isSel = l.id === selectedId;
+                    const blocked = l.locked || l.premiumLocked;
                     return (
                       <li key={l.id}>
                         <button
-                          disabled={l.locked}
+                          disabled={blocked}
                           onClick={() => setSelectedId(l.id)}
-                          className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition ${isSel ? 'bg-forest-50 text-forest-900' : 'hover:bg-cream-100'} ${l.locked ? 'cursor-not-allowed opacity-60' : ''}`}
+                          className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition ${isSel ? 'bg-forest-50 text-forest-900' : 'hover:bg-cream-100'} ${blocked ? 'cursor-not-allowed opacity-60' : ''}`}
                         >
                           <span
                             className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] ${l.completed ? 'bg-forest-600 text-white' : 'border border-ink-300 text-ink-400'}`}
                           >
-                            {l.completed ? '✓' : l.locked ? '🔒' : ''}
+                            {l.completed ? '✓' : l.premiumLocked ? '✦' : l.locked ? '🔒' : ''}
                           </span>
                           <span className="flex-1">{l.title}</span>
-                          {l.locked && (
+                          {l.isPreview && !l.premiumLocked ? (
+                            <span className="rounded-full bg-forest-100 px-1.5 py-0.5 text-[9px] font-bold uppercase text-forest-700">Preview</span>
+                          ) : l.premiumLocked ? (
+                            <span className="rounded-full bg-gold-100 px-1.5 py-0.5 text-[9px] font-bold uppercase text-gold-700">Pro</span>
+                          ) : l.locked ? (
                             <span className="text-[10px] text-ink-400">{l.unlocksInDays}d</span>
-                          )}
+                          ) : null}
                         </button>
                       </li>
                     );
@@ -182,6 +204,20 @@ export default function CoursePlayerPage() {
           <section className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
             {!selected ? (
               <p className="text-sm text-ink-500">Select a lesson to begin.</p>
+            ) : selected.premiumLocked ? (
+              <div className="py-6 text-center">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Premium lesson</p>
+                <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">{selected.title}</h2>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-ink-600">
+                  Upgrade to CreatorPlus Pro to unlock this lesson, every other premium lesson, certificates, and the full QR Studio.
+                </p>
+                <Link
+                  href={'/community/join' as Route}
+                  className="mt-5 inline-block rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-cream-50 hover:bg-forest-700"
+                >
+                  Upgrade to Pro
+                </Link>
+              </div>
             ) : selected.locked ? (
               <p className="text-sm text-ink-500">
                 This lesson unlocks in {selected.unlocksInDays} day(s).
@@ -241,13 +277,15 @@ export default function CoursePlayerPage() {
                     Ask about this lesson
                   </Link>
 
-                  <button
-                    onClick={toggleComplete}
-                    disabled={busy}
-                    className={`mt-6 rounded-full px-5 py-2.5 text-sm font-semibold transition disabled:opacity-50 ${selected.completed ? 'border border-ink-200 text-ink-700 hover:bg-cream-100' : 'bg-forest-800 text-cream-50 hover:bg-forest-700'}`}
-                  >
-                    {selected.completed ? 'Completed ✓ — mark incomplete' : 'Mark as complete'}
-                  </button>
+                  {!course.premiumLocked && (
+                    <button
+                      onClick={toggleComplete}
+                      disabled={busy}
+                      className={`mt-6 rounded-full px-5 py-2.5 text-sm font-semibold transition disabled:opacity-50 ${selected.completed ? 'border border-ink-200 text-ink-700 hover:bg-cream-100' : 'bg-forest-800 text-cream-50 hover:bg-forest-700'}`}
+                    >
+                      {selected.completed ? 'Completed ✓ — mark incomplete' : 'Mark as complete'}
+                    </button>
+                  )}
                 </div>
               </div>
             )}
