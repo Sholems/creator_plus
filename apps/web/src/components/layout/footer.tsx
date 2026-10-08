@@ -7,28 +7,30 @@ const COLUMNS: { heading: string; links: { href: Route; label: string }[] }[] = 
   {
     heading: 'Community',
     links: [
-      { href: '/community', label: 'CreatorPlus Community' },
-      { href: '/community/courses' as Route, label: 'Courses' },
-      { href: '/community/events' as Route, label: 'Events' },
-      { href: '/community/challenges' as Route, label: 'Challenges' },
+      { href: '/community', label: 'Community Hub' },
+      { href: '/community/courses' as Route, label: 'Courses & Curricula' },
+      { href: '/community/events' as Route, label: 'Live Events & Workshops' },
+      { href: '/community/challenges' as Route, label: 'Building Challenges' },
+      { href: '/community/members' as Route, label: 'Members & Leaderboard' },
     ],
   },
   {
-    heading: 'Membership',
+    heading: 'Membership & Tools',
     links: [
-      { href: '/community/join' as Route, label: 'Membership & pricing' },
+      { href: '/community/join' as Route, label: 'Pro Membership & Pricing' },
+      { href: '/creator/qr-studio' as Route, label: 'QR Studio (Member Perk)' },
+      { href: '/community/saved' as Route, label: 'Saved Bookmarks' },
       { href: '/help', label: 'Help Center' },
-      { href: '/contact', label: 'Contact' },
+      { href: '/contact', label: 'Contact Support' },
     ],
   },
   {
-    heading: 'Company',
+    heading: 'Platform',
     links: [
-      { href: '/about', label: 'About us' },
-      { href: '/press', label: 'Press' },
+      { href: '/about', label: 'About CreatorPlus' },
+      { href: '/community' as Route, label: 'Discussions & Q&A' },
       { href: '/partnerships', label: 'Partnerships' },
       { href: '/careers', label: 'Careers' },
-      { href: '/api', label: 'API' },
     ],
   },
   {
@@ -36,8 +38,7 @@ const COLUMNS: { heading: string; links: { href: Route; label: string }[] }[] = 
     links: [
       { href: '/terms', label: 'Terms of Service' },
       { href: '/privacy', label: 'Privacy Policy' },
-      { href: '/licensing', label: 'Licensing' },
-      { href: '/dmca', label: 'DMCA' },
+      { href: '/dmca', label: 'DMCA Notice' },
       { href: '/contact', label: 'Contact' },
     ],
   },
@@ -55,15 +56,14 @@ export function Footer() {
               <span className="font-display text-2xl font-bold leading-none tracking-tight">
                 <span className="text-white">Creator</span>
                 <span className="text-gold-400">Plus</span>
+                <span className="ml-1.5 font-sans text-xs font-semibold uppercase tracking-wider text-gold-300">Community</span>
               </span>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream-100/70">
-              {SITE_TAGLINE}. Built in Nigeria for Nigerian and African makers —
-              buy and sell digital work, get paid in naira, and keep 90% of every
-              sale.
+              The premier learning community and growth hub for digital creators, AI builders, and tech professionals across Africa and beyond. Master practical AI, build real projects, and grow together.
             </p>
             <div className="mt-6">
-              <p className="eyebrow text-cream-100/50">We accept</p>
+              <p className="eyebrow text-cream-100/50">Membership payments via</p>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {['Paystack', 'Flutterwave', 'Stripe', 'Visa', 'Mastercard', 'Verve'].map((p) => (
                   <span
@@ -99,8 +99,7 @@ export function Footer() {
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-xs text-cream-100/50">
-              &copy; {new Date().getFullYear()} {SITE_NAME}. Made with love in
-              Lagos — for Africa, then the world.
+              &copy; {new Date().getFullYear()} {SITE_NAME} Community. Built with passion in Lagos — for Africa and the world.
             </p>
             <div className="flex items-center gap-4">
               <a href="https://facebook.com/mycreatorplus" target="_blank" rel="noopener noreferrer" className="text-cream-100/60 hover:text-gold-300" aria-label="Facebook">

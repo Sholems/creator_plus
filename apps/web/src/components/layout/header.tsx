@@ -78,31 +78,6 @@ export function Header() {
 
           {/* Right Side */}
           <div className="flex items-center gap-1 sm:gap-2">
-            {/* Naira indicator */}
-            <span className="hidden lg:inline-flex items-center gap-1 rounded-full border border-gold-400/40 bg-gold-400/10 px-2.5 py-1 font-mono text-xs font-semibold text-gold-300">
-              ₦ NGN
-            </span>
-
-            {/* Wishlist */}
-            {token && (
-              <Link href="/dashboard/wishlist" className="hidden sm:flex p-2.5 text-cream-100/80 hover:text-white" aria-label="Wishlist">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </Link>
-            )}
-
-            {/* Cart */}
-            {token && (
-              <Link href="/cart" className="relative p-2.5 text-cream-100/80 hover:text-white" aria-label="Cart">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </Link>
-            )}
-
             {/* Notifications */}
             <NotificationBell />
 
@@ -124,11 +99,6 @@ export function Header() {
                     <span className="hidden lg:inline max-w-[10rem] truncate">
                       {user?.displayName || user?.email}
                     </span>
-                    {isCreator && (
-                      <span className="hidden sm:inline rounded-full bg-gold-400/20 px-2 py-0.5 font-mono text-[0.625rem] font-semibold uppercase tracking-wider text-gold-300">
-                        Creator
-                      </span>
-                    )}
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
@@ -138,23 +108,22 @@ export function Header() {
                       <p className="px-4 py-1.5 font-mono text-[0.625rem] font-semibold uppercase tracking-wider text-ink-400">
                         {user?.displayName || user?.email}
                       </p>
-                      {isCreator ? (
-                        <Link href="/creator" className="flex items-center justify-between px-4 py-2 text-sm hover:bg-cream-100"
-                          onClick={() => setIsUserMenuOpen(false)}>
-                          <span>Creator Studio</span>
-                          <svg className="h-4 w-4 text-gold-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.6-6.2 4.6 2.4-7.6L2 9.6h7.6z" />
-                          </svg>
-                        </Link>
-                      ) : (
-                        <Link href="/sell" className="block px-4 py-2 text-sm hover:bg-cream-100"
-                          onClick={() => setIsUserMenuOpen(false)}>
-                          Start selling
-                        </Link>
-                      )}
-                      <Link href="/dashboard" className="block px-4 py-2 text-sm hover:bg-cream-100"
+                      <Link href="/community" className="block px-4 py-2 text-sm hover:bg-cream-100"
                         onClick={() => setIsUserMenuOpen(false)}>
-                        Buyer Dashboard
+                        Community Hub
+                      </Link>
+                      <Link href={'/community/courses' as Route} className="block px-4 py-2 text-sm hover:bg-cream-100"
+                        onClick={() => setIsUserMenuOpen(false)}>
+                        Courses & Learning
+                      </Link>
+                      <Link href={'/creator/qr-studio' as Route} className="flex items-center justify-between px-4 py-2 text-sm hover:bg-cream-100"
+                        onClick={() => setIsUserMenuOpen(false)}>
+                        <span>QR Studio</span>
+                        <span className="rounded bg-gold-100 px-1.5 py-0.5 text-[0.625rem] font-semibold text-gold-800">Tool</span>
+                      </Link>
+                      <Link href={'/community/saved' as Route} className="block px-4 py-2 text-sm hover:bg-cream-100"
+                        onClick={() => setIsUserMenuOpen(false)}>
+                        Saved Posts
                       </Link>
                       {admin && (
                         <a href={ADMIN_URL} target="_blank" rel="noopener noreferrer"
@@ -165,9 +134,9 @@ export function Header() {
                           </svg>
                         </a>
                       )}
-                      <Link href="/dashboard/settings" className="block px-4 py-2 text-sm hover:bg-cream-100"
+                      <Link href={'/community/settings' as Route} className="block px-4 py-2 text-sm hover:bg-cream-100"
                         onClick={() => setIsUserMenuOpen(false)}>
-                        Settings
+                        Settings & Profile
                       </Link>
                       <hr className="my-1 border-ink-100" />
                       <button
@@ -234,23 +203,17 @@ export function Header() {
             <hr className="my-2 border-white/10" />
             {token ? (
               <>
-                {isCreator ? (
-                  <Link href="/creator" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
-                    Creator Studio
-                  </Link>
-                ) : (
-                  <Link href="/sell" className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
-                    Start selling
-                  </Link>
-                )}
-                <Link href="/dashboard" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
-                  Buyer Dashboard
+                <Link href="/community" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Community Hub
                 </Link>
-                <Link href="/dashboard/wishlist" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10 sm:hidden" onClick={() => setIsMenuOpen(false)}>
-                  Wishlist
+                <Link href={'/community/courses' as Route} className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Courses & Learning
                 </Link>
-                <Link href="/cart" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10 sm:hidden" onClick={() => setIsMenuOpen(false)}>
-                  Cart
+                <Link href={'/creator/qr-studio' as Route} className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  QR Studio Tool
+                </Link>
+                <Link href={'/community/saved' as Route} className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Saved Bookmarks
                 </Link>
                 {admin && (
                   <a href={ADMIN_URL} target="_blank" rel="noopener noreferrer"
@@ -258,10 +221,10 @@ export function Header() {
                     Admin Console
                   </a>
                 )}
-                <Link href="/dashboard/settings" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
-                  Settings
+                <Link href={'/community/settings' as Route} className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  Settings & Profile
                 </Link>
-                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="text-left rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10">
+                <button onClick={() => { logout(); setIsMenuOpen(false); }} className="text-left rounded-lg px-3 py-2.5 text-sm font-medium text-clay-400 hover:bg-white/10">
                   Sign Out
                 </button>
               </>
