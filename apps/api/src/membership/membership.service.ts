@@ -171,6 +171,7 @@ export class MembershipService implements OnModuleInit {
   async startCheckout(
     userId: string,
     dto: { priceId: string; successUrl?: string; cancelUrl?: string },
+    opts: { allowWhileActive?: boolean } = {},
   ) {
     const price = await prisma.membershipPlanPrice.findUnique({
       where: { id: dto.priceId },
@@ -186,7 +187,7 @@ export class MembershipService implements OnModuleInit {
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('User not found');
 
-    if (await this.hasActiveMembership(userId)) {
+    if (!opts.allowWhileActive && (await this.hasActiveMembership(userId))) {
       throw new BadRequestException('You already have an active CreatorPlus Community membership');
     }
 
@@ -232,6 +233,96 @@ export class MembershipService implements OnModuleInit {
       data: { providerReference: result.providerReference },
     });
     return { redirectUrl: result.redirectUrl, subscriptionId: sub.id };
+  }
+
+  /**
+   * Monthly → annual upgrade. Stripe swaps the price in place (prorated, new
+   * yearly cycle starts now). Providers without in-place changes (Paystack)
+   * get a fresh annual checkout; once it activates, the old monthly is told
+   * to stop renewing (see retireSupersededSubscriptions) and access stays
+   * continuous.
+   */
+  async switchToAnnual(userId: string, dto: { successUrl?: string; cancelUrl?: string } = {}) {
+    const sub = await prisma.membershipSubscription.findFirst({
+      where: { userId, status: { in: ACTIVE_STATUSES }, currentPeriodEnd: { gt: new Date() } },
+      orderBy: { createdAt: 'desc' },
+      include: { price: true, plan: true },
+    });
+    if (!sub) throw new NotFoundException('No active CreatorPlus Community membership');
+    if (sub.price.interval !== 'MONTHLY')
+      throw new BadRequestException('Your membership is already billed annually');
+
+    const annual = await prisma.membershipPlanPrice.findFirst({
+      where: {
+        planId: sub.planId,
+        provider: sub.provider,
+        currency: sub.price.currency,
+        interval: 'ANNUAL',
+        isActive: true,
+      },
+    });
+    if (!annual) throw new NotFoundException('No annual plan is available for your billing currency');
+
+    const provider = this.getProvider(sub.provider);
+    if (provider.changePlan && sub.providerSubscriptionId) {
+      let planCode = annual.providerPlanCode;
+      if (!planCode) {
+        planCode = await provider.ensurePlan({
+          name: sub.plan.name,
+          amountMajor: Number(annual.amount),
+          currency: annual.currency,
+          interval: annual.interval,
+        });
+        await prisma.membershipPlanPrice.update({ where: { id: annual.id }, data: { providerPlanCode: planCode } });
+      }
+      const { currentPeriodEnd } = await provider.changePlan(sub.providerSubscriptionId, planCode);
+      await prisma.membershipSubscription.update({
+        where: { id: sub.id },
+        data: {
+          priceId: annual.id,
+          cancelAtPeriodEnd: false,
+          ...(currentPeriodEnd ? { currentPeriodEnd } : {}),
+        },
+      });
+      return { switched: true as const };
+    }
+
+    const base = process.env.WEB_APP_URL || process.env.APP_URL || '';
+    const checkout = await this.startCheckout(
+      userId,
+      {
+        priceId: annual.id,
+        successUrl: dto.successUrl || `${base}/dashboard?annual=1`,
+        cancelUrl: dto.cancelUrl || `${base}/dashboard`,
+      },
+      { allowWhileActive: true },
+    );
+    return { switched: false as const, ...checkout };
+  }
+
+  /** A newly activated subscription replaces any older live one for the user. */
+  private async retireSupersededSubscriptions(activatedId: string) {
+    const activated = await prisma.membershipSubscription.findUnique({ where: { id: activatedId } });
+    if (!activated) return;
+    const older = await prisma.membershipSubscription.findMany({
+      where: {
+        userId: activated.userId,
+        id: { not: activated.id },
+        status: { in: ACTIVE_STATUSES },
+        cancelAtPeriodEnd: false,
+      },
+    });
+    for (const old of older) {
+      if (old.providerSubscriptionId) {
+        try {
+          await this.getProvider(old.provider).cancelSubscription(old.providerSubscriptionId);
+        } catch (err) {
+          this.logger.error(`[switch] could not stop superseded subscription ${old.id}: ${(err as Error).message}`);
+          continue;
+        }
+      }
+      await prisma.membershipSubscription.update({ where: { id: old.id }, data: { cancelAtPeriodEnd: true } });
+    }
   }
 
   async cancel(userId: string) {
@@ -361,6 +452,9 @@ export class MembershipService implements OnModuleInit {
         break;
     }
     await prisma.membershipSubscription.update({ where: { id }, data });
+    if (event.type === 'activated' && currentStatus === 'PENDING') {
+      await this.retireSupersededSubscriptions(id);
+    }
   }
 
   // --- Maintenance --------------------------------------------------------

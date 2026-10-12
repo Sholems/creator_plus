@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('signed-out visitors can reach the Growth Club invitation', async ({ page }) => {
+test('signed-out visitors can reach the community invitation', async ({ page }) => {
   await page.goto('/community');
-  await expect(page.getByText(/Bold Ideas Growth Club/i).first()).toBeVisible();
+  await expect(page.getByText(/CreatorPlus Community/i).first()).toBeVisible();
   await expect(page.locator('body')).not.toHaveCSS('overflow-x', 'scroll');
 });
 

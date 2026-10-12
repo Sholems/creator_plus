@@ -8,12 +8,14 @@ jest.mock('@creatorplus/database', () => ({
     membershipSubscription: {
       count: jest.fn(),
       findFirst: jest.fn(),
+      findUnique: jest.fn(),
+      findMany: jest.fn().mockResolvedValue([]),
       update: jest.fn(),
       updateMany: jest.fn(),
       create: jest.fn(),
     },
     membershipPlan: { findFirst: jest.fn() },
-    membershipPlanPrice: { findUnique: jest.fn(), update: jest.fn() },
+    membershipPlanPrice: { findUnique: jest.fn(), findFirst: jest.fn(), update: jest.fn() },
     user: { findUnique: jest.fn() },
   },
   MembershipStatus: {},
@@ -81,6 +83,74 @@ describe('MembershipService', () => {
     const data = p.membershipSubscription.update.mock.calls[0][0].data;
     expect(data.status).toBe('CANCELED');
     expect(data.canceledAt).toBeInstanceOf(Date);
+  });
+
+  describe('switchToAnnual', () => {
+    const monthly = {
+      id: 's1',
+      userId: 'u1',
+      planId: 'plan1',
+      provider: 'stripe',
+      providerSubscriptionId: 'sub_1',
+      price: { interval: 'MONTHLY', currency: 'USD' },
+      plan: { name: 'CreatorPlus Community Pro' },
+    };
+    const annualPrice = { id: 'price_y', amount: 50, currency: 'USD', interval: 'ANNUAL', providerPlanCode: 'price_stripe_y' };
+
+    it('swaps the Stripe price in place', async () => {
+      const end = new Date('2027-10-12T00:00:00Z');
+      const provider = { changePlan: jest.fn().mockResolvedValue({ currentPeriodEnd: end }) };
+      const svc = makeService(provider);
+      p.membershipSubscription.findFirst.mockResolvedValueOnce(monthly);
+      p.membershipPlanPrice.findFirst.mockResolvedValueOnce(annualPrice);
+
+      expect(await svc.switchToAnnual('u1')).toEqual({ switched: true });
+      expect(provider.changePlan).toHaveBeenCalledWith('sub_1', 'price_stripe_y');
+      const data = p.membershipSubscription.update.mock.calls[0][0].data;
+      expect(data).toMatchObject({ priceId: 'price_y', cancelAtPeriodEnd: false, currentPeriodEnd: end });
+    });
+
+    it('falls back to a fresh annual checkout when the provider cannot change plans', async () => {
+      const provider = {
+        isConfigured: () => true,
+        startSubscription: jest.fn().mockResolvedValue({ redirectUrl: 'https://pay/annual', providerReference: 'ref' }),
+      };
+      const svc = makeService(provider);
+      p.membershipSubscription.findFirst.mockResolvedValueOnce({ ...monthly, provider: 'paystack', price: { interval: 'MONTHLY', currency: 'NGN' } });
+      p.membershipPlanPrice.findFirst.mockResolvedValueOnce({ ...annualPrice, currency: 'NGN', provider: 'paystack' });
+      p.membershipPlanPrice.findUnique.mockResolvedValueOnce({
+        ...annualPrice, provider: 'paystack', planId: 'plan1', isActive: true, plan: { isActive: true, name: 'Pro' },
+      });
+      p.user.findUnique.mockResolvedValueOnce({ id: 'u1', email: 'a@b.c' });
+      p.membershipSubscription.create.mockResolvedValueOnce({ id: 's2' });
+
+      const res = await svc.switchToAnnual('u1');
+      expect(res).toMatchObject({ switched: false, redirectUrl: 'https://pay/annual' });
+      // The active monthly does not block the upgrade checkout.
+      expect(p.membershipSubscription.count).not.toHaveBeenCalled();
+    });
+
+    it('rejects a membership that is already annual', async () => {
+      const svc = makeService({});
+      p.membershipSubscription.findFirst.mockResolvedValueOnce({ ...monthly, price: { interval: 'ANNUAL', currency: 'USD' } });
+      await expect(svc.switchToAnnual('u1')).rejects.toThrow(/already billed annually/);
+    });
+
+    it('stops the superseded monthly once the new annual activates', async () => {
+      const provider = {
+        parseSubscriptionEvent: () => ({ type: 'activated', providerReference: 'ref', providerSubscriptionId: 'SUB_Y' }),
+        cancelSubscription: jest.fn().mockResolvedValue(undefined),
+      };
+      const svc = makeService(provider);
+      p.membershipSubscription.findFirst.mockResolvedValueOnce({ id: 's2', status: 'PENDING', providerSubscriptionId: null, providerCustomerId: null });
+      p.membershipSubscription.findUnique.mockResolvedValueOnce({ id: 's2', userId: 'u1' });
+      p.membershipSubscription.findMany.mockResolvedValueOnce([{ id: 's1', provider: 'paystack', providerSubscriptionId: 'SUB_M' }]);
+
+      await svc.handleVerifiedWebhook('paystack', {});
+
+      expect(provider.cancelSubscription).toHaveBeenCalledWith('SUB_M');
+      expect(p.membershipSubscription.update).toHaveBeenLastCalledWith({ where: { id: 's1' }, data: { cancelAtPeriodEnd: true } });
+    });
   });
 
   it('expireLapsed sweeps past-due-past-grace and canceled-at-period-end rows', async () => {

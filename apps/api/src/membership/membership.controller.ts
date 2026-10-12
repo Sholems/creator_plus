@@ -29,6 +29,13 @@ export class MembershipController {
     return this.membership.startCheckout(req.user.sub, dto);
   }
 
+  @Post('switch-to-annual')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Upgrade my monthly membership to annual billing' })
+  switchToAnnual(@Request() req: any) {
+    return this.membership.switchToAnnual(req.user.sub);
+  }
+
   @Post('cancel')
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Cancel my membership at period end' })

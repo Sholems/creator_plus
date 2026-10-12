@@ -143,9 +143,9 @@ async function sendCommunityEventReminders(
       if (delivery.status === 'QUEUED' || delivery.status === 'DELIVERED') continue;
       const html = renderEmailLayout({
         preview: `${event.title} starts in ${label}`,
-        eyebrow: 'Bold Ideas Growth Club',
+        eyebrow: 'CreatorPlus Community',
         title: event.title,
-        body: `<p>Hi ${user.displayName || 'there'},</p><p>Your Growth Club session starts in about ${label}.</p><p><strong>When:</strong> ${whenText} (${event.timezone})</p>`,
+        body: `<p>Hi ${user.displayName || 'there'},</p><p>Your community session starts in about ${label}.</p><p><strong>When:</strong> ${whenText} (${event.timezone})</p>`,
         cta: { label: 'Open event', url: `${WEB}/community/event/${event.slug}` },
       });
       await emailQueue.add(

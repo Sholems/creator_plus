@@ -59,6 +59,23 @@ export class StripeSubscriptionProvider implements SubscriptionProvider {
     await this.require().subscriptions.update(providerSubscriptionId, { cancel_at_period_end: true });
   }
 
+  async changePlan(providerSubscriptionId: string, planCode: string): Promise<{ currentPeriodEnd?: Date }> {
+    const stripe = this.require();
+    const current = await stripe.subscriptions.retrieve(providerSubscriptionId);
+    const item = current.items.data[0];
+    if (!item) throw new Error('Stripe subscription has no items');
+    // Restart the cycle on the new price now; unused time on the old price is
+    // credited against the first invoice.
+    const updated = await stripe.subscriptions.update(providerSubscriptionId, {
+      items: [{ id: item.id, price: planCode }],
+      proration_behavior: 'always_invoice',
+      billing_cycle_anchor: 'now',
+      cancel_at_period_end: false,
+    });
+    const end = (updated as any).current_period_end ?? (updated.items.data[0] as any)?.current_period_end;
+    return { currentPeriodEnd: typeof end === 'number' ? new Date(end * 1000) : undefined };
+  }
+
   verifyWebhook(rawBody: any, signature?: string): boolean {
     try {
       this.require().webhooks.constructEvent(rawBody, signature || '', process.env.STRIPE_WEBHOOK_SECRET || '');

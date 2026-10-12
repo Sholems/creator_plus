@@ -68,6 +68,12 @@ export interface SubscriptionProvider {
   startSubscription(input: StartSubscriptionInput): Promise<StartSubscriptionResult>;
   /** Cancel at period end where supported (keeps access until currentPeriodEnd). */
   cancelSubscription(providerSubscriptionId: string, opts?: { emailToken?: string }): Promise<void>;
+  /**
+   * Move an existing subscription to another plan/price in place, charging the
+   * prorated difference now. Optional: providers without it (Paystack) switch
+   * plans via a fresh checkout instead. Returns the new period end if known.
+   */
+  changePlan?(providerSubscriptionId: string, planCode: string): Promise<{ currentPeriodEnd?: Date }>;
   verifyWebhook(rawBody: any, signature?: string): boolean;
   /** Normalize a raw webhook payload into a subscription event, or null if N/A. */
   parseSubscriptionEvent(payload: any): SubscriptionEvent | null;

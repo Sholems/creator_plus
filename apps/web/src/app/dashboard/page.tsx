@@ -65,6 +65,33 @@ export default function AccountOverviewPage() {
 
   const sub = membership?.subscription;
   const isPro = !!membership?.active;
+  const canGoAnnual = isPro && sub?.interval === 'MONTHLY' && !sub.cancelAtPeriodEnd;
+  const [switching, setSwitching] = useState(false);
+  const [switchMessage, setSwitchMessage] = useState('');
+  const [annualJustStarted, setAnnualJustStarted] = useState(false);
+
+  useEffect(() => {
+    setAnnualJustStarted(new URLSearchParams(window.location.search).get('annual') === '1');
+  }, []);
+
+  const handleSwitchToAnnual = async () => {
+    if (!token) return;
+    setSwitching(true);
+    setSwitchMessage('');
+    try {
+      const res = await api.switchMembershipToAnnual(token);
+      if (res.redirectUrl) {
+        window.location.assign(res.redirectUrl);
+        return;
+      }
+      setMembership(await api.getMyMembership(token));
+      setSwitchMessage('You are now on annual billing. Thank you!');
+    } catch (err: any) {
+      setSwitchMessage(err?.message || 'Could not switch to annual billing.');
+    } finally {
+      setSwitching(false);
+    }
+  };
 
   return (
     <div>
@@ -112,12 +139,33 @@ export default function AccountOverviewPage() {
                   Unlock every course, certificates, live events and full QR Studio.
                 </p>
               )}
+              {annualJustStarted && (
+                <p className="mt-2 text-sm font-medium text-forest-700">
+                  Payment received — your annual plan will show here once it is confirmed.
+                </p>
+              )}
               <Link
                 href={'/community/join' as Route}
                 className="mt-4 inline-block rounded-full bg-forest-800 px-4 py-2 text-sm font-semibold text-cream-50 hover:bg-forest-700"
               >
                 {isPro ? 'Manage membership' : 'Upgrade to Pro'}
               </Link>
+              {canGoAnnual && (
+                <div className="mt-4 rounded-xl border border-gold-200 bg-gold-50 p-4">
+                  <p className="text-sm font-semibold text-ink-900">Save with annual billing</p>
+                  <p className="mt-0.5 text-xs text-ink-600">
+                    Pay yearly and get about 2 months free. Your monthly plan stops renewing — no double billing.
+                  </p>
+                  <button
+                    onClick={handleSwitchToAnnual}
+                    disabled={switching}
+                    className="mt-3 rounded-full bg-gold-400 px-4 py-2 text-xs font-semibold text-forest-900 hover:bg-gold-300 disabled:opacity-60"
+                  >
+                    {switching ? 'Switching…' : 'Switch to annual'}
+                  </button>
+                </div>
+              )}
+              {switchMessage && <p className="mt-2 text-sm font-medium text-forest-700">{switchMessage}</p>}
             </>
           )}
         </div>

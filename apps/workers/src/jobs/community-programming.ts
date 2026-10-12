@@ -1,5 +1,6 @@
 import { prisma } from '@creatorplus/database';
 import { renderEmailLayout } from '@creatorplus/email';
+import { pushToUser } from '../lib/push';
 import { QUEUE_NAMES, createWorker, emailQueue, communityProgrammingQueue } from '../queues';
 
 /**
@@ -95,13 +96,14 @@ async function sendReminders(now: Date): Promise<number> {
 
         if (u.communityNotificationPreference?.inAppEnabled !== false) {
           await prisma.notification.create({
-            data: { userId: u.id, type: 'SYSTEM', title: `Starting in ${off.human}: ${ev.title}`, message: `Your Growth Club event "${ev.title}" starts in about ${off.human}.`, data: { kind: 'event_reminder', communityEventSlug: ev.slug } },
+            data: { userId: u.id, type: 'SYSTEM', title: `Starting in ${off.human}: ${ev.title}`, message: `Your community event "${ev.title}" starts in about ${off.human}.`, data: { kind: 'event_reminder', communityEventSlug: ev.slug } },
           });
+          await pushToUser(u.id, { title: `Starting in ${off.human}: ${ev.title}`, body: 'Tap to open the event.', url: `/community/event/${ev.slug}` });
         }
         if (u.email && u.communityNotificationPreference?.reminderEmail !== false) {
           const html = renderEmailLayout({
             preview: `${ev.title} starts in ${off.human}`,
-            eyebrow: 'Bold Ideas Growth Club',
+            eyebrow: 'CreatorPlus Community',
             title: ev.title,
             body: `<p>Your event <strong>${ev.title}</strong> starts in about ${off.human}.</p>`,
             cta: { label: 'View the event', url: `${WEB}/community/event/${ev.slug}` },
@@ -141,13 +143,14 @@ async function sendCancellations(now: Date): Promise<number> {
       });
       if (u.communityNotificationPreference?.inAppEnabled !== false) {
         await prisma.notification.create({
-          data: { userId: u.id, type: 'SYSTEM', title: `Cancelled: ${ev.title}`, message: `The Growth Club event "${ev.title}" has been cancelled.`, data: { kind: 'event_cancelled' } },
+          data: { userId: u.id, type: 'SYSTEM', title: `Cancelled: ${ev.title}`, message: `The community event "${ev.title}" has been cancelled.`, data: { kind: 'event_cancelled' } },
         });
+        await pushToUser(u.id, { title: `Cancelled: ${ev.title}`, body: 'This community event has been cancelled.', url: '/community/events' });
       }
       if (u.email && u.communityNotificationPreference?.reminderEmail !== false) {
         const html = renderEmailLayout({
           preview: `${ev.title} was cancelled`,
-          eyebrow: 'Bold Ideas Growth Club',
+          eyebrow: 'CreatorPlus Community',
           title: `${ev.title} was cancelled`,
           body: `<p>The event <strong>${ev.title}</strong> has been cancelled. Sorry for the inconvenience.</p>`,
           cta: { label: 'See upcoming events', url: `${WEB}/community/events` },

@@ -515,6 +515,13 @@ class ApiClient {
     });
   }
 
+  async switchMembershipToAnnual(token: string) {
+    return this.fetch<{ switched: boolean; redirectUrl?: string }>('/membership/switch-to-annual', {
+      method: 'POST',
+      token,
+    });
+  }
+
   async cancelMembership(token: string) {
     return this.fetch<any>('/membership/cancel', { method: 'POST', token });
   }

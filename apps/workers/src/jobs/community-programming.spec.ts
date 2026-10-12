@@ -11,6 +11,7 @@ jest.mock('@creatorplus/database', () => ({
   },
 }));
 
+jest.mock('../lib/push', () => ({ pushToUser: jest.fn().mockResolvedValue(undefined) }));
 jest.mock('../queues', () => ({
   QUEUE_NAMES: { COMMUNITY_PROGRAMMING: 'community-programming' },
   createWorker: jest.fn(() => ({ on: jest.fn(), close: jest.fn() })),

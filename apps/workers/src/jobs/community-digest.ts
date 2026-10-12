@@ -3,7 +3,7 @@ import { renderEmailLayout } from '@creatorplus/email';
 import { QUEUE_NAMES, createWorker, emailQueue, communityDigestQueue } from '../queues';
 
 /**
- * Daily Bold Ideas Growth Club digest: if anything was posted in the last 24h,
+ * Daily CreatorPlus Community digest: if anything was posted in the last 24h,
  * email active members a short summary with links. Skips quietly when there's no new
  * activity so members never get an empty email.
  */
@@ -22,7 +22,7 @@ export async function sweepCommunityDigest(now = new Date()) {
   if (posts.length === 0) return { newPosts: 0, queued: 0 };
 
   // Community access is free. Email only active members who explicitly opted
-  // into the digest and are not suspended from Growth Club.
+  // into the digest and are not suspended from the community.
   const preferences = await prisma.communityNotificationPreference.findMany({
     where: {
       digestEmail: true,
@@ -46,11 +46,11 @@ export async function sweepCommunityDigest(now = new Date()) {
     )
     .join('');
   const html = renderEmailLayout({
-    preview: `${posts.length} new post${posts.length > 1 ? 's' : ''} in Bold Ideas Growth Club`,
-    eyebrow: 'Bold Ideas Growth Club',
-    title: "What's new in the Growth Club",
-    body: `<p>Here's what Growth Club members shared in the last day:</p><ul style="padding-left:18px">${items}</ul>`,
-    cta: { label: 'Open the Growth Club', url: `${WEB}/community/discussion` },
+    preview: `${posts.length} new post${posts.length > 1 ? 's' : ''} in CreatorPlus Community`,
+    eyebrow: 'CreatorPlus Community',
+    title: "What's new in CreatorPlus Community",
+    body: `<p>Here's what community members shared in the last day:</p><ul style="padding-left:18px">${items}</ul>`,
+    cta: { label: 'Open the community', url: `${WEB}/community/discussion` },
   });
 
   let queued = 0;
@@ -66,7 +66,7 @@ export async function sweepCommunityDigest(now = new Date()) {
     if (delivery.status === 'QUEUED' || delivery.status === 'DELIVERED') continue;
     await emailQueue.add(
       'send',
-      { to: u.email, subject: "What's new in Bold Ideas Growth Club", html },
+      { to: u.email, subject: "What's new in CreatorPlus Community", html },
       { jobId: key, attempts: 3, backoff: { type: 'exponential', delay: 5_000 } },
     );
     await prisma.communityDelivery.update({
