@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth';
+import { useAuth, safeRedirectPath } from '@/lib/auth';
 import { AdinkraField } from '@/components/brand/adinkra';
 import { CreatorPlusMark } from '@/components/brand/logo';
 
@@ -27,20 +27,19 @@ function EyeSlashIcon() {
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { register, refresh, isLoading: authLoading } = useAuth();
+  const { register, isLoading: authLoading } = useAuth();
   const [formData, setFormData] = useState({
     displayName: '',
     email: '',
     password: '',
     confirmPassword: '',
-    wantToSell: false,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { password, confirmPassword, wantToSell, displayName, email } = formData;
+  const { password, confirmPassword, displayName, email } = formData;
 
   const strengthChecks = {
     length: password.length >= 12,
@@ -68,14 +67,7 @@ export default function RegisterPage() {
     try {
       const res = await register(email, password, displayName);
 
-      if (wantToSell && res.accessToken) {
-        await refresh().catch(() => undefined);
-        router.push('/sell');
-        return;
-      }
-
-      const next = new URLSearchParams(window.location.search).get('next');
-      router.push(next && next.startsWith('/') ? (next as Route) : '/dashboard');
+      router.replace(safeRedirectPath(new URLSearchParams(window.location.search)) as Route);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -249,37 +241,6 @@ export default function RegisterPage() {
                     Passwords don&apos;t match
                   </p>
                 ))}
-            </div>
-
-            <div className="rounded-xl border border-ink-100 bg-cream-50 p-4">
-              <div className="flex items-start">
-                <input
-                  id="wantToSell"
-                  name="wantToSell"
-                  type="checkbox"
-                  checked={wantToSell}
-                  onChange={(e) => setFormData({ ...formData, wantToSell: e.target.checked })}
-                  className="mt-0.5 h-4 w-4 rounded border-ink-200 text-gold-500 focus:ring-gold-500"
-                />
-                <label htmlFor="wantToSell" className="ml-2 block text-sm text-ink-700">
-                  <span className="font-medium">I&apos;m here to sell digital products too</span>
-                  <span className="block text-xs text-ink-600">
-                    After you create your account, we&apos;ll walk you through setting up your store.
-                  </span>
-                </label>
-              </div>
-              {wantToSell && (
-                <p className="mt-2.5 flex items-center gap-1.5 text-xs text-ink-500">
-                  <svg className="h-3.5 w-3.5 shrink-0 text-forest-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Next you&apos;ll name your store, upload your logo and cover, and go live.
-                </p>
-              )}
             </div>
 
             <div className="flex items-start">

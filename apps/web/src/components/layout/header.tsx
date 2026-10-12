@@ -20,7 +20,7 @@ const NAV_LINKS: { href: Route; label: string }[] = [
 ];
 
 export function Header() {
-  const { token, user, isCreator, logout } = useAuth();
+  const { token, user, logout } = useAuth();
   const admin = isAdmin(user?.roles);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -57,9 +57,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-forest-900 text-cream-50 shadow-[0_1px_0_rgba(255,255,255,0.06)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between gap-4">
+        <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-2">
+          <Link href="/" className="group flex shrink-0 items-center gap-2">
             <CreatorPlusMark className="h-9 w-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
             <span className="font-display text-2xl font-bold leading-none tracking-tight">
               <span className="text-white">Creator</span>
@@ -68,7 +68,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation — centered */}
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex" aria-label="Main navigation">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-5 md:flex lg:gap-7" aria-label="Main navigation">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className={linkClass(false)}>
                 {link.label}
@@ -77,7 +77,7 @@ export function Header() {
           </nav>
 
           {/* Right Side */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {/* Notifications */}
             <NotificationBell />
 

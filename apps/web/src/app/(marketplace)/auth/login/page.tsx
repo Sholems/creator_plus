@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth';
+import { useAuth, safeRedirectPath } from '@/lib/auth';
 import { AdinkraField } from '@/components/brand/adinkra';
 import { CreatorPlusMark } from '@/components/brand/logo';
 
@@ -51,12 +51,7 @@ export default function LoginPage() {
         setIsLoading(false);
         return;
       }
-      const next = new URLSearchParams(window.location.search).get('next');
-      if (next && next.startsWith('/')) {
-        router.push(next as Route);
-      } else {
-        router.push(res.user.creatorProfile ? '/creator' : '/dashboard');
-      }
+      router.replace(safeRedirectPath(new URLSearchParams(window.location.search)) as Route);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -69,13 +64,8 @@ export default function LoginPage() {
     setIsLoading(true);
     setError('');
     try {
-      const res = await verifyTwoFactorLogin(tempToken, twoFactorCode);
-      const next = new URLSearchParams(window.location.search).get('next');
-      if (next && next.startsWith('/')) {
-        router.push(next as Route);
-      } else {
-        router.push(res.user.creatorProfile ? '/creator' : '/dashboard');
-      }
+      await verifyTwoFactorLogin(tempToken, twoFactorCode);
+      router.replace(safeRedirectPath(new URLSearchParams(window.location.search)) as Route);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid code. Please try again.');
     } finally {

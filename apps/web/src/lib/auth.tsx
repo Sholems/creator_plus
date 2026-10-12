@@ -14,6 +14,19 @@ import { api } from './api';
 // Access tokens are short-lived (15m). Refresh a little before expiry so an
 // active session never lapses.
 const PROACTIVE_REFRESH_MS = 13 * 60 * 1000;
+const LOGOUT_EVENT_KEY = 'auth:logout';
+
+/**
+ * Resolve a post-login destination from `?next=` or `?redirect=`. Only
+ * same-origin relative paths are allowed — `//host`, `/\host` and absolute
+ * URLs are rejected to prevent open redirects.
+ */
+export function safeRedirectPath(params: URLSearchParams, fallback = '/community'): string {
+  const raw = params.get('next') ?? params.get('redirect');
+  if (!raw || !raw.startsWith('/') || raw.startsWith('//') || raw.startsWith('/\\')) return fallback;
+  if (/[\u0000-\u001f]/.test(raw) || raw.startsWith('/auth/')) return fallback;
+  return raw;
+}
 
 export interface CreatorProfileSummary {
   id: string;
@@ -189,12 +202,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Sign out everywhere: revoke the refresh cookie, clear local state, tell
+  // other open tabs, then leave the (possibly protected) current page.
   const logout = () => {
     void api.logout().catch(() => undefined);
     clearStoredToken();
     setToken(null);
     setUser(null);
+    try {
+      localStorage.setItem(LOGOUT_EVENT_KEY, String(Date.now()));
+    } catch {
+      /* storage unavailable */
+    }
+    window.location.assign('/');
   };
+
+  // Another tab signed out — drop this tab's session too.
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== LOGOUT_EVENT_KEY) return;
+      clearStoredToken();
+      setToken(null);
+      setUser(null);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   return (
     <AuthContext.Provider
