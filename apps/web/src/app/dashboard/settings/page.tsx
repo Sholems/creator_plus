@@ -12,41 +12,17 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
-  const [subscription, setSubscription] = useState<any>(null);
-  const [creditBalance, setCreditBalance] = useState<any>(null);
   const [profileForm, setProfileForm] = useState({
     displayName: '',
     bio: '',
   });
 
+  // Membership & billing now live on the account overview (/dashboard).
   useEffect(() => {
-    if (token && !authLoading) {
-      loadData();
-    }
-  }, [token, authLoading]);
-
-  const loadData = async () => {
-    if (!token) return;
-    try {
-      const [sub, credits] = await Promise.all([
-        api.getSubscription(token),
-        api.getCreditBalance(token),
-      ]);
-      setSubscription(sub);
-      setCreditBalance(credits);
-
-      if (user) {
-        setProfileForm({
-          displayName: user.displayName || '',
-          bio: '',
-        });
-      }
-    } catch (err) {
-      console.error('Failed to load data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    if (authLoading) return;
+    if (user) setProfileForm({ displayName: user.displayName || '', bio: '' });
+    setLoading(false);
+  }, [authLoading, user]);
 
   const handleProfileSave = async () => {
     if (!token) return;
@@ -133,55 +109,6 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* Subscription */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Subscription</h2>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-500">Plan</p>
-            <p className="text-lg font-medium text-gray-900">{subscription?.tier || 'Free'}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Status</p>
-            <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-              subscription?.status === 'active' ? 'bg-green-100 text-green-700'
-              : subscription?.status === 'cancelled' ? 'bg-red-100 text-red-700'
-              : 'bg-gray-100 text-gray-700'
-            }`}>
-              {subscription?.status || 'Free'}
-            </span>
-          </div>
-          {subscription?.currentPeriodEnd && (
-            <div>
-              <p className="text-sm text-gray-500">Renews</p>
-              <p className="text-sm font-medium text-gray-900">
-                {new Date(subscription.currentPeriodEnd).toLocaleDateString()}
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="mt-4">
-          <Link href="/pricing" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-            {subscription?.tier && subscription.tier !== 'free' ? 'Change Plan' : 'Upgrade'}
-          </Link>
-        </div>
-      </div>
-
-      {/* Credits */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Credit Balance</h2>
-        <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold text-gray-900">
-            {creditBalance ? creditBalance.totalCredits - creditBalance.usedCredits : 0}
-          </span>
-          <span className="text-sm text-gray-500">credits remaining</span>
-        </div>
-        <div className="mt-4">
-          <Link href="/pricing" className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
-            Purchase Credits
-          </Link>
-        </div>
-      </div>
 
       {/* Security */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">

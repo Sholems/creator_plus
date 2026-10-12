@@ -34,6 +34,30 @@ const nextConfig: NextConfig = {
       toHome('/cart'),
       toHome('/checkout'),
       toHome('/checkout/:path*'),
+      // Marketplace-era buyer/creator dashboards collapse into the single
+      // member account area at /dashboard (QR Studio stays at /creator/qr-studio).
+      ...[
+        '/dashboard/purchases',
+        '/dashboard/downloads',
+        '/dashboard/wishlist',
+        '/dashboard/affiliates',
+        '/dashboard/licenses',
+        '/dashboard/billing',
+        '/dashboard/tickets',
+        '/creator',
+        '/creator/products/:path*',
+        '/creator/orders/:path*',
+        '/creator/events/:path*',
+        '/creator/coupons/:path*',
+        '/creator/licenses/:path*',
+        '/creator/store/:path*',
+        '/creator/analytics/:path*',
+        '/creator/earnings/:path*',
+        '/creator-center/:path*',
+        '/affiliate/:path*',
+        '/orders/:path*',
+      ].map((source) => ({ source, destination: '/dashboard', permanent: false })),
+      { source: '/creator/settings/:path*', destination: '/dashboard/settings/:path*', permanent: false },
     ];
   },
 };
