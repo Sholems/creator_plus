@@ -16,6 +16,18 @@ import { api } from './api';
 const PROACTIVE_REFRESH_MS = 13 * 60 * 1000;
 const LOGOUT_EVENT_KEY = 'auth:logout';
 
+// Non-secret "signed in" hint read by the edge proxy (src/proxy.ts) so it can
+// bounce signed-out visitors before protected pages render. It carries no
+// credential — the API still authorizes every request.
+export const SESSION_HINT_COOKIE = 'cp_session';
+const setSessionHint = (on: boolean) => {
+  if (typeof document === 'undefined') return;
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = on
+    ? `${SESSION_HINT_COOKIE}=1; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax${secure}`
+    : `${SESSION_HINT_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax${secure}`;
+};
+
 /**
  * Resolve a post-login destination from `?next=` or `?redirect=`. Only
  * same-origin relative paths are allowed — `//host`, `/\host` and absolute
@@ -83,11 +95,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Keep the token wherever it already lives; default to localStorage.
     const store = sessionStorage.getItem('token') ? sessionStorage : localStorage;
     store.setItem('token', value);
+    setSessionHint(true);
   };
 
   const clearStoredToken = () => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    setSessionHint(false);
   };
 
   // Exchange the httpOnly refresh cookie for a new access token. Single-flight:
@@ -146,6 +160,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!validToken) {
         clearStoredToken();
         setUser(null);
+      } else {
+        setSessionHint(true);
       }
       setToken(validToken);
       setIsLoading(false);
@@ -167,6 +183,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     clearStoredToken();
     (remember ? localStorage : sessionStorage).setItem('token', response.accessToken);
+    setSessionHint(true);
     setToken(response.accessToken);
     const fresh = await api.getProfile(response.accessToken);
     setUser(fresh);
@@ -177,6 +194,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const response = await api.verifyTwoFactorLogin(tempToken, code);
     clearStoredToken();
     localStorage.setItem('token', response.accessToken);
+    setSessionHint(true);
     setToken(response.accessToken);
     const fresh = await api.getProfile(response.accessToken);
     setUser(fresh);
@@ -187,6 +205,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const response = await api.register(email, password, displayName);
     clearStoredToken();
     localStorage.setItem('token', response.accessToken);
+    setSessionHint(true);
     setToken(response.accessToken);
     setUser(response.user);
     return response;

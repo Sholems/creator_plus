@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { Route } from 'next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth, safeRedirectPath } from '@/lib/auth';
 import { AdinkraField } from '@/components/brand/adinkra';
@@ -27,7 +27,15 @@ function EyeSlashIcon() {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, verifyTwoFactorLogin, isLoading: authLoading } = useAuth();
+  const { login, verifyTwoFactorLogin, isLoading: authLoading, token } = useAuth();
+
+  // Already signed in (e.g. bounced here by the proxy before the session hint
+  // existed) — continue to the requested page.
+  useEffect(() => {
+    if (!authLoading && token) {
+      router.replace(safeRedirectPath(new URLSearchParams(window.location.search)) as Route);
+    }
+  }, [authLoading, token, router]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
