@@ -1,3 +1,4 @@
+import { COMMUNITY_STAFF_ROLES } from './community-roles';
 import { Body, Controller, Get, Param, Patch, Query, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -6,7 +7,7 @@ import { CommunityAdminService } from './community-admin.service';
 
 @Controller('community/admin')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('super_admin', 'admin')
+@Roles(...COMMUNITY_STAFF_ROLES)
 export class CommunityAdminController {
   constructor(private readonly admin: CommunityAdminService) {}
   @Get('overview') overview() {

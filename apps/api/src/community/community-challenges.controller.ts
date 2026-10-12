@@ -1,3 +1,4 @@
+import { COMMUNITY_STAFF_ROLES } from './community-roles';
 import { Body, Controller, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -37,25 +38,25 @@ export class CommunityChallengesController {
   }
   @Get('admin/challenges')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   adminList() {
     return this.challenges.adminList();
   }
   @Post('admin/challenges')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   create(@Body() dto: CreateCommunityChallengeDto) {
     return this.challenges.create(dto);
   }
   @Patch('admin/challenges/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   update(@Param('id') id: string, @Body() dto: UpdateCommunityChallengeDto) {
     return this.challenges.update(id, dto);
   }
   @Post('admin/challenges/:id/milestones')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   milestone(@Param('id') id: string, @Body() dto: CreateChallengeMilestoneDto) {
     return this.challenges.addMilestone(id, dto);
   }

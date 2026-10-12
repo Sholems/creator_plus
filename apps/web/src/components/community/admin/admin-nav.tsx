@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import type { Route } from 'next';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/lib/auth';
+import { isPlatformAdmin } from '@/lib/roles';
 
 const items = [
   ['/community/manage', 'Courses'],
@@ -13,9 +15,12 @@ const items = [
 
 export function CommunityAdminNav() {
   const pathname = usePathname();
+  const { user } = useAuth();
+  // Only platform admins appoint community managers.
+  const links = isPlatformAdmin(user?.roles) ? [...items, ['/community/manage/team', 'Team'] as const] : items;
   return (
     <nav className="mt-5 flex gap-2 overflow-x-auto pb-1" aria-label="CreatorPlus Community management">
-      {items.map(([href, label]) => {
+      {links.map(([href, label]) => {
         const active = href === '/community/manage' ? pathname === href : pathname.startsWith(href);
         return (
           <Link

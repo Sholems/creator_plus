@@ -1,5 +1,6 @@
 'use client';
 
+import { isCommunityStaff } from '@/lib/roles';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -27,7 +28,7 @@ export default function PostThreadPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { token, user, isLoading: authLoading } = useAuth();
-  const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
+  const isAdmin = isCommunityStaff(user?.roles);
 
   const [post, setPost] = useState<any>(null);
   const [comment, setComment] = useState('');

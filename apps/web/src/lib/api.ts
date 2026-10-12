@@ -515,6 +515,17 @@ class ApiClient {
     });
   }
 
+  // --- Community team (platform admins) ---
+  async getCommunityTeam(token: string) {
+    return this.fetch<any[]>('/community/admin/team', { token });
+  }
+  async addCommunityManager(token: string, email: string) {
+    return this.fetch<any>('/community/admin/team', { method: 'POST', body: { email }, token });
+  }
+  async removeCommunityManager(token: string, userId: string) {
+    return this.fetch<any>(`/community/admin/team/${encodeURIComponent(userId)}`, { method: 'DELETE', token });
+  }
+
   async switchMembershipToAnnual(token: string) {
     return this.fetch<{ switched: boolean; redirectUrl?: string }>('/membership/switch-to-annual', {
       method: 'POST',

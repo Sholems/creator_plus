@@ -1,5 +1,6 @@
 'use client';
 
+import { isCommunityStaff } from '@/lib/roles';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
@@ -7,7 +8,7 @@ import { CommunityAdminNav } from '@/components/community/admin/admin-nav';
 
 export default function CommunityModerationPage() {
   const { token, user } = useAuth();
-  const isAdmin = user?.roles?.some((role) => role === 'admin' || role === 'super_admin');
+  const isAdmin = isCommunityStaff(user?.roles);
   const [overview, setOverview] = useState<any>(null);
   const [reports, setReports] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);

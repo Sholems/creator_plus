@@ -1,3 +1,4 @@
+import { isCommunityStaff } from './community-roles';
 import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { prisma } from '@creatorplus/database';
 import { MembershipService } from '../membership/membership.service';
@@ -28,7 +29,7 @@ export class CommunityAccessService {
       where: { userId },
       select: { role: { select: { name: true } } },
     });
-    const isAdmin = roles.some(({ role }) => role.name === 'admin' || role.name === 'super_admin');
+    const isAdmin = isCommunityStaff(roles.map(({ role }) => role.name));
     const needsPremium = options.accessLevel === 'PREMIUM';
     const hasPremiumAccess =
       isAdmin || (needsPremium && (await this.membership.hasActiveMembership(userId)));

@@ -1,3 +1,4 @@
+import { COMMUNITY_STAFF_ROLES } from './community-roles';
 import {
   Body,
   Controller,
@@ -138,35 +139,35 @@ export class CommunityFeedController {
   // --- Admin moderation ---
   @Post('admin/posts/:id/pin')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   pin(@Param('id') id: string, @Body() body: { pinned?: boolean }) {
     return this.feed.pinPost(id, body?.pinned ?? true);
   }
 
   @Post('admin/categories')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   createCategory(@Body() dto: CategoryDto) {
     return this.feed.createCategory(dto);
   }
 
   @Patch('admin/categories/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   updateCategory(@Param('id') id: string, @Body() dto: CategoryDto) {
     return this.feed.updateCategory(id, dto);
   }
 
   @Delete('admin/categories/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   deleteCategory(@Param('id') id: string) {
     return this.feed.deleteCategory(id);
   }
 
   @Post('admin/moderation/:targetType/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   moderate(
     @Request() req: any,
     @Param('targetType') targetType: 'POST' | 'COMMENT',

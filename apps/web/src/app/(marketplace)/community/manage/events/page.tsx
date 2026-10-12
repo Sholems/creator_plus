@@ -1,5 +1,6 @@
 'use client';
 
+import { isCommunityStaff } from '@/lib/roles';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
@@ -8,7 +9,7 @@ import { CommunityAdminNav } from '@/components/community/admin/admin-nav';
 const input = 'w-full rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm';
 export default function ManageCommunityEventsPage() {
   const { token, user } = useAuth();
-  const isAdmin = user?.roles?.some((role) => role === 'admin' || role === 'super_admin');
+  const isAdmin = isCommunityStaff(user?.roles);
   const [events, setEvents] = useState<any[]>([]);
   const [form, setForm] = useState({
     title: '',

@@ -1,3 +1,4 @@
+import { isCommunityStaff } from './community-roles';
 import {
   BadRequestException,
   ForbiddenException,
@@ -75,7 +76,7 @@ export class CommunityFeedService {
       where: { userId },
       select: { role: { select: { name: true } } },
     });
-    return roles.some((r) => r.role.name === 'admin' || r.role.name === 'super_admin');
+    return isCommunityStaff(roles.map((r) => r.role.name));
   }
 
   // --- Categories ---------------------------------------------------------

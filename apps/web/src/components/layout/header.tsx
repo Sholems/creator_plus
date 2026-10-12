@@ -7,10 +7,8 @@ import { useAuth } from '@/lib/auth';
 import { CreatorPlusMark } from '@/components/brand/logo';
 import { NotificationBell } from '@/components/layout/notification-bell';
 import { ADMIN_URL } from '@/lib/env';
+import { isCommunityStaff, isPlatformAdmin } from '@/lib/roles';
 
-function isAdmin(roles?: string[]) {
-  return !!roles?.some((r) => r === 'super_admin' || r === 'admin');
-}
 
 const NAV_LINKS: { href: Route; label: string }[] = [
   { href: '/community', label: 'Community' },
@@ -21,7 +19,8 @@ const NAV_LINKS: { href: Route; label: string }[] = [
 
 export function Header() {
   const { token, user, logout } = useAuth();
-  const admin = isAdmin(user?.roles);
+  const admin = isPlatformAdmin(user?.roles);
+  const staff = isCommunityStaff(user?.roles);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
@@ -93,9 +92,13 @@ export function Header() {
                     }}
                     className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-sm font-medium text-cream-50 hover:bg-white/15"
                   >
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-400 text-xs font-bold text-forest-900">
-                      {user?.displayName?.[0] || user?.email?.[0] || '?'}
-                    </div>
+                    {user?.avatar ? (
+                      <img src={user.avatar} alt="" className="h-6 w-6 rounded-full object-cover" />
+                    ) : (
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-400 text-xs font-bold text-forest-900">
+                        {user?.displayName?.[0] || user?.email?.[0] || '?'}
+                      </div>
+                    )}
                     <span className="hidden lg:inline max-w-[10rem] truncate">
                       {user?.displayName || user?.email}
                     </span>
@@ -125,6 +128,16 @@ export function Header() {
                         onClick={() => setIsUserMenuOpen(false)}>
                         Saved Posts
                       </Link>
+                      <Link href="/dashboard" className="block px-4 py-2 text-sm hover:bg-cream-100"
+                        onClick={() => setIsUserMenuOpen(false)}>
+                        My Account
+                      </Link>
+                      {staff && (
+                        <Link href={'/community/manage' as Route} className="block px-4 py-2 text-sm font-medium text-forest-700 hover:bg-cream-100"
+                          onClick={() => setIsUserMenuOpen(false)}>
+                          Manage Community
+                        </Link>
+                      )}
                       {admin && (
                         <a href={ADMIN_URL} target="_blank" rel="noopener noreferrer"
                           className="flex items-center justify-between px-4 py-2 text-sm text-gold-700 hover:bg-gold-50">
@@ -215,6 +228,14 @@ export function Header() {
                 <Link href={'/community/saved' as Route} className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
                   Saved Bookmarks
                 </Link>
+                <Link href="/dashboard" className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-100/90 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                  My Account
+                </Link>
+                {staff && (
+                  <Link href={'/community/manage' as Route} className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                    Manage Community
+                  </Link>
+                )}
                 {admin && (
                   <a href={ADMIN_URL} target="_blank" rel="noopener noreferrer"
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gold-300 hover:bg-white/10">

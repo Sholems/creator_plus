@@ -1,3 +1,4 @@
+import { COMMUNITY_STAFF_ROLES } from './community-roles';
 import {
   Body,
   Controller,
@@ -64,77 +65,77 @@ export class CommunityController {
   // --- Admin authoring ---
   @Get('admin/courses')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   adminList() {
     return this.courses.adminListCourses();
   }
 
   @Get('admin/courses/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   adminGet(@Param('id') id: string) {
     return this.courses.adminGetCourse(id);
   }
 
   @Post('admin/courses')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   createCourse(@Body() dto: CreateCourseDto) {
     return this.courses.createCourse(dto);
   }
 
   @Patch('admin/courses/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   updateCourse(@Param('id') id: string, @Body() dto: UpdateCourseDto) {
     return this.courses.updateCourse(id, dto);
   }
 
   @Delete('admin/courses/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   deleteCourse(@Param('id') id: string) {
     return this.courses.deleteCourse(id);
   }
 
   @Post('admin/courses/:id/modules')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   addModule(@Param('id') id: string, @Body() dto: CreateModuleDto) {
     return this.courses.addModule(id, dto);
   }
 
   @Patch('admin/modules/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   updateModule(@Param('id') id: string, @Body() dto: UpdateModuleDto) {
     return this.courses.updateModule(id, dto);
   }
 
   @Delete('admin/modules/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   deleteModule(@Param('id') id: string) {
     return this.courses.deleteModule(id);
   }
 
   @Post('admin/modules/:id/lessons')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   addLesson(@Param('id') id: string, @Body() dto: CreateLessonDto) {
     return this.courses.addLesson(id, dto);
   }
 
   @Patch('admin/lessons/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   updateLesson(@Param('id') id: string, @Body() dto: UpdateLessonDto) {
     return this.courses.updateLesson(id, dto);
   }
 
   @Delete('admin/lessons/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   deleteLesson(@Param('id') id: string) {
     return this.courses.deleteLesson(id);
   }

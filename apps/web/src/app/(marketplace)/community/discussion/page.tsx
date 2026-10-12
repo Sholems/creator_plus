@@ -1,5 +1,6 @@
 'use client';
 
+import { isCommunityStaff } from '@/lib/roles';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -29,7 +30,7 @@ function timeAgo(iso: string): string {
 export default function DiscussionPage() {
   const router = useRouter();
   const { token, user, isLoading: authLoading } = useAuth();
-  const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
+  const isAdmin = isCommunityStaff(user?.roles);
 
   const [categories, setCategories] = useState<any[]>([]);
   const [activeCat, setActiveCat] = useState<string>('');

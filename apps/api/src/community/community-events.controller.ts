@@ -1,3 +1,4 @@
+import { COMMUNITY_STAFF_ROLES } from './community-roles';
 import { Body, Controller, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -29,28 +30,28 @@ export class CommunityEventsController {
 
   @Get('admin/events')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   adminList() {
     return this.events.adminList();
   }
 
   @Post('admin/events')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   create(@Body() dto: CreateCommunityEventDto) {
     return this.events.create(dto);
   }
 
   @Patch('admin/events/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   update(@Param('id') id: string, @Body() dto: UpdateCommunityEventDto) {
     return this.events.update(id, dto);
   }
 
   @Post('admin/events/:id/cancel')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('super_admin', 'admin')
+  @Roles(...COMMUNITY_STAFF_ROLES)
   cancel(@Param('id') id: string) {
     return this.events.cancel(id);
   }

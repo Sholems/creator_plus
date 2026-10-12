@@ -1,5 +1,6 @@
 'use client';
 
+import { isCommunityStaff } from '@/lib/roles';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { Route } from 'next';
@@ -47,7 +48,7 @@ export default function CommunityHomePage() {
   const [engagement, setEngagement] = useState<any>(null);
   const [activity, setActivity] = useState<any[]>([]);
 
-  const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
+  const isAdmin = isCommunityStaff(user?.roles);
 
   useEffect(() => {
     if (

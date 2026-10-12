@@ -1,5 +1,6 @@
 'use client';
 
+import { isCommunityStaff } from '@/lib/roles';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
@@ -29,7 +30,7 @@ function videoUrlFromInput(value?: string): string {
 
 export default function CommunityManagePage() {
   const { token, user } = useAuth();
-  const isAdmin = !!user?.roles?.some((r) => r === 'super_admin' || r === 'admin');
+  const isAdmin = isCommunityStaff(user?.roles);
 
   const [courses, setCourses] = useState<any[]>([]);
   const [selected, setSelected] = useState<any>(null);
