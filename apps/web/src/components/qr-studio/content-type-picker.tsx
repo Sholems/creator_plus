@@ -40,7 +40,7 @@ export function ContentTypePicker({
     <fieldset>
       <legend className="text-sm font-semibold text-ink-800">What will your QR code open?</legend>
       <p className="mt-1 text-xs leading-5 text-ink-500">Choose a destination. You can replace the content later without changing the printed QR code.</p>
-      <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-4">
+      <div className="mt-4 grid border-l border-t border-ink-200 sm:grid-cols-2 lg:grid-cols-3">
         {CONTENT_TYPES.map((type) => {
           const selected = value === type.value;
           return (
@@ -50,23 +50,25 @@ export function ContentTypePicker({
               aria-pressed={selected}
               onClick={() => onChange(type.value)}
               className={cn(
-                'group relative min-h-28 rounded-2xl border p-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2',
+                'group relative flex min-h-20 items-start gap-3 border-b border-r border-ink-200 px-3 py-3 text-left transition focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-forest-500',
                 selected
-                  ? 'border-forest-600 bg-forest-50 shadow-sm'
-                  : 'border-ink-100 bg-white hover:bg-cream-50 active:bg-forest-50',
+                  ? 'bg-forest-50'
+                  : 'bg-white hover:bg-cream-50 active:bg-forest-50',
               )}
             >
               <span
                 className={cn(
-                  'flex h-9 w-9 items-center justify-center rounded-xl text-[0.625rem] font-bold tracking-wide',
-                  selected ? 'bg-forest-800 text-cream-50' : 'bg-cream-100 text-forest-800 group-hover:bg-forest-100',
+                  'flex h-8 w-8 shrink-0 items-center justify-center border text-[0.5625rem] font-bold tracking-wide',
+                  selected ? 'border-forest-800 bg-forest-800 text-cream-50' : 'border-ink-200 bg-white text-forest-800 group-hover:border-forest-300',
                 )}
               >
                 {type.mark}
               </span>
-              {type.pro && <span className="absolute right-3 top-3 rounded-full bg-gold-100 px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide text-gold-700">Pro</span>}
-              <span className="mt-3 block whitespace-nowrap text-sm font-semibold text-ink-900">{type.label}</span>
-              <span className="mt-1 block text-[0.6875rem] leading-4 text-ink-500">{type.description}</span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-ink-900">{type.label}</span>
+                <span className="mt-1 block text-[0.6875rem] leading-4 text-ink-500">{type.description}</span>
+              </span>
+              {type.pro && <span className="mt-0.5 text-[0.55rem] font-bold uppercase tracking-[0.12em] text-gold-700">Pro</span>}
             </button>
           );
         })}

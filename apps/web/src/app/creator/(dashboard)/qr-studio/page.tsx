@@ -10,10 +10,10 @@ import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { cn } from '@creatorplus/ui';
 
-/* Hallmark · pre-emit critique: P5 H5 E4 S5 R4 V5 · macrostructure: unified QR workbench · theme: studied-DNA (source: online-qr-generator.com) */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · macrostructure: flat production workbench · theme: CreatorPlus forest/cream */
 
 const inputClass =
-  'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
+  'mt-1 block w-full rounded-md border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition hover:border-ink-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
 
 const BRAND_KIT_KEY = 'cp_qr_brand_kit';
 
@@ -383,7 +383,7 @@ export default function QrStudioPage() {
 
   if (!token) {
     return (
-      <div className="rounded-2xl border border-ink-100 bg-white p-6">
+      <div className="border-y border-ink-200 bg-white p-6">
         <p className="text-sm text-ink-600">Sign in to use QR Studio.</p>
       </div>
     );
@@ -391,47 +391,44 @@ export default function QrStudioPage() {
 
   return (
     <div>
-      <p className="eyebrow text-gold-600">Premium module</p>
-      <div className="mt-1 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-        <div>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink-900">QR Studio</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-600">
+      <header className="border-b border-ink-200 pb-5">
+        <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
+          <div className="min-w-0">
+            <Link href={'/dashboard' as Route} className="text-xs font-semibold text-forest-700 hover:text-forest-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">← Account</Link>
+            <h1 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink-900">QR Studio</h1>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-600">
             Host files on CreatorPlus, design branded QR codes, and distribute one stable scan link.
             All plans are paid, branded, and watermark-free.
-          </p>
-        </div>
-        <div className="rounded-2xl border border-forest-100 bg-forest-50 px-4 py-3 text-sm text-forest-800">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">{activeCount}</span> active campaigns
-            {hasPro && <span className="rounded-full bg-gold-100 px-2 py-0.5 text-[0.625rem] font-bold text-gold-700">PRO</span>}
-          </div>
-          {access && (
-            <p className="mt-0.5 text-xs text-forest-600">
-              {hasPro ? 'Pro access · included with membership' : 'Free plan · 1 QR code, no file upload'}
             </p>
-          )}
+          </div>
+          <div className="flex items-center gap-5 text-sm">
+            <div>
+              <span className="font-semibold text-ink-900">{activeCount}</span>
+              <span className="ml-1.5 text-ink-500">active</span>
+            </div>
+            {access && <span className="border-l border-ink-200 pl-5 text-xs text-ink-500">{hasPro ? 'Pro membership' : 'Starter access'}</span>}
+          </div>
         </div>
-      </div>
+      </header>
 
       {paymentNote && (
-        <div className="mt-5 rounded-xl border border-gold-200 bg-gold-50 px-4 py-3 text-sm text-gold-800" role="status">
+        <div className="mt-4 border-l-2 border-gold-500 bg-gold-50 px-4 py-3 text-sm text-gold-800" role="status">
           {paymentNote}
         </div>
       )}
       {error && (
-        <div className="mt-5 rounded-xl border border-clay-200 bg-clay-50 px-4 py-3 text-sm text-clay-700" role="alert">
+        <div className="mt-4 border-l-2 border-clay-500 bg-clay-50 px-4 py-3 text-sm text-clay-700" role="alert">
           {error}
         </div>
       )}
       {message && (
-        <div className="mt-5 rounded-xl border border-forest-200 bg-forest-50 px-4 py-3 text-sm text-forest-700" role="status">
+        <div className="mt-4 border-l-2 border-forest-600 bg-forest-50 px-4 py-3 text-sm text-forest-700" role="status">
           {message}
         </div>
       )}
 
       {!hasPro ? (
-        <section className="mt-6 rounded-2xl border border-forest-200 bg-white p-6 shadow-sm">
-          <p className="eyebrow text-gold-600">Free plan</p>
+        <section className="mt-5 border-y border-ink-200 bg-white px-1 py-5">
           <h2 className="mt-1 font-display text-xl font-semibold text-ink-900">You're on the free QR plan</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-600">
             Create <strong>1 QR code</strong> with links, WhatsApp, vCard, a menu and more. Upgrade to a
@@ -440,55 +437,45 @@ export default function QrStudioPage() {
           </p>
           <Link
             href={'/community/join' as Route}
-            className="mt-4 inline-block rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-cream-50 transition hover:bg-forest-700"
+            className="mt-4 inline-block rounded-md bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2"
           >
             Upgrade to Pro
           </Link>
         </section>
       ) : (
-        <section className="mt-6 rounded-2xl border border-gold-200 bg-gold-50 px-5 py-4 text-sm text-gold-800">
-          ✦ The full QR Studio is included with your CreatorPlus membership — unlimited codes, file &amp; PDF uploads, and the designer.
+        <section className="mt-5 border-y border-ink-200 px-1 py-3 text-sm text-ink-600">
+          <span className="font-semibold text-forest-800">Pro access</span> includes unlimited codes, file and PDF uploads, and the full designer.
         </section>
       )}
 
-      <div className="mt-8 grid items-start gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
-        <aside className="rounded-3xl border border-ink-100 bg-white p-4 shadow-sm xl:sticky xl:top-24">
-          <div className="flex items-center justify-between gap-3 px-1">
+      <div className="mt-6 grid items-start overflow-hidden border-y border-ink-200 bg-white xl:grid-cols-[18rem_minmax(0,1fr)]">
+        <aside className="border-b border-ink-200 bg-cream-50/40 xl:sticky xl:top-20 xl:max-h-[calc(100vh-6rem)] xl:border-b-0 xl:border-r">
+          <div className="flex items-center justify-between gap-3 border-b border-ink-200 px-4 py-4">
             <div>
-              <p className="eyebrow text-gold-600">Dashboard</p>
-              <h2 className="mt-1 font-display text-xl font-semibold text-ink-900">My QR codes</h2>
+              <h2 className="font-display text-lg font-semibold text-ink-900">QR library</h2>
+              <p className="mt-0.5 text-xs text-ink-500">{campaigns.length} campaigns</p>
             </div>
             <button
               type="button"
               onClick={beginNewCampaign}
-              className="whitespace-nowrap rounded-full bg-forest-800 px-3 py-2 text-xs font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2"
+              className="whitespace-nowrap rounded-md bg-forest-800 px-3 py-2 text-xs font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2"
             >
               + New QR
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            <div className="rounded-2xl bg-cream-50 p-3">
-              <p className="text-lg font-bold text-ink-900">{campaigns.length}</p>
-              <p className="text-[0.625rem] uppercase tracking-wide text-ink-500">Total</p>
-            </div>
-            <div className="rounded-2xl bg-forest-50 p-3">
-              <p className="text-lg font-bold text-forest-800">{activeCount}</p>
-              <p className="text-[0.625rem] uppercase tracking-wide text-forest-600">Active</p>
-            </div>
-            <div className="rounded-2xl bg-gold-50 p-3">
-              <p className="text-lg font-bold text-gold-800">{campaigns.length - activeCount}</p>
-              <p className="text-[0.625rem] uppercase tracking-wide text-gold-700">Draft</p>
-            </div>
+          <div className="flex items-center gap-5 border-b border-ink-200 px-4 py-3 text-xs">
+            <span><strong className="text-ink-900">{activeCount}</strong> <span className="text-ink-500">active</span></span>
+            <span><strong className="text-ink-900">{campaigns.length - activeCount}</strong> <span className="text-ink-500">draft</span></span>
           </div>
 
           {!hasCampaigns ? (
-            <div className="mt-4 rounded-2xl border border-dashed border-ink-200 bg-cream-50 p-4 text-center">
+            <div className="m-4 border border-dashed border-ink-300 p-4 text-center">
               <p className="text-sm font-semibold text-ink-800">Your QR library is empty</p>
               <p className="mt-1 text-xs leading-5 text-ink-500">Choose a content type to create your first stable QR link.</p>
             </div>
           ) : (
-            <div className="mt-4 max-h-[32rem] space-y-2 overflow-y-auto pr-1">
+            <div className="max-h-[32rem] overflow-y-auto">
               {campaigns.map((campaign) => (
                 <button
                   key={campaign.id}
@@ -498,10 +485,10 @@ export default function QrStudioPage() {
                     setCreateStep('design');
                   }}
                   className={cn(
-                    'w-full rounded-2xl border p-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500',
+                    'w-full border-b border-ink-100 border-l-2 px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-forest-500',
                     selectedCampaign?.id === campaign.id
-                      ? 'border-forest-500 bg-forest-50'
-                      : 'border-ink-100 hover:bg-cream-50 active:bg-forest-50',
+                      ? 'border-l-forest-700 bg-white'
+                      : 'border-l-transparent hover:bg-white active:bg-forest-50',
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -509,10 +496,7 @@ export default function QrStudioPage() {
                       <span className="block truncate text-sm font-semibold text-ink-900">{campaign.title}</span>
                       <span className="mt-1 block text-[0.6875rem] text-ink-500">{campaign.contentType.replaceAll('_', ' ')} · /qr/{campaign.publicCode}</span>
                     </span>
-                    <span className={cn(
-                      'shrink-0 rounded-full px-2 py-1 text-[0.5625rem] font-bold uppercase tracking-wide',
-                      campaign.status === 'ACTIVE' ? 'bg-forest-100 text-forest-700' : 'bg-gold-100 text-gold-700',
-                    )}>
+                    <span className={cn('shrink-0 text-[0.5625rem] font-bold uppercase tracking-wide', campaign.status === 'ACTIVE' ? 'text-forest-700' : 'text-gold-700')}>
                       {campaign.status}
                     </span>
                   </div>
@@ -523,8 +507,8 @@ export default function QrStudioPage() {
         </aside>
 
         <div className="min-w-0">
-          <nav aria-label="QR creation steps" className="rounded-3xl border border-ink-100 bg-white p-2 shadow-sm">
-            <ol className="grid grid-cols-3 gap-1">
+          <nav aria-label="QR creation steps" className="border-b border-ink-200 bg-white px-5 sm:px-8">
+            <ol className="grid grid-cols-3">
               {([
                 ['content', '01', 'Content'],
                 ['design', '02', 'Design'],
@@ -538,11 +522,11 @@ export default function QrStudioPage() {
                       disabled={disabled}
                       onClick={() => setCreateStep(step)}
                       className={cn(
-                        'flex w-full items-center justify-center gap-2 rounded-2xl px-2 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 disabled:cursor-not-allowed disabled:opacity-40',
-                        createStep === step ? 'bg-forest-800 text-cream-50' : 'text-ink-500 hover:bg-cream-50 hover:text-ink-900',
+                        '-mb-px flex w-full items-center justify-center gap-2 border-b-2 px-2 py-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 disabled:cursor-not-allowed disabled:opacity-40',
+                        createStep === step ? 'border-forest-700 text-forest-900' : 'border-transparent text-ink-500 hover:text-ink-900',
                       )}
                     >
-                      <span className={cn('text-[0.625rem] font-bold', createStep === step ? 'text-gold-300' : 'text-ink-300')}>{number}</span>
+                      <span className={cn('text-[0.625rem] font-bold', createStep === step ? 'text-forest-600' : 'text-ink-300')}>{number}</span>
                       {label}
                     </button>
                   </li>
@@ -552,9 +536,8 @@ export default function QrStudioPage() {
           </nav>
 
         {createStep === 'content' && (
-        <section className="mt-4 rounded-3xl border border-ink-100 bg-white p-5 shadow-sm sm:p-7">
-          <p className="eyebrow text-gold-600">Step 1 of 3</p>
-          <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">Choose your QR content</h2>
+        <section className="bg-white p-5 sm:p-8">
+          <h2 className="font-display text-2xl font-semibold text-ink-900">Choose your QR content</h2>
           <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-500">
             Create one stable scan link for a hosted file, website, contact action, media page, or interactive experience.
           </p>
@@ -722,10 +705,10 @@ export default function QrStudioPage() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-ink-100 bg-cream-50 p-4">
+            <div className="border-y border-ink-200 py-5">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-ink-800">Design &amp; branding</p>
-                {!hasPro && <span className="rounded-full bg-forest-100 px-2 py-0.5 text-[0.625rem] font-semibold text-forest-700">More presets with Pro</span>}
+                {!hasPro && <span className="text-[0.625rem] font-semibold text-forest-700">More presets with Pro</span>}
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {DESIGN_PRESETS.map((preset) => {
@@ -736,8 +719,8 @@ export default function QrStudioPage() {
                       type="button"
                       onClick={() => applyPreset(preset)}
                       className={cn(
-                        'flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition',
-                        presetId === preset.id ? 'border-forest-600 bg-forest-50 text-forest-800' : 'border-ink-200 text-ink-700 hover:border-forest-300',
+                        'flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-semibold transition-colors',
+                        presetId === preset.id ? 'border-forest-600 bg-forest-50 text-forest-800' : 'border-ink-200 text-ink-700 hover:border-ink-400',
                         locked && 'opacity-50',
                       )}
                     >
@@ -759,8 +742,8 @@ export default function QrStudioPage() {
                 </label>
                 {hasPro && (
                   <div className="ml-auto flex gap-2">
-                    <button type="button" onClick={saveBrandKit} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Save brand kit</button>
-                    <button type="button" onClick={applyBrandKit} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Apply brand kit</button>
+                    <button type="button" onClick={saveBrandKit} className="rounded-md border border-ink-200 px-3 py-2 text-xs font-semibold text-ink-700 hover:border-ink-400">Save brand kit</button>
+                    <button type="button" onClick={applyBrandKit} className="rounded-md border border-ink-200 px-3 py-2 text-xs font-semibold text-ink-700 hover:border-ink-400">Apply brand kit</button>
                   </div>
                 )}
               </div>
@@ -773,7 +756,7 @@ export default function QrStudioPage() {
               <button
                 type="submit"
                 disabled={busy}
-                className="rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50"
+                className="rounded-md bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 hover:bg-forest-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-forest-700 disabled:opacity-50"
               >
                 {busy ? 'Saving content…' : 'Save content & continue'}
               </button>
@@ -786,22 +769,21 @@ export default function QrStudioPage() {
         )}
 
         {createStep === 'design' && (
-        <section className="mt-4 rounded-3xl border border-ink-100 bg-white p-5 shadow-sm sm:p-7">
+        <section className="bg-white p-5 sm:p-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="eyebrow text-gold-600">Step 2 of 3</p>
-              <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">Design your QR code</h2>
+              <h2 className="font-display text-2xl font-semibold text-ink-900">Design your QR code</h2>
               <p className="mt-1 text-sm text-ink-500">Shape it for your brand while keeping the code easy to scan.</p>
             </div>
             {selectedCampaign && (
               <div className="flex flex-wrap gap-2">
                 {hasPro && (
                   <>
-                    <button onClick={saveDesignTemplate} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Save template</button>
-                    <button onClick={applyDesignTemplate} className="rounded-full border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">Apply template</button>
+                    <button onClick={saveDesignTemplate} className="rounded-md border border-ink-200 px-3 py-2 text-xs font-semibold text-ink-700 hover:border-ink-400">Save template</button>
+                    <button onClick={applyDesignTemplate} className="rounded-md border border-ink-200 px-3 py-2 text-xs font-semibold text-ink-700 hover:border-ink-400">Apply template</button>
                   </>
                 )}
-                <button onClick={saveDesign} disabled={savingDesign} className="rounded-full bg-forest-800 px-4 py-1.5 text-xs font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50">
+                <button onClick={saveDesign} disabled={savingDesign} className="rounded-md bg-forest-800 px-4 py-2 text-xs font-semibold text-cream-50 hover:bg-forest-700 disabled:cursor-not-allowed disabled:opacity-50">
                   {savingDesign ? 'Saving…' : 'Save design'}
                 </button>
               </div>
@@ -817,8 +799,8 @@ export default function QrStudioPage() {
               />
               <p className="mt-3 text-xs text-ink-400">Encodes /qr/{selectedCampaign.publicCode} — edit content anytime without reprinting. SVG export stays sharp at any print size.</p>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-ink-100 pt-5">
-                <button type="button" onClick={() => setCreateStep('content')} className="whitespace-nowrap rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">Back to content</button>
-                <button type="button" onClick={() => setCreateStep('publish')} className="whitespace-nowrap rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2">Continue to publish</button>
+                <button type="button" onClick={() => setCreateStep('content')} className="whitespace-nowrap rounded-md border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:border-ink-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">Back to content</button>
+                <button type="button" onClick={() => setCreateStep('publish')} className="whitespace-nowrap rounded-md bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2">Continue to publish</button>
               </div>
             </div>
           ) : (
@@ -828,15 +810,14 @@ export default function QrStudioPage() {
         )}
 
         {createStep === 'publish' && (
-          <section className="mt-4 rounded-3xl border border-ink-100 bg-white p-5 shadow-sm sm:p-7">
-            <p className="eyebrow text-gold-600">Step 3 of 3</p>
-            <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">Publish with confidence</h2>
+          <section className="bg-white p-5 sm:p-8">
+            <h2 className="font-display text-2xl font-semibold text-ink-900">Publish with confidence</h2>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-500">Review the destination and safety status, then activate the stable link before distributing your QR code.</p>
 
             {selectedCampaign ? (
               <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
-                <div className="space-y-4">
-                  <div className="rounded-2xl border border-ink-100 bg-cream-50 p-5">
+                <div>
+                  <div className="border-y border-ink-200 py-5">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-400">Campaign</p>
@@ -844,55 +825,58 @@ export default function QrStudioPage() {
                         <p className="mt-1 text-sm text-ink-500">{selectedCampaign.contentType.replaceAll('_', ' ')}</p>
                       </div>
                       <span className={cn(
-                        'rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide',
-                        selectedCampaign.status === 'ACTIVE' ? 'bg-forest-100 text-forest-700' : 'bg-gold-100 text-gold-700',
-                      )}>{selectedCampaign.status}</span>
+                        'flex items-center gap-2 text-xs font-bold uppercase tracking-wide',
+                        selectedCampaign.status === 'ACTIVE' ? 'text-forest-700' : 'text-gold-700',
+                      )}>
+                        <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                        {selectedCampaign.status}
+                      </span>
                     </div>
-                    <div className="mt-5 rounded-xl border border-ink-100 bg-white p-4">
+                    <div className="mt-5 border-t border-ink-200 pt-4">
                       <p className="text-xs font-semibold text-ink-500">Stable scan link</p>
                       <p className="mt-1 break-all text-sm font-medium text-forest-700">{selectedCampaign.publicUrl || `https://mycreatorplus.com/qr/${selectedCampaign.publicCode}`}</p>
                     </div>
                   </div>
 
                   {selectedCampaign.contentType === 'FILE' && (
-                    <div className="rounded-2xl border border-ink-100 bg-white p-5">
+                    <div className="border-b border-ink-200 py-5">
                       <p className="text-sm font-semibold text-ink-900">Hosted file check</p>
                       {selectedCampaign.assets?.length ? selectedCampaign.assets.map((asset) => (
-                        <div key={asset.id} className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl bg-cream-50 px-4 py-3">
+                        <div key={asset.id} className="mt-3 flex flex-wrap items-center justify-between gap-2 border-l-2 border-ink-200 bg-cream-50/60 px-4 py-3">
                           <span className="min-w-0 truncate text-sm text-ink-700">{asset.fileName}</span>
                           <span className={cn(
-                            'rounded-full px-2 py-1 text-[0.625rem] font-bold uppercase tracking-wide',
-                            asset.safetyStatus === 'APPROVED' ? 'bg-forest-100 text-forest-700' : 'bg-gold-100 text-gold-700',
+                            'text-[0.625rem] font-bold uppercase tracking-wide',
+                            asset.safetyStatus === 'APPROVED' ? 'text-forest-700' : 'text-gold-700',
                           )}>{asset.safetyStatus}</span>
                         </div>
                       )) : <p className="mt-2 text-sm text-clay-600">Upload a file in Content before activating this campaign.</p>}
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-3">
-                    <button type="button" onClick={() => setCreateStep('design')} className="whitespace-nowrap rounded-full border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">Back to design</button>
+                  <div className="flex flex-wrap items-center gap-3 pt-5">
+                    <button type="button" onClick={() => setCreateStep('design')} className="whitespace-nowrap rounded-md border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-700 transition hover:border-ink-400 active:bg-cream-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">Back to design</button>
                     {selectedCampaign.status !== 'ACTIVE' ? (
-                      <button type="button" disabled={busy} onClick={() => void activateCampaign(selectedCampaign.id)} className="whitespace-nowrap rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-forest-700 disabled:opacity-50">
+                      <button type="button" disabled={busy} onClick={() => void activateCampaign(selectedCampaign.id)} className="whitespace-nowrap rounded-md bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-forest-700 disabled:opacity-50">
                         {busy ? 'Activating…' : 'Activate QR campaign'}
                       </button>
                     ) : (
-                      <span className="inline-flex items-center rounded-full bg-forest-100 px-4 py-2.5 text-sm font-semibold text-forest-700">Ready to distribute</span>
+                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700"><span className="h-2 w-2 rounded-full bg-forest-600" />Ready to distribute</span>
                     )}
                   </div>
                 </div>
 
-                <div className="rounded-2xl bg-forest-900 p-5 text-cream-50">
+                <aside className="border-l-4 border-gold-500 bg-forest-900 p-5 text-cream-50">
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-300">Before you print</p>
-                  <ul className="mt-4 space-y-3 text-sm leading-5 text-cream-100">
-                    <li>Test the code with two different phones.</li>
-                    <li>Keep a clear margin around the QR image.</li>
+                  <ul className="mt-4 list-disc space-y-3 pl-4 text-sm leading-5 text-cream-100 marker:text-gold-400">
+                    <li>Test with two different phones.</li>
+                    <li>Keep a clear margin around the code.</li>
                     <li>Use SVG for large-format printing.</li>
-                    <li>Your destination can change later; the QR stays the same.</li>
+                    <li>You can change the destination later.</li>
                   </ul>
-                </div>
+                </aside>
               </div>
             ) : (
-              <p className="mt-5 rounded-2xl bg-cream-50 p-5 text-sm text-ink-500">Create or select a campaign before publishing.</p>
+              <p className="mt-5 border-y border-ink-200 bg-cream-50/60 p-5 text-sm text-ink-500">Create or select a campaign before publishing.</p>
             )}
           </section>
         )}

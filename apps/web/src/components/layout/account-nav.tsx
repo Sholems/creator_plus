@@ -29,12 +29,12 @@ export function AccountNav() {
   const { user } = useAuth();
 
   return (
-    <nav className="rounded-2xl border border-ink-100 bg-white p-4" aria-label="Account navigation">
-      <div className="mb-4 px-3">
-        <h2 className="font-display text-lg font-semibold text-ink-900">My Account</h2>
+    <nav aria-label="Account navigation">
+      <div className="mb-5 border-b border-ink-100 pb-4">
+        <h2 className="font-display text-base font-semibold text-ink-900">My Account</h2>
         {user && <p className="mt-0.5 truncate text-xs text-ink-500">{user.displayName || user.email}</p>}
       </div>
-      <ul className="space-y-1">
+      <ul className="space-y-0.5">
         {ACCOUNT_LINKS.map((link) => {
           const active =
             pathname === link.href ||
@@ -45,10 +45,10 @@ export function AccountNav() {
                 href={link.href}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'block rounded-xl px-3 py-2 text-sm font-medium transition-colors',
+                  'block border-l-2 px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500',
                   active
-                    ? 'bg-forest-800 text-cream-50'
-                    : 'text-ink-600 hover:bg-cream-100 hover:text-ink-900',
+                    ? 'border-forest-700 bg-forest-50 text-forest-900'
+                    : 'border-transparent text-ink-600 hover:border-ink-200 hover:text-ink-900',
                 )}
               >
                 {link.label}
@@ -59,7 +59,7 @@ export function AccountNav() {
       </ul>
       <Link
         href="/community"
-        className="mt-4 block rounded-xl bg-cream-50 px-3 py-2.5 text-sm font-semibold text-forest-700 hover:text-forest-600"
+        className="mt-5 block border-t border-ink-100 px-3 pt-4 text-sm font-semibold text-forest-700 hover:text-forest-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500"
       >
         ← Back to Community
       </Link>
