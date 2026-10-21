@@ -45,7 +45,7 @@ export class QrAssetsService {
           fileSize: BigInt(file.size),
           mimeType: file.mimetype,
           checksum,
-          safetyStatus: this.fileSafety.initialStatus(),
+          safetyStatus: this.fileSafety.initialStatus(file),
         },
         select: {
           id: true,

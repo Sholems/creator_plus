@@ -14,7 +14,7 @@ function build() {
   const storage = { uploadFile: jest.fn().mockResolvedValue({ key: 'qr/campaigns/c1/files/x.pdf', url: 'ignored' }) } as any;
   const campaigns = { requireOwnerCampaign: jest.fn().mockResolvedValue({ id: 'c1' }) } as any;
   const fileSafety = { initialStatus: jest.fn().mockReturnValue('PENDING_SCAN') } as any;
-  return { service: new QrAssetsService(storage, campaigns, fileSafety), storage, campaigns };
+  return { service: new QrAssetsService(storage, campaigns, fileSafety), storage, campaigns, fileSafety };
 }
 
 const file = { originalname: 'guide.pdf', mimetype: 'application/pdf', size: 2048, buffer: Buffer.from('pdf') };
@@ -46,9 +46,10 @@ describe('QrAssetsService.upload', () => {
     };
     p.$transaction.mockImplementation(async (cb: any) => cb(tx));
 
-    const { service } = build();
+    const { service, fileSafety } = build();
     const asset: any = await service.upload('u1', 'c1', file as any, 'CAMPAIGN_FILE');
 
+    expect(fileSafety.initialStatus).toHaveBeenCalledWith(file);
     expect(tx.qrAsset.updateMany).toHaveBeenCalledWith(
       expect.objectContaining({ where: expect.objectContaining({ campaignId: 'c1', active: true }), data: { active: false } }),
     );
