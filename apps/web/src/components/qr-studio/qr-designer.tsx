@@ -176,8 +176,8 @@ export function QrDesigner({
   const downloadSvg = () => qrRef.current?.download({ name: fileName, extension: 'svg' });
 
   const contrast = contrastRatio(d.dotsColor, d.bgColor);
-  const inputCls = 'h-8 w-9 cursor-pointer rounded border border-ink-200';
-  const selCls = 'rounded-lg border border-ink-200 bg-white px-2 py-1.5 text-sm';
+  const inputCls = 'h-9 w-10 cursor-pointer rounded-lg border border-ink-200 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500';
+  const selCls = 'rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500';
 
   const framed = d.frame !== 'none';
   const caption = framed && d.caption.trim() && (
@@ -187,46 +187,63 @@ export function QrDesigner({
   );
 
   return (
-    <div className="grid gap-5 sm:grid-cols-[260px_1fr]">
-      <div className="flex flex-col items-center">
-        <div
-          className="flex flex-col gap-2 rounded-2xl p-3"
-          style={{ background: d.bgColor, border: framed ? `3px solid ${d.frameColor}` : '1px solid #eee' }}
-        >
-          {framed && d.captionPos === 'top' && caption}
-          <div ref={holderRef} />
-          {framed && d.captionPos === 'bottom' && caption}
+    <div className="grid items-start gap-7 lg:grid-cols-[19rem_minmax(0,1fr)]">
+      <div className="rounded-2xl bg-cream-50 p-5 lg:sticky lg:top-24">
+        <div className="text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-forest-700">Live preview</p>
+          <p className="mt-1 text-xs text-ink-500">Every change appears here instantly.</p>
         </div>
-        <div className="mt-3 flex gap-2">
-          <button type="button" onClick={exportPng} className="rounded-full bg-forest-800 px-4 py-1.5 text-xs font-semibold text-cream-50 hover:bg-forest-700">Download PNG</button>
-          <button type="button" onClick={downloadSvg} className="rounded-full border border-ink-200 px-4 py-1.5 text-xs font-semibold text-ink-700 hover:bg-cream-100">SVG (code only)</button>
+        <div className="mt-4 flex max-w-full justify-center overflow-x-auto pb-1">
+          <div
+            className="flex shrink-0 flex-col gap-2 rounded-2xl p-3 shadow-sm"
+            style={{ background: d.bgColor, border: framed ? `3px solid ${d.frameColor}` : '1px solid #e7e5df' }}
+          >
+            {framed && d.captionPos === 'top' && caption}
+            <div ref={holderRef} />
+            {framed && d.captionPos === 'bottom' && caption}
+          </div>
         </div>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <button type="button" disabled={!ready} onClick={exportPng} className="whitespace-nowrap rounded-full bg-forest-800 px-3 py-2 text-xs font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 disabled:cursor-wait disabled:bg-forest-700 disabled:opacity-50">Download PNG</button>
+          <button type="button" disabled={!ready} onClick={downloadSvg} className="whitespace-nowrap rounded-full border border-ink-200 bg-white px-3 py-2 text-xs font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 disabled:cursor-wait disabled:bg-cream-100 disabled:opacity-50">SVG code</button>
+        </div>
+        <p className="mt-3 text-center text-[0.6875rem] leading-4 text-ink-400">PNG suits social posts. SVG stays crisp for posters and packaging.</p>
       </div>
 
-      <div className="space-y-3 text-sm">
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="flex items-center gap-2">Modules
-            <select className={selCls} value={d.moduleStyle} onChange={(e) => set({ moduleStyle: e.target.value })}>
-              {MODULE_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </label>
-          <label className="flex items-center gap-2">Eyes
-            <select className={selCls} value={d.eyeStyle} onChange={(e) => set({ eyeStyle: e.target.value })}>
-              {EYE_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </label>
-        </div>
+      <div className="min-w-0 space-y-4 text-sm">
+        <section className="rounded-2xl border border-ink-100 p-4">
+          <p className="text-sm font-semibold text-ink-900">Pattern</p>
+          <p className="mt-1 text-xs text-ink-500">Adjust the modules and corner eyes.</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <label className="flex flex-col gap-1.5 text-xs font-medium text-ink-600">Modules
+              <select className={selCls} value={d.moduleStyle} onChange={(e) => set({ moduleStyle: e.target.value })}>
+                {MODULE_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </label>
+            <label className="flex flex-col gap-1.5 text-xs font-medium text-ink-600">Corner eyes
+              <select className={selCls} value={d.eyeStyle} onChange={(e) => set({ eyeStyle: e.target.value })}>
+                {EYE_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </label>
+          </div>
+        </section>
 
-        <div className="flex flex-wrap items-center gap-4 text-xs text-ink-600">
-          <label className="flex items-center gap-1.5">Dots<input type="color" className={inputCls} value={d.dotsColor} onChange={(e) => set({ dotsColor: e.target.value })} /></label>
-          <label className="flex items-center gap-1.5">Eyes<input type="color" className={inputCls} value={d.cornersColor} onChange={(e) => set({ cornersColor: e.target.value })} /></label>
-          <label className="flex items-center gap-1.5">Background<input type="color" className={inputCls} value={d.bgColor} onChange={(e) => set({ bgColor: e.target.value })} /></label>
-          <label className="flex items-center gap-1.5"><input type="checkbox" checked={d.gradient} onChange={(e) => set({ gradient: e.target.checked })} />Gradient</label>
-          {d.gradient && <input type="color" className={inputCls} value={d.gradientColor} onChange={(e) => set({ gradientColor: e.target.value })} />}
-        </div>
+        <section className="rounded-2xl border border-ink-100 p-4">
+          <p className="text-sm font-semibold text-ink-900">Colours</p>
+          <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-ink-600">
+            <label className="flex items-center gap-2">Modules<input aria-label="Module colour" type="color" className={inputCls} value={d.dotsColor} onChange={(e) => set({ dotsColor: e.target.value })} /></label>
+            <label className="flex items-center gap-2">Eyes<input aria-label="Eye colour" type="color" className={inputCls} value={d.cornersColor} onChange={(e) => set({ cornersColor: e.target.value })} /></label>
+            <label className="flex items-center gap-2">Background<input aria-label="Background colour" type="color" className={inputCls} value={d.bgColor} onChange={(e) => set({ bgColor: e.target.value })} /></label>
+            <label className="flex items-center gap-2 rounded-full bg-cream-50 px-3 py-2"><input type="checkbox" checked={d.gradient} onChange={(e) => set({ gradient: e.target.checked })} />Use gradient</label>
+            {d.gradient && <label className="flex items-center gap-2">End colour<input aria-label="Gradient end colour" type="color" className={inputCls} value={d.gradientColor} onChange={(e) => set({ gradientColor: e.target.value })} /></label>}
+          </div>
+        </section>
 
-        <div className="flex flex-wrap items-center gap-3 text-xs text-ink-600">
-          <label className="cursor-pointer rounded-full border border-ink-200 px-3 py-1.5 font-semibold text-ink-700 hover:bg-cream-100">
+        <section className="rounded-2xl border border-ink-100 p-4">
+          <p className="text-sm font-semibold text-ink-900">Logo</p>
+          <p className="mt-1 text-xs text-ink-500">Add a simple, high-contrast mark at the centre.</p>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-ink-600">
+          <label className="cursor-pointer rounded-full border border-ink-200 px-3 py-2 font-semibold text-ink-700 transition hover:bg-cream-100 focus-within:ring-2 focus-within:ring-forest-500">
             {d.logo ? 'Change logo' : 'Add center logo'}
             <input type="file" accept="image/*" className="hidden" onChange={(e) => onLogo(e.target.files?.[0] ?? null)} />
           </label>
@@ -238,10 +255,13 @@ export function QrDesigner({
               </label>
             </>
           )}
-        </div>
+          </div>
+        </section>
 
-        <div className="rounded-xl border border-ink-100 bg-cream-50 p-3">
-          <div className="flex flex-wrap items-center gap-3 text-xs text-ink-600">
+        <section className="rounded-2xl border border-ink-100 p-4">
+          <p className="text-sm font-semibold text-ink-900">Frame &amp; call to action</p>
+          <p className="mt-1 text-xs text-ink-500">Give scanners a clear reason to point their camera.</p>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-ink-600">
             <label className="flex items-center gap-2">Frame
               <select className={selCls} value={d.frame} onChange={(e) => set({ frame: e.target.value as QrDesign['frame'] })}>
                 <option value="none">None</option>
@@ -261,7 +281,7 @@ export function QrDesigner({
               </>
             )}
           </div>
-        </div>
+        </section>
 
         {contrast < 3.5 && (
           <p className="rounded-lg bg-gold-50 px-3 py-2 text-xs text-gold-800">Low contrast between dots and background may hurt scan reliability — darken the dots or lighten the background.</p>
