@@ -4,10 +4,13 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { Route } from 'next';
 import { QrDesigner, DEFAULT_QR_DESIGN, type QrDesign } from '@/components/qr-studio/qr-designer';
+import { ContentTypePicker } from '@/components/qr-studio/content-type-picker';
 import { AvatarUploader, SocialLinksEditor, MenuEditor, EMPTY_MENU } from '@/components/qr-studio/rich-fields';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { cn } from '@creatorplus/ui';
+
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R4 V5 · macrostructure: unified QR workbench · theme: studied-DNA (source: online-qr-generator.com) */
 
 const inputClass =
   'mt-1 block w-full rounded-xl border border-ink-100 bg-cream-50 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30';
@@ -48,6 +51,7 @@ type Campaign = {
   status: string;
   scanMode: string;
   brandPrimaryColor?: string | null;
+  designSettings?: { qrDesign?: Partial<QrDesign> } | null;
   assets?: { id: string; fileName: string; safetyStatus: string }[];
 };
 
@@ -71,6 +75,7 @@ export default function QrStudioPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const [createStep, setCreateStep] = useState<'content' | 'design' | 'publish'>('content');
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -137,7 +142,7 @@ export default function QrStudioPage() {
       setDesign(DEFAULT_QR_DESIGN);
       return;
     }
-    const saved = (selectedCampaign as any).designSettings?.qrDesign;
+    const saved = selectedCampaign.designSettings?.qrDesign;
     if (saved) {
       setDesign({ ...DEFAULT_QR_DESIGN, ...saved });
     } else {
@@ -278,6 +283,7 @@ export default function QrStudioPage() {
   async function createCampaign(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!token) return;
+    const campaignForm = e.currentTarget;
     setBusy(true);
     setError('');
     setMessage('');
@@ -300,9 +306,12 @@ export default function QrStudioPage() {
       const refreshed = await api.getQrCampaigns(token);
       setCampaigns(refreshed);
       setSelectedCampaign(refreshed.find((item: Campaign) => item.id === campaign.id) ?? refreshed[0] ?? null);
-      setMessage('QR campaign draft created. Activate it when the content is ready.');
+      setCreateStep('design');
+      setMessage('Content saved. Your stable QR link is ready to design.');
       setForm({ ...form, title: '', description: '', destinationUrl: '' });
+      setContentData({});
       setFile(null);
+      campaignForm.reset();
     } catch (err: any) {
       setError(err.message || 'Could not create QR campaign');
     } finally {
@@ -316,7 +325,9 @@ export default function QrStudioPage() {
     setError('');
     try {
       await api.setQrCampaignStatus(token, id, 'ACTIVE');
-      await load();
+      const refreshed = await api.getQrCampaigns(token);
+      setCampaigns(refreshed);
+      setSelectedCampaign(refreshed.find((campaign: Campaign) => campaign.id === id) ?? refreshed[0] ?? null);
       setMessage('QR campaign activated. Your printed code can now be scanned.');
     } catch (err: any) {
       setError(err.message || 'Could not activate campaign');
@@ -361,6 +372,13 @@ export default function QrStudioPage() {
     } catch {
       setError('Could not read your saved brand kit.');
     }
+  }
+
+  function beginNewCampaign() {
+    setSelectedCampaign(null);
+    setCreateStep('content');
+    setError('');
+    setMessage('');
   }
 
   if (!token) {
@@ -433,11 +451,112 @@ export default function QrStudioPage() {
         </section>
       )}
 
-      <div className="mt-8 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <section className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
-          <h2 className="font-display text-xl font-semibold text-ink-900">Create a campaign</h2>
-          <p className="mt-1 text-sm text-ink-500">
-            Start with a hosted file/PDF or website link. Pro users can unlock richer content options through the API.
+      <div className="mt-8 grid items-start gap-6 xl:grid-cols-[19rem_minmax(0,1fr)]">
+        <aside className="rounded-3xl border border-ink-100 bg-white p-4 shadow-sm xl:sticky xl:top-24">
+          <div className="flex items-center justify-between gap-3 px-1">
+            <div>
+              <p className="eyebrow text-gold-600">Dashboard</p>
+              <h2 className="mt-1 font-display text-xl font-semibold text-ink-900">My QR codes</h2>
+            </div>
+            <button
+              type="button"
+              onClick={beginNewCampaign}
+              className="whitespace-nowrap rounded-full bg-forest-800 px-3 py-2 text-xs font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2"
+            >
+              + New QR
+            </button>
+          </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            <div className="rounded-2xl bg-cream-50 p-3">
+              <p className="text-lg font-bold text-ink-900">{campaigns.length}</p>
+              <p className="text-[0.625rem] uppercase tracking-wide text-ink-500">Total</p>
+            </div>
+            <div className="rounded-2xl bg-forest-50 p-3">
+              <p className="text-lg font-bold text-forest-800">{activeCount}</p>
+              <p className="text-[0.625rem] uppercase tracking-wide text-forest-600">Active</p>
+            </div>
+            <div className="rounded-2xl bg-gold-50 p-3">
+              <p className="text-lg font-bold text-gold-800">{campaigns.length - activeCount}</p>
+              <p className="text-[0.625rem] uppercase tracking-wide text-gold-700">Draft</p>
+            </div>
+          </div>
+
+          {!hasCampaigns ? (
+            <div className="mt-4 rounded-2xl border border-dashed border-ink-200 bg-cream-50 p-4 text-center">
+              <p className="text-sm font-semibold text-ink-800">Your QR library is empty</p>
+              <p className="mt-1 text-xs leading-5 text-ink-500">Choose a content type to create your first stable QR link.</p>
+            </div>
+          ) : (
+            <div className="mt-4 max-h-[32rem] space-y-2 overflow-y-auto pr-1">
+              {campaigns.map((campaign) => (
+                <button
+                  key={campaign.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedCampaign(campaign);
+                    setCreateStep('design');
+                  }}
+                  className={cn(
+                    'w-full rounded-2xl border p-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500',
+                    selectedCampaign?.id === campaign.id
+                      ? 'border-forest-500 bg-forest-50'
+                      : 'border-ink-100 hover:bg-cream-50 active:bg-forest-50',
+                  )}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold text-ink-900">{campaign.title}</span>
+                      <span className="mt-1 block text-[0.6875rem] text-ink-500">{campaign.contentType.replaceAll('_', ' ')} · /qr/{campaign.publicCode}</span>
+                    </span>
+                    <span className={cn(
+                      'shrink-0 rounded-full px-2 py-1 text-[0.5625rem] font-bold uppercase tracking-wide',
+                      campaign.status === 'ACTIVE' ? 'bg-forest-100 text-forest-700' : 'bg-gold-100 text-gold-700',
+                    )}>
+                      {campaign.status}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </aside>
+
+        <div className="min-w-0">
+          <nav aria-label="QR creation steps" className="rounded-3xl border border-ink-100 bg-white p-2 shadow-sm">
+            <ol className="grid grid-cols-3 gap-1">
+              {([
+                ['content', '01', 'Content'],
+                ['design', '02', 'Design'],
+                ['publish', '03', 'Publish'],
+              ] as const).map(([step, number, label]) => {
+                const disabled = step !== 'content' && !selectedCampaign;
+                return (
+                  <li key={step}>
+                    <button
+                      type="button"
+                      disabled={disabled}
+                      onClick={() => setCreateStep(step)}
+                      className={cn(
+                        'flex w-full items-center justify-center gap-2 rounded-2xl px-2 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 disabled:cursor-not-allowed disabled:opacity-40',
+                        createStep === step ? 'bg-forest-800 text-cream-50' : 'text-ink-500 hover:bg-cream-50 hover:text-ink-900',
+                      )}
+                    >
+                      <span className={cn('text-[0.625rem] font-bold', createStep === step ? 'text-gold-300' : 'text-ink-300')}>{number}</span>
+                      {label}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </nav>
+
+        {createStep === 'content' && (
+        <section className="mt-4 rounded-3xl border border-ink-100 bg-white p-5 shadow-sm sm:p-7">
+          <p className="eyebrow text-gold-600">Step 1 of 3</p>
+          <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">Choose your QR content</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-500">
+            Create one stable scan link for a hosted file, website, contact action, media page, or interactive experience.
           </p>
           <form className="mt-5 space-y-4" onSubmit={createCampaign}>
             <div>
@@ -451,32 +570,10 @@ export default function QrStudioPage() {
                 placeholder="My creator guide PDF"
               />
             </div>
-            <div>
-              <label className="text-sm font-medium text-ink-700" htmlFor="qr-type">Content type</label>
-              <select
-                id="qr-type"
-                className={inputClass}
-                value={form.contentType}
-                onChange={(event) => setForm({ ...form, contentType: event.target.value })}
-              >
-                <option value="FILE">Hosted PDF / document</option>
-                <option value="WEBSITE">Website / custom link</option>
-                <option value="TEXT_NOTE">Text note — Pro</option>
-                <option value="WHATSAPP">WhatsApp chat — Pro</option>
-                <option value="SOCIAL_LINK_HUB">Profile / link-in-bio — Pro</option>
-                <option value="VCARD">Contact card (vCard) — Pro</option>
-                <option value="COUPON">Coupon / promo — Pro</option>
-                <option value="LOCATION">Location / map — Pro</option>
-                <option value="EMAIL">Email action — Pro</option>
-                <option value="SMS">SMS action — Pro</option>
-                <option value="EVENT">Event / ticket page — Pro</option>
-                <option value="VIDEO">Video (YouTube / Vimeo) — Pro</option>
-                <option value="AUDIO">Audio (Spotify / SoundCloud) — Pro</option>
-                <option value="APP_LINK">App download — Pro</option>
-                <option value="WIFI">Wi-Fi network — Pro</option>
-                <option value="MENU">Menu (₦ priced) — Pro</option>
-              </select>
-            </div>
+            <ContentTypePicker
+              value={form.contentType}
+              onChange={(contentType) => setForm({ ...form, contentType })}
+            />
 
             {form.contentType === 'FILE' && (
               <div>
@@ -493,7 +590,7 @@ export default function QrStudioPage() {
             )}
             {(form.contentType === 'VIDEO' || form.contentType === 'AUDIO') && (
               <div>
-                <label className="text-sm font-medium text-ink-700">{form.contentType === 'VIDEO' ? 'YouTube / Vimeo URL' : 'Spotify / SoundCloud URL'}</label>
+                <label className="text-sm font-medium text-ink-700">{form.contentType === 'VIDEO' ? 'YouTube / Vimeo / Bunny Stream URL' : 'Spotify / SoundCloud URL'}</label>
                 <input type="url" className={inputClass} value={contentData.url ?? ''} onChange={(e) => cd('url', e.target.value)} placeholder="https://…" />
               </div>
             )}
@@ -678,7 +775,7 @@ export default function QrStudioPage() {
                 disabled={busy}
                 className="rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 hover:bg-forest-700 disabled:opacity-50"
               >
-                {busy ? 'Working…' : 'Create paid campaign'}
+                {busy ? 'Saving content…' : 'Save content & continue'}
               </button>
               <p className="text-xs leading-5 text-ink-500">
                 No free drafts: the API requires a paid QR entitlement before creation.
@@ -686,10 +783,16 @@ export default function QrStudioPage() {
             </div>
           </form>
         </section>
+        )}
 
-        <section className="rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
+        {createStep === 'design' && (
+        <section className="mt-4 rounded-3xl border border-ink-100 bg-white p-5 shadow-sm sm:p-7">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="font-display text-xl font-semibold text-ink-900">QR designer</h2>
+            <div>
+              <p className="eyebrow text-gold-600">Step 2 of 3</p>
+              <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">Design your QR code</h2>
+              <p className="mt-1 text-sm text-ink-500">Shape it for your brand while keeping the code easy to scan.</p>
+            </div>
             {selectedCampaign && (
               <div className="flex flex-wrap gap-2">
                 {hasPro && (
@@ -713,60 +816,88 @@ export default function QrStudioPage() {
                 fileName={selectedCampaign.title || 'creatorplus-qr'}
               />
               <p className="mt-3 text-xs text-ink-400">Encodes /qr/{selectedCampaign.publicCode} — edit content anytime without reprinting. SVG export stays sharp at any print size.</p>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-ink-100 pt-5">
+                <button type="button" onClick={() => setCreateStep('content')} className="whitespace-nowrap rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">Back to content</button>
+                <button type="button" onClick={() => setCreateStep('publish')} className="whitespace-nowrap rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2">Continue to publish</button>
+              </div>
             </div>
           ) : (
             <p className="mt-4 text-sm text-ink-500">{loading ? 'Loading…' : 'Create or select a campaign to design its QR code.'}</p>
           )}
         </section>
-      </div>
+        )}
 
-      <section className="mt-8 rounded-2xl border border-ink-100 bg-white p-6 shadow-sm">
-        <h2 className="font-display text-xl font-semibold text-ink-900">Campaigns</h2>
-        {!hasCampaigns ? (
-          <p className="mt-3 text-sm text-ink-500">No QR campaigns yet. Buy a plan, then create your first campaign.</p>
-        ) : (
-          <div className="mt-4 grid gap-3">
-            {campaigns.map((campaign) => (
-              <button
-                key={campaign.id}
-                type="button"
-                onClick={() => setSelectedCampaign(campaign)}
-                className={cn(
-                  'rounded-2xl border p-4 text-left transition',
-                  selectedCampaign?.id === campaign.id ? 'border-forest-500 bg-forest-50' : 'border-ink-100 hover:border-forest-200',
-                )}
-              >
-                <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                  <div>
-                    <p className="font-semibold text-ink-900">{campaign.title}</p>
-                    <p className="mt-1 text-xs text-ink-500">
-                      {campaign.contentType} · {campaign.status} · /qr/{campaign.publicCode}
-                    </p>
+        {createStep === 'publish' && (
+          <section className="mt-4 rounded-3xl border border-ink-100 bg-white p-5 shadow-sm sm:p-7">
+            <p className="eyebrow text-gold-600">Step 3 of 3</p>
+            <h2 className="mt-1 font-display text-2xl font-semibold text-ink-900">Publish with confidence</h2>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-500">Review the destination and safety status, then activate the stable link before distributing your QR code.</p>
+
+            {selectedCampaign ? (
+              <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
+                <div className="space-y-4">
+                  <div className="rounded-2xl border border-ink-100 bg-cream-50 p-5">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-400">Campaign</p>
+                        <h3 className="mt-1 font-display text-xl font-semibold text-ink-900">{selectedCampaign.title}</h3>
+                        <p className="mt-1 text-sm text-ink-500">{selectedCampaign.contentType.replaceAll('_', ' ')}</p>
+                      </div>
+                      <span className={cn(
+                        'rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wide',
+                        selectedCampaign.status === 'ACTIVE' ? 'bg-forest-100 text-forest-700' : 'bg-gold-100 text-gold-700',
+                      )}>{selectedCampaign.status}</span>
+                    </div>
+                    <div className="mt-5 rounded-xl border border-ink-100 bg-white p-4">
+                      <p className="text-xs font-semibold text-ink-500">Stable scan link</p>
+                      <p className="mt-1 break-all text-sm font-medium text-forest-700">{selectedCampaign.publicUrl || `https://mycreatorplus.com/qr/${selectedCampaign.publicCode}`}</p>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    {campaign.status !== 'ACTIVE' && (
-                      <span
-                        role="button"
-                        tabIndex={0}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          void activateCampaign(campaign.id);
-                        }}
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter') void activateCampaign(campaign.id);
-                        }}
-                        className="rounded-full bg-forest-800 px-3 py-1.5 text-xs font-semibold text-cream-50"
-                      >
-                        Activate
-                      </span>
+
+                  {selectedCampaign.contentType === 'FILE' && (
+                    <div className="rounded-2xl border border-ink-100 bg-white p-5">
+                      <p className="text-sm font-semibold text-ink-900">Hosted file check</p>
+                      {selectedCampaign.assets?.length ? selectedCampaign.assets.map((asset) => (
+                        <div key={asset.id} className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl bg-cream-50 px-4 py-3">
+                          <span className="min-w-0 truncate text-sm text-ink-700">{asset.fileName}</span>
+                          <span className={cn(
+                            'rounded-full px-2 py-1 text-[0.625rem] font-bold uppercase tracking-wide',
+                            asset.safetyStatus === 'APPROVED' ? 'bg-forest-100 text-forest-700' : 'bg-gold-100 text-gold-700',
+                          )}>{asset.safetyStatus}</span>
+                        </div>
+                      )) : <p className="mt-2 text-sm text-clay-600">Upload a file in Content before activating this campaign.</p>}
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-3">
+                    <button type="button" onClick={() => setCreateStep('design')} className="whitespace-nowrap rounded-full border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500">Back to design</button>
+                    {selectedCampaign.status !== 'ACTIVE' ? (
+                      <button type="button" disabled={busy} onClick={() => void activateCampaign(selectedCampaign.id)} className="whitespace-nowrap rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 transition hover:bg-forest-700 active:bg-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-forest-700 disabled:opacity-50">
+                        {busy ? 'Activating…' : 'Activate QR campaign'}
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center rounded-full bg-forest-100 px-4 py-2.5 text-sm font-semibold text-forest-700">Ready to distribute</span>
                     )}
                   </div>
                 </div>
-              </button>
-            ))}
-          </div>
+
+                <div className="rounded-2xl bg-forest-900 p-5 text-cream-50">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-300">Before you print</p>
+                  <ul className="mt-4 space-y-3 text-sm leading-5 text-cream-100">
+                    <li>Test the code with two different phones.</li>
+                    <li>Keep a clear margin around the QR image.</li>
+                    <li>Use SVG for large-format printing.</li>
+                    <li>Your destination can change later; the QR stays the same.</li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-5 rounded-2xl bg-cream-50 p-5 text-sm text-ink-500">Create or select a campaign before publishing.</p>
+            )}
+          </section>
         )}
-      </section>
+        </div>
+      </div>
     </div>
   );
 }
