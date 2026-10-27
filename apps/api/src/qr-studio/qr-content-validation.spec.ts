@@ -108,6 +108,9 @@ describe('QR content validation', () => {
     expect(validateCampaignDestination('VIDEO', null, { url: 'https://youtu.be/abc123' })).toMatchObject({
       destinationData: { url: 'https://youtu.be/abc123' },
     });
+    expect(validateCampaignDestination('VIDEO', null, { url: 'https://iframe.mediadelivery.net/embed/123/abc' })).toMatchObject({
+      destinationData: { url: 'https://iframe.mediadelivery.net/embed/123/abc' },
+    });
     expect(() => validateCampaignDestination('VIDEO', null, { url: 'https://evil.example/x' })).toThrow('supported video');
     expect(validateCampaignDestination('AUDIO', null, { url: 'https://open.spotify.com/track/1' })).toMatchObject({
       destinationData: { url: 'https://open.spotify.com/track/1' },

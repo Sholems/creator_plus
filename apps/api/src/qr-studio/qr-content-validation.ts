@@ -283,7 +283,7 @@ function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-const VIDEO_HOSTS = ['youtube.com', 'youtu.be', 'vimeo.com'];
+const VIDEO_HOSTS = ['youtube.com', 'youtu.be', 'vimeo.com', 'iframe.mediadelivery.net'];
 const AUDIO_HOSTS = ['open.spotify.com', 'spotify.com', 'soundcloud.com'];
 const APP_STORE_HOSTS = ['apps.apple.com', 'itunes.apple.com'];
 const PLAY_STORE_HOSTS = ['play.google.com'];

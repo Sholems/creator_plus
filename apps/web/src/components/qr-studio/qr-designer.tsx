@@ -39,6 +39,7 @@ export const DEFAULT_QR_DESIGN: QrDesign = {
 const MODULE_STYLES = ['square', 'rounded', 'dots', 'classy', 'extra-rounded'];
 const EYE_STYLES = ['square', 'dot', 'extra-rounded'];
 const QR_SIZE = 260;
+const QUIET_ZONE = 28;
 
 function relLum(hex: string): number {
   const m = /^#?([0-9a-f]{6})$/i.exec(hex);
@@ -89,7 +90,8 @@ export function QrDesigner({
     type: 'canvas' as const,
     data: url || 'https://mycreatorplus.com',
     image: design.logo || undefined,
-    margin: 6,
+    // Reserve roughly four modules on every side for reliable camera detection.
+    margin: QUIET_ZONE,
     qrOptions: { errorCorrectionLevel: 'H' as const },
     dotsOptions: design.gradient
       ? { type: design.moduleStyle as any, gradient: { type: 'linear' as const, rotation: 0.79, colorStops: [{ offset: 0, color: design.dotsColor }, { offset: 1, color: design.gradientColor }] } }
@@ -176,6 +178,14 @@ export function QrDesigner({
   const downloadSvg = () => qrRef.current?.download({ name: fileName, extension: 'svg' });
 
   const contrast = contrastRatio(d.dotsColor, d.bgColor);
+  const eyeContrast = contrastRatio(d.cornersColor, d.bgColor);
+  const gradientContrast = d.gradient ? contrastRatio(d.gradientColor, d.bgColor) : contrast;
+  const lowestContrast = Math.min(contrast, eyeContrast, gradientContrast);
+  const preflightStatus = lowestContrast < 3.5 || (d.logo && d.logoSize > 0.36)
+    ? 'fail'
+    : lowestContrast < 4.5 || (d.logo && d.logoSize > 0.3)
+      ? 'warning'
+      : 'pass';
   const inputCls = 'h-9 w-10 cursor-pointer rounded border border-ink-200 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500';
   const selCls = 'rounded-md border border-ink-200 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500';
 
@@ -208,6 +218,18 @@ export function QrDesigner({
           <button type="button" disabled={!ready} onClick={downloadSvg} className="whitespace-nowrap rounded-md border border-ink-200 bg-white px-3 py-2 text-xs font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 disabled:cursor-wait disabled:bg-cream-100 disabled:opacity-50">SVG code</button>
         </div>
         <p className="mt-3 text-center text-[0.6875rem] leading-4 text-ink-400">PNG suits social posts. SVG stays crisp for posters and packaging.</p>
+        <div className={`mt-4 border px-3 py-3 text-left ${preflightStatus === 'pass' ? 'border-forest-200 bg-forest-50' : preflightStatus === 'warning' ? 'border-gold-200 bg-gold-50' : 'border-clay-200 bg-clay-50'}`}>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-ink-700">Scan preflight</p>
+            <span className={`text-[0.625rem] font-bold uppercase ${preflightStatus === 'pass' ? 'text-forest-700' : preflightStatus === 'warning' ? 'text-gold-800' : 'text-clay-700'}`}>{preflightStatus}</span>
+          </div>
+          <ul className="mt-2 space-y-1 text-[0.6875rem] leading-4 text-ink-600">
+            <li>Contrast: {lowestContrast.toFixed(1)}:1 {lowestContrast >= 4.5 ? '— strong' : lowestContrast >= 3.5 ? '— usable with care' : '— increase contrast'}</li>
+            <li>Quiet zone: four-module safe margin included</li>
+            <li>Logo: {!d.logo ? 'none' : d.logoSize <= 0.3 ? 'safe size' : d.logoSize <= 0.36 ? 'large — test carefully' : 'too large'}</li>
+            <li>Error correction: High</li>
+          </ul>
+        </div>
       </div>
 
       <div className="min-w-0 divide-y divide-ink-200 px-5 text-sm sm:px-7">

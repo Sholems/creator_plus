@@ -14,12 +14,12 @@ function monogram(name?: string): string {
   return (parts[0][0] + (parts[1]?.[0] ?? '')).toUpperCase();
 }
 
-function SocialRow({ socials, size = 22 }: { socials: string[]; size?: number }) {
+function SocialRow({ socials, size = 22, onOpen }: { socials: string[]; size?: number; onOpen?: () => void }) {
   if (!socials?.length) return null;
   return (
     <div className="flex flex-wrap items-center gap-2">
       {socials.map((url, i) => (
-        <a key={i} href={url} rel="noreferrer" target="_blank" aria-label={detectPlatform(url)}
+        <a key={i} href={url} rel="noreferrer" target="_blank" aria-label={detectPlatform(url)} onClick={onOpen}
           className="flex h-10 w-10 items-center justify-center rounded-full border border-ink-100 bg-white transition hover:bg-cream-100">
           <PlatformIcon platform={detectPlatform(url)} size={size} />
         </a>
@@ -84,6 +84,10 @@ export default function PublicQrPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [opening, setOpening] = useState(false);
+  const trackAction = (actionType: string) => {
+    if (!code) return;
+    void api.trackQrCampaignAction(code, actionType).catch(() => undefined);
+  };
 
   useEffect(() => {
     if (!code) return;
@@ -91,6 +95,7 @@ export default function PublicQrPage() {
       .then((result) => {
         setData(result);
         if (result?.mode === 'DIRECT_OPEN' && result.redirectUrl) {
+          void api.trackQrCampaignAction(code, 'DIRECT_OPEN').catch(() => undefined);
           window.location.assign(result.redirectUrl);
         }
       })
@@ -191,6 +196,7 @@ export default function PublicQrPage() {
               <a
                 href={data.destinationUrl}
                 rel="noreferrer"
+                onClick={() => trackAction('CONTINUE')}
                 style={{ backgroundColor: accent }}
                 className="block rounded-full px-5 py-3 text-center text-sm font-semibold text-white transition hover:opacity-90"
               >
@@ -200,7 +206,7 @@ export default function PublicQrPage() {
           )}
 
           {!data.asset && !data.destinationUrl && data.destinationData && (
-            <ContentBlock contentType={data.contentType} d={data.destinationData} title={data.title} accent={accent} />
+            <ContentBlock contentType={data.contentType} d={data.destinationData} title={data.title} accent={accent} trackAction={trackAction} />
           )}
 
           <p className="mt-6 text-center text-[0.7rem] text-ink-400">Powered by CreatorPlus</p>
@@ -216,11 +222,16 @@ function formatSize(bytes: number): string {
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
-function ContentBlock({ contentType, d, title, accent }: { contentType: string; d: any; title: string; accent: string }) {
+function ContentBlock({ contentType, d, title, accent, trackAction }: { contentType: string; d: any; title: string; accent: string; trackAction: (actionType: string) => void }) {
   const [copied, setCopied] = useState(false);
   const primary = 'mt-4 block w-full rounded-full px-5 py-3 text-center text-sm font-semibold text-white transition hover:opacity-90';
   const primaryStyle = { backgroundColor: accent };
-  const copy = (text: string) => { navigator.clipboard?.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); };
+  const copy = (text: string, actionType?: string) => {
+    navigator.clipboard?.writeText(text);
+    if (actionType) trackAction(actionType);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   if (contentType === 'TEXT_NOTE') {
     return <div className="mt-6 whitespace-pre-wrap rounded-2xl border border-ink-100 bg-cream-50 p-4 text-sm leading-6 text-ink-800">{d.text}</div>;
@@ -242,13 +253,13 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
             {d.bio && <p className="mt-1 text-sm leading-6 text-ink-600">{d.bio}</p>}
           </div>
         )}
-        {socials.length > 0 && <div className="mt-4 flex justify-center"><SocialRow socials={socials} /></div>}
+        {socials.length > 0 && <div className="mt-4 flex justify-center"><SocialRow socials={socials} onOpen={() => trackAction('LINK_OPEN')} /></div>}
         {d.whatsapp && (
-          <a href={`https://wa.me/${String(d.whatsapp).replace(/^\+/, '')}`} target="_blank" rel="noreferrer" className={primary} style={primaryStyle}>Chat on WhatsApp</a>
+          <a href={`https://wa.me/${String(d.whatsapp).replace(/^\+/, '')}`} target="_blank" rel="noreferrer" onClick={() => trackAction('WHATSAPP')} className={primary} style={primaryStyle}>Chat on WhatsApp</a>
         )}
         <div className="mt-3 space-y-2">
           {links.map((l, i) => (
-            <a key={i} href={l.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white px-4 py-3 text-sm font-semibold text-ink-800 transition hover:bg-cream-100">
+            <a key={i} href={l.url} target="_blank" rel="noreferrer" onClick={() => trackAction('LINK_OPEN')} className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white px-4 py-3 text-sm font-semibold text-ink-800 transition hover:bg-cream-100">
               <PlatformIcon platform={detectPlatform(l.url)} size={20} />
               <span className="flex-1 text-center">{l.label || l.url}</span>
               <span className="w-5" />
@@ -286,15 +297,15 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
         </div>
 
         <div className="mt-4 space-y-2">
-          {d.phone && <a href={`tel:${d.phone}`} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Call</span><span style={{ color: accent }}>{d.phone}</span></a>}
-          {d.email && <a href={`mailto:${d.email}`} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Email</span><span className="truncate pl-3" style={{ color: accent }}>{d.email}</span></a>}
-          {d.website && <a href={d.website} rel="noreferrer" target="_blank" className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Website</span><span className="truncate pl-3" style={{ color: accent }}>{d.website.replace(/^https?:\/\//, '')}</span></a>}
-          {mapsHref && <a href={mapsHref} rel="noreferrer" target="_blank" className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Address</span><span className="truncate pl-3 text-right" style={{ color: accent }}>{d.address}</span></a>}
+          {d.phone && <a href={`tel:${d.phone}`} onClick={() => trackAction('CALL')} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Call</span><span style={{ color: accent }}>{d.phone}</span></a>}
+          {d.email && <a href={`mailto:${d.email}`} onClick={() => trackAction('EMAIL')} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Email</span><span className="truncate pl-3" style={{ color: accent }}>{d.email}</span></a>}
+          {d.website && <a href={d.website} rel="noreferrer" target="_blank" onClick={() => trackAction('LINK_OPEN')} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Website</span><span className="truncate pl-3" style={{ color: accent }}>{d.website.replace(/^https?:\/\//, '')}</span></a>}
+          {mapsHref && <a href={mapsHref} rel="noreferrer" target="_blank" onClick={() => trackAction('MAP_OPEN')} className="flex items-center justify-between rounded-xl border border-ink-100 bg-white px-4 py-2.5 font-medium text-ink-800 transition hover:bg-cream-100"><span>Address</span><span className="truncate pl-3 text-right" style={{ color: accent }}>{d.address}</span></a>}
         </div>
 
-        {socials.length > 0 && <div className="mt-4"><SocialRow socials={socials} /></div>}
+        {socials.length > 0 && <div className="mt-4"><SocialRow socials={socials} onOpen={() => trackAction('LINK_OPEN')} /></div>}
 
-        <a href={href} download={`${(d.fullName || 'contact').replace(/\s+/g, '-')}.vcf`} className={primary} style={primaryStyle}>Save contact</a>
+        <a href={href} download={`${(d.fullName || 'contact').replace(/\s+/g, '-')}.vcf`} onClick={() => trackAction('CONTACT_SAVE')} className={primary} style={primaryStyle}>Save contact</a>
       </div>
     );
   }
@@ -304,12 +315,12 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
       <div className="mt-6 rounded-2xl border-2 border-dashed p-5 text-center" style={{ borderColor: tint(accent, 0.4), background: tint(accent, 0.06) }}>
         <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em]" style={{ color: accent }}>Your code</p>
         <p className="mt-2 font-mono text-3xl font-bold tracking-wide text-ink-900">{d.code}</p>
-        <button type="button" onClick={() => copy(d.code)} className="mt-2 text-xs font-semibold hover:underline" style={{ color: accent }}>
+        <button type="button" onClick={() => copy(d.code, 'COUPON_COPY')} className="mt-2 text-xs font-semibold hover:underline" style={{ color: accent }}>
           {copied ? 'Copied!' : 'Tap to copy'}
         </button>
         {d.description && <p className="mt-3 text-sm text-ink-700">{d.description}</p>}
         {d.expiresAt && <p className="mt-1 text-xs text-ink-500">Expires {d.expiresAt}</p>}
-        {d.ctaUrl && <a href={d.ctaUrl} rel="noreferrer" className={primary} style={primaryStyle}>Shop now</a>}
+        {d.ctaUrl && <a href={d.ctaUrl} rel="noreferrer" onClick={() => trackAction('LINK_OPEN')} className={primary} style={primaryStyle}>Shop now</a>}
       </div>
     );
   }
@@ -320,7 +331,7 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
       <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-4 text-center">
         <p className="text-sm font-medium text-ink-800">{d.email}</p>
         {d.subject && <p className="mt-1 text-xs text-ink-500">Subject: {d.subject}</p>}
-        <a href={`mailto:${d.email}${q ? `?${q}` : ''}`} className={primary} style={primaryStyle}>Send email</a>
+        <a href={`mailto:${d.email}${q ? `?${q}` : ''}`} onClick={() => trackAction('EMAIL')} className={primary} style={primaryStyle}>Send email</a>
       </div>
     );
   }
@@ -330,7 +341,7 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
       <div className="mt-6 rounded-2xl border border-ink-100 bg-cream-50 p-4 text-center">
         <p className="text-sm font-medium text-ink-800">{d.phone}</p>
         {d.message && <p className="mt-1 text-xs text-ink-500">“{d.message}”</p>}
-        <a href={`sms:${d.phone}${d.message ? `?body=${encodeURIComponent(d.message)}` : ''}`} className={primary} style={primaryStyle}>Send SMS</a>
+        <a href={`sms:${d.phone}${d.message ? `?body=${encodeURIComponent(d.message)}` : ''}`} onClick={() => trackAction('SMS')} className={primary} style={primaryStyle}>Send SMS</a>
       </div>
     );
   }
@@ -344,7 +355,7 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
             <iframe src={embed} title={title} className="h-full w-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
           </div>
         ) : (
-          <a href={d.url} rel="noreferrer" className={primary} style={primaryStyle}>Watch video</a>
+          <a href={d.url} rel="noreferrer" onClick={() => trackAction('VIDEO_PLAY')} className={primary} style={primaryStyle}>Watch video</a>
         )}
       </div>
     );
@@ -357,7 +368,7 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
         {embed ? (
           <iframe src={embed} title={title} className="w-full rounded-2xl" height={152} allow="encrypted-media" />
         ) : (
-          <a href={d.url} rel="noreferrer" className={primary} style={primaryStyle}>Listen</a>
+          <a href={d.url} rel="noreferrer" onClick={() => trackAction('AUDIO_PLAY')} className={primary} style={primaryStyle}>Listen</a>
         )}
       </div>
     );
@@ -369,7 +380,7 @@ function ContentBlock({ contentType, d, title, accent }: { contentType: string; 
     const main = isIos ? d.iosUrl : isAndroid ? d.androidUrl : d.webUrl || d.iosUrl || d.androidUrl;
     return (
       <div className="mt-6 space-y-2">
-        {main && <a href={main} rel="noreferrer" className={primary + ' mt-0'} style={primaryStyle}>Get the app</a>}
+        {main && <a href={main} rel="noreferrer" onClick={() => trackAction('APP_OPEN')} className={primary + ' mt-0'} style={primaryStyle}>Get the app</a>}
         <div className="flex flex-wrap justify-center gap-2 pt-1">
           {d.iosUrl && <a href={d.iosUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">App Store</a>}
           {d.androidUrl && <a href={d.androidUrl} rel="noreferrer" className="rounded-full border border-ink-200 px-4 py-2 text-xs font-semibold text-ink-700 hover:bg-cream-100">Google Play</a>}
@@ -452,6 +463,7 @@ function videoEmbed(url: string): string | null {
       const id = u.pathname.split('/').filter(Boolean)[0];
       return id ? `https://player.vimeo.com/video/${id}` : null;
     }
+    if (u.hostname === 'iframe.mediadelivery.net') return u.toString();
   } catch { /* ignore */ }
   return null;
 }

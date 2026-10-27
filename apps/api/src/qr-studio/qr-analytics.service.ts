@@ -67,7 +67,7 @@ export class QrAnalyticsService {
       prisma.$queryRaw<Array<{ scans: bigint; actions: bigint; unique_scans: bigint }>>(Prisma.sql`
         SELECT
           COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
-          COUNT(*) FILTER (WHERE e.kind = 'ACTION') AS actions,
+          COUNT(*) FILTER (WHERE e.kind IN ('ACTION', 'OPEN')) AS actions,
           COUNT(DISTINCT CASE WHEN e.kind = 'SCAN' AND e."request_hash" IS NOT NULL
             THEN CONCAT((e."created_at" AT TIME ZONE 'UTC')::date, ':', e."request_hash") END)
             + COUNT(*) FILTER (WHERE e.kind = 'SCAN' AND e."request_hash" IS NULL) AS unique_scans
@@ -79,7 +79,7 @@ export class QrAnalyticsService {
         SELECT
           DATE_TRUNC('day', e."created_at" AT TIME ZONE 'UTC') AS day,
           COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
-          COUNT(*) FILTER (WHERE e.kind = 'ACTION') AS actions,
+          COUNT(*) FILTER (WHERE e.kind IN ('ACTION', 'OPEN')) AS actions,
           COUNT(DISTINCT e."request_hash") FILTER (WHERE e.kind = 'SCAN' AND e."request_hash" IS NOT NULL)
             + COUNT(*) FILTER (WHERE e.kind = 'SCAN' AND e."request_hash" IS NULL) AS unique_scans
         FROM "qr_scan_events" e
@@ -91,7 +91,7 @@ export class QrAnalyticsService {
       prisma.$queryRaw<Array<{ campaign_id: string; title: string; scans: bigint; actions: bigint }>>(Prisma.sql`
         SELECT c.id AS campaign_id, c.title,
           COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
-          COUNT(*) FILTER (WHERE e.kind = 'ACTION') AS actions
+          COUNT(*) FILTER (WHERE e.kind IN ('ACTION', 'OPEN')) AS actions
         FROM "qr_scan_events" e
         JOIN "qr_campaigns" c ON c.id = e."campaign_id"
         WHERE ${eventFilter}
@@ -103,7 +103,7 @@ export class QrAnalyticsService {
       this.breakdown(eventFilter, Prisma.sql`COALESCE(e."user_agent_family", 'Unknown')`),
       this.breakdown(eventFilter, Prisma.sql`COALESCE(e.country, 'Unknown')`),
       this.breakdown(eventFilter, Prisma.sql`COALESCE(e."referrer_origin", 'Direct / unknown')`),
-      this.breakdown(eventFilter, Prisma.sql`COALESCE(e."action_type", 'OTHER')`, 'ACTION'),
+      this.actionBreakdown(eventFilter),
     ]);
 
     const totals = totalsRows[0] ?? { scans: 0, actions: 0, unique_scans: 0 };
@@ -146,6 +146,19 @@ export class QrAnalyticsService {
       FROM "qr_scan_events" e
       JOIN "qr_campaigns" c ON c.id = e."campaign_id"
       WHERE ${filter} AND e.kind = ${kind}::"QrEventKind"
+      GROUP BY label
+      ORDER BY count DESC, label ASC
+      LIMIT 8
+    `);
+  }
+
+  private actionBreakdown(filter: Prisma.Sql) {
+    return prisma.$queryRaw<CountRow[]>(Prisma.sql`
+      SELECT COALESCE(e."action_type", CASE WHEN e.kind = 'OPEN' THEN 'FILE_OPEN' ELSE 'OTHER' END) AS label,
+        COUNT(*) AS count
+      FROM "qr_scan_events" e
+      JOIN "qr_campaigns" c ON c.id = e."campaign_id"
+      WHERE ${filter} AND e.kind IN ('ACTION', 'OPEN')
       GROUP BY label
       ORDER BY count DESC, label ASC
       LIMIT 8
@@ -227,6 +240,7 @@ export class QrAnalyticsService {
     if (!referer) return null;
     try {
       const url = new URL(referer);
+      if (url.hostname === 'mycreatorplus.com' || url.hostname.endsWith('.mycreatorplus.com')) return null;
       return url.origin;
     } catch {
       return null;
@@ -235,17 +249,17 @@ export class QrAnalyticsService {
 
   private userAgentFamily(userAgent?: string | null) {
     const ua = (userAgent || '').toLowerCase();
-    if (ua.includes('firefox')) return 'Firefox';
-    if (ua.includes('edg/')) return 'Edge';
-    if (ua.includes('chrome')) return 'Chrome';
+    if (ua.includes('firefox') || ua.includes('fxios')) return 'Firefox';
+    if (ua.includes('edg/') || ua.includes('edgios')) return 'Edge';
+    if (ua.includes('chrome') || ua.includes('crios')) return 'Chrome';
     if (ua.includes('safari')) return 'Safari';
     return ua ? 'Other' : null;
   }
 
   private deviceClass(userAgent?: string | null) {
     const ua = (userAgent || '').toLowerCase();
-    if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone')) return 'mobile';
     if (ua.includes('ipad') || ua.includes('tablet')) return 'tablet';
+    if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone')) return 'mobile';
     return ua ? 'desktop' : null;
   }
 }

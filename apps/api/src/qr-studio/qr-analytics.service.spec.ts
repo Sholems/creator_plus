@@ -59,6 +59,23 @@ describe('QrAnalyticsService', () => {
     })).resolves.toBe(false);
   });
 
+  it('normalizes mobile browser metadata and removes CreatorPlus self-referrers', async () => {
+    await new QrAnalyticsService().recordEvent({
+      campaignId: 'campaign-id',
+      kind: 'SCAN',
+      userAgent: 'Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) CriOS/120.0 Mobile/15E148 Safari/604.1',
+      referer: 'https://mycreatorplus.com/qr/abc?private=value',
+    });
+
+    expect(prisma.qrScanEvent.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        userAgentFamily: 'Chrome',
+        deviceClass: 'tablet',
+        referrerOrigin: null,
+      }),
+    });
+  });
+
   it('returns an owner-scoped analytics overview with normalized counts', async () => {
     (prisma.$queryRaw as jest.Mock)
       .mockResolvedValueOnce([{ scans: 12n, actions: 5n, unique_scans: 9n }])

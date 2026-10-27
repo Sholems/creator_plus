@@ -881,6 +881,26 @@ class ApiClient {
     return this.fetch<any>(`/qr/${encodeURIComponent(code)}/open`);
   }
 
+  async trackQrCampaignAction(code: string, actionType: string) {
+    const response = await fetch(`${this.baseUrl}/qr/${encodeURIComponent(code)}/actions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ actionType }),
+      keepalive: true,
+    });
+    if (!response.ok) throw new Error('Could not record QR action');
+    return response.json();
+  }
+
+  async getQrAnalytics(token: string, params?: { from?: string; to?: string; campaignId?: string }) {
+    const search = new URLSearchParams();
+    if (params?.from) search.set('from', params.from);
+    if (params?.to) search.set('to', params.to);
+    if (params?.campaignId) search.set('campaignId', params.campaignId);
+    const query = search.toString();
+    return this.fetch<any>(`/qr-studio/analytics${query ? `?${query}` : ''}`, { token });
+  }
+
   // Reviews
   async getProductReviews(productId: string, params?: { page?: number; perPage?: number }) {
     const searchParams = new URLSearchParams();

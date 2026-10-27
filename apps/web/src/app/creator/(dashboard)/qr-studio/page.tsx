@@ -6,6 +6,7 @@ import type { Route } from 'next';
 import { QrDesigner, DEFAULT_QR_DESIGN, type QrDesign } from '@/components/qr-studio/qr-designer';
 import { ContentTypePicker } from '@/components/qr-studio/content-type-picker';
 import { AvatarUploader, SocialLinksEditor, MenuEditor, EMPTY_MENU } from '@/components/qr-studio/rich-fields';
+import { QrAnalyticsDashboard } from '@/components/qr-studio/qr-analytics-dashboard';
 import { useAuth } from '@/lib/auth';
 import { api } from '@/lib/api';
 import { cn } from '@creatorplus/ui';
@@ -80,6 +81,9 @@ export default function QrStudioPage() {
   const [message, setMessage] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [createStep, setCreateStep] = useState<'content' | 'design' | 'publish'>('content');
+  const [workspaceView, setWorkspaceView] = useState<'campaigns' | 'analytics'>('campaigns');
+  const [librarySearch, setLibrarySearch] = useState('');
+  const [libraryStatus, setLibraryStatus] = useState('ALL');
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -89,6 +93,14 @@ export default function QrStudioPage() {
     brandPrimaryColor: '#166534',
     brandAccentColor: '#f59e0b',
   });
+  const visibleCampaigns = useMemo(() => {
+    const query = librarySearch.trim().toLowerCase();
+    return campaigns.filter((campaign) => {
+      const matchesStatus = libraryStatus === 'ALL' || campaign.status === libraryStatus;
+      const matchesQuery = !query || campaign.title.toLowerCase().includes(query) || campaign.contentType.toLowerCase().includes(query);
+      return matchesStatus && matchesQuery;
+    });
+  }, [campaigns, librarySearch, libraryStatus]);
 
   useEffect(() => {
     if (!token) return;
@@ -620,6 +632,16 @@ export default function QrStudioPage() {
         </div>
       )}
 
+      <nav aria-label="QR Studio workspace" className="mt-5 flex border-b border-ink-200">
+        <button type="button" onClick={() => setWorkspaceView('campaigns')} className={cn('border-b-2 px-1 pb-3 pr-6 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500', workspaceView === 'campaigns' ? 'border-forest-700 text-forest-900' : 'border-transparent text-ink-500 hover:text-ink-900')}>Create &amp; manage</button>
+        <button type="button" onClick={() => setWorkspaceView('analytics')} className={cn('border-b-2 px-6 pb-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500', workspaceView === 'analytics' ? 'border-forest-700 text-forest-900' : 'border-transparent text-ink-500 hover:text-ink-900')}>Analytics</button>
+      </nav>
+
+      {workspaceView === 'analytics' ? (
+        <QrAnalyticsDashboard token={token} campaigns={campaigns.map(({ id, title }) => ({ id, title }))} />
+      ) : (
+      <>
+
       {!hasPro ? (
         <section className="mt-5 border-y border-ink-200 bg-white px-1 py-5">
           <h2 className="mt-1 font-display text-xl font-semibold text-ink-900">You're on the free QR plan</h2>
@@ -662,14 +684,23 @@ export default function QrStudioPage() {
             <span><strong className="text-ink-900">{campaigns.length - activeCount}</strong> <span className="text-ink-500">inactive</span></span>
           </div>
 
+          <div className="grid gap-2 border-b border-ink-200 px-4 py-3">
+            <label className="sr-only" htmlFor="qr-library-search">Search QR campaigns</label>
+            <input id="qr-library-search" type="search" value={librarySearch} onChange={(event) => setLibrarySearch(event.target.value)} placeholder="Search campaigns" className="w-full rounded-md border border-ink-200 bg-white px-3 py-2 text-sm text-ink-900 placeholder:text-ink-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30" />
+            <label className="sr-only" htmlFor="qr-library-status">Filter by status</label>
+            <select id="qr-library-status" value={libraryStatus} onChange={(event) => setLibraryStatus(event.target.value)} className="w-full rounded-md border border-ink-200 bg-white px-3 py-2 text-xs font-medium text-ink-700 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30"><option value="ALL">All statuses</option><option value="ACTIVE">Active</option><option value="DRAFT">Draft</option><option value="PAUSED">Paused</option><option value="ARCHIVED">Archived</option></select>
+          </div>
+
           {!hasCampaigns ? (
             <div className="m-4 border border-dashed border-ink-300 p-4 text-center">
               <p className="text-sm font-semibold text-ink-800">Your QR library is empty</p>
               <p className="mt-1 text-xs leading-5 text-ink-500">Choose a content type to create your first stable QR link.</p>
             </div>
+          ) : visibleCampaigns.length === 0 ? (
+            <div className="m-4 border border-dashed border-ink-300 p-4 text-center"><p className="text-sm font-semibold text-ink-800">No matching campaigns</p><p className="mt-1 text-xs text-ink-500">Change your search or status filter.</p></div>
           ) : (
             <div className="max-h-[32rem] overflow-y-auto">
-              {campaigns.map((campaign) => (
+              {visibleCampaigns.map((campaign) => (
                 <button
                   key={campaign.id}
                   type="button"
@@ -1216,6 +1247,8 @@ export default function QrStudioPage() {
         )}
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }
