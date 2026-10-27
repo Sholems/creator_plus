@@ -50,6 +50,10 @@ export class UpdateQrCampaignDto {
   description?: string;
 
   @IsOptional()
+  @IsEnum(QrContentType)
+  contentType?: QrContentType;
+
+  @IsOptional()
   @IsString()
   destinationUrl?: string | null;
 

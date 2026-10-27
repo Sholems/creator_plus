@@ -11,6 +11,7 @@ import { randomBytes } from 'crypto';
 import { QrEntitlementsService } from './qr-entitlements.service';
 import {
   assertContentTypeAllowed,
+  assertFreeContentTypeAllowed,
   assertScanModeAllowed,
   validateCampaignDestination,
 } from './qr-content-validation';
@@ -102,15 +103,38 @@ export class QrCampaignsService {
   async update(userId: string, id: string, dto: UpdateQrCampaignDto) {
     const campaign = await this.requireOwnerCampaign(userId, id);
     const entitlements = await this.entitlements.listForUser(userId);
-    assertContentTypeAllowed(campaign.contentType, entitlements.hasPro);
+    const targetContentType = dto.contentType ?? campaign.contentType;
+
+    if (entitlements.hasPro) {
+      assertContentTypeAllowed(targetContentType, true);
+    } else {
+      const hasLegacyCredit = entitlements.entitlements?.some(
+        (e: any) => e.status === 'ACTIVE' && (!e.expiresAt || new Date(e.expiresAt) > new Date()),
+      );
+      if (hasLegacyCredit) {
+        assertContentTypeAllowed(targetContentType, false);
+      } else {
+        assertFreeContentTypeAllowed(targetContentType);
+      }
+    }
+
     if (dto.scanMode) assertScanModeAllowed(dto.scanMode, entitlements.hasPro);
 
+    const isChangingType = dto.contentType !== undefined && dto.contentType !== campaign.contentType;
     const destination =
-      dto.destinationUrl !== undefined || dto.destinationData !== undefined
+      dto.destinationUrl !== undefined || dto.destinationData !== undefined || isChangingType
         ? validateCampaignDestination(
-            campaign.contentType,
-            dto.destinationUrl ?? campaign.destinationUrl,
-            (dto.destinationData as Record<string, any> | null) ?? (campaign.destinationData as Record<string, any> | null),
+            targetContentType,
+            dto.destinationUrl !== undefined
+              ? dto.destinationUrl
+              : isChangingType
+                ? null
+                : campaign.destinationUrl,
+            dto.destinationData !== undefined
+              ? (dto.destinationData as Record<string, any> | null)
+              : isChangingType
+                ? null
+                : (campaign.destinationData as Record<string, any> | null),
           )
         : undefined;
 
@@ -119,6 +143,7 @@ export class QrCampaignsService {
       data: {
         title: dto.title?.trim(),
         description: dto.description === undefined ? undefined : dto.description?.trim() || null,
+        contentType: dto.contentType,
         destinationUrl: destination?.destinationUrl,
         destinationData:
           destination === undefined

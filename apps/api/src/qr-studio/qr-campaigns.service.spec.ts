@@ -81,12 +81,46 @@ describe('QrCampaignsService', () => {
   it('keeps the public code stable across an update (R8, R12)', async () => {
     p.qrCampaign.findFirst.mockResolvedValue(fileCampaign());
     p.qrCampaign.update.mockResolvedValue({});
-    const { service } = build();
+    const { service } = build({
+      listForUser: jest.fn().mockResolvedValue({ hasPro: false, entitlements: [{ status: 'ACTIVE', expiresAt: new Date(Date.now() + 1e9) }] }),
+    });
 
     await service.update('u1', 'c1', { title: 'New title' } as any);
 
     const updateData = p.qrCampaign.update.mock.calls[0][0].data;
     expect(updateData).not.toHaveProperty('publicCode');
+    expect(updateData.title).toBe('New title');
+  });
+
+  it('allows free tier users to update allowed content types like WHATSAPP or VCARD', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({ contentType: 'WHATSAPP', destinationUrl: 'https://wa.me/2348012345678' }));
+    p.qrCampaign.update.mockResolvedValue({});
+    const { service } = build({
+      listForUser: jest.fn().mockResolvedValue({ hasPro: false, entitlements: [] }),
+    });
+
+    await service.update('u1', 'c1', {
+      title: 'WhatsApp Contact',
+      destinationData: { phone: '+2348099998888', message: 'Hello Creator' },
+    } as any);
+
+    const updateData = p.qrCampaign.update.mock.calls[0][0].data;
+    expect(updateData.title).toBe('WhatsApp Contact');
+    expect(updateData.destinationUrl).toBe('https://wa.me/2348099998888');
+    expect(updateData.destinationData).toEqual({ phone: '+2348099998888', message: 'Hello Creator' });
+  });
+
+  it('rejects free tier users switching to an upload content type', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({ contentType: 'WEBSITE', destinationUrl: 'https://creatorplus.com' }));
+    const { service } = build({
+      listForUser: jest.fn().mockResolvedValue({ hasPro: false, entitlements: [] }),
+    });
+
+    await expect(
+      service.update('u1', 'c1', {
+        contentType: 'FILE',
+      } as any),
+    ).rejects.toBeInstanceOf(ForbiddenException);
   });
 
   it('blocks activation of a file campaign with no approved asset (R28, AE8)', async () => {

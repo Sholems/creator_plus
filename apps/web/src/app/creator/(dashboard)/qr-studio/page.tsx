@@ -48,10 +48,14 @@ type Campaign = {
   title: string;
   description?: string | null;
   contentType: string;
+  destinationUrl?: string | null;
+  destinationData?: Record<string, any> | null;
+  brandName?: string | null;
+  brandPrimaryColor?: string | null;
+  brandAccentColor?: string | null;
   status: string;
   scanMode: string;
-  brandPrimaryColor?: string | null;
-  designSettings?: { qrDesign?: Partial<QrDesign> } | null;
+  designSettings?: { qrDesign?: Partial<QrDesign>; preset?: string } | null;
   assets?: { id: string; fileName: string; safetyStatus: string }[];
 };
 
@@ -191,6 +195,92 @@ export default function QrStudioPage() {
     [campaigns],
   );
 
+  function populateFormFromCampaign(c: Campaign) {
+    setForm({
+      title: c.title ?? '',
+      description: c.description ?? '',
+      contentType: c.contentType ?? 'FILE',
+      destinationUrl: c.destinationUrl ?? '',
+      brandName: c.brandName ?? '',
+      brandPrimaryColor: c.brandPrimaryColor ?? '#166534',
+      brandAccentColor: c.brandAccentColor ?? '#f59e0b',
+    });
+    setFile(null);
+
+    const data = (c.destinationData as Record<string, any>) || {};
+    const t = c.contentType;
+
+    if (['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE', 'EVENT'].includes(t)) {
+      setContentData({});
+    } else if (t === 'VIDEO' || t === 'AUDIO') {
+      setContentData({ url: data.url ?? c.destinationUrl ?? '' });
+    } else if (t === 'APP_LINK') {
+      setContentData({
+        iosUrl: data.iosUrl ?? '',
+        androidUrl: data.androidUrl ?? '',
+        webUrl: data.webUrl ?? '',
+      });
+    } else if (t === 'WIFI') {
+      setContentData({
+        ssid: data.ssid ?? '',
+        password: data.password ?? '',
+        encryption: data.encryption ?? 'WPA',
+        hidden: !!data.hidden,
+      });
+    } else if (t === 'TEXT_NOTE') {
+      setContentData({ text: data.text ?? '' });
+    } else if (t === 'WHATSAPP' || t === 'SMS') {
+      setContentData({ phone: data.phone ?? '', message: data.message ?? '' });
+    } else if (t === 'SOCIAL_LINK_HUB') {
+      const rawLinks = Array.isArray(data.links) ? data.links : [];
+      const linksText = rawLinks.map((l: any) => `${l.label ?? ''} | ${l.url ?? ''}`).join('\n');
+      setContentData({
+        displayName: data.displayName ?? '',
+        bio: data.bio ?? '',
+        avatarUrl: data.avatarUrl ?? '',
+        whatsapp: data.whatsapp ?? '',
+        socials: Array.isArray(data.socials) ? data.socials : [],
+        linksText,
+      });
+    } else if (t === 'VCARD') {
+      setContentData({
+        fullName: data.fullName ?? '',
+        org: data.org ?? '',
+        title: data.title ?? '',
+        phone: data.phone ?? '',
+        email: data.email ?? '',
+        website: data.website ?? '',
+        address: data.address ?? '',
+        socials: Array.isArray(data.socials) ? data.socials : [],
+        avatarUrl: data.avatarUrl ?? '',
+      });
+    } else if (t === 'COUPON') {
+      setContentData({
+        code: data.code ?? '',
+        description: data.description ?? '',
+        expiresAt: data.expiresAt ?? '',
+        ctaUrl: data.ctaUrl ?? '',
+      });
+    } else if (t === 'LOCATION') {
+      setContentData({
+        address: data.address ?? '',
+        label: data.label ?? '',
+        latitude: data.latitude !== undefined ? String(data.latitude) : '',
+        longitude: data.longitude !== undefined ? String(data.longitude) : '',
+      });
+    } else if (t === 'EMAIL') {
+      setContentData({
+        email: data.email ?? '',
+        subject: data.subject ?? '',
+        body: data.body ?? '',
+      });
+    } else if (t === 'MENU') {
+      setContentData({ menu: data.sections ? data : EMPTY_MENU });
+    } else {
+      setContentData(data);
+    }
+  }
+
   async function load() {
     if (!token) return;
     setLoading(true);
@@ -204,7 +294,16 @@ export default function QrStudioPage() {
       setOffers(offerData);
       setCampaigns(campaignData);
       setAccess(accessData);
-      setSelectedCampaign(campaignData[0] ?? null);
+      if (campaignData.length > 0) {
+        setSelectedCampaign((prev) => {
+          const matched = prev ? campaignData.find((c: Campaign) => c.id === prev.id) : null;
+          const target = matched ?? campaignData[0];
+          populateFormFromCampaign(target);
+          return target;
+        });
+      } else {
+        setSelectedCampaign(null);
+      }
     } catch (err: any) {
       setError(err.message || 'Could not load QR Studio');
     } finally {
@@ -280,7 +379,7 @@ export default function QrStudioPage() {
     return {};
   }
 
-  async function createCampaign(e: React.FormEvent<HTMLFormElement>) {
+  async function saveCampaign(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!token) return;
     const campaignForm = e.currentTarget;
@@ -288,32 +387,58 @@ export default function QrStudioPage() {
     setError('');
     setMessage('');
     try {
-      const campaign = await api.createQrCampaign(token, {
-        title: form.title,
-        description: form.description,
-        contentType: form.contentType,
-        ...buildContentPayload(),
-        brandName: form.brandName,
-        brandPrimaryColor: form.brandPrimaryColor,
-        brandAccentColor: form.brandAccentColor,
-        designSettings: { preset: presetId },
-      });
+      if (selectedCampaign) {
+        const payload: any = {
+          title: form.title,
+          description: form.description,
+          contentType: form.contentType,
+          brandName: form.brandName,
+          brandPrimaryColor: form.brandPrimaryColor,
+          brandAccentColor: form.brandAccentColor,
+          ...buildContentPayload(),
+        };
 
-      if (file && form.contentType === 'FILE') {
-        await api.uploadQrCampaignFile(token, campaign.id, file);
+        const updated = await api.updateQrCampaign(token, selectedCampaign.id, payload);
+
+        if (file && form.contentType === 'FILE') {
+          await api.uploadQrCampaignFile(token, selectedCampaign.id, file);
+          setFile(null);
+        }
+
+        const refreshed = await api.getQrCampaigns(token);
+        setCampaigns(refreshed);
+        const latest = refreshed.find((item: Campaign) => item.id === selectedCampaign.id) ?? updated;
+        setSelectedCampaign(latest);
+        populateFormFromCampaign(latest);
+        setMessage('QR code updated successfully.');
+      } else {
+        const campaign = await api.createQrCampaign(token, {
+          title: form.title,
+          description: form.description,
+          contentType: form.contentType,
+          ...buildContentPayload(),
+          brandName: form.brandName,
+          brandPrimaryColor: form.brandPrimaryColor,
+          brandAccentColor: form.brandAccentColor,
+          designSettings: { preset: presetId },
+        });
+
+        if (file && form.contentType === 'FILE') {
+          await api.uploadQrCampaignFile(token, campaign.id, file);
+        }
+
+        const refreshed = await api.getQrCampaigns(token);
+        setCampaigns(refreshed);
+        const latest = refreshed.find((item: Campaign) => item.id === campaign.id) ?? refreshed[0] ?? null;
+        setSelectedCampaign(latest);
+        if (latest) populateFormFromCampaign(latest);
+        setCreateStep('design');
+        setMessage('Content saved. Your stable QR link is ready to design.');
+        setFile(null);
+        campaignForm.reset();
       }
-
-      const refreshed = await api.getQrCampaigns(token);
-      setCampaigns(refreshed);
-      setSelectedCampaign(refreshed.find((item: Campaign) => item.id === campaign.id) ?? refreshed[0] ?? null);
-      setCreateStep('design');
-      setMessage('Content saved. Your stable QR link is ready to design.');
-      setForm({ ...form, title: '', description: '', destinationUrl: '' });
-      setContentData({});
-      setFile(null);
-      campaignForm.reset();
     } catch (err: any) {
-      setError(err.message || 'Could not create QR campaign');
+      setError(err.message || (selectedCampaign ? 'Could not update QR campaign' : 'Could not create QR campaign'));
     } finally {
       setBusy(false);
     }
@@ -327,13 +452,60 @@ export default function QrStudioPage() {
       await api.setQrCampaignStatus(token, id, 'ACTIVE');
       const refreshed = await api.getQrCampaigns(token);
       setCampaigns(refreshed);
-      setSelectedCampaign(refreshed.find((campaign: Campaign) => campaign.id === id) ?? refreshed[0] ?? null);
+      const found = refreshed.find((campaign: Campaign) => campaign.id === id) ?? refreshed[0] ?? null;
+      setSelectedCampaign(found);
+      if (found) populateFormFromCampaign(found);
       setMessage('QR campaign activated. Your printed code can now be scanned.');
     } catch (err: any) {
       setError(err.message || 'Could not activate campaign');
     } finally {
       setBusy(false);
     }
+  }
+
+  async function updateCampaignStatus(id: string, status: 'ACTIVE' | 'PAUSED' | 'ARCHIVED') {
+    if (!token) return;
+    setBusy(true);
+    setError('');
+    try {
+      await api.setQrCampaignStatus(token, id, status);
+      const refreshed = await api.getQrCampaigns(token);
+      setCampaigns(refreshed);
+      const found = refreshed.find((campaign: Campaign) => campaign.id === id) ?? refreshed[0] ?? null;
+      setSelectedCampaign(found);
+      if (found) populateFormFromCampaign(found);
+      setMessage(`Campaign status changed to ${status.toLowerCase()}.`);
+    } catch (err: any) {
+      setError(err.message || `Could not set status to ${status.toLowerCase()}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function updateScanMode(newMode: 'LANDING_PAGE' | 'DIRECT_OPEN') {
+    if (!token || !selectedCampaign) return;
+    setBusy(true);
+    setError('');
+    try {
+      await api.updateQrCampaign(token, selectedCampaign.id, { scanMode: newMode });
+      const refreshed = await api.getQrCampaigns(token);
+      setCampaigns(refreshed);
+      const found = refreshed.find((campaign: Campaign) => campaign.id === selectedCampaign.id) ?? refreshed[0] ?? null;
+      setSelectedCampaign(found);
+      if (found) populateFormFromCampaign(found);
+      setMessage(`Scan mode updated to ${newMode === 'DIRECT_OPEN' ? 'Direct Open' : 'Landing Page'}.`);
+    } catch (err: any) {
+      setError(err.message || 'Could not update scan mode');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function selectCampaign(campaign: Campaign) {
+    setSelectedCampaign(campaign);
+    populateFormFromCampaign(campaign);
+    setError('');
+    setMessage('');
   }
 
   function applyPreset(preset: (typeof DESIGN_PRESETS)[number]) {
@@ -379,6 +551,17 @@ export default function QrStudioPage() {
     setCreateStep('content');
     setError('');
     setMessage('');
+    setForm({
+      title: '',
+      description: '',
+      contentType: hasPro ? 'FILE' : 'WEBSITE',
+      destinationUrl: '',
+      brandName: '',
+      brandPrimaryColor: '#166534',
+      brandAccentColor: '#f59e0b',
+    });
+    setContentData({});
+    setFile(null);
   }
 
   if (!token) {
@@ -480,10 +663,7 @@ export default function QrStudioPage() {
                 <button
                   key={campaign.id}
                   type="button"
-                  onClick={() => {
-                    setSelectedCampaign(campaign);
-                    setCreateStep('design');
-                  }}
+                  onClick={() => selectCampaign(campaign)}
                   className={cn(
                     'w-full border-b border-ink-100 border-l-2 px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-forest-500',
                     selectedCampaign?.id === campaign.id
@@ -510,9 +690,9 @@ export default function QrStudioPage() {
           <nav aria-label="QR creation steps" className="border-b border-ink-200 bg-white px-5 sm:px-8">
             <ol className="grid grid-cols-3">
               {([
-                ['content', '01', 'Content'],
+                ['content', '01', selectedCampaign ? 'Edit Content' : 'Content'],
                 ['design', '02', 'Design'],
-                ['publish', '03', 'Publish'],
+                ['publish', '03', selectedCampaign ? 'Publish & Manage' : 'Publish'],
               ] as const).map(([step, number, label]) => {
                 const disabled = step !== 'content' && !selectedCampaign;
                 return (
@@ -537,11 +717,38 @@ export default function QrStudioPage() {
 
         {createStep === 'content' && (
         <section className="bg-white p-5 sm:p-8">
-          <h2 className="font-display text-2xl font-semibold text-ink-900">Choose your QR content</h2>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-ink-500">
-            Create one stable scan link for a hosted file, website, contact action, media page, or interactive experience.
-          </p>
-          <form className="mt-5 space-y-4" onSubmit={createCampaign}>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink-100 pb-4">
+            <div>
+              <div className="flex items-center gap-2.5">
+                <h2 className="font-display text-2xl font-semibold text-ink-900">
+                  {selectedCampaign ? 'Edit QR code' : 'Choose your QR content'}
+                </h2>
+                {selectedCampaign && (
+                  <span className={cn(
+                    'rounded px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider',
+                    selectedCampaign.status === 'ACTIVE' ? 'bg-forest-100 text-forest-800' : 'bg-gold-100 text-gold-800',
+                  )}>
+                    {selectedCampaign.status}
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 max-w-2xl text-xs sm:text-sm text-ink-500">
+                {selectedCampaign
+                  ? `Editing /qr/${selectedCampaign.publicCode} — changes update immediately without reprinting your QR code.`
+                  : 'Create one stable scan link for a hosted file, website, contact action, media page, or interactive experience.'}
+              </p>
+            </div>
+            {selectedCampaign && (
+              <button
+                type="button"
+                onClick={beginNewCampaign}
+                className="whitespace-nowrap rounded-md border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:border-ink-400 hover:bg-cream-50"
+              >
+                + Create new QR instead
+              </button>
+            )}
+          </div>
+          <form className="mt-5 space-y-4" onSubmit={saveCampaign}>
             <div>
               <label className="text-sm font-medium text-ink-700" htmlFor="qr-title">Title</label>
               <input
@@ -560,9 +767,29 @@ export default function QrStudioPage() {
 
             {form.contentType === 'FILE' && (
               <div>
-                <label className="text-sm font-medium text-ink-700" htmlFor="qr-file">PDF or document</label>
+                {selectedCampaign?.assets && selectedCampaign.assets.length > 0 && (
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-ink-200 bg-cream-50/70 px-3.5 py-2.5 text-xs">
+                    <div>
+                      <span className="font-semibold text-ink-700">Active file: </span>
+                      <span className="font-mono text-forest-800">{selectedCampaign.assets[0].fileName}</span>
+                    </div>
+                    <span className={cn(
+                      'text-[0.625rem] font-bold uppercase tracking-wide',
+                      selectedCampaign.assets[0].safetyStatus === 'APPROVED' ? 'text-forest-700' : 'text-gold-700',
+                    )}>
+                      {selectedCampaign.assets[0].safetyStatus}
+                    </span>
+                  </div>
+                )}
+                <label className="text-sm font-medium text-ink-700" htmlFor="qr-file">
+                  {selectedCampaign?.assets?.length ? 'Upload replacement file (PDF or document)' : 'PDF or document'}
+                </label>
                 <input id="qr-file" type="file" className={inputClass} onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
-                <p className="mt-1 text-xs text-ink-500">Stored in Cloudflare R2 and served through checked scan routes.</p>
+                <p className="mt-1 text-xs text-ink-500">
+                  {selectedCampaign?.assets?.length
+                    ? 'Selecting a new file replaces the active document while keeping your QR code and scan link unchanged.'
+                    : 'Stored in Cloudflare R2 and served through checked scan routes.'}
+                </p>
               </div>
             )}
             {['WEBSITE', 'PRODUCT_PAGE', 'CREATOR_PROFILE', 'EVENT'].includes(form.contentType) && (
@@ -752,17 +979,28 @@ export default function QrStudioPage() {
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 type="submit"
                 disabled={busy}
                 className="rounded-md bg-forest-800 px-5 py-2.5 text-sm font-semibold text-cream-50 hover:bg-forest-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-forest-700 disabled:opacity-50"
               >
-                {busy ? 'Saving content…' : 'Save content & continue'}
+                {busy ? 'Saving…' : selectedCampaign ? 'Save changes' : 'Save content & continue'}
               </button>
-              <p className="text-xs leading-5 text-ink-500">
-                No free drafts: the API requires a paid QR entitlement before creation.
-              </p>
+              {selectedCampaign && (
+                <button
+                  type="button"
+                  onClick={() => setCreateStep('design')}
+                  className="rounded-md border border-ink-200 px-4 py-2.5 text-sm font-semibold text-ink-700 hover:border-ink-400"
+                >
+                  Continue to design →
+                </button>
+              )}
+              {!selectedCampaign && (
+                <p className="text-xs leading-5 text-ink-500">
+                  No free drafts: the API requires a paid QR entitlement before creation.
+                </p>
+              )}
             </div>
           </form>
         </section>
@@ -833,9 +1071,75 @@ export default function QrStudioPage() {
                       </span>
                     </div>
                     <div className="mt-5 border-t border-ink-200 pt-4">
-                      <p className="text-xs font-semibold text-ink-500">Stable scan link</p>
-                      <p className="mt-1 break-all text-sm font-medium text-forest-700">{selectedCampaign.publicUrl || `https://mycreatorplus.com/qr/${selectedCampaign.publicCode}`}</p>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                          <p className="text-xs font-semibold text-ink-500">Stable scan link</p>
+                          <p className="mt-1 break-all text-sm font-medium text-forest-700">
+                            {selectedCampaign.publicUrl || `https://mycreatorplus.com/qr/${selectedCampaign.publicCode}`}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const fullUrl = `${typeof window !== 'undefined' ? window.location.origin : 'https://mycreatorplus.com'}/qr/${selectedCampaign.publicCode}`;
+                              void navigator.clipboard.writeText(fullUrl);
+                              setMessage('Scan link copied to clipboard.');
+                            }}
+                            className="rounded-md border border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:border-ink-400"
+                          >
+                            Copy link
+                          </button>
+                          <a
+                            href={`/qr/${selectedCampaign.publicCode}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-md border border-ink-200 px-3 py-1.5 text-xs font-semibold text-forest-700 hover:border-forest-400"
+                          >
+                            Preview page ↗
+                          </a>
+                        </div>
+                      </div>
                     </div>
+
+                    {hasPro && (
+                      <div className="mt-5 border-t border-ink-200 pt-4">
+                        <label className="text-xs font-semibold text-ink-700">Scan behavior</label>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => void updateScanMode('LANDING_PAGE')}
+                            className={cn(
+                              'rounded-md border px-3 py-1.5 text-xs font-semibold transition',
+                              selectedCampaign.scanMode === 'LANDING_PAGE'
+                                ? 'border-forest-600 bg-forest-50 text-forest-800'
+                                : 'border-ink-200 text-ink-600 hover:border-ink-400',
+                            )}
+                          >
+                            Branded Landing Page
+                          </button>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => void updateScanMode('DIRECT_OPEN')}
+                            className={cn(
+                              'rounded-md border px-3 py-1.5 text-xs font-semibold transition',
+                              selectedCampaign.scanMode === 'DIRECT_OPEN'
+                                ? 'border-forest-600 bg-forest-50 text-forest-800'
+                                : 'border-ink-200 text-ink-600 hover:border-ink-400',
+                            )}
+                          >
+                            Direct Open (Instant Redirect)
+                          </button>
+                        </div>
+                        <p className="mt-1 text-xs text-ink-500">
+                          {selectedCampaign.scanMode === 'DIRECT_OPEN'
+                            ? 'Scanners are redirected straight to destination.'
+                            : 'Scanners view your branded profile card.'}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {selectedCampaign.contentType === 'FILE' && (
@@ -860,7 +1164,27 @@ export default function QrStudioPage() {
                         {busy ? 'Activating…' : 'Activate QR campaign'}
                       </button>
                     ) : (
-                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700"><span className="h-2 w-2 rounded-full bg-forest-600" />Ready to distribute</span>
+                      <>
+                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700"><span className="h-2 w-2 rounded-full bg-forest-600" />Active &amp; scannable</span>
+                        <button
+                          type="button"
+                          disabled={busy}
+                          onClick={() => void updateCampaignStatus(selectedCampaign.id, 'PAUSED')}
+                          className="whitespace-nowrap rounded-md border border-gold-300 bg-gold-50 px-3.5 py-2 text-xs font-semibold text-gold-800 transition hover:bg-gold-100"
+                        >
+                          Pause campaign
+                        </button>
+                      </>
+                    )}
+                    {selectedCampaign.status !== 'ARCHIVED' && (
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => void updateCampaignStatus(selectedCampaign.id, 'ARCHIVED')}
+                        className="whitespace-nowrap rounded-md border border-ink-200 px-3.5 py-2 text-xs font-semibold text-clay-700 transition hover:border-clay-300 hover:bg-clay-50"
+                      >
+                        Archive
+                      </button>
                     )}
                   </div>
                 </div>
