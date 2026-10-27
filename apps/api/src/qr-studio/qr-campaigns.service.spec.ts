@@ -123,6 +123,23 @@ describe('QrCampaignsService', () => {
     ).rejects.toBeInstanceOf(ForbiddenException);
   });
 
+  it('keeps an active campaign on its current destination until an approved upload exists', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({
+      contentType: 'WEBSITE',
+      destinationUrl: 'https://creatorplus.com',
+      status: 'ACTIVE',
+    }));
+    p.qrAsset.findFirst.mockResolvedValue(null);
+    const { service } = build({
+      listForUser: jest.fn().mockResolvedValue({ hasPro: true, entitlements: [] }),
+    });
+
+    await expect(
+      service.update('u1', 'c1', { contentType: 'FILE' } as any),
+    ).rejects.toThrow('approved file');
+    expect(p.qrCampaign.update).not.toHaveBeenCalled();
+  });
+
   it('blocks activation of a file campaign with no approved asset (R28, AE8)', async () => {
     p.qrCampaign.findFirst.mockResolvedValue(fileCampaign());
     p.qrAsset.findFirst.mockResolvedValue(null); // no approved asset

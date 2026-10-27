@@ -44,7 +44,10 @@ export class QrPublicService {
       referer: req?.headers?.referer || req?.headers?.referrer,
     });
 
-    const primaryAsset = campaign.assets.find((asset) => asset.kind === 'CAMPAIGN_FILE');
+    const usesHostedFile = campaign.contentType === 'FILE' || campaign.contentType === 'IMAGE_GALLERY';
+    const primaryAsset = usesHostedFile
+      ? campaign.assets.find((asset) => asset.kind === 'CAMPAIGN_FILE')
+      : undefined;
     const canOpenFile = primaryAsset?.safetyStatus === 'APPROVED';
     const destinationUrl = campaign.destinationUrl;
     const externalDomain = destinationDomain(destinationUrl);
@@ -99,7 +102,8 @@ export class QrPublicService {
       },
     });
 
-    if (!campaign || !(await this.campaigns.isPubliclyAvailable(campaign))) {
+    const usesHostedFile = campaign?.contentType === 'FILE' || campaign?.contentType === 'IMAGE_GALLERY';
+    if (!campaign || !usesHostedFile || !(await this.campaigns.isPubliclyAvailable(campaign))) {
       throw new NotFoundException('QR campaign not available');
     }
 

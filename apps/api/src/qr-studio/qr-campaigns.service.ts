@@ -121,6 +121,14 @@ export class QrCampaignsService {
     if (dto.scanMode) assertScanModeAllowed(dto.scanMode, entitlements.hasPro);
 
     const isChangingType = dto.contentType !== undefined && dto.contentType !== campaign.contentType;
+    const isSwitchingActiveCampaignToUpload =
+      isChangingType &&
+      campaign.status === 'ACTIVE' &&
+      (targetContentType === 'FILE' || targetContentType === 'IMAGE_GALLERY');
+    if (isSwitchingActiveCampaignToUpload) {
+      await this.assertHasApprovedAsset(campaign.id);
+    }
+
     const destination =
       dto.destinationUrl !== undefined || dto.destinationData !== undefined || isChangingType
         ? validateCampaignDestination(

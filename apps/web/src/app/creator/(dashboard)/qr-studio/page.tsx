@@ -388,6 +388,12 @@ export default function QrStudioPage() {
     setMessage('');
     try {
       if (selectedCampaign) {
+        const isSwitchingToFile =
+          form.contentType === 'FILE' && selectedCampaign.contentType !== 'FILE';
+        if (isSwitchingToFile && !file) {
+          throw new Error('Choose a PDF or document before switching this QR code to a file.');
+        }
+
         const payload: any = {
           title: form.title,
           description: form.description,
@@ -398,9 +404,13 @@ export default function QrStudioPage() {
           ...buildContentPayload(),
         };
 
+        if (isSwitchingToFile && file) {
+          await api.uploadQrCampaignFile(token, selectedCampaign.id, file);
+        }
+
         const updated = await api.updateQrCampaign(token, selectedCampaign.id, payload);
 
-        if (file && form.contentType === 'FILE') {
+        if (file && form.contentType === 'FILE' && !isSwitchingToFile) {
           await api.uploadQrCampaignFile(token, selectedCampaign.id, file);
           setFile(null);
         }
@@ -649,7 +659,7 @@ export default function QrStudioPage() {
 
           <div className="flex items-center gap-5 border-b border-ink-200 px-4 py-3 text-xs">
             <span><strong className="text-ink-900">{activeCount}</strong> <span className="text-ink-500">active</span></span>
-            <span><strong className="text-ink-900">{campaigns.length - activeCount}</strong> <span className="text-ink-500">draft</span></span>
+            <span><strong className="text-ink-900">{campaigns.length - activeCount}</strong> <span className="text-ink-500">inactive</span></span>
           </div>
 
           {!hasCampaigns ? (

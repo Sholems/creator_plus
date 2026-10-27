@@ -70,6 +70,21 @@ describe('QrPublicService', () => {
     expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({ kind: 'SCAN' }));
   });
 
+  it('ignores a stale hosted asset after a campaign changes to a URL destination', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({
+      ...activeFileCampaign,
+      contentType: 'WEBSITE',
+      destinationUrl: 'https://mycreatorplus.com/courses',
+    });
+    const { service } = build(true);
+
+    const res: any = await service.resolve('ABCDEF', { headers: {} });
+
+    expect(res.destinationUrl).toBe('https://mycreatorplus.com/courses');
+    expect(res.canOpenFile).toBe(false);
+    expect(res.asset).toBeNull();
+  });
+
   it('issues a short-lived signed URL only from openFile, and records an OPEN event (R29)', async () => {
     process.env.QR_SIGNED_URL_TTL_SECONDS = '300';
     p.qrCampaign.findUnique.mockResolvedValue({
@@ -100,5 +115,18 @@ describe('QrPublicService', () => {
     p.qrCampaign.findUnique.mockResolvedValue({ ...activeFileCampaign, assets: [] });
     const { service } = build(false);
     await expect(service.openFile('ABCDEF', { headers: {} })).rejects.toBeInstanceOf(NotFoundException);
+  });
+
+  it('does not expose a stale file after the campaign changes away from a file type', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({
+      ...activeFileCampaign,
+      contentType: 'WEBSITE',
+      destinationUrl: 'https://mycreatorplus.com/courses',
+      assets: [{ id: 'a1', fileKey: 'qr/private/guide.pdf', fileName: 'guide.pdf', mimeType: 'application/pdf' }],
+    });
+    const { service, storage } = build(true);
+
+    await expect(service.openFile('ABCDEF', { headers: {} })).rejects.toBeInstanceOf(NotFoundException);
+    expect(storage.getSignedDownloadUrl).not.toHaveBeenCalled();
   });
 });
