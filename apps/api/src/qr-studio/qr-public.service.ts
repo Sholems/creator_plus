@@ -36,13 +36,14 @@ export class QrPublicService {
       return this.unavailable();
     }
 
-    await this.analytics.recordEvent({
+    void this.analytics.recordEvent({
       campaignId: campaign.id,
       kind: 'SCAN',
       ip: req?.ip,
       userAgent: req?.headers?.['user-agent'],
       referer: req?.headers?.referer || req?.headers?.referrer,
-    });
+      country: req?.headers?.['cf-ipcountry'],
+    }).catch(() => undefined);
 
     const usesHostedFile = campaign.contentType === 'FILE' || campaign.contentType === 'IMAGE_GALLERY';
     const primaryAsset = usesHostedFile
@@ -110,13 +111,15 @@ export class QrPublicService {
     const asset = campaign.assets[0];
     if (!asset) throw new NotFoundException('QR file not available');
 
-    await this.analytics.recordEvent({
+    void this.analytics.recordEvent({
       campaignId: campaign.id,
       kind: 'OPEN',
+      actionType: 'FILE_OPEN',
       ip: req?.ip,
       userAgent: req?.headers?.['user-agent'],
       referer: req?.headers?.referer || req?.headers?.referrer,
-    });
+      country: req?.headers?.['cf-ipcountry'],
+    }).catch(() => undefined);
 
     const ttl = Math.min(Number(process.env.QR_SIGNED_URL_TTL_SECONDS || 300), 900);
     return {
@@ -125,6 +128,28 @@ export class QrPublicService {
       fileName: asset.fileName,
       mimeType: asset.mimeType,
     };
+  }
+
+  async recordAction(code: string, actionType: string, req?: any) {
+    const campaign = await prisma.qrCampaign.findUnique({
+      where: { publicCode: code },
+      include: { entitlement: true },
+    });
+    if (!campaign || !(await this.campaigns.isPubliclyAvailable(campaign))) {
+      throw new NotFoundException('QR campaign not available');
+    }
+
+    void this.analytics.recordEvent({
+      campaignId: campaign.id,
+      kind: 'ACTION',
+      actionType,
+      ip: req?.ip,
+      userAgent: req?.headers?.['user-agent'],
+      referer: req?.headers?.referer || req?.headers?.referrer,
+      country: req?.headers?.['cf-ipcountry'],
+    }).catch(() => undefined);
+
+    return { recorded: true };
   }
 
   private unavailable() {

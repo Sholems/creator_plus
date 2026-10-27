@@ -10,7 +10,7 @@ const p = prisma as any;
 
 function build(available: boolean) {
   const storage = { getSignedDownloadUrl: jest.fn().mockResolvedValue('https://r2.example/signed?token=abc') } as any;
-  const analytics = { recordEvent: jest.fn() } as any;
+  const analytics = { recordEvent: jest.fn().mockResolvedValue(true) } as any;
   const campaigns = { isPubliclyAvailable: jest.fn().mockResolvedValue(available) } as any;
   return { service: new QrPublicService(storage, analytics, campaigns), storage, analytics, campaigns };
 }
@@ -68,6 +68,34 @@ describe('QrPublicService', () => {
     expect(serialized).not.toContain('fileKey');
     expect(serialized).not.toMatch(/https?:\/\/[^"']*(token|signature|X-Amz)/i);
     expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({ kind: 'SCAN' }));
+  });
+
+  it('passes Cloudflare country metadata without making analytics a scan dependency', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({ ...activeFileCampaign });
+    const { service, analytics } = build(true);
+    analytics.recordEvent.mockRejectedValueOnce(new Error('analytics unavailable'));
+
+    const res: any = await service.resolve('ABCDEF', {
+      ip: '1.2.3.4',
+      headers: { 'cf-ipcountry': 'NG' },
+    });
+
+    expect(res.available).toBe(true);
+    expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({ country: 'NG' }));
+  });
+
+  it('records a validated action for an available campaign', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({ ...activeFileCampaign });
+    const { service, analytics } = build(true);
+
+    const result = await service.recordAction('ABCDEF', 'FILE_OPEN', { headers: { 'cf-ipcountry': 'NG' } });
+
+    expect(result).toEqual({ recorded: true });
+    expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({
+      kind: 'ACTION',
+      actionType: 'FILE_OPEN',
+      country: 'NG',
+    }));
   });
 
   it('ignores a stale hosted asset after a campaign changes to a URL destination', async () => {

@@ -1046,6 +1046,7 @@ exports.Prisma.QrScanEventScalarFieldEnum = {
   id: 'id',
   campaignId: 'campaignId',
   kind: 'kind',
+  actionType: 'actionType',
   requestHash: 'requestHash',
   referrerOrigin: 'referrerOrigin',
   userAgentFamily: 'userAgentFamily',
@@ -1822,7 +1823,8 @@ exports.QrAssetSafetyStatus = exports.$Enums.QrAssetSafetyStatus = {
 
 exports.QrEventKind = exports.$Enums.QrEventKind = {
   SCAN: 'SCAN',
-  OPEN: 'OPEN'
+  OPEN: 'OPEN',
+  ACTION: 'ACTION'
 };
 
 exports.LicenseStatus = exports.$Enums.LicenseStatus = {

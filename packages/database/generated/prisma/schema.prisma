@@ -1734,6 +1734,7 @@ enum QrAssetSafetyStatus {
 enum QrEventKind {
   SCAN
   OPEN
+  ACTION
 }
 
 model QrPayment {
@@ -1858,6 +1859,7 @@ model QrScanEvent {
   id              String      @id @default(uuid()) @db.Uuid
   campaignId      String      @map("campaign_id") @db.Uuid
   kind            QrEventKind
+  actionType      String?     @map("action_type")
   requestHash     String?     @map("request_hash")
   referrerOrigin  String?     @map("referrer_origin")
   userAgentFamily String?     @map("user_agent_family")
@@ -1868,6 +1870,7 @@ model QrScanEvent {
   campaign QrCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
 
   @@index([campaignId, kind, createdAt])
+  @@index([campaignId, actionType, createdAt])
   @@index([createdAt])
   @@map("qr_scan_events")
 }

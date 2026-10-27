@@ -987,7 +987,8 @@ export type QrAssetSafetyStatus = (typeof QrAssetSafetyStatus)[keyof typeof QrAs
 
 export const QrEventKind: {
   SCAN: 'SCAN',
-  OPEN: 'OPEN'
+  OPEN: 'OPEN',
+  ACTION: 'ACTION'
 };
 
 export type QrEventKind = (typeof QrEventKind)[keyof typeof QrEventKind]
@@ -95735,6 +95736,7 @@ export namespace Prisma {
     id: string | null
     campaignId: string | null
     kind: $Enums.QrEventKind | null
+    actionType: string | null
     requestHash: string | null
     referrerOrigin: string | null
     userAgentFamily: string | null
@@ -95747,6 +95749,7 @@ export namespace Prisma {
     id: string | null
     campaignId: string | null
     kind: $Enums.QrEventKind | null
+    actionType: string | null
     requestHash: string | null
     referrerOrigin: string | null
     userAgentFamily: string | null
@@ -95759,6 +95762,7 @@ export namespace Prisma {
     id: number
     campaignId: number
     kind: number
+    actionType: number
     requestHash: number
     referrerOrigin: number
     userAgentFamily: number
@@ -95773,6 +95777,7 @@ export namespace Prisma {
     id?: true
     campaignId?: true
     kind?: true
+    actionType?: true
     requestHash?: true
     referrerOrigin?: true
     userAgentFamily?: true
@@ -95785,6 +95790,7 @@ export namespace Prisma {
     id?: true
     campaignId?: true
     kind?: true
+    actionType?: true
     requestHash?: true
     referrerOrigin?: true
     userAgentFamily?: true
@@ -95797,6 +95803,7 @@ export namespace Prisma {
     id?: true
     campaignId?: true
     kind?: true
+    actionType?: true
     requestHash?: true
     referrerOrigin?: true
     userAgentFamily?: true
@@ -95882,6 +95889,7 @@ export namespace Prisma {
     id: string
     campaignId: string
     kind: $Enums.QrEventKind
+    actionType: string | null
     requestHash: string | null
     referrerOrigin: string | null
     userAgentFamily: string | null
@@ -95911,6 +95919,7 @@ export namespace Prisma {
     id?: boolean
     campaignId?: boolean
     kind?: boolean
+    actionType?: boolean
     requestHash?: boolean
     referrerOrigin?: boolean
     userAgentFamily?: boolean
@@ -95924,6 +95933,7 @@ export namespace Prisma {
     id?: boolean
     campaignId?: boolean
     kind?: boolean
+    actionType?: boolean
     requestHash?: boolean
     referrerOrigin?: boolean
     userAgentFamily?: boolean
@@ -95937,6 +95947,7 @@ export namespace Prisma {
     id?: boolean
     campaignId?: boolean
     kind?: boolean
+    actionType?: boolean
     requestHash?: boolean
     referrerOrigin?: boolean
     userAgentFamily?: boolean
@@ -95950,6 +95961,7 @@ export namespace Prisma {
     id?: boolean
     campaignId?: boolean
     kind?: boolean
+    actionType?: boolean
     requestHash?: boolean
     referrerOrigin?: boolean
     userAgentFamily?: boolean
@@ -95958,7 +95970,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type QrScanEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "kind" | "requestHash" | "referrerOrigin" | "userAgentFamily" | "deviceClass" | "country" | "createdAt", ExtArgs["result"]["qrScanEvent"]>
+  export type QrScanEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "kind" | "actionType" | "requestHash" | "referrerOrigin" | "userAgentFamily" | "deviceClass" | "country" | "createdAt", ExtArgs["result"]["qrScanEvent"]>
   export type QrScanEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
   }
@@ -95978,6 +95990,7 @@ export namespace Prisma {
       id: string
       campaignId: string
       kind: $Enums.QrEventKind
+      actionType: string | null
       requestHash: string | null
       referrerOrigin: string | null
       userAgentFamily: string | null
@@ -96411,6 +96424,7 @@ export namespace Prisma {
     readonly id: FieldRef<"QrScanEvent", 'String'>
     readonly campaignId: FieldRef<"QrScanEvent", 'String'>
     readonly kind: FieldRef<"QrScanEvent", 'QrEventKind'>
+    readonly actionType: FieldRef<"QrScanEvent", 'String'>
     readonly requestHash: FieldRef<"QrScanEvent", 'String'>
     readonly referrerOrigin: FieldRef<"QrScanEvent", 'String'>
     readonly userAgentFamily: FieldRef<"QrScanEvent", 'String'>
@@ -139282,6 +139296,7 @@ export namespace Prisma {
     id: 'id',
     campaignId: 'campaignId',
     kind: 'kind',
+    actionType: 'actionType',
     requestHash: 'requestHash',
     referrerOrigin: 'referrerOrigin',
     userAgentFamily: 'userAgentFamily',
@@ -146923,6 +146938,7 @@ export namespace Prisma {
     id?: UuidFilter<"QrScanEvent"> | string
     campaignId?: UuidFilter<"QrScanEvent"> | string
     kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
+    actionType?: StringNullableFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
     referrerOrigin?: StringNullableFilter<"QrScanEvent"> | string | null
     userAgentFamily?: StringNullableFilter<"QrScanEvent"> | string | null
@@ -146936,6 +146952,7 @@ export namespace Prisma {
     id?: SortOrder
     campaignId?: SortOrder
     kind?: SortOrder
+    actionType?: SortOrderInput | SortOrder
     requestHash?: SortOrderInput | SortOrder
     referrerOrigin?: SortOrderInput | SortOrder
     userAgentFamily?: SortOrderInput | SortOrder
@@ -146952,6 +146969,7 @@ export namespace Prisma {
     NOT?: QrScanEventWhereInput | QrScanEventWhereInput[]
     campaignId?: UuidFilter<"QrScanEvent"> | string
     kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
+    actionType?: StringNullableFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
     referrerOrigin?: StringNullableFilter<"QrScanEvent"> | string | null
     userAgentFamily?: StringNullableFilter<"QrScanEvent"> | string | null
@@ -146965,6 +146983,7 @@ export namespace Prisma {
     id?: SortOrder
     campaignId?: SortOrder
     kind?: SortOrder
+    actionType?: SortOrderInput | SortOrder
     requestHash?: SortOrderInput | SortOrder
     referrerOrigin?: SortOrderInput | SortOrder
     userAgentFamily?: SortOrderInput | SortOrder
@@ -146983,6 +147002,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"QrScanEvent"> | string
     campaignId?: UuidWithAggregatesFilter<"QrScanEvent"> | string
     kind?: EnumQrEventKindWithAggregatesFilter<"QrScanEvent"> | $Enums.QrEventKind
+    actionType?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
     referrerOrigin?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
     userAgentFamily?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
@@ -156662,6 +156682,7 @@ export namespace Prisma {
   export type QrScanEventCreateInput = {
     id?: string
     kind: $Enums.QrEventKind
+    actionType?: string | null
     requestHash?: string | null
     referrerOrigin?: string | null
     userAgentFamily?: string | null
@@ -156675,6 +156696,7 @@ export namespace Prisma {
     id?: string
     campaignId: string
     kind: $Enums.QrEventKind
+    actionType?: string | null
     requestHash?: string | null
     referrerOrigin?: string | null
     userAgentFamily?: string | null
@@ -156686,6 +156708,7 @@ export namespace Prisma {
   export type QrScanEventUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
@@ -156699,6 +156722,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     campaignId?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
@@ -156711,6 +156735,7 @@ export namespace Prisma {
     id?: string
     campaignId: string
     kind: $Enums.QrEventKind
+    actionType?: string | null
     requestHash?: string | null
     referrerOrigin?: string | null
     userAgentFamily?: string | null
@@ -156722,6 +156747,7 @@ export namespace Prisma {
   export type QrScanEventUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
@@ -156734,6 +156760,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     campaignId?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164997,6 +165024,7 @@ export namespace Prisma {
     id?: SortOrder
     campaignId?: SortOrder
     kind?: SortOrder
+    actionType?: SortOrder
     requestHash?: SortOrder
     referrerOrigin?: SortOrder
     userAgentFamily?: SortOrder
@@ -165009,6 +165037,7 @@ export namespace Prisma {
     id?: SortOrder
     campaignId?: SortOrder
     kind?: SortOrder
+    actionType?: SortOrder
     requestHash?: SortOrder
     referrerOrigin?: SortOrder
     userAgentFamily?: SortOrder
@@ -165021,6 +165050,7 @@ export namespace Prisma {
     id?: SortOrder
     campaignId?: SortOrder
     kind?: SortOrder
+    actionType?: SortOrder
     requestHash?: SortOrder
     referrerOrigin?: SortOrder
     userAgentFamily?: SortOrder
@@ -197474,6 +197504,7 @@ export namespace Prisma {
   export type QrScanEventCreateWithoutCampaignInput = {
     id?: string
     kind: $Enums.QrEventKind
+    actionType?: string | null
     requestHash?: string | null
     referrerOrigin?: string | null
     userAgentFamily?: string | null
@@ -197485,6 +197516,7 @@ export namespace Prisma {
   export type QrScanEventUncheckedCreateWithoutCampaignInput = {
     id?: string
     kind: $Enums.QrEventKind
+    actionType?: string | null
     requestHash?: string | null
     referrerOrigin?: string | null
     userAgentFamily?: string | null
@@ -197776,6 +197808,7 @@ export namespace Prisma {
     id?: UuidFilter<"QrScanEvent"> | string
     campaignId?: UuidFilter<"QrScanEvent"> | string
     kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
+    actionType?: StringNullableFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
     referrerOrigin?: StringNullableFilter<"QrScanEvent"> | string | null
     userAgentFamily?: StringNullableFilter<"QrScanEvent"> | string | null
@@ -212872,6 +212905,7 @@ export namespace Prisma {
   export type QrScanEventCreateManyCampaignInput = {
     id?: string
     kind: $Enums.QrEventKind
+    actionType?: string | null
     requestHash?: string | null
     referrerOrigin?: string | null
     userAgentFamily?: string | null
@@ -212942,6 +212976,7 @@ export namespace Prisma {
   export type QrScanEventUpdateWithoutCampaignInput = {
     id?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
@@ -212953,6 +212988,7 @@ export namespace Prisma {
   export type QrScanEventUncheckedUpdateWithoutCampaignInput = {
     id?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
@@ -212964,6 +213000,7 @@ export namespace Prisma {
   export type QrScanEventUncheckedUpdateManyWithoutCampaignInput = {
     id?: StringFieldUpdateOperationsInput | string
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
     referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
     userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
