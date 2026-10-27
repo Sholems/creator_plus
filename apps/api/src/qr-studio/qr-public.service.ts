@@ -111,6 +111,9 @@ export class QrPublicService {
     const asset = campaign.assets[0];
     if (!asset) throw new NotFoundException('QR file not available');
 
+    const ttl = Math.min(Number(process.env.QR_SIGNED_URL_TTL_SECONDS || 300), 900);
+    const url = await this.storage.getSignedDownloadUrl(asset.fileKey, ttl);
+
     void this.analytics.recordEvent({
       campaignId: campaign.id,
       kind: 'OPEN',
@@ -121,9 +124,8 @@ export class QrPublicService {
       country: req?.headers?.['cf-ipcountry'],
     }).catch(() => undefined);
 
-    const ttl = Math.min(Number(process.env.QR_SIGNED_URL_TTL_SECONDS || 300), 900);
     return {
-      url: await this.storage.getSignedDownloadUrl(asset.fileKey, ttl),
+      url,
       expiresIn: ttl,
       fileName: asset.fileName,
       mimeType: asset.mimeType,

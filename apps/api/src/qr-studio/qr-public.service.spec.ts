@@ -139,6 +139,18 @@ describe('QrPublicService', () => {
     expect(res.expiresIn).toBe(900);
   });
 
+  it('does not count a file action when secure-link generation fails', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({
+      ...activeFileCampaign,
+      assets: [{ id: 'a1', fileKey: 'k', fileName: 'g.pdf', mimeType: 'application/pdf' }],
+    });
+    const { service, storage, analytics } = build(true);
+    storage.getSignedDownloadUrl.mockRejectedValueOnce(new Error('storage unavailable'));
+
+    await expect(service.openFile('ABCDEF', { headers: {} })).rejects.toThrow('storage unavailable');
+    expect(analytics.recordEvent).not.toHaveBeenCalled();
+  });
+
   it('refuses openFile for an unavailable campaign (R14)', async () => {
     p.qrCampaign.findUnique.mockResolvedValue({ ...activeFileCampaign, assets: [] });
     const { service } = build(false);

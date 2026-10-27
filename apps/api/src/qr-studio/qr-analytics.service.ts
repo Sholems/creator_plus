@@ -13,6 +13,7 @@ type CountRow = { label: string | null; count: bigint | number };
 @Injectable()
 export class QrAnalyticsService {
   private readonly logger = new Logger(QrAnalyticsService.name);
+  private lastPersistenceWarningAt = 0;
 
   async recordEvent(input: {
     campaignId: string;
@@ -38,7 +39,11 @@ export class QrAnalyticsService {
       });
       return true;
     } catch (error) {
-      this.logger.warn(`QR analytics event was not persisted: ${error instanceof Error ? error.message : 'unknown error'}`);
+      const now = Date.now();
+      if (now - this.lastPersistenceWarningAt >= 60_000) {
+        this.lastPersistenceWarningAt = now;
+        this.logger.warn(`QR analytics event was not persisted: ${error instanceof Error ? error.message : 'unknown error'}`);
+      }
       return false;
     }
   }
@@ -69,7 +74,7 @@ export class QrAnalyticsService {
           COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
           COUNT(*) FILTER (WHERE e.kind IN ('ACTION', 'OPEN')) AS actions,
           COUNT(DISTINCT CASE WHEN e.kind = 'SCAN' AND e."request_hash" IS NOT NULL
-            THEN CONCAT((e."created_at" AT TIME ZONE 'UTC')::date, ':', e."request_hash") END)
+            THEN CONCAT(e."created_at"::date, ':', e."request_hash") END)
             + COUNT(*) FILTER (WHERE e.kind = 'SCAN' AND e."request_hash" IS NULL) AS unique_scans
         FROM "qr_scan_events" e
         JOIN "qr_campaigns" c ON c.id = e."campaign_id"
@@ -77,7 +82,7 @@ export class QrAnalyticsService {
       `),
       prisma.$queryRaw<Array<{ day: Date; scans: bigint; actions: bigint; unique_scans: bigint }>>(Prisma.sql`
         SELECT
-          DATE_TRUNC('day', e."created_at" AT TIME ZONE 'UTC') AS day,
+          DATE_TRUNC('day', e."created_at") AS day,
           COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
           COUNT(*) FILTER (WHERE e.kind IN ('ACTION', 'OPEN')) AS actions,
           COUNT(DISTINCT e."request_hash") FILTER (WHERE e.kind = 'SCAN' AND e."request_hash" IS NOT NULL)

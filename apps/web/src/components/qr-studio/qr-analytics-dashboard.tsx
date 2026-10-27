@@ -84,6 +84,7 @@ export function QrAnalyticsDashboard({ token, campaigns }: { token: string; camp
   const [data, setData] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [refreshKey, setRefreshKey] = useState(0);
   const params = useMemo(() => ({ from: utcDate(days - 1), to: utcDate(), campaignId: campaignId || undefined }), [days, campaignId]);
 
   useEffect(() => {
@@ -95,7 +96,7 @@ export function QrAnalyticsDashboard({ token, campaigns }: { token: string; camp
       .catch((err) => { if (!cancelled) setError(err instanceof Error ? err.message : 'Could not load QR analytics'); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [token, params]);
+  }, [token, params, refreshKey]);
 
   function exportCsv() {
     if (!data) return;
@@ -125,7 +126,7 @@ export function QrAnalyticsDashboard({ token, campaigns }: { token: string; camp
         </div>
       </div>
 
-      {error ? <div className="m-5 border-l-2 border-clay-500 bg-clay-50 px-4 py-3 text-sm text-clay-700" role="alert">{error}</div> : loading || !data ? <div className="grid gap-px bg-ink-100 sm:grid-cols-4" aria-label="Loading analytics">{Array.from({ length: 4 }).map((_, index) => <div key={index} className="h-28 animate-pulse bg-cream-50" />)}</div> : <>
+      {error ? <div className="m-5 flex flex-wrap items-center justify-between gap-3 border-l-2 border-clay-500 bg-clay-50 px-4 py-3 text-sm text-clay-700" role="alert"><span>{error}</span><button type="button" onClick={() => setRefreshKey((value) => value + 1)} className="rounded-md border border-clay-200 bg-white px-3 py-1.5 text-xs font-semibold text-clay-700 hover:bg-clay-50">Try again</button></div> : loading || !data ? <div className="grid gap-px bg-ink-100 sm:grid-cols-4" aria-label="Loading analytics">{Array.from({ length: 4 }).map((_, index) => <div key={index} className="h-28 animate-pulse bg-cream-50" />)}</div> : <>
         <div className="grid gap-px bg-ink-100 sm:grid-cols-2 xl:grid-cols-4">
           {[
             ['Total scans', data.totals.scans.toLocaleString(), 'Every successful QR resolution'],
