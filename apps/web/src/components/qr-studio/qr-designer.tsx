@@ -56,6 +56,19 @@ function contrastRatio(a: string, b: string): number {
   const l2 = relLum(b);
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
+
+function preflightStatus(contrast: number, logoSize: number | null): 'pass' | 'warning' | 'fail' {
+  if (contrast < 3.5 || (logoSize !== null && logoSize > 0.36)) return 'fail';
+  if (contrast < 4.5 || (logoSize !== null && logoSize > 0.3)) return 'warning';
+  return 'pass';
+}
+
+function logoAssessment(logoSize: number | null) {
+  if (logoSize === null) return 'none';
+  if (logoSize <= 0.3) return 'safe size';
+  if (logoSize <= 0.36) return 'large — test carefully';
+  return 'too large';
+}
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   const rr = Math.min(r, w / 2, h / 2);
   ctx.beginPath();
@@ -181,11 +194,7 @@ export function QrDesigner({
   const eyeContrast = contrastRatio(d.cornersColor, d.bgColor);
   const gradientContrast = d.gradient ? contrastRatio(d.gradientColor, d.bgColor) : contrast;
   const lowestContrast = Math.min(contrast, eyeContrast, gradientContrast);
-  const preflightStatus = lowestContrast < 3.5 || (d.logo && d.logoSize > 0.36)
-    ? 'fail'
-    : lowestContrast < 4.5 || (d.logo && d.logoSize > 0.3)
-      ? 'warning'
-      : 'pass';
+  const preflight = preflightStatus(lowestContrast, d.logo ? d.logoSize : null);
   const inputCls = 'h-9 w-10 cursor-pointer rounded border border-ink-200 bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500';
   const selCls = 'rounded-md border border-ink-200 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500';
 
@@ -218,15 +227,15 @@ export function QrDesigner({
           <button type="button" disabled={!ready} onClick={downloadSvg} className="whitespace-nowrap rounded-md border border-ink-200 bg-white px-3 py-2 text-xs font-semibold text-ink-700 transition hover:bg-cream-100 active:bg-cream-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 disabled:cursor-wait disabled:bg-cream-100 disabled:opacity-50">SVG code</button>
         </div>
         <p className="mt-3 text-center text-[0.6875rem] leading-4 text-ink-400">PNG suits social posts. SVG stays crisp for posters and packaging.</p>
-        <div className={`mt-4 border px-3 py-3 text-left ${preflightStatus === 'pass' ? 'border-forest-200 bg-forest-50' : preflightStatus === 'warning' ? 'border-gold-200 bg-gold-50' : 'border-clay-200 bg-clay-50'}`}>
+        <div className={`mt-4 border px-3 py-3 text-left ${preflight === 'pass' ? 'border-forest-200 bg-forest-50' : preflight === 'warning' ? 'border-gold-200 bg-gold-50' : 'border-clay-200 bg-clay-50'}`}>
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-ink-700">Scan preflight</p>
-            <span className={`text-[0.625rem] font-bold uppercase ${preflightStatus === 'pass' ? 'text-forest-700' : preflightStatus === 'warning' ? 'text-gold-800' : 'text-clay-700'}`}>{preflightStatus}</span>
+            <span className={`text-[0.625rem] font-bold uppercase ${preflight === 'pass' ? 'text-forest-700' : preflight === 'warning' ? 'text-gold-800' : 'text-clay-700'}`}>{preflight}</span>
           </div>
           <ul className="mt-2 space-y-1 text-[0.6875rem] leading-4 text-ink-600">
             <li>Contrast: {lowestContrast.toFixed(1)}:1 {lowestContrast >= 4.5 ? '— strong' : lowestContrast >= 3.5 ? '— usable with care' : '— increase contrast'}</li>
             <li>Quiet zone: four-module safe margin included</li>
-            <li>Logo: {!d.logo ? 'none' : d.logoSize <= 0.3 ? 'safe size' : d.logoSize <= 0.36 ? 'large — test carefully' : 'too large'}</li>
+            <li>Logo: {logoAssessment(d.logo ? d.logoSize : null)}</li>
             <li>Error correction: High</li>
           </ul>
         </div>

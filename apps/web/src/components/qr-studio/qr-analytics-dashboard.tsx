@@ -36,7 +36,7 @@ function TrendChart({ points }: { points: Point[] }) {
   const x = (index: number) => pad.left + (points.length <= 1 ? plotWidth / 2 : (index / (points.length - 1)) * plotWidth);
   const y = (value: number) => pad.top + plotHeight - (value / max) * plotHeight;
   const path = (key: 'scans' | 'actions') => points.map((point, index) => `${index ? 'L' : 'M'} ${x(index).toFixed(1)} ${y(point[key]).toFixed(1)}`).join(' ');
-  const labels = points.length > 45 ? [0, Math.floor((points.length - 1) / 2), points.length - 1] : [0, Math.floor((points.length - 1) / 2), points.length - 1];
+  const labels = [0, Math.floor((points.length - 1) / 2), points.length - 1];
 
   if (!points.length || points.every((point) => point.scans === 0 && point.actions === 0)) {
     return <div className="flex h-56 items-center justify-center border border-dashed border-ink-200 bg-cream-50/40 text-sm text-ink-500">No scans in this period yet.</div>;
@@ -108,8 +108,10 @@ export function QrAnalyticsDashboard({ token, campaigns }: { token: string; camp
     const anchor = document.createElement('a');
     anchor.href = url;
     anchor.download = `creatorplus-qr-analytics-${data.range.from}-to-${data.range.to}.csv`;
+    document.body.appendChild(anchor);
     anchor.click();
-    URL.revokeObjectURL(url);
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
   }
 
   return (
