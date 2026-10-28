@@ -853,6 +853,52 @@ class ApiClient {
     });
   }
 
+  async duplicateQrCampaign(token: string, id: string) {
+    return this.fetch<any>(`/qr-studio/campaigns/${id}/duplicate`, {
+      method: 'POST',
+      token,
+    });
+  }
+
+  async bulkUpdateQrCampaigns(token: string, ids: string[], action: 'PAUSE' | 'ARCHIVE') {
+    return this.fetch<{ updated: number }>('/qr-studio/campaigns/bulk', {
+      method: 'POST',
+      body: { ids, action },
+      token,
+    });
+  }
+
+  async createQrPlacementVariant(token: string, campaignId: string, data: {
+    name: string;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    utmContent?: string;
+    utmTerm?: string;
+  }) {
+    return this.fetch<any>(`/qr-studio/campaigns/${campaignId}/variants`, {
+      method: 'POST',
+      body: data,
+      token,
+    });
+  }
+
+  async updateQrPlacementVariant(token: string, campaignId: string, variantId: string, data: {
+    name?: string;
+    active?: boolean;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    utmContent?: string;
+    utmTerm?: string;
+  }) {
+    return this.fetch<any>(`/qr-studio/campaigns/${campaignId}/variants/${variantId}`, {
+      method: 'PATCH',
+      body: data,
+      token,
+    });
+  }
+
   async uploadQrCampaignFile(token: string, campaignId: string, file: File) {
     const formData = new FormData();
     formData.append('file', file);
@@ -879,6 +925,26 @@ class ApiClient {
 
   async openQrCampaignFile(code: string) {
     return this.fetch<any>(`/qr/${encodeURIComponent(code)}/open`);
+  }
+
+  async trackQrCampaignAction(code: string, actionType: string) {
+    const response = await fetch(`${this.baseUrl}/qr/${encodeURIComponent(code)}/actions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ actionType }),
+      keepalive: true,
+    });
+    if (!response.ok) throw new Error('Could not record QR action');
+    return response.json();
+  }
+
+  async getQrAnalytics(token: string, params?: { from?: string; to?: string; campaignId?: string }) {
+    const search = new URLSearchParams();
+    if (params?.from) search.set('from', params.from);
+    if (params?.to) search.set('to', params.to);
+    if (params?.campaignId) search.set('campaignId', params.campaignId);
+    const query = search.toString();
+    return this.fetch<any>(`/qr-studio/analytics${query ? `?${query}` : ''}`, { token });
   }
 
   // Reviews

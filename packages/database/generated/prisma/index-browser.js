@@ -1008,6 +1008,8 @@ exports.Prisma.QrCampaignScalarFieldEnum = {
   publicCode: 'publicCode',
   title: 'title',
   description: 'description',
+  folder: 'folder',
+  tags: 'tags',
   contentType: 'contentType',
   status: 'status',
   scanMode: 'scanMode',
@@ -1021,6 +1023,21 @@ exports.Prisma.QrCampaignScalarFieldEnum = {
   activatedAt: 'activatedAt',
   expiresAt: 'expiresAt',
   archivedAt: 'archivedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.QrPlacementVariantScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  publicCode: 'publicCode',
+  name: 'name',
+  active: 'active',
+  utmSource: 'utmSource',
+  utmMedium: 'utmMedium',
+  utmCampaign: 'utmCampaign',
+  utmContent: 'utmContent',
+  utmTerm: 'utmTerm',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1045,7 +1062,9 @@ exports.Prisma.QrAssetScalarFieldEnum = {
 exports.Prisma.QrScanEventScalarFieldEnum = {
   id: 'id',
   campaignId: 'campaignId',
+  placementVariantId: 'placementVariantId',
   kind: 'kind',
+  actionType: 'actionType',
   requestHash: 'requestHash',
   referrerOrigin: 'referrerOrigin',
   userAgentFamily: 'userAgentFamily',
@@ -1822,7 +1841,8 @@ exports.QrAssetSafetyStatus = exports.$Enums.QrAssetSafetyStatus = {
 
 exports.QrEventKind = exports.$Enums.QrEventKind = {
   SCAN: 'SCAN',
-  OPEN: 'OPEN'
+  OPEN: 'OPEN',
+  ACTION: 'ACTION'
 };
 
 exports.LicenseStatus = exports.$Enums.LicenseStatus = {
@@ -2004,6 +2024,7 @@ exports.Prisma.ModelName = {
   QrPayment: 'QrPayment',
   QrEntitlement: 'QrEntitlement',
   QrCampaign: 'QrCampaign',
+  QrPlacementVariant: 'QrPlacementVariant',
   QrAsset: 'QrAsset',
   QrScanEvent: 'QrScanEvent',
   QrAdminAction: 'QrAdminAction',

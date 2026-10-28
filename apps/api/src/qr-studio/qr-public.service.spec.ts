@@ -3,14 +3,17 @@ import { prisma } from '@creatorplus/database';
 import { QrPublicService } from './qr-public.service';
 
 jest.mock('@creatorplus/database', () => ({
-  prisma: { qrCampaign: { findUnique: jest.fn() } },
+  prisma: {
+    qrCampaign: { findUnique: jest.fn() },
+    qrPlacementVariant: { findUnique: jest.fn() },
+  },
 }));
 
 const p = prisma as any;
 
 function build(available: boolean) {
   const storage = { getSignedDownloadUrl: jest.fn().mockResolvedValue('https://r2.example/signed?token=abc') } as any;
-  const analytics = { recordEvent: jest.fn() } as any;
+  const analytics = { recordEvent: jest.fn().mockResolvedValue(true) } as any;
   const campaigns = { isPubliclyAvailable: jest.fn().mockResolvedValue(available) } as any;
   return { service: new QrPublicService(storage, analytics, campaigns), storage, analytics, campaigns };
 }
@@ -36,6 +39,7 @@ const activeFileCampaign = {
 describe('QrPublicService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    p.qrPlacementVariant.findUnique.mockResolvedValue(null);
     delete process.env.QR_SIGNED_URL_TTL_SECONDS;
   });
 
@@ -68,6 +72,82 @@ describe('QrPublicService', () => {
     expect(serialized).not.toContain('fileKey');
     expect(serialized).not.toMatch(/https?:\/\/[^"']*(token|signature|X-Amz)/i);
     expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({ kind: 'SCAN' }));
+  });
+
+  it('passes Cloudflare country metadata without making analytics a scan dependency', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({ ...activeFileCampaign });
+    const { service, analytics } = build(true);
+    analytics.recordEvent.mockRejectedValueOnce(new Error('analytics unavailable'));
+
+    const res: any = await service.resolve('ABCDEF', {
+      ip: '1.2.3.4',
+      headers: { 'cf-ipcountry': 'NG' },
+    });
+
+    expect(res.available).toBe(true);
+    expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({ country: 'NG' }));
+  });
+
+  it('resolves a placement code to its campaign and records attributed scans', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue(null);
+    p.qrPlacementVariant.findUnique.mockResolvedValue({
+      id: 'v1',
+      name: 'Conference banner',
+      active: true,
+      utmSource: 'conference',
+      utmMedium: 'banner',
+      utmCampaign: 'growth-club',
+      utmContent: null,
+      utmTerm: null,
+      campaign: {
+        ...activeFileCampaign,
+        contentType: 'WEBSITE',
+        destinationUrl: 'https://example.com/guide?existing=1',
+        assets: [],
+      },
+    });
+    const { service, analytics } = build(true);
+
+    const result: any = await service.resolve('p_placement', { headers: {} });
+
+    expect(result.destinationUrl).toBe(
+      'https://example.com/guide?existing=1&utm_source=conference&utm_medium=banner&utm_campaign=growth-club',
+    );
+    expect(result.placement).toEqual({ id: 'v1', name: 'Conference banner' });
+    expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({
+      campaignId: 'c1',
+      placementVariantId: 'v1',
+      kind: 'SCAN',
+    }));
+  });
+
+  it('treats a disabled placement code as unavailable', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue(null);
+    p.qrPlacementVariant.findUnique.mockResolvedValue({
+      id: 'v1',
+      active: false,
+      campaign: activeFileCampaign,
+    });
+    const { service, analytics } = build(true);
+
+    const result = await service.resolve('p_disabled_placement', { headers: {} });
+
+    expect(result).toMatchObject({ available: false, mode: 'UNAVAILABLE' });
+    expect(analytics.recordEvent).not.toHaveBeenCalled();
+  });
+
+  it('records a validated action for an available campaign', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({ ...activeFileCampaign });
+    const { service, analytics } = build(true);
+
+    const result = await service.recordAction('ABCDEF', 'FILE_OPEN', { headers: { 'cf-ipcountry': 'NG' } });
+
+    expect(result).toEqual({ recorded: true });
+    expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({
+      kind: 'ACTION',
+      actionType: 'FILE_OPEN',
+      country: 'NG',
+    }));
   });
 
   it('ignores a stale hosted asset after a campaign changes to a URL destination', async () => {
@@ -109,6 +189,18 @@ describe('QrPublicService', () => {
     const { service } = build(true);
     const res = await service.openFile('ABCDEF', { headers: {} });
     expect(res.expiresIn).toBe(900);
+  });
+
+  it('does not count a file action when secure-link generation fails', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue({
+      ...activeFileCampaign,
+      assets: [{ id: 'a1', fileKey: 'k', fileName: 'g.pdf', mimeType: 'application/pdf' }],
+    });
+    const { service, storage, analytics } = build(true);
+    storage.getSignedDownloadUrl.mockRejectedValueOnce(new Error('storage unavailable'));
+
+    await expect(service.openFile('ABCDEF', { headers: {} })).rejects.toThrow('storage unavailable');
+    expect(analytics.recordEvent).not.toHaveBeenCalled();
   });
 
   it('refuses openFile for an unavailable campaign (R14)', async () => {

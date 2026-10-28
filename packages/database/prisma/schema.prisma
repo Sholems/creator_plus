@@ -1735,6 +1735,7 @@ enum QrAssetSafetyStatus {
 enum QrEventKind {
   SCAN
   OPEN
+  ACTION
 }
 
 model QrPayment {
@@ -1803,6 +1804,8 @@ model QrCampaign {
   publicCode        String           @unique @map("public_code")
   title             String
   description       String?
+  folder            String?
+  tags              String[]         @default([])
   contentType       QrContentType    @map("content_type")
   status            QrCampaignStatus @default(DRAFT)
   scanMode          QrScanMode       @default(LANDING_PAGE) @map("scan_mode")
@@ -1823,6 +1826,7 @@ model QrCampaign {
   entitlement       QrEntitlement?   @relation(fields: [entitlementId], references: [id], onDelete: SetNull)
   assets            QrAsset[]
   events            QrScanEvent[]
+  placementVariants QrPlacementVariant[]
   adminActions      QrAdminAction[]
 
   @@index([ownerId, status])
@@ -1830,6 +1834,27 @@ model QrCampaign {
   @@index([contentType])
   @@index([expiresAt])
   @@map("qr_campaigns")
+}
+
+model QrPlacementVariant {
+  id          String   @id @default(uuid()) @db.Uuid
+  campaignId  String   @map("campaign_id") @db.Uuid
+  publicCode  String   @unique @map("public_code")
+  name        String
+  active      Boolean  @default(true)
+  utmSource   String?  @map("utm_source")
+  utmMedium   String?  @map("utm_medium")
+  utmCampaign String?  @map("utm_campaign")
+  utmContent  String?  @map("utm_content")
+  utmTerm     String?  @map("utm_term")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  campaign    QrCampaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  events      QrScanEvent[]
+
+  @@index([campaignId, active])
+  @@map("qr_placement_variants")
 }
 
 model QrAsset {
@@ -1858,7 +1883,9 @@ model QrAsset {
 model QrScanEvent {
   id              String      @id @default(uuid()) @db.Uuid
   campaignId      String      @map("campaign_id") @db.Uuid
+  placementVariantId String?   @map("placement_variant_id") @db.Uuid
   kind            QrEventKind
+  actionType      String?     @map("action_type")
   requestHash     String?     @map("request_hash")
   referrerOrigin  String?     @map("referrer_origin")
   userAgentFamily String?     @map("user_agent_family")
@@ -1867,8 +1894,11 @@ model QrScanEvent {
   createdAt       DateTime    @default(now()) @map("created_at")
 
   campaign        QrCampaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  placementVariant QrPlacementVariant? @relation(fields: [placementVariantId], references: [id], onDelete: SetNull)
 
   @@index([campaignId, kind, createdAt])
+  @@index([campaignId, actionType, createdAt])
+  @@index([placementVariantId, kind, createdAt])
   @@index([createdAt])
   @@map("qr_scan_events")
 }

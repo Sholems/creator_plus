@@ -15,7 +15,12 @@ import {
   assertScanModeAllowed,
   validateCampaignDestination,
 } from './qr-content-validation';
-import { CreateQrCampaignDto, UpdateQrCampaignDto } from './dto/qr-campaign.dto';
+import {
+  CreateQrCampaignDto,
+  CreateQrPlacementVariantDto,
+  UpdateQrCampaignDto,
+  UpdateQrPlacementVariantDto,
+} from './dto/qr-campaign.dto';
 import { isQrStudioEnabled } from './qr-offer-definitions';
 
 @Injectable()
@@ -40,7 +45,25 @@ export class QrCampaignsService {
             createdAt: true,
           },
         },
-        _count: { select: { events: true } },
+        _count: { select: { events: { where: { kind: 'SCAN' } } } },
+        events: {
+          where: { kind: 'SCAN' },
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+          select: { createdAt: true },
+        },
+        placementVariants: {
+          orderBy: { createdAt: 'asc' },
+          include: {
+            _count: { select: { events: { where: { kind: 'SCAN' } } } },
+            events: {
+              where: { kind: 'SCAN' },
+              orderBy: { createdAt: 'desc' },
+              take: 1,
+              select: { createdAt: true },
+            },
+          },
+        },
       },
     });
     return campaigns.map((campaign) => this.serializeOwnerCampaign(campaign));
@@ -63,7 +86,25 @@ export class QrCampaignsService {
             createdAt: true,
           },
         },
-        _count: { select: { events: true } },
+        _count: { select: { events: { where: { kind: 'SCAN' } } } },
+        events: {
+          where: { kind: 'SCAN' },
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+          select: { createdAt: true },
+        },
+        placementVariants: {
+          orderBy: { createdAt: 'asc' },
+          include: {
+            _count: { select: { events: { where: { kind: 'SCAN' } } } },
+            events: {
+              where: { kind: 'SCAN' },
+              orderBy: { createdAt: 'desc' },
+              take: 1,
+              select: { createdAt: true },
+            },
+          },
+        },
       },
     });
     if (!campaign) throw new NotFoundException('QR campaign not found');
@@ -83,9 +124,11 @@ export class QrCampaignsService {
     const campaign = await prisma.qrCampaign.create({
       data: {
         ownerId: userId,
-        publicCode: await this.generatePublicCode(),
+        publicCode: await this.generatePublicCode('c'),
         title: dto.title.trim(),
         description: dto.description?.trim() || null,
+        folder: dto.folder?.trim() || null,
+        tags: this.normalizeTags(dto.tags),
         contentType: dto.contentType,
         destinationUrl: destination.destinationUrl,
         destinationData: destination.destinationData ?? Prisma.JsonNull,
@@ -151,6 +194,8 @@ export class QrCampaignsService {
       data: {
         title: dto.title?.trim(),
         description: dto.description === undefined ? undefined : dto.description?.trim() || null,
+        folder: dto.folder === undefined ? undefined : dto.folder?.trim() || null,
+        tags: dto.tags === undefined ? undefined : this.normalizeTags(dto.tags),
         contentType: dto.contentType,
         destinationUrl: destination?.destinationUrl,
         destinationData:
@@ -215,6 +260,92 @@ export class QrCampaignsService {
     return this.findMineById(userId, id);
   }
 
+  async duplicate(userId: string, id: string) {
+    const campaign = await this.requireOwnerCampaign(userId, id);
+    await this.entitlements.assertCanCreateCampaign(userId, campaign.contentType);
+    const copy = await prisma.qrCampaign.create({
+      data: {
+        ownerId: userId,
+        publicCode: await this.generatePublicCode('c'),
+        title: `${campaign.title} copy`.slice(0, 120),
+        description: campaign.description,
+        folder: campaign.folder,
+        tags: campaign.tags,
+        contentType: campaign.contentType,
+        status: 'DRAFT',
+        scanMode: campaign.scanMode,
+        destinationUrl: campaign.destinationUrl,
+        destinationData: campaign.destinationData ?? Prisma.JsonNull,
+        brandName: campaign.brandName,
+        brandPrimaryColor: campaign.brandPrimaryColor,
+        brandAccentColor: campaign.brandAccentColor,
+        designSettings: campaign.designSettings ?? Prisma.JsonNull,
+      },
+    });
+    return this.findMineById(userId, copy.id);
+  }
+
+  async bulkAction(userId: string, ids: string[], action: 'PAUSE' | 'ARCHIVE') {
+    if (ids.length === 0) return { updated: 0 };
+    const result = await prisma.qrCampaign.updateMany({
+      where: {
+        id: { in: ids },
+        ownerId: userId,
+        status: action === 'ARCHIVE' ? { not: 'ARCHIVED' } : 'ACTIVE',
+      },
+      data: action === 'ARCHIVE'
+        ? { status: 'ARCHIVED', archivedAt: new Date() }
+        : { status: 'PAUSED' },
+    });
+    return { updated: result.count };
+  }
+
+  async createVariant(userId: string, campaignId: string, dto: CreateQrPlacementVariantDto) {
+    const campaign = await this.requireOwnerCampaign(userId, campaignId);
+    const access = await this.entitlements.listForUser(userId);
+    if (!access.hasPro) {
+      throw new ForbiddenException('Placement variants and UTM attribution require Pro QR Studio');
+    }
+    this.assertVariantAttributionAllowed(campaign.contentType, dto);
+    const name = this.variantName(dto.name);
+    const variant = await prisma.qrPlacementVariant.create({
+      data: {
+        campaignId,
+        publicCode: await this.generatePublicCode('p'),
+        name,
+        ...this.variantAttribution(dto),
+      },
+    });
+    return { ...variant, publicUrl: `/qr/${variant.publicCode}` };
+  }
+
+  async updateVariant(
+    userId: string,
+    campaignId: string,
+    variantId: string,
+    dto: UpdateQrPlacementVariantDto,
+  ) {
+    const campaign = await this.requireOwnerCampaign(userId, campaignId);
+    const access = await this.entitlements.listForUser(userId);
+    if (!access.hasPro && !this.isDisableOnly(dto)) {
+      throw new ForbiddenException('Placement variants and UTM attribution require Pro QR Studio');
+    }
+    const variant = await prisma.qrPlacementVariant.findFirst({
+      where: { id: variantId, campaignId },
+    });
+    if (!variant) throw new NotFoundException('QR placement variant not found');
+    this.assertVariantAttributionAllowed(campaign.contentType, dto);
+    const updated = await prisma.qrPlacementVariant.update({
+      where: { id: variantId },
+      data: {
+        name: dto.name === undefined ? undefined : this.variantName(dto.name),
+        active: dto.active,
+        ...this.variantAttribution(dto),
+      },
+    });
+    return { ...updated, publicUrl: `/qr/${updated.publicCode}` };
+  }
+
   async requireOwnerCampaign(userId: string, id: string) {
     const campaign = await prisma.qrCampaign.findFirst({
       where: { id, ownerId: userId },
@@ -250,20 +381,77 @@ export class QrCampaignsService {
     }
   }
 
-  private async generatePublicCode() {
+  private async generatePublicCode(namespace: 'c' | 'p') {
     for (let attempt = 0; attempt < 5; attempt += 1) {
-      const code = randomBytes(18).toString('base64url');
-      const existing = await prisma.qrCampaign.findUnique({ where: { publicCode: code } });
-      if (!existing) return code;
+      const code = `${namespace}_${randomBytes(18).toString('base64url')}`;
+      const [campaign, variant] = await Promise.all([
+        prisma.qrCampaign.findUnique({ where: { publicCode: code } }),
+        prisma.qrPlacementVariant.findUnique({ where: { publicCode: code } }),
+      ]);
+      if (!campaign && !variant) return code;
     }
     throw new BadRequestException('Could not generate a QR campaign code');
   }
 
   private serializeOwnerCampaign(campaign: any) {
+    const { _count, events, placementVariants, ...ownerCampaign } = campaign;
     return {
-      ...campaign,
+      ...ownerCampaign,
       publicUrl: `/qr/${campaign.publicCode}`,
       assets: campaign.assets ?? [],
+      scanCount: _count?.events ?? 0,
+      lastScannedAt: events?.[0]?.createdAt ?? null,
+      placementVariants: (placementVariants ?? []).map((variant: any) => {
+        const { _count: variantCount, events: variantEvents, ...placement } = variant;
+        return {
+          ...placement,
+          publicUrl: `/qr/${variant.publicCode}`,
+          scanCount: variantCount?.events ?? 0,
+          lastScannedAt: variantEvents?.[0]?.createdAt ?? null,
+        };
+      }),
     };
+  }
+
+  private normalizeTags(tags?: string[]) {
+    return [...new Set((tags ?? []).map((tag) => tag.trim().toLowerCase()).filter(Boolean))].slice(0, 12);
+  }
+
+  private assertVariantAttributionAllowed(
+    contentType: QrContentType,
+    dto: Partial<CreateQrPlacementVariantDto>,
+  ) {
+    const hasUtm = [dto.utmSource, dto.utmMedium, dto.utmCampaign, dto.utmContent, dto.utmTerm]
+      .some((value) => value?.trim());
+    if (hasUtm && contentType !== 'WEBSITE') {
+      throw new BadRequestException('UTM attribution is available only for website QR campaigns');
+    }
+  }
+
+  private variantAttribution(dto: Partial<CreateQrPlacementVariantDto>) {
+    const clean = (value: string | undefined) => value === undefined ? undefined : value.trim() || null;
+    return {
+      utmSource: clean(dto.utmSource),
+      utmMedium: clean(dto.utmMedium),
+      utmCampaign: clean(dto.utmCampaign),
+      utmContent: clean(dto.utmContent),
+      utmTerm: clean(dto.utmTerm),
+    };
+  }
+
+  private isDisableOnly(dto: UpdateQrPlacementVariantDto) {
+    return dto.active === false
+      && dto.name === undefined
+      && dto.utmSource === undefined
+      && dto.utmMedium === undefined
+      && dto.utmCampaign === undefined
+      && dto.utmContent === undefined
+      && dto.utmTerm === undefined;
+  }
+
+  private variantName(name: string) {
+    const normalized = name.trim();
+    if (!normalized) throw new BadRequestException('Placement name is required');
+    return normalized;
   }
 }

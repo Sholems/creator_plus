@@ -14,6 +14,7 @@ import { QrFileSafetyService } from './qr-file-safety.service';
 import { QrPublicService } from './qr-public.service';
 import { QrAnalyticsService } from './qr-analytics.service';
 import { QrCouponsService } from './qr-coupons.service';
+import { QrAnalyticsController } from './qr-analytics.controller';
 
 @Module({
   imports: [StorageModule, PaymentsModule, MembershipModule],
@@ -22,6 +23,7 @@ import { QrCouponsService } from './qr-coupons.service';
     QrCampaignsController,
     QrAssetsController,
     QrPublicController,
+    QrAnalyticsController,
   ],
   providers: [
     QrBillingService,

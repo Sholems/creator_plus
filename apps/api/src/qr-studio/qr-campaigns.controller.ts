@@ -2,7 +2,14 @@ import { Body, Controller, Get, Param, Patch, Post, Request, UseGuards } from '@
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { QrCampaignsService } from './qr-campaigns.service';
-import { ChangeQrCampaignStatusDto, CreateQrCampaignDto, UpdateQrCampaignDto } from './dto/qr-campaign.dto';
+import {
+  BulkQrCampaignActionDto,
+  ChangeQrCampaignStatusDto,
+  CreateQrCampaignDto,
+  CreateQrPlacementVariantDto,
+  UpdateQrCampaignDto,
+  UpdateQrPlacementVariantDto,
+} from './dto/qr-campaign.dto';
 
 @ApiTags('qr-studio')
 @Controller('qr-studio/campaigns')
@@ -23,6 +30,39 @@ export class QrCampaignsController {
   @ApiResponse({ status: 201, description: 'QR campaign created' })
   create(@Request() req, @Body() dto: CreateQrCampaignDto) {
     return this.campaigns.create(req.user.sub, dto);
+  }
+
+  @Post('bulk')
+  @ApiOperation({ summary: 'Pause or archive several owned QR campaigns' })
+  bulk(@Request() req, @Body() dto: BulkQrCampaignActionDto) {
+    return this.campaigns.bulkAction(req.user.sub, dto.ids, dto.action);
+  }
+
+  @Post(':id/duplicate')
+  @ApiOperation({ summary: 'Duplicate an owned QR campaign as a draft' })
+  duplicate(@Request() req, @Param('id') id: string) {
+    return this.campaigns.duplicate(req.user.sub, id);
+  }
+
+  @Post(':id/variants')
+  @ApiOperation({ summary: 'Create a placement variant with its own stable QR code' })
+  createVariant(
+    @Request() req,
+    @Param('id') id: string,
+    @Body() dto: CreateQrPlacementVariantDto,
+  ) {
+    return this.campaigns.createVariant(req.user.sub, id, dto);
+  }
+
+  @Patch(':id/variants/:variantId')
+  @ApiOperation({ summary: 'Update or disable a placement variant' })
+  updateVariant(
+    @Request() req,
+    @Param('id') id: string,
+    @Param('variantId') variantId: string,
+    @Body() dto: UpdateQrPlacementVariantDto,
+  ) {
+    return this.campaigns.updateVariant(req.user.sub, id, variantId, dto);
   }
 
   @Get(':id')
