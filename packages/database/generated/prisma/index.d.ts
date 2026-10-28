@@ -374,6 +374,11 @@ export type QrEntitlement = $Result.DefaultSelection<Prisma.$QrEntitlementPayloa
  */
 export type QrCampaign = $Result.DefaultSelection<Prisma.$QrCampaignPayload>
 /**
+ * Model QrPlacementVariant
+ *
+ */
+export type QrPlacementVariant = $Result.DefaultSelection<Prisma.$QrPlacementVariantPayload>
+/**
  * Model QrAsset
  * 
  */
@@ -2201,6 +2206,16 @@ export class PrismaClient<
   get qrCampaign(): Prisma.QrCampaignDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.qrPlacementVariant`: Exposes CRUD operations for the **QrPlacementVariant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrPlacementVariants
+    * const qrPlacementVariants = await prisma.qrPlacementVariant.findMany()
+    * ```
+    */
+  get qrPlacementVariant(): Prisma.QrPlacementVariantDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.qrAsset`: Exposes CRUD operations for the **QrAsset** model.
     * Example usage:
     * ```ts
@@ -3088,6 +3103,7 @@ export namespace Prisma {
     QrPayment: 'QrPayment',
     QrEntitlement: 'QrEntitlement',
     QrCampaign: 'QrCampaign',
+    QrPlacementVariant: 'QrPlacementVariant',
     QrAsset: 'QrAsset',
     QrScanEvent: 'QrScanEvent',
     QrAdminAction: 'QrAdminAction',
@@ -3144,7 +3160,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityEvent" | "communityEventRsvp" | "communityChallenge" | "communityChallengeMilestone" | "communityAccountabilityGroup" | "communityChallengeEnrollment" | "communityChallengeCheckIn" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent" | "pushSubscription"
+      modelProps: "user" | "passwordResetToken" | "userProfile" | "role" | "permission" | "userRole" | "session" | "apiToken" | "creatorProfile" | "creatorVerification" | "creatorBankAccount" | "creatorFollower" | "category" | "tag" | "collection" | "product" | "productTag" | "productFile" | "productVersion" | "collectionProduct" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "refund" | "download" | "downloadLog" | "review" | "reviewHelpfulVote" | "wallet" | "walletTransaction" | "ledgerAccount" | "ledgerEntry" | "ledgerTransaction" | "commission" | "payoutRequest" | "payout" | "affiliate" | "affiliateLink" | "affiliateClick" | "affiliateAttribution" | "affiliateConversion" | "commissionLedger" | "affiliatePayout" | "affiliatePayoutItem" | "affiliatePromotionalAsset" | "affiliateFraudFlag" | "coupon" | "couponRedemption" | "wishlist" | "wishlistItem" | "notification" | "auditLog" | "supportTicket" | "ticketMessage" | "systemSetting" | "featureFlag" | "contactMessage" | "subscription" | "creditPack" | "creditPurchase" | "creditBalance" | "creditTransaction" | "usageRecord" | "qrPayment" | "qrEntitlement" | "qrCampaign" | "qrPlacementVariant" | "qrAsset" | "qrScanEvent" | "qrAdminAction" | "licenseKey" | "licenseActivation" | "event" | "ticket" | "qrCoupon" | "qrCouponRedemption" | "membershipPlan" | "membershipPlanPrice" | "membershipSubscription" | "course" | "courseModule" | "lesson" | "lessonProgress" | "courseCertificate" | "communityEvent" | "communityEventRsvp" | "communityChallenge" | "communityChallengeMilestone" | "communityAccountabilityGroup" | "communityChallengeEnrollment" | "communityChallengeCheckIn" | "communityCategory" | "communityPost" | "communityComment" | "communityReport" | "communityModerationAction" | "communityPostLike" | "communityProfile" | "communityFollow" | "communityBookmark" | "communitySubscription" | "communityNotificationPreference" | "communityDelivery" | "communityPointEvent" | "pushSubscription"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -8180,6 +8196,80 @@ export namespace Prisma {
           }
         }
       }
+      QrPlacementVariant: {
+        payload: Prisma.$QrPlacementVariantPayload<ExtArgs>
+        fields: Prisma.QrPlacementVariantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrPlacementVariantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrPlacementVariantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>
+          }
+          findFirst: {
+            args: Prisma.QrPlacementVariantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrPlacementVariantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>
+          }
+          findMany: {
+            args: Prisma.QrPlacementVariantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>[]
+          }
+          create: {
+            args: Prisma.QrPlacementVariantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>
+          }
+          createMany: {
+            args: Prisma.QrPlacementVariantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrPlacementVariantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>[]
+          }
+          delete: {
+            args: Prisma.QrPlacementVariantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>
+          }
+          update: {
+            args: Prisma.QrPlacementVariantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrPlacementVariantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrPlacementVariantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrPlacementVariantUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrPlacementVariantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrPlacementVariantPayload>
+          }
+          aggregate: {
+            args: Prisma.QrPlacementVariantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrPlacementVariant>
+          }
+          groupBy: {
+            args: Prisma.QrPlacementVariantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrPlacementVariantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrPlacementVariantCountArgs<ExtArgs>
+            result: $Utils.Optional<QrPlacementVariantCountAggregateOutputType> | number
+          }
+        }
+      }
       QrAsset: {
         payload: Prisma.$QrAssetPayload<ExtArgs>
         fields: Prisma.QrAssetFieldRefs
@@ -11156,6 +11246,7 @@ export namespace Prisma {
     qrPayment?: QrPaymentOmit
     qrEntitlement?: QrEntitlementOmit
     qrCampaign?: QrCampaignOmit
+    qrPlacementVariant?: QrPlacementVariantOmit
     qrAsset?: QrAssetOmit
     qrScanEvent?: QrScanEventOmit
     qrAdminAction?: QrAdminActionOmit
@@ -12796,12 +12887,14 @@ export namespace Prisma {
   export type QrCampaignCountOutputType = {
     assets: number
     events: number
+    placementVariants: number
     adminActions: number
   }
 
   export type QrCampaignCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assets?: boolean | QrCampaignCountOutputTypeCountAssetsArgs
     events?: boolean | QrCampaignCountOutputTypeCountEventsArgs
+    placementVariants?: boolean | QrCampaignCountOutputTypeCountPlacementVariantsArgs
     adminActions?: boolean | QrCampaignCountOutputTypeCountAdminActionsArgs
   }
 
@@ -12833,8 +12926,46 @@ export namespace Prisma {
   /**
    * QrCampaignCountOutputType without action
    */
+  export type QrCampaignCountOutputTypeCountPlacementVariantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrPlacementVariantWhereInput
+  }
+
+  /**
+   * QrCampaignCountOutputType without action
+   */
   export type QrCampaignCountOutputTypeCountAdminActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QrAdminActionWhereInput
+  }
+
+
+  /**
+   * Count Type QrPlacementVariantCountOutputType
+   */
+
+  export type QrPlacementVariantCountOutputType = {
+    events: number
+  }
+
+  export type QrPlacementVariantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    events?: boolean | QrPlacementVariantCountOutputTypeCountEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QrPlacementVariantCountOutputType without action
+   */
+  export type QrPlacementVariantCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariantCountOutputType
+     */
+    select?: QrPlacementVariantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QrPlacementVariantCountOutputType without action
+   */
+  export type QrPlacementVariantCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrScanEventWhereInput
   }
 
 
@@ -13962,7 +14093,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -14334,7 +14465,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly deletedAt: FieldRef<"User", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -16186,7 +16317,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends PasswordResetTokenCreateManyArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -16504,7 +16635,7 @@ export namespace Prisma {
     readonly usedAt: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly createdAt: FieldRef<"PasswordResetToken", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -17301,7 +17432,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends UserProfileCreateManyArgs>(args?: SelectSubset<T, UserProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -17623,7 +17754,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"UserProfile", 'DateTime'>
     readonly updatedAt: FieldRef<"UserProfile", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -18363,7 +18494,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -18681,7 +18812,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Role", 'DateTime'>
     readonly updatedAt: FieldRef<"Role", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -19470,7 +19601,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends PermissionCreateManyArgs>(args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -19788,7 +19919,7 @@ export namespace Prisma {
     readonly action: FieldRef<"Permission", 'String'>
     readonly createdAt: FieldRef<"Permission", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -20540,7 +20671,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends UserRoleCreateManyArgs>(args?: SelectSubset<T, UserRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -20857,7 +20988,7 @@ export namespace Prisma {
     readonly roleId: FieldRef<"UserRole", 'String'>
     readonly createdAt: FieldRef<"UserRole", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -21646,7 +21777,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends SessionCreateManyArgs>(args?: SelectSubset<T, SessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -21967,7 +22098,7 @@ export namespace Prisma {
     readonly expiresAt: FieldRef<"Session", 'DateTime'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -22740,7 +22871,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ApiTokenCreateManyArgs>(args?: SelectSubset<T, ApiTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -23060,7 +23191,7 @@ export namespace Prisma {
     readonly expiresAt: FieldRef<"ApiToken", 'DateTime'>
     readonly createdAt: FieldRef<"ApiToken", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -23996,7 +24127,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreatorProfileCreateManyArgs>(args?: SelectSubset<T, CreatorProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -24330,7 +24461,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"CreatorProfile", 'DateTime'>
     readonly deletedAt: FieldRef<"CreatorProfile", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -25258,7 +25389,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreatorVerificationCreateManyArgs>(args?: SelectSubset<T, CreatorVerificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -25581,7 +25712,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CreatorVerification", 'DateTime'>
     readonly updatedAt: FieldRef<"CreatorVerification", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -26382,7 +26513,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreatorBankAccountCreateManyArgs>(args?: SelectSubset<T, CreatorBankAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -26704,7 +26835,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CreatorBankAccount", 'DateTime'>
     readonly updatedAt: FieldRef<"CreatorBankAccount", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -27440,7 +27571,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreatorFollowerCreateManyArgs>(args?: SelectSubset<T, CreatorFollowerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -27757,7 +27888,7 @@ export namespace Prisma {
     readonly creatorId: FieldRef<"CreatorFollower", 'String'>
     readonly createdAt: FieldRef<"CreatorFollower", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -28624,7 +28755,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CategoryCreateManyArgs>(args?: SelectSubset<T, CategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -28950,7 +29081,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Category", 'DateTime'>
     readonly deletedAt: FieldRef<"Category", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -29742,7 +29873,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends TagCreateManyArgs>(args?: SelectSubset<T, TagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -30058,7 +30189,7 @@ export namespace Prisma {
     readonly slug: FieldRef<"Tag", 'String'>
     readonly createdAt: FieldRef<"Tag", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -30926,7 +31057,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CollectionCreateManyArgs>(args?: SelectSubset<T, CollectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -31250,7 +31381,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Collection", 'DateTime'>
     readonly deletedAt: FieldRef<"Collection", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -32587,7 +32718,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ProductCreateManyArgs>(args?: SelectSubset<T, ProductCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -32957,7 +33088,7 @@ export namespace Prisma {
     readonly licenseMaxActivations: FieldRef<"Product", 'Int'>
     readonly licenseValidityDays: FieldRef<"Product", 'Int'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -34036,7 +34167,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ProductTagCreateManyArgs>(args?: SelectSubset<T, ProductTagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -34352,7 +34483,7 @@ export namespace Prisma {
     readonly productId: FieldRef<"ProductTag", 'String'>
     readonly tagId: FieldRef<"ProductTag", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -35194,7 +35325,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ProductFileCreateManyArgs>(args?: SelectSubset<T, ProductFileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -35517,7 +35648,7 @@ export namespace Prisma {
     readonly storageProvider: FieldRef<"ProductFile", 'String'>
     readonly createdAt: FieldRef<"ProductFile", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -36294,7 +36425,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ProductVersionCreateManyArgs>(args?: SelectSubset<T, ProductVersionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -36613,7 +36744,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"ProductVersion", 'DateTime'>
     readonly publishedBy: FieldRef<"ProductVersion", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -37419,7 +37550,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CollectionProductCreateManyArgs>(args?: SelectSubset<T, CollectionProductCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -37737,7 +37868,7 @@ export namespace Prisma {
     readonly sortOrder: FieldRef<"CollectionProduct", 'Int'>
     readonly createdAt: FieldRef<"CollectionProduct", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -38483,7 +38614,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CartCreateManyArgs>(args?: SelectSubset<T, CartCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -38801,7 +38932,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Cart", 'DateTime'>
     readonly updatedAt: FieldRef<"Cart", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -39650,7 +39781,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CartItemCreateManyArgs>(args?: SelectSubset<T, CartItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -39970,7 +40101,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CartItem", 'DateTime'>
     readonly updatedAt: FieldRef<"CartItem", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -40880,7 +41011,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends OrderCreateManyArgs>(args?: SelectSubset<T, OrderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -41213,7 +41344,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -42233,7 +42364,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends OrderItemCreateManyArgs>(args?: SelectSubset<T, OrderItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -42557,7 +42688,7 @@ export namespace Prisma {
     readonly licenseType: FieldRef<"OrderItem", 'LicenseType'>
     readonly createdAt: FieldRef<"OrderItem", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -43436,7 +43567,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends PaymentCreateManyArgs>(args?: SelectSubset<T, PaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -43761,7 +43892,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Payment", 'DateTime'>
     readonly updatedAt: FieldRef<"Payment", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -44639,7 +44770,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends RefundCreateManyArgs>(args?: SelectSubset<T, RefundCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -44963,7 +45094,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Refund", 'DateTime'>
     readonly updatedAt: FieldRef<"Refund", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -45809,7 +45940,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends DownloadCreateManyArgs>(args?: SelectSubset<T, DownloadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -46133,7 +46264,7 @@ export namespace Prisma {
     readonly maxDownloads: FieldRef<"Download", 'Int'>
     readonly createdAt: FieldRef<"Download", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -46934,7 +47065,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends DownloadLogCreateManyArgs>(args?: SelectSubset<T, DownloadLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -47254,7 +47385,7 @@ export namespace Prisma {
     readonly success: FieldRef<"DownloadLog", 'Boolean'>
     readonly createdAt: FieldRef<"DownloadLog", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -48157,7 +48288,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ReviewCreateManyArgs>(args?: SelectSubset<T, ReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -48485,7 +48616,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Review", 'DateTime'>
     readonly deletedAt: FieldRef<"Review", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -49238,7 +49369,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ReviewHelpfulVoteCreateManyArgs>(args?: SelectSubset<T, ReviewHelpfulVoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -49554,7 +49685,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"ReviewHelpfulVote", 'String'>
     readonly createdAt: FieldRef<"ReviewHelpfulVote", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -50413,7 +50544,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends WalletCreateManyArgs>(args?: SelectSubset<T, WalletCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -50737,7 +50868,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Wallet", 'DateTime'>
     readonly updatedAt: FieldRef<"Wallet", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -51628,7 +51759,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends WalletTransactionCreateManyArgs>(args?: SelectSubset<T, WalletTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -51950,7 +52081,7 @@ export namespace Prisma {
     readonly referenceId: FieldRef<"WalletTransaction", 'String'>
     readonly createdAt: FieldRef<"WalletTransaction", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -52711,7 +52842,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LedgerAccountCreateManyArgs>(args?: SelectSubset<T, LedgerAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -53030,7 +53161,7 @@ export namespace Prisma {
     readonly isActive: FieldRef<"LedgerAccount", 'Boolean'>
     readonly createdAt: FieldRef<"LedgerAccount", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -53856,7 +53987,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LedgerEntryCreateManyArgs>(args?: SelectSubset<T, LedgerEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -54176,7 +54307,7 @@ export namespace Prisma {
     readonly description: FieldRef<"LedgerEntry", 'String'>
     readonly createdAt: FieldRef<"LedgerEntry", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -54921,7 +55052,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LedgerTransactionCreateManyArgs>(args?: SelectSubset<T, LedgerTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -55239,7 +55370,7 @@ export namespace Prisma {
     readonly metadata: FieldRef<"LedgerTransaction", 'Json'>
     readonly createdAt: FieldRef<"LedgerTransaction", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -56068,7 +56199,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommissionCreateManyArgs>(args?: SelectSubset<T, CommissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -56388,7 +56519,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Commission", 'DateTime'>
     readonly updatedAt: FieldRef<"Commission", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -57247,7 +57378,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends PayoutRequestCreateManyArgs>(args?: SelectSubset<T, PayoutRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -57575,7 +57706,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"PayoutRequest", 'DateTime'>
     readonly updatedAt: FieldRef<"PayoutRequest", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -58396,7 +58527,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends PayoutCreateManyArgs>(args?: SelectSubset<T, PayoutCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -58717,7 +58848,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Payout", 'DateTime'>
     readonly updatedAt: FieldRef<"Payout", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -59664,7 +59795,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliateCreateManyArgs>(args?: SelectSubset<T, AffiliateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -60004,7 +60135,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Affiliate", 'DateTime'>
     readonly updatedAt: FieldRef<"Affiliate", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -61049,7 +61180,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliateLinkCreateManyArgs>(args?: SelectSubset<T, AffiliateLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -61378,7 +61509,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"AffiliateLink", 'DateTime'>
     readonly updatedAt: FieldRef<"AffiliateLink", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -62289,7 +62420,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliateClickCreateManyArgs>(args?: SelectSubset<T, AffiliateClickCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -62615,7 +62746,7 @@ export namespace Prisma {
     readonly landingUrl: FieldRef<"AffiliateClick", 'String'>
     readonly createdAt: FieldRef<"AffiliateClick", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -63473,7 +63604,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliateAttributionCreateManyArgs>(args?: SelectSubset<T, AffiliateAttributionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -63799,7 +63930,7 @@ export namespace Prisma {
     readonly convertedAt: FieldRef<"AffiliateAttribution", 'DateTime'>
     readonly orderId: FieldRef<"AffiliateAttribution", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -64793,7 +64924,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliateConversionCreateManyArgs>(args?: SelectSubset<T, AffiliateConversionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -65128,7 +65259,7 @@ export namespace Prisma {
     readonly approvedAt: FieldRef<"AffiliateConversion", 'DateTime'>
     readonly createdAt: FieldRef<"AffiliateConversion", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -66186,7 +66317,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommissionLedgerCreateManyArgs>(args?: SelectSubset<T, CommissionLedgerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -66520,7 +66651,7 @@ export namespace Prisma {
     readonly gatewayReference: FieldRef<"CommissionLedger", 'String'>
     readonly createdAt: FieldRef<"CommissionLedger", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -67416,7 +67547,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliatePayoutCreateManyArgs>(args?: SelectSubset<T, AffiliatePayoutCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -67744,7 +67875,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"AffiliatePayout", 'DateTime'>
     readonly updatedAt: FieldRef<"AffiliatePayout", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -68550,7 +68681,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliatePayoutItemCreateManyArgs>(args?: SelectSubset<T, AffiliatePayoutItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -68868,7 +68999,7 @@ export namespace Prisma {
     readonly amount: FieldRef<"AffiliatePayoutItem", 'Decimal'>
     readonly createdAt: FieldRef<"AffiliatePayoutItem", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -69657,7 +69788,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliatePromotionalAssetCreateManyArgs>(args?: SelectSubset<T, AffiliatePromotionalAssetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -69978,7 +70109,7 @@ export namespace Prisma {
     readonly active: FieldRef<"AffiliatePromotionalAsset", 'Boolean'>
     readonly createdAt: FieldRef<"AffiliatePromotionalAsset", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -70791,7 +70922,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AffiliateFraudFlagCreateManyArgs>(args?: SelectSubset<T, AffiliateFraudFlagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -71114,7 +71245,7 @@ export namespace Prisma {
     readonly resolvedAt: FieldRef<"AffiliateFraudFlag", 'DateTime'>
     readonly createdAt: FieldRef<"AffiliateFraudFlag", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -71993,7 +72124,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CouponCreateManyArgs>(args?: SelectSubset<T, CouponCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -72318,7 +72449,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Coupon", 'DateTime'>
     readonly updatedAt: FieldRef<"Coupon", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -73121,7 +73252,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CouponRedemptionCreateManyArgs>(args?: SelectSubset<T, CouponRedemptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -73439,7 +73570,7 @@ export namespace Prisma {
     readonly amount: FieldRef<"CouponRedemption", 'Decimal'>
     readonly createdAt: FieldRef<"CouponRedemption", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -74185,7 +74316,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends WishlistCreateManyArgs>(args?: SelectSubset<T, WishlistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -74503,7 +74634,7 @@ export namespace Prisma {
     readonly isPublic: FieldRef<"Wishlist", 'Boolean'>
     readonly createdAt: FieldRef<"Wishlist", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -75263,7 +75394,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends WishlistItemCreateManyArgs>(args?: SelectSubset<T, WishlistItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -75580,7 +75711,7 @@ export namespace Prisma {
     readonly productId: FieldRef<"WishlistItem", 'String'>
     readonly createdAt: FieldRef<"WishlistItem", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -76353,7 +76484,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends NotificationCreateManyArgs>(args?: SelectSubset<T, NotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -76673,7 +76804,7 @@ export namespace Prisma {
     readonly readAt: FieldRef<"Notification", 'DateTime'>
     readonly createdAt: FieldRef<"Notification", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -77464,7 +77595,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AuditLogCreateManyArgs>(args?: SelectSubset<T, AuditLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -77786,7 +77917,7 @@ export namespace Prisma {
     readonly userAgent: FieldRef<"AuditLog", 'String'>
     readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -78551,7 +78682,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends SupportTicketCreateManyArgs>(args?: SelectSubset<T, SupportTicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -78875,7 +79006,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"SupportTicket", 'DateTime'>
     readonly updatedAt: FieldRef<"SupportTicket", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -79678,7 +79809,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends TicketMessageCreateManyArgs>(args?: SelectSubset<T, TicketMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -79997,7 +80128,7 @@ export namespace Prisma {
     readonly message: FieldRef<"TicketMessage", 'String'>
     readonly createdAt: FieldRef<"TicketMessage", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -80732,7 +80863,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends SystemSettingCreateManyArgs>(args?: SelectSubset<T, SystemSettingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -81049,7 +81180,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"SystemSetting", 'DateTime'>
     readonly updatedAt: FieldRef<"SystemSetting", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -81798,7 +81929,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends FeatureFlagCreateManyArgs>(args?: SelectSubset<T, FeatureFlagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -82117,7 +82248,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"FeatureFlag", 'DateTime'>
     readonly updatedAt: FieldRef<"FeatureFlag", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -82870,7 +83001,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ContactMessageCreateManyArgs>(args?: SelectSubset<T, ContactMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -83192,7 +83323,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"ContactMessage", 'DateTime'>
     readonly updatedAt: FieldRef<"ContactMessage", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -84041,7 +84172,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -84366,7 +84497,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Subscription", 'DateTime'>
     readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -85217,7 +85348,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreditPackCreateManyArgs>(args?: SelectSubset<T, CreditPackCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -85538,7 +85669,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CreditPack", 'DateTime'>
     readonly updatedAt: FieldRef<"CreditPack", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -86395,7 +86526,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreditPurchaseCreateManyArgs>(args?: SelectSubset<T, CreditPurchaseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -86718,7 +86849,7 @@ export namespace Prisma {
     readonly status: FieldRef<"CreditPurchase", 'CreditPurchaseStatus'>
     readonly createdAt: FieldRef<"CreditPurchase", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -87545,7 +87676,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreditBalanceCreateManyArgs>(args?: SelectSubset<T, CreditBalanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -87865,7 +87996,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CreditBalance", 'DateTime'>
     readonly updatedAt: FieldRef<"CreditBalance", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -88700,7 +88831,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CreditTransactionCreateManyArgs>(args?: SelectSubset<T, CreditTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -89020,7 +89151,7 @@ export namespace Prisma {
     readonly referenceId: FieldRef<"CreditTransaction", 'String'>
     readonly createdAt: FieldRef<"CreditTransaction", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -89803,7 +89934,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends UsageRecordCreateManyArgs>(args?: SelectSubset<T, UsageRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -90121,7 +90252,7 @@ export namespace Prisma {
     readonly metadata: FieldRef<"UsageRecord", 'Json'>
     readonly createdAt: FieldRef<"UsageRecord", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -91101,7 +91232,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrPaymentCreateManyArgs>(args?: SelectSubset<T, QrPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -91435,7 +91566,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"QrPayment", 'DateTime'>
     readonly updatedAt: FieldRef<"QrPayment", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -92362,7 +92493,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrEntitlementCreateManyArgs>(args?: SelectSubset<T, QrEntitlementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -92690,7 +92821,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"QrEntitlement", 'DateTime'>
     readonly updatedAt: FieldRef<"QrEntitlement", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -93163,6 +93294,7 @@ export namespace Prisma {
     publicCode: string | null
     title: string | null
     description: string | null
+    folder: string | null
     contentType: $Enums.QrContentType | null
     status: $Enums.QrCampaignStatus | null
     scanMode: $Enums.QrScanMode | null
@@ -93185,6 +93317,7 @@ export namespace Prisma {
     publicCode: string | null
     title: string | null
     description: string | null
+    folder: string | null
     contentType: $Enums.QrContentType | null
     status: $Enums.QrCampaignStatus | null
     scanMode: $Enums.QrScanMode | null
@@ -93207,6 +93340,8 @@ export namespace Prisma {
     publicCode: number
     title: number
     description: number
+    folder: number
+    tags: number
     contentType: number
     status: number
     scanMode: number
@@ -93233,6 +93368,7 @@ export namespace Prisma {
     publicCode?: true
     title?: true
     description?: true
+    folder?: true
     contentType?: true
     status?: true
     scanMode?: true
@@ -93255,6 +93391,7 @@ export namespace Prisma {
     publicCode?: true
     title?: true
     description?: true
+    folder?: true
     contentType?: true
     status?: true
     scanMode?: true
@@ -93277,6 +93414,8 @@ export namespace Prisma {
     publicCode?: true
     title?: true
     description?: true
+    folder?: true
+    tags?: true
     contentType?: true
     status?: true
     scanMode?: true
@@ -93374,6 +93513,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description: string | null
+    folder: string | null
+    tags: string[]
     contentType: $Enums.QrContentType
     status: $Enums.QrCampaignStatus
     scanMode: $Enums.QrScanMode
@@ -93415,6 +93556,8 @@ export namespace Prisma {
     publicCode?: boolean
     title?: boolean
     description?: boolean
+    folder?: boolean
+    tags?: boolean
     contentType?: boolean
     status?: boolean
     scanMode?: boolean
@@ -93434,6 +93577,7 @@ export namespace Prisma {
     entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
     assets?: boolean | QrCampaign$assetsArgs<ExtArgs>
     events?: boolean | QrCampaign$eventsArgs<ExtArgs>
+    placementVariants?: boolean | QrCampaign$placementVariantsArgs<ExtArgs>
     adminActions?: boolean | QrCampaign$adminActionsArgs<ExtArgs>
     _count?: boolean | QrCampaignCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["qrCampaign"]>
@@ -93445,6 +93589,8 @@ export namespace Prisma {
     publicCode?: boolean
     title?: boolean
     description?: boolean
+    folder?: boolean
+    tags?: boolean
     contentType?: boolean
     status?: boolean
     scanMode?: boolean
@@ -93471,6 +93617,8 @@ export namespace Prisma {
     publicCode?: boolean
     title?: boolean
     description?: boolean
+    folder?: boolean
+    tags?: boolean
     contentType?: boolean
     status?: boolean
     scanMode?: boolean
@@ -93497,6 +93645,8 @@ export namespace Prisma {
     publicCode?: boolean
     title?: boolean
     description?: boolean
+    folder?: boolean
+    tags?: boolean
     contentType?: boolean
     status?: boolean
     scanMode?: boolean
@@ -93514,12 +93664,13 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type QrCampaignOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "entitlementId" | "publicCode" | "title" | "description" | "contentType" | "status" | "scanMode" | "destinationUrl" | "destinationData" | "brandName" | "brandLogoAssetId" | "brandPrimaryColor" | "brandAccentColor" | "designSettings" | "activatedAt" | "expiresAt" | "archivedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["qrCampaign"]>
+  export type QrCampaignOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ownerId" | "entitlementId" | "publicCode" | "title" | "description" | "folder" | "tags" | "contentType" | "status" | "scanMode" | "destinationUrl" | "destinationData" | "brandName" | "brandLogoAssetId" | "brandPrimaryColor" | "brandAccentColor" | "designSettings" | "activatedAt" | "expiresAt" | "archivedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["qrCampaign"]>
   export type QrCampaignInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     entitlement?: boolean | QrCampaign$entitlementArgs<ExtArgs>
     assets?: boolean | QrCampaign$assetsArgs<ExtArgs>
     events?: boolean | QrCampaign$eventsArgs<ExtArgs>
+    placementVariants?: boolean | QrCampaign$placementVariantsArgs<ExtArgs>
     adminActions?: boolean | QrCampaign$adminActionsArgs<ExtArgs>
     _count?: boolean | QrCampaignCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -93539,6 +93690,7 @@ export namespace Prisma {
       entitlement: Prisma.$QrEntitlementPayload<ExtArgs> | null
       assets: Prisma.$QrAssetPayload<ExtArgs>[]
       events: Prisma.$QrScanEventPayload<ExtArgs>[]
+      placementVariants: Prisma.$QrPlacementVariantPayload<ExtArgs>[]
       adminActions: Prisma.$QrAdminActionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -93548,6 +93700,8 @@ export namespace Prisma {
       publicCode: string
       title: string
       description: string | null
+      folder: string | null
+      tags: string[]
       contentType: $Enums.QrContentType
       status: $Enums.QrCampaignStatus
       scanMode: $Enums.QrScanMode
@@ -93676,7 +93830,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrCampaignCreateManyArgs>(args?: SelectSubset<T, QrCampaignCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -93961,6 +94115,7 @@ export namespace Prisma {
     entitlement<T extends QrCampaign$entitlementArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$entitlementArgs<ExtArgs>>): Prisma__QrEntitlementClient<$Result.GetResult<Prisma.$QrEntitlementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     assets<T extends QrCampaign$assetsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     events<T extends QrCampaign$eventsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    placementVariants<T extends QrCampaign$placementVariantsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$placementVariantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     adminActions<T extends QrCampaign$adminActionsArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaign$adminActionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrAdminActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -93997,6 +94152,8 @@ export namespace Prisma {
     readonly publicCode: FieldRef<"QrCampaign", 'String'>
     readonly title: FieldRef<"QrCampaign", 'String'>
     readonly description: FieldRef<"QrCampaign", 'String'>
+    readonly folder: FieldRef<"QrCampaign", 'String'>
+    readonly tags: FieldRef<"QrCampaign", 'String[]'>
     readonly contentType: FieldRef<"QrCampaign", 'QrContentType'>
     readonly status: FieldRef<"QrCampaign", 'QrCampaignStatus'>
     readonly scanMode: FieldRef<"QrCampaign", 'QrScanMode'>
@@ -94013,7 +94170,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"QrCampaign", 'DateTime'>
     readonly updatedAt: FieldRef<"QrCampaign", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -94082,31 +94239,31 @@ export namespace Prisma {
     where?: QrCampaignWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of QrCampaigns to fetch.
      */
     orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for QrCampaigns.
      */
     cursor?: QrCampaignWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` QrCampaigns from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` QrCampaigns.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of QrCampaigns.
      */
     distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
@@ -94134,31 +94291,31 @@ export namespace Prisma {
     where?: QrCampaignWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of QrCampaigns to fetch.
      */
     orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for QrCampaigns.
      */
     cursor?: QrCampaignWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` QrCampaigns from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` QrCampaigns.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of QrCampaigns.
      */
     distinct?: QrCampaignScalarFieldEnum | QrCampaignScalarFieldEnum[]
@@ -94186,25 +94343,25 @@ export namespace Prisma {
     where?: QrCampaignWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of QrCampaigns to fetch.
      */
     orderBy?: QrCampaignOrderByWithRelationInput | QrCampaignOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing QrCampaigns.
      */
     cursor?: QrCampaignWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` QrCampaigns from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` QrCampaigns.
      */
     skip?: number
@@ -94475,6 +94632,30 @@ export namespace Prisma {
   }
 
   /**
+   * QrCampaign.placementVariants
+   */
+  export type QrCampaign$placementVariantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    where?: QrPlacementVariantWhereInput
+    orderBy?: QrPlacementVariantOrderByWithRelationInput | QrPlacementVariantOrderByWithRelationInput[]
+    cursor?: QrPlacementVariantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrPlacementVariantScalarFieldEnum | QrPlacementVariantScalarFieldEnum[]
+  }
+
+  /**
    * QrCampaign.adminActions
    */
   export type QrCampaign$adminActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -94514,6 +94695,1185 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: QrCampaignInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QrPlacementVariant
+   */
+
+  export type AggregateQrPlacementVariant = {
+    _count: QrPlacementVariantCountAggregateOutputType | null
+    _min: QrPlacementVariantMinAggregateOutputType | null
+    _max: QrPlacementVariantMaxAggregateOutputType | null
+  }
+
+  export type QrPlacementVariantMinAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    publicCode: string | null
+    name: string | null
+    active: boolean | null
+    utmSource: string | null
+    utmMedium: string | null
+    utmCampaign: string | null
+    utmContent: string | null
+    utmTerm: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrPlacementVariantMaxAggregateOutputType = {
+    id: string | null
+    campaignId: string | null
+    publicCode: string | null
+    name: string | null
+    active: boolean | null
+    utmSource: string | null
+    utmMedium: string | null
+    utmCampaign: string | null
+    utmContent: string | null
+    utmTerm: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type QrPlacementVariantCountAggregateOutputType = {
+    id: number
+    campaignId: number
+    publicCode: number
+    name: number
+    active: number
+    utmSource: number
+    utmMedium: number
+    utmCampaign: number
+    utmContent: number
+    utmTerm: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type QrPlacementVariantMinAggregateInputType = {
+    id?: true
+    campaignId?: true
+    publicCode?: true
+    name?: true
+    active?: true
+    utmSource?: true
+    utmMedium?: true
+    utmCampaign?: true
+    utmContent?: true
+    utmTerm?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrPlacementVariantMaxAggregateInputType = {
+    id?: true
+    campaignId?: true
+    publicCode?: true
+    name?: true
+    active?: true
+    utmSource?: true
+    utmMedium?: true
+    utmCampaign?: true
+    utmContent?: true
+    utmTerm?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type QrPlacementVariantCountAggregateInputType = {
+    id?: true
+    campaignId?: true
+    publicCode?: true
+    name?: true
+    active?: true
+    utmSource?: true
+    utmMedium?: true
+    utmCampaign?: true
+    utmContent?: true
+    utmTerm?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type QrPlacementVariantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrPlacementVariant to aggregate.
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of QrPlacementVariants to fetch.
+     */
+    orderBy?: QrPlacementVariantOrderByWithRelationInput | QrPlacementVariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: QrPlacementVariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` QrPlacementVariants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` QrPlacementVariants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned QrPlacementVariants
+    **/
+    _count?: true | QrPlacementVariantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrPlacementVariantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrPlacementVariantMaxAggregateInputType
+  }
+
+  export type GetQrPlacementVariantAggregateType<T extends QrPlacementVariantAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrPlacementVariant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrPlacementVariant[P]>
+      : GetScalarType<T[P], AggregateQrPlacementVariant[P]>
+  }
+
+
+
+
+  export type QrPlacementVariantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrPlacementVariantWhereInput
+    orderBy?: QrPlacementVariantOrderByWithAggregationInput | QrPlacementVariantOrderByWithAggregationInput[]
+    by: QrPlacementVariantScalarFieldEnum[] | QrPlacementVariantScalarFieldEnum
+    having?: QrPlacementVariantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrPlacementVariantCountAggregateInputType | true
+    _min?: QrPlacementVariantMinAggregateInputType
+    _max?: QrPlacementVariantMaxAggregateInputType
+  }
+
+  export type QrPlacementVariantGroupByOutputType = {
+    id: string
+    campaignId: string
+    publicCode: string
+    name: string
+    active: boolean
+    utmSource: string | null
+    utmMedium: string | null
+    utmCampaign: string | null
+    utmContent: string | null
+    utmTerm: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: QrPlacementVariantCountAggregateOutputType | null
+    _min: QrPlacementVariantMinAggregateOutputType | null
+    _max: QrPlacementVariantMaxAggregateOutputType | null
+  }
+
+  type GetQrPlacementVariantGroupByPayload<T extends QrPlacementVariantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrPlacementVariantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrPlacementVariantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrPlacementVariantGroupByOutputType[P]>
+            : GetScalarType<T[P], QrPlacementVariantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrPlacementVariantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    publicCode?: boolean
+    name?: boolean
+    active?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    utmContent?: boolean
+    utmTerm?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    events?: boolean | QrPlacementVariant$eventsArgs<ExtArgs>
+    _count?: boolean | QrPlacementVariantCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrPlacementVariant"]>
+
+  export type QrPlacementVariantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    publicCode?: boolean
+    name?: boolean
+    active?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    utmContent?: boolean
+    utmTerm?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrPlacementVariant"]>
+
+  export type QrPlacementVariantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignId?: boolean
+    publicCode?: boolean
+    name?: boolean
+    active?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    utmContent?: boolean
+    utmTerm?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrPlacementVariant"]>
+
+  export type QrPlacementVariantSelectScalar = {
+    id?: boolean
+    campaignId?: boolean
+    publicCode?: boolean
+    name?: boolean
+    active?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    utmContent?: boolean
+    utmTerm?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type QrPlacementVariantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "publicCode" | "name" | "active" | "utmSource" | "utmMedium" | "utmCampaign" | "utmContent" | "utmTerm" | "createdAt" | "updatedAt", ExtArgs["result"]["qrPlacementVariant"]>
+  export type QrPlacementVariantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    events?: boolean | QrPlacementVariant$eventsArgs<ExtArgs>
+    _count?: boolean | QrPlacementVariantCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QrPlacementVariantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+  export type QrPlacementVariantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+  }
+
+  export type $QrPlacementVariantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrPlacementVariant"
+    objects: {
+      campaign: Prisma.$QrCampaignPayload<ExtArgs>
+      events: Prisma.$QrScanEventPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      campaignId: string
+      publicCode: string
+      name: string
+      active: boolean
+      utmSource: string | null
+      utmMedium: string | null
+      utmCampaign: string | null
+      utmContent: string | null
+      utmTerm: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["qrPlacementVariant"]>
+    composites: {}
+  }
+
+  type QrPlacementVariantGetPayload<S extends boolean | null | undefined | QrPlacementVariantDefaultArgs> = $Result.GetResult<Prisma.$QrPlacementVariantPayload, S>
+
+  type QrPlacementVariantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrPlacementVariantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrPlacementVariantCountAggregateInputType | true
+    }
+
+  export interface QrPlacementVariantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrPlacementVariant'], meta: { name: 'QrPlacementVariant' } }
+    /**
+     * Find zero or one QrPlacementVariant that matches the filter.
+     * @param {QrPlacementVariantFindUniqueArgs} args - Arguments to find a QrPlacementVariant
+     * @example
+     * // Get one QrPlacementVariant
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrPlacementVariantFindUniqueArgs>(args: SelectSubset<T, QrPlacementVariantFindUniqueArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrPlacementVariant that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrPlacementVariantFindUniqueOrThrowArgs} args - Arguments to find a QrPlacementVariant
+     * @example
+     * // Get one QrPlacementVariant
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrPlacementVariantFindUniqueOrThrowArgs>(args: SelectSubset<T, QrPlacementVariantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrPlacementVariant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantFindFirstArgs} args - Arguments to find a QrPlacementVariant
+     * @example
+     * // Get one QrPlacementVariant
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrPlacementVariantFindFirstArgs>(args?: SelectSubset<T, QrPlacementVariantFindFirstArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrPlacementVariant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantFindFirstOrThrowArgs} args - Arguments to find a QrPlacementVariant
+     * @example
+     * // Get one QrPlacementVariant
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrPlacementVariantFindFirstOrThrowArgs>(args?: SelectSubset<T, QrPlacementVariantFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrPlacementVariants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrPlacementVariants
+     * const qrPlacementVariants = await prisma.qrPlacementVariant.findMany()
+     *
+     * // Get first 10 QrPlacementVariants
+     * const qrPlacementVariants = await prisma.qrPlacementVariant.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const qrPlacementVariantWithIdOnly = await prisma.qrPlacementVariant.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends QrPlacementVariantFindManyArgs>(args?: SelectSubset<T, QrPlacementVariantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrPlacementVariant.
+     * @param {QrPlacementVariantCreateArgs} args - Arguments to create a QrPlacementVariant.
+     * @example
+     * // Create one QrPlacementVariant
+     * const QrPlacementVariant = await prisma.qrPlacementVariant.create({
+     *   data: {
+     *     // ... data to create a QrPlacementVariant
+     *   }
+     * })
+     *
+     */
+    create<T extends QrPlacementVariantCreateArgs>(args: SelectSubset<T, QrPlacementVariantCreateArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrPlacementVariants.
+     * @param {QrPlacementVariantCreateManyArgs} args - Arguments to create many QrPlacementVariants.
+     * @example
+     * // Create many QrPlacementVariants
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends QrPlacementVariantCreateManyArgs>(args?: SelectSubset<T, QrPlacementVariantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrPlacementVariants and returns the data saved in the database.
+     * @param {QrPlacementVariantCreateManyAndReturnArgs} args - Arguments to create many QrPlacementVariants.
+     * @example
+     * // Create many QrPlacementVariants
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many QrPlacementVariants and only return the `id`
+     * const qrPlacementVariantWithIdOnly = await prisma.qrPlacementVariant.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends QrPlacementVariantCreateManyAndReturnArgs>(args?: SelectSubset<T, QrPlacementVariantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrPlacementVariant.
+     * @param {QrPlacementVariantDeleteArgs} args - Arguments to delete one QrPlacementVariant.
+     * @example
+     * // Delete one QrPlacementVariant
+     * const QrPlacementVariant = await prisma.qrPlacementVariant.delete({
+     *   where: {
+     *     // ... filter to delete one QrPlacementVariant
+     *   }
+     * })
+     *
+     */
+    delete<T extends QrPlacementVariantDeleteArgs>(args: SelectSubset<T, QrPlacementVariantDeleteArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrPlacementVariant.
+     * @param {QrPlacementVariantUpdateArgs} args - Arguments to update one QrPlacementVariant.
+     * @example
+     * // Update one QrPlacementVariant
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends QrPlacementVariantUpdateArgs>(args: SelectSubset<T, QrPlacementVariantUpdateArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrPlacementVariants.
+     * @param {QrPlacementVariantDeleteManyArgs} args - Arguments to filter QrPlacementVariants to delete.
+     * @example
+     * // Delete a few QrPlacementVariants
+     * const { count } = await prisma.qrPlacementVariant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends QrPlacementVariantDeleteManyArgs>(args?: SelectSubset<T, QrPlacementVariantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrPlacementVariants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrPlacementVariants
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends QrPlacementVariantUpdateManyArgs>(args: SelectSubset<T, QrPlacementVariantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrPlacementVariants and returns the data updated in the database.
+     * @param {QrPlacementVariantUpdateManyAndReturnArgs} args - Arguments to update many QrPlacementVariants.
+     * @example
+     * // Update many QrPlacementVariants
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more QrPlacementVariants and only return the `id`
+     * const qrPlacementVariantWithIdOnly = await prisma.qrPlacementVariant.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends QrPlacementVariantUpdateManyAndReturnArgs>(args: SelectSubset<T, QrPlacementVariantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrPlacementVariant.
+     * @param {QrPlacementVariantUpsertArgs} args - Arguments to update or create a QrPlacementVariant.
+     * @example
+     * // Update or create a QrPlacementVariant
+     * const qrPlacementVariant = await prisma.qrPlacementVariant.upsert({
+     *   create: {
+     *     // ... data to create a QrPlacementVariant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrPlacementVariant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrPlacementVariantUpsertArgs>(args: SelectSubset<T, QrPlacementVariantUpsertArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrPlacementVariants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantCountArgs} args - Arguments to filter QrPlacementVariants to count.
+     * @example
+     * // Count the number of QrPlacementVariants
+     * const count = await prisma.qrPlacementVariant.count({
+     *   where: {
+     *     // ... the filter for the QrPlacementVariants we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrPlacementVariantCountArgs>(
+      args?: Subset<T, QrPlacementVariantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrPlacementVariantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrPlacementVariant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrPlacementVariantAggregateArgs>(args: Subset<T, QrPlacementVariantAggregateArgs>): Prisma.PrismaPromise<GetQrPlacementVariantAggregateType<T>>
+
+    /**
+     * Group by QrPlacementVariant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrPlacementVariantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<
+      T extends QrPlacementVariantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrPlacementVariantGroupByArgs['orderBy'] }
+        : { orderBy?: QrPlacementVariantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrPlacementVariantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrPlacementVariantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrPlacementVariant model
+   */
+  readonly fields: QrPlacementVariantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrPlacementVariant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrPlacementVariantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    campaign<T extends QrCampaignDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaignDefaultArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    events<T extends QrPlacementVariant$eventsArgs<ExtArgs> = {}>(args?: Subset<T, QrPlacementVariant$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrScanEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrPlacementVariant model
+   */
+  interface QrPlacementVariantFieldRefs {
+    readonly id: FieldRef<"QrPlacementVariant", 'String'>
+    readonly campaignId: FieldRef<"QrPlacementVariant", 'String'>
+    readonly publicCode: FieldRef<"QrPlacementVariant", 'String'>
+    readonly name: FieldRef<"QrPlacementVariant", 'String'>
+    readonly active: FieldRef<"QrPlacementVariant", 'Boolean'>
+    readonly utmSource: FieldRef<"QrPlacementVariant", 'String'>
+    readonly utmMedium: FieldRef<"QrPlacementVariant", 'String'>
+    readonly utmCampaign: FieldRef<"QrPlacementVariant", 'String'>
+    readonly utmContent: FieldRef<"QrPlacementVariant", 'String'>
+    readonly utmTerm: FieldRef<"QrPlacementVariant", 'String'>
+    readonly createdAt: FieldRef<"QrPlacementVariant", 'DateTime'>
+    readonly updatedAt: FieldRef<"QrPlacementVariant", 'DateTime'>
+  }
+
+
+  // Custom InputTypes
+  /**
+   * QrPlacementVariant findUnique
+   */
+  export type QrPlacementVariantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPlacementVariant to fetch.
+     */
+    where: QrPlacementVariantWhereUniqueInput
+  }
+
+  /**
+   * QrPlacementVariant findUniqueOrThrow
+   */
+  export type QrPlacementVariantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPlacementVariant to fetch.
+     */
+    where: QrPlacementVariantWhereUniqueInput
+  }
+
+  /**
+   * QrPlacementVariant findFirst
+   */
+  export type QrPlacementVariantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPlacementVariant to fetch.
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPlacementVariants to fetch.
+     */
+    orderBy?: QrPlacementVariantOrderByWithRelationInput | QrPlacementVariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrPlacementVariants.
+     */
+    cursor?: QrPlacementVariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPlacementVariants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPlacementVariants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrPlacementVariants.
+     */
+    distinct?: QrPlacementVariantScalarFieldEnum | QrPlacementVariantScalarFieldEnum[]
+  }
+
+  /**
+   * QrPlacementVariant findFirstOrThrow
+   */
+  export type QrPlacementVariantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPlacementVariant to fetch.
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPlacementVariants to fetch.
+     */
+    orderBy?: QrPlacementVariantOrderByWithRelationInput | QrPlacementVariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrPlacementVariants.
+     */
+    cursor?: QrPlacementVariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPlacementVariants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPlacementVariants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrPlacementVariants.
+     */
+    distinct?: QrPlacementVariantScalarFieldEnum | QrPlacementVariantScalarFieldEnum[]
+  }
+
+  /**
+   * QrPlacementVariant findMany
+   */
+  export type QrPlacementVariantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * Filter, which QrPlacementVariants to fetch.
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrPlacementVariants to fetch.
+     */
+    orderBy?: QrPlacementVariantOrderByWithRelationInput | QrPlacementVariantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrPlacementVariants.
+     */
+    cursor?: QrPlacementVariantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrPlacementVariants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrPlacementVariants.
+     */
+    skip?: number
+    distinct?: QrPlacementVariantScalarFieldEnum | QrPlacementVariantScalarFieldEnum[]
+  }
+
+  /**
+   * QrPlacementVariant create
+   */
+  export type QrPlacementVariantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrPlacementVariant.
+     */
+    data: XOR<QrPlacementVariantCreateInput, QrPlacementVariantUncheckedCreateInput>
+  }
+
+  /**
+   * QrPlacementVariant createMany
+   */
+  export type QrPlacementVariantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrPlacementVariants.
+     */
+    data: QrPlacementVariantCreateManyInput | QrPlacementVariantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrPlacementVariant createManyAndReturn
+   */
+  export type QrPlacementVariantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrPlacementVariants.
+     */
+    data: QrPlacementVariantCreateManyInput | QrPlacementVariantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrPlacementVariant update
+   */
+  export type QrPlacementVariantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrPlacementVariant.
+     */
+    data: XOR<QrPlacementVariantUpdateInput, QrPlacementVariantUncheckedUpdateInput>
+    /**
+     * Choose, which QrPlacementVariant to update.
+     */
+    where: QrPlacementVariantWhereUniqueInput
+  }
+
+  /**
+   * QrPlacementVariant updateMany
+   */
+  export type QrPlacementVariantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrPlacementVariants.
+     */
+    data: XOR<QrPlacementVariantUpdateManyMutationInput, QrPlacementVariantUncheckedUpdateManyInput>
+    /**
+     * Filter which QrPlacementVariants to update
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * Limit how many QrPlacementVariants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrPlacementVariant updateManyAndReturn
+   */
+  export type QrPlacementVariantUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * The data used to update QrPlacementVariants.
+     */
+    data: XOR<QrPlacementVariantUpdateManyMutationInput, QrPlacementVariantUncheckedUpdateManyInput>
+    /**
+     * Filter which QrPlacementVariants to update
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * Limit how many QrPlacementVariants to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrPlacementVariant upsert
+   */
+  export type QrPlacementVariantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrPlacementVariant to update in case it exists.
+     */
+    where: QrPlacementVariantWhereUniqueInput
+    /**
+     * In case the QrPlacementVariant found by the `where` argument doesn't exist, create a new QrPlacementVariant with this data.
+     */
+    create: XOR<QrPlacementVariantCreateInput, QrPlacementVariantUncheckedCreateInput>
+    /**
+     * In case the QrPlacementVariant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrPlacementVariantUpdateInput, QrPlacementVariantUncheckedUpdateInput>
+  }
+
+  /**
+   * QrPlacementVariant delete
+   */
+  export type QrPlacementVariantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    /**
+     * Filter which QrPlacementVariant to delete.
+     */
+    where: QrPlacementVariantWhereUniqueInput
+  }
+
+  /**
+   * QrPlacementVariant deleteMany
+   */
+  export type QrPlacementVariantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrPlacementVariants to delete
+     */
+    where?: QrPlacementVariantWhereInput
+    /**
+     * Limit how many QrPlacementVariants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrPlacementVariant.events
+   */
+  export type QrPlacementVariant$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrScanEvent
+     */
+    select?: QrScanEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrScanEvent
+     */
+    omit?: QrScanEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrScanEventInclude<ExtArgs> | null
+    where?: QrScanEventWhereInput
+    orderBy?: QrScanEventOrderByWithRelationInput | QrScanEventOrderByWithRelationInput[]
+    cursor?: QrScanEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrScanEventScalarFieldEnum | QrScanEventScalarFieldEnum[]
+  }
+
+  /**
+   * QrPlacementVariant without action
+   */
+  export type QrPlacementVariantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
   }
 
 
@@ -94983,7 +96343,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrAssetCreateManyArgs>(args?: SelectSubset<T, QrAssetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -95309,7 +96669,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"QrAsset", 'DateTime'>
     readonly updatedAt: FieldRef<"QrAsset", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -95735,6 +97095,7 @@ export namespace Prisma {
   export type QrScanEventMinAggregateOutputType = {
     id: string | null
     campaignId: string | null
+    placementVariantId: string | null
     kind: $Enums.QrEventKind | null
     actionType: string | null
     requestHash: string | null
@@ -95748,6 +97109,7 @@ export namespace Prisma {
   export type QrScanEventMaxAggregateOutputType = {
     id: string | null
     campaignId: string | null
+    placementVariantId: string | null
     kind: $Enums.QrEventKind | null
     actionType: string | null
     requestHash: string | null
@@ -95761,6 +97123,7 @@ export namespace Prisma {
   export type QrScanEventCountAggregateOutputType = {
     id: number
     campaignId: number
+    placementVariantId: number
     kind: number
     actionType: number
     requestHash: number
@@ -95776,6 +97139,7 @@ export namespace Prisma {
   export type QrScanEventMinAggregateInputType = {
     id?: true
     campaignId?: true
+    placementVariantId?: true
     kind?: true
     actionType?: true
     requestHash?: true
@@ -95789,6 +97153,7 @@ export namespace Prisma {
   export type QrScanEventMaxAggregateInputType = {
     id?: true
     campaignId?: true
+    placementVariantId?: true
     kind?: true
     actionType?: true
     requestHash?: true
@@ -95802,6 +97167,7 @@ export namespace Prisma {
   export type QrScanEventCountAggregateInputType = {
     id?: true
     campaignId?: true
+    placementVariantId?: true
     kind?: true
     actionType?: true
     requestHash?: true
@@ -95888,6 +97254,7 @@ export namespace Prisma {
   export type QrScanEventGroupByOutputType = {
     id: string
     campaignId: string
+    placementVariantId: string | null
     kind: $Enums.QrEventKind
     actionType: string | null
     requestHash: string | null
@@ -95918,6 +97285,7 @@ export namespace Prisma {
   export type QrScanEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     campaignId?: boolean
+    placementVariantId?: boolean
     kind?: boolean
     actionType?: boolean
     requestHash?: boolean
@@ -95927,11 +97295,13 @@ export namespace Prisma {
     country?: boolean
     createdAt?: boolean
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    placementVariant?: boolean | QrScanEvent$placementVariantArgs<ExtArgs>
   }, ExtArgs["result"]["qrScanEvent"]>
 
   export type QrScanEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     campaignId?: boolean
+    placementVariantId?: boolean
     kind?: boolean
     actionType?: boolean
     requestHash?: boolean
@@ -95941,11 +97311,13 @@ export namespace Prisma {
     country?: boolean
     createdAt?: boolean
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    placementVariant?: boolean | QrScanEvent$placementVariantArgs<ExtArgs>
   }, ExtArgs["result"]["qrScanEvent"]>
 
   export type QrScanEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     campaignId?: boolean
+    placementVariantId?: boolean
     kind?: boolean
     actionType?: boolean
     requestHash?: boolean
@@ -95955,11 +97327,13 @@ export namespace Prisma {
     country?: boolean
     createdAt?: boolean
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    placementVariant?: boolean | QrScanEvent$placementVariantArgs<ExtArgs>
   }, ExtArgs["result"]["qrScanEvent"]>
 
   export type QrScanEventSelectScalar = {
     id?: boolean
     campaignId?: boolean
+    placementVariantId?: boolean
     kind?: boolean
     actionType?: boolean
     requestHash?: boolean
@@ -95970,25 +97344,30 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type QrScanEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "kind" | "actionType" | "requestHash" | "referrerOrigin" | "userAgentFamily" | "deviceClass" | "country" | "createdAt", ExtArgs["result"]["qrScanEvent"]>
+  export type QrScanEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignId" | "placementVariantId" | "kind" | "actionType" | "requestHash" | "referrerOrigin" | "userAgentFamily" | "deviceClass" | "country" | "createdAt", ExtArgs["result"]["qrScanEvent"]>
   export type QrScanEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    placementVariant?: boolean | QrScanEvent$placementVariantArgs<ExtArgs>
   }
   export type QrScanEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    placementVariant?: boolean | QrScanEvent$placementVariantArgs<ExtArgs>
   }
   export type QrScanEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     campaign?: boolean | QrCampaignDefaultArgs<ExtArgs>
+    placementVariant?: boolean | QrScanEvent$placementVariantArgs<ExtArgs>
   }
 
   export type $QrScanEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "QrScanEvent"
     objects: {
       campaign: Prisma.$QrCampaignPayload<ExtArgs>
+      placementVariant: Prisma.$QrPlacementVariantPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       campaignId: string
+      placementVariantId: string | null
       kind: $Enums.QrEventKind
       actionType: string | null
       requestHash: string | null
@@ -96110,7 +97489,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrScanEventCreateManyArgs>(args?: SelectSubset<T, QrScanEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -96392,6 +97771,7 @@ export namespace Prisma {
   export interface Prisma__QrScanEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     campaign<T extends QrCampaignDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QrCampaignDefaultArgs<ExtArgs>>): Prisma__QrCampaignClient<$Result.GetResult<Prisma.$QrCampaignPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    placementVariant<T extends QrScanEvent$placementVariantArgs<ExtArgs> = {}>(args?: Subset<T, QrScanEvent$placementVariantArgs<ExtArgs>>): Prisma__QrPlacementVariantClient<$Result.GetResult<Prisma.$QrPlacementVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -96423,6 +97803,7 @@ export namespace Prisma {
   interface QrScanEventFieldRefs {
     readonly id: FieldRef<"QrScanEvent", 'String'>
     readonly campaignId: FieldRef<"QrScanEvent", 'String'>
+    readonly placementVariantId: FieldRef<"QrScanEvent", 'String'>
     readonly kind: FieldRef<"QrScanEvent", 'QrEventKind'>
     readonly actionType: FieldRef<"QrScanEvent", 'String'>
     readonly requestHash: FieldRef<"QrScanEvent", 'String'>
@@ -96432,7 +97813,7 @@ export namespace Prisma {
     readonly country: FieldRef<"QrScanEvent", 'String'>
     readonly createdAt: FieldRef<"QrScanEvent", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -96824,6 +98205,25 @@ export namespace Prisma {
      * Limit how many QrScanEvents to delete.
      */
     limit?: number
+  }
+
+  /**
+   * QrScanEvent.placementVariant
+   */
+  export type QrScanEvent$placementVariantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrPlacementVariant
+     */
+    select?: QrPlacementVariantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrPlacementVariant
+     */
+    omit?: QrPlacementVariantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrPlacementVariantInclude<ExtArgs> | null
+    where?: QrPlacementVariantWhereInput
   }
 
   /**
@@ -97220,7 +98620,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrAdminActionCreateManyArgs>(args?: SelectSubset<T, QrAdminActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -97542,7 +98942,7 @@ export namespace Prisma {
     readonly newState: FieldRef<"QrAdminAction", 'Json'>
     readonly createdAt: FieldRef<"QrAdminAction", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -98427,7 +99827,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LicenseKeyCreateManyArgs>(args?: SelectSubset<T, LicenseKeyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -98753,7 +100153,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"LicenseKey", 'DateTime'>
     readonly updatedAt: FieldRef<"LicenseKey", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -99542,7 +100942,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LicenseActivationCreateManyArgs>(args?: SelectSubset<T, LicenseActivationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -99861,7 +101261,7 @@ export namespace Prisma {
     readonly activatedAt: FieldRef<"LicenseActivation", 'DateTime'>
     readonly lastSeenAt: FieldRef<"LicenseActivation", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -100749,7 +102149,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends EventCreateManyArgs>(args?: SelectSubset<T, EventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -101076,7 +102476,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Event", 'DateTime'>
     readonly updatedAt: FieldRef<"Event", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -101963,7 +103363,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends TicketCreateManyArgs>(args?: SelectSubset<T, TicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -102291,7 +103691,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Ticket", 'DateTime'>
     readonly updatedAt: FieldRef<"Ticket", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -103162,7 +104562,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrCouponCreateManyArgs>(args?: SelectSubset<T, QrCouponCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -103487,7 +104887,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"QrCoupon", 'DateTime'>
     readonly updatedAt: FieldRef<"QrCoupon", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -104302,7 +105702,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends QrCouponRedemptionCreateManyArgs>(args?: SelectSubset<T, QrCouponRedemptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -104621,7 +106021,7 @@ export namespace Prisma {
     readonly discount: FieldRef<"QrCouponRedemption", 'Decimal'>
     readonly createdAt: FieldRef<"QrCouponRedemption", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -105373,7 +106773,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends MembershipPlanCreateManyArgs>(args?: SelectSubset<T, MembershipPlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -105692,7 +107092,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"MembershipPlan", 'DateTime'>
     readonly updatedAt: FieldRef<"MembershipPlan", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -106572,7 +107972,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends MembershipPlanPriceCreateManyArgs>(args?: SelectSubset<T, MembershipPlanPriceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -106895,7 +108295,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"MembershipPlanPrice", 'DateTime'>
     readonly updatedAt: FieldRef<"MembershipPlanPrice", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -107782,7 +109182,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends MembershipSubscriptionCreateManyArgs>(args?: SelectSubset<T, MembershipSubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -108110,7 +109510,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"MembershipSubscription", 'DateTime'>
     readonly updatedAt: FieldRef<"MembershipSubscription", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -108956,7 +110356,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CourseCreateManyArgs>(args?: SelectSubset<T, CourseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -109280,7 +110680,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Course", 'DateTime'>
     readonly updatedAt: FieldRef<"Course", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -110112,7 +111512,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CourseModuleCreateManyArgs>(args?: SelectSubset<T, CourseModuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -110431,7 +111831,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CourseModule", 'DateTime'>
     readonly updatedAt: FieldRef<"CourseModule", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -111351,7 +112751,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LessonCreateManyArgs>(args?: SelectSubset<T, LessonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -111678,7 +113078,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Lesson", 'DateTime'>
     readonly updatedAt: FieldRef<"Lesson", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -112438,7 +113838,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends LessonProgressCreateManyArgs>(args?: SelectSubset<T, LessonProgressCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -112755,7 +114155,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"LessonProgress", 'String'>
     readonly completedAt: FieldRef<"LessonProgress", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -113503,7 +114903,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CourseCertificateCreateManyArgs>(args?: SelectSubset<T, CourseCertificateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -113821,7 +115221,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"CourseCertificate", 'String'>
     readonly issuedAt: FieldRef<"CourseCertificate", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -114760,7 +116160,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityEventCreateManyArgs>(args?: SelectSubset<T, CommunityEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -115091,7 +116491,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityEvent", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityEvent", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -115867,7 +117267,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityEventRsvpCreateManyArgs>(args?: SelectSubset<T, CommunityEventRsvpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -116186,7 +117586,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityEventRsvp", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityEventRsvp", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -117013,7 +118413,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityChallengeCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -117339,7 +118739,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityChallenge", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityChallenge", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -118207,7 +119607,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityChallengeMilestoneCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeMilestoneCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -118527,7 +119927,7 @@ export namespace Prisma {
     readonly sortOrder: FieldRef<"CommunityChallengeMilestone", 'Int'>
     readonly createdAt: FieldRef<"CommunityChallengeMilestone", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -119331,7 +120731,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityAccountabilityGroupCreateManyArgs>(args?: SelectSubset<T, CommunityAccountabilityGroupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -119649,7 +121049,7 @@ export namespace Prisma {
     readonly capacity: FieldRef<"CommunityAccountabilityGroup", 'Int'>
     readonly createdAt: FieldRef<"CommunityAccountabilityGroup", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -120457,7 +121857,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityChallengeEnrollmentCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeEnrollmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -120779,7 +122179,7 @@ export namespace Prisma {
     readonly joinedAt: FieldRef<"CommunityChallengeEnrollment", 'DateTime'>
     readonly completedAt: FieldRef<"CommunityChallengeEnrollment", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -121616,7 +123016,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityChallengeCheckInCreateManyArgs>(args?: SelectSubset<T, CommunityChallengeCheckInCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -121935,7 +123335,7 @@ export namespace Prisma {
     readonly progress: FieldRef<"CommunityChallengeCheckIn", 'Int'>
     readonly createdAt: FieldRef<"CommunityChallengeCheckIn", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -122749,7 +124149,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityCategoryCreateManyArgs>(args?: SelectSubset<T, CommunityCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -123068,7 +124468,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityCategory", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityCategory", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -123993,7 +125393,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityPostCreateManyArgs>(args?: SelectSubset<T, CommunityPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -124328,7 +125728,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityPost", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityPost", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -125273,7 +126673,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityCommentCreateManyArgs>(args?: SelectSubset<T, CommunityCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -125598,7 +126998,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityComment", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityComment", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -126449,7 +127849,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityReportCreateManyArgs>(args?: SelectSubset<T, CommunityReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -126770,7 +128170,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityReport", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityReport", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -127543,7 +128943,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityModerationActionCreateManyArgs>(args?: SelectSubset<T, CommunityModerationActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -127863,7 +129263,7 @@ export namespace Prisma {
     readonly metadata: FieldRef<"CommunityModerationAction", 'Json'>
     readonly createdAt: FieldRef<"CommunityModerationAction", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -128599,7 +129999,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityPostLikeCreateManyArgs>(args?: SelectSubset<T, CommunityPostLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -128916,7 +130316,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"CommunityPostLike", 'String'>
     readonly createdAt: FieldRef<"CommunityPostLike", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -129807,7 +131207,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityProfileCreateManyArgs>(args?: SelectSubset<T, CommunityProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -130134,7 +131534,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityProfile", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityProfile", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -130870,7 +132270,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityFollowCreateManyArgs>(args?: SelectSubset<T, CommunityFollowCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -131187,7 +132587,7 @@ export namespace Prisma {
     readonly followingId: FieldRef<"CommunityFollow", 'String'>
     readonly createdAt: FieldRef<"CommunityFollow", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -131923,7 +133323,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityBookmarkCreateManyArgs>(args?: SelectSubset<T, CommunityBookmarkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -132240,7 +133640,7 @@ export namespace Prisma {
     readonly postId: FieldRef<"CommunityBookmark", 'String'>
     readonly createdAt: FieldRef<"CommunityBookmark", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -132976,7 +134376,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunitySubscriptionCreateManyArgs>(args?: SelectSubset<T, CommunitySubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -133293,7 +134693,7 @@ export namespace Prisma {
     readonly postId: FieldRef<"CommunitySubscription", 'String'>
     readonly createdAt: FieldRef<"CommunitySubscription", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -134082,7 +135482,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityNotificationPreferenceCreateManyArgs>(args?: SelectSubset<T, CommunityNotificationPreferenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -134403,7 +135803,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityNotificationPreference", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityNotificationPreference", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -135236,7 +136636,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityDeliveryCreateManyArgs>(args?: SelectSubset<T, CommunityDeliveryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -135561,7 +136961,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"CommunityDelivery", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityDelivery", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -136348,7 +137748,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends CommunityPointEventCreateManyArgs>(args?: SelectSubset<T, CommunityPointEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -136666,7 +138066,7 @@ export namespace Prisma {
     readonly sourceId: FieldRef<"CommunityPointEvent", 'String'>
     readonly createdAt: FieldRef<"CommunityPointEvent", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -137419,7 +138819,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends PushSubscriptionCreateManyArgs>(args?: SelectSubset<T, PushSubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -137737,7 +139137,7 @@ export namespace Prisma {
     readonly auth: FieldRef<"PushSubscription", 'String'>
     readonly createdAt: FieldRef<"PushSubscription", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -139252,6 +140652,8 @@ export namespace Prisma {
     publicCode: 'publicCode',
     title: 'title',
     description: 'description',
+    folder: 'folder',
+    tags: 'tags',
     contentType: 'contentType',
     status: 'status',
     scanMode: 'scanMode',
@@ -139270,6 +140672,24 @@ export namespace Prisma {
   };
 
   export type QrCampaignScalarFieldEnum = (typeof QrCampaignScalarFieldEnum)[keyof typeof QrCampaignScalarFieldEnum]
+
+
+  export const QrPlacementVariantScalarFieldEnum: {
+    id: 'id',
+    campaignId: 'campaignId',
+    publicCode: 'publicCode',
+    name: 'name',
+    active: 'active',
+    utmSource: 'utmSource',
+    utmMedium: 'utmMedium',
+    utmCampaign: 'utmCampaign',
+    utmContent: 'utmContent',
+    utmTerm: 'utmTerm',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type QrPlacementVariantScalarFieldEnum = (typeof QrPlacementVariantScalarFieldEnum)[keyof typeof QrPlacementVariantScalarFieldEnum]
 
 
   export const QrAssetScalarFieldEnum: {
@@ -139295,6 +140715,7 @@ export namespace Prisma {
   export const QrScanEventScalarFieldEnum: {
     id: 'id',
     campaignId: 'campaignId',
+    placementVariantId: 'placementVariantId',
     kind: 'kind',
     actionType: 'actionType',
     requestHash: 'requestHash',
@@ -139903,917 +141324,917 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
+
 
 
   /**
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
+
 
 
   /**
    * Reference to a field of type 'UserStatus'
    */
   export type EnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'UserStatus[]'
    */
   export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
+
 
 
   /**
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
+
 
 
   /**
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
+
 
 
   /**
    * Reference to a field of type 'VerificationStatus'
    */
   export type EnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'VerificationStatus[]'
    */
   export type ListEnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
+
 
 
   /**
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
+
 
 
   /**
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'ProductStatus'
    */
   export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'ProductStatus[]'
    */
   export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'LicenseType'
    */
   export type EnumLicenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseType'>
-    
+
 
 
   /**
    * Reference to a field of type 'LicenseType[]'
    */
   export type ListEnumLicenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'BigInt'
    */
   export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
+
 
 
   /**
    * Reference to a field of type 'BigInt[]'
    */
   export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'ProductAffiliateStatus'
    */
   export type EnumProductAffiliateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductAffiliateStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'ProductAffiliateStatus[]'
    */
   export type ListEnumProductAffiliateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductAffiliateStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'ProductType'
    */
   export type EnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType'>
-    
+
 
 
   /**
    * Reference to a field of type 'ProductType[]'
    */
   export type ListEnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'OrderStatus'
    */
   export type EnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'OrderStatus[]'
    */
   export type ListEnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'AcquisitionSource'
    */
   export type EnumAcquisitionSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AcquisitionSource'>
-    
+
 
 
   /**
    * Reference to a field of type 'AcquisitionSource[]'
    */
   export type ListEnumAcquisitionSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AcquisitionSource[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'PaymentStatus'
    */
   export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'RefundStatus'
    */
   export type EnumRefundStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RefundStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'RefundStatus[]'
    */
   export type ListEnumRefundStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RefundStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TransactionType'
    */
   export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
-    
+
 
 
   /**
    * Reference to a field of type 'TransactionType[]'
    */
   export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'AccountType'
    */
   export type EnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType'>
-    
+
 
 
   /**
    * Reference to a field of type 'AccountType[]'
    */
   export type ListEnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommissionStatus'
    */
   export type EnumCommissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommissionStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommissionStatus[]'
    */
   export type ListEnumCommissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommissionStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'PayoutStatus'
    */
   export type EnumPayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'PayoutStatus[]'
    */
   export type ListEnumPayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'AffiliateStatus'
    */
   export type EnumAffiliateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AffiliateStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'AffiliateStatus[]'
    */
   export type ListEnumAffiliateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AffiliateStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'AffiliateLinkStatus'
    */
   export type EnumAffiliateLinkStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AffiliateLinkStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'AffiliateLinkStatus[]'
    */
   export type ListEnumAffiliateLinkStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AffiliateLinkStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'ConversionStatus'
    */
   export type EnumConversionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConversionStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'ConversionStatus[]'
    */
   export type ListEnumConversionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConversionStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'AffiliatePayoutStatus'
    */
   export type EnumAffiliatePayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AffiliatePayoutStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'AffiliatePayoutStatus[]'
    */
   export type ListEnumAffiliatePayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AffiliatePayoutStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CouponType'
    */
   export type EnumCouponTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CouponType'>
-    
+
 
 
   /**
    * Reference to a field of type 'CouponType[]'
    */
   export type ListEnumCouponTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CouponType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'NotificationType'
    */
   export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
-    
+
 
 
   /**
    * Reference to a field of type 'NotificationType[]'
    */
   export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketCategory'
    */
   export type EnumTicketCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketCategory'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketCategory[]'
    */
   export type ListEnumTicketCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketCategory[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketStatus'
    */
   export type EnumTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketStatus[]'
    */
   export type ListEnumTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketPriority'
    */
   export type EnumTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketPriority'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketPriority[]'
    */
   export type ListEnumTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketPriority[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketSenderType'
    */
   export type EnumTicketSenderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketSenderType'>
-    
+
 
 
   /**
    * Reference to a field of type 'TicketSenderType[]'
    */
   export type ListEnumTicketSenderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketSenderType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'ContactMessageStatus'
    */
   export type EnumContactMessageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactMessageStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'ContactMessageStatus[]'
    */
   export type ListEnumContactMessageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactMessageStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'PlanTier'
    */
   export type EnumPlanTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlanTier'>
-    
+
 
 
   /**
    * Reference to a field of type 'PlanTier[]'
    */
   export type ListEnumPlanTierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlanTier[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'SubscriptionStatus'
    */
   export type EnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'SubscriptionStatus[]'
    */
   export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CreditPurchaseStatus'
    */
   export type EnumCreditPurchaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditPurchaseStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CreditPurchaseStatus[]'
    */
   export type ListEnumCreditPurchaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditPurchaseStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CreditTransactionType'
    */
   export type EnumCreditTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditTransactionType'>
-    
+
 
 
   /**
    * Reference to a field of type 'CreditTransactionType[]'
    */
   export type ListEnumCreditTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditTransactionType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrOfferCode'
    */
   export type EnumQrOfferCodeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrOfferCode'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrOfferCode[]'
    */
   export type ListEnumQrOfferCodeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrOfferCode[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrPaymentStatus'
    */
   export type EnumQrPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrPaymentStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrPaymentStatus[]'
    */
   export type ListEnumQrPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrPaymentStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrEntitlementKind'
    */
   export type EnumQrEntitlementKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementKind'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrEntitlementKind[]'
    */
   export type ListEnumQrEntitlementKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementKind[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrEntitlementStatus'
    */
   export type EnumQrEntitlementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrEntitlementStatus[]'
    */
   export type ListEnumQrEntitlementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEntitlementStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrContentType'
    */
   export type EnumQrContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrContentType'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrContentType[]'
    */
   export type ListEnumQrContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrContentType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrCampaignStatus'
    */
   export type EnumQrCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCampaignStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrCampaignStatus[]'
    */
   export type ListEnumQrCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCampaignStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrScanMode'
    */
   export type EnumQrScanModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrScanMode'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrScanMode[]'
    */
   export type ListEnumQrScanModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrScanMode[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrAssetKind'
    */
   export type EnumQrAssetKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetKind'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrAssetKind[]'
    */
   export type ListEnumQrAssetKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetKind[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrAssetSafetyStatus'
    */
   export type EnumQrAssetSafetyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetSafetyStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrAssetSafetyStatus[]'
    */
   export type ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrAssetSafetyStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrEventKind'
    */
   export type EnumQrEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEventKind'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrEventKind[]'
    */
   export type ListEnumQrEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrEventKind[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'LicenseStatus'
    */
   export type EnumLicenseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'LicenseStatus[]'
    */
   export type ListEnumLicenseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'EventLocationType'
    */
   export type EnumEventLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventLocationType'>
-    
+
 
 
   /**
    * Reference to a field of type 'EventLocationType[]'
    */
   export type ListEnumEventLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventLocationType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'EventStatus'
    */
   export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'EventStatus[]'
    */
   export type ListEnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'EventTicketStatus'
    */
   export type EnumEventTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventTicketStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'EventTicketStatus[]'
    */
   export type ListEnumEventTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventTicketStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrCouponType'
    */
   export type EnumQrCouponTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCouponType'>
-    
+
 
 
   /**
    * Reference to a field of type 'QrCouponType[]'
    */
   export type ListEnumQrCouponTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QrCouponType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'BillingInterval'
    */
   export type EnumBillingIntervalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillingInterval'>
-    
+
 
 
   /**
    * Reference to a field of type 'BillingInterval[]'
    */
   export type ListEnumBillingIntervalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillingInterval[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'MembershipStatus'
    */
   export type EnumMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembershipStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'MembershipStatus[]'
    */
   export type ListEnumMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembershipStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityContentFormat'
    */
   export type EnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityContentFormat[]'
    */
   export type ListEnumCommunityContentFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentFormat[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CourseAccessLevel'
    */
   export type EnumCourseAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAccessLevel'>
-    
+
 
 
   /**
    * Reference to a field of type 'CourseAccessLevel[]'
    */
   export type ListEnumCourseAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAccessLevel[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'LessonContentType'
    */
   export type EnumLessonContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LessonContentType'>
-    
+
 
 
   /**
    * Reference to a field of type 'LessonContentType[]'
    */
   export type ListEnumLessonContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LessonContentType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityEventType'
    */
   export type EnumCommunityEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventType'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityEventType[]'
    */
   export type ListEnumCommunityEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityAccessLevel'
    */
   export type EnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityAccessLevel[]'
    */
   export type ListEnumCommunityAccessLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityAccessLevel[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityEventRsvpStatus'
    */
   export type EnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventRsvpStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityEventRsvpStatus[]'
    */
   export type ListEnumCommunityEventRsvpStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityEventRsvpStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityChallengeEnrollmentStatus'
    */
   export type EnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityChallengeEnrollmentStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityChallengeEnrollmentStatus[]'
    */
   export type ListEnumCommunityChallengeEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityChallengeEnrollmentStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityPostType'
    */
   export type EnumCommunityPostTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityPostType'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityPostType[]'
    */
   export type ListEnumCommunityPostTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityPostType[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityContentStatus'
    */
   export type EnumCommunityContentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityContentStatus[]'
    */
   export type ListEnumCommunityContentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityContentStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityReportStatus'
    */
   export type EnumCommunityReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityReportStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityReportStatus[]'
    */
   export type ListEnumCommunityReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityReportStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityProfileVisibility'
    */
   export type EnumCommunityProfileVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityProfileVisibility'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityProfileVisibility[]'
    */
   export type ListEnumCommunityProfileVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityProfileVisibility[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityParticipationStatus'
    */
   export type EnumCommunityParticipationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityParticipationStatus'>
-    
+
 
 
   /**
    * Reference to a field of type 'CommunityParticipationStatus[]'
    */
   export type ListEnumCommunityParticipationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityParticipationStatus[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
+
 
 
   /**
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
+
   /**
    * Deep Input Types
    */
@@ -146692,6 +148113,8 @@ export namespace Prisma {
     publicCode?: StringFilter<"QrCampaign"> | string
     title?: StringFilter<"QrCampaign"> | string
     description?: StringNullableFilter<"QrCampaign"> | string | null
+    folder?: StringNullableFilter<"QrCampaign"> | string | null
+    tags?: StringNullableListFilter<"QrCampaign">
     contentType?: EnumQrContentTypeFilter<"QrCampaign"> | $Enums.QrContentType
     status?: EnumQrCampaignStatusFilter<"QrCampaign"> | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFilter<"QrCampaign"> | $Enums.QrScanMode
@@ -146711,6 +148134,7 @@ export namespace Prisma {
     entitlement?: XOR<QrEntitlementNullableScalarRelationFilter, QrEntitlementWhereInput> | null
     assets?: QrAssetListRelationFilter
     events?: QrScanEventListRelationFilter
+    placementVariants?: QrPlacementVariantListRelationFilter
     adminActions?: QrAdminActionListRelationFilter
   }
 
@@ -146721,6 +148145,8 @@ export namespace Prisma {
     publicCode?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
+    folder?: SortOrderInput | SortOrder
+    tags?: SortOrder
     contentType?: SortOrder
     status?: SortOrder
     scanMode?: SortOrder
@@ -146740,6 +148166,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementOrderByWithRelationInput
     assets?: QrAssetOrderByRelationAggregateInput
     events?: QrScanEventOrderByRelationAggregateInput
+    placementVariants?: QrPlacementVariantOrderByRelationAggregateInput
     adminActions?: QrAdminActionOrderByRelationAggregateInput
   }
 
@@ -146753,6 +148180,8 @@ export namespace Prisma {
     entitlementId?: UuidNullableFilter<"QrCampaign"> | string | null
     title?: StringFilter<"QrCampaign"> | string
     description?: StringNullableFilter<"QrCampaign"> | string | null
+    folder?: StringNullableFilter<"QrCampaign"> | string | null
+    tags?: StringNullableListFilter<"QrCampaign">
     contentType?: EnumQrContentTypeFilter<"QrCampaign"> | $Enums.QrContentType
     status?: EnumQrCampaignStatusFilter<"QrCampaign"> | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFilter<"QrCampaign"> | $Enums.QrScanMode
@@ -146772,6 +148201,7 @@ export namespace Prisma {
     entitlement?: XOR<QrEntitlementNullableScalarRelationFilter, QrEntitlementWhereInput> | null
     assets?: QrAssetListRelationFilter
     events?: QrScanEventListRelationFilter
+    placementVariants?: QrPlacementVariantListRelationFilter
     adminActions?: QrAdminActionListRelationFilter
   }, "id" | "publicCode">
 
@@ -146782,6 +148212,8 @@ export namespace Prisma {
     publicCode?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
+    folder?: SortOrderInput | SortOrder
+    tags?: SortOrder
     contentType?: SortOrder
     status?: SortOrder
     scanMode?: SortOrder
@@ -146812,6 +148244,8 @@ export namespace Prisma {
     publicCode?: StringWithAggregatesFilter<"QrCampaign"> | string
     title?: StringWithAggregatesFilter<"QrCampaign"> | string
     description?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    folder?: StringNullableWithAggregatesFilter<"QrCampaign"> | string | null
+    tags?: StringNullableListFilter<"QrCampaign">
     contentType?: EnumQrContentTypeWithAggregatesFilter<"QrCampaign"> | $Enums.QrContentType
     status?: EnumQrCampaignStatusWithAggregatesFilter<"QrCampaign"> | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeWithAggregatesFilter<"QrCampaign"> | $Enums.QrScanMode
@@ -146827,6 +148261,99 @@ export namespace Prisma {
     archivedAt?: DateTimeNullableWithAggregatesFilter<"QrCampaign"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"QrCampaign"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"QrCampaign"> | Date | string
+  }
+
+  export type QrPlacementVariantWhereInput = {
+    AND?: QrPlacementVariantWhereInput | QrPlacementVariantWhereInput[]
+    OR?: QrPlacementVariantWhereInput[]
+    NOT?: QrPlacementVariantWhereInput | QrPlacementVariantWhereInput[]
+    id?: UuidFilter<"QrPlacementVariant"> | string
+    campaignId?: UuidFilter<"QrPlacementVariant"> | string
+    publicCode?: StringFilter<"QrPlacementVariant"> | string
+    name?: StringFilter<"QrPlacementVariant"> | string
+    active?: BoolFilter<"QrPlacementVariant"> | boolean
+    utmSource?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmMedium?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmCampaign?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmContent?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmTerm?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    createdAt?: DateTimeFilter<"QrPlacementVariant"> | Date | string
+    updatedAt?: DateTimeFilter<"QrPlacementVariant"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+    events?: QrScanEventListRelationFilter
+  }
+
+  export type QrPlacementVariantOrderByWithRelationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    publicCode?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    utmSource?: SortOrderInput | SortOrder
+    utmMedium?: SortOrderInput | SortOrder
+    utmCampaign?: SortOrderInput | SortOrder
+    utmContent?: SortOrderInput | SortOrder
+    utmTerm?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    campaign?: QrCampaignOrderByWithRelationInput
+    events?: QrScanEventOrderByRelationAggregateInput
+  }
+
+  export type QrPlacementVariantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    publicCode?: string
+    AND?: QrPlacementVariantWhereInput | QrPlacementVariantWhereInput[]
+    OR?: QrPlacementVariantWhereInput[]
+    NOT?: QrPlacementVariantWhereInput | QrPlacementVariantWhereInput[]
+    campaignId?: UuidFilter<"QrPlacementVariant"> | string
+    name?: StringFilter<"QrPlacementVariant"> | string
+    active?: BoolFilter<"QrPlacementVariant"> | boolean
+    utmSource?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmMedium?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmCampaign?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmContent?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmTerm?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    createdAt?: DateTimeFilter<"QrPlacementVariant"> | Date | string
+    updatedAt?: DateTimeFilter<"QrPlacementVariant"> | Date | string
+    campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+    events?: QrScanEventListRelationFilter
+  }, "id" | "publicCode">
+
+  export type QrPlacementVariantOrderByWithAggregationInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    publicCode?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    utmSource?: SortOrderInput | SortOrder
+    utmMedium?: SortOrderInput | SortOrder
+    utmCampaign?: SortOrderInput | SortOrder
+    utmContent?: SortOrderInput | SortOrder
+    utmTerm?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: QrPlacementVariantCountOrderByAggregateInput
+    _max?: QrPlacementVariantMaxOrderByAggregateInput
+    _min?: QrPlacementVariantMinOrderByAggregateInput
+  }
+
+  export type QrPlacementVariantScalarWhereWithAggregatesInput = {
+    AND?: QrPlacementVariantScalarWhereWithAggregatesInput | QrPlacementVariantScalarWhereWithAggregatesInput[]
+    OR?: QrPlacementVariantScalarWhereWithAggregatesInput[]
+    NOT?: QrPlacementVariantScalarWhereWithAggregatesInput | QrPlacementVariantScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"QrPlacementVariant"> | string
+    campaignId?: UuidWithAggregatesFilter<"QrPlacementVariant"> | string
+    publicCode?: StringWithAggregatesFilter<"QrPlacementVariant"> | string
+    name?: StringWithAggregatesFilter<"QrPlacementVariant"> | string
+    active?: BoolWithAggregatesFilter<"QrPlacementVariant"> | boolean
+    utmSource?: StringNullableWithAggregatesFilter<"QrPlacementVariant"> | string | null
+    utmMedium?: StringNullableWithAggregatesFilter<"QrPlacementVariant"> | string | null
+    utmCampaign?: StringNullableWithAggregatesFilter<"QrPlacementVariant"> | string | null
+    utmContent?: StringNullableWithAggregatesFilter<"QrPlacementVariant"> | string | null
+    utmTerm?: StringNullableWithAggregatesFilter<"QrPlacementVariant"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"QrPlacementVariant"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"QrPlacementVariant"> | Date | string
   }
 
   export type QrAssetWhereInput = {
@@ -146937,6 +148464,7 @@ export namespace Prisma {
     NOT?: QrScanEventWhereInput | QrScanEventWhereInput[]
     id?: UuidFilter<"QrScanEvent"> | string
     campaignId?: UuidFilter<"QrScanEvent"> | string
+    placementVariantId?: UuidNullableFilter<"QrScanEvent"> | string | null
     kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
     actionType?: StringNullableFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
@@ -146946,11 +148474,13 @@ export namespace Prisma {
     country?: StringNullableFilter<"QrScanEvent"> | string | null
     createdAt?: DateTimeFilter<"QrScanEvent"> | Date | string
     campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+    placementVariant?: XOR<QrPlacementVariantNullableScalarRelationFilter, QrPlacementVariantWhereInput> | null
   }
 
   export type QrScanEventOrderByWithRelationInput = {
     id?: SortOrder
     campaignId?: SortOrder
+    placementVariantId?: SortOrderInput | SortOrder
     kind?: SortOrder
     actionType?: SortOrderInput | SortOrder
     requestHash?: SortOrderInput | SortOrder
@@ -146960,6 +148490,7 @@ export namespace Prisma {
     country?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     campaign?: QrCampaignOrderByWithRelationInput
+    placementVariant?: QrPlacementVariantOrderByWithRelationInput
   }
 
   export type QrScanEventWhereUniqueInput = Prisma.AtLeast<{
@@ -146968,6 +148499,7 @@ export namespace Prisma {
     OR?: QrScanEventWhereInput[]
     NOT?: QrScanEventWhereInput | QrScanEventWhereInput[]
     campaignId?: UuidFilter<"QrScanEvent"> | string
+    placementVariantId?: UuidNullableFilter<"QrScanEvent"> | string | null
     kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
     actionType?: StringNullableFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
@@ -146977,11 +148509,13 @@ export namespace Prisma {
     country?: StringNullableFilter<"QrScanEvent"> | string | null
     createdAt?: DateTimeFilter<"QrScanEvent"> | Date | string
     campaign?: XOR<QrCampaignScalarRelationFilter, QrCampaignWhereInput>
+    placementVariant?: XOR<QrPlacementVariantNullableScalarRelationFilter, QrPlacementVariantWhereInput> | null
   }, "id">
 
   export type QrScanEventOrderByWithAggregationInput = {
     id?: SortOrder
     campaignId?: SortOrder
+    placementVariantId?: SortOrderInput | SortOrder
     kind?: SortOrder
     actionType?: SortOrderInput | SortOrder
     requestHash?: SortOrderInput | SortOrder
@@ -147001,6 +148535,7 @@ export namespace Prisma {
     NOT?: QrScanEventScalarWhereWithAggregatesInput | QrScanEventScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"QrScanEvent"> | string
     campaignId?: UuidWithAggregatesFilter<"QrScanEvent"> | string
+    placementVariantId?: UuidNullableWithAggregatesFilter<"QrScanEvent"> | string | null
     kind?: EnumQrEventKindWithAggregatesFilter<"QrScanEvent"> | $Enums.QrEventKind
     actionType?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableWithAggregatesFilter<"QrScanEvent"> | string | null
@@ -156388,6 +157923,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -156407,6 +157944,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
     assets?: QrAssetCreateNestedManyWithoutCampaignInput
     events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
   }
 
@@ -156417,6 +157955,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -156434,6 +157974,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
     events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
   }
 
@@ -156442,6 +157983,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -156461,6 +158004,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
     assets?: QrAssetUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
   }
 
@@ -156471,6 +158015,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -156488,6 +158034,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
@@ -156498,6 +158045,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -156520,6 +158069,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -156544,6 +158095,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -156557,6 +158110,114 @@ export namespace Prisma {
     activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrPlacementVariantCreateInput = {
+    id?: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutPlacementVariantsInput
+    events?: QrScanEventCreateNestedManyWithoutPlacementVariantInput
+  }
+
+  export type QrPlacementVariantUncheckedCreateInput = {
+    id?: string
+    campaignId: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    events?: QrScanEventUncheckedCreateNestedManyWithoutPlacementVariantInput
+  }
+
+  export type QrPlacementVariantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutPlacementVariantsNestedInput
+    events?: QrScanEventUpdateManyWithoutPlacementVariantNestedInput
+  }
+
+  export type QrPlacementVariantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    events?: QrScanEventUncheckedUpdateManyWithoutPlacementVariantNestedInput
+  }
+
+  export type QrPlacementVariantCreateManyInput = {
+    id?: string
+    campaignId: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrPlacementVariantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrPlacementVariantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -156690,11 +158351,13 @@ export namespace Prisma {
     country?: string | null
     createdAt?: Date | string
     campaign: QrCampaignCreateNestedOneWithoutEventsInput
+    placementVariant?: QrPlacementVariantCreateNestedOneWithoutEventsInput
   }
 
   export type QrScanEventUncheckedCreateInput = {
     id?: string
     campaignId: string
+    placementVariantId?: string | null
     kind: $Enums.QrEventKind
     actionType?: string | null
     requestHash?: string | null
@@ -156716,11 +158379,13 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     campaign?: QrCampaignUpdateOneRequiredWithoutEventsNestedInput
+    placementVariant?: QrPlacementVariantUpdateOneWithoutEventsNestedInput
   }
 
   export type QrScanEventUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     campaignId?: StringFieldUpdateOperationsInput | string
+    placementVariantId?: NullableStringFieldUpdateOperationsInput | string | null
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
     actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -156734,6 +158399,7 @@ export namespace Prisma {
   export type QrScanEventCreateManyInput = {
     id?: string
     campaignId: string
+    placementVariantId?: string | null
     kind: $Enums.QrEventKind
     actionType?: string | null
     requestHash?: string | null
@@ -156759,6 +158425,7 @@ export namespace Prisma {
   export type QrScanEventUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     campaignId?: StringFieldUpdateOperationsInput | string
+    placementVariantId?: NullableStringFieldUpdateOperationsInput | string | null
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
     actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -164811,11 +166478,21 @@ export namespace Prisma {
     none?: QrScanEventWhereInput
   }
 
+  export type QrPlacementVariantListRelationFilter = {
+    every?: QrPlacementVariantWhereInput
+    some?: QrPlacementVariantWhereInput
+    none?: QrPlacementVariantWhereInput
+  }
+
   export type QrAssetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type QrScanEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrPlacementVariantOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -164826,6 +166503,8 @@ export namespace Prisma {
     publicCode?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    folder?: SortOrder
+    tags?: SortOrder
     contentType?: SortOrder
     status?: SortOrder
     scanMode?: SortOrder
@@ -164850,6 +166529,7 @@ export namespace Prisma {
     publicCode?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    folder?: SortOrder
     contentType?: SortOrder
     status?: SortOrder
     scanMode?: SortOrder
@@ -164872,6 +166552,7 @@ export namespace Prisma {
     publicCode?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    folder?: SortOrder
     contentType?: SortOrder
     status?: SortOrder
     scanMode?: SortOrder
@@ -164917,6 +166598,56 @@ export namespace Prisma {
     _max?: NestedEnumQrScanModeFilter<$PrismaModel>
   }
 
+  export type QrCampaignScalarRelationFilter = {
+    is?: QrCampaignWhereInput
+    isNot?: QrCampaignWhereInput
+  }
+
+  export type QrPlacementVariantCountOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    publicCode?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    utmSource?: SortOrder
+    utmMedium?: SortOrder
+    utmCampaign?: SortOrder
+    utmContent?: SortOrder
+    utmTerm?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrPlacementVariantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    publicCode?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    utmSource?: SortOrder
+    utmMedium?: SortOrder
+    utmCampaign?: SortOrder
+    utmContent?: SortOrder
+    utmTerm?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type QrPlacementVariantMinOrderByAggregateInput = {
+    id?: SortOrder
+    campaignId?: SortOrder
+    publicCode?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    utmSource?: SortOrder
+    utmMedium?: SortOrder
+    utmCampaign?: SortOrder
+    utmContent?: SortOrder
+    utmTerm?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type EnumQrAssetKindFilter<$PrismaModel = never> = {
     equals?: $Enums.QrAssetKind | EnumQrAssetKindFieldRefInput<$PrismaModel>
     in?: $Enums.QrAssetKind[] | ListEnumQrAssetKindFieldRefInput<$PrismaModel>
@@ -164929,11 +166660,6 @@ export namespace Prisma {
     in?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.QrAssetSafetyStatus[] | ListEnumQrAssetSafetyStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumQrAssetSafetyStatusFilter<$PrismaModel> | $Enums.QrAssetSafetyStatus
-  }
-
-  export type QrCampaignScalarRelationFilter = {
-    is?: QrCampaignWhereInput
-    isNot?: QrCampaignWhereInput
   }
 
   export type QrAssetCountOrderByAggregateInput = {
@@ -165020,9 +166746,15 @@ export namespace Prisma {
     not?: NestedEnumQrEventKindFilter<$PrismaModel> | $Enums.QrEventKind
   }
 
+  export type QrPlacementVariantNullableScalarRelationFilter = {
+    is?: QrPlacementVariantWhereInput | null
+    isNot?: QrPlacementVariantWhereInput | null
+  }
+
   export type QrScanEventCountOrderByAggregateInput = {
     id?: SortOrder
     campaignId?: SortOrder
+    placementVariantId?: SortOrder
     kind?: SortOrder
     actionType?: SortOrder
     requestHash?: SortOrder
@@ -165036,6 +166768,7 @@ export namespace Prisma {
   export type QrScanEventMaxOrderByAggregateInput = {
     id?: SortOrder
     campaignId?: SortOrder
+    placementVariantId?: SortOrder
     kind?: SortOrder
     actionType?: SortOrder
     requestHash?: SortOrder
@@ -165049,6 +166782,7 @@ export namespace Prisma {
   export type QrScanEventMinOrderByAggregateInput = {
     id?: SortOrder
     campaignId?: SortOrder
+    placementVariantId?: SortOrder
     kind?: SortOrder
     actionType?: SortOrder
     requestHash?: SortOrder
@@ -172920,6 +174654,10 @@ export namespace Prisma {
     deleteMany?: QrCampaignScalarWhereInput | QrCampaignScalarWhereInput[]
   }
 
+  export type QrCampaignCreatetagsInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutQrCampaignsInput = {
     create?: XOR<UserCreateWithoutQrCampaignsInput, UserUncheckedCreateWithoutQrCampaignsInput>
     connectOrCreate?: UserCreateOrConnectWithoutQrCampaignsInput
@@ -172946,6 +174684,13 @@ export namespace Prisma {
     connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
   }
 
+  export type QrPlacementVariantCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrPlacementVariantCreateWithoutCampaignInput, QrPlacementVariantUncheckedCreateWithoutCampaignInput> | QrPlacementVariantCreateWithoutCampaignInput[] | QrPlacementVariantUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrPlacementVariantCreateOrConnectWithoutCampaignInput | QrPlacementVariantCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrPlacementVariantCreateManyCampaignInputEnvelope
+    connect?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+  }
+
   export type QrAdminActionCreateNestedManyWithoutCampaignInput = {
     create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
     connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
@@ -172967,11 +174712,23 @@ export namespace Prisma {
     connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
   }
 
+  export type QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<QrPlacementVariantCreateWithoutCampaignInput, QrPlacementVariantUncheckedCreateWithoutCampaignInput> | QrPlacementVariantCreateWithoutCampaignInput[] | QrPlacementVariantUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrPlacementVariantCreateOrConnectWithoutCampaignInput | QrPlacementVariantCreateOrConnectWithoutCampaignInput[]
+    createMany?: QrPlacementVariantCreateManyCampaignInputEnvelope
+    connect?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+  }
+
   export type QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput = {
     create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
     connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
     createMany?: QrAdminActionCreateManyCampaignInputEnvelope
     connect?: QrAdminActionWhereUniqueInput | QrAdminActionWhereUniqueInput[]
+  }
+
+  export type QrCampaignUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type EnumQrContentTypeFieldUpdateOperationsInput = {
@@ -173032,6 +174789,20 @@ export namespace Prisma {
     deleteMany?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
   }
 
+  export type QrPlacementVariantUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrPlacementVariantCreateWithoutCampaignInput, QrPlacementVariantUncheckedCreateWithoutCampaignInput> | QrPlacementVariantCreateWithoutCampaignInput[] | QrPlacementVariantUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrPlacementVariantCreateOrConnectWithoutCampaignInput | QrPlacementVariantCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrPlacementVariantUpsertWithWhereUniqueWithoutCampaignInput | QrPlacementVariantUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrPlacementVariantCreateManyCampaignInputEnvelope
+    set?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    disconnect?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    delete?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    connect?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    update?: QrPlacementVariantUpdateWithWhereUniqueWithoutCampaignInput | QrPlacementVariantUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrPlacementVariantUpdateManyWithWhereWithoutCampaignInput | QrPlacementVariantUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrPlacementVariantScalarWhereInput | QrPlacementVariantScalarWhereInput[]
+  }
+
   export type QrAdminActionUpdateManyWithoutCampaignNestedInput = {
     create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
     connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
@@ -173074,6 +174845,20 @@ export namespace Prisma {
     deleteMany?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
   }
 
+  export type QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<QrPlacementVariantCreateWithoutCampaignInput, QrPlacementVariantUncheckedCreateWithoutCampaignInput> | QrPlacementVariantCreateWithoutCampaignInput[] | QrPlacementVariantUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: QrPlacementVariantCreateOrConnectWithoutCampaignInput | QrPlacementVariantCreateOrConnectWithoutCampaignInput[]
+    upsert?: QrPlacementVariantUpsertWithWhereUniqueWithoutCampaignInput | QrPlacementVariantUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: QrPlacementVariantCreateManyCampaignInputEnvelope
+    set?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    disconnect?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    delete?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    connect?: QrPlacementVariantWhereUniqueInput | QrPlacementVariantWhereUniqueInput[]
+    update?: QrPlacementVariantUpdateWithWhereUniqueWithoutCampaignInput | QrPlacementVariantUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: QrPlacementVariantUpdateManyWithWhereWithoutCampaignInput | QrPlacementVariantUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: QrPlacementVariantScalarWhereInput | QrPlacementVariantScalarWhereInput[]
+  }
+
   export type QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput = {
     create?: XOR<QrAdminActionCreateWithoutCampaignInput, QrAdminActionUncheckedCreateWithoutCampaignInput> | QrAdminActionCreateWithoutCampaignInput[] | QrAdminActionUncheckedCreateWithoutCampaignInput[]
     connectOrCreate?: QrAdminActionCreateOrConnectWithoutCampaignInput | QrAdminActionCreateOrConnectWithoutCampaignInput[]
@@ -173086,6 +174871,62 @@ export namespace Prisma {
     update?: QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput | QrAdminActionUpdateWithWhereUniqueWithoutCampaignInput[]
     updateMany?: QrAdminActionUpdateManyWithWhereWithoutCampaignInput | QrAdminActionUpdateManyWithWhereWithoutCampaignInput[]
     deleteMany?: QrAdminActionScalarWhereInput | QrAdminActionScalarWhereInput[]
+  }
+
+  export type QrCampaignCreateNestedOneWithoutPlacementVariantsInput = {
+    create?: XOR<QrCampaignCreateWithoutPlacementVariantsInput, QrCampaignUncheckedCreateWithoutPlacementVariantsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutPlacementVariantsInput
+    connect?: QrCampaignWhereUniqueInput
+  }
+
+  export type QrScanEventCreateNestedManyWithoutPlacementVariantInput = {
+    create?: XOR<QrScanEventCreateWithoutPlacementVariantInput, QrScanEventUncheckedCreateWithoutPlacementVariantInput> | QrScanEventCreateWithoutPlacementVariantInput[] | QrScanEventUncheckedCreateWithoutPlacementVariantInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutPlacementVariantInput | QrScanEventCreateOrConnectWithoutPlacementVariantInput[]
+    createMany?: QrScanEventCreateManyPlacementVariantInputEnvelope
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+  }
+
+  export type QrScanEventUncheckedCreateNestedManyWithoutPlacementVariantInput = {
+    create?: XOR<QrScanEventCreateWithoutPlacementVariantInput, QrScanEventUncheckedCreateWithoutPlacementVariantInput> | QrScanEventCreateWithoutPlacementVariantInput[] | QrScanEventUncheckedCreateWithoutPlacementVariantInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutPlacementVariantInput | QrScanEventCreateOrConnectWithoutPlacementVariantInput[]
+    createMany?: QrScanEventCreateManyPlacementVariantInputEnvelope
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+  }
+
+  export type QrCampaignUpdateOneRequiredWithoutPlacementVariantsNestedInput = {
+    create?: XOR<QrCampaignCreateWithoutPlacementVariantsInput, QrCampaignUncheckedCreateWithoutPlacementVariantsInput>
+    connectOrCreate?: QrCampaignCreateOrConnectWithoutPlacementVariantsInput
+    upsert?: QrCampaignUpsertWithoutPlacementVariantsInput
+    connect?: QrCampaignWhereUniqueInput
+    update?: XOR<XOR<QrCampaignUpdateToOneWithWhereWithoutPlacementVariantsInput, QrCampaignUpdateWithoutPlacementVariantsInput>, QrCampaignUncheckedUpdateWithoutPlacementVariantsInput>
+  }
+
+  export type QrScanEventUpdateManyWithoutPlacementVariantNestedInput = {
+    create?: XOR<QrScanEventCreateWithoutPlacementVariantInput, QrScanEventUncheckedCreateWithoutPlacementVariantInput> | QrScanEventCreateWithoutPlacementVariantInput[] | QrScanEventUncheckedCreateWithoutPlacementVariantInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutPlacementVariantInput | QrScanEventCreateOrConnectWithoutPlacementVariantInput[]
+    upsert?: QrScanEventUpsertWithWhereUniqueWithoutPlacementVariantInput | QrScanEventUpsertWithWhereUniqueWithoutPlacementVariantInput[]
+    createMany?: QrScanEventCreateManyPlacementVariantInputEnvelope
+    set?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    disconnect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    delete?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    update?: QrScanEventUpdateWithWhereUniqueWithoutPlacementVariantInput | QrScanEventUpdateWithWhereUniqueWithoutPlacementVariantInput[]
+    updateMany?: QrScanEventUpdateManyWithWhereWithoutPlacementVariantInput | QrScanEventUpdateManyWithWhereWithoutPlacementVariantInput[]
+    deleteMany?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
+  }
+
+  export type QrScanEventUncheckedUpdateManyWithoutPlacementVariantNestedInput = {
+    create?: XOR<QrScanEventCreateWithoutPlacementVariantInput, QrScanEventUncheckedCreateWithoutPlacementVariantInput> | QrScanEventCreateWithoutPlacementVariantInput[] | QrScanEventUncheckedCreateWithoutPlacementVariantInput[]
+    connectOrCreate?: QrScanEventCreateOrConnectWithoutPlacementVariantInput | QrScanEventCreateOrConnectWithoutPlacementVariantInput[]
+    upsert?: QrScanEventUpsertWithWhereUniqueWithoutPlacementVariantInput | QrScanEventUpsertWithWhereUniqueWithoutPlacementVariantInput[]
+    createMany?: QrScanEventCreateManyPlacementVariantInputEnvelope
+    set?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    disconnect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    delete?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    connect?: QrScanEventWhereUniqueInput | QrScanEventWhereUniqueInput[]
+    update?: QrScanEventUpdateWithWhereUniqueWithoutPlacementVariantInput | QrScanEventUpdateWithWhereUniqueWithoutPlacementVariantInput[]
+    updateMany?: QrScanEventUpdateManyWithWhereWithoutPlacementVariantInput | QrScanEventUpdateManyWithWhereWithoutPlacementVariantInput[]
+    deleteMany?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
   }
 
   export type QrCampaignCreateNestedOneWithoutAssetsInput = {
@@ -173116,6 +174957,12 @@ export namespace Prisma {
     connect?: QrCampaignWhereUniqueInput
   }
 
+  export type QrPlacementVariantCreateNestedOneWithoutEventsInput = {
+    create?: XOR<QrPlacementVariantCreateWithoutEventsInput, QrPlacementVariantUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: QrPlacementVariantCreateOrConnectWithoutEventsInput
+    connect?: QrPlacementVariantWhereUniqueInput
+  }
+
   export type EnumQrEventKindFieldUpdateOperationsInput = {
     set?: $Enums.QrEventKind
   }
@@ -173126,6 +174973,16 @@ export namespace Prisma {
     upsert?: QrCampaignUpsertWithoutEventsInput
     connect?: QrCampaignWhereUniqueInput
     update?: XOR<XOR<QrCampaignUpdateToOneWithWhereWithoutEventsInput, QrCampaignUpdateWithoutEventsInput>, QrCampaignUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type QrPlacementVariantUpdateOneWithoutEventsNestedInput = {
+    create?: XOR<QrPlacementVariantCreateWithoutEventsInput, QrPlacementVariantUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: QrPlacementVariantCreateOrConnectWithoutEventsInput
+    upsert?: QrPlacementVariantUpsertWithoutEventsInput
+    disconnect?: QrPlacementVariantWhereInput | boolean
+    delete?: QrPlacementVariantWhereInput | boolean
+    connect?: QrPlacementVariantWhereUniqueInput
+    update?: XOR<XOR<QrPlacementVariantUpdateToOneWithWhereWithoutEventsInput, QrPlacementVariantUpdateWithoutEventsInput>, QrPlacementVariantUncheckedUpdateWithoutEventsInput>
   }
 
   export type QrCampaignCreateNestedOneWithoutAdminActionsInput = {
@@ -177845,6 +179702,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -177863,6 +179722,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
     assets?: QrAssetCreateNestedManyWithoutCampaignInput
     events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
   }
 
@@ -177872,6 +179732,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -177889,6 +179751,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
     events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
   }
 
@@ -179445,6 +181308,8 @@ export namespace Prisma {
     publicCode?: StringFilter<"QrCampaign"> | string
     title?: StringFilter<"QrCampaign"> | string
     description?: StringNullableFilter<"QrCampaign"> | string | null
+    folder?: StringNullableFilter<"QrCampaign"> | string | null
+    tags?: StringNullableListFilter<"QrCampaign">
     contentType?: EnumQrContentTypeFilter<"QrCampaign"> | $Enums.QrContentType
     status?: EnumQrCampaignStatusFilter<"QrCampaign"> | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFilter<"QrCampaign"> | $Enums.QrScanMode
@@ -197020,6 +198885,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -197038,6 +198905,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutQrCampaignsInput
     assets?: QrAssetCreateNestedManyWithoutCampaignInput
     events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
   }
 
@@ -197047,6 +198915,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -197064,6 +198934,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
     events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
   }
 
@@ -197511,10 +199382,12 @@ export namespace Prisma {
     deviceClass?: string | null
     country?: string | null
     createdAt?: Date | string
+    placementVariant?: QrPlacementVariantCreateNestedOneWithoutEventsInput
   }
 
   export type QrScanEventUncheckedCreateWithoutCampaignInput = {
     id?: string
+    placementVariantId?: string | null
     kind: $Enums.QrEventKind
     actionType?: string | null
     requestHash?: string | null
@@ -197532,6 +199405,46 @@ export namespace Prisma {
 
   export type QrScanEventCreateManyCampaignInputEnvelope = {
     data: QrScanEventCreateManyCampaignInput | QrScanEventCreateManyCampaignInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrPlacementVariantCreateWithoutCampaignInput = {
+    id?: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    events?: QrScanEventCreateNestedManyWithoutPlacementVariantInput
+  }
+
+  export type QrPlacementVariantUncheckedCreateWithoutCampaignInput = {
+    id?: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    events?: QrScanEventUncheckedCreateNestedManyWithoutPlacementVariantInput
+  }
+
+  export type QrPlacementVariantCreateOrConnectWithoutCampaignInput = {
+    where: QrPlacementVariantWhereUniqueInput
+    create: XOR<QrPlacementVariantCreateWithoutCampaignInput, QrPlacementVariantUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrPlacementVariantCreateManyCampaignInputEnvelope = {
+    data: QrPlacementVariantCreateManyCampaignInput | QrPlacementVariantCreateManyCampaignInput[]
     skipDuplicates?: boolean
   }
 
@@ -197807,6 +199720,7 @@ export namespace Prisma {
     NOT?: QrScanEventScalarWhereInput | QrScanEventScalarWhereInput[]
     id?: UuidFilter<"QrScanEvent"> | string
     campaignId?: UuidFilter<"QrScanEvent"> | string
+    placementVariantId?: UuidNullableFilter<"QrScanEvent"> | string | null
     kind?: EnumQrEventKindFilter<"QrScanEvent"> | $Enums.QrEventKind
     actionType?: StringNullableFilter<"QrScanEvent"> | string | null
     requestHash?: StringNullableFilter<"QrScanEvent"> | string | null
@@ -197815,6 +199729,40 @@ export namespace Prisma {
     deviceClass?: StringNullableFilter<"QrScanEvent"> | string | null
     country?: StringNullableFilter<"QrScanEvent"> | string | null
     createdAt?: DateTimeFilter<"QrScanEvent"> | Date | string
+  }
+
+  export type QrPlacementVariantUpsertWithWhereUniqueWithoutCampaignInput = {
+    where: QrPlacementVariantWhereUniqueInput
+    update: XOR<QrPlacementVariantUpdateWithoutCampaignInput, QrPlacementVariantUncheckedUpdateWithoutCampaignInput>
+    create: XOR<QrPlacementVariantCreateWithoutCampaignInput, QrPlacementVariantUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type QrPlacementVariantUpdateWithWhereUniqueWithoutCampaignInput = {
+    where: QrPlacementVariantWhereUniqueInput
+    data: XOR<QrPlacementVariantUpdateWithoutCampaignInput, QrPlacementVariantUncheckedUpdateWithoutCampaignInput>
+  }
+
+  export type QrPlacementVariantUpdateManyWithWhereWithoutCampaignInput = {
+    where: QrPlacementVariantScalarWhereInput
+    data: XOR<QrPlacementVariantUpdateManyMutationInput, QrPlacementVariantUncheckedUpdateManyWithoutCampaignInput>
+  }
+
+  export type QrPlacementVariantScalarWhereInput = {
+    AND?: QrPlacementVariantScalarWhereInput | QrPlacementVariantScalarWhereInput[]
+    OR?: QrPlacementVariantScalarWhereInput[]
+    NOT?: QrPlacementVariantScalarWhereInput | QrPlacementVariantScalarWhereInput[]
+    id?: UuidFilter<"QrPlacementVariant"> | string
+    campaignId?: UuidFilter<"QrPlacementVariant"> | string
+    publicCode?: StringFilter<"QrPlacementVariant"> | string
+    name?: StringFilter<"QrPlacementVariant"> | string
+    active?: BoolFilter<"QrPlacementVariant"> | boolean
+    utmSource?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmMedium?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmCampaign?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmContent?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    utmTerm?: StringNullableFilter<"QrPlacementVariant"> | string | null
+    createdAt?: DateTimeFilter<"QrPlacementVariant"> | Date | string
+    updatedAt?: DateTimeFilter<"QrPlacementVariant"> | Date | string
   }
 
   export type QrAdminActionUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -197833,11 +199781,197 @@ export namespace Prisma {
     data: XOR<QrAdminActionUpdateManyMutationInput, QrAdminActionUncheckedUpdateManyWithoutCampaignInput>
   }
 
+  export type QrCampaignCreateWithoutPlacementVariantsInput = {
+    id?: string
+    publicCode: string
+    title: string
+    description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutQrCampaignsInput
+    entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
+    assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignUncheckedCreateWithoutPlacementVariantsInput = {
+    id?: string
+    ownerId: string
+    entitlementId?: string | null
+    publicCode: string
+    title: string
+    description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
+    contentType: $Enums.QrContentType
+    status?: $Enums.QrCampaignStatus
+    scanMode?: $Enums.QrScanMode
+    destinationUrl?: string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: string | null
+    brandLogoAssetId?: string | null
+    brandPrimaryColor?: string | null
+    brandAccentColor?: string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    archivedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type QrCampaignCreateOrConnectWithoutPlacementVariantsInput = {
+    where: QrCampaignWhereUniqueInput
+    create: XOR<QrCampaignCreateWithoutPlacementVariantsInput, QrCampaignUncheckedCreateWithoutPlacementVariantsInput>
+  }
+
+  export type QrScanEventCreateWithoutPlacementVariantInput = {
+    id?: string
+    kind: $Enums.QrEventKind
+    actionType?: string | null
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutEventsInput
+  }
+
+  export type QrScanEventUncheckedCreateWithoutPlacementVariantInput = {
+    id?: string
+    campaignId: string
+    kind: $Enums.QrEventKind
+    actionType?: string | null
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrScanEventCreateOrConnectWithoutPlacementVariantInput = {
+    where: QrScanEventWhereUniqueInput
+    create: XOR<QrScanEventCreateWithoutPlacementVariantInput, QrScanEventUncheckedCreateWithoutPlacementVariantInput>
+  }
+
+  export type QrScanEventCreateManyPlacementVariantInputEnvelope = {
+    data: QrScanEventCreateManyPlacementVariantInput | QrScanEventCreateManyPlacementVariantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QrCampaignUpsertWithoutPlacementVariantsInput = {
+    update: XOR<QrCampaignUpdateWithoutPlacementVariantsInput, QrCampaignUncheckedUpdateWithoutPlacementVariantsInput>
+    create: XOR<QrCampaignCreateWithoutPlacementVariantsInput, QrCampaignUncheckedCreateWithoutPlacementVariantsInput>
+    where?: QrCampaignWhereInput
+  }
+
+  export type QrCampaignUpdateToOneWithWhereWithoutPlacementVariantsInput = {
+    where?: QrCampaignWhereInput
+    data: XOR<QrCampaignUpdateWithoutPlacementVariantsInput, QrCampaignUncheckedUpdateWithoutPlacementVariantsInput>
+  }
+
+  export type QrCampaignUpdateWithoutPlacementVariantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
+    entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
+    assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrCampaignUncheckedUpdateWithoutPlacementVariantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    entitlementId?: NullableStringFieldUpdateOperationsInput | string | null
+    publicCode?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
+    contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
+    status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
+    scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
+    destinationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationData?: NullableJsonNullValueInput | InputJsonValue
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandLogoAssetId?: NullableStringFieldUpdateOperationsInput | string | null
+    brandPrimaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    brandAccentColor?: NullableStringFieldUpdateOperationsInput | string | null
+    designSettings?: NullableJsonNullValueInput | InputJsonValue
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrScanEventUpsertWithWhereUniqueWithoutPlacementVariantInput = {
+    where: QrScanEventWhereUniqueInput
+    update: XOR<QrScanEventUpdateWithoutPlacementVariantInput, QrScanEventUncheckedUpdateWithoutPlacementVariantInput>
+    create: XOR<QrScanEventCreateWithoutPlacementVariantInput, QrScanEventUncheckedCreateWithoutPlacementVariantInput>
+  }
+
+  export type QrScanEventUpdateWithWhereUniqueWithoutPlacementVariantInput = {
+    where: QrScanEventWhereUniqueInput
+    data: XOR<QrScanEventUpdateWithoutPlacementVariantInput, QrScanEventUncheckedUpdateWithoutPlacementVariantInput>
+  }
+
+  export type QrScanEventUpdateManyWithWhereWithoutPlacementVariantInput = {
+    where: QrScanEventScalarWhereInput
+    data: XOR<QrScanEventUpdateManyMutationInput, QrScanEventUncheckedUpdateManyWithoutPlacementVariantInput>
+  }
+
   export type QrCampaignCreateWithoutAssetsInput = {
     id?: string
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -197856,6 +199990,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutQrCampaignsInput
     entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
     events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
   }
 
@@ -197866,6 +200001,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -197882,6 +200019,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
   }
 
@@ -197906,6 +200044,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -197924,6 +200064,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
     entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
     events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
   }
 
@@ -197934,6 +200075,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -197950,6 +200093,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
@@ -197958,6 +200102,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -197976,6 +200122,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutQrCampaignsInput
     entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
     assets?: QrAssetCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionCreateNestedManyWithoutCampaignInput
   }
 
@@ -197986,6 +200133,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -198002,12 +200151,48 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput
     adminActions?: QrAdminActionUncheckedCreateNestedManyWithoutCampaignInput
   }
 
   export type QrCampaignCreateOrConnectWithoutEventsInput = {
     where: QrCampaignWhereUniqueInput
     create: XOR<QrCampaignCreateWithoutEventsInput, QrCampaignUncheckedCreateWithoutEventsInput>
+  }
+
+  export type QrPlacementVariantCreateWithoutEventsInput = {
+    id?: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    campaign: QrCampaignCreateNestedOneWithoutPlacementVariantsInput
+  }
+
+  export type QrPlacementVariantUncheckedCreateWithoutEventsInput = {
+    id?: string
+    campaignId: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type QrPlacementVariantCreateOrConnectWithoutEventsInput = {
+    where: QrPlacementVariantWhereUniqueInput
+    create: XOR<QrPlacementVariantCreateWithoutEventsInput, QrPlacementVariantUncheckedCreateWithoutEventsInput>
   }
 
   export type QrCampaignUpsertWithoutEventsInput = {
@@ -198026,6 +200211,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -198044,6 +200231,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
     entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
     assets?: QrAssetUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
   }
 
@@ -198054,6 +200242,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -198070,7 +200260,49 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type QrPlacementVariantUpsertWithoutEventsInput = {
+    update: XOR<QrPlacementVariantUpdateWithoutEventsInput, QrPlacementVariantUncheckedUpdateWithoutEventsInput>
+    create: XOR<QrPlacementVariantCreateWithoutEventsInput, QrPlacementVariantUncheckedCreateWithoutEventsInput>
+    where?: QrPlacementVariantWhereInput
+  }
+
+  export type QrPlacementVariantUpdateToOneWithWhereWithoutEventsInput = {
+    where?: QrPlacementVariantWhereInput
+    data: XOR<QrPlacementVariantUpdateWithoutEventsInput, QrPlacementVariantUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type QrPlacementVariantUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutPlacementVariantsNestedInput
+  }
+
+  export type QrPlacementVariantUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type QrCampaignCreateWithoutAdminActionsInput = {
@@ -198078,6 +200310,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -198097,6 +200331,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementCreateNestedOneWithoutCampaignsInput
     assets?: QrAssetCreateNestedManyWithoutCampaignInput
     events?: QrScanEventCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantCreateNestedManyWithoutCampaignInput
   }
 
   export type QrCampaignUncheckedCreateWithoutAdminActionsInput = {
@@ -198106,6 +200341,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -198123,6 +200360,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     assets?: QrAssetUncheckedCreateNestedManyWithoutCampaignInput
     events?: QrScanEventUncheckedCreateNestedManyWithoutCampaignInput
+    placementVariants?: QrPlacementVariantUncheckedCreateNestedManyWithoutCampaignInput
   }
 
   export type QrCampaignCreateOrConnectWithoutAdminActionsInput = {
@@ -198277,6 +200515,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -198296,6 +200536,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
     assets?: QrAssetUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUpdateManyWithoutCampaignNestedInput
   }
 
   export type QrCampaignUncheckedUpdateWithoutAdminActionsInput = {
@@ -198305,6 +200546,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -198322,6 +200565,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
   export type UserUpsertWithoutQrAdminActionsInput = {
@@ -208359,6 +210603,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -209606,6 +211852,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -209624,6 +211872,7 @@ export namespace Prisma {
     entitlement?: QrEntitlementUpdateOneWithoutCampaignsNestedInput
     assets?: QrAssetUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
   }
 
@@ -209633,6 +211882,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -209650,6 +211901,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
@@ -209659,6 +211911,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -212794,6 +215048,8 @@ export namespace Prisma {
     publicCode: string
     title: string
     description?: string | null
+    folder?: string | null
+    tags?: QrCampaignCreatetagsInput | string[]
     contentType: $Enums.QrContentType
     status?: $Enums.QrCampaignStatus
     scanMode?: $Enums.QrScanMode
@@ -212816,6 +215072,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -212834,6 +215092,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutQrCampaignsNestedInput
     assets?: QrAssetUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUpdateManyWithoutCampaignNestedInput
   }
 
@@ -212843,6 +215102,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -212860,6 +215121,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: QrAssetUncheckedUpdateManyWithoutCampaignNestedInput
     events?: QrScanEventUncheckedUpdateManyWithoutCampaignNestedInput
+    placementVariants?: QrPlacementVariantUncheckedUpdateManyWithoutCampaignNestedInput
     adminActions?: QrAdminActionUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
@@ -212869,6 +215131,8 @@ export namespace Prisma {
     publicCode?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    folder?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: QrCampaignUpdatetagsInput | string[]
     contentType?: EnumQrContentTypeFieldUpdateOperationsInput | $Enums.QrContentType
     status?: EnumQrCampaignStatusFieldUpdateOperationsInput | $Enums.QrCampaignStatus
     scanMode?: EnumQrScanModeFieldUpdateOperationsInput | $Enums.QrScanMode
@@ -212904,6 +215168,7 @@ export namespace Prisma {
 
   export type QrScanEventCreateManyCampaignInput = {
     id?: string
+    placementVariantId?: string | null
     kind: $Enums.QrEventKind
     actionType?: string | null
     requestHash?: string | null
@@ -212912,6 +215177,20 @@ export namespace Prisma {
     deviceClass?: string | null
     country?: string | null
     createdAt?: Date | string
+  }
+
+  export type QrPlacementVariantCreateManyCampaignInput = {
+    id?: string
+    publicCode: string
+    name: string
+    active?: boolean
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type QrAdminActionCreateManyCampaignInput = {
@@ -212983,10 +215262,12 @@ export namespace Prisma {
     deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    placementVariant?: QrPlacementVariantUpdateOneWithoutEventsNestedInput
   }
 
   export type QrScanEventUncheckedUpdateWithoutCampaignInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placementVariantId?: NullableStringFieldUpdateOperationsInput | string | null
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
     actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -212999,6 +215280,7 @@ export namespace Prisma {
 
   export type QrScanEventUncheckedUpdateManyWithoutCampaignInput = {
     id?: StringFieldUpdateOperationsInput | string
+    placementVariantId?: NullableStringFieldUpdateOperationsInput | string | null
     kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
     actionType?: NullableStringFieldUpdateOperationsInput | string | null
     requestHash?: NullableStringFieldUpdateOperationsInput | string | null
@@ -213007,6 +215289,50 @@ export namespace Prisma {
     deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrPlacementVariantUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    events?: QrScanEventUpdateManyWithoutPlacementVariantNestedInput
+  }
+
+  export type QrPlacementVariantUncheckedUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    events?: QrScanEventUncheckedUpdateManyWithoutPlacementVariantNestedInput
+  }
+
+  export type QrPlacementVariantUncheckedUpdateManyWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    publicCode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type QrAdminActionUpdateWithoutCampaignInput = {
@@ -213039,6 +215365,58 @@ export namespace Prisma {
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     previousState?: NullableJsonNullValueInput | InputJsonValue
     newState?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventCreateManyPlacementVariantInput = {
+    id?: string
+    campaignId: string
+    kind: $Enums.QrEventKind
+    actionType?: string | null
+    requestHash?: string | null
+    referrerOrigin?: string | null
+    userAgentFamily?: string | null
+    deviceClass?: string | null
+    country?: string | null
+    createdAt?: Date | string
+  }
+
+  export type QrScanEventUpdateWithoutPlacementVariantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    campaign?: QrCampaignUpdateOneRequiredWithoutEventsNestedInput
+  }
+
+  export type QrScanEventUncheckedUpdateWithoutPlacementVariantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrScanEventUncheckedUpdateManyWithoutPlacementVariantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumQrEventKindFieldUpdateOperationsInput | $Enums.QrEventKind
+    actionType?: NullableStringFieldUpdateOperationsInput | string | null
+    requestHash?: NullableStringFieldUpdateOperationsInput | string | null
+    referrerOrigin?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgentFamily?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceClass?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

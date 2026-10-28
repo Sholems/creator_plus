@@ -10,6 +10,13 @@ jest.mock('@creatorplus/database', () => ({
       findUnique: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
+      updateMany: jest.fn(),
+    },
+    qrPlacementVariant: {
+      findUnique: jest.fn(),
+      findFirst: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
     },
     qrAsset: { findFirst: jest.fn() },
   },
@@ -90,6 +97,124 @@ describe('QrCampaignsService', () => {
     const updateData = p.qrCampaign.update.mock.calls[0][0].data;
     expect(updateData).not.toHaveProperty('publicCode');
     expect(updateData.title).toBe('New title');
+  });
+
+  it('duplicates a campaign as a fresh draft with a new stable code', async () => {
+    p.qrCampaign.findFirst
+      .mockResolvedValueOnce(fileCampaign({
+        title: 'Conference guide',
+        folder: 'Events',
+        tags: ['conference', 'lagos'],
+        destinationData: { text: 'Welcome' },
+        brandName: 'CreatorPlus',
+      }))
+      .mockResolvedValueOnce(fileCampaign({ id: 'c2', title: 'Conference guide copy' }));
+    p.qrCampaign.findUnique.mockResolvedValue(null);
+    p.qrCampaign.create.mockResolvedValue(fileCampaign({ id: 'c2' }));
+    const { service } = build({ assertCanCreateCampaign: jest.fn().mockResolvedValue({ hasPro: true }) });
+
+    await service.duplicate('u1', 'c1');
+
+    expect(p.qrCampaign.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        ownerId: 'u1',
+        title: 'Conference guide copy',
+        status: 'DRAFT',
+        folder: 'Events',
+        tags: ['conference', 'lagos'],
+      }),
+    });
+    expect(p.qrCampaign.create.mock.calls[0][0].data.publicCode).not.toBe('stable-code');
+    expect(p.qrCampaign.create.mock.calls[0][0].data).not.toHaveProperty('entitlementId');
+  });
+
+  it('applies bulk pause only to campaigns owned by the requester', async () => {
+    p.qrCampaign.updateMany.mockResolvedValue({ count: 2 });
+    const { service } = build();
+
+    const result = await service.bulkAction('u1', ['c1', 'c2'], 'PAUSE');
+
+    expect(p.qrCampaign.updateMany).toHaveBeenCalledWith({
+      where: { id: { in: ['c1', 'c2'] }, ownerId: 'u1', status: 'ACTIVE' },
+      data: { status: 'PAUSED' },
+    });
+    expect(result).toEqual({ updated: 2 });
+  });
+
+  it('creates a placement variant with governed UTM fields', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({
+      contentType: 'WEBSITE',
+      destinationUrl: 'https://example.com/guide?existing=1',
+    }));
+    p.qrCampaign.findUnique.mockResolvedValue(null);
+    p.qrPlacementVariant.findUnique.mockResolvedValue(null);
+    p.qrPlacementVariant.create.mockResolvedValue({ id: 'v1' });
+    const { service } = build({ listForUser: jest.fn().mockResolvedValue({ hasPro: true }) });
+
+    await service.createVariant('u1', 'c1', {
+      name: 'Conference banner',
+      utmSource: 'conference',
+      utmMedium: 'banner',
+      utmCampaign: 'growth-club',
+    } as any);
+
+    expect(p.qrPlacementVariant.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        campaignId: 'c1',
+        name: 'Conference banner',
+        utmSource: 'conference',
+        utmMedium: 'banner',
+        utmCampaign: 'growth-club',
+      }),
+    });
+  });
+
+  it('keeps placement variants behind Pro access', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({ contentType: 'WEBSITE' }));
+    const { service } = build({ listForUser: jest.fn().mockResolvedValue({ hasPro: false }) });
+
+    await expect(service.createVariant('u1', 'c1', {
+      name: 'Conference banner',
+    } as any)).rejects.toBeInstanceOf(ForbiddenException);
+
+    expect(p.qrPlacementVariant.create).not.toHaveBeenCalled();
+  });
+
+  it('rejects a blank placement name after normalization', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({ contentType: 'WEBSITE' }));
+    const { service } = build({ listForUser: jest.fn().mockResolvedValue({ hasPro: true }) });
+
+    await expect(service.createVariant('u1', 'c1', {
+      name: '   ',
+    } as any)).rejects.toBeInstanceOf(BadRequestException);
+
+    expect(p.qrPlacementVariant.create).not.toHaveBeenCalled();
+  });
+
+  it('rejects UTM attribution for non-website campaigns', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({ contentType: 'FILE' }));
+    const { service } = build({ listForUser: jest.fn().mockResolvedValue({ hasPro: true }) });
+
+    await expect(service.createVariant('u1', 'c1', {
+      name: 'Conference banner',
+      utmSource: 'conference',
+    } as any)).rejects.toBeInstanceOf(BadRequestException);
+
+    expect(p.qrPlacementVariant.create).not.toHaveBeenCalled();
+  });
+
+  it('lets expired Pro users disable a placement but not re-enable it', async () => {
+    p.qrCampaign.findFirst.mockResolvedValue(fileCampaign({ contentType: 'WEBSITE' }));
+    p.qrPlacementVariant.findFirst.mockResolvedValue({ id: 'v1', campaignId: 'c1' });
+    p.qrPlacementVariant.update.mockResolvedValue({ id: 'v1', publicCode: 'p_code', active: false });
+    const { service } = build({ listForUser: jest.fn().mockResolvedValue({ hasPro: false }) });
+
+    await expect(service.updateVariant('u1', 'c1', 'v1', { active: false })).resolves.toMatchObject({
+      active: false,
+    });
+    await expect(service.updateVariant('u1', 'c1', 'v1', { active: true })).rejects.toBeInstanceOf(
+      ForbiddenException,
+    );
   });
 
   it('allows free tier users to update allowed content types like WHATSAPP or VCARD', async () => {

@@ -1,4 +1,16 @@
-import { IsBoolean, IsEnum, IsIn, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  ArrayMaxSize,
+  ArrayUnique,
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MaxLength,
+} from 'class-validator';
 import { QrCampaignStatus, QrContentType, QrScanMode } from '@creatorplus/database';
 
 export class CreateQrCampaignDto {
@@ -10,6 +22,19 @@ export class CreateQrCampaignDto {
   @IsString()
   @MaxLength(500)
   description?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(80)
+  folder?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(12)
+  @ArrayUnique()
+  @IsString({ each: true })
+  @MaxLength(32, { each: true })
+  tags?: string[];
 
   @IsEnum(QrContentType)
   contentType!: QrContentType;
@@ -50,6 +75,19 @@ export class UpdateQrCampaignDto {
   description?: string;
 
   @IsOptional()
+  @IsString()
+  @MaxLength(80)
+  folder?: string | null;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(12)
+  @ArrayUnique()
+  @IsString({ each: true })
+  @MaxLength(32, { each: true })
+  tags?: string[];
+
+  @IsOptional()
   @IsEnum(QrContentType)
   contentType?: QrContentType;
 
@@ -79,6 +117,86 @@ export class UpdateQrCampaignDto {
 
   @IsOptional()
   designSettings?: Record<string, any> | null;
+}
+
+export class BulkQrCampaignActionDto {
+  @IsArray()
+  @ArrayMaxSize(100)
+  @ArrayUnique()
+  @IsUUID('4', { each: true })
+  ids!: string[];
+
+  @IsIn(['PAUSE', 'ARCHIVE'])
+  action!: 'PAUSE' | 'ARCHIVE';
+}
+
+export class CreateQrPlacementVariantDto {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(80)
+  name!: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmSource?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmMedium?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmCampaign?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmContent?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmTerm?: string;
+}
+
+export class UpdateQrPlacementVariantDto {
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(80)
+  name?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  active?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmSource?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmMedium?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmCampaign?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmContent?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  utmTerm?: string;
 }
 
 export class ChangeQrCampaignStatusDto {

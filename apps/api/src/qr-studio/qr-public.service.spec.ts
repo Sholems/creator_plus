@@ -3,7 +3,10 @@ import { prisma } from '@creatorplus/database';
 import { QrPublicService } from './qr-public.service';
 
 jest.mock('@creatorplus/database', () => ({
-  prisma: { qrCampaign: { findUnique: jest.fn() } },
+  prisma: {
+    qrCampaign: { findUnique: jest.fn() },
+    qrPlacementVariant: { findUnique: jest.fn() },
+  },
 }));
 
 const p = prisma as any;
@@ -36,6 +39,7 @@ const activeFileCampaign = {
 describe('QrPublicService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    p.qrPlacementVariant.findUnique.mockResolvedValue(null);
     delete process.env.QR_SIGNED_URL_TTL_SECONDS;
   });
 
@@ -82,6 +86,54 @@ describe('QrPublicService', () => {
 
     expect(res.available).toBe(true);
     expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({ country: 'NG' }));
+  });
+
+  it('resolves a placement code to its campaign and records attributed scans', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue(null);
+    p.qrPlacementVariant.findUnique.mockResolvedValue({
+      id: 'v1',
+      name: 'Conference banner',
+      active: true,
+      utmSource: 'conference',
+      utmMedium: 'banner',
+      utmCampaign: 'growth-club',
+      utmContent: null,
+      utmTerm: null,
+      campaign: {
+        ...activeFileCampaign,
+        contentType: 'WEBSITE',
+        destinationUrl: 'https://example.com/guide?existing=1',
+        assets: [],
+      },
+    });
+    const { service, analytics } = build(true);
+
+    const result: any = await service.resolve('p_placement', { headers: {} });
+
+    expect(result.destinationUrl).toBe(
+      'https://example.com/guide?existing=1&utm_source=conference&utm_medium=banner&utm_campaign=growth-club',
+    );
+    expect(result.placement).toEqual({ id: 'v1', name: 'Conference banner' });
+    expect(analytics.recordEvent).toHaveBeenCalledWith(expect.objectContaining({
+      campaignId: 'c1',
+      placementVariantId: 'v1',
+      kind: 'SCAN',
+    }));
+  });
+
+  it('treats a disabled placement code as unavailable', async () => {
+    p.qrCampaign.findUnique.mockResolvedValue(null);
+    p.qrPlacementVariant.findUnique.mockResolvedValue({
+      id: 'v1',
+      active: false,
+      campaign: activeFileCampaign,
+    });
+    const { service, analytics } = build(true);
+
+    const result = await service.resolve('p_disabled_placement', { headers: {} });
+
+    expect(result).toMatchObject({ available: false, mode: 'UNAVAILABLE' });
+    expect(analytics.recordEvent).not.toHaveBeenCalled();
   });
 
   it('records a validated action for an available campaign', async () => {

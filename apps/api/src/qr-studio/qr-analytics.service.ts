@@ -17,6 +17,7 @@ export class QrAnalyticsService {
 
   async recordEvent(input: {
     campaignId: string;
+    placementVariantId?: string | null;
     kind: QrEventKind;
     actionType?: string | null;
     ip?: string | null;
@@ -28,6 +29,7 @@ export class QrAnalyticsService {
       await prisma.qrScanEvent.create({
         data: {
           campaignId: input.campaignId,
+          placementVariantId: input.placementVariantId ?? null,
           kind: input.kind,
           actionType: this.actionType(input.actionType),
           requestHash: this.nonLinkableRequestHash(input.ip),
@@ -68,7 +70,7 @@ export class QrAnalyticsService {
       ${campaignFilter}
     `;
 
-    const [totalsRows, timelineRows, campaignRows, devices, browsers, countries, referrers, actions] = await Promise.all([
+    const [totalsRows, timelineRows, campaignRows, devices, browsers, countries, referrers, actions, placements] = await Promise.all([
       prisma.$queryRaw<Array<{ scans: bigint; actions: bigint; unique_scans: bigint }>>(Prisma.sql`
         SELECT
           COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
@@ -109,6 +111,19 @@ export class QrAnalyticsService {
       this.breakdown(eventFilter, Prisma.sql`COALESCE(e.country, 'Unknown')`),
       this.breakdown(eventFilter, Prisma.sql`COALESCE(e."referrer_origin", 'Direct / unknown')`),
       this.actionBreakdown(eventFilter),
+      prisma.$queryRaw<Array<{ variant_id: string; name: string; scans: bigint; actions: bigint }>>(Prisma.sql`
+        SELECT v.id AS variant_id, v.name,
+          COUNT(*) FILTER (WHERE e.kind = 'SCAN') AS scans,
+          COUNT(*) FILTER (WHERE e.kind IN ('ACTION', 'OPEN')) AS actions
+        FROM "qr_scan_events" e
+        JOIN "qr_campaigns" c ON c.id = e."campaign_id"
+        JOIN "qr_placement_variants" v
+          ON v.id = e."placement_variant_id" AND v."campaign_id" = e."campaign_id"
+        WHERE ${eventFilter}
+        GROUP BY v.id, v.name
+        ORDER BY scans DESC, v.name ASC
+        LIMIT 50
+      `),
     ]);
 
     const totals = totalsRows[0] ?? { scans: 0, actions: 0, unique_scans: 0 };
@@ -133,6 +148,17 @@ export class QrAnalyticsService {
           scans: campaignScans,
           actions: campaignActions,
           actionRate: this.rate(campaignActions, campaignScans),
+        };
+      }),
+      placements: placements.map((row) => {
+        const placementScans = this.number(row.scans);
+        const placementActions = this.number(row.actions);
+        return {
+          variantId: row.variant_id,
+          name: row.name,
+          scans: placementScans,
+          actions: placementActions,
+          actionRate: this.rate(placementActions, placementScans),
         };
       }),
       breakdowns: {

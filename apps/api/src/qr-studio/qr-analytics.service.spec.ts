@@ -29,6 +29,7 @@ describe('QrAnalyticsService', () => {
       referer: 'https://example.com/path?token=secret#fragment',
       country: 'ng',
       actionType: 'continue',
+      placementVariantId: 'variant-id',
     });
 
     expect(prisma.qrScanEvent.create).toHaveBeenCalledWith({
@@ -40,6 +41,7 @@ describe('QrAnalyticsService', () => {
         deviceClass: 'desktop',
         country: 'NG',
         actionType: 'CONTINUE',
+        placementVariantId: 'variant-id',
       }),
     });
     const data = (prisma.qrScanEvent.create as jest.Mock).mock.calls[0][0].data;
@@ -87,7 +89,8 @@ describe('QrAnalyticsService', () => {
       .mockResolvedValueOnce([{ label: 'Chrome', count: 7n }])
       .mockResolvedValueOnce([{ label: 'NG', count: 6n }])
       .mockResolvedValueOnce([{ label: 'Direct / unknown', count: 9n }])
-      .mockResolvedValueOnce([{ label: 'CONTINUE', count: 5n }]);
+      .mockResolvedValueOnce([{ label: 'CONTINUE', count: 5n }])
+      .mockResolvedValueOnce([{ variant_id: 'v1', name: 'Conference banner', scans: 7n, actions: 3n }]);
 
     const result = await new QrAnalyticsService().overview('owner-id', {
       from: '2026-10-25',
@@ -101,5 +104,8 @@ describe('QrAnalyticsService', () => {
     ]);
     expect(result.campaigns[0]).toEqual({ campaignId: 'c1', title: 'Guide', scans: 12, actions: 5, actionRate: 41.7 });
     expect(result.breakdowns.devices).toEqual([{ label: 'mobile', count: 8 }]);
+    expect(result.placements).toEqual([
+      { variantId: 'v1', name: 'Conference banner', scans: 7, actions: 3, actionRate: 42.9 },
+    ]);
   });
 });

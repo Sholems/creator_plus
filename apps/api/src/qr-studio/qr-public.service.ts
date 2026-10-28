@@ -14,30 +14,27 @@ export class QrPublicService {
   ) {}
 
   async resolve(code: string, req?: any) {
-    const campaign = await prisma.qrCampaign.findUnique({
-      where: { publicCode: code },
-      include: {
-        entitlement: true,
-        assets: {
-          where: { active: true },
-          select: {
-            id: true,
-            kind: true,
-            fileName: true,
-            fileSize: true,
-            mimeType: true,
-            safetyStatus: true,
-          },
-        },
+    const target = await this.findTarget(code, {
+      where: { active: true },
+      select: {
+        id: true,
+        kind: true,
+        fileName: true,
+        fileSize: true,
+        mimeType: true,
+        safetyStatus: true,
       },
     });
+    const campaign = target?.campaign;
+    const placement = target?.placement;
 
-    if (!campaign || !(await this.campaigns.isPubliclyAvailable(campaign))) {
+    if (!campaign || placement?.active === false || !(await this.campaigns.isPubliclyAvailable(campaign))) {
       return this.unavailable();
     }
 
     void this.analytics.recordEvent({
       campaignId: campaign.id,
+      placementVariantId: placement?.id,
       kind: 'SCAN',
       ip: req?.ip,
       userAgent: req?.headers?.['user-agent'],
@@ -47,10 +44,10 @@ export class QrPublicService {
 
     const usesHostedFile = campaign.contentType === 'FILE' || campaign.contentType === 'IMAGE_GALLERY';
     const primaryAsset = usesHostedFile
-      ? campaign.assets.find((asset) => asset.kind === 'CAMPAIGN_FILE')
+      ? campaign.assets.find((asset: any) => asset.kind === 'CAMPAIGN_FILE')
       : undefined;
     const canOpenFile = primaryAsset?.safetyStatus === 'APPROVED';
-    const destinationUrl = campaign.destinationUrl;
+    const destinationUrl = this.destinationWithAttribution(campaign, placement);
     const externalDomain = destinationDomain(destinationUrl);
 
     if (campaign.scanMode === 'DIRECT_OPEN' && destinationUrl && !primaryAsset) {
@@ -66,7 +63,7 @@ export class QrPublicService {
     return {
       available: true,
       mode: 'LANDING_PAGE',
-      code: campaign.publicCode,
+      code,
       title: campaign.title,
       description: campaign.description,
       contentType: campaign.contentType,
@@ -82,6 +79,7 @@ export class QrPublicService {
             mimeType: primaryAsset.mimeType,
           }
         : null,
+      placement: placement ? { id: placement.id, name: placement.name } : null,
       branding: {
         name: campaign.brandName,
         primaryColor: campaign.brandPrimaryColor,
@@ -92,19 +90,15 @@ export class QrPublicService {
   }
 
   async openFile(code: string, req?: any) {
-    const campaign = await prisma.qrCampaign.findUnique({
-      where: { publicCode: code },
-      include: {
-        entitlement: true,
-        assets: {
-          where: { active: true, kind: 'CAMPAIGN_FILE', safetyStatus: 'APPROVED' },
-          take: 1,
-        },
-      },
+    const target = await this.findTarget(code, {
+      where: { active: true, kind: 'CAMPAIGN_FILE', safetyStatus: 'APPROVED' },
+      take: 1,
     });
+    const campaign = target?.campaign;
+    const placement = target?.placement;
 
     const usesHostedFile = campaign?.contentType === 'FILE' || campaign?.contentType === 'IMAGE_GALLERY';
-    if (!campaign || !usesHostedFile || !(await this.campaigns.isPubliclyAvailable(campaign))) {
+    if (!campaign || placement?.active === false || !usesHostedFile || !(await this.campaigns.isPubliclyAvailable(campaign))) {
       throw new NotFoundException('QR campaign not available');
     }
 
@@ -116,6 +110,7 @@ export class QrPublicService {
 
     void this.analytics.recordEvent({
       campaignId: campaign.id,
+      placementVariantId: placement?.id,
       kind: 'OPEN',
       actionType: 'FILE_OPEN',
       ip: req?.ip,
@@ -133,16 +128,16 @@ export class QrPublicService {
   }
 
   async recordAction(code: string, actionType: string, req?: any) {
-    const campaign = await prisma.qrCampaign.findUnique({
-      where: { publicCode: code },
-      include: { entitlement: true },
-    });
-    if (!campaign || !(await this.campaigns.isPubliclyAvailable(campaign))) {
+    const target = await this.findTarget(code);
+    const campaign = target?.campaign;
+    const placement = target?.placement;
+    if (!campaign || placement?.active === false || !(await this.campaigns.isPubliclyAvailable(campaign))) {
       throw new NotFoundException('QR campaign not available');
     }
 
     void this.analytics.recordEvent({
       campaignId: campaign.id,
+      placementVariantId: placement?.id,
       kind: 'ACTION',
       actionType,
       ip: req?.ip,
@@ -152,6 +147,45 @@ export class QrPublicService {
     }).catch(() => undefined);
 
     return { recorded: true };
+  }
+
+  private async findTarget(code: string, assets?: Record<string, any>) {
+    const include = {
+      entitlement: true,
+      ...(assets ? { assets } : {}),
+    };
+    if (code.startsWith('p_')) {
+      const placement = await prisma.qrPlacementVariant.findUnique({
+        where: { publicCode: code },
+        include: { campaign: { include } },
+      });
+      if (placement) return { campaign: placement.campaign, placement };
+    }
+
+    const campaign = await prisma.qrCampaign.findUnique({
+      where: { publicCode: code },
+      include,
+    });
+    if (campaign) return { campaign, placement: null };
+    return null;
+  }
+
+  private destinationWithAttribution(campaign: any, placement: any) {
+    if (!campaign.destinationUrl || campaign.contentType !== 'WEBSITE' || !placement) {
+      return campaign.destinationUrl;
+    }
+    const url = new URL(campaign.destinationUrl);
+    const fields = [
+      ['utm_source', placement.utmSource],
+      ['utm_medium', placement.utmMedium],
+      ['utm_campaign', placement.utmCampaign],
+      ['utm_content', placement.utmContent],
+      ['utm_term', placement.utmTerm],
+    ];
+    for (const [key, value] of fields) {
+      if (value) url.searchParams.set(key, value);
+    }
+    return url.toString();
   }
 
   private unavailable() {
