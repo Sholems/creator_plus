@@ -11,6 +11,7 @@ type Analytics = {
   totals: { scans: number; uniqueScans: number; actions: number; actionRate: number };
   timeline: Point[];
   campaigns: Array<{ campaignId: string; title: string; scans: number; actions: number; actionRate: number }>;
+  placements: Array<{ variantId: string; name: string; scans: number; actions: number; actionRate: number }>;
   breakdowns: {
     devices: CountItem[];
     browsers: CountItem[];
@@ -144,6 +145,8 @@ export function QrAnalyticsDashboard({ token, campaigns }: { token: string; camp
         <div className="grid gap-6 border-t border-ink-200 px-5 py-7 sm:px-8 lg:grid-cols-3"><Breakdown title="Browsers" rows={data.breakdowns.browsers} /><Breakdown title="Referrers" rows={data.breakdowns.referrers} /><Breakdown title="Actions" rows={data.breakdowns.actions} /></div>
 
         <section className="border-t border-ink-200 px-5 py-7 sm:px-8"><h3 className="font-display text-lg font-semibold text-ink-900">Campaign performance</h3>{data.campaigns.length ? <div className="mt-4 overflow-x-auto"><table className="w-full min-w-[34rem] text-left text-sm"><thead><tr className="border-b border-ink-200 text-xs uppercase tracking-wide text-ink-400"><th className="pb-3 font-semibold">Campaign</th><th className="pb-3 text-right font-semibold">Scans</th><th className="pb-3 text-right font-semibold">Actions</th><th className="pb-3 text-right font-semibold">Action rate</th></tr></thead><tbody>{data.campaigns.map((campaign) => <tr key={campaign.campaignId} className="border-b border-ink-100"><td className="py-3 font-medium text-ink-900">{campaign.title}</td><td className="py-3 text-right text-ink-600">{campaign.scans.toLocaleString()}</td><td className="py-3 text-right text-ink-600">{campaign.actions.toLocaleString()}</td><td className="py-3 text-right font-semibold text-forest-700">{campaign.actionRate.toFixed(1)}%</td></tr>)}</tbody></table></div> : <p className="mt-4 text-sm text-ink-500">No campaign activity in this period.</p>}</section>
+
+        <section className="border-t border-ink-200 px-5 py-7 sm:px-8"><div><h3 className="font-display text-lg font-semibold text-ink-900">Placement performance</h3><p className="mt-1 text-sm text-ink-500">Compare scans from flyers, banners, events, and other named distribution points.</p></div>{data.placements.length ? <div className="mt-4 overflow-x-auto"><table className="w-full min-w-[34rem] text-left text-sm"><thead><tr className="border-b border-ink-200 text-xs uppercase tracking-wide text-ink-400"><th className="pb-3 font-semibold">Placement</th><th className="pb-3 text-right font-semibold">Scans</th><th className="pb-3 text-right font-semibold">Actions</th><th className="pb-3 text-right font-semibold">Action rate</th></tr></thead><tbody>{data.placements.map((placement) => <tr key={placement.variantId} className="border-b border-ink-100"><td className="py-3 font-medium text-ink-900">{placement.name}</td><td className="py-3 text-right text-ink-600">{placement.scans.toLocaleString()}</td><td className="py-3 text-right text-ink-600">{placement.actions.toLocaleString()}</td><td className="py-3 text-right font-semibold text-forest-700">{placement.actionRate.toFixed(1)}%</td></tr>)}</tbody></table></div> : <p className="mt-4 text-sm text-ink-500">No placement activity in this period.</p>}</section>
       </>}
     </section>
   );

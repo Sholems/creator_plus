@@ -853,6 +853,52 @@ class ApiClient {
     });
   }
 
+  async duplicateQrCampaign(token: string, id: string) {
+    return this.fetch<any>(`/qr-studio/campaigns/${id}/duplicate`, {
+      method: 'POST',
+      token,
+    });
+  }
+
+  async bulkUpdateQrCampaigns(token: string, ids: string[], action: 'PAUSE' | 'ARCHIVE') {
+    return this.fetch<{ updated: number }>('/qr-studio/campaigns/bulk', {
+      method: 'POST',
+      body: { ids, action },
+      token,
+    });
+  }
+
+  async createQrPlacementVariant(token: string, campaignId: string, data: {
+    name: string;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    utmContent?: string;
+    utmTerm?: string;
+  }) {
+    return this.fetch<any>(`/qr-studio/campaigns/${campaignId}/variants`, {
+      method: 'POST',
+      body: data,
+      token,
+    });
+  }
+
+  async updateQrPlacementVariant(token: string, campaignId: string, variantId: string, data: {
+    name?: string;
+    active?: boolean;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+    utmContent?: string;
+    utmTerm?: string;
+  }) {
+    return this.fetch<any>(`/qr-studio/campaigns/${campaignId}/variants/${variantId}`, {
+      method: 'PATCH',
+      body: data,
+      token,
+    });
+  }
+
   async uploadQrCampaignFile(token: string, campaignId: string, file: File) {
     const formData = new FormData();
     formData.append('file', file);
